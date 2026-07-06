@@ -138,20 +138,20 @@ export default function HeroCarousel() {
         {/* Original Content (Fades out) */}
         <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'opacity-0 blur-md scale-95' : 'opacity-100 blur-0 scale-100'}`}>
           {/* ── EYEBROW ── */}
-          <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }} className="w-full flex justify-start md:justify-center">
-            {/* Desktop Eyebrow */}
-            <div className="hidden md:flex flex-wrap justify-center items-center gap-3 text-sm font-bold text-slate-900 bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full border border-slate-900 shadow-sm w-max mb-6">
+          <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
+            className="mb-4 md:mb-6 flex justify-start md:justify-center items-center text-[10px] md:text-sm font-bold text-slate-700 md:text-slate-900 bg-slate-100/90 md:bg-white/95 backdrop-blur-md px-4 md:px-6 py-1.5 md:py-2.5 rounded-full border border-slate-200 md:border-slate-900 shadow-sm w-max uppercase md:normal-case">
+            {/* Mobile Text */}
+            <div className="flex md:hidden items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
+              <span>Gestión Inmobiliaria Integral</span>
+            </div>
+            {/* Desktop Text */}
+            <div className="hidden md:flex items-center gap-3">
               <span>Administración de fincas</span>
               <span className="text-primary-blue font-black">•</span>
               <span>Asesoría jurídica</span>
               <span className="text-primary-blue font-black">•</span>
               <span>Inmobiliaria</span>
-            </div>
-            
-            {/* Mobile Eyebrow */}
-            <div className="md:hidden flex flex-wrap justify-start items-center gap-2 text-[10px] font-bold text-slate-700 bg-slate-100/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200 shadow-sm w-max uppercase mb-4">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
-              <span>Gestión Inmobiliaria Integral</span>
             </div>
           </motion.div>
 

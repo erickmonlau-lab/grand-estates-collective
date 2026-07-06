@@ -235,7 +235,7 @@ export default function HeroCarousel() {
 
       {/* ── SEARCH WIDGET ── */}
       <motion.div ref={barRef} id="search-widget-block"
-        className="relative z-20 w-full max-w-[1160px] mx-auto px-4 md:px-0 pt-16 pb-12 md:py-0 mt-auto flex flex-col justify-end"
+        className="relative z-20 w-full max-w-[1160px] mx-auto px-4 md:px-0 pt-16 pb-12 md:py-0 mt-auto md:mt-0 flex flex-col justify-end"
         initial={{ opacity:0, y:36 }} animate={{ opacity:1, y:0 }} transition={{ duration:1, delay:.18 }}>
         
         <h3 className="md:hidden text-2xl font-black text-center mb-6 text-slate-900">Buscador avanzado</h3>

@@ -2,16 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
-import img1 from "@/assets/real_luxury_villa_golden_hour.webp";
+import img1 from "@/assets/property-1.webp";
 import img2 from "@/assets/dream_couple_offcenter_1783263799684.webp";
-import img3 from "@/assets/real_family_1783264160298.webp";
+import img3 from "@/assets/barcelona_avenue_highres_1783286175400.webp";
 
 const images = [img3, img2, img1];
 const bgOrigins = ["origin-center", "origin-left", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "60% 30%" }, // Real Family (img3)
+  { objectPosition: "50% 10%" }, // Barcelona Avenue (img3)
   { objectPosition: "85% 20%" }, // Couple (img2)
-  { objectPosition: "60% 40%" } // Luxury Villa (img1)
+  { objectPosition: "center center" } // Realistic Apartment (img1)
 ];
 const desktopObjPositions = [
   { objectPosition: "center center" },
@@ -383,10 +383,10 @@ export default function HeroCarousel() {
               La tranquilidad de tu hogar, nuestra responsabilidad.
             </motion.p>
 
-            {/* ── MOBILE CTA BUTTONS & SOCIAL PROOF ── */}
+            {/* ── MOBILE CTA BUTTONS ── */}
             {/*
-              pb-10: da respiro entre la prueba social y el final del hero,
-              evitando que quede apretado contra la trust bar oscura de abajo.
+              pb-10: da respiro al final del hero, evitando que quede apretado
+              contra la trust bar oscura de abajo.
             */}
             <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
@@ -406,21 +406,6 @@ export default function HeroCarousel() {
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora
                 </button>
-              </motion.div>
-
-              {/* Social Proof Badges — Cifras reales sin referenciar estrellas */}
-              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.5 }} className="mt-6 flex items-center gap-3 bg-white/10 backdrop-blur-[2px] p-2 pr-4 rounded-2xl border border-white/15 w-max">
-                <div className="w-10 h-10 rounded-full bg-primary-blue/20 flex items-center justify-center">
-                  <Building2 className="w-5 h-5 text-[#4db8ff] drop-shadow-sm" />
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-[12px] font-black text-white leading-[1.3]">
-                    +15 años <span className="font-medium text-white/80">de trayectoria</span>
-                  </div>
-                  <div className="text-[12px] font-black text-white leading-[1.3]">
-                    +300 <span className="font-medium text-white/80">comunidades</span>
-                  </div>
-                </div>
               </motion.div>
             </div>
           </div>

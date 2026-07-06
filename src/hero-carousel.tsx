@@ -2,16 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
-import img1 from "@/assets/premium_rental_apartment.webp";
+import img1 from "@/assets/real_luxury_villa_golden_hour.webp";
 import img2 from "@/assets/dream_couple_offcenter_1783263799684.webp";
-import img3 from "@/assets/dream_family_offcenter_1783263809999.webp";
+import img3 from "@/assets/real_family_1783264160298.webp";
 
 const images = [img3, img2, img1];
 const bgOrigins = ["origin-center", "origin-left", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "85% 20%" }, // Family
-  { objectPosition: "85% 20%" }, // Couple
-  { objectPosition: "center center" } // Apartment
+  { objectPosition: "60% 30%" }, // Real Family (img3)
+  { objectPosition: "85% 20%" }, // Couple (img2)
+  { objectPosition: "60% 40%" } // Luxury Villa (img1)
 ];
 const desktopObjPositions = [
   { objectPosition: "center center" },
@@ -299,7 +299,9 @@ export default function HeroCarousel() {
       */}
       <section className="relative w-full flex flex-col items-center
         md:min-h-[100dvh] md:justify-center md:pt-20
-        pt-[112px] pb-0 bg-slate-100 md:bg-transparent overflow-x-hidden">
+        pt-[112px] pb-0 bg-slate-100 md:bg-transparent overflow-x-hidden"
+        style={{ fontFamily: "var(--font-system)" }}
+      >
 
         {/* ── BACKGROUND ── */}
         <div className="absolute top-0 inset-x-0 h-full md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-slate-900">
@@ -345,9 +347,9 @@ export default function HeroCarousel() {
               <span className="text-primary-blue font-black">•</span>
               <span>Inmobiliaria</span>
             </div>
-            {/* Mobile pill: tratamiento sólido azul corporativo con glow azul (estilo DISET adaptado) */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-primary-blue shadow-[0_0_20px_rgba(0,130,200,0.5)] px-4 py-2 rounded-full border border-primary-blue/50 text-[11px] text-white uppercase w-max">
-              <div className="w-1.5 h-1.5 rounded-full bg-white shadow-sm" />
+            {/* Mobile pill: tratamiento sólido blanco con halo/glow sutil (estilo DISET revertido) */}
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-900 uppercase w-max">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue shadow-sm" />
               <span>Gestión Inmobiliaria Integral</span>
             </div>
 

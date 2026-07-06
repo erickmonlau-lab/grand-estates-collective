@@ -138,21 +138,25 @@ export default function HeroCarousel() {
         {/* Original Content (Fades out) */}
         <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'opacity-0 blur-md scale-95' : 'opacity-100 blur-0 scale-100'}`}>
           {/* ── DESKTOP EYEBROW ── */}
-          <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
-            className="hidden md:flex mb-6 flex-wrap justify-center items-center gap-3 text-sm font-bold text-slate-900 bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full border border-slate-900 shadow-sm">
-            <span>Administración de fincas</span>
-            <span className="text-primary-blue font-black">•</span>
-            <span>Asesoría jurídica</span>
-            <span className="text-primary-blue font-black">•</span>
-            <span>Inmobiliaria</span>
-          </motion.div>
+          <div className="hidden md:block">
+            <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
+              className="mb-6 flex flex-wrap justify-center items-center gap-3 text-sm font-bold text-slate-900 bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full border border-slate-900 shadow-sm">
+              <span>Administración de fincas</span>
+              <span className="text-primary-blue font-black">•</span>
+              <span>Asesoría jurídica</span>
+              <span className="text-primary-blue font-black">•</span>
+              <span>Inmobiliaria</span>
+            </motion.div>
+          </div>
 
           {/* ── MOBILE EYEBROW ── */}
-          <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
-            className="md:hidden flex mb-4 flex-wrap justify-start items-center gap-2 text-[10px] font-bold text-slate-700 bg-slate-100/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200 shadow-sm uppercase">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
-            <span>Gestión Inmobiliaria Integral</span>
-          </motion.div>
+          <div className="block md:hidden">
+            <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
+              className="mb-4 flex flex-wrap justify-start items-center gap-2 text-[10px] font-bold text-slate-700 bg-slate-100/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200 shadow-sm uppercase">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
+              <span>Gestión Inmobiliaria Integral</span>
+            </motion.div>
+          </div>
 
           {/* ── HEADLINE ── */}
           <motion.div initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.2 }} className="w-full">

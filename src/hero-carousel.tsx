@@ -312,14 +312,16 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            PUNTO 5: Gradiente móvil reducido para que se note más la foto.
-            Antes: from-white/95 via-white/85 → demasiado opaco.
-            Ahora: from-white/80 via-white/55 → foto visible pero texto legible.
+            CONTRASTE MÓVIL — gradiente base lateral reforzado.
+            El gradiente blanco va desde 88% de opacidad a la izquierda
+            (donde está el texto) hasta transparente a la derecha (foto visible).
+            Un scrim adicional detrás del bloque de texto asegura contraste AA
+            incluso con la foto de la pareja (pelo/rostro oscuros detrás de las letras).
           */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/55 to-transparent md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/88 via-white/60 to-transparent md:hidden" />
 
-          {/* Mobile Top Fade for Navbar — slightly reduced too */}
-          <div className="absolute top-0 inset-x-0 h-[35%] bg-gradient-to-b from-white/85 to-transparent md:hidden" />
+          {/* Mobile Top Fade for Navbar */}
+          <div className="absolute top-0 inset-x-0 h-[35%] bg-gradient-to-b from-white/88 to-transparent md:hidden" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -352,7 +354,7 @@ export default function HeroCarousel() {
 
             {/* ── HEADLINE ── */}
             <motion.div initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.2 }} className="w-full">
-              {/* Desktop Headline */}
+              {/* Desktop Headline — unchanged */}
               <h1 className="hidden md:block text-slate-900 font-black leading-[1.12] tracking-tight text-center text-[clamp(1.9rem,4.2vw,3.8rem)]">
                 Encontramos tu hogar.<br/>
                 <span className="relative inline-block mt-2">
@@ -363,19 +365,33 @@ export default function HeroCarousel() {
                 </span>
               </h1>
 
-              {/* Mobile Headline */}
-              <h1 className="block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]">
-                Encontramos<br/>
-                tu <span className="text-primary-blue">hogar</span>.<br/>
-                Nosotros nos<br/>
-                ocupamos<br/>
-                del resto.
-              </h1>
+              {/*
+                PROBLEMA 1 — CONTRASTE MÓVIL:
+                Scrim blanco semitransparente solo detrás del bloque de texto del h1.
+                No tapa la foto: solo añade un halo blanco localizado debajo del texto.
+                El h1 también lleva un text-shadow blanco como segunda línea de defensa.
+              */}
+              <div className="block md:hidden relative">
+                {/* Scrim localizado — solo detrás de este bloque de texto */}
+                <div className="absolute -inset-x-3 -inset-y-2 rounded-2xl bg-white/65 backdrop-blur-[2px] md:hidden" />
+                <h1
+                  className="relative block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
+                  style={{ textShadow: "0 1px 12px rgba(255,255,255,0.95), 0 0px 4px rgba(255,255,255,1)" }}
+                >
+                  Encontramos<br/>
+                  tu <span className="text-primary-blue">hogar</span>.<br/>
+                  Nosotros nos<br/>
+                  ocupamos<br/>
+                  del resto.
+                </h1>
+              </div>
             </motion.div>
 
             {/* ── MOTTO ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-4 md:mt-10 text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center">
+              className="mt-4 md:mt-10 text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
+              style={{ textShadow: "0 1px 8px rgba(255,255,255,0.9)" } as React.CSSProperties}
+            >
               La tranquilidad de tu hogar, nuestra responsabilidad.
             </motion.p>
 
@@ -739,28 +755,35 @@ export default function HeroCarousel() {
 
       </section>
 
-      {/* ── TRUST BADGES (transition strip between hero and stats) ── */}
-      {/* Punto 4: Barra de confianza — tono intermedio entre navy y blanco */}
+      {/*
+        ── TRUST BADGES ──
+        PROBLEMA 2: cambiado de azul-navy (#0a1829) a gris oscuro neutro (#1A1D23).
+        Esto crea tres bloques claramente distintos en móvil:
+          [foto/hero — blanco/foto] → [trust bar — gris casi negro] → [stats — navy azul]
+        El azul solo aparece como acento en los iconos de cada badge, no como fondo.
+      */}
       <div
         className="w-full z-10 relative py-3 px-4 flex justify-center overflow-hidden"
-        style={{ background: "linear-gradient(90deg, #0a1829 0%, #0d2040 50%, #0a1829 100%)" }}
+        style={{ background: "#1A1D23" }}
       >
-        {/* Very subtle top border */}
-        <div className="absolute top-0 inset-x-0 h-px bg-white/[0.06]" />
+        {/* Separador top: diferencia visualmente del hero blanco */}
+        <div className="absolute top-0 inset-x-0 h-px bg-white/[0.10]" />
         <div className="w-full max-w-5xl flex flex-wrap justify-center md:justify-between items-center gap-x-6 gap-y-2">
           {[
-            { icon: "⭐", label: "Valoración 4.9/5" },
-            { icon: "🏆", label: "+15 años de trayectoria" },
+            { icon: "★", label: "Valoración 4.9/5" },
+            { icon: "◆", label: "+15 años de trayectoria" },
             { icon: "⚡", label: "Respuesta en 24h" },
-            { icon: "✅", label: "Equipo certificado" },
+            { icon: "✓", label: "Equipo certificado" },
           ].map(b => (
-            <div key={b.label} className="flex items-center gap-1.5 text-white/60 text-[11px] font-semibold tracking-wide">
-              <span className="text-[13px] grayscale opacity-70">{b.icon}</span>
-              <span>{b.label}</span>
+            <div key={b.label} className="flex items-center gap-2 text-[11px] font-semibold tracking-wide">
+              {/* Acento azul solo en el icono */}
+              <span className="text-[13px] font-black" style={{ color: "#0082C8" }}>{b.icon}</span>
+              <span className="text-white/65">{b.label}</span>
             </div>
           ))}
         </div>
-        <div className="absolute bottom-0 inset-x-0 h-px bg-white/[0.04]" />
+        {/* Separador bottom: diferencia visualmente del navy oscuro de stats */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-white/[0.06]" />
       </div>
 
       {/* ── STATS (BELOW FOLD) ── */}

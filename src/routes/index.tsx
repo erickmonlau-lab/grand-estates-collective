@@ -1,26 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties } from "../data/properties";
-import { motion, useScroll, useTransform, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Search, MapPin, Home, Users, DollarSign, ChevronDown, Building2, Scale, FileText, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X } from "lucide-react";
+import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight } from "lucide-react";
 import logoImg from "@/assets/logo.png";
-import property1 from "@/assets/property-1.jpg";
-import property2 from "@/assets/property-2.jpg";
-import property3 from "@/assets/property-3.jpg";
-import texture from "@/assets/texture.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gesgramaBuilding from "@/assets/gesgrama_building.jpg";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.jpg";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(  {
   component: Index,
 });
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
+// ---------------------------------------------------------------------------
+// TRANSLATIONS (es / en / ca)
+// ---------------------------------------------------------------------------
 const translations = {
   es: {
     nav: {
@@ -47,11 +42,25 @@ const translations = {
     properties: {
       tag: "Inmobiliaria",
       title: "Pisos, locales",
-      titleItalic: "y más.",
+      titleAccent: "y más.",
       subtitle: "Explore nuestro catálogo de propiedades en venta. Gestión directa, sin intermediarios.",
       beds: "hab.",
       baths: "baños",
       verTodas: "Ver todas las propiedades"
+    },
+    valuator: {
+      tag: "Valoración gratuita",
+      title: "¿Cuánto vale",
+      titleAccent: "tu piso?",
+      subtitle: "Reciba una valoración profesional sin compromiso. Un asesor le contactará en menos de 24h.",
+      zonaLabel: "Zona",
+      tipoLabel: "Tipo de inmueble",
+      metrosLabel: "Superficie (m²)",
+      contactLabel: "Email o teléfono",
+      contactPlaceholder: "Para enviarle la valoración",
+      submit: "Solicitar valoración gratuita",
+      successTitle: "¡Solicitud recibida!",
+      successMsg: "Gracias, un asesor le contactará con la valoración en menos de 24h."
     },
     philosophy: {
       tag: "Nuestra filosofía",
@@ -60,7 +69,7 @@ const translations = {
     services: {
       tag: "Lo que hacemos",
       title1: "Gestión integral.",
-      title2: "Tranquilidad",
+      titleAccent: "Tranquilidad",
       title3: "absoluta.",
       cards: [
         {
@@ -93,13 +102,45 @@ const translations = {
     nosotros: {
       tag: "Por qué Gesgrama",
       title1: "Experiencia.",
-      title2: "Compromiso",
+      titleAccent: "Compromiso",
       title3: "y cercanía.",
       items: [
         { icon: "clock", title: "Respuesta en menos de 24h", desc: "Ante cualquier incidencia o consulta, nuestro equipo responde con agilidad y eficacia." },
         { icon: "shield", title: "Transparencia total", desc: "Acceso digital permanente a cuentas, actas y toda la documentación de su comunidad." },
         { icon: "star", title: "+15 años de trayectoria", desc: "Una empresa con sólida experiencia, cartera consolidada y reputación impecable en el sector." },
         { icon: "trending", title: "Optimización de costes", desc: "Revisamos todos los contratos y servicios para que su comunidad pague siempre lo justo." }
+      ]
+    },
+    testimonials: {
+      tag: "Historias reales",
+      title: "Lo que dicen",
+      titleAccent: "nuestros clientes.",
+      // TODO: sustituir por testimonios reales del cliente
+      items: [
+        {
+          name: "M. García",
+          initials: "MG",
+          zone: "Eixample, Barcelona",
+          quote: "Llevan nuestra comunidad desde hace 8 años. La transparencia en las cuentas y la rapidez ante cualquier incidencia son simplemente excelentes."
+        },
+        {
+          name: "R. Puig",
+          initials: "RP",
+          zone: "Sarrià-Sant Gervasi",
+          quote: "Vendimos nuestro piso en menos de un mes al precio que pedíamos. Su conocimiento del mercado local es una ventaja real frente a otras agencias."
+        },
+        {
+          name: "A. Martínez",
+          initials: "AM",
+          zone: "Gràcia, Barcelona",
+          quote: "La asesoría jurídica para la herencia fue impecable. Nos guiaron en cada paso con una paciencia y profesionalidad que agradecemos enormemente."
+        },
+        {
+          name: "J. Costa",
+          initials: "JC",
+          zone: "Sant Antoni, Barcelona",
+          quote: "Alquilamos nuestro local comercial en tiempo récord. Gestionan todo: contrato, aval, incidencias. Sin preocupaciones."
+        }
       ]
     },
     coverage: {
@@ -126,12 +167,11 @@ const translations = {
     contact: {
       tag: "Contacto",
       title1: "Estamos aquí",
-      title2: "para ayudarle.",
+      titleAccent: "para ayudarle.",
       phone: "Teléfono",
       whatsapp: "WhatsApp",
       email: "Email",
       offices: "Oficinas",
-      officesVal: "C/ Ejemplo, 123 – Madrid",
       nameLabel: "Nombre",
       namePlaceholder: "Su nombre completo",
       emailLabel: "Email",
@@ -143,7 +183,13 @@ const translations = {
       submit: "Enviar consulta"
     },
     footer: {
-      rights: "© 2026 Gesgrama — Todos los derechos reservados"
+      rights: "© 2026 Gesgrama — Todos los derechos reservados",
+      quickLinks: "Navegación",
+      contactInfo: "Contacto",
+      legal: "Legal",
+      privacy: "Privacidad",
+      cookies: "Cookies",
+      legalNotice: "Aviso Legal"
     }
   },
   en: {
@@ -171,11 +217,25 @@ const translations = {
     properties: {
       tag: "Real Estate",
       title: "Flats, premises",
-      titleItalic: "and more.",
+      titleAccent: "and more.",
       subtitle: "Browse our catalogue of properties for sale. Direct management, no middlemen.",
       beds: "beds",
       baths: "baths",
       verTodas: "View all properties"
+    },
+    valuator: {
+      tag: "Free valuation",
+      title: "How much is",
+      titleAccent: "your property worth?",
+      subtitle: "Get a professional valuation with no commitment. An advisor will contact you within 24h.",
+      zonaLabel: "Area",
+      tipoLabel: "Property type",
+      metrosLabel: "Surface area (m²)",
+      contactLabel: "Email or phone",
+      contactPlaceholder: "We'll send you the valuation here",
+      submit: "Request free valuation",
+      successTitle: "Request received!",
+      successMsg: "Thank you, an advisor will contact you with the valuation within 24h."
     },
     philosophy: {
       tag: "Our philosophy",
@@ -184,7 +244,7 @@ const translations = {
     services: {
       tag: "What we do",
       title1: "Integral management.",
-      title2: "Absolute",
+      titleAccent: "Absolute",
       title3: "peace of mind.",
       cards: [
         {
@@ -217,13 +277,45 @@ const translations = {
     nosotros: {
       tag: "Why Gesgrama",
       title1: "Experience.",
-      title2: "Commitment",
+      titleAccent: "Commitment",
       title3: "and proximity.",
       items: [
         { icon: "clock", title: "Response in less than 24h", desc: "For any incident or query, our team responds with agility and effectiveness." },
         { icon: "shield", title: "Total transparency", desc: "Permanent digital access to accounts, minutes and all your community's documentation." },
         { icon: "star", title: "+15 years of history", desc: "A company with solid experience, consolidated portfolio and impeccable reputation." },
         { icon: "trending", title: "Cost optimization", desc: "We review all contracts and services so your community always pays the right price." }
+      ]
+    },
+    testimonials: {
+      tag: "Real stories",
+      title: "What our",
+      titleAccent: "clients say.",
+      // TODO: replace with real client testimonials
+      items: [
+        {
+          name: "M. García",
+          initials: "MG",
+          zone: "Eixample, Barcelona",
+          quote: "They have been managing our community for 8 years. The transparency in accounts and speed in handling incidents is simply excellent."
+        },
+        {
+          name: "R. Puig",
+          initials: "RP",
+          zone: "Sarrià-Sant Gervasi",
+          quote: "We sold our flat in less than a month at the price we asked. Their knowledge of the local market is a real advantage."
+        },
+        {
+          name: "A. Martínez",
+          initials: "AM",
+          zone: "Gràcia, Barcelona",
+          quote: "The legal advice for the inheritance was impeccable. They guided us every step of the way with patience and professionalism."
+        },
+        {
+          name: "J. Costa",
+          initials: "JC",
+          zone: "Sant Antoni, Barcelona",
+          quote: "We rented out our commercial premises in record time. They handle everything: contract, guarantees, incidents. No worries."
+        }
       ]
     },
     coverage: {
@@ -250,12 +342,11 @@ const translations = {
     contact: {
       tag: "Contact",
       title1: "We're here",
-      title2: "to help you.",
+      titleAccent: "to help you.",
       phone: "Phone",
       whatsapp: "WhatsApp",
       email: "Email",
       offices: "Offices",
-      officesVal: "C/ Ejemplo, 123 – Madrid",
       nameLabel: "Name",
       namePlaceholder: "Your full name",
       emailLabel: "Email",
@@ -267,7 +358,13 @@ const translations = {
       submit: "Send inquiry"
     },
     footer: {
-      rights: "© 2026 Gesgrama — All rights reserved"
+      rights: "© 2026 Gesgrama — All rights reserved",
+      quickLinks: "Navigation",
+      contactInfo: "Contact",
+      legal: "Legal",
+      privacy: "Privacy",
+      cookies: "Cookies",
+      legalNotice: "Legal Notice"
     }
   },
   ca: {
@@ -295,11 +392,25 @@ const translations = {
     properties: {
       tag: "Immobiliària",
       title: "Pisos, locals",
-      titleItalic: "i molt més.",
+      titleAccent: "i molt més.",
       subtitle: "Exploreu el nostre catàleg de propietats en venda. Gestió directa, sense intermediaris.",
       beds: "hab.",
       baths: "banys",
       verTodas: "Veure totes les propietats"
+    },
+    valuator: {
+      tag: "Valoració gratuïta",
+      title: "Quant val",
+      titleAccent: "el teu pis?",
+      subtitle: "Rebi una valoració professional sense compromís. Un assessor el contactarà en menys de 24h.",
+      zonaLabel: "Zona",
+      tipoLabel: "Tipus d'immoble",
+      metrosLabel: "Superfície (m²)",
+      contactLabel: "Email o telèfon",
+      contactPlaceholder: "Per enviar-li la valoració",
+      submit: "Sol·licitar valoració gratuïta",
+      successTitle: "Sol·licitud rebuda!",
+      successMsg: "Gràcies, un assessor el contactarà amb la valoració en menys de 24h."
     },
     philosophy: {
       tag: "La nostra filosofia",
@@ -308,7 +419,7 @@ const translations = {
     services: {
       tag: "El que fem",
       title1: "Gestió integral.",
-      title2: "Tranquil·litat",
+      titleAccent: "Tranquil·litat",
       title3: "absoluta.",
       cards: [
         {
@@ -341,13 +452,45 @@ const translations = {
     nosotros: {
       tag: "Per què Gesgrama",
       title1: "Experiència.",
-      title2: "Compromís",
+      titleAccent: "Compromís",
       title3: "i proximitat.",
       items: [
         { icon: "clock", title: "Resposta en menys de 24h", desc: "Davant qualsevol incidència o consulta, el nostre equip respon amb agilitat i eficàcia." },
         { icon: "shield", title: "Transparència total", desc: "Accés digital permanent als comptes, actes i tota la documentació de la seva comunitat." },
         { icon: "star", title: "+15 anys de trajectòria", desc: "Una empresa amb sòlida experiència, cartera consolidada i reputació impecable al sector." },
         { icon: "trending", title: "Optimització de costos", desc: "Revisem tots els contractes i serveis perquè la seva comunitat sempre pagui el just." }
+      ]
+    },
+    testimonials: {
+      tag: "Històries reals",
+      title: "El que diuen",
+      titleAccent: "els nostres clients.",
+      // TODO: substituir per testimonis reals del client
+      items: [
+        {
+          name: "M. García",
+          initials: "MG",
+          zone: "Eixample, Barcelona",
+          quote: "Porten la nostra comunitat des de fa 8 anys. La transparència en els comptes i la rapidesa davant qualsevol incidència són senzillament excel·lents."
+        },
+        {
+          name: "R. Puig",
+          initials: "RP",
+          zone: "Sarrià-Sant Gervasi",
+          quote: "Vàrem vendre el nostre pis en menys d'un mes al preu que demanàvem. El seu coneixement del mercat local és un avantatge real."
+        },
+        {
+          name: "A. Martínez",
+          initials: "AM",
+          zone: "Gràcia, Barcelona",
+          quote: "L'assessoria jurídica per a l'herència va ser impecable. Ens van guiar a cada pas amb una paciència i professionalitat que agraïm moltíssim."
+        },
+        {
+          name: "J. Costa",
+          initials: "JC",
+          zone: "Sant Antoni, Barcelona",
+          quote: "Vàrem llogar el nostre local en temps rècord. Gestionen tot: contracte, aval, incidències. Sense preocupacions."
+        }
       ]
     },
     coverage: {
@@ -374,12 +517,11 @@ const translations = {
     contact: {
       tag: "Contacte",
       title1: "Som aquí",
-      title2: "per ajudar-lo.",
+      titleAccent: "per ajudar-lo.",
       phone: "Telèfon",
       whatsapp: "WhatsApp",
       email: "Email",
       offices: "Oficines",
-      officesVal: "C/ Exemple, 123 – Madrid",
       nameLabel: "Nom",
       namePlaceholder: "El seu nom complet",
       emailLabel: "Email",
@@ -391,11 +533,20 @@ const translations = {
       submit: "Enviar consulta"
     },
     footer: {
-      rights: "© 2026 Gesgrama — Tots els drets reservats"
+      rights: "© 2026 Gesgrama — Tots els drets reservats",
+      quickLinks: "Navegació",
+      contactInfo: "Contacte",
+      legal: "Legal",
+      privacy: "Privacitat",
+      cookies: "Cookies",
+      legalNotice: "Avís Legal"
     }
   }
 } as const;
 
+// ---------------------------------------------------------------------------
+// HELPERS
+// ---------------------------------------------------------------------------
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div
@@ -434,52 +585,59 @@ function Counter({ to, prefix = "", suffix = "" }: { to: number; prefix?: string
   );
 }
 
-function LetterReveal({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
-  const words = text.split(" ");
+function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
   return (
-    <span className={className}>
-      {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden pb-[0.12em] mr-[0.25em]">
-          <motion.span
-            className="inline-block"
-            initial={{ y: "110%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1, delay: delay + i * 0.08, ease: easeOut }}
-          >
-            {w}
-          </motion.span>
-        </span>
-      ))}
-    </span>
+    <Reveal className="text-center">
+      <div className="text-4xl md:text-6xl font-bold mb-3 text-onyx">{value}</div>
+      <div className="text-[10px] uppercase tracking-[0.3em] text-onyx/40 font-medium">{label}</div>
+    </Reveal>
   );
 }
 
+function FormField({ label, placeholder, type = "text", textarea }: { label: string; placeholder: string; type?: string; textarea?: boolean }) {
+  return (
+    <div>
+      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{label}</label>
+      {textarea ? (
+        <textarea
+          rows={3}
+          placeholder={placeholder}
+          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors resize-none placeholder:text-onyx/25"
+        />
+      ) : (
+        <input
+          type={type}
+          placeholder={placeholder}
+          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
+        />
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// MAIN COMPONENT
+// ---------------------------------------------------------------------------
 function Index() {
-  const { scrollY } = useScroll();
+  useScroll(); // keep for potential future scroll effects
 
   const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
   const t = translations[language];
 
-  const [searchType, setSearchType] = useState<"comprar" | "alquilar">("comprar");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchParams, setSearchParams] = useState({
     zona: "Cualquiera",
     tipo: "Todos",
-    hab: "2+",
-    precio: "300.000 €"
   });
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // Valuator form state
+  const [valuatorSubmitted, setValuatorSubmitted] = useState(false);
+  const [valuatorData, setValuatorData] = useState({
+    zona: "",
+    tipo: "",
+    metros: "",
+    contacto: ""
+  });
 
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
@@ -491,17 +649,19 @@ function Index() {
     trending: <TrendingUp className="w-6 h-6" />
   };
 
+  const zonas = ["Eixample", "Gràcia", "Sarrià-Sant Gervasi", "Sant Antoni", "Pedralbes", "Santa Coloma de Gramenet", "Badalona", "Hospitalet de Llobregat", "Maresme"];
+  const tipos = ["Piso", "Ático", "Chalet", "Local comercial", "Oficina"];
+
   return (
     <div className="bg-white text-onyx font-sans selection:bg-primary-blue/20 overflow-x-clip">
 
-      {/* NAVIGATION */}
+      {/* ── NAVIGATION ── */}
       <motion.nav
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
         className="fixed top-5 left-1/2 -translate-x-1/2 w-[96%] max-w-[1400px] z-50 flex items-center justify-between py-4 md:py-5 px-8 md:px-10 rounded-full bg-white/98 backdrop-blur-md border border-black/[0.05] shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
       >
-        {/* LOGO - Restored original logo */}
         <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2 -my-4 md:-my-6">
           <img src={logoImg} alt="Gesgrama" className="h-16 md:h-20 lg:h-[5.5rem] w-auto object-contain" />
         </a>
@@ -521,8 +681,8 @@ function Index() {
                 <button
                   onClick={() => setLanguage(lang.toLowerCase() as "es" | "en" | "ca")}
                   className={`transition-all duration-300 cursor-pointer px-2.5 py-1.5 md:px-4 md:py-2 rounded-[0.8rem] ${
-                    language === lang.toLowerCase() 
-                      ? "bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)] text-onyx" 
+                    language === lang.toLowerCase()
+                      ? "bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)] text-onyx"
                       : "text-onyx/40 hover:text-onyx"
                   }`}
                 >
@@ -537,7 +697,7 @@ function Index() {
           >
             {t.nav.portal}
           </a>
-          <button 
+          <button
             className="lg:hidden p-2 text-onyx"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
@@ -558,7 +718,6 @@ function Index() {
               <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.servicios}</a>
               <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.nosotros}</a>
               <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.contacto}</a>
-              
               <a href="#contacto" className="mt-4 text-center bg-onyx text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs">
                 {t.nav.portal}
               </a>
@@ -567,19 +726,118 @@ function Index() {
         </AnimatePresence>
       </motion.nav>
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <HeroCarousel />
 
-      {/* PROPERTIES SECTION */}
-      <section id="propiedades" className="py-28 md:py-36 px-6 md:px-12 bg-gradient-to-b from-white via-white to-[#F8FAFC] text-onyx">
+      {/* ── VALORADOR DE INMUEBLES ── */}
+      {/* Inspirado en Forcadell / Finques Rubio — ¿Cuánto vale tu piso? */}
+      <section className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-b from-[#F8FAFC] to-white text-onyx">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <Reveal>
+              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.valuator.tag}</p>
+              <h2 key={language} className="text-4xl md:text-5xl font-bold leading-tight text-onyx mb-4">
+                {t.valuator.title} <span className="text-primary-blue">{t.valuator.titleAccent}</span>
+              </h2>
+              <p className="text-onyx/55 text-base leading-relaxed max-w-md">{t.valuator.subtitle}</p>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="bg-[#F8FAFC] rounded-2xl p-8 border border-black/[0.05]">
+                {valuatorSubmitted ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="text-center py-8"
+                  >
+                    <div className="w-14 h-14 bg-primary-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-7 h-7 text-primary-blue" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-xl text-onyx mb-2">{t.valuator.successTitle}</h3>
+                    <p className="text-onyx/60 text-sm leading-relaxed">{t.valuator.successMsg}</p>
+                    <button
+                      onClick={() => { setValuatorSubmitted(false); setValuatorData({ zona: "", tipo: "", metros: "", contacto: "" }); }}
+                      className="mt-6 text-primary-blue font-bold text-sm hover:underline"
+                    >
+                      Nueva valoración →
+                    </button>
+                  </motion.div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.zonaLabel}</label>
+                        <select
+                          value={valuatorData.zona}
+                          onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors"
+                        >
+                          <option value="">Seleccionar…</option>
+                          {zonas.map(z => <option key={z} value={z}>{z}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.tipoLabel}</label>
+                        <select
+                          value={valuatorData.tipo}
+                          onChange={e => setValuatorData(d => ({ ...d, tipo: e.target.value }))}
+                          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors"
+                        >
+                          <option value="">Seleccionar…</option>
+                          {tipos.map(tp => <option key={tp} value={tp}>{tp}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.metrosLabel}</label>
+                      <input
+                        type="number"
+                        placeholder="Ej: 85"
+                        value={valuatorData.metros}
+                        onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                        className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.contactLabel}</label>
+                      <input
+                        type="text"
+                        placeholder={t.valuator.contactPlaceholder}
+                        value={valuatorData.contacto}
+                        onChange={e => setValuatorData(d => ({ ...d, contacto: e.target.value }))}
+                        className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (valuatorData.contacto.trim()) setValuatorSubmitted(true);
+                      }}
+                      className="w-full bg-primary-blue text-white py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-onyx transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.99]"
+                    >
+                      {t.valuator.submit}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROPERTIES SECTION ── */}
+      <section id="propiedades" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
             <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.properties.tag}</p>
+                {/* PUNTO 1: Tipografía serif eliminada — ahora text-primary-blue bold */}
                 <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
                   {t.properties.title} <br />
-                  <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.properties.titleItalic}</span>
+                  <span className="text-primary-blue font-bold">{t.properties.titleAccent}</span>
                 </h2>
               </div>
               <p className="text-onyx/50 max-w-sm text-base leading-relaxed">{t.properties.subtitle}</p>
@@ -589,19 +847,20 @@ function Index() {
           {/* BARRA DE FILTROS */}
           <div className="bg-[#F8FAFC] border border-onyx/[0.05] rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="flex gap-4 w-full md:w-auto">
-              <select 
-                value={searchParams.tipo} 
-                onChange={(e) => setSearchParams(p => ({...p, tipo: e.target.value}))}
+              <select
+                value={searchParams.tipo}
+                onChange={(e) => setSearchParams(p => ({ ...p, tipo: e.target.value }))}
                 className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
               >
                 <option value="Todos">Tipo de inmueble</option>
                 <option value="Piso">Piso</option>
                 <option value="Ático">Ático</option>
                 <option value="Local comercial">Local comercial</option>
+                <option value="Chalet">Chalet</option>
               </select>
-              <select 
-                value={searchParams.zona} 
-                onChange={(e) => setSearchParams(p => ({...p, zona: e.target.value}))}
+              <select
+                value={searchParams.zona}
+                onChange={(e) => setSearchParams(p => ({ ...p, zona: e.target.value }))}
                 className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
               >
                 <option value="Cualquiera">Zona</option>
@@ -610,7 +869,9 @@ function Index() {
                 ))}
               </select>
             </div>
-            <div className="text-sm text-onyx/50 italic">Mostrando propiedades</div>
+            <div className="text-sm text-onyx/50 font-medium">
+              {properties.filter(p => searchParams.zona === "Cualquiera" ? true : p.location.includes(searchParams.zona)).filter(p => searchParams.tipo === "Todos" ? true : p.type === searchParams.tipo).length} propiedades
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
@@ -618,7 +879,7 @@ function Index() {
               .filter(p => searchParams.zona === 'Cualquiera' ? true : p.location.includes(searchParams.zona))
               .filter(p => searchParams.tipo === 'Todos' ? true : p.type === searchParams.tipo)
               .map((property, idx) => (
-              <Link to={`/inmobiliaria/${property.slug}`} key={property.id}>
+              <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -627,23 +888,23 @@ function Index() {
                   className="group relative bg-white border border-onyx/[0.05] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col h-full hover:-translate-y-1"
                 >
                   <div className="relative h-[280px] overflow-hidden">
-                    <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm text-onyx">
-                      {property.status === 'venta' ? 'En Venta' : 'Alquiler'}
+                      En Venta
                     </div>
                   </div>
                   <div className="p-6 md:p-8 flex flex-col flex-1">
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-onyx mb-1 group-hover:text-primary-blue transition-colors">{property.title}</h3>
+                        <h3 className="text-xl font-bold text-onyx mb-1 group-hover:text-primary-blue transition-colors">{property.name}</h3>
                         <p className="text-sm text-onyx/60">{property.location}</p>
                       </div>
-                      <div className="text-xl font-light text-onyx bg-onyx/5 px-3 py-1 rounded-full">{new Intl.NumberFormat('es-ES').format(property.price)} €</div>
+                      <div className="text-xl font-light text-onyx bg-onyx/5 px-3 py-1 rounded-full whitespace-nowrap">{new Intl.NumberFormat('es-ES').format(property.price)} €</div>
                     </div>
                     <div className="flex items-center gap-4 text-xs font-semibold text-onyx/50 uppercase tracking-widest mt-auto pt-6 border-t border-onyx/[0.05]">
-                      <span>{property.features.beds} hab.</span>
-                      <span>{property.features.baths} baños</span>
-                      <span>{property.features.area} m²</span>
+                      {property.bedrooms > 0 && <span>{property.bedrooms} hab.</span>}
+                      <span>{property.bathrooms} baños</span>
+                      <span>{property.surface} m²</span>
                     </div>
                   </div>
                 </motion.div>
@@ -661,16 +922,17 @@ function Index() {
         </div>
       </section>
 
-      {/* SERVICES – The big 3 pillars */}
+      {/* ── SERVICES ── */}
+      {/* PUNTO 5: Features convertidas en chips/badges visuales */}
       <section id="servicios" className="py-28 md:py-36 px-6 md:px-12 bg-[#F8FAFC] text-onyx">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
             <div className="mb-16 text-center">
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.services.tag}</p>
+              {/* PUNTO 1: Tipografía serif eliminada */}
               <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
-                {t.services.title1}
-                {" "}
-                <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.services.title2}</span>
+                {t.services.title1}{" "}
+                <span className="text-primary-blue font-bold">{t.services.titleAccent}</span>
                 {" "}{t.services.title3}
               </h2>
             </div>
@@ -685,14 +947,14 @@ function Index() {
                   </div>
                   <h3 className="text-xl font-bold text-onyx mb-3 leading-snug">{card.title}</h3>
                   <p className="text-onyx/55 text-sm leading-relaxed mb-6">{card.desc}</p>
-                  <ul className="mt-auto space-y-2">
+                  {/* PUNTO 5: Chips/badges en lugar de lista con bullets */}
+                  <div className="mt-auto flex flex-wrap gap-2">
                     {card.features.map((feat) => (
-                      <li key={feat} className="flex items-center gap-2.5 text-sm text-onyx/60">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary-blue shrink-0" />
+                      <span key={feat} className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary-blue/10 text-primary-blue text-[11px] font-bold">
                         {feat}
-                      </li>
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                   <a href="#contacto" className="mt-8 text-[11px] font-bold uppercase tracking-wider text-primary-blue flex items-center gap-2 group-hover:gap-3 transition-all">
                     Saber más →
                   </a>
@@ -703,19 +965,19 @@ function Index() {
         </div>
       </section>
 
-      {/* PHILOSOPHY QUOTE */}
-      {/* STATS & PHILOSOPHY CONSOLIDATED */}
+      {/* ── PHILOSOPHY + STATS ── */}
       <section className="py-24 md:py-32 bg-[#F8FAFC] text-onyx border-t border-onyx/[0.05]">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-1/3">
             <Reveal>
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-6">{t.philosophy.tag}</p>
-              <blockquote key={language} className="text-2xl text-onyx leading-snug border-l-4 border-primary-blue pl-6 py-2" style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }}>
+              {/* PUNTO 1: Tipografía serif eliminada del blockquote */}
+              <blockquote key={language} className="text-2xl text-onyx font-bold leading-snug border-l-4 border-primary-blue pl-6 py-2">
                 {t.philosophy.quote}
               </blockquote>
             </Reveal>
           </div>
-          
+
           <div className="lg:w-2/3 w-full">
             <Reveal>
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-10">{t.stats.tag}</p>
@@ -730,16 +992,17 @@ function Index() {
         </div>
       </section>
 
-      {/* NOSOTROS / WHY US */}
+      {/* ── NOSOTROS / WHY US ── */}
       <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
             <Reveal>
               <div className="mb-12">
                 <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.nosotros.tag}</p>
+                {/* PUNTO 1: Tipografía serif eliminada */}
                 <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx">
                   {t.nosotros.title1} <br />
-                  <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.nosotros.title2}</span>
+                  <span className="text-primary-blue font-bold">{t.nosotros.titleAccent}</span>
                   {" "}{t.nosotros.title3}
                 </h2>
               </div>
@@ -764,9 +1027,9 @@ function Index() {
 
           <Reveal delay={0.2}>
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-full aspect-[4/3] lg:aspect-square">
-              <img 
-                src={gesgramaOffice} 
-                alt="Oficina Gesgrama" 
+              <img
+                src={gesgramaOffice}
+                alt="Oficina Gesgrama"
                 className="w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-blue/20 to-transparent mix-blend-overlay"></div>
@@ -775,10 +1038,53 @@ function Index() {
         </div>
       </section>
 
-      {/* COVERAGE AREA */}
+      {/* ── TESTIMONIOS ── */}
+      {/* PUNTO 3: Nueva sección — inspirado en Forcadell "Historias reales de clientes" */}
+      <section id="testimonios" className="py-28 md:py-36 px-6 md:px-12 bg-[#F8FAFC] text-onyx">
+        <div className="max-w-[1400px] mx-auto">
+          <Reveal>
+            <div className="mb-16 text-center">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.testimonials.tag}</p>
+              <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
+                {t.testimonials.title} <span className="text-primary-blue">{t.testimonials.titleAccent}</span>
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* TODO: sustituir por testimonios reales del cliente */}
+            {t.testimonials.items.map((item, i) => (
+              <Reveal key={item.name} delay={i * 0.08}>
+                <div className="group bg-white rounded-2xl p-6 border border-black/[0.05] hover:border-primary-blue/25 hover:shadow-[0_15px_40px_rgba(0,130,200,0.07)] transition-all duration-400 flex flex-col h-full">
+                  {/* Estrellas */}
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, s) => (
+                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  {/* Cita — sin tipografía serif */}
+                  <p className="text-onyx/70 text-sm leading-relaxed flex-1 mb-6">"{item.quote}"</p>
+                  {/* Autor */}
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-black/[0.05]">
+                    <div className="w-10 h-10 rounded-full bg-primary-blue/10 flex items-center justify-center text-primary-blue font-black text-sm shrink-0">
+                      {item.initials}
+                    </div>
+                    <div>
+                      <div className="font-bold text-sm text-onyx">{item.name}</div>
+                      <div className="text-[11px] text-onyx/45 font-medium">{item.zone}</div>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── COVERAGE AREA ── */}
       <section id="cobertura" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
+
           <Reveal>
             <div className="max-w-xl">
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.coverage.tag}</p>
@@ -788,7 +1094,7 @@ function Index() {
               <p className="text-onyx/60 text-lg md:text-xl leading-relaxed mb-16 max-w-md">
                 {t.coverage.subtitle}
               </p>
-              
+
               <div className="grid grid-cols-2 gap-x-10 gap-y-14">
                 <div className="border-l-[3px] border-primary-blue/20 pl-6">
                   <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s1Value}</div>
@@ -812,17 +1118,17 @@ function Index() {
 
           <Reveal delay={0.2}>
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] h-[500px] md:h-[650px] bg-slate-100">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={false} 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale-[30%] contrast-[110%] opacity-90 object-cover"
               ></iframe>
-              
+
               <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-white/20 max-w-[280px]">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary-blue/10 p-3 rounded-2xl shrink-0 text-primary-blue">
@@ -831,6 +1137,7 @@ function Index() {
                   <div>
                     <h3 className="font-bold text-onyx text-sm mb-1">{t.coverage.mapTitle}</h3>
                     <p className="text-onyx/60 text-[11px] font-medium leading-relaxed mb-2">{t.coverage.mapSubtitle}</p>
+                    {/* TODO: sustituir por el teléfono real del cliente */}
                     <a href="tel:+34934685656" className="text-primary-blue font-bold text-[13px] hover:text-onyx transition-colors flex items-center gap-1.5">
                       <Phone className="w-3.5 h-3.5" /> 934 685 656
                     </a>
@@ -843,7 +1150,7 @@ function Index() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section className="relative bg-primary-blue py-28 md:py-40 text-center px-6 overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
         <Reveal className="relative z-10">
@@ -862,42 +1169,49 @@ function Index() {
         </Reveal>
       </section>
 
-      {/* CONTACT */}
+      {/* ── CONTACT ── */}
       <section id="contacto" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
           <div className="lg:col-span-5">
             <Reveal>
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.contact.tag}</p>
+              {/* PUNTO 1: Tipografía serif eliminada */}
               <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight mb-12">
                 {t.contact.title1} <br />
-                <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.contact.title2}</span>
+                <span className="text-primary-blue font-bold">{t.contact.titleAccent}</span>
               </h2>
               <div className="space-y-6">
-                <a href="tel:+34900000000" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                {/* TODO: sustituir por el teléfono real del cliente */}
+                <a href="tel:+34934685656" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-[9px] uppercase tracking-wider text-onyx/40 font-bold mb-0.5">{t.contact.phone}</div>
-                    <div className="font-semibold text-onyx">+34 900 000 000</div>
+                    {/* TODO: sustituir por el teléfono real del cliente */}
+                    <div className="font-semibold text-onyx">934 685 656</div>
                   </div>
                 </a>
+                {/* TODO: sustituir por el WhatsApp real del cliente */}
                 <a href="https://wa.me/34600000000" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <MessageCircle className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-[9px] uppercase tracking-wider text-onyx/40 font-bold mb-0.5">{t.contact.whatsapp}</div>
+                    {/* TODO: sustituir por el WhatsApp real del cliente */}
                     <div className="font-semibold text-onyx">+34 600 000 000</div>
                   </div>
                 </a>
-                <a href="mailto:contacto@gesgrama.com" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                {/* TODO: sustituir por el email real del cliente */}
+                <a href="mailto:info@gesgrama.com" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
                     <div className="text-[9px] uppercase tracking-wider text-onyx/40 font-bold mb-0.5">{t.contact.email}</div>
-                    <div className="font-semibold text-onyx">contacto@gesgrama.com</div>
+                    {/* TODO: sustituir por el email real del cliente */}
+                    <div className="font-semibold text-onyx">info@gesgrama.com</div>
                   </div>
                 </a>
               </div>
@@ -934,73 +1248,92 @@ function Index() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 px-6 md:px-12 bg-onyx text-alabaster/50">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <img src={logoImg} alt="Gesgrama" className="h-10 w-auto object-contain opacity-70" />
-          <p className="text-[10px] uppercase tracking-[0.25em]">{t.footer.rights}</p>
-          <div className="flex gap-6 text-[10px] uppercase tracking-widest">
-            <a href="#" className="hover:text-primary-blue transition-colors">Aviso Legal</a>
-            <a href="#" className="hover:text-primary-blue transition-colors">Privacidad</a>
-            <a href="#" className="hover:text-primary-blue transition-colors">Cookies</a>
+      {/* ── FOOTER ── */}
+      {/* PUNTO 2: Footer ampliado con columnas de navegación y contacto */}
+      <footer className="bg-onyx text-alabaster/50">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+          {/* Logo + tagline */}
+          <div className="lg:col-span-1">
+            <img src={logoImg} alt="Gesgrama" className="h-12 w-auto object-contain opacity-80 mb-4" />
+            <p className="text-[12px] leading-relaxed text-alabaster/40 max-w-[200px]">
+              Administración de Fincas, Inmobiliaria y Asesoría Jurídica en el área de Barcelona desde 2009.
+            </p>
+          </div>
+
+          {/* Navegación rápida */}
+          <div>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-alabaster/30 mb-5">{t.footer.quickLinks}</h4>
+            <ul className="space-y-3">
+              {[
+                { label: t.nav.propiedades, href: "#propiedades" },
+                { label: t.nav.servicios, href: "#servicios" },
+                { label: t.nav.nosotros, href: "#nosotros" },
+                { label: t.nav.contacto, href: "#contacto" },
+              ].map(link => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-alabaster/60 hover:text-white transition-colors flex items-center gap-2 group">
+                    <ChevronRight className="w-3 h-3 text-primary-blue group-hover:translate-x-0.5 transition-transform" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contacto */}
+          <div>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-alabaster/30 mb-5">{t.footer.contactInfo}</h4>
+            <ul className="space-y-3 text-sm text-alabaster/60">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-primary-blue shrink-0 mt-0.5" />
+                {/* TODO: sustituir por la dirección real del cliente */}
+                <span>Av. dels Banús, 49<br />08923 Santa Coloma de Gramenet</span>
+              </li>
+              <li>
+                {/* TODO: sustituir por el teléfono real del cliente */}
+                <a href="tel:+34934685656" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone className="w-4 h-4 text-primary-blue shrink-0" />
+                  934 685 656
+                </a>
+              </li>
+              <li>
+                {/* TODO: sustituir por el email real del cliente */}
+                <a href="mailto:info@gesgrama.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 text-primary-blue shrink-0" />
+                  info@gesgrama.com
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-alabaster/30 mb-5">{t.footer.legal}</h4>
+            <ul className="space-y-3">
+              {[
+                { label: t.footer.legalNotice, href: "#" },
+                { label: t.footer.privacy, href: "#" },
+                { label: t.footer.cookies, href: "#" },
+              ].map(link => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-sm text-alabaster/60 hover:text-white transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/[0.06]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-alabaster/30">{t.footer.rights}</p>
           </div>
         </div>
       </footer>
-    </div>
-  );
-}
 
-function PropertyCard({ img, name, location, specs, price, type }: {
-  img: string; name: string; location: string; specs: string; price: string; type: string;
-}) {
-  return (
-    <div className="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-black/[0.06] hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 hover:-translate-y-1">
-      <div className="overflow-hidden relative">
-        <img src={img} alt={name} loading="lazy" className="w-full aspect-[4/3] object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out" />
-        <div className="absolute top-3 left-3">
-          <span className="bg-primary-blue text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">{type}</span>
-        </div>
-      </div>
-      <div className="p-5">
-        <div className="flex justify-between items-start gap-4">
-          <div>
-            <h3 className="font-bold text-base text-onyx mb-1">{name}</h3>
-            <p className="text-[11px] text-onyx/45 uppercase tracking-wider font-medium">{location}</p>
-          </div>
-          <span className="font-bold text-lg text-primary-blue whitespace-nowrap">{price}</span>
-        </div>
-        <p className="text-[11px] text-onyx/40 mt-3 pt-3 border-t border-black/[0.05]">{specs}</p>
-      </div>
-    </div>
-  );
-}
-
-function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
-  return (
-    <Reveal className="text-center">
-      <div className="text-4xl md:text-6xl font-bold mb-3 text-onyx">{value}</div>
-      <div className="text-[10px] uppercase tracking-[0.3em] text-onyx/40 font-medium">{label}</div>
-    </Reveal>
-  );
-}
-
-function FormField({ label, placeholder, type = "text", textarea }: { label: string; placeholder: string; type?: string; textarea?: boolean }) {
-  return (
-    <div>
-      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{label}</label>
-      {textarea ? (
-        <textarea
-          rows={3}
-          placeholder={placeholder}
-          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors resize-none placeholder:text-onyx/25"
-        />
-      ) : (
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
-        />
-      )}
     </div>
   );
 }

@@ -311,10 +311,10 @@ export default function HeroCarousel() {
 
           {/*
             MÓVIL — overlay claro equivalente al de escritorio.
-            Cubre generosamente la zona donde cae el texto para asegurar contraste.
+            Gradiente radial localizado SOLO en la esquina superior izquierda (zona del texto).
+            Se desvanece al 60% para dejar a las personas del lado derecho con total nitidez.
           */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-transparent md:hidden" />
-          <div className="absolute top-0 inset-x-0 h-[20%] bg-gradient-to-b from-white/95 to-transparent md:hidden" />
+          <div className="absolute inset-0 md:hidden" style={{ background: "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 60%)" }} />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -341,7 +341,9 @@ export default function HeroCarousel() {
               <span>Inmobiliaria</span>
             </div>
             {/* Mobile pill: tratamiento sólido blanco con halo/glow sutil (estilo DISET revertido) */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-900 uppercase w-max">
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-900 uppercase w-max"
+                 style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
+            >
               <div className="w-1.5 h-1.5 rounded-full bg-primary-blue shadow-sm" />
               <span>Gestión Inmobiliaria Integral</span>
             </div>
@@ -361,7 +363,7 @@ export default function HeroCarousel() {
 
               {/* Mobile headline — texto oscuro sobre overlay claro */}
               <h1 className="block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
-                  style={{ fontFamily: "var(--font-system)" }}
+                  style={{ fontFamily: "var(--font-system)", fontWeight: 900 }}
               >
                 Encontramos<br/>
                 tu <span className="text-[#4db8ff]">hogar</span>.<br/>
@@ -374,7 +376,7 @@ export default function HeroCarousel() {
             {/* ── MOTTO — texto oscuro sobre fondo claro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
               className="mt-4 md:mt-10 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
-              style={{ fontFamily: "var(--font-system)" }}
+              style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
             >
               La tranquilidad de tu hogar, nuestra responsabilidad.
             </motion.p>
@@ -390,7 +392,7 @@ export default function HeroCarousel() {
                 <button
                   onClick={() => setMobileSheetOpen(true)}
                   className="bg-primary-blue text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,130,200,0.5)] flex justify-center items-center gap-2"
-                  style={{ fontFamily: "var(--font-system)" }}
+                  style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
                 >
                   <Search className="w-4 h-4" />
                   Buscar Inmuebles
@@ -399,7 +401,7 @@ export default function HeroCarousel() {
                 <button
                   onClick={() => window.location.href='tel:+34934685656'}
                   className="bg-white text-slate-900 w-full py-3.5 rounded-full font-bold text-[15px] shadow-lg flex justify-center items-center gap-2 hover:bg-white/90 transition-colors"
-                  style={{ fontFamily: "var(--font-system)" }}
+                  style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora
                 </button>

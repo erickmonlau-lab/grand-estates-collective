@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
-import img1 from "@/assets/premium_rental_apartment.jpg";
-import img2 from "@/assets/dream_couple_offcenter_1783263799684.jpg";
-import img3 from "@/assets/dream_family_offcenter_1783263809999.jpg";
+import img1 from "@/assets/premium_rental_apartment.webp";
+import img2 from "@/assets/dream_couple_offcenter_1783263799684.webp";
+import img3 from "@/assets/dream_family_offcenter_1783263809999.webp";
 
 const images = [img3, img2, img1];
 const bgOrigins = ["origin-center", "origin-left", "origin-right"];
@@ -345,9 +345,9 @@ export default function HeroCarousel() {
               <span className="text-primary-blue font-black">•</span>
               <span>Inmobiliaria</span>
             </div>
-            {/* Mobile pill: tratamiento sólido blanco con halo/glow sutil (estilo DISET) */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.4)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-800 uppercase w-max">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
+            {/* Mobile pill: tratamiento sólido azul corporativo con glow azul (estilo DISET adaptado) */}
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-primary-blue shadow-[0_0_20px_rgba(0,130,200,0.5)] px-4 py-2 rounded-full border border-primary-blue/50 text-[11px] text-white uppercase w-max">
+              <div className="w-1.5 h-1.5 rounded-full bg-white shadow-sm" />
               <span>Gestión Inmobiliaria Integral</span>
             </div>
 
@@ -388,10 +388,10 @@ export default function HeroCarousel() {
             */}
             <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
-                {/* Botón primario — azul corporativo, funciona bien sobre fondo oscuro */}
+                {/* Botón primario — azul oscurecido (#006ca6) para contrastar con la pill azul superior */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="bg-primary-blue text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,130,200,0.5)] flex justify-center items-center gap-2"
+                  className="bg-[#006ca6] text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,108,166,0.5)] flex justify-center items-center gap-2"
                 >
                   <Search className="w-4 h-4" />
                   Buscar Inmuebles
@@ -406,23 +406,17 @@ export default function HeroCarousel() {
                 </button>
               </motion.div>
 
-              {/* Social Proof Badges — colores adaptados a fondo oscuro */}
-              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.5 }} className="mt-6 flex items-center gap-3">
-                <div className="flex -space-x-2.5">
-                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">MR</div>
-                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">AL</div>
-                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">JD</div>
+              {/* Social Proof Badges — Cifras reales sin referenciar estrellas */}
+              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.5 }} className="mt-6 flex items-center gap-3 bg-white/10 backdrop-blur-[2px] p-2 pr-4 rounded-2xl border border-white/15 w-max">
+                <div className="w-10 h-10 rounded-full bg-primary-blue/20 flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-[#4db8ff] drop-shadow-sm" />
                 </div>
                 <div className="flex flex-col">
-                  <div className="flex gap-0.5 text-[#FFB800] mb-0.5">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
+                  <div className="text-[12px] font-black text-white leading-[1.3]">
+                    +15 años <span className="font-medium text-white/80">de trayectoria</span>
                   </div>
-                  <div className="text-[11px] font-medium text-white/70 leading-[1.1]">
-                    <span className="font-black text-white text-xs">+1.500 clientes</span><br/>satisfechos
+                  <div className="text-[12px] font-black text-white leading-[1.3]">
+                    +300 <span className="font-medium text-white/80">comunidades</span>
                   </div>
                 </div>
               </motion.div>
@@ -756,7 +750,7 @@ export default function HeroCarousel() {
         <div className="absolute top-0 inset-x-0 h-px bg-white/[0.10]" />
         <div className="w-full max-w-5xl flex flex-wrap justify-center md:justify-between items-center gap-x-6 gap-y-2">
           {[
-            { icon: "★", label: "Valoración 4.9/5" },
+            { icon: "◆", label: "+300 comunidades" },
             { icon: "◆", label: "+15 años de trayectoria" },
             { icon: "⚡", label: "Respuesta en 24h" },
             { icon: "✓", label: "Equipo certificado" },

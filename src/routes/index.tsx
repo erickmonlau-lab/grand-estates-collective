@@ -4,8 +4,8 @@ import { properties } from "../data/properties";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight } from "lucide-react";
-import logoImg from "@/assets/logo.png";
-import gesgramaOffice from "@/assets/gesgrama_storefront_final.jpg";
+import logoImg from "@/assets/logo.webp";
+import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 export const Route = createFileRoute("/")(  {
   component: Index,

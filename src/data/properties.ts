@@ -1,10 +1,10 @@
-import property1 from "@/assets/property-1.jpg";
-import property2 from "@/assets/property-2.jpg";
-import property3 from "@/assets/property-3.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import brightAtrium from "@/assets/bright-atrium.jpg";
+import property1 from "@/assets/property-1.webp";
+import property2 from "@/assets/property-2.webp";
+import property3 from "@/assets/property-3.webp";
+import gallery1 from "@/assets/gallery-1.webp";
+import gallery2 from "@/assets/gallery-2.webp";
+import gallery3 from "@/assets/gallery-3.webp";
+import brightAtrium from "@/assets/bright-atrium.webp";
 
 export type PropertyType = "Piso" | "Ático" | "Local comercial" | "Chalet" | "Oficina" | "Todos";
 

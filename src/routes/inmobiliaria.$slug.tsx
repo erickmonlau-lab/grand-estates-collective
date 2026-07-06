@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { properties } from "../data/properties";
 import { motion } from "framer-motion";
 import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle } from "lucide-react";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo.webp";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/inmobiliaria/$slug")({

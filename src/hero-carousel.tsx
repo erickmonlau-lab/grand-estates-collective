@@ -2,21 +2,21 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
-import img1 from "@/assets/property-1.webp";
-import img2 from "@/assets/dream_couple_offcenter_1783263799684.webp";
-import img3 from "@/assets/barcelona_avenue_highres_1783286175400.webp";
+import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
+import img2 from "@/assets/dream_family_offcenter_1783263809999.webp";
+import img3 from "@/assets/dream_sunset_offcenter_1783263818683.webp";
 
-const images = [img3, img2, img1];
-const bgOrigins = ["origin-center", "origin-left", "origin-right"];
+const images = [img1, img2, img3];
+const bgOrigins = ["origin-right", "origin-right", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "50% 10%" }, // Barcelona Avenue (img3)
-  { objectPosition: "85% 20%" }, // Couple (img2)
-  { objectPosition: "center center" } // Realistic Apartment (img1)
+  { objectPosition: "85% 20%" }, // Couple
+  { objectPosition: "85% 20%" }, // Family
+  { objectPosition: "85% 20%" }  // Sunset
 ];
 const desktopObjPositions = [
-  { objectPosition: "center center" },
   { objectPosition: "right center" },
-  { objectPosition: "center center" }
+  { objectPosition: "right center" },
+  { objectPosition: "right center" }
 ];
 
 const ZONES = [
@@ -294,11 +294,10 @@ export default function HeroCarousel() {
       />
 
       {/*
-        ── MOBILE HERO: height=auto, no min-h forcing whitespace ──
-        ── DESKTOP HERO: min-h-[100dvh], centered layout ──
+        ── MOBILE & DESKTOP HERO: min-h-[100dvh] to prevent stats from peeking ──
       */}
       <section className="relative w-full flex flex-col items-center
-        md:min-h-[100dvh] md:justify-center md:pt-20
+        min-h-[100dvh] justify-center md:pt-20
         pt-[112px] pb-0 bg-slate-100 md:bg-transparent overflow-x-hidden"
         style={{ fontFamily: "var(--font-system)" }}
       >
@@ -367,7 +366,9 @@ export default function HeroCarousel() {
               </h1>
 
               {/* Mobile headline — texto blanco sobre overlay oscuro, sin caja/scrim */}
-              <h1 className="block md:hidden text-white font-black leading-[1.05] tracking-tight text-left text-[2.75rem]">
+              <h1 className="block md:hidden text-white font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
+                  style={{ fontFamily: "var(--font-system)" }}
+              >
                 Encontramos<br/>
                 tu <span className="text-[#4db8ff]">hogar</span>.<br/>
                 Nosotros nos<br/>
@@ -379,6 +380,7 @@ export default function HeroCarousel() {
             {/* ── MOTTO — texto blanco sobre fondo oscuro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
               className="mt-4 md:mt-10 text-white/85 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
+              style={{ fontFamily: "var(--font-system)" }}
             >
               La tranquilidad de tu hogar, nuestra responsabilidad.
             </motion.p>
@@ -390,19 +392,20 @@ export default function HeroCarousel() {
             */}
             <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
-                {/* Botón primario — azul oscurecido (#006ca6) para contrastar con la pill azul superior */}
+                {/* Botón primario */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
                   className="bg-[#006ca6] text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,108,166,0.5)] flex justify-center items-center gap-2"
+                  style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Search className="w-4 h-4" />
                   Buscar Inmuebles
                 </button>
-                {/* Botón secundario — blanco sólido con texto oscuro: máximo contraste sobre fondo oscuro */}
-                {/* TODO: sustituir por el teléfono real del cliente */}
+                {/* Botón secundario */}
                 <button
                   onClick={() => window.location.href='tel:+34934685656'}
                   className="bg-white text-slate-900 w-full py-3.5 rounded-full font-bold text-[15px] shadow-lg flex justify-center items-center gap-2 hover:bg-white/90 transition-colors"
+                  style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora
                 </button>

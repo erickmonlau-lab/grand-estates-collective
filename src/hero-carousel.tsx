@@ -138,8 +138,7 @@ export default function HeroCarousel() {
         {/* Original Content (Fades out) */}
         <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'opacity-0 blur-md scale-95' : 'opacity-100 blur-0 scale-100'}`}>
           {/* ── EYEBROW (Unbreakable Single Pill) ── */}
-          <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.1 }}
-            className="mb-4 md:mb-6 flex flex-wrap justify-center items-center gap-2 md:gap-3 font-bold bg-slate-100/90 md:bg-white/95 backdrop-blur-md px-3 md:px-6 py-1.5 md:py-2.5 rounded-full border border-slate-200 md:border-slate-900 shadow-sm text-[10px] md:text-sm text-slate-700 md:text-slate-900 uppercase md:normal-case w-max mx-auto">
+          <div className="mb-4 md:mb-6 flex flex-wrap justify-center items-center gap-2 md:gap-3 font-bold bg-slate-100/90 md:bg-white/95 backdrop-blur-md px-3 md:px-6 py-1.5 md:py-2.5 rounded-full border border-slate-200 md:border-slate-900 shadow-sm text-[10px] md:text-sm text-slate-700 md:text-slate-900 uppercase md:normal-case w-max mx-auto">
             
             {/* Desktop Content */}
             <span className="hidden md:inline">Administración de fincas</span>
@@ -152,17 +151,18 @@ export default function HeroCarousel() {
             <div className="md:hidden w-1.5 h-1.5 rounded-full bg-slate-400" />
             <span className="md:hidden">Gestión Inmobiliaria Integral</span>
             
-          </motion.div>
+          </div>
 
           {/* ── HEADLINE ── */}
           <motion.div initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.2 }} className="w-full">
             {/* Desktop Headline */}
             <h1 className="hidden md:block text-slate-900 font-black leading-[1.12] tracking-tight text-center text-[clamp(1.9rem,4.2vw,3.8rem)]">
               Encontramos tu hogar.<br/>
-              <span className="relative inline-block sm:whitespace-nowrap mt-1">
-                <span className="relative z-10">Nosotros nos ocupamos del resto.</span>
-                <svg className="absolute w-[104%] h-6 -bottom-[22px] -left-[2%] text-primary-blue z-0 opacity-85" viewBox="0 0 100 20" preserveAspectRatio="none">
-                  <path d="M 2 15 Q 30 5 60 12 T 98 8" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round"/>
+              <span className="relative inline-block mt-2">
+                Nosotros nos ocupamos del resto.
+                {/* Desktop SVG Line */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="absolute w-[104%] h-6 -bottom-[22px] -left-[2%] text-primary-blue" viewBox="0 0 400 30" fill="none" preserveAspectRatio="none">
+                  <path d="M 5 20 Q 100 5 200 15 T 395 10" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
             </h1>

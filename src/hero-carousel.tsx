@@ -739,23 +739,99 @@ export default function HeroCarousel() {
 
       </section>
 
-      {/* ── STATS (BELOW FOLD) ── */}
-      <section className="w-full bg-slate-700 py-12 px-4 flex justify-center items-center z-10 relative">
-        <div className="w-full max-w-5xl flex flex-col md:flex-row justify-center items-center gap-10 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-slate-500/50">
+      {/* ── TRUST BADGES (transition strip between hero and stats) ── */}
+      {/* Punto 4: Barra de confianza — tono intermedio entre navy y blanco */}
+      <div
+        className="w-full z-10 relative py-3 px-4 flex justify-center overflow-hidden"
+        style={{ background: "linear-gradient(90deg, #0a1829 0%, #0d2040 50%, #0a1829 100%)" }}
+      >
+        {/* Very subtle top border */}
+        <div className="absolute top-0 inset-x-0 h-px bg-white/[0.06]" />
+        <div className="w-full max-w-5xl flex flex-wrap justify-center md:justify-between items-center gap-x-6 gap-y-2">
           {[
-            { val:"4500+", lines:["Sueños","cumplidos","con éxito"] },
-            { val:"98%",   lines:["Clientes","totalmente","satisfechos"] },
-            { val:"15+",   lines:["Años de","experiencia","en el sector"] },
-          ].map(s => (
-            <div key={s.val} className="flex-1 w-full flex flex-col items-center text-center px-4 py-6 md:py-0">
-              <div className="text-5xl md:text-6xl font-black text-white tracking-tighter">{s.val}</div>
-              <div className="text-[11px] md:text-xs font-bold text-slate-300 tracking-[0.1em] uppercase mt-3 mb-3 leading-relaxed">
-                {s.lines.map((l,i)=><span key={i}>{l}<br/></span>)}
-              </div>
-              <div className="w-8 h-[3px] bg-primary-blue rounded-full mt-2" />
+            { icon: "⭐", label: "Valoración 4.9/5" },
+            { icon: "🏆", label: "+15 años de trayectoria" },
+            { icon: "⚡", label: "Respuesta en 24h" },
+            { icon: "✅", label: "Equipo certificado" },
+          ].map(b => (
+            <div key={b.label} className="flex items-center gap-1.5 text-white/60 text-[11px] font-semibold tracking-wide">
+              <span className="text-[13px] grayscale opacity-70">{b.icon}</span>
+              <span>{b.label}</span>
             </div>
           ))}
         </div>
+        <div className="absolute bottom-0 inset-x-0 h-px bg-white/[0.04]" />
+      </div>
+
+      {/* ── STATS (BELOW FOLD) ── */}
+      {/*
+        Punto 1: bg-slate-700 → gradiente navy corporativo #0F1E33 → #16294A
+        Punto 2: Grid 2x2 en móvil, fila horizontal en desktop (md: sin cambios)
+        Punto 3: Jerarquía visual consistente con barra de acento en primary-blue
+        Punto 5: Todo derivado de --color-primary, contraste AA garantizado
+      */}
+      <section
+        className="w-full z-10 relative overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #0F1E33 0%, #16294A 60%, #112038 100%)",
+        }}
+      >
+        {/* Subtle grid texture — same pattern as CTA section in index.tsx */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        {/* Top edge glow */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0082C8]/40 to-transparent" />
+
+        <div className="relative w-full max-w-5xl mx-auto px-4 py-10 md:py-14">
+
+          {/* ── MOBILE: 2x2 grid ── */}
+          <div className="grid grid-cols-2 md:hidden divide-x divide-y divide-white/[0.08]">
+            {[
+              { val: "4.500+", label: "Sueños\ncumplidos con éxito" },
+              { val: "98%",    label: "Clientes\ntotalmente satisfechos" },
+              { val: "+300",   label: "Comunidades\ngestionadas" },
+              { val: "15+",    label: "Años de\nexperiencia" },
+            ].map((s, i) => (
+              <div key={s.val} className={`flex flex-col items-center text-center px-4 py-8 ${i >= 2 ? "" : ""}`}>
+                <div className="text-4xl font-black text-white tracking-tighter leading-none mb-2">
+                  {s.val}
+                </div>
+                <div className="text-[10px] font-bold text-[#7aafd4] tracking-[0.12em] uppercase leading-relaxed whitespace-pre-line mb-3">
+                  {s.label}
+                </div>
+                <div className="w-6 h-[2px] rounded-full" style={{ background: "#0082C8" }} />
+              </div>
+            ))}
+          </div>
+
+          {/* ── DESKTOP: horizontal row — unchanged from before ── */}
+          <div className="hidden md:flex flex-row justify-center items-center divide-x divide-white/[0.10]">
+            {[
+              { val: "4.500+", lines: ["Sueños", "cumplidos", "con éxito"] },
+              { val: "98%",    lines: ["Clientes", "totalmente", "satisfechos"] },
+              { val: "+300",   lines: ["Comunidades", "gestionadas"] },
+              { val: "15+",    lines: ["Años de", "experiencia", "en el sector"] },
+            ].map(s => (
+              <div key={s.val} className="flex-1 flex flex-col items-center text-center px-6 py-2">
+                <div className="text-5xl md:text-6xl font-black text-white tracking-tighter">{s.val}</div>
+                <div className="text-[11px] font-bold text-[#7aafd4] tracking-[0.12em] uppercase mt-3 mb-3 leading-relaxed">
+                  {s.lines.map((l, i) => <span key={i}>{l}<br/></span>)}
+                </div>
+                <div className="w-8 h-[3px] rounded-full" style={{ background: "#0082C8" }} />
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        {/* Bottom edge fade */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0082C8]/20 to-transparent" />
       </section>
     </>
   );

@@ -312,16 +312,14 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            CONTRASTE MÓVIL — gradiente base lateral reforzado.
-            El gradiente blanco va desde 88% de opacidad a la izquierda
-            (donde está el texto) hasta transparente a la derecha (foto visible).
-            Un scrim adicional detrás del bloque de texto asegura contraste AA
-            incluso con la foto de la pareja (pelo/rostro oscuros detrás de las letras).
+            MÓVIL — overlay oscuro uniforme sobre toda la imagen (patrón DISET).
+            Sin cajas ni bordes: el oscurecimiento es suave y homogéneo de
+            arriba a abajo, el texto blanco encima tiene contraste AA garantizado.
           */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/88 via-white/60 to-transparent md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/75 md:hidden" />
 
-          {/* Mobile Top Fade for Navbar */}
-          <div className="absolute top-0 inset-x-0 h-[35%] bg-gradient-to-b from-white/88 to-transparent md:hidden" />
+          {/* Refuerzo extra en el top para que el navbar no quede sobre imagen sin oscurecer */}
+          <div className="absolute top-0 inset-x-0 h-[30%] bg-gradient-to-b from-black/40 to-transparent md:hidden" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -339,17 +337,18 @@ export default function HeroCarousel() {
           {/* Original Content (Fades out on desktop when a dropdown is open) */}
           <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'md:opacity-0 md:blur-md md:scale-95' : 'opacity-100 blur-0 scale-100'}`}>
             {/* ── EYEBROW ── */}
-            <div className="mb-4 md:mb-6 flex flex-wrap justify-center items-center gap-2 md:gap-3 font-bold bg-slate-100/90 md:bg-white/95 backdrop-blur-md px-3 md:px-6 py-1.5 md:py-2.5 rounded-full border border-slate-200 md:border-slate-900 shadow-sm text-[10px] md:text-sm text-slate-700 md:text-slate-900 uppercase md:normal-case w-max mx-auto">
-              {/* Desktop Content */}
-              <span className="hidden md:inline">Administración de fincas</span>
-              <span className="hidden md:inline text-primary-blue font-black">•</span>
-              <span className="hidden md:inline">Asesoría jurídica</span>
-              <span className="hidden md:inline text-primary-blue font-black">•</span>
-              <span className="hidden md:inline">Inmobiliaria</span>
-
-              {/* Mobile Content */}
-              <div className="md:hidden w-1.5 h-1.5 rounded-full bg-slate-400" />
-              <span className="md:hidden">Gestión Inmobiliaria Integral</span>
+            {/* Desktop pill: fondo claro sobre imagen desenfocada */}
+            <div className="hidden md:flex mb-6 flex-wrap justify-center items-center gap-3 font-bold bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full border border-slate-900 shadow-sm text-sm text-slate-900 normal-case w-max mx-auto">
+              <span>Administración de fincas</span>
+              <span className="text-primary-blue font-black">•</span>
+              <span>Asesoría jurídica</span>
+              <span className="text-primary-blue font-black">•</span>
+              <span>Inmobiliaria</span>
+            </div>
+            {/* Mobile pill: fondo oscuro semitransparente sobre overlay negro (patrón DISET) */}
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full border border-white/25 text-[11px] text-white/90 uppercase w-max">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
+              <span>Gestión Inmobiliaria Integral</span>
             </div>
 
             {/* ── HEADLINE ── */}
@@ -365,45 +364,31 @@ export default function HeroCarousel() {
                 </span>
               </h1>
 
-              {/*
-                PROBLEMA 1 — CONTRASTE MÓVIL:
-                Scrim blanco semitransparente solo detrás del bloque de texto del h1.
-                No tapa la foto: solo añade un halo blanco localizado debajo del texto.
-                El h1 también lleva un text-shadow blanco como segunda línea de defensa.
-              */}
-              <div className="block md:hidden relative">
-                {/* Scrim localizado — solo detrás de este bloque de texto */}
-                <div className="absolute -inset-x-3 -inset-y-2 rounded-2xl bg-white/65 backdrop-blur-[2px] md:hidden" />
-                <h1
-                  className="relative block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
-                  style={{ textShadow: "0 1px 12px rgba(255,255,255,0.95), 0 0px 4px rgba(255,255,255,1)" }}
-                >
-                  Encontramos<br/>
-                  tu <span className="text-primary-blue">hogar</span>.<br/>
-                  Nosotros nos<br/>
-                  ocupamos<br/>
-                  del resto.
-                </h1>
-              </div>
+              {/* Mobile headline — texto blanco sobre overlay oscuro, sin caja/scrim */}
+              <h1 className="block md:hidden text-white font-black leading-[1.05] tracking-tight text-left text-[2.75rem]">
+                Encontramos<br/>
+                tu <span className="text-[#4db8ff]">hogar</span>.<br/>
+                Nosotros nos<br/>
+                ocupamos<br/>
+                del resto.
+              </h1>
             </motion.div>
 
-            {/* ── MOTTO ── */}
+            {/* ── MOTTO — texto blanco sobre fondo oscuro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-4 md:mt-10 text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
-              style={{ textShadow: "0 1px 8px rgba(255,255,255,0.9)" } as React.CSSProperties}
+              className="mt-4 md:mt-10 text-white/85 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
             >
               La tranquilidad de tu hogar, nuestra responsabilidad.
             </motion.p>
 
+            {/* ── MOBILE CTA BUTTONS & SOCIAL PROOF ── */}
             {/*
-              ── MOBILE CTA BUTTONS & SOCIAL PROOF ──
-              PUNTO 1: El botón "Buscar Inmuebles" ahora abre el bottom sheet
-              en lugar de hacer scrollIntoView al widget que está más abajo.
-              El widget de escritorio NO se ve afectado.
+              pb-10: da respiro entre la prueba social y el final del hero,
+              evitando que quede apretado contra la trust bar oscura de abajo.
             */}
-            <div className="w-full md:hidden flex flex-col mt-6 pointer-events-auto max-w-[280px]">
+            <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
-                {/* PUNTO 1: Abre el bottom sheet en móvil */}
+                {/* Botón primario — azul corporativo, funciona bien sobre fondo oscuro */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
                   className="bg-primary-blue text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,130,200,0.5)] flex justify-center items-center gap-2"
@@ -411,21 +396,22 @@ export default function HeroCarousel() {
                   <Search className="w-4 h-4" />
                   Buscar Inmuebles
                 </button>
+                {/* Botón secundario — blanco sólido con texto oscuro: máximo contraste sobre fondo oscuro */}
                 {/* TODO: sustituir por el teléfono real del cliente */}
                 <button
                   onClick={() => window.location.href='tel:+34934685656'}
-                  className="bg-white text-slate-900 border border-slate-200 w-full py-3.5 rounded-full font-bold text-[15px] shadow-sm flex justify-center items-center gap-2 hover:bg-slate-50 transition-colors"
+                  className="bg-white text-slate-900 w-full py-3.5 rounded-full font-bold text-[15px] shadow-lg flex justify-center items-center gap-2 hover:bg-white/90 transition-colors"
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora
                 </button>
               </motion.div>
 
-              {/* Social Proof Badges */}
+              {/* Social Proof Badges — colores adaptados a fondo oscuro */}
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.5 }} className="mt-6 flex items-center gap-3">
                 <div className="flex -space-x-2.5">
-                  <div className="w-9 h-9 rounded-full border-2 border-white bg-blue-100 flex items-center justify-center text-[10px] font-black text-primary-blue shadow-sm">MR</div>
-                  <div className="w-9 h-9 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[10px] font-black text-slate-700 shadow-sm">AL</div>
-                  <div className="w-9 h-9 rounded-full border-2 border-white bg-[#e0f2fe] flex items-center justify-center text-[10px] font-black text-[#0369a1] shadow-sm">JD</div>
+                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">MR</div>
+                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">AL</div>
+                  <div className="w-9 h-9 rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm flex items-center justify-center text-[10px] font-black text-white shadow-sm">JD</div>
                 </div>
                 <div className="flex flex-col">
                   <div className="flex gap-0.5 text-[#FFB800] mb-0.5">
@@ -435,8 +421,8 @@ export default function HeroCarousel() {
                     <Star className="w-3.5 h-3.5 fill-current" />
                     <Star className="w-3.5 h-3.5 fill-current" />
                   </div>
-                  <div className="text-[11px] font-medium text-slate-600 leading-[1.1]">
-                    <span className="font-black text-slate-900 text-xs">+1.500 clientes</span><br/>satisfechos
+                  <div className="text-[11px] font-medium text-white/70 leading-[1.1]">
+                    <span className="font-black text-white text-xs">+1.500 clientes</span><br/>satisfechos
                   </div>
                 </div>
               </motion.div>

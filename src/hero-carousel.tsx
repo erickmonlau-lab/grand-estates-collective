@@ -4,17 +4,14 @@ import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRi
 
 import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
 import img2 from "@/assets/dream_family_offcenter_1783263809999.webp";
-import img3 from "@/assets/dream_sunset_offcenter_1783263818683.webp";
 
-const images = [img1, img2, img3];
-const bgOrigins = ["origin-right", "origin-right", "origin-right"];
+const images = [img1, img2];
+const bgOrigins = ["origin-right", "origin-right"];
 const mobileObjPositions = [
   { objectPosition: "85% 20%" }, // Couple
-  { objectPosition: "85% 20%" }, // Family
-  { objectPosition: "85% 20%" }  // Sunset
+  { objectPosition: "85% 20%" }  // Family
 ];
 const desktopObjPositions = [
-  { objectPosition: "right center" },
   { objectPosition: "right center" },
   { objectPosition: "right center" }
 ];
@@ -313,14 +310,11 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            MÓVIL — overlay oscuro uniforme sobre toda la imagen (patrón DISET).
-            Opacidad aumentada (via-black/60 to-black/90) para asegurar contraste
-            incluso en la 3ª imagen del carrusel que tiene tonos más claros.
+            MÓVIL — overlay claro equivalente al de escritorio.
+            Cubre generosamente la zona donde cae el texto para asegurar contraste.
           */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90 md:hidden" />
-
-          {/* Refuerzo extra en el top para que el navbar no quede sobre imagen sin oscurecer */}
-          <div className="absolute top-0 inset-x-0 h-[30%] bg-gradient-to-b from-black/40 to-transparent md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-transparent md:hidden" />
+          <div className="absolute top-0 inset-x-0 h-[20%] bg-gradient-to-b from-white/95 to-transparent md:hidden" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -365,8 +359,8 @@ export default function HeroCarousel() {
                 </span>
               </h1>
 
-              {/* Mobile headline — texto blanco sobre overlay oscuro, sin caja/scrim */}
-              <h1 className="block md:hidden text-white font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
+              {/* Mobile headline — texto oscuro sobre overlay claro */}
+              <h1 className="block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
                   style={{ fontFamily: "var(--font-system)" }}
               >
                 Encontramos<br/>
@@ -377,9 +371,9 @@ export default function HeroCarousel() {
               </h1>
             </motion.div>
 
-            {/* ── MOTTO — texto blanco sobre fondo oscuro ── */}
+            {/* ── MOTTO — texto oscuro sobre fondo claro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-4 md:mt-10 text-white/85 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
+              className="mt-4 md:mt-10 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
               style={{ fontFamily: "var(--font-system)" }}
             >
               La tranquilidad de tu hogar, nuestra responsabilidad.
@@ -395,7 +389,7 @@ export default function HeroCarousel() {
                 {/* Botón primario */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="bg-[#006ca6] text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,108,166,0.5)] flex justify-center items-center gap-2"
+                  className="bg-primary-blue text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,130,200,0.5)] flex justify-center items-center gap-2"
                   style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Search className="w-4 h-4" />

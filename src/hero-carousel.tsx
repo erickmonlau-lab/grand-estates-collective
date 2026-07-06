@@ -313,10 +313,10 @@ export default function HeroCarousel() {
 
           {/*
             MÓVIL — overlay oscuro uniforme sobre toda la imagen (patrón DISET).
-            Sin cajas ni bordes: el oscurecimiento es suave y homogéneo de
-            arriba a abajo, el texto blanco encima tiene contraste AA garantizado.
+            Opacidad aumentada (via-black/60 to-black/90) para asegurar contraste
+            incluso en la 3ª imagen del carrusel que tiene tonos más claros.
           */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/75 md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black/90 md:hidden" />
 
           {/* Refuerzo extra en el top para que el navbar no quede sobre imagen sin oscurecer */}
           <div className="absolute top-0 inset-x-0 h-[30%] bg-gradient-to-b from-black/40 to-transparent md:hidden" />
@@ -345,8 +345,8 @@ export default function HeroCarousel() {
               <span className="text-primary-blue font-black">•</span>
               <span>Inmobiliaria</span>
             </div>
-            {/* Mobile pill: fondo oscuro semitransparente sobre overlay negro (patrón DISET) */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white/15 backdrop-blur-sm px-4 py-2 rounded-full border border-white/25 text-[11px] text-white/90 uppercase w-max">
+            {/* Mobile pill: tratamiento sólido blanco con halo/glow sutil (estilo DISET) */}
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.4)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-800 uppercase w-max">
               <div className="w-1.5 h-1.5 rounded-full bg-primary-blue" />
               <span>Gestión Inmobiliaria Integral</span>
             </div>

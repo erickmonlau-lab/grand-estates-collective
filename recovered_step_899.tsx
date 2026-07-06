@@ -1,9 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import HeroCarousel from '../hero-carousel';
-import { properties } from "../data/properties";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { Search, MapPin, Home, Users, DollarSign, ChevronDown, Building2, Scale, FileText, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X } from "lucide-react";
+import { Search, MapPin, Home, Users, DollarSign, ChevronDown, Building2, Scale, FileText, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 import property1 from "@/assets/property-1.jpg";
 import property2 from "@/assets/property-2.jpg";
@@ -13,7 +11,7 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gesgramaBuilding from "@/assets/gesgrama_building.jpg";
-import gesgramaOffice from "@/assets/gesgrama_storefront_final.jpg";
+import gesgramaOffice from "@/assets/gesgrama_office.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -101,21 +99,6 @@ const translations = {
         { icon: "star", title: "+15 años de trayectoria", desc: "Una empresa con sólida experiencia, cartera consolidada y reputación impecable en el sector." },
         { icon: "trending", title: "Optimización de costes", desc: "Revisamos todos los contratos y servicios para que su comunidad pague siempre lo justo." }
       ]
-    },
-    coverage: {
-      tag: "ÁREA DE COBERTURA",
-      title: "Trabajamos en toda la provincia de Barcelona",
-      subtitle: "Equipo propio en toda el área metropolitana, Maresme, Vallès, Baix Llobregat y Costa Daurada.",
-      s1Value: "+300",
-      s1Label: "Comunidades atendidas",
-      s2Value: "25+",
-      s2Label: "Años de experiencia",
-      s3Value: "100%",
-      s3Label: "Personal propio y certificado",
-      s4Value: "24h",
-      s4Label: "Respuesta rápida garantizada",
-      mapTitle: "Sede Central",
-      mapSubtitle: "Av. dels Banús, 49"
     },
     cta: {
       tag: "¿Hablamos?",
@@ -226,21 +209,6 @@ const translations = {
         { icon: "trending", title: "Cost optimization", desc: "We review all contracts and services so your community always pays the right price." }
       ]
     },
-    coverage: {
-      tag: "COVERAGE AREA",
-      title: "We work throughout the province of Barcelona",
-      subtitle: "Our own team across the metropolitan area, Maresme, Vallès, Baix Llobregat, and Costa Daurada.",
-      s1Value: "+300",
-      s1Label: "Communities served",
-      s2Value: "25+",
-      s2Label: "Years of experience",
-      s3Value: "100%",
-      s3Label: "In-house certified staff",
-      s4Value: "24h",
-      s4Label: "Fast response guaranteed",
-      mapTitle: "Headquarters",
-      mapSubtitle: "Av. dels Banús, 49"
-    },
     cta: {
       tag: "Let's talk",
       title: "Your community in the best hands.",
@@ -350,21 +318,6 @@ const translations = {
         { icon: "trending", title: "Optimització de costos", desc: "Revisem tots els contractes i serveis perquè la seva comunitat sempre pagui el just." }
       ]
     },
-    coverage: {
-      tag: "ÀREA DE COBERTURA",
-      title: "Treballem a tota la província de Barcelona",
-      subtitle: "Equip propi a tota l'àrea metropolitana, Maresme, Vallès, Baix Llobregat i Costa Daurada.",
-      s1Value: "+300",
-      s1Label: "Comunitats ateses",
-      s2Value: "25+",
-      s2Label: "Anys d'experiència",
-      s3Value: "100%",
-      s3Label: "Personal propi i certificat",
-      s4Value: "24h",
-      s4Label: "Resposta ràpida garantida",
-      mapTitle: "Àrea Metropolitana",
-      mapSubtitle: "Seu: Av. dels Banús, 49"
-    },
     cta: {
       tag: "Parlem?",
       title: "La seva comunitat en les millors mans.",
@@ -461,10 +414,9 @@ function Index() {
   const t = translations[language];
 
   const [searchType, setSearchType] = useState<"comprar" | "alquilar">("comprar");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchParams, setSearchParams] = useState({
-    zona: "Cualquiera",
-    tipo: "Todos",
+    zona: "Madrid",
+    tipo: "Piso",
     hab: "2+",
     precio: "300.000 €"
   });
@@ -499,79 +451,318 @@ function Index() {
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
-        className="fixed top-5 left-1/2 -translate-x-1/2 w-[96%] max-w-[1400px] z-50 flex items-center justify-between py-4 md:py-5 px-8 md:px-10 rounded-full bg-white/98 backdrop-blur-md border border-black/[0.05] shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
+        className="fixed top-5 left-1/2 -translate-x-1/2 w-[92%] max-w-5xl z-50 flex items-center justify-between py-2 px-5 rounded-full bg-white/98 backdrop-blur-md border border-black/[0.05] shadow-[0_8px_24px_rgba(0,0,0,0.06)] h-[60px]"
       >
         {/* LOGO - Restored original logo */}
-        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2 -my-4 md:-my-6">
-          <img src={logoImg} alt="Gesgrama" className="h-16 md:h-20 lg:h-[5.5rem] w-auto object-contain" />
+        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1">
+          <img src={logoImg} alt="Gesgrama" className="h-9 w-auto object-contain" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-onyx/70 tracking-widest uppercase">
+        <div className="hidden md:flex items-center gap-6 text-[11px] font-semibold text-onyx/60 tracking-wider uppercase">
           <a href="#propiedades" className="hover:text-primary-blue transition-colors duration-200 py-1">{t.nav.propiedades}</a>
           <a href="#servicios" className="hover:text-primary-blue transition-colors duration-200 py-1">{t.nav.servicios}</a>
           <a href="#nosotros" className="hover:text-primary-blue transition-colors duration-200 py-1">{t.nav.nosotros}</a>
           <a href="#contacto" className="hover:text-primary-blue transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
 
-        <div className="flex items-center gap-3 lg:gap-6 shrink-0 pr-1">
-          <div className="flex items-center bg-[#f4f6f8] border border-black/[0.03] rounded-[1.2rem] p-1 md:p-1.5 text-[10px] md:text-[12px] font-bold">
+        <div className="flex items-center gap-3 shrink-0 pr-1">
+          <div className="hidden md:flex items-center gap-1 text-[10px] text-onyx/35 font-bold">
             {(["ES", "CA", "EN"] as const).map((lang, idx) => (
-              <div key={lang} className="flex items-center">
-                {idx > 0 && <span className="text-black/[0.08] select-none text-[8px] md:text-[10px] mx-0.5 md:mx-1">|</span>}
+              <span key={lang} className="flex items-center">
+                {idx > 0 && <span className="mx-1 text-onyx/15 select-none">·</span>}
                 <button
                   onClick={() => setLanguage(lang.toLowerCase() as "es" | "en" | "ca")}
-                  className={`transition-all duration-300 cursor-pointer px-2.5 py-1.5 md:px-4 md:py-2 rounded-[0.8rem] ${
-                    language === lang.toLowerCase() 
-                      ? "bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)] text-onyx" 
-                      : "text-onyx/40 hover:text-onyx"
-                  }`}
+                  className={`transition-colors hover:text-onyx cursor-pointer px-0.5 ${language === lang.toLowerCase() ? "text-primary-blue font-extrabold" : ""}`}
                 >
                   {lang}
                 </button>
-              </div>
+              </span>
             ))}
           </div>
           <a
             href="#contacto"
-            className="hidden sm:inline-block bg-primary-blue text-white hover:bg-onyx px-8 md:px-10 py-4 md:py-4 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
+            className="bg-primary-blue text-white hover:bg-onyx px-5 py-2.5 rounded-full text-[10px] uppercase tracking-wider font-bold transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-px"
           >
             {t.nav.portal}
           </a>
-          <button 
-            className="lg:hidden p-2 text-onyx"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
-
-        {/* MOBILE MENU */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 right-0 mt-4 bg-white rounded-3xl p-6 shadow-xl border border-black/[0.05] flex flex-col gap-4 z-50 lg:hidden"
-            >
-              <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.propiedades}</a>
-              <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.servicios}</a>
-              <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.nosotros}</a>
-              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-onyx">{t.nav.contacto}</a>
-              
-              <a href="#contacto" className="mt-4 text-center bg-onyx text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs">
-                {t.nav.portal}
-              </a>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
 
       {/* HERO */}
-      <HeroCarousel />
+      <section className="relative min-h-screen flex flex-col justify-center items-center pt-36 pb-24 px-6 overflow-hidden bg-[#F8FAFC]">
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(0,130,200,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,130,200,1) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+        {/* Left dreamy apparition */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 3, delay: 0.5 }}
+          className="absolute left-0 top-[15%] w-[420px] h-[420px] xl:w-[580px] xl:h-[580px] pointer-events-none z-0 hidden lg:block"
+        >
+          <motion.div
+            animate={{ y: [0, -20, 0], scale: [1, 1.03, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="w-full h-full bg-cover bg-center [mask-image:radial-gradient(ellipse_60%_60%_at_30%_40%,black_0%,transparent_70%)]"
+            style={{ backgroundImage: `url(${gesgramaBuilding})`, opacity: 0.18 }}
+          />
+        </motion.div>
+
+        {/* Right dreamy apparition */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 3, delay: 0.8 }}
+          className="absolute right-0 top-[30%] w-[380px] h-[380px] xl:w-[520px] xl:h-[520px] pointer-events-none z-0 hidden lg:block"
+        >
+          <motion.div
+            animate={{ y: [0, 18, 0], scale: [1, 1.02, 1] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+            className="w-full h-full bg-cover bg-center [mask-image:radial-gradient(ellipse_60%_60%_at_70%_50%,black_0%,transparent_70%)]"
+            style={{ backgroundImage: `url(${gesgramaOffice})`, opacity: 0.15 }}
+          />
+        </motion.div>
+
+        {/* White gradient top */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-[#F8FAFC] to-transparent pointer-events-none z-10" />
+
+        <div className="relative z-20 w-full max-w-5xl flex flex-col items-center text-center">
+
+          {/* Glass card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: easeOut }}
+            className="w-full flex flex-col items-center pt-16 pb-14 px-6 md:px-14 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl shadow-[0_0_80px_rgba(255,255,255,0.9),0_20px_50px_rgba(0,0,0,0.05)] border border-white/90"
+          >
+            {/* Tag */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-[11px] uppercase tracking-[0.35em] text-primary-blue font-bold mb-8"
+            >
+              {t.hero.tag}
+            </motion.p>
+
+            {/* Title - Uses system serif for authority; the italic accent uses a beautiful cursive feel */}
+            <h1 key={language} className="text-4xl md:text-5xl lg:text-[4.2rem] leading-[1.08] mb-6 tracking-tight text-onyx font-bold max-w-3xl">
+              <LetterReveal text={t.hero.title1} delay={0.2} className="block" />
+              <LetterReveal text={t.hero.title2} delay={0.7} className="block" />
+              <span className="block text-primary-blue" style={{ fontFamily: "'Georgia', 'Times New Roman', serif", fontStyle: "italic", fontWeight: 400 }}>
+                <LetterReveal text={t.hero.title3} delay={1.2} />
+              </span>
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, delay: 1.5 }}
+              className="text-onyx/55 max-w-md mx-auto text-base md:text-lg font-normal leading-relaxed text-center mb-10"
+            >
+              {t.hero.subtitle}
+            </motion.p>
+
+            {/* SEARCH BAR */}
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.4, delay: 1.8, ease: easeOut }}
+              className="w-full"
+            >
+              <div
+                ref={dropdownRef}
+                className="w-full bg-[#F3F6FA] rounded-2xl p-2 border border-black/[0.06] shadow-inner flex flex-col lg:flex-row items-stretch gap-2"
+              >
+                {/* TABS */}
+                <div className="flex rounded-xl overflow-hidden bg-white shadow-sm border border-black/[0.05] shrink-0">
+                  {(["comprar", "alquilar"] as const).map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setSearchType(type)}
+                      className={`flex-1 px-7 py-3 text-[11px] uppercase tracking-[0.18em] font-bold transition-all duration-250 cursor-pointer focus:outline-none ${
+                        searchType === type
+                          ? "bg-primary-blue text-white shadow-md"
+                          : "text-onyx/40 hover:text-onyx/70"
+                      }`}
+                    >
+                      {type === "comprar" ? t.hero.comprar : t.hero.alquilar}
+                    </button>
+                  ))}
+                </div>
+
+                {/* FIELDS */}
+                <div className="flex-1 flex flex-col sm:flex-row gap-2">
+                  {/* ZONA */}
+                  <div className="relative flex-1">
+                    <button
+                      type="button"
+                      onClick={() => setActiveDropdown(activeDropdown === "zona" ? null : "zona")}
+                      className="w-full text-left py-3 px-4 rounded-xl bg-white border border-black/[0.05] hover:border-primary-blue/40 transition-colors flex items-center gap-3 cursor-pointer group focus:outline-none shadow-sm"
+                    >
+                      <MapPin className="w-4 h-4 text-primary-blue shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[9px] text-onyx/40 uppercase tracking-wider font-bold mb-0.5">{t.hero.zona}</div>
+                        <div className="text-sm text-onyx font-semibold flex items-center justify-between">
+                          <span className="truncate">{searchParams.zona}</span>
+                          <ChevronDown className="w-3.5 h-3.5 text-onyx/30 shrink-0 ml-1" />
+                        </div>
+                      </div>
+                    </button>
+                    <AnimatePresence>
+                      {activeDropdown === "zona" && (
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
+                          className="absolute top-full left-0 mt-2 w-52 bg-white border border-black/[0.06] rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] z-30 p-1.5">
+                          {["Madrid", "Barcelona", "Valencia", "Sevilla", "Málaga", "Bilbao"].map((loc) => (
+                            <button key={loc} type="button"
+                              onClick={() => { setSearchParams(p => ({ ...p, zona: loc })); setActiveDropdown(null); }}
+                              className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${searchParams.zona === loc ? "bg-primary-blue/10 text-primary-blue font-semibold" : "hover:bg-slate-50 text-onyx/80"}`}>
+                              <span>{loc}</span>
+                              {searchParams.zona === loc && <span className="text-primary-blue text-xs">✓</span>}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* TIPO */}
+                  <div className="relative flex-1">
+                    <button
+                      type="button"
+                      onClick={() => setActiveDropdown(activeDropdown === "tipo" ? null : "tipo")}
+                      className="w-full text-left py-3 px-4 rounded-xl bg-white border border-black/[0.05] hover:border-primary-blue/40 transition-colors flex items-center gap-3 cursor-pointer group focus:outline-none shadow-sm"
+                    >
+                      <Home className="w-4 h-4 text-primary-blue shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[9px] text-onyx/40 uppercase tracking-wider font-bold mb-0.5">{t.hero.tipo}</div>
+                        <div className="text-sm text-onyx font-semibold flex items-center justify-between">
+                          <span className="truncate">{searchParams.tipo}</span>
+                          <ChevronDown className="w-3.5 h-3.5 text-onyx/30 shrink-0 ml-1" />
+                        </div>
+                      </div>
+                    </button>
+                    <AnimatePresence>
+                      {activeDropdown === "tipo" && (
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
+                          className="absolute top-full left-0 mt-2 w-48 bg-white border border-black/[0.06] rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] z-30 p-1.5">
+                          {["Piso", "Ático", "Local comercial", "Oficina", "Garaje", "Finca/Solar"].map((tp) => (
+                            <button key={tp} type="button"
+                              onClick={() => { setSearchParams(p => ({ ...p, tipo: tp })); setActiveDropdown(null); }}
+                              className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${searchParams.tipo === tp ? "bg-primary-blue/10 text-primary-blue font-semibold" : "hover:bg-slate-50 text-onyx/80"}`}>
+                              <span>{tp}</span>
+                              {searchParams.tipo === tp && <span className="text-primary-blue text-xs">✓</span>}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* HABITACIONES */}
+                  <div className="relative flex-1">
+                    <button
+                      type="button"
+                      onClick={() => setActiveDropdown(activeDropdown === "hab" ? null : "hab")}
+                      className="w-full text-left py-3 px-4 rounded-xl bg-white border border-black/[0.05] hover:border-primary-blue/40 transition-colors flex items-center gap-3 cursor-pointer group focus:outline-none shadow-sm"
+                    >
+                      <Users className="w-4 h-4 text-primary-blue shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[9px] text-onyx/40 uppercase tracking-wider font-bold mb-0.5">{t.hero.hab}</div>
+                        <div className="text-sm text-onyx font-semibold flex items-center justify-between">
+                          <span>{searchParams.hab}</span>
+                          <ChevronDown className="w-3.5 h-3.5 text-onyx/30 shrink-0 ml-1" />
+                        </div>
+                      </div>
+                    </button>
+                    <AnimatePresence>
+                      {activeDropdown === "hab" && (
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
+                          className="absolute top-full left-0 mt-2 w-36 bg-white border border-black/[0.06] rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] z-30 p-1.5">
+                          {["Cualquiera", "1+", "2+", "3+", "4+", "5+"].map((h) => (
+                            <button key={h} type="button"
+                              onClick={() => { setSearchParams(p => ({ ...p, hab: h })); setActiveDropdown(null); }}
+                              className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${searchParams.hab === h ? "bg-primary-blue/10 text-primary-blue font-semibold" : "hover:bg-slate-50 text-onyx/80"}`}>
+                              <span>{h}</span>
+                              {searchParams.hab === h && <span className="text-primary-blue text-xs">✓</span>}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* PRECIO */}
+                  <div className="relative flex-1">
+                    <button
+                      type="button"
+                      onClick={() => setActiveDropdown(activeDropdown === "precio" ? null : "precio")}
+                      className="w-full text-left py-3 px-4 rounded-xl bg-white border border-black/[0.05] hover:border-primary-blue/40 transition-colors flex items-center gap-3 cursor-pointer group focus:outline-none shadow-sm"
+                    >
+                      <DollarSign className="w-4 h-4 text-primary-blue shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[9px] text-onyx/40 uppercase tracking-wider font-bold mb-0.5">{t.hero.precio}</div>
+                        <div className="text-sm text-onyx font-semibold flex items-center justify-between">
+                          <span className="truncate">{searchParams.precio}</span>
+                          <ChevronDown className="w-3.5 h-3.5 text-onyx/30 shrink-0 ml-1" />
+                        </div>
+                      </div>
+                    </button>
+                    <AnimatePresence>
+                      {activeDropdown === "precio" && (
+                        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }}
+                          className="absolute top-full right-0 mt-2 w-52 bg-white border border-black/[0.06] rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] z-30 p-1.5">
+                          {["Cualquiera", "100.000 €", "200.000 €", "300.000 €", "500.000 €", "750.000 €", "+1.000.000 €"].map((pr) => (
+                            <button key={pr} type="button"
+                              onClick={() => { setSearchParams(p => ({ ...p, precio: pr })); setActiveDropdown(null); }}
+                              className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition-colors flex items-center justify-between ${searchParams.precio === pr ? "bg-primary-blue/10 text-primary-blue font-semibold" : "hover:bg-slate-50 text-onyx/80"}`}>
+                              <span>{pr}</span>
+                              {searchParams.precio === pr && <span className="text-primary-blue text-xs">✓</span>}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+                {/* SEARCH BUTTON */}
+                <button
+                  type="button"
+                  onClick={() => alert(`Buscando: ${searchType} — ${searchParams.tipo} en ${searchParams.zona}, ${searchParams.hab} hab., hasta ${searchParams.precio}`)}
+                  className="bg-primary-blue text-white font-bold text-[11px] uppercase tracking-[0.18em] px-8 py-3 rounded-xl hover:bg-onyx transition-all duration-300 hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center gap-2.5 shrink-0 whitespace-nowrap"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>{t.hero.buscarBtn}</span>
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Quick CTAs */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.2 }}
+              className="flex flex-col sm:flex-row items-center gap-8 mt-8"
+            >
+              <a href="#propiedades" className="text-[11px] font-semibold text-onyx/50 uppercase tracking-widest hover:text-primary-blue transition-colors flex items-center gap-2 group">
+                <span>{t.cta.findHome}</span>
+                <span className="group-hover:translate-x-1.5 transition-transform text-primary-blue">→</span>
+              </a>
+              <span className="hidden sm:inline text-onyx/15">|</span>
+              <a href="#contacto" className="text-[11px] font-semibold text-onyx/50 uppercase tracking-widest hover:text-primary-blue transition-colors flex items-center gap-2 group">
+                <span>{t.cta.contact}</span>
+                <span className="group-hover:translate-x-1.5 transition-transform text-primary-blue">→</span>
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* PROPERTIES SECTION */}
-      <section id="propiedades" className="py-28 md:py-36 px-6 md:px-12 bg-gradient-to-b from-white via-white to-[#F8FAFC] text-onyx">
+      <section id="propiedades" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
             <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
@@ -586,69 +777,16 @@ function Index() {
             </div>
           </Reveal>
 
-          {/* BARRA DE FILTROS */}
-          <div className="bg-[#F8FAFC] border border-onyx/[0.05] rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="flex gap-4 w-full md:w-auto">
-              <select 
-                value={searchParams.tipo} 
-                onChange={(e) => setSearchParams(p => ({...p, tipo: e.target.value}))}
-                className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
-              >
-                <option value="Todos">Tipo de inmueble</option>
-                <option value="Piso">Piso</option>
-                <option value="Ático">Ático</option>
-                <option value="Local comercial">Local comercial</option>
-              </select>
-              <select 
-                value={searchParams.zona} 
-                onChange={(e) => setSearchParams(p => ({...p, zona: e.target.value}))}
-                className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
-              >
-                <option value="Cualquiera">Zona</option>
-                {[...new Set(properties.map(p => p.location))].map(loc => (
-                  <option key={loc} value={loc}>{loc}</option>
-                ))}
-              </select>
-            </div>
-            <div className="text-sm text-onyx/50 italic">Mostrando propiedades</div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {properties
-              .filter(p => searchParams.zona === 'Cualquiera' ? true : p.location.includes(searchParams.zona))
-              .filter(p => searchParams.tipo === 'Todos' ? true : p.type === searchParams.tipo)
-              .map((property, idx) => (
-              <Link to={`/inmobiliaria/${property.slug}`} key={property.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: 0.2 + idx * 0.1, ease: easeOut }}
-                  className="group relative bg-white border border-onyx/[0.05] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col h-full hover:-translate-y-1"
-                >
-                  <div className="relative h-[280px] overflow-hidden">
-                    <img src={property.image} alt={property.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm text-onyx">
-                      {property.status === 'venta' ? 'En Venta' : 'Alquiler'}
-                    </div>
-                  </div>
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-onyx mb-1 group-hover:text-primary-blue transition-colors">{property.title}</h3>
-                        <p className="text-sm text-onyx/60">{property.location}</p>
-                      </div>
-                      <div className="text-xl font-light text-onyx bg-onyx/5 px-3 py-1 rounded-full">{new Intl.NumberFormat('es-ES').format(property.price)} €</div>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs font-semibold text-onyx/50 uppercase tracking-widest mt-auto pt-6 border-t border-onyx/[0.05]">
-                      <span>{property.features.beds} hab.</span>
-                      <span>{property.features.baths} baños</span>
-                      <span>{property.features.area} m²</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Reveal delay={0}>
+              <PropertyCard img={property1} name="Piso en Gran Vía" location="Madrid Centro" specs="3 hab. · 2 baños · 110 m²" price="320.000 €" type="Piso en venta" />
+            </Reveal>
+            <Reveal delay={0.1}>
+              <PropertyCard img={property2} name="Ático con terraza" location="Salamanca, Madrid" specs="4 hab. · 3 baños · 165 m²" price="590.000 €" type="Ático en venta" />
+            </Reveal>
+            <Reveal delay={0.2}>
+              <PropertyCard img={property3} name="Local comercial" location="Chamberí, Madrid" specs="85 m² · Planta baja" price="195.000 €" type="Local en venta" />
+            </Reveal>
           </div>
 
           <Reveal delay={0.1}>
@@ -704,142 +842,64 @@ function Index() {
       </section>
 
       {/* PHILOSOPHY QUOTE */}
-      {/* STATS & PHILOSOPHY CONSOLIDATED */}
-      <section className="py-24 md:py-32 bg-[#F8FAFC] text-onyx border-t border-onyx/[0.05]">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-1/3">
-            <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-6">{t.philosophy.tag}</p>
-              <blockquote key={language} className="text-2xl text-onyx leading-snug border-l-4 border-primary-blue pl-6 py-2" style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }}>
-                {t.philosophy.quote}
-              </blockquote>
-            </Reveal>
-          </div>
-          
-          <div className="lg:w-2/3 w-full">
-            <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-10">{t.stats.tag}</p>
-            </Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={350} /></>} label={t.stats.communities} />
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={1200} /></>} label={t.stats.sold} />
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={15} /></>} label={t.stats.experience} />
-              <StatBlock value={<><Counter to={98} /><span className="text-primary-blue">%</span></>} label={t.stats.satisfied} />
-            </div>
+      <section className="relative bg-onyx py-28 md:py-40 text-center px-6 overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <img src={texture} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-onyx/50" />
+        </div>
+        <Reveal className="relative z-10 max-w-4xl mx-auto">
+          <p className="text-[10px] uppercase tracking-[0.5em] text-primary-blue font-bold mb-10">{t.philosophy.tag}</p>
+          <blockquote key={language} className="text-2xl md:text-4xl lg:text-5xl text-white leading-[1.2]" style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }}>
+            {t.philosophy.quote}
+          </blockquote>
+          <div className="w-12 h-px bg-primary-blue mx-auto mt-12" />
+        </Reveal>
+      </section>
+
+      {/* STATS */}
+      <section className="py-24 md:py-32 bg-white text-onyx">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <Reveal>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-16 text-center">{t.stats.tag}</p>
+          </Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={350} /></>} label={t.stats.communities} />
+            <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={1200} /></>} label={t.stats.sold} />
+            <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={15} /></>} label={t.stats.experience} />
+            <StatBlock value={<><Counter to={98} /><span className="text-primary-blue">%</span></>} label={t.stats.satisfied} />
           </div>
         </div>
       </section>
 
       {/* NOSOTROS / WHY US */}
-      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
-            <Reveal>
-              <div className="mb-12">
-                <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.nosotros.tag}</p>
-                <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx">
-                  {t.nosotros.title1} <br />
-                  <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.nosotros.title2}</span>
-                  {" "}{t.nosotros.title3}
-                </h2>
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {t.nosotros.items.map((item, i) => (
-                <Reveal key={item.title} delay={i * 0.08}>
-                  <div className="group bg-white rounded-2xl p-6 border border-black/[0.05] hover:border-primary-blue/25 hover:shadow-[0_15px_40px_rgba(0,130,200,0.07)] transition-all duration-400 flex flex-col gap-4 items-start h-full">
-                    <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
-                      {iconMap[item.icon]}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-onyx mb-2">{item.title}</h4>
-                      <p className="text-onyx/55 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          <Reveal delay={0.2}>
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-full aspect-[4/3] lg:aspect-square">
-              <img 
-                src={gesgramaOffice} 
-                alt="Oficina Gesgrama" 
-                className="w-full h-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary-blue/20 to-transparent mix-blend-overlay"></div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* COVERAGE AREA */}
-      <section id="cobertura" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
+      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-[#F8FAFC] text-onyx">
+        <div className="max-w-[1400px] mx-auto">
           <Reveal>
-            <div className="max-w-xl">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.coverage.tag}</p>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-onyx mb-6">
-                {t.coverage.title}
+            <div className="mb-16">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.nosotros.tag}</p>
+              <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
+                {t.nosotros.title1} <br />
+                <span style={{ fontFamily: "'Georgia', serif", fontStyle: "italic", fontWeight: 400 }} className="text-primary-blue">{t.nosotros.title2}</span>
+                {" "}{t.nosotros.title3}
               </h2>
-              <p className="text-onyx/60 text-lg md:text-xl leading-relaxed mb-16 max-w-md">
-                {t.coverage.subtitle}
-              </p>
-              
-              <div className="grid grid-cols-2 gap-x-10 gap-y-14">
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s1Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s1Label}</div>
-                </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s2Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s2Label}</div>
-                </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s3Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s3Label}</div>
-                </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s4Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s4Label}</div>
-                </div>
-              </div>
             </div>
           </Reveal>
 
-          <Reveal delay={0.2}>
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] h-[500px] md:h-[650px] bg-slate-100">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={false} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale-[30%] contrast-[110%] opacity-90 object-cover"
-              ></iframe>
-              
-              <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-white/20 max-w-[280px]">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary-blue/10 p-3 rounded-2xl shrink-0 text-primary-blue">
-                    <MapPin className="w-6 h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {t.nosotros.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.08}>
+                <div className="group bg-white rounded-2xl p-8 border border-black/[0.05] hover:border-primary-blue/25 hover:shadow-[0_15px_40px_rgba(0,130,200,0.07)] transition-all duration-400 flex gap-5 items-start">
+                  <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
+                    {iconMap[item.icon]}
                   </div>
                   <div>
-                    <h3 className="font-bold text-onyx text-sm mb-1">{t.coverage.mapTitle}</h3>
-                    <p className="text-onyx/60 text-[11px] font-medium leading-relaxed mb-2">{t.coverage.mapSubtitle}</p>
-                    <a href="tel:+34934685656" className="text-primary-blue font-bold text-[13px] hover:text-onyx transition-colors flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5" /> 934 685 656
-                    </a>
+                    <h4 className="font-bold text-lg text-onyx mb-2">{item.title}</h4>
+                    <p className="text-onyx/55 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </Reveal>
-
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

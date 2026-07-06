@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-blue: #0082c8;
+  --color-onyx: #0f172a;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: white;
+}
+
+/* ──────────────────────────────────────────────────
+   TYPOGRAPHY — Premium Font Stack
+────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ──────────────────────────────────────────────────
+   MARQUEE — "La Maquinaria Perfecta"
+   Infinite horizontal scroll strip — core visual element
+────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-scroll-slow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 14px;
+  animation: marquee-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ──────────────────────────────────────────────────
+   CURSOR GLOW — Ambient mouse tracking
+────────────────────────────────────────────────── */
+.hero-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    520px circle at var(--mx, -1000px) var(--my, -1000px),
+    rgba(0, 130, 200, 0.055),
+    transparent 38%
+  );
+}
+
+/* ──────────────────────────────────────────────────
+   DOT GRID BACKGROUND
+────────────────────────────────────────────────── */
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ──────────────────────────────────────────────────
+   MARQUEE ITEM ANIMATIONS
+────────────────────────────────────────────────── */
+@keyframes slow-pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 130, 200, 0.25); }
+  50%       { box-shadow: 0 0 0 18px rgba(0, 130, 200, 0); }
+}
+
+@keyframes float-up {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ──────────────────────────────────────────────────
+   SCROLLBAR HIDE
+────────────────────────────────────────────────── */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ──────────────────────────────────────────────────
+   BUTTON MAGNETIC HOVER GLOW
+────────────────────────────────────────────────── */
+.btn-primary-glow:hover {
+  box-shadow: 0 6px 28px rgba(0, 130, 200, 0.40);
+}
+
+section[id] { scroll-margin-top: 100px; }
+

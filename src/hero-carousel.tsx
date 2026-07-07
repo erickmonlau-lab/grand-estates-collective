@@ -291,12 +291,12 @@ export default function HeroCarousel() {
       */}
       <section className="relative w-full flex flex-col items-center
         min-h-[100dvh] justify-center md:pt-20
-        pt-[112px] pb-0 bg-slate-100 md:bg-transparent overflow-x-hidden"
+        pt-[112px] pb-0 bg-white md:bg-transparent overflow-x-hidden"
         style={{ fontFamily: "var(--font-system)" }}
       >
 
         {/* ── BACKGROUND ── */}
-        <div className="absolute top-0 inset-x-0 h-full md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-slate-900">
+        <div className="absolute bottom-0 inset-x-0 h-[80dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
           <AnimatePresence mode="popLayout">
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
@@ -305,11 +305,11 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            MÓVIL — overlay con gradiente lineal robusto (CSS puro vía Tailwind).
-            Blanco sólido solo hasta donde llega el texto (50%), y caída brusca a transparente (65%)
-            para revelar a los sujetos al máximo.
+            MÓVIL — overlay para fundir el borde superior de la imagen con el fondo blanco,
+            y oscurecer un poco la izquierda para el texto.
           */}
-          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-50% to-transparent to-65%" />
+          <div className="absolute top-0 inset-x-0 h-48 md:hidden bg-gradient-to-b from-white via-white/80 to-transparent" />
+          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% to-transparent to-60%" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />

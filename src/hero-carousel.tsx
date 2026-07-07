@@ -3,17 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
 import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
-import img2 from "@/assets/dream_family_offcenter_1783263809999.webp";
+import img2 from "@/assets/dream_family_flipped.webp";
 
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "65% 20%" }, // Couple: Shifted viewport left to move subjects right
-  { objectPosition: "45% 50%" }  // Family: Shifted viewport much further left to find the subjects and put them on the right
+  { objectPosition: "100% 20%" }, // Couple: Subjects on far right of image -> 100% aligns them to right edge of screen
+  { objectPosition: "100% 20%" }  // Family (Flipped): Subjects on far right -> 100% aligns them to right edge of screen
 ];
 const mobileOverlays = [
-  "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 60%)", // Couple: Standard intensity
-  "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.65) 25%, rgba(255,255,255,0) 45%)"  // Family: Reduced intensity and faster fade
+  "radial-gradient(160% 160% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%)",
+  "radial-gradient(160% 160% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%)"
 ];
 const desktopObjPositions = [
   { objectPosition: "right center" },

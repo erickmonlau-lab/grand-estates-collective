@@ -301,16 +301,16 @@ export default function HeroCarousel() {
           .desktop-pos-right { object-position: right center; }
           @media (max-width: 767px) {
             /* 
-             * PAREJA: Basado en el 75%, movido ligeramente a la izq (X=80%) y arriba (Y=60%) para ver al hombre
-             * FAMILIA: Basado en el 75%, movido hacia arriba (Y=65%) para ver al niño
+             * Al reducir el alto a 55dvh, la imagen se escala (caben los dos) y baja (esquiva el texto).
+             * Restauramos el X=75% que es el que mejor encuadraba a la chica a la derecha.
              */
-            .mobile-pos-couple { object-position: 80% 60% !important; }
+            .mobile-pos-couple { object-position: 75% 50% !important; }
             .mobile-pos-family { object-position: 75% 65% !important; }
           }
         `}</style>
 
         {/* ── BACKGROUND ── */}
-        <div className="absolute bottom-0 inset-x-0 h-[65dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
+        <div className="absolute bottom-0 inset-x-0 h-[55dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
           <AnimatePresence mode="popLayout">
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}

@@ -8,8 +8,8 @@ import img2 from "@/assets/dream_family_flipped.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const imageClasses = [
-  "object-[85%_center] md:object-right", // Couple: Slight push to the right
-  "object-[85%_center] md:object-right"  // Family: Slight push to the right
+  "object-[92%_center] md:object-right", // Couple: Perfect sweet spot
+  "object-[92%_center] md:object-right"  // Family: Perfect sweet spot
 ];
 
 const ZONES = [
@@ -301,7 +301,7 @@ export default function HeroCarousel() {
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
               transition={{ duration: 1.6, ease: "easeInOut" }}
-              className={`absolute inset-0 w-full h-full object-cover object-right ${imageClasses[imgIdx]}`} alt="" />
+              className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]} ${imageClasses[imgIdx]}`} alt="" />
           </AnimatePresence>
 
           {/*

@@ -300,9 +300,12 @@ export default function HeroCarousel() {
         <style>{`
           .desktop-pos-right { object-position: right center; }
           @media (max-width: 767px) {
-            /* Empíricamente: bajar X mueve a la izquierda, subir Y mueve arriba (muestra más abajo) */
-            .mobile-pos-couple { object-position: 35% 65% !important; }
-            .mobile-pos-family { object-position: 50% 85% !important; }
+            /* 
+             * PAREJA: X=65% (mueve la imagen a la izquierda para revelar al hombre), Y=60% (sube la imagen)
+             * FAMILIA: X=55% (centrada ligeramente a la derecha), Y=65% (sube la imagen para ver al niño)
+             */
+            .mobile-pos-couple { object-position: 65% 60% !important; }
+            .mobile-pos-family { object-position: 55% 65% !important; }
           }
         `}</style>
 

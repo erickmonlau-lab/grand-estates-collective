@@ -391,11 +391,13 @@ export default function HeroCarousel() {
 
             {/* ── MOBILE CTA BUTTONS ── */}
             <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
-              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-2">
-                {/* Botón primario */}
+              <motion.div
+          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-white border border-slate-200 flex flex-col w-full z-40"
+        >        {/* Botón primario */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-full brutal-button text-sm"
+                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-none brutal-button text-sm"
                   style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Search className="w-4 h-4" />
@@ -449,22 +451,8 @@ export default function HeroCarousel() {
                 return (
                   <button key={m} onClick={() => setMode(m)}
                     className={`relative flex items-center justify-center gap-3 sm:gap-4 py-3 sm:py-6 font-bold tracking-[0.12em] uppercase transition-all duration-300 focus:outline-none overflow-hidden ${
-                      isActive ? "text-white" : "text-white"
-                    }`}
-                    style={isActive ? {} : { background: '#1e293b', boxShadow: 'inset 0 0 0 3px rgba(255,255,255,0.25)' }}>
-                    {isActive && (
-                      <motion.div layoutId="tabBg" className="absolute inset-0"
-                        style={{ background: "linear-gradient(135deg, #0082C8 0%, #0055a0 100%)" }}
-                        transition={{ type:"spring", stiffness:380, damping:36 }} />
-                    )}
-                    <span className={`relative z-10 flex items-center justify-center w-12 h-12 rounded-full shadow-md transition-all ${
-                      isActive ? "bg-white shadow-white/30" : "bg-white shadow-black/10"
+                      isActive ? "text-onyx bg-white border-b-2 border-onyx" : "text-slate-400 bg-slate-50 border-b-2 border-transparent hover:text-slate-600"
                     }`}>
-                      {m === "comprar"
-                        ? <Home className={`w-6 h-6 transition-colors ${isActive ? "text-primary-blue" : "text-slate-500"}`} />
-                        : <Key  className={`w-6 h-6 transition-colors ${isActive ? "text-primary-blue" : "text-amber-500"}`} />
-                      }
-                    </span>
                     <span className="relative z-10 text-base">{m === "comprar" ? "Comprar" : "Alquilar"}</span>
                   </button>
                 );
@@ -477,12 +465,9 @@ export default function HeroCarousel() {
               {/* ZONA */}
               <div className="col-span-2 relative flex-1 border-b sm:border-b-0 sm:border-r-2 border-slate-300" style={{flex:'1'}}>
                 <button onClick={() => toggleDrop("zona")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-2 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
-                    drop === "zona" ? "bg-cyan-50/50" : "hover:bg-slate-50/80"
+                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                    drop === "zona" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
-                  <div className={`w-12 h-12 rounded-2xl hidden sm:flex items-center justify-center shrink-0 transition-all ${drop==="zona" ? "bg-gradient-to-tr from-cyan-400 to-primary-blue shadow-lg shadow-primary-blue/30 text-white scale-105" : "bg-cyan-50 text-cyan-700 group-hover:bg-cyan-100"}`}>
-                    <MapPin className="w-6 h-6" />
-                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">Localidad</div>
                     <div className={`text-sm sm:text-base font-bold truncate ${zona === "Cualquier zona" ? "text-primary-blue" : "text-slate-900"}`}>
@@ -543,12 +528,9 @@ export default function HeroCarousel() {
               {/* TIPO */}
               <div className="col-span-1 relative border-r sm:border-b-0 sm:border-r-2 border-slate-300" style={{flex:'1.3'}}>
                 <button onClick={() => toggleDrop("tipo")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-2 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
-                    drop === "tipo" ? "bg-cyan-50/50" : "hover:bg-slate-50/80"
+                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                    drop === "tipo" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
-                  <div className={`w-12 h-12 rounded-2xl hidden sm:flex items-center justify-center shrink-0 transition-all ${drop==="tipo" ? "bg-gradient-to-tr from-cyan-400 to-primary-blue shadow-lg shadow-primary-blue/30 text-white scale-105" : "bg-cyan-50 text-cyan-700 group-hover:bg-cyan-100"}`}>
-                    <Home className="w-6 h-6" />
-                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">Tipo de inmueble</div>
                     <div className={`text-sm sm:text-base font-bold truncate ${tipo === "Cualquier tipo" ? "text-primary-blue" : "text-slate-900"}`}>
@@ -609,12 +591,9 @@ export default function HeroCarousel() {
               {/* PRECIO */}
               <div className="col-span-1 relative flex-1 border-b sm:border-b-0 sm:border-r-2 border-slate-300">
                 <button onClick={() => toggleDrop("precio")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-2 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
-                    drop === "precio" ? "bg-cyan-50/50" : "hover:bg-slate-50/80"
+                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                    drop === "precio" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
-                  <div className={`w-12 h-12 rounded-2xl hidden sm:flex items-center justify-center shrink-0 font-black text-xl transition-all ${drop==="precio" ? "bg-gradient-to-tr from-cyan-400 to-primary-blue shadow-lg shadow-primary-blue/30 text-white scale-105" : "bg-cyan-50 text-cyan-700 group-hover:bg-cyan-100"}`}>
-                    €
-                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">
                       {mode === "alquilar" ? "Renta" : "Precio máx."}
@@ -695,12 +674,10 @@ export default function HeroCarousel() {
                 </AnimatePresence>
 
                 <motion.button
-                  whileHover={{ scale:1.03 }} whileTap={{ scale:.97 }}
+                  whileHover={{ scale: 1 }} whileTap={{ scale: 0.98 }}
                   onClick={handleSearch}
-                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 sm:px-10 py-3 sm:py-5 rounded-2xl text-white font-bold text-base tracking-wide overflow-hidden group focus:outline-none"
-                  style={{ background:"linear-gradient(135deg,#0082C8 0%,#004e8c 100%)", boxShadow:"0 12px 32px rgba(0,130,200,0.45)" }}
+                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-6 bg-onyx text-white font-bold text-[10px] tracking-[0.2em] uppercase overflow-hidden group focus:outline-none border-l border-slate-200 hover:bg-slate-800 transition-colors"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                   <Search className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">Buscar</span>
                   <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-0.5 transition-transform" />
@@ -710,12 +687,12 @@ export default function HeroCarousel() {
             </div>
 
             {/* ── BOTTOM QUICK FILTERS ── */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 px-6 py-4 border-t-2 border-slate-300 bg-slate-50/50 rounded-b-[2rem]">
-              <span className="text-xs font-semibold text-slate-700 shrink-0 w-full sm:w-auto text-center sm:text-left mb-1 sm:mb-0">Búsqueda rápida:</span>
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 px-6 py-4 border-t border-slate-200 bg-white">
+              <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-slate-400 shrink-0 w-full sm:w-auto text-center sm:text-left mb-1 sm:mb-0">Búsqueda rápida:</span>
               {["Eixample", "Gràcia", "Sant Antoni", "Pedralbes", "Sarrià-Sant Gervasi"].map(z => (
                 <button key={z}
                   onClick={() => { setZona(z); handleSearch(); }}
-                  className="px-4 py-1.5 rounded-full text-xs font-bold border border-slate-200 text-slate-700 bg-white hover:bg-primary-blue hover:text-white hover:border-primary-blue transition-all duration-200 shadow-sm">
+                  className="px-4 py-2 text-[10px] font-bold tracking-widest uppercase border border-slate-200 text-slate-700 bg-white hover:bg-onyx hover:text-white transition-colors">
                   {z}
                 </button>
               ))}

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
 
 import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
-import img2 from "@/assets/dream_family_flipped.webp";
+import img2 from "@/assets/family_no_boy.jpg";
 
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
@@ -310,7 +310,7 @@ export default function HeroCarousel() {
         `}</style>
 
         {/* ── BACKGROUND ── */}
-        <div className="absolute bottom-0 inset-x-0 h-[55dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
+        <div className="absolute bottom-0 inset-x-0 h-[65dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
           <AnimatePresence mode="popLayout">
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
@@ -319,15 +319,11 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            MÓVIL — overlays para fundir la imagen con el fondo blanco
+            MÓVIL — overlay para fundir el borde superior de la imagen con el fondo blanco,
+            y oscurecer un poco la izquierda para el texto.
           */}
           <div className="absolute top-0 inset-x-0 h-32 md:hidden bg-gradient-to-b from-white to-transparent" />
-          
-          {/* Gradiente principal izquierdo ensanchado para dar más blanco detrás de las letras */}
-          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% via-white/75 via-55% to-transparent to-85%" />
-          
-          {/* NUEVO: Gradiente inferior izquierdo diseñado para borrar al niño de la izquierda y dar contraste a los botones */}
-          <div className="absolute bottom-0 left-0 w-[85%] h-[75%] md:hidden bg-gradient-to-tr from-white/100 from-25% via-white/85 via-50% to-transparent" />
+          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% to-transparent to-60%" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -394,17 +390,13 @@ export default function HeroCarousel() {
             </motion.p>
 
             {/* ── MOBILE CTA BUTTONS ── */}
-            {/*
-              pb-10: da respiro al final del hero, evitando que quede apretado
-              contra la trust bar oscura de abajo.
-            */}
-            <div className="w-full md:hidden flex flex-col mt-20 pb-10 pointer-events-auto max-w-[280px]">
-              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
+            <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
+              <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-2">
                 {/* Botón primario */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="bg-primary-blue text-white w-full py-3.5 rounded-full font-bold text-[15px] shadow-[0_8px_16px_-6px_rgba(0,130,200,0.5)] flex justify-center items-center gap-2"
-                  style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
+                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-full shadow-lg transition-transform active:scale-95 text-sm border-2 border-transparent"
+                  style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Search className="w-4 h-4" />
                   Buscar Inmuebles
@@ -412,8 +404,8 @@ export default function HeroCarousel() {
                 {/* Botón secundario */}
                 <button
                   onClick={() => window.location.href='tel:+34934685656'}
-                  className="bg-white text-slate-900 w-full py-3.5 rounded-full font-bold text-[15px] shadow-lg flex justify-center items-center gap-2 hover:bg-white/90 transition-colors"
-                  style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
+                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-primary-blue font-bold py-3 px-5 rounded-full shadow-lg transition-transform active:scale-95 text-sm border-2 border-transparent"
+                  style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora
                 </button>

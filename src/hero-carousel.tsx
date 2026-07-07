@@ -383,10 +383,10 @@ export default function HeroCarousel() {
 
             {/* ── MOTTO — texto oscuro sobre fondo claro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-4 md:mt-10 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
+              className="mt-8 md:mt-10 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
               style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
             >
-              La tranquilidad de tu hogar, nuestra responsabilidad.
+              La tranquilidad de tu hogar,<br className="md:hidden" /> nuestra responsabilidad.
             </motion.p>
 
             {/* ── MOBILE CTA BUTTONS ── */}

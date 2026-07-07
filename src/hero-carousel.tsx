@@ -8,8 +8,8 @@ import img2 from "@/assets/dream_family_offcenter_1783263809999.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "85% 20%" }, // Couple
-  { objectPosition: "100% 50%" }  // Family: Pushed to the right to avoid the gradient
+  { objectPosition: "65% 20%" }, // Couple: Shifted viewport left to move subjects right
+  { objectPosition: "45% 50%" }  // Family: Shifted viewport much further left to find the subjects and put them on the right
 ];
 const mobileOverlays = [
   "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 60%)", // Couple: Standard intensity

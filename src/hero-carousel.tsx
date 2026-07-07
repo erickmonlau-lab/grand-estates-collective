@@ -293,7 +293,7 @@ export default function HeroCarousel() {
         ── MOBILE & DESKTOP HERO: min-h-[100dvh] to prevent stats from peeking ──
       */}
       <section className="relative w-full flex flex-col items-center
-        min-h-[100dvh] justify-center md:pt-20
+        min-h-[100dvh] justify-start md:justify-center md:pt-20
         pt-[112px] pb-0 bg-white md:bg-transparent overflow-x-hidden"
         style={{ fontFamily: "var(--font-system)" }}
       >
@@ -330,13 +330,12 @@ export default function HeroCarousel() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/5 to-white/95 hidden md:block" />
         </div>
 
-        {/* ── HEADLINE BLOCK ── */}
         {/*
           PUNTO 4: En móvil quitamos min-h-[calc(100dvh-150px)] que forzaba un
           espacio enorme. Ahora es h-auto. En desktop se mantiene md:min-h-0
           (el centrado lo hace el flex del <section>).
         */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-start md:items-center text-left md:text-center pointer-events-none mb-0 md:mb-10 mt-4 md:mt-0">
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-start md:items-center text-left md:text-center pointer-events-none mb-0 md:mb-10 mt-0">
 
           {/* Original Content (Fades out on desktop when a dropdown is open) */}
           <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'md:opacity-0 md:blur-md md:scale-95' : 'opacity-100 blur-0 scale-100'}`}>

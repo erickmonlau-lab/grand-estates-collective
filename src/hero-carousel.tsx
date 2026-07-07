@@ -306,9 +306,10 @@ export default function HeroCarousel() {
 
           {/*
             MÓVIL — overlay con gradiente lineal robusto (CSS puro vía Tailwind).
-            Blanco sólido hasta el 40%, luego se desvanece rápido para mostrar a las personas a la derecha.
+            Blanco sólido solo hasta donde llega el texto (50%), y caída brusca a transparente (65%)
+            para revelar a los sujetos al máximo.
           */}
-          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-40% via-white/40 via-60% to-transparent" />
+          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-50% to-transparent to-65%" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />

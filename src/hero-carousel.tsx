@@ -335,7 +335,7 @@ export default function HeroCarousel() {
           espacio enorme. Ahora es h-auto. En desktop se mantiene md:min-h-0
           (el centrado lo hace el flex del <section>).
         */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-start md:items-center text-left md:text-center pointer-events-none mb-0 md:mb-10 mt-0">
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-start md:items-center text-left md:text-center pointer-events-none mb-0 md:mb-10 mt-16 md:mt-0">
 
           {/* Original Content (Fades out on desktop when a dropdown is open) */}
           <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'md:opacity-0 md:blur-md md:scale-95' : 'opacity-100 blur-0 scale-100'}`}>

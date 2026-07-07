@@ -8,8 +8,8 @@ import img2 from "@/assets/dream_family_flipped.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const imageClasses = [
-  "object-[65%_center] md:object-right", // Couple: Push to the right
-  "object-[65%_center] md:object-right"  // Family: Push to the right
+  "object-right", // Couple: Keep on the absolute right edge
+  "object-right"  // Family: Keep on the absolute right edge
 ];
 
 const ZONES = [
@@ -296,19 +296,19 @@ export default function HeroCarousel() {
       >
 
         {/* ── BACKGROUND ── */}
-        <div className="absolute bottom-0 inset-x-0 h-[80dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
+        <div className="absolute bottom-0 inset-x-0 h-[65dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
           <AnimatePresence mode="popLayout">
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
               transition={{ duration: 1.6, ease: "easeInOut" }}
-              className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]} ${imageClasses[imgIdx]}`} alt="" />
+              className={`absolute inset-0 w-full h-full object-cover object-right ${imageClasses[imgIdx]}`} alt="" />
           </AnimatePresence>
 
           {/*
             MÓVIL — overlay para fundir el borde superior de la imagen con el fondo blanco,
             y oscurecer un poco la izquierda para el texto.
           */}
-          <div className="absolute top-0 inset-x-0 h-48 md:hidden bg-gradient-to-b from-white via-white/80 to-transparent" />
+          <div className="absolute top-0 inset-x-0 h-32 md:hidden bg-gradient-to-b from-white to-transparent" />
           <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% to-transparent to-60%" />
 
           {/* Desktop Gradients & Blur — unchanged */}

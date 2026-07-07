@@ -319,11 +319,15 @@ export default function HeroCarousel() {
           </AnimatePresence>
 
           {/*
-            MÓVIL — overlay para fundir el borde superior de la imagen con el fondo blanco,
-            y oscurecer un poco la izquierda para el texto.
+            MÓVIL — overlays para fundir la imagen con el fondo blanco
           */}
           <div className="absolute top-0 inset-x-0 h-32 md:hidden bg-gradient-to-b from-white to-transparent" />
-          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% to-transparent to-60%" />
+          
+          {/* Gradiente principal izquierdo ensanchado para dar más blanco detrás de las letras */}
+          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% via-white/75 via-55% to-transparent to-85%" />
+          
+          {/* NUEVO: Gradiente inferior izquierdo diseñado para borrar al niño de la izquierda y dar contraste a los botones */}
+          <div className="absolute bottom-0 left-0 w-[85%] h-[75%] md:hidden bg-gradient-to-tr from-white/100 from-25% via-white/85 via-50% to-transparent" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
@@ -394,7 +398,7 @@ export default function HeroCarousel() {
               pb-10: da respiro al final del hero, evitando que quede apretado
               contra la trust bar oscura de abajo.
             */}
-            <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
+            <div className="w-full md:hidden flex flex-col mt-20 pb-10 pointer-events-auto max-w-[280px]">
               <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.4 }} className="flex flex-col gap-3">
                 {/* Botón primario */}
                 <button

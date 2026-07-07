@@ -8,12 +8,12 @@ import img2 from "@/assets/dream_family_flipped.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const mobileObjPositions = [
-  { objectPosition: "100% 20%" }, // Couple: Subjects on far right of image -> 100% aligns them to right edge of screen
-  { objectPosition: "100% 20%" }  // Family (Flipped): Subjects on far right -> 100% aligns them to right edge of screen
+  { objectPosition: "70% 20%" }, // Couple: Centered on the right half of the screen
+  { objectPosition: "45% 20%" }  // Family: Centered on the right half of the screen
 ];
 const mobileOverlays = [
-  "radial-gradient(160% 160% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%)",
-  "radial-gradient(160% 160% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%)"
+  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.1) 85%, rgba(255,255,255,0) 100%)",
+  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.1) 85%, rgba(255,255,255,0) 100%)"
 ];
 const desktopObjPositions = [
   { objectPosition: "right center" },

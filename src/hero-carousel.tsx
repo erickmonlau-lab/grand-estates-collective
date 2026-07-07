@@ -7,9 +7,12 @@ import img2 from "@/assets/dream_family_flipped.webp";
 
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
+
+// Clases CSS personalizadas inyectadas en el componente para asegurar
+// que se aplican las posiciones exactas sin depender del compilador de Tailwind.
 const imageClasses = [
-  "object-[75%_center] md:object-right", // Couple: Move subjects significantly to the right
-  "object-[75%_center] md:object-right"  // Family: Move subjects significantly to the right
+  "desktop-pos-right mobile-pos-couple",
+  "desktop-pos-right mobile-pos-family"
 ];
 
 const ZONES = [
@@ -294,6 +297,14 @@ export default function HeroCarousel() {
         pt-[112px] pb-0 bg-white md:bg-transparent overflow-x-hidden"
         style={{ fontFamily: "var(--font-system)" }}
       >
+        <style>{`
+          .desktop-pos-right { object-position: right center; }
+          @media (max-width: 767px) {
+            /* Empíricamente: bajar X mueve a la izquierda, subir Y mueve arriba (muestra más abajo) */
+            .mobile-pos-couple { object-position: 35% 65% !important; }
+            .mobile-pos-family { object-position: 50% 85% !important; }
+          }
+        `}</style>
 
         {/* ── BACKGROUND ── */}
         <div className="absolute bottom-0 inset-x-0 h-[65dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">

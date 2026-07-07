@@ -395,7 +395,7 @@ export default function HeroCarousel() {
                 {/* Botón primario */}
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-full shadow-lg transition-transform active:scale-95 text-sm border-2 border-transparent"
+                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-full brutal-button text-sm"
                   style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Search className="w-4 h-4" />
@@ -404,7 +404,7 @@ export default function HeroCarousel() {
                 {/* Botón secundario */}
                 <button
                   onClick={() => window.location.href='tel:+34934685656'}
-                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-primary-blue font-bold py-3 px-5 rounded-full shadow-lg transition-transform active:scale-95 text-sm border-2 border-transparent"
+                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-primary-blue font-bold py-3 px-5 rounded-full brutal-button text-sm"
                   style={{ fontFamily: "var(--font-system)" }}
                 >
                   <Phone className="w-4 h-4"/> Llamar Ahora

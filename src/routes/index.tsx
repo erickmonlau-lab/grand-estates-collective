@@ -885,7 +885,7 @@ function Index() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.2 + idx * 0.1, ease: easeOut }}
-                  className="group relative bg-white border border-onyx/[0.05] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col h-full hover:-translate-y-1"
+                  className="group relative bg-white brutal-card rounded-2xl overflow-hidden flex flex-col h-full"
                 >
                   <div className="relative h-[280px] overflow-hidden">
                     <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -914,7 +914,7 @@ function Index() {
 
           <Reveal delay={0.1}>
             <div className="flex justify-center mt-12">
-              <a href="#contacto" className="inline-flex items-center gap-3 border border-primary-blue/30 text-primary-blue px-8 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-primary-blue hover:text-white transition-all duration-300">
+              <a href="#contacto" className="inline-flex items-center gap-3 brutal-button text-primary-blue px-8 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest bg-white hover:bg-primary-blue hover:text-white">
                 {t.properties.verTodas} →
               </a>
             </div>
@@ -941,7 +941,7 @@ function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {t.services.cards.map((card, i) => (
               <Reveal key={card.title} delay={i * 0.1}>
-                <div className="group bg-white rounded-2xl p-8 border border-black/[0.06] hover:border-primary-blue/30 hover:shadow-[0_20px_50px_rgba(0,130,200,0.08)] transition-all duration-500 flex flex-col h-full">
+                <div className="group bg-white rounded-2xl p-8 brutal-card flex flex-col h-full">
                   <div className="w-14 h-14 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue mb-6 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
                     {iconMap[card.icon]}
                   </div>
@@ -1011,7 +1011,7 @@ function Index() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {t.nosotros.items.map((item, i) => (
                 <Reveal key={item.title} delay={i * 0.08}>
-                  <div className="group bg-white rounded-2xl p-6 border border-black/[0.05] hover:border-primary-blue/25 hover:shadow-[0_15px_40px_rgba(0,130,200,0.07)] transition-all duration-400 flex flex-col gap-4 items-start h-full">
+                  <div className="group bg-white rounded-2xl p-6 brutal-card flex flex-col gap-4 items-start h-full">
                     <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
                       {iconMap[item.icon]}
                     </div>
@@ -1026,7 +1026,7 @@ function Index() {
           </div>
 
           <Reveal delay={0.2}>
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] w-full aspect-[4/3] lg:aspect-square">
+            <div className="relative rounded-[2.5rem] overflow-hidden brutal-shadow w-full aspect-[4/3] lg:aspect-square">
               <img
                 src={gesgramaOffice}
                 alt="Oficina Gesgrama"
@@ -1055,7 +1055,7 @@ function Index() {
             {/* TODO: sustituir por testimonios reales del cliente */}
             {t.testimonials.items.map((item, i) => (
               <Reveal key={item.name} delay={i * 0.08}>
-                <div className="group bg-white rounded-2xl p-6 border border-black/[0.05] hover:border-primary-blue/25 hover:shadow-[0_15px_40px_rgba(0,130,200,0.07)] transition-all duration-400 flex flex-col h-full">
+                <div className="group bg-white rounded-2xl p-6 brutal-card flex flex-col h-full">
                   {/* Estrellas */}
                   <div className="flex gap-0.5 mb-4">
                     {[...Array(5)].map((_, s) => (
@@ -1117,7 +1117,7 @@ function Index() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] h-[500px] md:h-[650px] bg-slate-100">
+            <div className="relative rounded-[2.5rem] overflow-hidden brutal-shadow h-[500px] md:h-[650px] bg-slate-100">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
                 width="100%"
@@ -1129,7 +1129,7 @@ function Index() {
                 className="grayscale-[30%] contrast-[110%] opacity-90 object-cover"
               ></iframe>
 
-              <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-white/20 max-w-[280px]">
+              <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white/95 backdrop-blur-md p-6 rounded-3xl brutal-shadow max-w-[280px]">
                 <div className="flex items-start gap-4">
                   <div className="bg-primary-blue/10 p-3 rounded-2xl shrink-0 text-primary-blue">
                     <MapPin className="w-6 h-6" />
@@ -1159,10 +1159,10 @@ function Index() {
             {t.cta.title}
           </h2>
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <a href="#propiedades" className="bg-white text-primary-blue px-10 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-onyx hover:text-white transition-all duration-300 shadow-lg">
+            <a href="#propiedades" className="bg-white text-primary-blue px-10 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest brutal-button hover:bg-onyx hover:text-white">
               {t.cta.findHome}
             </a>
-            <a href="#contacto" className="border-2 border-white/50 text-white px-10 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-white hover:text-primary-blue transition-all duration-300">
+            <a href="#contacto" className="bg-onyx text-white px-10 py-4 rounded-full text-[11px] font-bold uppercase tracking-widest brutal-button hover:bg-white hover:text-primary-blue">
               {t.cta.contact}
             </a>
           </div>
@@ -1182,7 +1182,7 @@ function Index() {
               </h2>
               <div className="space-y-6">
                 {/* TODO: sustituir por el teléfono real del cliente */}
-                <a href="tel:+34934685656" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                <a href="tel:+34934685656" className="flex items-center gap-4 group p-4 rounded-xl brutal-button bg-white">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <Phone className="w-4 h-4" />
                   </div>
@@ -1193,7 +1193,7 @@ function Index() {
                   </div>
                 </a>
                 {/* TODO: sustituir por el WhatsApp real del cliente */}
-                <a href="https://wa.me/34600000000" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                <a href="https://wa.me/34600000000" className="flex items-center gap-4 group p-4 rounded-xl brutal-button bg-white">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <MessageCircle className="w-4 h-4" />
                   </div>
@@ -1204,7 +1204,7 @@ function Index() {
                   </div>
                 </a>
                 {/* TODO: sustituir por el email real del cliente */}
-                <a href="mailto:info@gesgrama.com" className="flex items-center gap-4 group p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                <a href="mailto:info@gesgrama.com" className="flex items-center gap-4 group p-4 rounded-xl brutal-button bg-white">
                   <div className="w-10 h-10 bg-primary-blue/10 rounded-lg flex items-center justify-center text-primary-blue group-hover:bg-primary-blue group-hover:text-white transition-all">
                     <Mail className="w-4 h-4" />
                   </div>
@@ -1220,7 +1220,7 @@ function Index() {
 
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal delay={0.1}>
-              <div className="bg-[#F8FAFC] rounded-2xl p-8 border border-black/[0.05]">
+              <div className="bg-[#F8FAFC] rounded-2xl p-8 brutal-shadow">
                 <h3 className="font-bold text-xl mb-6">Solicite información sin compromiso</h3>
                 <form key={language} className="space-y-5">
                   <div className="grid grid-cols-2 gap-4">
@@ -1237,7 +1237,7 @@ function Index() {
                   <FormField label={t.contact.messageLabel} placeholder={t.contact.messagePlaceholder} textarea />
                   <button
                     type="button"
-                    className="w-full bg-primary-blue text-white py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-onyx transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.99]"
+                    className="w-full bg-primary-blue text-white py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest brutal-button hover:bg-onyx"
                   >
                     {t.contact.submit}
                   </button>

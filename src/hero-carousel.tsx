@@ -9,7 +9,11 @@ const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const mobileObjPositions = [
   { objectPosition: "85% 20%" }, // Couple
-  { objectPosition: "85% 20%" }  // Family
+  { objectPosition: "100% 50%" }  // Family: Pushed to the right to avoid the gradient
+];
+const mobileOverlays = [
+  "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 60%)", // Couple: Standard intensity
+  "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.90) 0%, rgba(255,255,255,0.65) 25%, rgba(255,255,255,0) 45%)"  // Family: Reduced intensity and faster fade
 ];
 const desktopObjPositions = [
   { objectPosition: "right center" },
@@ -312,9 +316,9 @@ export default function HeroCarousel() {
           {/*
             MÓVIL — overlay claro equivalente al de escritorio.
             Gradiente radial localizado SOLO en la esquina superior izquierda (zona del texto).
-            Se desvanece al 60% para dejar a las personas del lado derecho con total nitidez.
+            Se ajusta por imagen para compensar fotos con menor contraste (ej. Familia).
           */}
-          <div className="absolute inset-0 md:hidden" style={{ background: "radial-gradient(140% 140% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 30%, rgba(255,255,255,0) 60%)" }} />
+          <div className="absolute inset-0 md:hidden transition-all duration-1000" style={{ background: mobileOverlays[imgIdx] }} />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />

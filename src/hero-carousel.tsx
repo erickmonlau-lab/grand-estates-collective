@@ -8,8 +8,8 @@ import img2 from "@/assets/dream_family_flipped.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const imageClasses = [
-  "object-right", // Couple: Push to the absolute right edge (100%)
-  "object-right"  // Family (Flipped): Push to the absolute right edge (100%)
+  "object-[65%_center] md:object-right", // Couple: Push to the right
+  "object-[65%_center] md:object-right"  // Family: Push to the right
 ];
 
 const ZONES = [

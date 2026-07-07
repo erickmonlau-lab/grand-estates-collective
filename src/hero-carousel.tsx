@@ -8,8 +8,8 @@ import img2 from "@/assets/dream_family_flipped.webp";
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
 const imageClasses = [
-  "object-[92%_center] md:object-right", // Couple: Perfect sweet spot
-  "object-[92%_center] md:object-right"  // Family: Perfect sweet spot
+  "object-[96%_center] md:object-right", // Couple: Almost absolute right
+  "object-[96%_center] md:object-right"  // Family: Almost absolute right
 ];
 
 const ZONES = [

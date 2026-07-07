@@ -7,17 +7,9 @@ import img2 from "@/assets/dream_family_flipped.webp";
 
 const images = [img1, img2];
 const bgOrigins = ["origin-right", "origin-right"];
-const mobileObjPositions = [
-  { objectPosition: "70% 20%" }, // Couple: Centered on the right half of the screen
-  { objectPosition: "45% 20%" }  // Family: Centered on the right half of the screen
-];
-const mobileOverlays = [
-  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.1) 85%, rgba(255,255,255,0) 100%)",
-  "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0.1) 85%, rgba(255,255,255,0) 100%)"
-];
-const desktopObjPositions = [
-  { objectPosition: "right center" },
-  { objectPosition: "right center" }
+const imageClasses = [
+  "object-[75%_center] md:object-right", // Couple: 75% pushes them to the right half
+  "object-[50%_center] md:object-right"  // Family (Flipped): 50% centers them on the right half
 ];
 
 const ZONES = [
@@ -309,16 +301,14 @@ export default function HeroCarousel() {
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
               transition={{ duration: 1.6, ease: "easeInOut" }}
-              style={typeof window !== 'undefined' && window.innerWidth < 768 ? mobileObjPositions[imgIdx] : desktopObjPositions[imgIdx]}
-              className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]}`} alt="" />
+              className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]} ${imageClasses[imgIdx]}`} alt="" />
           </AnimatePresence>
 
           {/*
-            MÓVIL — overlay claro equivalente al de escritorio.
-            Gradiente radial localizado SOLO en la esquina superior izquierda (zona del texto).
-            Se ajusta por imagen para compensar fotos con menor contraste (ej. Familia).
+            MÓVIL — overlay con gradiente lineal robusto (CSS puro vía Tailwind).
+            Blanco sólido hasta el 40%, luego se desvanece rápido para mostrar a las personas a la derecha.
           */}
-          <div className="absolute inset-0 md:hidden transition-all duration-1000" style={{ background: mobileOverlays[imgIdx] }} />
+          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-40% via-white/40 via-60% to-transparent" />
 
           {/* Desktop Gradients & Blur — unchanged */}
           <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />

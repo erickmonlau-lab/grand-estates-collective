@@ -966,11 +966,15 @@ function Index() {
           <div className="lg:col-span-6">
             <Reveal delay={0.2}>
               <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-xl border-none">
-                <div className="w-full h-[180px] md:h-[220px] overflow-hidden">
+                <div className="w-full h-[220px] md:h-[260px] relative overflow-hidden flex items-center justify-center pt-8">
                   <img 
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                     alt="Servicios Gesgrama" 
-                    className="w-full h-full object-cover"
+                    className="w-[120%] h-[120%] object-cover object-center"
+                    style={{ 
+                      maskImage: 'radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%)', 
+                      WebkitMaskImage: 'radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%)' 
+                    }}
                   />
                 </div>
                 

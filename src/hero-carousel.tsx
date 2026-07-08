@@ -60,6 +60,7 @@ function MobileSearchSheet({
   precio: string; setPrecio: (p: string) => void;
   onSearch: () => void;
 }) {
+  const [mobileDrop, setMobileDrop] = useState<Drop>(null);
   const prices = mode === "comprar" ? PRICES_COMPRAR : PRICES_ALQUILAR;
 
   // Lock body scroll while open
@@ -108,9 +109,21 @@ function MobileSearchSheet({
             </div>
 
             {/* Scrollable content */}
-            <div className="overflow-y-auto overscroll-contain px-4 pb-8 flex flex-col gap-4">
+            <div className="relative overflow-y-auto overscroll-contain px-4 pb-8 flex flex-col gap-4 flex-1">
+              {/* Dynamic Prompt Overlay for Mobile */}
+              <div className={`absolute inset-0 z-50 flex items-center justify-center p-6 text-center transition-all duration-300 pointer-events-none rounded-t-[2rem]
+                ${mobileDrop ? 'opacity-100 backdrop-blur-sm bg-white/70' : 'opacity-0 backdrop-blur-none bg-transparent'}
+              `}>
+                <h3 className={`text-2xl md:text-3xl font-black text-slate-900 tracking-tight text-balance transition-all duration-300 ${mobileDrop ? 'scale-100' : 'scale-110'}`}>
+                  {mobileDrop === "zona" && "Elige tu zona"}
+                  {mobileDrop === "tipo" && "Elige el tipo de inmueble"}
+                  {mobileDrop === "precio" && "Elige el precio que quieras"}
+                </h3>
+              </div>
 
-              {/* Mode tabs */}
+              {/* Form Content Wrapper (blurs when mobileDrop is active) */}
+              <div className={`flex flex-col gap-4 transition-all duration-300 ${mobileDrop ? 'opacity-30 blur-sm pointer-events-none' : 'opacity-100 blur-0'}`}>
+                {/* Mode tabs */}
               <div className="grid grid-cols-2 rounded-2xl overflow-hidden border border-slate-200">
                 {(["comprar", "alquilar"] as const).map(m => (
                   <button
@@ -135,7 +148,9 @@ function MobileSearchSheet({
                   <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <select
                     value={zona}
-                    onChange={e => setZona(e.target.value)}
+                    onFocus={() => setMobileDrop("zona")}
+                    onBlur={() => setMobileDrop(null)}
+                    onChange={e => { setZona(e.target.value); setMobileDrop(null); e.target.blur(); }}
                     className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
                   >
                     {ZONES.map(z => (
@@ -153,7 +168,9 @@ function MobileSearchSheet({
                   <Home className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <select
                     value={tipo}
-                    onChange={e => setTipo(e.target.value)}
+                    onFocus={() => setMobileDrop("tipo")}
+                    onBlur={() => setMobileDrop(null)}
+                    onChange={e => { setTipo(e.target.value); setMobileDrop(null); e.target.blur(); }}
                     className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
                   >
                     {TIPOS.map(t => (
@@ -173,7 +190,9 @@ function MobileSearchSheet({
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-black text-base">€</span>
                   <select
                     value={precio}
-                    onChange={e => setPrecio(e.target.value)}
+                    onFocus={() => setMobileDrop("precio")}
+                    onBlur={() => setMobileDrop(null)}
+                    onChange={e => { setPrecio(e.target.value); setMobileDrop(null); e.target.blur(); }}
                     className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
                   >
                     {prices.map(p => (
@@ -214,8 +233,8 @@ function MobileSearchSheet({
                 Buscar Inmuebles
                 <ArrowRight className="w-5 h-5" />
               </button>
-
             </div>
+          </div>
           </motion.div>
         </>
       )}

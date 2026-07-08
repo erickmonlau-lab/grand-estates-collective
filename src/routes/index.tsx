@@ -965,7 +965,7 @@ function Index() {
 
           <div className="lg:col-span-6">
             <Reveal delay={0.2}>
-              <div className="bg-[#F0F7FA] text-onyx rounded-sm overflow-hidden shadow-xl border border-primary-blue/10">
+              <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-xl border-none">
                 <div className="w-full h-[180px] md:h-[220px] overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
@@ -975,7 +975,7 @@ function Index() {
                 </div>
                 
                 <div className="px-8 pt-8 md:px-10 md:pt-10">
-                  <h3 className="text-2xl md:text-[28px] font-serif font-bold text-primary-blue leading-snug mb-2">
+                  <h3 className="text-2xl md:text-[28px] font-serif font-bold text-white leading-snug mb-2">
                     Gesgrama también ofrece servicios de...
                   </h3>
                 </div>
@@ -987,13 +987,13 @@ function Index() {
                     { title: "Inversión inmobiliaria", desc: "Para inversores que buscan la máxima rentabilidad con total seguridad." },
                     { title: "Asesoría Jurídica", desc: "Más de 15 años de experiencia en derecho inmobiliario a su disposición." }
                   ].map((srv, idx) => (
-                    <div key={idx} className="flex gap-6 group cursor-pointer py-6 border-b border-primary-blue/10 last:border-0 last:pb-0">
-                      <div className="text-6xl md:text-7xl font-serif text-primary-blue/20 group-hover:text-primary-blue/40 transition-colors leading-none shrink-0 pt-1">
+                    <div key={idx} className="flex gap-6 group cursor-pointer py-6 border-b border-white/20 last:border-0 last:pb-0">
+                      <div className="text-6xl md:text-7xl font-serif text-white/30 group-hover:text-white/60 transition-colors leading-none shrink-0 pt-1">
                         {idx + 1}
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h4 className="text-[19px] font-serif font-semibold text-onyx mb-1.5 group-hover:text-primary-blue transition-colors">{srv.title}</h4>
-                        <p className="text-[13px] text-onyx/70 leading-relaxed">{srv.desc}</p>
+                        <h4 className="text-[19px] font-serif font-semibold text-white mb-1.5">{srv.title}</h4>
+                        <p className="text-[13px] text-white/80 leading-relaxed">{srv.desc}</p>
                       </div>
                     </div>
                   ))}

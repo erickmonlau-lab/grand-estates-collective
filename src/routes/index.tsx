@@ -3,7 +3,7 @@ import HeroCarousel from '../hero-carousel';
 import { properties } from "../data/properties";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar } from "lucide-react";
+import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.jpg";
@@ -165,23 +165,45 @@ const translations = {
       findHome: "Ver propiedades en venta",
       contact: "Solicitar asesoramiento gratuito"
     },
+    faq: {
+      tag: "Preguntas Frecuentes",
+      title: "Resolvemos sus dudas",
+      items: [
+        {
+          q: "¿Por qué elegir a Gesgrama para administrar su comunidad?",
+          a: "Ofrecemos total transparencia, atención 24h para urgencias y un equipo legal propio que garantiza la máxima seguridad en todas las gestiones."
+        },
+        {
+          q: "¿Es seguro el proceso de cambio de administrador?",
+          a: "Totalmente. Nos encargamos del 100% del papeleo y de la transición con el administrador anterior de forma transparente y sin cortes de servicio."
+        },
+        {
+          q: "¿Cuánto tiempo tardan en alquilar o vender una propiedad?",
+          a: "Gracias a nuestra amplia cartera de clientes y marketing premium, el tiempo medio de cierre de operaciones es inferior a 45 días."
+        },
+        {
+          q: "¿Qué cobertura legal ofrecen a los propietarios?",
+          a: "Contamos con un gabinete jurídico interno especializado en derecho inmobiliario que asesora de forma gratuita a nuestros clientes."
+        }
+      ]
+    },
     contact: {
       tag: "Contacto",
-      title1: "Estamos aquí",
-      titleAccent: "para ayudarle.",
+      title1: "¿Hablamos de",
+      titleAccent: "tu comunidad?",
       phone: "Teléfono",
       whatsapp: "WhatsApp",
       email: "Email",
       offices: "Oficinas",
       nameLabel: "Nombre",
-      namePlaceholder: "Su nombre completo",
+      namePlaceholder: "Tu nombre y apellidos...",
       emailLabel: "Email",
       phoneLabel: "Teléfono",
       messageLabel: "Mensaje",
-      messagePlaceholder: "¿En qué podemos ayudarle?",
+      messagePlaceholder: "Cuéntanos qué necesita tu finca o qué problemas queréis solucionar...",
       serviceLabel: "Servicio de interés",
       serviceOpts: ["Administración de Fincas", "Inmobiliaria", "Asesoría Jurídica", "Otro"],
-      submit: "Enviar consulta"
+      submit: "Solicitar información"
     },
     footer: {
       rights: "© 2026 Gesgrama — Todos los derechos reservados",
@@ -339,6 +361,28 @@ const translations = {
       title: "Your community in the best hands.",
       findHome: "View properties for sale",
       contact: "Request free advice"
+    },
+    faq: {
+      tag: "Frequently Asked Questions",
+      title: "We answer your questions",
+      items: [
+        {
+          q: "Why choose Gesgrama to manage your community?",
+          a: "We offer total transparency, 24/7 emergency attention, and an in-house legal team that guarantees maximum security."
+        },
+        {
+          q: "Is the process of changing administrators safe?",
+          a: "Absolutely. We handle 100% of the paperwork and the transition with the previous administrator transparently and without service interruptions."
+        },
+        {
+          q: "How long does it take to rent or sell a property?",
+          a: "Thanks to our extensive client portfolio and premium marketing, the average closing time is under 45 days."
+        },
+        {
+          q: "What legal coverage do you offer owners?",
+          a: "We have an internal legal department specialized in real estate law that provides free advice to our clients."
+        }
+      ]
     },
     contact: {
       tag: "Contact",
@@ -515,6 +559,28 @@ const translations = {
       findHome: "Veure propietats en venda",
       contact: "Sol·licitar assessorament gratuït"
     },
+    faq: {
+      tag: "Preguntes Freqüents",
+      title: "Resolem els seus dubtes",
+      items: [
+        {
+          q: "Per què triar Gesgrama per administrar la seva comunitat?",
+          a: "Oferim total transparència, atenció 24h per a urgències i un equip legal propi que garanteix la màxima seguretat."
+        },
+        {
+          q: "És segur el procés de canvi d'administrador?",
+          a: "Totalment. Ens encarreguem del 100% de la paperassa i de la transició amb l'administrador anterior de forma transparent i sense talls de servei."
+        },
+        {
+          q: "Quant triguen a llogar o vendre una propietat?",
+          a: "Gràcies a la nostra àmplia cartera de clients i màrqueting premium, el temps mitjà de tancament d'operacions és inferior a 45 dies."
+        },
+        {
+          q: "Quina cobertura legal ofereixen als propietaris?",
+          a: "Comptem amb un gabinet jurídic intern especialitzat en dret immobiliari que assessora de forma gratuïta als nostres clients."
+        }
+      ]
+    },
     contact: {
       tag: "Contacte",
       title1: "Som aquí",
@@ -598,18 +664,18 @@ function StatBlock({ value, label }: { value: React.ReactNode; label: string }) 
 function FormField({ label, placeholder, type = "text", textarea }: { label: string; placeholder: string; type?: string; textarea?: boolean }) {
   return (
     <div>
-      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{label}</label>
+      <label className="text-onyx font-bold uppercase tracking-wider block mb-2 text-[11px]">{label}</label>
       {textarea ? (
         <textarea
           rows={3}
           placeholder={placeholder}
-          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors resize-none placeholder:text-onyx/25"
+          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors resize-none placeholder:text-onyx/30"
         />
       ) : (
         <input
           type={type}
           placeholder={placeholder}
-          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
+          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors placeholder:text-onyx/30"
         />
       )}
     </div>
@@ -619,6 +685,31 @@ function FormField({ label, placeholder, type = "text", textarea }: { label: str
 // ---------------------------------------------------------------------------
 // MAIN COMPONENT
 // ---------------------------------------------------------------------------
+const parsePrice = (priceStr: string) => {
+  if (priceStr.includes("Cualquier")) return Infinity;
+  const cleanStr = priceStr.replace(/[^\d]/g, '');
+  return parseInt(cleanStr, 10);
+};
+
+const isPriceValid = (priceStr: string, propertyPrice: number) => {
+  if (priceStr.includes("Cualquier")) return true;
+  if (priceStr.includes("Hasta")) {
+    const max = parsePrice(priceStr);
+    return propertyPrice <= max;
+  }
+  if (priceStr.includes("Más de")) {
+    const min = parsePrice(priceStr);
+    return propertyPrice >= min;
+  }
+  // Rango: "1.000 - 1.500 €"
+  const match = priceStr.match(/(\d[\d.]*)\s*-\s*(\d[\d.]*)/);
+  if (match) {
+    const min = parseInt(match[1].replace(/[^\d]/g, ''), 10);
+    const max = parseInt(match[2].replace(/[^\d]/g, ''), 10);
+    return propertyPrice >= min && propertyPrice <= max;
+  }
+  return true;
+};
 function Index() {
   useScroll(); // keep for potential future scroll effects
 
@@ -627,9 +718,15 @@ function Index() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchParams, setSearchParams] = useState({
-    zona: "Cualquiera",
-    tipo: "Todos",
+    mode: "comprar",
+    zona: "Cualquier zona",
+    tipo: "Cualquier tipo",
+    precio: "Cualquier precio"
   });
+
+  const handleHeroSearch = (params: { mode: any; zona: string; tipo: string; precio: string }) => {
+    setSearchParams(params);
+  };
 
   // Valuator form state
   const [valuatorSubmitted, setValuatorSubmitted] = useState(false);
@@ -639,7 +736,8 @@ function Index() {
     metros: "",
     contacto: ""
   });
-
+  const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
     home: <Home className="w-7 h-7" />,
@@ -728,103 +826,65 @@ function Index() {
       </motion.nav>
 
       {/* ── HERO ── */}
-      <HeroCarousel />
+      <HeroCarousel onPerformSearch={handleHeroSearch} />
 
-      {/* ── VALORADOR DE INMUEBLES ── */}
-      {/* Inspirado en Forcadell / Finques Rubio — ¿Cuánto vale tu piso? */}
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-b from-[#F8FAFC] to-white text-onyx">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.valuator.tag}</p>
-              <h2 key={language} className="text-4xl md:text-5xl font-bold leading-tight text-onyx mb-4">
-                {t.valuator.title} <span className="text-primary-blue">{t.valuator.titleAccent}</span>
-              </h2>
-              <p className="text-onyx/55 text-base leading-relaxed max-w-md">{t.valuator.subtitle}</p>
-            </Reveal>
+      {/* ── VALORADOR DE INMUEBLES (LEAD CAPTURE) ── */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0f172a] text-white text-center border-y border-white/5">
+        <div className="max-w-[800px] mx-auto">
+          <Reveal>
+            <h2 key={language} className="text-4xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-white mb-12 drop-shadow-sm" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+              ¿Cuánto vale tu <span className="text-[#0082c8]">piso</span>?
+            </h2>
+          </Reveal>
 
-            <Reveal delay={0.1}>
-              <div className="bg-[#F8FAFC] rounded-2xl p-8 border border-black/[0.05]">
-                {valuatorSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-8"
-                  >
-                    <div className="w-14 h-14 bg-primary-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-7 h-7 text-primary-blue" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-xl text-onyx mb-2">{t.valuator.successTitle}</h3>
-                    <p className="text-onyx/60 text-sm leading-relaxed">{t.valuator.successMsg}</p>
-                    <button
-                      onClick={() => { setValuatorSubmitted(false); setValuatorData({ zona: "", tipo: "", metros: "", contacto: "" }); }}
-                      className="mt-6 text-primary-blue font-bold text-sm hover:underline"
+          <Reveal delay={0.1}>
+            {valuatorSubmitted ? (
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
+                <div className="w-14 h-14 bg-primary-blue/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-primary-blue/30">
+                  <svg className="w-7 h-7 text-primary-blue" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                </div>
+                <h3 className="font-bold text-xl text-white mb-2">{t.valuator.successTitle}</h3>
+                <p className="text-white/70 text-sm leading-relaxed mb-6">{t.valuator.successMsg}</p>
+                <button onClick={() => { setValuatorSubmitted(false); setValuatorData({ zona: "", tipo: "", metros: "", contacto: "" }); }} className="text-primary-blue font-bold text-sm hover:text-white transition-colors">
+                  Nueva valoración →
+                </button>
+              </motion.div>
+            ) : (
+              <div className="flex flex-col gap-6 w-full max-w-2xl mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4 w-full">
+                  <div className="relative flex-1">
+                    <select
+                      value={valuatorData.zona}
+                      onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                      className="w-full bg-[#f8fafc] border-0 rounded-lg px-5 py-4 text-base font-semibold text-onyx focus:ring-2 focus:ring-primary-blue focus:outline-none transition-all appearance-none cursor-pointer"
                     >
-                      Nueva valoración →
-                    </button>
-                  </motion.div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.zonaLabel}</label>
-                        <select
-                          value={valuatorData.zona}
-                          onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors"
-                        >
-                          <option value="">Seleccionar…</option>
-                          {zonas.map(z => <option key={z} value={z}>{z}</option>)}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.tipoLabel}</label>
-                        <select
-                          value={valuatorData.tipo}
-                          onChange={e => setValuatorData(d => ({ ...d, tipo: e.target.value }))}
-                          className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors"
-                        >
-                          <option value="">Seleccionar…</option>
-                          {tipos.map(tp => <option key={tp} value={tp}>{tp}</option>)}
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.metrosLabel}</label>
-                      <input
-                        type="number"
-                        placeholder="Ej: 85"
-                        value={valuatorData.metros}
-                        onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                        className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.valuator.contactLabel}</label>
-                      <input
-                        type="text"
-                        placeholder={t.valuator.contactPlaceholder}
-                        value={valuatorData.contacto}
-                        onChange={e => setValuatorData(d => ({ ...d, contacto: e.target.value }))}
-                        className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors placeholder:text-onyx/25"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (valuatorData.contacto.trim()) setValuatorSubmitted(true);
-                      }}
-                      className="w-full bg-primary-blue text-white py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-onyx transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.99]"
-                    >
-                      {t.valuator.submit}
-                    </button>
+                      <option value="" disabled hidden>Zona</option>
+                      {zonas.map(z => <option key={z} value={z}>{z}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
                   </div>
-                )}
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      placeholder="Superficie..."
+                      value={valuatorData.metros}
+                      onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                      className="w-full bg-[#f8fafc] border-0 rounded-lg px-5 py-4 text-base font-semibold text-onyx focus:ring-2 focus:ring-primary-blue focus:outline-none transition-all placeholder:text-onyx/40"
+                    />
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => { if (valuatorData.zona || valuatorData.metros) setValuatorSubmitted(true); }}
+                  className="w-full bg-[#0082c8] hover:bg-[#0070ab] text-white font-bold text-base tracking-wider uppercase py-4 rounded-lg transition-colors focus:outline-none mt-2 shadow-lg"
+                >
+                  SOLICITAR VALORACIÓN
+                </button>
               </div>
-            </Reveal>
-          </div>
+            )}
+          </Reveal>
         </div>
       </section>
 
@@ -834,52 +894,175 @@ function Index() {
           <Reveal>
             <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.properties.tag}</p>
+                <p className="text-[13px] uppercase text-primary-blue font-bold mb-4 tracking-wide">{t.properties.tag}</p>
                 {/* PUNTO 1: Tipografía serif eliminada — ahora text-primary-blue bold */}
-                <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
+                <h2 key={language} className="text-4xl md:text-6xl font-[800] leading-[1.15] text-onyx tracking-tight">
                   {t.properties.title} <br />
-                  <span className="text-primary-blue font-bold">{t.properties.titleAccent}</span>
+                  <span className="text-primary-blue">{t.properties.titleAccent}</span>
                 </h2>
               </div>
-              <p className="text-onyx/50 max-w-sm text-base leading-relaxed">{t.properties.subtitle}</p>
+              <p className="text-slate-600 max-w-sm text-[17px] md:text-lg leading-relaxed font-medium">{t.properties.subtitle}</p>
             </div>
           </Reveal>
 
-          {/* BARRA DE FILTROS */}
-          <div className="bg-[#F8FAFC] border border-onyx/[0.05] rounded-2xl p-4 mt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="flex gap-4 w-full md:w-auto">
-              <select
-                value={searchParams.tipo}
-                onChange={(e) => setSearchParams(p => ({ ...p, tipo: e.target.value }))}
-                className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
-              >
-                <option value="Todos">Tipo de inmueble</option>
-                <option value="Piso">Piso</option>
-                <option value="Ático">Ático</option>
-                <option value="Local comercial">Local comercial</option>
-                <option value="Chalet">Chalet</option>
-              </select>
-              <select
-                value={searchParams.zona}
-                onChange={(e) => setSearchParams(p => ({ ...p, zona: e.target.value }))}
-                className="bg-white border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-primary-blue text-onyx/80 min-w-[150px]"
-              >
-                <option value="Cualquiera">Zona</option>
-                {[...new Set(properties.map(p => p.location))].map(loc => (
-                  <option key={loc} value={loc}>{loc}</option>
+          {/* BARRA DE FILTROS - Chips Editoriales */}
+          <div className="flex flex-col gap-6 mt-12 w-full overflow-hidden">
+            <div className="flex flex-col gap-3">
+              <span className="text-[13px] font-bold uppercase text-primary-blue tracking-wide">Tipo de Inmueble</span>
+              <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2 -mx-6 px-6 md:mx-0 md:px-0">
+                {["Cualquier tipo", "Piso", "Ático", "Local comercial", "Chalet"].map(tipo => (
+                  <button
+                    key={tipo}
+                    onClick={() => setSearchParams(p => ({ ...p, tipo }))}
+                    className={`px-6 py-2.5 rounded-full text-[14px] whitespace-nowrap transition-all duration-300 ${
+                      searchParams.tipo === tipo 
+                        ? "bg-primary-blue text-white shadow-md shadow-primary-blue/20 font-bold" 
+                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    {tipo === "Cualquier tipo" ? "Todos" : tipo}
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
-            <div className="text-sm text-onyx/50 font-medium">
-              {properties.filter(p => searchParams.zona === "Cualquiera" ? true : p.location.includes(searchParams.zona)).filter(p => searchParams.tipo === "Todos" ? true : p.type === searchParams.tipo).length} propiedades
+
+            <div className="flex flex-col gap-3">
+              <span className="text-[13px] font-bold uppercase text-primary-blue tracking-wide">Zona</span>
+              <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-2 -mx-6 px-6 md:mx-0 md:px-0">
+                {["Cualquier zona", ...new Set(properties.map(p => p.location))].map(zona => (
+                  <button
+                    key={zona}
+                    onClick={() => setSearchParams(p => ({ ...p, zona }))}
+                    className={`px-6 py-2.5 rounded-full text-[14px] whitespace-nowrap transition-all duration-300 ${
+                      searchParams.zona === zona 
+                        ? "bg-primary-blue text-white shadow-md shadow-primary-blue/20 font-bold" 
+                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    {zona === "Cualquier zona" ? "Todas las zonas" : zona}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-sm text-slate-400 italic pt-4 mt-2">
+              {properties
+                  .filter(p => searchParams.zona === "Cualquier zona" ? true : p.location.includes(searchParams.zona))
+                  .filter(p => searchParams.tipo === "Cualquier tipo" ? true : p.type === searchParams.tipo)
+                  .filter(p => p.operation === searchParams.mode)
+                  .filter(p => isPriceValid(searchParams.precio, p.price))
+                  .length} resultados encontrados en {searchParams.zona === "Cualquier zona" ? "todas las zonas" : searchParams.zona}
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-            {properties
-              .filter(p => searchParams.zona === 'Cualquiera' ? true : p.location.includes(searchParams.zona))
-              .filter(p => searchParams.tipo === 'Todos' ? true : p.type === searchParams.tipo)
-              .map((property, idx) => (
+            {(() => {
+              const filteredProperties = properties
+                .filter(p => searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona))
+                .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
+                .filter(p => p.operation === searchParams.mode)
+                .filter(p => isPriceValid(searchParams.precio, p.price));
+
+              if (filteredProperties.length === 0) {
+                // FALLBACK LOGIC
+                let similarProperties = properties
+                  .filter(p => searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona))
+                  .filter(p => p.operation === searchParams.mode);
+
+                if (similarProperties.length === 0) {
+                  similarProperties = properties
+                    .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
+                    .filter(p => p.operation === searchParams.mode);
+                }
+
+                if (similarProperties.length === 0) {
+                  similarProperties = properties.filter(p => p.operation === searchParams.mode);
+                }
+                
+                similarProperties = similarProperties.slice(0, 3);
+
+                const renderCard = (property: any, idx: number) => (
+                  <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id} className="block group">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.6, delay: 0.1 + idx * 0.1, ease: easeOut }}
+                      className="flex flex-col h-full cursor-pointer"
+                    >
+                      {/* Imagen grande */}
+                      <div className="relative aspect-[4/3] md:aspect-[3/4] overflow-hidden rounded-2xl mb-5 shadow-[0_4px_20px_rgba(0,0,0,0.05)] bg-slate-100">
+                        <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+                        
+                        {/* Overlay Gradiente superior suave */}
+                        <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        
+                        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur p-2.5 rounded-full text-onyx shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </div>
+                        
+                        <div className="absolute bottom-4 left-4 bg-onyx/85 backdrop-blur-md text-white text-[10px] px-3 py-1.5 font-bold tracking-widest uppercase rounded-full">
+                          Ref {property.id.toUpperCase().substring(0, 6)}
+                        </div>
+                      </div>
+                      
+                      {/* Contenido Minimalista sin bordes */}
+                      <div className="flex flex-col flex-1 px-1">
+                        <div className="flex justify-between items-start mb-1">
+                          <h3 className="text-[17px] font-bold text-onyx leading-tight line-clamp-1 group-hover:text-primary-blue transition-colors">
+                            {property.name || `${property.type} en ${property.location}`}
+                          </h3>
+                        </div>
+                        
+                        <p className="text-[13px] text-slate-500 font-medium mb-3">{property.location}</p>
+                        
+                        {/* Precio Rey */}
+                        <div className="text-[1.75rem] leading-none font-black text-primary-blue mb-5">
+                          {new Intl.NumberFormat('es-ES').format(property.price)}€
+                          {property.price < 10000 && <span className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">/ mes</span>}
+                        </div>
+                        
+                        {/* Características Simplificadas */}
+                        <div className="flex items-center gap-5 text-[13px] text-slate-600 font-semibold mt-auto border-t border-slate-100 pt-4">
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                            {property.bedrooms > 0 ? property.bedrooms : "0"} hab.
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M10 5 L22 5 L22 11 L10 11 Z"/></svg>
+                            {property.bathrooms > 0 ? property.bathrooms : "1"} baños
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            {property.surface} m²
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
+                );
+
+                return (
+                  <div className="col-span-full flex flex-col gap-8">
+                    <div className="py-16 px-8 text-center bg-[#F8FAFC] rounded-2xl border border-slate-200">
+                      <h3 className="text-2xl font-bold text-onyx mb-3">No hemos encontrado resultados exactos</h3>
+                      <p className="text-onyx/60 mb-8 max-w-lg mx-auto text-base">
+                        Actualmente no disponemos de propiedades que coincidan 100% con tu búsqueda. <br/> Sin embargo, estas opciones similares podrían interesarte:
+                      </p>
+                      <a href="#contacto" className="inline-flex items-center justify-center bg-onyx text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-primary-blue transition-colors">
+                        Contactar con un asesor
+                      </a>
+                    </div>
+                    {similarProperties.length > 0 && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {similarProperties.map((prop, idx) => renderCard(prop, idx))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return filteredProperties.map((property, idx) => (
               <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -898,39 +1081,41 @@ function Index() {
                       Ref {property.id.toUpperCase().substring(0, 6)}
                     </div>
                   </div>
-                  
-                  {/* Tipo y Ubicación */}
-                  <div className="p-5 flex flex-col items-center justify-center text-center bg-white">
-                    <h3 className="text-sm font-bold text-onyx mb-1">{property.type || "Piso"}</h3>
-                    <p className="text-xs text-onyx/70 flex items-center justify-center gap-1">
-                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  {/* Contenido y Precio */}
+                  <div className="p-6 flex flex-col flex-1 bg-white">
+                    <div className="text-[22px] font-bold text-primary-blue mb-1 leading-none">
+                      {new Intl.NumberFormat('es-ES').format(property.price)}€ {property.price < 10000 ? <span className="text-xs font-normal text-slate-400 uppercase tracking-widest ml-1">/ mes</span> : ''}
+                    </div>
+                    
+                    <h3 className="text-base font-bold text-onyx mb-1.5">{property.type || "Piso"}</h3>
+                    <p className="text-[13px] text-slate-500 flex items-center gap-1.5 mb-5">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                       {property.location}
                     </p>
-                  </div>
-                  
-                  {/* Características (Barra gris) */}
-                  <div className="grid grid-cols-3 divide-x divide-slate-200 bg-[#f4f4f4] border-t border-b border-slate-200 text-[11px] text-onyx/60 py-2.5">
-                    <div className="flex justify-center items-center gap-1.5">
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
-                      {property.bedrooms > 0 ? property.bedrooms : "0"}
+                    
+                    {/* Separador */}
+                    <div className="h-px bg-slate-100 w-full mt-auto mb-4" />
+
+                    {/* Características */}
+                    <div className="flex justify-between items-center text-xs text-slate-500 font-medium px-1">
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                        {property.bedrooms > 0 ? property.bedrooms : "0"}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M10 5 L22 5 L22 11 L10 11 Z"/></svg>
+                        {property.bathrooms > 0 ? property.bathrooms : "1"}
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <svg className="w-4 h-4 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        {property.surface} m²
+                      </div>
                     </div>
-                    <div className="flex justify-center items-center gap-1.5">
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M10 5 L22 5 L22 11 L10 11 Z"/></svg>
-                      {property.bathrooms > 0 ? property.bathrooms : "1"}
-                    </div>
-                    <div className="flex justify-center items-center gap-1.5">
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                      {property.surface} m²
-                    </div>
-                  </div>
-                  
-                  {/* Precio */}
-                  <div className="bg-primary-blue text-white text-center font-bold py-3 text-sm tracking-wide">
-                    {new Intl.NumberFormat('es-ES').format(property.price)}€ {property.price < 10000 ? 'MES' : ''}
                   </div>
                 </motion.div>
               </Link>
-            ))}
+              ));
+            })()}
           </div>
 
           <Reveal delay={0.1}>
@@ -943,109 +1128,92 @@ function Index() {
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
-      <section id="servicios" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          <div className="lg:col-span-6 lg:pr-12">
+      {/* ── SERVICES SECTION ── */}
+      <section id="servicios" className="py-24 md:py-32 px-6 md:px-12 bg-slate-50 text-onyx overflow-hidden">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center mb-16">
             <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.services.tag}</p>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx mb-8">
-                {t.services.title1}{" "}
-                <span className="text-primary-blue font-bold">{t.services.titleAccent}</span>
-                {" "}{t.services.title3}
-              </h2>
-              <p className="text-lg text-onyx/70 leading-relaxed mb-10 max-w-lg">
-                Ofrecemos un servicio integral 360º para cubrir absolutamente todas sus necesidades inmobiliarias, patrimoniales y legales con la máxima garantía y profesionalidad.
-              </p>
-              <a href="#contacto" className="inline-flex items-center gap-3 border border-slate-200 text-onyx px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em] bg-white hover:bg-slate-50 transition-colors">
-                Contactar ahora →
-              </a>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-6">
-            <Reveal delay={0.2}>
-              <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-xl border-none">
-                <div className="w-full h-[220px] md:h-[260px] relative overflow-hidden flex items-center justify-center bg-primary-blue">
-                  <img 
-                    src={handKeysImg} 
-                    alt="Servicios Gesgrama" 
-                    className="w-full h-full object-cover object-center"
-                  />
-                </div>
-                
-                <div className="px-8 pt-8 md:px-10 md:pt-10">
-                  <h3 className="text-2xl md:text-[28px] font-serif font-bold text-white leading-snug mb-2">
-                    Gesgrama también ofrece servicios de...
-                  </h3>
-                </div>
-                
-                <div className="px-8 pb-8 md:px-10 md:pb-10 flex flex-col">
-                  {[
-                    { title: "Comunidades y alquileres", desc: "¿Busca un cambio en la administración de su comunidad o alquiler?" },
-                    { title: "Inmobiliaria", desc: "Confíe en nosotros para vender o alquilar su inmueble al mejor precio del mercado." },
-                    { title: "Inversión inmobiliaria", desc: "Para inversores que buscan la máxima rentabilidad con total seguridad." },
-                    { title: "Asesoría Jurídica", desc: "Más de 15 años de experiencia en derecho inmobiliario a su disposición." }
-                  ].map((srv, idx) => (
-                    <div key={idx} className="flex gap-6 group cursor-pointer py-6 border-b border-white/20 last:border-0 last:pb-0">
-                      <div className="text-6xl md:text-7xl font-serif text-white/30 group-hover:text-white/60 transition-colors leading-none shrink-0 pt-1">
-                        {idx + 1}
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <h4 className="text-[19px] font-serif font-semibold text-white mb-1.5">{srv.title}</h4>
-                        <p className="text-[13px] text-white/80 leading-relaxed">{srv.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div className="inline-block mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-blue bg-primary-blue/10 px-4 py-1.5 rounded-full">
+                  Áreas de Experiencia
+                </span>
               </div>
             </Reveal>
+            <Reveal>
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-onyx mb-4" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+                Nuestros Servicios
+              </h2>
+            </Reveal>
           </div>
-          
-        </div>
-      </section>
 
-      {/* ── ESPECIALIDADES (MINIMAL GRID) ── */}
-      <section className="py-24 md:py-32 bg-white text-onyx border-t border-onyx/[0.05]">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          {/* Carrusel Horizontal de Tarjetas Editoriales */}
+          <div className="flex overflow-x-auto gap-6 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
             {[
-              {
-                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M9 11h6"/><path d="M9 15h6"/></svg>,
-                title: "INTERMEDIACIÓN\nINMOBILIARIA",
-                desc: "Te ofrecemos un amplio abanico de servicios con los que cerramos el círculo de cualquier operación de intermediación inmobiliaria."
+              { 
+                icon: <Building2 className="w-8 h-8 text-white stroke-[1.5]" />, 
+                label: "Comunidades", 
+                desc: "Gestión integral y transparente para la tranquilidad de todos los vecinos.",
+                bg: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop"
               },
-              {
-                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/><circle cx="19" cy="9" r="2"/><circle cx="14" cy="14" r="2"/><circle cx="10" cy="10" r="2"/></svg>,
-                title: "CONSULTORÍA\nDE INVERSIONES",
-                desc: "Estamos aquí para ayudarte a tomar las decisiones inmobiliarias más ventajosas con la discreción y la confidencialidad que nos caracteriza."
+              { 
+                icon: <svg className="w-8 h-8 text-white stroke-[1.5] fill-none" viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>, 
+                label: "Inversión", 
+                desc: "Análisis estratégico y rentabilidad asegurada en cada operación.",
+                bg: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop"
               },
-              {
-                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-                title: "GESTIÓN DE\nALQUILERES",
-                desc: "Te ofrecemos un servicio fruto del rigor y la alta eficiencia de nuestro equipo, fortalecido por la confianza de nuestros clientes."
+              { 
+                icon: <svg className="w-8 h-8 text-white stroke-[1.5] fill-none" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, 
+                label: "Gestión Patrimonial", 
+                desc: "Protegemos y hacemos crecer su patrimonio inmobiliario.",
+                bg: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop"
               },
-              {
-                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>,
-                title: "ASESORAMIENTO\nLEGAL",
-                desc: "El asesoramiento legal de empresas y particulares constituye una de nuestras principales especialidades."
+              { 
+                icon: <svg className="w-8 h-8 text-white stroke-[1.5] fill-none" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>, 
+                label: "Reformas", 
+                desc: "Proyectos llave en mano con acabados de la más alta calidad.",
+                bg: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format&fit=crop"
+              },
+              { 
+                icon: <MessageCircle className="w-8 h-8 text-white stroke-[1.5]" />, 
+                label: "Consultoría Legal", 
+                desc: "Asesoramiento jurídico especializado en derecho inmobiliario.",
+                bg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
               }
             ].map((item, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="text-center group cursor-pointer flex flex-col h-full">
-                  <div className="mb-6 transform group-hover:-translate-y-1 transition-transform duration-300">
-                    {item.icon}
+              <Reveal key={i} delay={i * 0.1} className="shrink-0 snap-center w-[280px] md:w-[320px] lg:w-[350px]">
+                <div className="group relative h-[450px] md:h-[500px] w-full rounded-[2rem] overflow-hidden cursor-pointer shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+                  {/* Imagen de Fondo */}
+                  <img src={item.bg} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                  
+                  {/* Overlay Oscuro Base (siempre visible para legibilidad) */}
+                  <div className="absolute inset-0 bg-[#0f172a]/50" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/90 via-[#0f172a]/30 to-transparent" />
+                  
+                  {/* Overlay Oscuro Adicional (aparece en hover para leer la descripción) */}
+                  <div className="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Contenido */}
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    {/* Icono */}
+                    <div className="mb-4 transform group-hover:-translate-y-4 transition-transform duration-500">
+                      {item.icon}
+                    </div>
+                    
+                    {/* Título */}
+                    <h3 className="text-2xl font-bold text-white mb-2 transform group-hover:-translate-y-4 transition-transform duration-500">
+                      {item.label}
+                    </h3>
+                    
+                    {/* Descripción y Botón (Ocultos por defecto, suben en hover) */}
+                    <div className="absolute bottom-8 left-8 right-8 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                      <p className="text-white/80 text-sm leading-relaxed mb-6 font-medium">
+                        {item.desc}
+                      </p>
+                      <button className="flex items-center gap-2 text-primary-blue font-bold text-xs uppercase tracking-widest hover:text-white transition-colors">
+                        Saber más <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  <h3 className="text-sm font-light tracking-[0.15em] leading-relaxed text-onyx whitespace-pre-line mb-6">
-                    {item.title}
-                  </h3>
-                  <p className="text-[11px] text-onyx/60 leading-relaxed mb-8 max-w-[280px] mx-auto flex-1">
-                    {item.desc}
-                  </p>
-                  <a href="#contacto" className="text-[9px] uppercase tracking-wider text-onyx/40 font-bold group-hover:text-primary-blue transition-colors mt-auto inline-flex items-center justify-center gap-1">
-                    Leer Más <ChevronRight className="w-3 h-3" />
-                  </a>
                 </div>
               </Reveal>
             ))}
@@ -1053,21 +1221,28 @@ function Index() {
         </div>
       </section>
 
-      {/* ── VENTA EFICAZ (SPLIT) ── */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#f9fafb] text-onyx">
+      {/* ── VENTA EFICAZ (ACCORDION) ── */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-white text-onyx border-y border-slate-100">
         <div className="max-w-[1200px] mx-auto">
-          <Reveal>
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-onyx">
-                La venta de pisos en Santa Coloma de Gramenet más eficaz
+          <div className="text-center mb-16">
+            <Reveal>
+              <div className="inline-block mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-blue bg-primary-blue/10 px-4 py-1.5 rounded-full">
+                  Gestión Integral
+                </span>
+              </div>
+            </Reveal>
+            <Reveal>
+              <h2 className="text-3xl md:text-5xl font-bold text-onyx mb-6" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+                La venta de pisos en Santa Coloma <br className="hidden md:block"/>más eficaz
               </h2>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
           
           <Reveal delay={0.1}>
-            <div className="border-[4px] md:border-[8px] border-primary-blue bg-[#f0f0f0] grid grid-cols-1 lg:grid-cols-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Mitad Izquierda - Imagen */}
-              <div className="relative h-[300px] lg:h-auto">
+              <div className="relative h-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl shadow-onyx/10">
                 <img 
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
                   alt="Venta de pisos" 
@@ -1075,31 +1250,57 @@ function Index() {
                 />
               </div>
               
-              {/* Mitad Derecha - Contenido */}
-              <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-                <h3 className="text-2xl font-bold text-onyx mb-4">
+              {/* Mitad Derecha - Acordeón */}
+              <div className="flex flex-col">
+                <h3 className="text-2xl font-bold text-onyx mb-6">
                   Cómo te ayudamos con la venta de tu piso
                 </h3>
-                <div className="w-16 h-1 bg-primary-blue mb-6"></div>
-                
-                <p className="text-sm text-onyx/80 mb-8 leading-relaxed">
-                  Gesgrama está a tu disposición tanto para gestionar la venta de tu piso como para ayudarte a comprar una vivienda. Nos comprometemos a ofrecerte un servicio integral para gestionar la venta de tu piso de manera exitosa. ¿Cómo lo logramos?
+                <p className="text-[15px] text-slate-500 mb-10 leading-relaxed font-medium">
+                  Gesgrama está a tu disposición tanto para gestionar la venta de tu piso como para ayudarte a comprar una vivienda. Nos comprometemos a ofrecerte un servicio integral. ¿Cómo lo logramos?
                 </p>
                 
-                <ul className="space-y-4 text-sm text-onyx/80 leading-relaxed">
-                  <li className="flex gap-3">
-                    <span className="text-primary-blue mt-1 shrink-0">•</span>
-                    <span><strong>Amplia Cartera de Clientes:</strong> Contamos con una extensa red de clientes potenciales, lo que nos permite encontrar rápidamente compradores interesados en tu propiedad.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary-blue mt-1 shrink-0">•</span>
-                    <span><strong>Marketing Efectivo:</strong> Utilizamos estrategias de marketing innovadoras y eficaces para promocionar tu piso en los medios adecuados y alcanzar a un público amplio.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary-blue mt-1 shrink-0">•</span>
-                    <span><strong>Estudio de Mercado:</strong> Realizamos un exhaustivo análisis del mercado inmobiliario local para determinar el valor justo de tu propiedad y establecer un precio competitivo que maximice tus ganancias.</span>
-                  </li>
-                </ul>
+                <div className="space-y-4">
+                  {[
+                    { title: "Amplia Cartera de Clientes", content: "Contamos con una extensa red de clientes potenciales, lo que nos permite encontrar rápidamente compradores interesados en tu propiedad." },
+                    { title: "Marketing Efectivo", content: "Utilizamos estrategias de marketing innovadoras y eficaces para promocionar tu piso en los medios adecuados y alcanzar a un público amplio." },
+                    { title: "Estudio de Mercado", content: "Realizamos un exhaustivo análisis del mercado inmobiliario local para determinar el valor justo de tu propiedad y establecer un precio competitivo que maximice tus ganancias." }
+                  ].map((item, index) => (
+                    <div 
+                      key={index} 
+                      className={`border-b border-slate-200 overflow-hidden transition-all duration-300 ${activeAccordion === index ? 'pb-6' : 'pb-4'}`}
+                    >
+                      <button 
+                        onClick={() => setActiveAccordion(activeAccordion === index ? null : index)}
+                        className="w-full flex items-center justify-between text-left py-4 focus:outline-none group"
+                      >
+                        <span className={`text-lg font-bold transition-colors ${activeAccordion === index ? 'text-primary-blue' : 'text-onyx group-hover:text-primary-blue'}`}>
+                          {item.title}
+                        </span>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${activeAccordion === index ? 'bg-primary-blue text-white' : 'bg-slate-100 text-primary-blue group-hover:bg-primary-blue/10'}`}>
+                          {activeAccordion === index ? (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14"/></svg>
+                          ) : (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                          )}
+                        </div>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {activeAccordion === index && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                          >
+                            <p className="pt-2 pb-2 text-[#64748b] font-medium text-[14px] leading-relaxed pr-8">
+                              {item.content}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
@@ -1107,85 +1308,71 @@ function Index() {
       </section>
 
       {/* ── NOSOTROS / WHY US ── */}
-      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
-            <Reveal>
-              <div className="mb-12">
-                <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.nosotros.tag}</p>
-                {/* PUNTO 1: Tipografía serif eliminada */}
-                <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx">
-                  {t.nosotros.title1} <br />
-                  <span className="text-primary-blue font-bold">{t.nosotros.titleAccent}</span>
-                  {" "}{t.nosotros.title3}
-                </h2>
-              </div>
-            </Reveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-y border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-              {t.nosotros.items.map((item, i) => (
-                <Reveal key={item.title} delay={i * 0.08}>
-                  <div className="group bg-white hover:bg-slate-50 p-8 flex flex-col gap-4 items-start h-full transition-colors">
-                    <div className="w-12 h-12 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
-                      {iconMap[item.icon]}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-onyx mb-2">{item.title}</h4>
-                      <p className="text-onyx/55 text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          <Reveal delay={0.2}>
-            <div className="relative overflow-hidden w-full aspect-[4/3] lg:aspect-square">
-              <img
-                src={gesgramaOffice}
-                alt="Oficina Gesgrama"
-                className="w-full h-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary-blue/20 to-transparent mix-blend-overlay"></div>
+      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-[#89888d] text-onyx">
+        <div className="max-w-5xl mx-auto flex flex-col gap-12 lg:gap-20">
+          <Reveal>
+            <div>
+              <h3 className="text-5xl sm:text-6xl md:text-[6rem] lg:text-[7rem] font-black text-onyx mb-2 tracking-tighter uppercase leading-none break-words">{t.nosotros.tag}</h3>
+              <h2 key={language} className="text-[2.75rem] sm:text-5xl md:text-[6rem] lg:text-[7rem] font-black leading-[0.95] md:leading-none tracking-tighter text-white break-words" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+                {t.nosotros.title1} <br className="hidden md:block" />
+                <span className="text-onyx font-black">{t.nosotros.titleAccent}</span>
+                <span className="text-white font-black">{" "}{t.nosotros.title3}</span>
+              </h2>
             </div>
           </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+            {t.nosotros.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.1}>
+                <div className="flex flex-col gap-6 items-start bg-white border-[3px] border-onyx rounded-[32px] p-8 h-full">
+                  <div className="w-14 h-14 rounded-2xl bg-onyx/5 flex items-center justify-center text-onyx shrink-0">
+                    {iconMap[item.icon]}
+                  </div>
+                  <div>
+                    <h4 className="font-extrabold text-3xl text-onyx mb-3 tracking-tighter leading-tight">{item.title}</h4>
+                    <p className="text-onyx/70 text-base leading-relaxed font-medium">{item.desc}</p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── TESTIMONIOS ── */}
-      {/* PUNTO 3: Nueva sección — inspirado en Forcadell "Historias reales de clientes" */}
-      <section id="testimonios" className="py-28 md:py-36 px-6 md:px-12 bg-[#F8FAFC] text-onyx">
-        <div className="max-w-[1400px] mx-auto">
+      <section id="testimonios" className="py-28 md:py-36 px-6 md:px-12 bg-slate-50 text-onyx relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
             <div className="mb-16 text-center">
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.testimonials.tag}</p>
-              <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
                 {t.testimonials.title} <span className="text-primary-blue">{t.testimonials.titleAccent}</span>
               </h2>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 border-y border-slate-200 divide-y md:divide-y-0 md:divide-x lg:divide-y-0 lg:divide-x divide-slate-200">
-            {/* TODO: sustituir por testimonios reales del cliente */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.08}>
-                <div className="group bg-[#F8FAFC] hover:bg-white p-8 flex flex-col h-full transition-colors">
+              <Reveal key={item.name} delay={i * 0.1}>
+                <div className="bg-white rounded-[2rem] p-10 flex flex-col items-center text-center h-full border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#0082c8]/30">
                   {/* Estrellas */}
-                  <div className="flex gap-0.5 mb-4">
+                  <div className="flex justify-center gap-1.5 mb-8">
                     {[...Array(5)].map((_, s) => (
-                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      <Star key={s} className="w-5 h-5 fill-[#d4af37] text-[#d4af37]" />
                     ))}
                   </div>
-                  {/* Cita — sin tipografía serif */}
-                  <p className="text-onyx/70 text-sm leading-relaxed flex-1 mb-6">"{item.quote}"</p>
+                  
+                  {/* Cita */}
+                  <p className="text-onyx/80 text-lg leading-relaxed italic flex-1 mb-10 font-medium">"{item.quote}"</p>
+                  
                   {/* Autor */}
-                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-black/[0.05]">
-                    <div className="w-10 h-10 rounded-full bg-primary-blue/10 flex items-center justify-center text-primary-blue font-black text-sm shrink-0">
+                  <div className="flex flex-col items-center gap-4 mt-auto">
+                    <div className="w-14 h-14 rounded-full bg-[#0082c8]/10 flex items-center justify-center text-[#0082c8] font-black text-base shrink-0">
                       {item.initials}
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-onyx">{item.name}</div>
-                      <div className="text-[11px] text-onyx/45 font-medium">{item.zone}</div>
+                      <div className="font-bold text-lg text-onyx mb-1">{item.name}</div>
+                      <div className="text-sm text-slate-500 font-semibold">{item.zone}</div>
                     </div>
                   </div>
                 </div>
@@ -1209,22 +1396,22 @@ function Index() {
                 {t.coverage.subtitle}
               </p>
 
-              <div className="grid grid-cols-2 gap-x-10 gap-y-14">
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s1Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s1Label}</div>
+              <div className="grid grid-cols-2 gap-x-12 gap-y-20 mt-12">
+                <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
+                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s1Value}</div>
+                  <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s1Label}</div>
                 </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s2Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s2Label}</div>
+                <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
+                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s2Value}</div>
+                  <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s2Label}</div>
                 </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s3Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s3Label}</div>
+                <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
+                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s3Value}</div>
+                  <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s3Label}</div>
                 </div>
-                <div className="border-l-[3px] border-primary-blue/20 pl-6">
-                  <div className="text-4xl lg:text-5xl font-black text-onyx mb-2 tracking-tight">{t.coverage.s4Value}</div>
-                  <div className="text-[10px] font-bold text-onyx/40 uppercase tracking-[0.2em]">{t.coverage.s4Label}</div>
+                <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
+                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s4Value}</div>
+                  <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s4Label}</div>
                 </div>
               </div>
             </div>
@@ -1265,19 +1452,29 @@ function Index() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="relative bg-primary-blue py-28 md:py-40 text-center px-6 overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
-        <Reveal className="relative z-10">
-          <p className="text-[10px] uppercase tracking-[0.5em] text-white/60 font-bold mb-6">{t.cta.tag}</p>
-          <h2 key={language} className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-12 leading-tight">
-            {t.cta.title}
+      <section className="relative py-32 md:py-40 text-center px-6 overflow-hidden rounded-[2.5rem] mx-4 md:mx-12 my-12 shadow-2xl">
+        {/* Tratamiento del Fondo: Imagen residencial estándar con overlay oscuro */}
+        <div className="absolute inset-0 bg-[#0f172a]">
+          <img 
+            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+            alt="Edificio residencial" 
+            className="w-full h-full object-cover object-center opacity-30 grayscale" 
+          />
+        </div>
+        
+        <Reveal className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+          <p className="text-sm md:text-base uppercase tracking-[0.3em] text-[#0082c8] font-black mb-6">
+            ¿Hablamos?
+          </p>
+          <h2 className="text-5xl md:text-6xl lg:text-[5.5rem] font-black text-white mb-12 leading-[1.05] tracking-tighter" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+            Su comunidad <br className="hidden md:block" />en las mejores manos.
           </h2>
-          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <a href="#propiedades" className="bg-white text-onyx border border-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-onyx hover:text-white hover:border-onyx transition-colors">
-              {t.cta.findHome}
+          <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mt-4 w-full sm:w-auto">
+            <a href="#propiedades" className="bg-[#0082c8] text-white px-10 py-5 font-bold text-lg transition-colors hover:bg-[#0072b1] rounded-2xl w-full sm:w-auto text-center">
+              Ver propiedades en venta
             </a>
-            <a href="#contacto" className="bg-transparent text-white border border-white/50 px-10 py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-onyx transition-colors">
-              {t.cta.contact}
+            <a href="#contacto" className="bg-white text-onyx hover:bg-slate-100 px-10 py-5 font-bold text-lg transition-colors rounded-2xl w-full sm:w-auto text-center">
+              Hablar con un asesor
             </a>
           </div>
         </Reveal>
@@ -1347,6 +1544,55 @@ function Index() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <section id="faq" className="py-24 md:py-32 px-6 md:px-12 bg-white text-onyx">
+        <div className="max-w-3xl mx-auto flex flex-col items-center">
+          <Reveal>
+            <div className="text-center mb-12">
+              <p className="text-[13px] uppercase tracking-wide text-[#0082c8] font-bold mb-4">{t.faq.tag}</p>
+              <h2 className="text-3xl md:text-5xl font-extrabold leading-[1.1] text-onyx tracking-tight">
+                {t.faq.title}
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="w-full flex flex-col gap-4">
+            {t.faq.items.map((item, i) => {
+              const isActive = activeFaq === i;
+              return (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div 
+                    onClick={() => setActiveFaq(isActive ? null : i)}
+                    className="cursor-pointer bg-white border border-slate-200 rounded-3xl p-6 md:px-8 md:py-7 transition-all duration-300 hover:border-slate-300 group"
+                  >
+                    <div className="flex justify-between items-center gap-6">
+                      <h3 className="font-bold text-onyx text-lg md:text-xl pr-4">{item.q}</h3>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isActive ? 'bg-[#0082c8] text-white' : 'bg-slate-100 text-onyx'}`}>
+                        <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isActive ? 'rotate-90' : 'rotate-0'}`} />
+                      </div>
+                    </div>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="pt-4 text-slate-600 leading-relaxed font-medium">
+                            {item.a}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* ── CONTACT ── */}
       <section id="contacto" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -1398,24 +1644,24 @@ function Index() {
 
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal delay={0.1}>
-              <div className="bg-[#F8FAFC] p-8 md:p-12 border border-slate-200">
-                <h3 className="font-bold text-xl mb-6">Solicite información sin compromiso</h3>
-                <form key={language} className="space-y-5">
-                  <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white border-[3px] border-onyx p-8 md:p-12 rounded-[2rem] shadow-[12px_12px_0px_#0f172a]">
+                <h3 className="font-black text-3xl md:text-4xl text-onyx mb-10 tracking-tighter leading-tight">Solicite información sin compromiso</h3>
+                <form key={language} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <FormField label={t.contact.nameLabel} placeholder={t.contact.namePlaceholder} />
-                    <FormField label={t.contact.phoneLabel} placeholder="+34" />
+                    <FormField label={t.contact.phoneLabel} placeholder={language === 'es' ? "Ej: 600 000 000" : "+34"} />
                   </div>
-                  <FormField label={t.contact.emailLabel} type="email" placeholder="correo@email.com" />
+                  <FormField label={t.contact.emailLabel} type="email" placeholder={language === 'es' ? "tu-correo@ejemplo.com" : "correo@email.com"} />
                   <div>
-                    <label className="text-[10px] uppercase tracking-wider text-onyx/45 font-bold block mb-2">{t.contact.serviceLabel}</label>
-                    <select className="w-full bg-white border border-black/[0.08] rounded-lg px-4 py-3 text-sm text-onyx focus:border-primary-blue focus:outline-none transition-colors">
+                    <label className="text-onyx font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contact.serviceLabel}</label>
+                    <select className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors">
                       {t.contact.serviceOpts.map(opt => <option key={opt}>{opt}</option>)}
                     </select>
                   </div>
                   <FormField label={t.contact.messageLabel} placeholder={t.contact.messagePlaceholder} textarea />
                   <button
                     type="button"
-                    className="w-full bg-onyx text-white py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-primary-blue transition-colors"
+                    className="w-full bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
                   >
                     {t.contact.submit}
                   </button>

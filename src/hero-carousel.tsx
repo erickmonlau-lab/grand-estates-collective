@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X, Building, Award, Zap, CheckCircle2 } from "lucide-react";
 
-import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
+import img1 from "@/assets/premium_rental_apartment.webp";
 import img2 from "@/assets/family_no_boy.jpg";
 
 const images = [img1, img2];
@@ -44,8 +44,8 @@ const PRICES_ALQUILAR = [
 type Mode = "comprar" | "alquilar";
 type Drop = "zona" | "tipo" | "precio" | null;
 
-// ─── Mobile Search Bottom Sheet (completely isolated from desktop widget) ───
-function MobileSearchSheet({
+// ─── Mobile Search Wizard (Immersive Full-Screen) ───
+function MobileSearchWizard({
   open, onClose,
   mode, setMode,
   zona, setZona,
@@ -60,190 +60,226 @@ function MobileSearchSheet({
   precio: string; setPrecio: (p: string) => void;
   onSearch: () => void;
 }) {
-  const [mobileDrop, setMobileDrop] = useState<Drop>(null);
+  const [step, setStep] = useState(1);
   const prices = mode === "comprar" ? PRICES_COMPRAR : PRICES_ALQUILAR;
 
-  // Lock body scroll while open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      setStep(1);
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  const handleZoneSelect = (z: string) => {
+    setZona(z);
+    if (navigator.vibrate) navigator.vibrate(15);
+    setTimeout(() => setStep(2), 300);
+  };
+
+  const handleTypeSelect = (t: string) => {
+    setTipo(t);
+    if (navigator.vibrate) navigator.vibrate(15);
+    setTimeout(() => setStep(3), 300);
+  };
+
+  const summaryText = step === 1 
+    ? "" 
+    : step === 2 
+      ? `${mode === "comprar" ? "Comprar" : "Alquilar"} • ${zona !== "Cualquier zona" ? zona : "Zonas"}`
+      : `${mode === "comprar" ? "Comprar" : "Alquilar"} • ${zona !== "Cualquier zona" ? zona : "Zonas"} • ${tipo !== "Cualquier tipo" ? tipo : "Tipos"}`;
+
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            onClick={onClose}
-            className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm md:hidden"
-          />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] md:hidden bg-[#0f172a] bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:14px_24px] flex flex-col"
+        >
+          {/* Top Nav */}
+          <div className="relative z-10 flex flex-col p-6 pb-2">
+            <div className="flex items-center justify-between mb-4">
+              {step > 1 ? (
+                <button onClick={() => setStep(step - 1)} className="flex items-center gap-2 text-white font-bold text-sm bg-white/10 px-4 py-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-colors border border-white/10">
+                  &lt; Volver
+                </button>
+              ) : (
+                <div /> // placeholder for flex-between
+              )}
+              <button onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md hover:bg-white/20 transition-colors border border-white/10">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            {/* Stepper */}
+            <div className="flex items-center justify-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${step >= 1 ? 'bg-white' : 'bg-white/30'}`} />
+              <div className={`w-2 h-2 rounded-full ${step >= 2 ? 'bg-white' : 'bg-white/30'}`} />
+              <div className={`w-2 h-2 rounded-full ${step >= 3 ? 'bg-white' : 'bg-white/30'}`} />
+            </div>
 
-          {/* Sheet */}
+            {/* Breadcrumb Summary */}
+            <AnimatePresence>
+              {step > 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mt-4 text-center"
+                >
+                  <span className="inline-block bg-white/10 text-white font-bold text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/20">
+                    {summaryText}
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* H1 Titles */}
+          <div className="relative z-10 flex-1 flex flex-col justify-end px-6 pb-8">
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={step}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-white font-black text-4xl leading-tight text-balance drop-shadow-xl"
+              >
+                {step === 1 && "Elige tu zona"}
+                {step === 2 && "Elige el tipo de inmueble"}
+                {step === 3 && "Elige el precio que quieras"}
+              </motion.h1>
+            </AnimatePresence>
+          </div>
+
+          {/* Bottom Sheet Content */}
           <motion.div
-            key="sheet"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 32, stiffness: 320 }}
-            className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white rounded-t-[2rem] shadow-[0_-20px_60px_-10px_rgba(0,0,0,0.25)] max-h-[90dvh] flex flex-col"
+            transition={{ type: "spring", damping: 28, stiffness: 220 }}
+            className="relative z-10 bg-white rounded-t-[2rem] shadow-[0_-20px_60px_-10px_rgba(0,0,0,0.5)] flex flex-col transition-all duration-300 h-[65dvh]"
           >
-            {/* Handle + Close */}
-            <div className="flex items-center justify-between px-6 pt-4 pb-2 shrink-0">
-              <div className="w-10 h-1 rounded-full bg-slate-300 mx-auto" />
+            {/* Scrollable Content */}
+            <div className="overflow-y-auto overscroll-contain p-6 pb-28 flex-1">
+              
+              {/* ESTADO 1: ZONAS */}
+              {step === 1 && (
+                <div className="flex flex-col gap-6">
+                  {/* Mode tabs */}
+                  <div className="grid grid-cols-2 rounded-2xl overflow-hidden border border-slate-200">
+                    {(["comprar", "alquilar"] as const).map(m => (
+                      <button
+                        key={m}
+                        onClick={() => { setMode(m); if (navigator.vibrate) navigator.vibrate(10); }}
+                        className={`flex items-center justify-center gap-2 py-4 font-bold text-sm tracking-wide uppercase transition-all ${
+                          mode === m ? "bg-primary-blue text-white" : "bg-slate-50 text-slate-500 hover:bg-slate-100"
+                        }`}
+                      >
+                        {m === "comprar" ? "Comprar" : "Alquilar"}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {ZONES.map(z => {
+                      const isSelected = zona === z.label;
+                      return (
+                        <button
+                          key={z.label}
+                          onClick={() => handleZoneSelect(z.label)}
+                          className={`px-4 py-3 rounded-full text-[13px] font-bold border-2 transition-all duration-300 ${
+                            isSelected
+                              ? "bg-primary-blue text-white border-primary-blue shadow-lg shadow-primary-blue/30"
+                              : "border-slate-200 text-slate-700 bg-white hover:bg-slate-50"
+                          }`}
+                        >
+                          {z.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ESTADO 2: TIPO */}
+              {step === 2 && (
+                <div className="grid grid-cols-2 gap-4">
+                  {TIPOS.slice(1).map(t => { // exclude 'Cualquier tipo' to form 2x2 grid
+                    const isSelected = tipo === t.label;
+                    return (
+                      <button
+                        key={t.label}
+                        onClick={() => handleTypeSelect(t.label)}
+                        className={`aspect-square rounded-2xl p-4 flex flex-col items-center justify-center text-center gap-3 border-2 transition-all duration-300 ${
+                          isSelected
+                            ? "border-primary-blue bg-primary-blue/5 text-primary-blue shadow-lg shadow-primary-blue/20"
+                            : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                        }`}
+                      >
+                        <div className={`w-8 h-8 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-[1.5] ${isSelected ? "text-primary-blue" : "text-slate-500"}`}>
+                          {t.icon}
+                        </div>
+                        <span className="font-bold text-sm">{t.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* ESTADO 3: PRECIO */}
+              {step === 3 && (
+                <div className="flex flex-col gap-2 pb-24">
+                  {prices.map(p => {
+                    const isSelected = precio === p;
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => { setPrecio(p); if (navigator.vibrate) navigator.vibrate(15); }}
+                        className={`w-full flex items-center justify-between px-5 py-4 rounded-xl transition-all ${
+                          isSelected
+                            ? "bg-primary-blue text-white shadow-md shadow-primary-blue/30"
+                            : "text-slate-900 bg-slate-100 border border-slate-200"
+                        }`}
+                      >
+                        <span className="font-bold text-[15px]">{p}</span>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${isSelected ? "border-white bg-primary-blue" : "border-slate-300 bg-white"}`}>
+                          {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-            <div className="flex items-center justify-between px-6 pb-3 shrink-0">
-              <h2 className="font-black text-xl text-slate-900">Buscador de inmuebles</h2>
-              <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 transition-colors">
-                <X className="w-5 h-5 text-slate-600" />
-              </button>
-            </div>
 
-            {/* Scrollable content */}
-            <div className="relative overflow-y-auto overscroll-contain px-4 pb-8 flex flex-col gap-4 flex-1">
-              {/* Dynamic Prompt Overlay for Mobile */}
-              <div className={`absolute inset-0 z-50 flex items-center justify-center p-6 text-center transition-all duration-300 pointer-events-none rounded-t-[2rem]
-                ${mobileDrop ? 'opacity-100 backdrop-blur-sm bg-white/70' : 'opacity-0 backdrop-blur-none bg-transparent'}
-              `}>
-                <h3 className={`text-2xl md:text-3xl font-black text-slate-900 tracking-tight text-balance transition-all duration-300 ${mobileDrop ? 'scale-100' : 'scale-110'}`}>
-                  {mobileDrop === "zona" && "Elige tu zona"}
-                  {mobileDrop === "tipo" && "Elige el tipo de inmueble"}
-                  {mobileDrop === "precio" && "Elige el precio que quieras"}
-                </h3>
-              </div>
-
-              {/* Form Content Wrapper (blurs when mobileDrop is active) */}
-              <div className={`flex flex-col gap-4 transition-all duration-300 ${mobileDrop ? 'opacity-30 blur-sm pointer-events-none' : 'opacity-100 blur-0'}`}>
-                {/* Mode tabs */}
-              <div className="grid grid-cols-2 rounded-2xl overflow-hidden border border-slate-200">
-                {(["comprar", "alquilar"] as const).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setMode(m)}
-                    className={`flex items-center justify-center gap-2 py-4 font-bold text-sm tracking-wide uppercase transition-all ${
-                      mode === m
-                        ? "bg-primary-blue text-white"
-                        : "bg-white text-slate-500"
-                    }`}
-                  >
-                    {m === "comprar" ? <Home className="w-4 h-4" /> : <Key className="w-4 h-4" />}
-                    {m === "comprar" ? "Comprar" : "Alquilar"}
-                  </button>
-                ))}
-              </div>
-
-              {/* Zona */}
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 block">Localidad</label>
-                <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <select
-                    value={zona}
-                    onFocus={() => setMobileDrop("zona")}
-                    onBlur={() => setMobileDrop(null)}
-                    onChange={e => { setZona(e.target.value); setMobileDrop(null); e.target.blur(); }}
-                    className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
-                  >
-                    {ZONES.map(z => (
-                      <option key={z.label} value={z.label}>{z.label}{z.count ? ` (${z.count})` : ""}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Tipo */}
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 block">Tipo de inmueble</label>
-                <div className="relative">
-                  <Home className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <select
-                    value={tipo}
-                    onFocus={() => setMobileDrop("tipo")}
-                    onBlur={() => setMobileDrop(null)}
-                    onChange={e => { setTipo(e.target.value); setMobileDrop(null); e.target.blur(); }}
-                    className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
-                  >
-                    {TIPOS.map(t => (
-                      <option key={t.label} value={t.label}>{t.label}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Precio */}
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 block">
-                  {mode === "alquilar" ? "Renta mensual" : "Precio máx."}
-                </label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-black text-base">€</span>
-                  <select
-                    value={precio}
-                    onFocus={() => setMobileDrop("precio")}
-                    onBlur={() => setMobileDrop(null)}
-                    onChange={e => { setPrecio(e.target.value); setMobileDrop(null); e.target.blur(); }}
-                    className="w-full pl-10 pr-10 py-3.5 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-900 focus:border-primary-blue focus:outline-none appearance-none"
-                  >
-                    {prices.map(p => (
-                      <option key={p} value={p}>{p}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Quick filters */}
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 block">Búsqueda rápida</label>
-                <div className="flex flex-wrap gap-2">
-                  {["Eixample", "Gràcia", "Sant Antoni", "Pedralbes", "Sarrià-Sant Gervasi"].map(z => (
-                    <button
-                      key={z}
-                      onClick={() => { setZona(z); }}
-                      className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 ${
-                        zona === z
-                          ? "bg-primary-blue text-white border-primary-blue"
-                          : "border-slate-200 text-slate-700 bg-white"
-                      }`}
-                    >
-                      {z}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
+            {/* Sticky Footer CTA */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white to-transparent pointer-events-none flex flex-col justify-end">
               <button
                 onClick={() => { onSearch(); onClose(); }}
-                className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl text-white font-bold text-base tracking-wide"
-                style={{ background: "linear-gradient(135deg,#0082C8 0%,#004e8c 100%)", boxShadow: "0 12px 32px rgba(0,130,200,0.45)" }}
+                className="w-full flex items-center justify-center gap-3 py-5 rounded-2xl text-white font-bold text-sm tracking-widest uppercase bg-onyx shadow-xl hover:bg-slate-800 transition-colors pointer-events-auto"
               >
-                <Search className="w-5 h-5" />
                 Buscar Inmuebles
-                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
-          </div>
+
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function HeroCarousel() {
+interface HeroCarouselProps {
+  onPerformSearch?: (params: { mode: Mode; zona: string; tipo: string; precio: string }) => void;
+}
+
+export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
   const [imgIdx, setImgIdx] = useState(0);
   const [mode,   setMode]   = useState<Mode>("comprar");
   const [drop,   setDrop]   = useState<Drop>(null);
@@ -258,6 +294,12 @@ export default function HeroCarousel() {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Preload main background images
+    images.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+
     const t = setInterval(() => setImgIdx(p => (p + 1) % images.length), 5000);
     return () => clearInterval(t);
   }, []);
@@ -292,13 +334,16 @@ export default function HeroCarousel() {
 
   const handleSearch = () => {
     setDrop(null);
+    if (onPerformSearch) {
+      onPerformSearch({ mode, zona, tipo, precio });
+    }
     document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      {/* ── MOBILE SEARCH BOTTOM SHEET ── (isolated, only renders on mobile via CSS) */}
-      <MobileSearchSheet
+      {/* ── MOBILE SEARCH WIZARD ── (isolated, only renders on mobile) */}
+      <MobileSearchWizard
         open={mobileSheetOpen}
         onClose={() => setMobileSheetOpen(false)}
         mode={mode} setMode={setMode}
@@ -313,7 +358,7 @@ export default function HeroCarousel() {
       */}
       <section className="relative w-full flex flex-col items-center
         min-h-[100dvh] justify-start md:justify-center md:pt-20
-        pt-[112px] pb-0 bg-white md:bg-transparent overflow-x-hidden"
+        pt-[112px] pb-0 bg-transparent overflow-x-hidden"
         style={{ fontFamily: "var(--font-system)" }}
       >
         <style>{`
@@ -324,12 +369,12 @@ export default function HeroCarousel() {
              * Restauramos el X=75% que es el que mejor encuadraba a la chica a la derecha.
              */
             .mobile-pos-couple { object-position: 75% 50% !important; }
-            .mobile-pos-family { object-position: 75% 65% !important; }
+            .mobile-pos-family { object-position: 75% 85% !important; }
           }
         `}</style>
 
         {/* ── BACKGROUND ── */}
-        <div className="absolute bottom-0 inset-x-0 h-[65dvh] md:top-0 md:h-[100dvh] z-0 pointer-events-none overflow-hidden bg-white md:bg-slate-900">
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-slate-900">
           <AnimatePresence mode="popLayout">
             <motion.img key={imgIdx} src={images[imgIdx]}
               initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
@@ -337,16 +382,11 @@ export default function HeroCarousel() {
               className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]} ${imageClasses[imgIdx]}`} alt="" />
           </AnimatePresence>
 
-          {/*
-            MÓVIL — overlay para fundir el borde superior de la imagen con el fondo blanco,
-            y oscurecer un poco la izquierda para el texto.
-          */}
-          <div className="absolute top-0 inset-x-0 h-32 md:hidden bg-gradient-to-b from-white to-transparent" />
-          <div className="absolute inset-0 md:hidden bg-gradient-to-r from-white/100 from-35% to-transparent to-60%" />
+          {/* Top fade for mobile to blend with header */}
+          <div className="absolute top-0 inset-x-0 h-40 md:hidden bg-gradient-to-b from-white via-white/80 to-transparent" />
 
-          {/* Desktop Gradients & Blur — unchanged */}
-          <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px] hidden md:block" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/5 to-white/95 hidden md:block" />
+          {/* Extended horizontal gradient for consistent contrast on long lines */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white from-45% via-white/90 via-70% to-transparent md:from-white/95 md:from-0% md:via-white/80 md:via-50%" />
         </div>
 
         {/*
@@ -359,16 +399,16 @@ export default function HeroCarousel() {
           {/* Original Content (Fades out on desktop when a dropdown is open) */}
           <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'md:opacity-0 md:blur-md md:scale-95' : 'opacity-100 blur-0 scale-100'}`}>
             {/* ── EYEBROW ── */}
-            {/* Desktop pill: fondo claro sobre imagen desenfocada */}
-            <div className="hidden md:flex mb-6 flex-wrap justify-center items-center gap-3 font-bold bg-white/95 backdrop-blur-md px-6 py-2.5 rounded-full border border-slate-900 shadow-sm text-sm text-slate-900 normal-case w-max mx-auto">
+            {/* Desktop pill: fondo claro sobre fondo claro */}
+            <div className="hidden md:flex mb-6 flex-wrap justify-center items-center gap-3 font-bold bg-white shadow-sm px-6 py-2.5 rounded-full border border-slate-200 text-sm text-onyx normal-case w-max mx-auto">
               <span>Administración de fincas</span>
               <span className="text-primary-blue font-black">•</span>
               <span>Asesoría jurídica</span>
               <span className="text-primary-blue font-black">•</span>
               <span>Inmobiliaria</span>
             </div>
-            {/* Mobile pill: tratamiento sólido blanco con halo/glow sutil (estilo DISET revertido) */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-white shadow-[0_0_20px_rgba(255,255,255,0.5)] px-4 py-2 rounded-full border border-white/50 text-[11px] text-slate-900 uppercase w-max"
+            {/* Mobile pill: tratamiento gris oscuro */}
+            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-[#5C6770] px-4 py-2 rounded-full text-[11px] text-white uppercase w-max shadow-sm"
                  style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
             >
               <div className="w-1.5 h-1.5 rounded-full bg-primary-blue shadow-sm" />
@@ -377,12 +417,12 @@ export default function HeroCarousel() {
 
             {/* ── HEADLINE ── */}
             <motion.div initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.2 }} className="w-full">
-              {/* Desktop Headline — unchanged */}
+              {/* Desktop Headline */}
               <h1 className="hidden md:block text-slate-900 font-black leading-[1.12] tracking-tight text-center text-[clamp(1.9rem,4.2vw,3.8rem)]">
                 Encontramos tu hogar.<br/>
                 <span className="relative inline-block mt-2">
                   Nosotros nos ocupamos del resto.
-                  <svg xmlns="http://www.w3.org/2000/svg" className="absolute w-[104%] h-6 -bottom-[22px] -left-[2%] text-primary-blue" viewBox="0 0 400 30" fill="none" preserveAspectRatio="none">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="absolute w-[104%] h-6 -bottom-[12px] -left-[2%] text-primary-blue" viewBox="0 0 400 30" fill="none" preserveAspectRatio="none">
                     <path d="M 5 20 Q 100 5 200 15 T 395 10" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
@@ -402,33 +442,36 @@ export default function HeroCarousel() {
 
             {/* ── MOTTO — texto oscuro sobre fondo claro ── */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-8 md:mt-10 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
+              className="mt-8 md:mt-14 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
               style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
             >
               La tranquilidad de tu hogar,<br className="md:hidden" /> nuestra responsabilidad.
             </motion.p>
 
-            {/* ── MOBILE CTA BUTTONS ── */}
-            <div className="w-full md:hidden flex flex-col mt-6 pb-10 pointer-events-auto max-w-[280px]">
-              <motion.div
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-white border border-slate-200 flex flex-col w-full z-40"
-        >        {/* Botón primario */}
+            {/* ── MOBILE CTA BUTTON (WIZARD TRIGGER) ── */}
+            <div className="w-full md:hidden flex flex-col mt-8 pb-10 pointer-events-auto max-w-sm mx-auto">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="flex flex-col gap-3 px-2">
                 <button
                   onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 bg-primary-blue hover:bg-blue-700 text-white font-bold py-3 px-5 rounded-none brutal-button text-sm"
-                  style={{ fontFamily: "var(--font-system)" }}
+                  className="w-full flex items-center justify-between bg-slate-50 border border-slate-200/80 text-slate-600 font-bold py-4 px-6 rounded-full text-[15px] shadow-[0_8px_24px_rgba(15,23,42,0.15)] hover:scale-[1.02] transition-transform"
                 >
-                  <Search className="w-4 h-4" />
-                  Buscar Inmuebles
+                  <div className="flex items-center gap-3">
+                    <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
+                    Comenzar búsqueda...
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-primary-blue/10 flex items-center justify-center">
+                    <ArrowRight className="w-4 h-4 text-primary-blue" />
+                  </div>
                 </button>
-                {/* Botón secundario */}
                 <button
-                  onClick={() => window.location.href='tel:+34934685656'}
-                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-primary-blue font-bold py-3 px-5 rounded-full brutal-button text-sm"
+                  onClick={() => {
+                    if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio" });
+                    document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="w-full text-center mt-3 text-[13px] font-bold text-white bg-primary-blue px-6 py-3.5 rounded-full shadow-md hover:scale-[1.02] hover:bg-primary-blue/90 transition-all flex justify-center items-center gap-2"
                   style={{ fontFamily: "var(--font-system)" }}
                 >
-                  <Phone className="w-4 h-4"/> Llamar Ahora
+                  Explora todo nuestro catálogo <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </motion.div>
             </div>
@@ -715,6 +758,19 @@ export default function HeroCarousel() {
                   {z}
                 </button>
               ))}
+            </div>
+
+            {/* Desktop "Ver Catálogo" Button */}
+            <div className="w-full mt-4 flex justify-end">
+              <button
+                onClick={() => {
+                  if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquiera", tipo: "Todos", precio: "Cualquier precio" });
+                  document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="text-sm font-bold text-slate-500 hover:text-primary-blue transition-colors pr-2 group flex items-center gap-1"
+              >
+                Ver catálogo completo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
           </div>
         </motion.div>

@@ -3,7 +3,7 @@ import HeroCarousel from '../hero-carousel';
 import { properties } from "../data/properties";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight } from "lucide-react";
+import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
@@ -874,7 +874,7 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-y border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             {properties
               .filter(p => searchParams.zona === 'Cualquiera' ? true : p.location.includes(searchParams.zona))
               .filter(p => searchParams.tipo === 'Todos' ? true : p.type === searchParams.tipo)
@@ -885,27 +885,47 @@ function Index() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: 0.2 + idx * 0.1, ease: easeOut }}
-                  className="group relative bg-white flex flex-col h-full hover:bg-slate-50 transition-colors p-4 md:p-6"
+                  className="group relative bg-white flex flex-col h-full border border-slate-200 hover:shadow-lg transition-all duration-300 overflow-hidden"
                 >
-                  <div className="relative h-[280px] overflow-hidden">
+                  {/* Imagen y badges */}
+                  <div className="relative h-[220px] md:h-[260px] overflow-hidden w-full">
                     <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm text-onyx">
-                      En Venta
+                    <div className="absolute top-3 right-3 text-white z-10 drop-shadow-md">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                    <div className="absolute bottom-0 left-0 bg-onyx text-white text-[10px] px-4 py-1.5 font-bold tracking-widest uppercase z-10">
+                      Ref {property.id.toUpperCase().substring(0, 6)}
                     </div>
                   </div>
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-onyx mb-1 group-hover:text-primary-blue transition-colors">{property.name}</h3>
-                        <p className="text-sm text-onyx/60">{property.location}</p>
-                      </div>
-                      <div className="text-xl font-light text-onyx bg-onyx/5 px-3 py-1 rounded-full whitespace-nowrap">{new Intl.NumberFormat('es-ES').format(property.price)} €</div>
+                  
+                  {/* Tipo y Ubicación */}
+                  <div className="p-5 flex flex-col items-center justify-center text-center bg-white">
+                    <h3 className="text-sm font-bold text-onyx mb-1">{property.type || "Piso"}</h3>
+                    <p className="text-xs text-onyx/70 flex items-center justify-center gap-1">
+                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      {property.location}
+                    </p>
+                  </div>
+                  
+                  {/* Características (Barra gris) */}
+                  <div className="grid grid-cols-3 divide-x divide-slate-200 bg-[#f4f4f4] border-t border-b border-slate-200 text-[11px] text-onyx/60 py-2.5">
+                    <div className="flex justify-center items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                      {property.bedrooms > 0 ? property.bedrooms : "0"}
                     </div>
-                    <div className="flex items-center gap-4 text-xs font-semibold text-onyx/50 uppercase tracking-widest mt-auto pt-6 border-t border-onyx/[0.05]">
-                      {property.bedrooms > 0 && <span>{property.bedrooms} hab.</span>}
-                      <span>{property.bathrooms} baños</span>
-                      <span>{property.surface} m²</span>
+                    <div className="flex justify-center items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M10 5 L22 5 L22 11 L10 11 Z"/></svg>
+                      {property.bathrooms > 0 ? property.bathrooms : "1"}
                     </div>
+                    <div className="flex justify-center items-center gap-1.5">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                      {property.surface} m²
+                    </div>
+                  </div>
+                  
+                  {/* Precio */}
+                  <div className="bg-primary-blue text-white text-center font-bold py-3 text-sm tracking-wide">
+                    {new Intl.NumberFormat('es-ES').format(property.price)}€ {property.price < 10000 ? 'MES' : ''}
                   </div>
                 </motion.div>
               </Link>
@@ -923,40 +943,105 @@ function Index() {
       </section>
 
       {/* ── SERVICES ── */}
-      {/* PUNTO 5: Features convertidas en chips/badges visuales */}
-      <section id="servicios" className="py-28 md:py-36 px-6 md:px-12 bg-[#F8FAFC] text-onyx">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal>
-            <div className="mb-16 text-center">
+      <section id="servicios" className="py-28 md:py-36 px-6 md:px-12 bg-white text-onyx">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div className="lg:col-span-6 lg:pr-12">
+            <Reveal>
               <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.services.tag}</p>
-              {/* PUNTO 1: Tipografía serif eliminada */}
-              <h2 key={language} className="text-4xl md:text-6xl font-bold leading-tight text-onyx">
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx mb-8">
                 {t.services.title1}{" "}
                 <span className="text-primary-blue font-bold">{t.services.titleAccent}</span>
                 {" "}{t.services.title3}
               </h2>
-            </div>
-          </Reveal>
+              <p className="text-lg text-onyx/70 leading-relaxed mb-10 max-w-lg">
+                Ofrecemos un servicio integral 360º para cubrir absolutamente todas sus necesidades inmobiliarias, patrimoniales y legales con la máxima garantía y profesionalidad.
+              </p>
+              <a href="#contacto" className="inline-flex items-center gap-3 border border-slate-200 text-onyx px-8 py-4 text-[10px] font-bold uppercase tracking-[0.2em] bg-white hover:bg-slate-50 transition-colors">
+                Contactar ahora →
+              </a>
+            </Reveal>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-slate-200 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-            {t.services.cards.map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.1}>
-                <div className="group bg-[#F8FAFC] hover:bg-white p-10 lg:p-14 flex flex-col h-full transition-colors">
-                  <div className="w-14 h-14 rounded-xl bg-primary-blue/10 flex items-center justify-center text-primary-blue mb-6 group-hover:bg-primary-blue group-hover:text-white transition-all duration-400">
-                    {iconMap[card.icon]}
+          <div className="lg:col-span-6">
+            <Reveal delay={0.2}>
+              <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-2xl">
+                <div className="relative h-[200px] w-full">
+                  <img 
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Servicios Gesgrama" 
+                    className="w-full h-full object-cover opacity-60 mix-blend-multiply"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-blue to-transparent"></div>
+                  <div className="absolute bottom-6 left-8 right-8">
+                    <h3 className="text-2xl md:text-3xl font-bold">Gesgrama también ofrece servicios de...</h3>
                   </div>
-                  <h3 className="text-xl font-bold text-onyx mb-3 leading-snug">{card.title}</h3>
-                  <p className="text-onyx/55 text-sm leading-relaxed mb-6">{card.desc}</p>
-                  {/* PUNTO 5: Chips/badges en lugar de lista con bullets */}
-                  <div className="mt-auto flex flex-wrap gap-2">
-                    {card.features.map((feat) => (
-                      <span key={feat} className="inline-flex items-center px-3 py-1.5 rounded-full bg-primary-blue/10 text-primary-blue text-[11px] font-bold">
-                        {feat}
-                      </span>
-                    ))}
+                </div>
+                
+                <div className="p-8 md:p-10 flex flex-col gap-8">
+                  {[
+                    { title: "Comunidades y alquileres", desc: "¿Busca un cambio en la administración de su comunidad o alquiler?" },
+                    { title: "Inmobiliaria", desc: "Confíe en nosotros para vender o alquilar su inmueble al mejor precio del mercado." },
+                    { title: "Inversión inmobiliaria", desc: "Para inversores que buscan la máxima rentabilidad con total seguridad." },
+                    { title: "Asesoría Jurídica", desc: "Más de 15 años de experiencia en derecho inmobiliario a su disposición." }
+                  ].map((srv, idx) => (
+                    <div key={idx} className="flex gap-6 group cursor-pointer">
+                      <div className="text-5xl md:text-6xl font-serif text-white/20 group-hover:text-white/40 transition-colors leading-none shrink-0 italic">
+                        {idx + 1}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold mb-1 group-hover:underline underline-offset-4 decoration-white/30">{srv.title}</h4>
+                        <p className="text-sm text-white/70 leading-relaxed">{srv.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+          
+        </div>
+      </section>
+
+      {/* ── ESPECIALIDADES (MINIMAL GRID) ── */}
+      <section className="py-24 md:py-32 bg-white text-onyx border-t border-onyx/[0.05]">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            {[
+              {
+                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M9 11h6"/><path d="M9 15h6"/></svg>,
+                title: "INTERMEDIACIÓN\nINMOBILIARIA",
+                desc: "Te ofrecemos un amplio abanico de servicios con los que cerramos el círculo de cualquier operación de intermediación inmobiliaria."
+              },
+              {
+                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/><circle cx="19" cy="9" r="2"/><circle cx="14" cy="14" r="2"/><circle cx="10" cy="10" r="2"/></svg>,
+                title: "CONSULTORÍA\nDE INVERSIONES",
+                desc: "Estamos aquí para ayudarte a tomar las decisiones inmobiliarias más ventajosas con la discreción y la confidencialidad que nos caracteriza."
+              },
+              {
+                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+                title: "GESTIÓN DE\nALQUILERES",
+                desc: "Te ofrecemos un servicio fruto del rigor y la alta eficiencia de nuestro equipo, fortalecido por la confianza de nuestros clientes."
+              },
+              {
+                icon: <svg className="w-12 h-12 mx-auto stroke-onyx stroke-1 fill-none" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>,
+                title: "ASESORAMIENTO\nLEGAL",
+                desc: "El asesoramiento legal de empresas y particulares constituye una de nuestras principales especialidades."
+              }
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <div className="text-center group cursor-pointer flex flex-col h-full">
+                  <div className="mb-6 transform group-hover:-translate-y-1 transition-transform duration-300">
+                    {item.icon}
                   </div>
-                  <a href="#contacto" className="mt-8 text-[11px] font-bold uppercase tracking-wider text-primary-blue flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Saber más →
+                  <h3 className="text-sm font-light tracking-[0.15em] leading-relaxed text-onyx whitespace-pre-line mb-6">
+                    {item.title}
+                  </h3>
+                  <p className="text-[11px] text-onyx/60 leading-relaxed mb-8 max-w-[280px] mx-auto flex-1">
+                    {item.desc}
+                  </p>
+                  <a href="#contacto" className="text-[9px] uppercase tracking-wider text-onyx/40 font-bold group-hover:text-primary-blue transition-colors mt-auto inline-flex items-center justify-center gap-1">
+                    Leer Más <ChevronRight className="w-3 h-3" />
                   </a>
                 </div>
               </Reveal>
@@ -965,30 +1050,56 @@ function Index() {
         </div>
       </section>
 
-      {/* ── PHILOSOPHY + STATS ── */}
-      <section className="py-24 md:py-32 bg-[#F8FAFC] text-onyx border-t border-onyx/[0.05]">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-1/3">
-            <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-6">{t.philosophy.tag}</p>
-              {/* PUNTO 1: Tipografía serif eliminada del blockquote */}
-              <blockquote key={language} className="text-2xl text-onyx font-bold leading-snug border-l-4 border-primary-blue pl-6 py-2">
-                {t.philosophy.quote}
-              </blockquote>
-            </Reveal>
-          </div>
-
-          <div className="lg:w-2/3 w-full">
-            <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-10">{t.stats.tag}</p>
-            </Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={350} /></>} label={t.stats.communities} />
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={1200} /></>} label={t.stats.sold} />
-              <StatBlock value={<><span className="text-primary-blue">+</span><Counter to={15} /></>} label={t.stats.experience} />
-              <StatBlock value={<><Counter to={98} /><span className="text-primary-blue">%</span></>} label={t.stats.satisfied} />
+      {/* ── VENTA EFICAZ (SPLIT) ── */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#f9fafb] text-onyx">
+        <div className="max-w-[1200px] mx-auto">
+          <Reveal>
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-onyx">
+                La venta de pisos en Santa Coloma de Gramenet más eficaz
+              </h2>
             </div>
-          </div>
+          </Reveal>
+          
+          <Reveal delay={0.1}>
+            <div className="border-[4px] md:border-[8px] border-primary-blue bg-[#f0f0f0] grid grid-cols-1 lg:grid-cols-2">
+              {/* Mitad Izquierda - Imagen */}
+              <div className="relative h-[300px] lg:h-auto">
+                <img 
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                  alt="Venta de pisos" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Mitad Derecha - Contenido */}
+              <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-onyx mb-4">
+                  Cómo te ayudamos con la venta de tu piso
+                </h3>
+                <div className="w-16 h-1 bg-primary-blue mb-6"></div>
+                
+                <p className="text-sm text-onyx/80 mb-8 leading-relaxed">
+                  Gesgrama está a tu disposición tanto para gestionar la venta de tu piso como para ayudarte a comprar una vivienda. Nos comprometemos a ofrecerte un servicio integral para gestionar la venta de tu piso de manera exitosa. ¿Cómo lo logramos?
+                </p>
+                
+                <ul className="space-y-4 text-sm text-onyx/80 leading-relaxed">
+                  <li className="flex gap-3">
+                    <span className="text-primary-blue mt-1 shrink-0">•</span>
+                    <span><strong>Amplia Cartera de Clientes:</strong> Contamos con una extensa red de clientes potenciales, lo que nos permite encontrar rápidamente compradores interesados en tu propiedad.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-primary-blue mt-1 shrink-0">•</span>
+                    <span><strong>Marketing Efectivo:</strong> Utilizamos estrategias de marketing innovadoras y eficaces para promocionar tu piso en los medios adecuados y alcanzar a un público amplio.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-primary-blue mt-1 shrink-0">•</span>
+                    <span><strong>Estudio de Mercado:</strong> Realizamos un exhaustivo análisis del mercado inmobiliario local para determinar el valor justo de tu propiedad y establecer un precio competitivo que maximice tus ganancias.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -1167,6 +1278,70 @@ function Index() {
             </a>
           </div>
         </Reveal>
+      </section>
+
+      {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      <section id="blog" className="py-24 md:py-32 px-6 md:px-12 bg-[#f9fafb] text-onyx">
+        <div className="max-w-[1400px] mx-auto">
+          <Reveal>
+            <div className="mb-14 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-onyx">Últimas Noticias</h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                date: "marzo 9, 2025", category: "Inmobiliaria",
+                title: "¿Qué es un asesor inmobiliario y por qué podrías necesitarlo?",
+                desc: "El mercado inmobiliario puede ser complejo y desafiante, ya sea para comprar, vender o alquilar una...",
+                img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              },
+              {
+                date: "febrero 20, 2025", category: "Inmobiliaria",
+                title: "¿Qué es un contrato de exclusividad inmobiliaria?",
+                desc: "El contrato de exclusividad inmobiliaria es un acuerdo entre un propietario y una agencia...",
+                img: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              },
+              {
+                date: "febrero 6, 2025", category: "Inmobiliaria",
+                title: "¿Qué es un perito judicial inmobiliario?",
+                desc: "Un perito judicial inmobiliario es un profesional especializado en la valoración y análisis...",
+                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              },
+              {
+                date: "enero 23, 2025", category: "Inmobiliaria",
+                title: "Descubre todo sobre una vivienda de obra nueva",
+                desc: "Una obra nueva es un tema crucial para aquellos interesados en el mercado inmobiliario, ya sea para...",
+                img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              }
+            ].map((post, i) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <div className="bg-white flex flex-col h-full border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img src={post.img} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute bottom-3 left-3 bg-onyx/80 p-1.5 rounded text-white backdrop-blur-sm">
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                  </div>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 text-[11px] text-onyx/50 font-medium mb-3">
+                      <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3" /> {post.date}</span>
+                      <span className="flex items-center gap-1.5 text-primary-blue"><svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg> {post.category}</span>
+                    </div>
+                    <h3 className="font-semibold text-onyx leading-snug mb-3 line-clamp-2">{post.title}</h3>
+                    <p className="text-xs text-onyx/60 leading-relaxed mb-6 line-clamp-3">{post.desc}</p>
+                    <div className="mt-auto">
+                      <a href="#" className="text-primary-blue text-[11px] font-semibold flex items-center gap-1 hover:gap-2 transition-all">
+                        sigue leyendo <ChevronRight className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── CONTACT ── */}

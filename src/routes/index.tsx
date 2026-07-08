@@ -3,7 +3,7 @@ import HeroCarousel from '../hero-carousel';
 import { properties } from "../data/properties";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight } from "lucide-react";
+import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.jpg";
@@ -1667,9 +1667,10 @@ function Index() {
                   <FormField label={t.contact.messageLabel} placeholder={t.contact.messagePlaceholder} textarea />
                   <button
                     type="button"
-                    className="w-full bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
+                    className="w-full group flex items-center justify-center gap-3 bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
                   >
-                    {t.contact.submit}
+                    <span>{t.contact.submit}</span>
+                    <Send className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </form>
               </div>

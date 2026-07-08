@@ -971,7 +971,7 @@ function Index() {
                   <img 
                     src={handKeysImg} 
                     alt="Servicios Gesgrama" 
-                    className="w-full h-full object-cover object-center mix-blend-luminosity"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 

@@ -759,20 +759,20 @@ export default function HeroCarousel() {
         Punto 3: Jerarquía visual consistente con barra de acento en primary-blue
         Punto 5: Todo derivado de --color-primary, contraste AA garantizado
       */}
-      <section className="w-full z-10 relative bg-white py-16 md:py-24">
+      <section className="w-full z-10 relative py-16 md:py-24" style={{ background: "#8b8a91" }}>
         <div className="relative w-full max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             {[
               { val: "4.500+", text: "sueños cumplidos con éxito en toda nuestra trayectoria" },
               { val: "98%",    text: "clientes totalmente satisfechos con nuestros servicios" },
               { val: "+300",   text: "comunidades gestionadas por nuestros expertos" },
               { val: "15+",    text: "años de experiencia en el sector inmobiliario" },
             ].map((s, i) => (
-              <div key={i} className="bg-slate-50/80 border border-slate-100 rounded-2xl p-6 md:p-8 flex flex-col items-start justify-start hover:shadow-sm transition-all duration-300">
-                <div className="text-5xl md:text-6xl font-black text-primary-blue mb-4 tracking-tighter">
+              <div key={i} className="bg-white border-2 border-onyx rounded-2xl p-5 md:p-8 flex flex-col items-start justify-start shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-onyx mb-2 md:mb-4 tracking-tighter truncate w-full">
                   {s.val}
                 </div>
-                <div className="text-sm md:text-base text-slate-600 leading-snug">
+                <div className="text-xs sm:text-sm md:text-base text-slate-800 font-medium leading-snug">
                   {s.text}
                 </div>
               </div>

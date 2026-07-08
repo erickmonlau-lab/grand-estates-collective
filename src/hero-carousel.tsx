@@ -759,68 +759,26 @@ export default function HeroCarousel() {
         Punto 3: Jerarquía visual consistente con barra de acento en primary-blue
         Punto 5: Todo derivado de --color-primary, contraste AA garantizado
       */}
-      <section
-        className="w-full z-10 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #0F1E33 0%, #16294A 60%, #112038 100%)",
-        }}
-      >
-        {/* Subtle grid texture — same pattern as CTA section in index.tsx */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        {/* Top edge glow */}
-        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0082C8]/40 to-transparent" />
-
-        <div className="relative w-full max-w-5xl mx-auto px-4 py-10 md:py-14">
-
-          {/* ── MOBILE: 2x2 grid ── */}
-          <div className="grid grid-cols-2 md:hidden divide-x divide-y divide-white/[0.08]">
+      <section className="w-full z-10 relative bg-white py-16 md:py-24">
+        <div className="relative w-full max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
-              { val: "4.500+", label: "Sueños\ncumplidos con éxito" },
-              { val: "98%",    label: "Clientes\ntotalmente satisfechos" },
-              { val: "+300",   label: "Comunidades\ngestionadas" },
-              { val: "15+",    label: "Años de\nexperiencia" },
+              { val: "4.500+", text: "sueños cumplidos con éxito en toda nuestra trayectoria" },
+              { val: "98%",    text: "clientes totalmente satisfechos con nuestros servicios" },
+              { val: "+300",   text: "comunidades gestionadas por nuestros expertos" },
+              { val: "15+",    text: "años de experiencia en el sector inmobiliario" },
             ].map((s, i) => (
-              <div key={s.val} className={`flex flex-col items-center text-center px-4 py-8 ${i >= 2 ? "" : ""}`}>
-                <div className="text-4xl font-black text-white tracking-tighter leading-none mb-2">
+              <div key={i} className="bg-slate-50/80 border border-slate-100 rounded-2xl p-6 md:p-8 flex flex-col items-start justify-start hover:shadow-sm transition-all duration-300">
+                <div className="text-5xl md:text-6xl font-black text-primary-blue mb-4 tracking-tighter">
                   {s.val}
                 </div>
-                <div className="text-[10px] font-bold text-[#7aafd4] tracking-[0.12em] uppercase leading-relaxed whitespace-pre-line mb-3">
-                  {s.label}
+                <div className="text-sm md:text-base text-slate-600 leading-snug">
+                  {s.text}
                 </div>
-                <div className="w-6 h-[2px] rounded-full" style={{ background: "#0082C8" }} />
               </div>
             ))}
           </div>
-
-          {/* ── DESKTOP: horizontal row — unchanged from before ── */}
-          <div className="hidden md:flex flex-row justify-center items-center divide-x divide-white/[0.10]">
-            {[
-              { val: "4.500+", lines: ["Sueños", "cumplidos", "con éxito"] },
-              { val: "98%",    lines: ["Clientes", "totalmente", "satisfechos"] },
-              { val: "+300",   lines: ["Comunidades", "gestionadas"] },
-              { val: "15+",    lines: ["Años de", "experiencia", "en el sector"] },
-            ].map(s => (
-              <div key={s.val} className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <div className="text-5xl md:text-6xl font-black text-white tracking-tighter">{s.val}</div>
-                <div className="text-[11px] font-bold text-[#7aafd4] tracking-[0.12em] uppercase mt-3 mb-3 leading-relaxed">
-                  {s.lines.map((l, i) => <span key={i}>{l}<br/></span>)}
-                </div>
-                <div className="w-8 h-[3px] rounded-full" style={{ background: "#0082C8" }} />
-              </div>
-            ))}
-          </div>
-
         </div>
-
-        {/* Bottom edge fade */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0082C8]/20 to-transparent" />
       </section>
     </>
   );

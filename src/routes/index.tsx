@@ -1343,41 +1343,47 @@ function Index() {
       <section id="testimonios" className="py-28 md:py-36 px-6 md:px-12 bg-slate-50 text-onyx relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
-            <div className="mb-16 text-center">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary-blue font-bold mb-4">{t.testimonials.tag}</p>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-onyx" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+            <div className="mb-20 text-center">
+              <p className="text-sm md:text-base uppercase tracking-[0.4em] text-primary-blue font-black mb-6">{t.testimonials.tag}</p>
+              <h2 key={language} className="text-5xl md:text-6xl lg:text-[4.5rem] font-black leading-tight text-onyx tracking-tighter" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
                 {t.testimonials.title} <span className="text-primary-blue">{t.testimonials.titleAccent}</span>
               </h2>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t.testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.1}>
-                <div className="bg-white rounded-[2rem] p-10 flex flex-col items-center text-center h-full border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#0082c8]/30">
-                  {/* Estrellas */}
-                  <div className="flex justify-center gap-1.5 mb-8">
-                    {[...Array(5)].map((_, s) => (
-                      <Star key={s} className="w-5 h-5 fill-[#d4af37] text-[#d4af37]" />
-                    ))}
-                  </div>
-                  
-                  {/* Cita */}
-                  <p className="text-onyx/80 text-lg leading-relaxed italic flex-1 mb-10 font-medium">"{item.quote}"</p>
-                  
-                  {/* Autor */}
-                  <div className="flex flex-col items-center gap-4 mt-auto">
-                    <div className="w-14 h-14 rounded-full bg-[#0082c8]/10 flex items-center justify-center text-[#0082c8] font-black text-base shrink-0">
-                      {item.initials}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {t.testimonials.items.map((item, i) => {
+              const avatars = [
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+                "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+              ];
+              return (
+                <Reveal key={item.name} delay={i * 0.1}>
+                  <div className="bg-white rounded-[2rem] p-10 flex flex-col items-center text-center h-full border-[3px] border-onyx shadow-[8px_8px_0px_#0f172a] transition-all duration-300 hover:shadow-[0px_0px_0px_#0f172a] hover:translate-x-[8px] hover:translate-y-[8px]">
+                    {/* Estrellas */}
+                    <div className="flex justify-center gap-1.5 mb-8">
+                      {[...Array(5)].map((_, s) => (
+                        <Star key={s} className="w-6 h-6 fill-[#d4af37] text-[#d4af37]" />
+                      ))}
                     </div>
-                    <div>
-                      <div className="font-bold text-lg text-onyx mb-1">{item.name}</div>
-                      <div className="text-sm text-slate-500 font-semibold">{item.zone}</div>
+                    
+                    {/* Cita */}
+                    <p className="text-onyx/80 text-[17px] leading-relaxed italic flex-1 mb-10 font-medium">"{item.quote}"</p>
+                    
+                    {/* Autor */}
+                    <div className="flex flex-col items-center gap-4 mt-auto">
+                      <img src={avatars[i % avatars.length]} alt={item.name} className="w-16 h-16 rounded-full object-cover border-[3px] border-onyx shrink-0" />
+                      <div>
+                        <div className="font-bold text-lg text-onyx mb-1">{item.name}</div>
+                        <div className="text-sm text-slate-500 font-semibold uppercase tracking-wider">{item.zone}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1398,19 +1404,19 @@ function Index() {
 
               <div className="grid grid-cols-2 gap-x-12 gap-y-20 mt-12">
                 <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
-                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s1Value}</div>
+                  <div className="text-5xl sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s1Value}</div>
                   <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s1Label}</div>
                 </div>
                 <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
-                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s2Value}</div>
+                  <div className="text-5xl sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s2Value}</div>
                   <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s2Label}</div>
                 </div>
                 <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
-                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s3Value}</div>
+                  <div className="text-5xl sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s3Value}</div>
                   <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s3Label}</div>
                 </div>
                 <div className="border-l-[6px] border-[#0082c8] pl-6 py-2">
-                  <div className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s4Value}</div>
+                  <div className="text-5xl sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] font-black text-onyx leading-[0.85] tracking-tighter mb-4">{t.coverage.s4Value}</div>
                   <div className="text-xs md:text-sm font-bold text-onyx/60 uppercase tracking-[0.2em] leading-relaxed max-w-[160px]">{t.coverage.s4Label}</div>
                 </div>
               </div>
@@ -1463,10 +1469,10 @@ function Index() {
         </div>
         
         <Reveal className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
-          <p className="text-sm md:text-base uppercase tracking-[0.3em] text-[#0082c8] font-black mb-6">
+          <p className="text-lg md:text-2xl uppercase tracking-[0.4em] text-[#0082c8] font-black mb-6">
             ¿Hablamos?
           </p>
-          <h2 className="text-5xl md:text-6xl lg:text-[5.5rem] font-black text-white mb-12 leading-[1.05] tracking-tighter" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+          <h2 className="text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-black text-white mb-12 leading-[1.05] tracking-tighter" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
             Su comunidad <br className="hidden md:block" />en las mejores manos.
           </h2>
           <div className="flex flex-col sm:flex-row gap-5 justify-center items-center mt-4 w-full sm:w-auto">

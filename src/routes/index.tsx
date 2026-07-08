@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
+import handKeysImg from "@/assets/hand_keys_blue.jpg";
 
 export const Route = createFileRoute("/")(  {
   component: Index,
@@ -966,15 +967,11 @@ function Index() {
           <div className="lg:col-span-6">
             <Reveal delay={0.2}>
               <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-xl border-none">
-                <div className="w-full h-[220px] md:h-[260px] relative overflow-hidden flex items-center justify-center pt-8">
+                <div className="w-full h-[220px] md:h-[260px] relative overflow-hidden flex items-center justify-center bg-primary-blue">
                   <img 
-                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    src={handKeysImg} 
                     alt="Servicios Gesgrama" 
-                    className="w-[120%] h-[120%] object-cover object-center"
-                    style={{ 
-                      maskImage: 'radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%)', 
-                      WebkitMaskImage: 'radial-gradient(ellipse at 50% 40%, black 20%, transparent 70%)' 
-                    }}
+                    className="w-full h-full object-cover object-center mix-blend-luminosity"
                   />
                 </div>
                 

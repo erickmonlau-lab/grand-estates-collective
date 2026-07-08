@@ -965,33 +965,35 @@ function Index() {
 
           <div className="lg:col-span-6">
             <Reveal delay={0.2}>
-              <div className="bg-primary-blue text-white rounded-sm overflow-hidden shadow-2xl">
-                <div className="relative h-[200px] w-full">
+              <div className="bg-[#F0F7FA] text-onyx rounded-sm overflow-hidden shadow-xl border border-primary-blue/10">
+                <div className="w-full h-[180px] md:h-[220px] overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                     alt="Servicios Gesgrama" 
-                    className="w-full h-full object-cover opacity-60 mix-blend-multiply"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-blue to-transparent"></div>
-                  <div className="absolute bottom-6 left-8 right-8">
-                    <h3 className="text-2xl md:text-3xl font-bold">Gesgrama también ofrece servicios de...</h3>
-                  </div>
                 </div>
                 
-                <div className="p-8 md:p-10 flex flex-col gap-8">
+                <div className="px-8 pt-8 md:px-10 md:pt-10">
+                  <h3 className="text-2xl md:text-[28px] font-serif font-bold text-primary-blue leading-snug mb-2">
+                    Gesgrama también ofrece servicios de...
+                  </h3>
+                </div>
+                
+                <div className="px-8 pb-8 md:px-10 md:pb-10 flex flex-col">
                   {[
                     { title: "Comunidades y alquileres", desc: "¿Busca un cambio en la administración de su comunidad o alquiler?" },
                     { title: "Inmobiliaria", desc: "Confíe en nosotros para vender o alquilar su inmueble al mejor precio del mercado." },
                     { title: "Inversión inmobiliaria", desc: "Para inversores que buscan la máxima rentabilidad con total seguridad." },
                     { title: "Asesoría Jurídica", desc: "Más de 15 años de experiencia en derecho inmobiliario a su disposición." }
                   ].map((srv, idx) => (
-                    <div key={idx} className="flex gap-6 group cursor-pointer">
-                      <div className="text-5xl md:text-6xl font-serif text-white/20 group-hover:text-white/40 transition-colors leading-none shrink-0 italic">
+                    <div key={idx} className="flex gap-6 group cursor-pointer py-6 border-b border-primary-blue/10 last:border-0 last:pb-0">
+                      <div className="text-6xl md:text-7xl font-serif text-primary-blue/20 group-hover:text-primary-blue/40 transition-colors leading-none shrink-0 pt-1">
                         {idx + 1}
                       </div>
-                      <div>
-                        <h4 className="text-lg font-bold mb-1 group-hover:underline underline-offset-4 decoration-white/30">{srv.title}</h4>
-                        <p className="text-sm text-white/70 leading-relaxed">{srv.desc}</p>
+                      <div className="flex flex-col justify-center">
+                        <h4 className="text-[19px] font-serif font-semibold text-onyx mb-1.5 group-hover:text-primary-blue transition-colors">{srv.title}</h4>
+                        <p className="text-[13px] text-onyx/70 leading-relaxed">{srv.desc}</p>
                       </div>
                     </div>
                   ))}

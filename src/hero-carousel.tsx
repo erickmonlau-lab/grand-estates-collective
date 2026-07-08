@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X } from "lucide-react";
+import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X, Building, Award, Zap, CheckCircle2 } from "lucide-react";
 
 import img1 from "@/assets/dream_couple_offcenter_1783263799684.webp";
 import img2 from "@/assets/family_no_boy.jpg";
@@ -736,15 +736,14 @@ export default function HeroCarousel() {
         <div className="absolute top-0 inset-x-0 h-px bg-white/[0.10]" />
         <div className="w-full max-w-5xl flex flex-wrap justify-center md:justify-between items-center gap-x-6 gap-y-2">
           {[
-            { icon: "◆", label: "+300 comunidades" },
-            { icon: "◆", label: "+15 años de trayectoria" },
-            { icon: "⚡", label: "Respuesta en 24h" },
-            { icon: "✓", label: "Equipo certificado" },
+            { icon: <Building className="w-3.5 h-3.5 text-primary-blue" />, label: "+300 comunidades" },
+            { icon: <Award className="w-3.5 h-3.5 text-primary-blue" />, label: "+15 años de trayectoria" },
+            { icon: <Zap className="w-3.5 h-3.5 text-primary-blue" />, label: "Respuesta en 24h" },
+            { icon: <CheckCircle2 className="w-3.5 h-3.5 text-primary-blue" />, label: "Equipo certificado" },
           ].map(b => (
-            <div key={b.label} className="flex items-center gap-2 text-[11px] font-semibold tracking-wide">
-              {/* Acento azul solo en el icono */}
-              <span className="text-[13px] font-black" style={{ color: "#0082C8" }}>{b.icon}</span>
-              <span className="text-white/65">{b.label}</span>
+            <div key={b.label} className="flex items-center gap-2 text-[11.5px] font-medium tracking-wide text-white/70 hover:text-white transition-colors cursor-default">
+              {b.icon}
+              <span>{b.label}</span>
             </div>
           ))}
         </div>

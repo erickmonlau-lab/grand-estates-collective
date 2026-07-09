@@ -428,41 +428,34 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               </motion.p>
             </div>
             
-            {/* SEARCH WIDGET (BOTTOM) */}
+            {/* SEARCH WIDGET (BOTTOM - DISET STYLE FLOATING PILLS) */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 pb-12 px-2">
+              className="w-full flex flex-col items-center relative z-20 pb-12 px-4">
               
-              <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
-                
-                {/* SELECTOR SEGMENTADO INTEGRADO */}
-                <div className="w-full bg-slate-100/60 p-1.5 rounded-[1.5rem] mb-4 flex relative h-[54px] border border-slate-200/50">
-                  {(["comprar","alquilar"] as const).map(m => {
-                    const isActive = mode === m;
-                    return (
-                      <button key={m} onClick={() => setMode(m)}
-                        className={`flex-1 relative rounded-[1.25rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
-                        }`}>
-                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1.25rem] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
-                        <span className="relative z-10 text-[15px] capitalize">{m}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* GRAN BOTÓN DE BÚSQUEDA */}
-                <button onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
-                >
-                  <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
-                    <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
-                  </div>
-                  <div className="flex flex-col items-start flex-1 overflow-hidden">
-                    <span className="font-extrabold text-onyx text-[16px] tracking-wide mb-1 whitespace-nowrap">Comenzar búsqueda</span>
-                    <span className="text-slate-400 font-semibold text-[13.5px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
-                  </div>
-                </button>
+              {/* COMPRAR / ALQUILAR (FLOATING PILL) */}
+              <div className="w-full bg-white/85 backdrop-blur-xl p-1.5 rounded-full mb-4 flex relative h-[60px] shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-white/60">
+                {(["comprar","alquilar"] as const).map(m => {
+                  const isActive = mode === m;
+                  return (
+                    <button key={m} onClick={() => setMode(m)}
+                      className={`flex-1 relative rounded-full font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                        isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)]" : "text-slate-600 hover:text-onyx"
+                      }`}>
+                      {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-full shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)]" />}
+                      <span className="relative z-10 text-[16px] capitalize">{m}</span>
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* COMENZAR BÚSQUEDA (PRIMARY BLUE PILL) */}
+              <button onClick={() => setMobileSheetOpen(true)}
+                className="w-full flex items-center justify-center bg-primary-blue hover:bg-[#0070ad] text-white rounded-full h-[60px] active:scale-[0.98] transition-all shadow-[0_12px_30px_rgba(0,130,200,0.25)] border border-primary-blue/50"
+              >
+                <Search className="w-[22px] h-[22px] text-white stroke-[2.5] mr-3" />
+                <span className="font-extrabold text-[17px] tracking-wide">Comenzar búsqueda</span>
+              </button>
+              
             </motion.div>
             
           </div>

@@ -393,12 +393,21 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (PURE BLOCK ARCHITECTURE) ── */}
+          {/* ── MOBILE TOP SECTION (FUSED PREMIUM) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col z-10 relative overflow-visible mt-2">
+          <div className="md:hidden w-full flex flex-col justify-between min-h-[calc(100dvh-110px)] z-10 relative mt-2 -mx-6 px-0" style={{ width: "calc(100% + 3rem)" }}>
             
-            {/* BLOCK 1: TEXT ON WHITE */}
-            <div className="w-full flex flex-col items-start bg-white pb-6 pt-2">
+            {/* IMMERSIVE FADED BACKGROUND (Bottom 55% of the hero) */}
+            <div className="absolute bottom-0 inset-x-0 h-[58%] z-0 overflow-hidden">
+               <img src={img2} alt="Familia feliz" className="absolute inset-0 w-full h-full object-cover object-[80%_center]" />
+               {/* FADE TO WHITE AT THE TOP OF THE IMAGE */}
+               <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent" />
+               {/* SUBTLE DARK FADE AT BOTTOM FOR WIDGET */}
+               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+            </div>
+
+            {/* TEXT LAYER (TOP) */}
+            <div className="w-full flex flex-col items-start px-6 pt-2 relative z-10 flex-1">
               {/* ── BADGE ── */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
                 className="flex items-center gap-1.5 font-semibold text-[11px] text-primary-blue mb-6 bg-slate-50 border border-slate-200/50 rounded-full px-4 py-2 shadow-sm">
@@ -422,51 +431,41 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               </motion.p>
             </div>
             
-            {/* BLOCK 2: PHOTOGRAPH + EMBEDDED WIDGET */}
-            {/* We use -mx-6 to make it edge-to-edge overriding the wrapper padding */}
-            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="relative -mx-6 w-[calc(100%+3rem)] aspect-[4/5] sm:aspect-square overflow-hidden mb-8 shadow-sm">
+            {/* SEARCH WIDGET (BOTTOM - APPLE STYLE) */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="w-full flex flex-col items-center relative z-20 pb-8 px-4 shrink-0">
               
-              <img src={img2} alt="Familia feliz" className="absolute inset-0 w-full h-full object-cover object-[80%_center]" />
-              
-              {/* Subtle dark gradient at the bottom so the widget stands out */}
-              <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-
-              {/* SEARCH WIDGET ANCHORED INSIDE THE PHOTOGRAPH */}
-              <div className="absolute bottom-6 inset-x-4 flex flex-col items-center">
-                <div className="w-full bg-white/95 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.25)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
-                  
-                  {/* SELECTOR SEGMENTADO INTEGRADO */}
-                  <div className="w-full bg-slate-100/60 p-1.5 rounded-[1.5rem] mb-4 flex relative h-[54px] border border-slate-200/50">
-                    {(["comprar","alquilar"] as const).map(m => {
-                      const isActive = mode === m;
-                      return (
-                        <button key={m} onClick={() => setMode(m)}
-                          className={`flex-1 relative rounded-[1.25rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                            isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
-                          }`}>
-                          {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1.25rem] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
-                          <span className="relative z-10 text-[15px] capitalize">{m}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* GRAN BOTÓN DE BÚSQUEDA */}
-                  <button onClick={() => setMobileSheetOpen(true)}
-                    className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
-                  >
-                    <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
-                      <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
-                    </div>
-                    <div className="flex flex-col items-start flex-1 overflow-hidden">
-                      <span className="font-extrabold text-onyx text-[16px] tracking-wide mb-1 whitespace-nowrap">Comenzar búsqueda</span>
-                      <span className="text-slate-400 font-semibold text-[13.5px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
-                    </div>
-                  </button>
+              <div className="w-full bg-white/90 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-3xl p-2.5 flex flex-col border border-white/60">
+                
+                {/* SELECTOR SEGMENTADO REFINADO */}
+                <div className="w-full bg-slate-100/70 p-1 rounded-2xl mb-3 flex relative h-[48px] border border-slate-200/50">
+                  {(["comprar","alquilar"] as const).map(m => {
+                    const isActive = mode === m;
+                    return (
+                      <button key={m} onClick={() => setMode(m)}
+                        className={`flex-1 relative rounded-[14px] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                        }`}>
+                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[14px] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
+                        <span className="relative z-10 text-[14px] capitalize">{m}</span>
+                      </button>
+                    );
+                  })}
                 </div>
-              </div>
 
+                {/* BOTÓN DE BÚSQUEDA REFINADO */}
+                <button onClick={() => setMobileSheetOpen(true)}
+                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[1.5rem] p-2.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
+                >
+                  <div className="w-12 h-12 rounded-[1rem] bg-slate-50 flex items-center justify-center shrink-0 mr-3 border border-slate-100">
+                    <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
+                  </div>
+                  <div className="flex flex-col items-start flex-1 overflow-hidden">
+                    <span className="font-extrabold text-onyx text-[15px] tracking-wide mb-0.5 whitespace-nowrap">Comenzar búsqueda</span>
+                    <span className="text-slate-400 font-semibold text-[13px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
+                  </div>
+                </button>
+              </div>
             </motion.div>
             
           </div>

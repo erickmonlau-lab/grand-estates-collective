@@ -417,22 +417,22 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Formato Panorámico Contenido) ── */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[4/3] rounded-3xl mt-2 relative z-0 overflow-hidden bg-white">
-              <motion.img src={img2} alt="Familia feliz" 
-                className="w-full h-full object-cover object-[center_20%] origin-[center_20%] mix-blend-multiply" 
-                style={{ filter: "contrast(1.02) saturate(1.05) brightness(1.02)" }} 
-                animate={{ scale: [1.35, 1.38, 1.35] }} 
-                transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
-              />
-            </motion.div>
-
-            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native separado) ── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-10 mt-6 mb-10">
+            {/* ── SUPER-WIDGET INTEGRADO (Imagen + Buscador) ── */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="w-full flex flex-col bg-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[2.5rem] p-2 mt-2 mb-10 border border-slate-100">
               
-              <div className="w-full flex flex-col p-4">
+              {/* IMAGEN INTEGRADA EN LA TARJETA */}
+              <div className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden relative mb-4">
+                <motion.img src={img2} alt="Familia feliz" 
+                  className="w-full h-full object-cover object-[center_20%] origin-[center_20%]" 
+                  style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
+                  animate={{ scale: [1.35, 1.38, 1.35] }} 
+                  transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
+                />
+              </div>
+
+              {/* CONTROLES DE BÚSQUEDA */}
+              <div className="w-full flex flex-col px-2 pb-2">
                 
                 {/* SELECTOR SEGMENTADO INTEGRADO */}
                 <div className="w-full bg-slate-50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-100">

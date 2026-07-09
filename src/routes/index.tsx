@@ -1193,25 +1193,27 @@ function Index() {
                   <div className="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* Contenido */}
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                    {/* Icono */}
-                    <div className="mb-4 transform group-hover:-translate-y-4 transition-transform duration-500">
+                  <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
+                    <div className="mb-4">
                       {item.icon}
                     </div>
                     
-                    {/* Título */}
-                    <h3 className="text-2xl font-bold text-white mb-2 transform group-hover:-translate-y-4 transition-transform duration-500">
+                    <h3 className="text-2xl font-bold text-white">
                       {item.label}
                     </h3>
                     
-                    {/* Descripción y Botón (Ocultos por defecto, suben en hover) */}
-                    <div className="absolute bottom-8 left-8 right-8 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-                      <p className="text-white/80 text-sm leading-relaxed mb-6 font-medium">
-                        {item.desc}
-                      </p>
-                      <button className="flex items-center gap-2 text-primary-blue font-bold text-xs uppercase tracking-widest hover:text-white transition-colors">
-                        Saber más <ArrowRight className="w-4 h-4" />
-                      </button>
+                    {/* Descripción y Botón (Ocultos por defecto, expanden altura en hover) */}
+                    <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500 ease-out">
+                      <div className="overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
+                        <div className="pt-4 flex flex-col gap-6">
+                          <p className="text-white/80 text-sm leading-relaxed font-medium">
+                            {item.desc}
+                          </p>
+                          <button className="flex items-center gap-2 text-primary-blue font-bold text-xs uppercase tracking-widest hover:text-white transition-colors w-fit">
+                            Saber más <ArrowRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1667,10 +1669,9 @@ function Index() {
                   <FormField label={t.contact.messageLabel} placeholder={t.contact.messagePlaceholder} textarea />
                   <button
                     type="button"
-                    className="w-full group flex items-center justify-center gap-3 bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
+                    className="w-full bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
                   >
-                    <span>{t.contact.submit}</span>
-                    <Send className="w-5 h-5 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                    {t.contact.submit}
                   </button>
                 </form>
               </div>

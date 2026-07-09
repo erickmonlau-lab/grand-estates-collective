@@ -407,14 +407,14 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             <div className="w-full flex flex-col items-start pt-4">
               {/* ── BADGE ── */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-                className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-5 bg-white/60 backdrop-blur-sm border border-slate-200/50 rounded-full px-3 py-1.5 shadow-sm">
+                className="flex items-center gap-1.5 font-semibold text-[11px] text-primary-blue mb-6 bg-white/60 backdrop-blur-sm border border-slate-200/50 rounded-full px-4 py-2 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
                 Administración • Asesoría • Inmobiliaria
               </motion.div>
 
               {/* ── HEADLINE ── */}
               <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-                className="text-onyx font-black leading-[1.15] tracking-tight text-[clamp(2.1rem,9vw,2.75rem)] mb-5 w-full drop-shadow-sm">
+                className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,11vw,3.5rem)] mb-6 w-full drop-shadow-sm">
                 Encontramos<br/>
                 tu hogar.<br/>
                 <span className="text-primary-blue">Del resto</span><br/>
@@ -423,28 +423,28 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
               {/* ── SUBTITLE ── */}
               <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                className="text-onyx/80 font-medium text-[15px] leading-relaxed max-w-[280px] mb-8">
+                className="text-onyx/80 font-medium text-[17px] leading-relaxed max-w-[300px] mb-8">
                 Gestionamos cada paso para que disfrutes sin preocupaciones.
               </motion.p>
             </div>
             
             {/* SEARCH WIDGET (BOTTOM) */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 pb-10">
+              className="w-full flex flex-col items-center relative z-20 pb-8 px-2">
               
-              <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2rem] p-3 flex flex-col border border-white/60">
+              <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
                 
                 {/* SELECTOR SEGMENTADO INTEGRADO */}
-                <div className="w-full bg-slate-100/50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-200/50">
+                <div className="w-full bg-slate-100/60 p-1.5 rounded-[1.5rem] mb-4 flex relative h-[54px] border border-slate-200/50">
                   {(["comprar","alquilar"] as const).map(m => {
                     const isActive = mode === m;
                     return (
                       <button key={m} onClick={() => setMode(m)}
-                        className={`flex-1 relative rounded-xl font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                        className={`flex-1 relative rounded-[1.25rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
                         }`}>
-                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
-                        <span className="relative z-10 text-[13.5px] capitalize">{m}</span>
+                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1.25rem] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
+                        <span className="relative z-10 text-[15px] capitalize">{m}</span>
                       </button>
                     );
                   })}
@@ -452,14 +452,14 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
                 {/* GRAN BOTÓN DE BÚSQUEDA */}
                 <button onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[1.5rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
+                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-4 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
                 >
-                  <div className="w-12 h-12 rounded-[1rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
-                    <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
+                  <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-5 border border-slate-100">
+                    <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col items-start flex-1 overflow-hidden">
-                    <span className="font-bold text-onyx text-[16px] tracking-wide mb-1">Comenzar búsqueda</span>
-                    <span className="text-slate-400 font-medium text-[13px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
+                    <span className="font-extrabold text-onyx text-[18px] tracking-wide mb-1">Comenzar búsqueda</span>
+                    <span className="text-slate-400 font-semibold text-[14px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
                   </div>
                 </button>
               </div>

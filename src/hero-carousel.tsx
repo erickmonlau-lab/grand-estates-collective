@@ -419,10 +419,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             
             {/* ── FOTOGRAFÍA (Lienzo Emergente - Arquitectura Integrada) ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[4/3] rounded-t-[3rem] rounded-b-none mt-2 mb-0 relative z-10 overflow-hidden">
+              className="w-full aspect-[4/3] rounded-t-[3rem] mt-2 mb-0 relative z-10"
+              style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}>
               <motion.img src={img2} alt="Familia feliz" 
-                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%]" 
-                style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
+                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%] mix-blend-multiply" 
+                style={{ filter: "contrast(1.02) saturate(1.05) brightness(1.02)" }} 
                 animate={{ scale: [1.35, 1.38, 1.35] }} 
                 transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
               />

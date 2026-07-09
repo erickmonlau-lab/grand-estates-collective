@@ -417,9 +417,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Independiente) ── */}
-            <motion.div initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_8px_24px_rgb(0,0,0,0.04)] mb-7 relative z-10 bg-slate-50 border border-slate-100">
+            {/* ── FOTOGRAFÍA (ADN Desktop / Editorial) ── */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
+              className="w-[100vw] -mx-6 aspect-[4/3] mb-7 relative z-10 overflow-hidden">
               <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
 

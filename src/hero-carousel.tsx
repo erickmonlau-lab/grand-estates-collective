@@ -364,7 +364,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
         {/* MOBILE FULL-BLEED BACKGROUND */}
         <div className="absolute inset-0 w-full h-[100dvh] md:hidden z-0 overflow-hidden pointer-events-none">
-          <img src={img2} alt="Fondo hero" className="w-full h-full object-cover object-bottom" />
+          <img src={img2} alt="Fondo hero" className="w-full h-full object-cover object-[80%_center]" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 to-transparent" />
           {/* Subtle gradient at the bottom so the widget pops */}
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/20 to-transparent" />

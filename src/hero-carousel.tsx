@@ -404,7 +404,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           <div className="md:hidden w-full flex flex-col justify-between min-h-[calc(100dvh-110px)] z-10 relative overflow-visible mt-2">
             
             {/* TEXT LAYER (TOP) */}
-            <div className="w-full flex flex-col items-start pt-4">
+            <div className="w-full flex flex-col items-start pt-16">
               {/* ── BADGE ── */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
                 className="flex items-center gap-1.5 font-semibold text-[11px] text-primary-blue mb-6 bg-white/60 backdrop-blur-sm border border-slate-200/50 rounded-full px-4 py-2 shadow-sm">
@@ -430,7 +430,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             
             {/* SEARCH WIDGET (BOTTOM) */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 pb-8 px-2">
+              className="w-full flex flex-col items-center relative z-20 pb-12 px-2">
               
               <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
                 
@@ -452,14 +452,14 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
                 {/* GRAN BOTÓN DE BÚSQUEDA */}
                 <button onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-4 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
+                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
                 >
-                  <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-5 border border-slate-100">
+                  <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
                     <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col items-start flex-1 overflow-hidden">
-                    <span className="font-extrabold text-onyx text-[18px] tracking-wide mb-1">Comenzar búsqueda</span>
-                    <span className="text-slate-400 font-semibold text-[14px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
+                    <span className="font-extrabold text-onyx text-[16px] tracking-wide mb-1 whitespace-nowrap">Comenzar búsqueda</span>
+                    <span className="text-slate-400 font-semibold text-[13.5px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
                   </div>
                 </button>
               </div>

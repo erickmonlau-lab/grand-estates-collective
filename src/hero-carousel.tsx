@@ -365,9 +365,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-14 lg:pb-[160px]">
           
           {/* =============================================================== */}
-          {/* ── DESKTOP TOP SECTION ── */}
+          {/* ── UNIFIED TOP SECTION (DESKTOP & MOBILE) ── */}
           {/* =============================================================== */}
-          <div className="hidden md:block w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -390,60 +390,29 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             </motion.p>
           </div>
 
-          {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (COMPLETE REDESIGN) ── */}
-          {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-20 relative">
+          {/* ── MOBILE SEARCH BLOCK ── */}
+          <div className="w-full md:hidden flex flex-col mb-4 z-20 relative">
             
-            {/* ── BADGE ── */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-              className="flex items-center gap-2 font-bold text-[10px] text-primary-blue mb-6 border border-primary-blue/20 bg-primary-blue/5 px-3 py-1.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
-              Premium Real Estate
-            </motion.div>
-
-            {/* ── HEADLINE (Editorial) ── */}
-            <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-onyx font-black leading-[1.1] tracking-tight text-[2.75rem] mb-7">
-              Encontramos tu<br/>
-              <span className="text-primary-blue">hogar</span>.<br/>
-              Nos ocupamos<br/>
-              del resto.
-            </motion.h1>
-
-            {/* ── SUBTITLE (Direct) ── */}
-            <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-4 mb-8">
-              Gestionamos cada paso para que disfrutes sin preocupaciones.
-            </motion.p>
-
-            {/* ── PHOTO ── */}
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
-              className="w-full relative rounded-2xl overflow-hidden shadow-sm mb-6 bg-slate-50" style={{ height: "200px" }}>
-              <img src={img2} alt="Familia" className="absolute inset-0 w-full h-full object-cover object-[80%_25%]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
-            </motion.div>
-
-            {/* ── SEGMENTED CONTROL ── */}
-            <div className="w-full bg-slate-100/80 p-1.5 rounded-2xl mb-5 shadow-inner border border-slate-200/50 flex relative">
+            {/* Mobile Tabs */}
+            <div className="flex w-full bg-slate-100 p-2 rounded-[1.25rem] mb-4 shadow-sm border border-slate-200/50">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative py-3.5 rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
-                      isActive ? "text-onyx drop-shadow-sm" : "text-slate-500 hover:text-slate-800"
+                    className={`flex-1 relative py-3.5 rounded-[1rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
+                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-sm" : "text-slate-500 hover:text-slate-800"
                     }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12)] border border-slate-200/50" />}
+                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12)] border border-slate-200/50" />}
                     <span className="relative z-10 text-[15px] capitalize">{m}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* ── CTA AIRBNB STYLE ── */}
+            {/* Mobile CTA */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-[1.25rem] px-5 py-4 mb-7 active:scale-95 transition-transform"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-[1.25rem] px-5 py-4 active:scale-95 transition-transform"
             >
               <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4">
                 <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
@@ -763,7 +732,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
         {/* RIGHT BACKGROUND LAYER: Image & Silhouette */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          className="absolute right-0 top-[110px] w-full lg:w-[50%] h-[500px] lg:h-[600px] z-0 hidden lg:block"
+          className="absolute right-0 top-[80px] lg:top-[110px] w-full lg:w-[50%] h-[400px] lg:h-[600px] z-0 opacity-20 lg:opacity-100"
           style={{ maskImage: "linear-gradient(to right, transparent 0%, black 40%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)" }}>
           
           {/* Main Photo */}

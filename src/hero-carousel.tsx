@@ -404,7 +404,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.75rem,13vw,3.5rem)] mb-6 w-full">
+              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.25rem,9.5vw,3rem)] mb-6 w-full">
               Encontramos tu<br/>
               <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/>
@@ -413,13 +413,13 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-9">
+              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-7">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
             {/* ── FOTOGRAFÍA (ADN Desktop / Editorial) ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-              className="w-[100vw] -mx-6 aspect-[4/3] mb-7 relative z-10 overflow-hidden">
+              className="w-[100vw] -mx-6 aspect-[16/10] mb-6 relative z-10 overflow-hidden">
               <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
 

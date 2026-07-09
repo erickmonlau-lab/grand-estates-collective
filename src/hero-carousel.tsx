@@ -354,157 +354,82 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       />
 
       {/*
-        ── MOBILE & DESKTOP HERO: min-h-[100dvh] to prevent stats from peeking ──
+        ── MOBILE & DESKTOP HERO (Premium SaaS Style) ──
       */}
-      <section className="relative w-full flex flex-col items-center
-        min-h-[100dvh] justify-start md:justify-center md:pt-20
-        pt-[112px] pb-0 bg-transparent overflow-x-hidden"
+      <section className="relative w-full min-h-[100dvh] pt-[120px] md:pt-[150px] pb-12 md:pb-24 overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
         style={{ fontFamily: "var(--font-system)" }}
       >
-        <style>{`
-          .desktop-pos-right { object-position: right center; }
-          @media (max-width: 767px) {
-            /* 
-             * Al reducir el alto a 55dvh, la imagen se escala (caben los dos) y baja (esquiva el texto).
-             * Restauramos el X=75% que es el que mejor encuadraba a la chica a la derecha.
-             */
-            .mobile-pos-couple { object-position: 75% 50% !important; }
-            .mobile-pos-family { object-position: 75% 85% !important; }
-          }
-        `}</style>
+        {/* Soft Radial Blue Glow Behind Right Section */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        {/* ── BACKGROUND ── */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-slate-900">
-          <AnimatePresence mode="popLayout">
-            <motion.img key={imgIdx} src={images[imgIdx]}
-              initial={{ opacity: 0, scale: 1.18 }} animate={{ opacity: 1, scale: 1.14 }} exit={{ opacity: 0 }}
-              transition={{ duration: 1.6, ease: "easeInOut" }}
-              className={`absolute inset-0 w-full h-full object-cover ${bgOrigins[imgIdx]} ${imageClasses[imgIdx]}`} alt="" />
-          </AnimatePresence>
-
-          {/* Top fade for mobile to blend with header */}
-          <div className="absolute top-0 inset-x-0 h-40 md:hidden bg-gradient-to-b from-white via-white/80 to-transparent" />
-
-          {/* Extended horizontal gradient for consistent contrast on long lines */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white from-45% via-white/90 via-70% to-transparent md:from-white/95 md:from-0% md:via-white/80 md:via-50%" />
-        </div>
-
-        {/*
-          PUNTO 4: En móvil quitamos min-h-[calc(100dvh-150px)] que forzaba un
-          espacio enorme. Ahora es h-auto. En desktop se mantiene md:min-h-0
-          (el centrado lo hace el flex del <section>).
-        */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-start md:items-center text-left md:text-center pointer-events-none mb-0 md:mb-10 mt-16 md:mt-0">
-
-          {/* Original Content (Fades out on desktop when a dropdown is open) */}
-          <div className={`w-full flex flex-col items-start md:items-center transition-all duration-300 ease-in-out ${drop ? 'md:opacity-0 md:blur-md md:scale-95' : 'opacity-100 blur-0 scale-100'}`}>
-            {/* ── EYEBROW ── */}
-            {/* Desktop pill: fondo claro sobre fondo claro */}
-            <div className="hidden md:flex mb-6 flex-wrap justify-center items-center gap-3 font-bold bg-white shadow-sm px-6 py-2.5 rounded-full border border-slate-200 text-sm text-onyx normal-case w-max mx-auto">
-              <span>Administración de fincas</span>
-              <span className="text-primary-blue font-black">•</span>
-              <span>Asesoría jurídica</span>
-              <span className="text-primary-blue font-black">•</span>
-              <span>Inmobiliaria</span>
-            </div>
-            {/* Mobile pill: tratamiento gris oscuro */}
-            <div className="md:hidden mb-4 flex items-center gap-2 font-bold bg-[#5C6770] px-4 py-2 rounded-full text-[11px] text-white uppercase w-max shadow-sm"
-                 style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-primary-blue shadow-sm" />
-              <span>Gestión Inmobiliaria Integral</span>
-            </div>
-
-            {/* ── HEADLINE ── */}
-            <motion.div initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }} transition={{ duration:1.1, delay:.2 }} className="w-full">
-              {/* Desktop Headline */}
-              <h1 className="hidden md:block text-slate-900 font-black leading-[1.12] tracking-tight text-center text-[clamp(1.9rem,4.2vw,3.8rem)]">
-                Encontramos tu hogar.<br/>
-                <span className="relative inline-block mt-2">
-                  Nosotros nos ocupamos del resto.
-                  <svg xmlns="http://www.w3.org/2000/svg" className="absolute w-[104%] h-6 -bottom-[12px] -left-[2%] text-primary-blue" viewBox="0 0 400 30" fill="none" preserveAspectRatio="none">
-                    <path d="M 5 20 Q 100 5 200 15 T 395 10" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </h1>
-
-              {/* Mobile headline — texto oscuro sobre overlay claro */}
-              <h1 className="block md:hidden text-slate-900 font-black leading-[1.05] tracking-tight text-left text-[2.75rem]"
-                  style={{ fontFamily: "var(--font-system)", fontWeight: 900 }}
-              >
-                Encontramos<br/>
-                tu <span className="text-[#4db8ff]">hogar</span>.<br/>
-                Nosotros nos<br/>
-                ocupamos<br/>
-                del resto.
-              </h1>
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-20 z-10">
+          
+          {/* LEFT COLUMN: Text & Search */}
+          <div className="flex-1 flex flex-col items-start text-left w-full max-w-[620px] mt-4 lg:mt-8 z-20">
+            
+            {/* ── BADGE ── */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: easeOut }}
+              className="flex items-center gap-2.5 font-semibold bg-[#EEF6FF] border border-primary-blue/10 px-4 py-2 rounded-full text-[11px] md:text-[13px] text-primary-blue mb-8 shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-blue opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-blue"></span>
+              </span>
+              <span>Administración de fincas • Asesoría jurídica • Inmobiliaria</span>
             </motion.div>
 
-            {/* ── MOTTO — texto oscuro sobre fondo claro ── */}
-            <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:1.1, delay:.3 }}
-              className="mt-8 md:mt-14 text-slate-800 md:text-slate-800 font-semibold md:font-bold text-base md:text-xl max-w-[280px] md:max-w-2xl leading-relaxed text-left md:text-center"
-              style={{ fontFamily: "var(--font-system)", fontWeight: 700 }}
-            >
-              La tranquilidad de tu hogar,<br className="md:hidden" /> nuestra responsabilidad.
+            {/* ── HEADLINE ── */}
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: easeOut }}
+              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4.5rem)] mb-6">
+              Encontramos tu <span className="text-primary-blue">hogar</span>.<br/>
+              Nos ocupamos<br/> del resto.
+            </motion.h1>
+
+            {/* ── SUBTITLE ── */}
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: easeOut }}
+              className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-10">
+              Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.
             </motion.p>
 
-            {/* ── MOBILE CTA BUTTON (WIZARD TRIGGER) ── */}
-            <div className="w-full md:hidden flex flex-col mt-8 pb-10 pointer-events-auto max-w-sm mx-auto">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="flex flex-col gap-3 px-2">
-                <button
-                  onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center justify-between bg-slate-50 border border-slate-200/80 text-slate-600 font-bold py-4 px-6 rounded-full text-[15px] shadow-[0_8px_24px_rgba(15,23,42,0.15)] hover:scale-[1.02] transition-transform"
-                >
-                  <div className="flex items-center gap-3">
-                    <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
-                    Comenzar búsqueda...
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-primary-blue/10 flex items-center justify-center">
-                    <ArrowRight className="w-4 h-4 text-primary-blue" />
-                  </div>
-                </button>
-                <button
-                  onClick={() => {
-                    if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio" });
-                    document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="w-full text-center mt-3 text-[13px] font-bold text-white bg-primary-blue px-6 py-3.5 rounded-full shadow-md hover:scale-[1.02] hover:bg-primary-blue/90 transition-all flex justify-center items-center gap-2"
-                  style={{ fontFamily: "var(--font-system)" }}
-                >
-                  Explora todo nuestro catálogo <ArrowRight className="w-4 h-4 text-white" />
-                </button>
-              </motion.div>
+            {/* ── CTAs (Primary & Secondary) ── */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: easeOut }}
+              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
+              <button 
+                onClick={() => {
+                  if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio" });
+                  document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="h-[56px] md:h-[60px] px-8 rounded-full bg-primary-blue text-white font-bold text-[14px] tracking-wide shadow-[0_8px_20px_rgba(0,130,200,0.25)] hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(0,130,200,0.35)] transition-all duration-300">
+                Explorar inmuebles
+              </button>
+              <a href="#contacto"
+                className="h-[56px] md:h-[60px] px-8 rounded-full bg-white border border-slate-200 text-onyx font-bold text-[14px] tracking-wide hover:border-slate-300 hover:bg-slate-50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-sm">
+                Valorar mi vivienda
+              </a>
+            </motion.div>
+
+            {/* Mobile search trigger (Since widget is hidden on mobile) */}
+            <div className="w-full md:hidden flex flex-col mb-12">
+              <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
+                onClick={() => setMobileSheetOpen(true)}
+                className="w-full flex items-center justify-between bg-white border border-slate-200/80 text-slate-600 font-bold py-5 px-6 rounded-2xl text-[15px] shadow-sm hover:scale-[1.02] transition-transform"
+              >
+                <div className="flex items-center gap-3">
+                  <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
+                  Comenzar búsqueda...
+                </div>
+                <div className="w-8 h-8 rounded-full bg-primary-blue/10 flex items-center justify-center">
+                  <ArrowRight className="w-4 h-4 text-primary-blue" />
+                </div>
+              </motion.button>
             </div>
-          </div>
 
-          {/* Dynamic Prompt (desktop only — fades in when a dropdown is open) */}
-          <div className={`absolute inset-0 hidden md:flex transition-all duration-500 ease-in-out
-            ${drop === 'tipo' ? 'justify-end items-center text-right md:pr-8' :
-              drop === 'precio' ? 'justify-start items-center text-left md:pl-8' :
-              'justify-center items-center text-center'}
-            ${drop ? 'opacity-100 blur-0 scale-100' : 'opacity-0 blur-md scale-105 pointer-events-none justify-center items-center'}
-          `}>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight text-balance drop-shadow-sm transition-all duration-500 max-w-[450px]">
-              {drop === "zona" && "Elige tu zona"}
-              {drop === "tipo" && "Elige el tipo de inmueble"}
-              {drop === "precio" && "Elige el precio que quieras"}
-            </h2>
-          </div>
-
-        </div>
-
-        {/*
-          ── SEARCH WIDGET (DESKTOP ONLY) ──
-          PUNTO 4: Hidden on mobile (hidden md:flex). The mobile bottom sheet
-          handles search on small screens without creating whitespace in the
-          document flow.
-        */}
-        <motion.div ref={barRef} id="search-widget-block"
-          className="relative z-20 w-full max-w-[1160px] mx-auto px-4 md:px-0 md:py-0 md:mt-0 hidden md:flex flex-col justify-end"
-          initial={{ opacity:0, y:36 }} animate={{ opacity:1, y:0 }} transition={{ duration:1, delay:.18 }}>
-
-          {/* The Widget Box */}
-          <div className="w-full bg-white rounded-[2rem] overflow-visible pointer-events-auto shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 transition-all duration-300 ease-out">
+            {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
+            <motion.div ref={barRef} id="search-widget-block"
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: easeOut }}
+              className={`relative z-20 w-full hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-105' : 'scale-100'}`}
+            >
+              {/* The Widget Box */}
+              <div className="w-full bg-white/70 backdrop-blur-2xl rounded-[2rem] overflow-visible pointer-events-auto shadow-[0_12px_40px_-15px_rgba(0,0,0,0.08)] border border-slate-200/60 transition-all duration-300 ease-out">
 
             {/* ── BIG MODE TABS ── */}
             <div className="grid grid-cols-2 overflow-hidden rounded-t-[2rem]">
@@ -775,37 +700,60 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
         </motion.div>
 
+          {/* ── TRUST INDICATORS ── */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
+            className="w-full mt-10 hidden md:flex items-center gap-8 text-slate-500 font-semibold text-[13px] tracking-wide">
+            <div className="flex items-center gap-2 text-onyx">
+              <span className="text-primary-blue text-sm">★★★★★</span>
+              4.500 clientes felices
+            </div>
+            <div className="flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-primary-blue" />
+              +300 comunidades
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary-blue" />
+              98% satisfacción
+            </div>
+          </motion.div>
+
+        </div> {/* END LEFT COLUMN */}
+
+        {/* RIGHT COLUMN: Image & Silhouette */}
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] overflow-hidden mt-8 lg:mt-0 shadow-2xl flex-shrink-0 z-20 hidden md:block">
+          
+          {/* White Lateral Gradient for blending */}
+          <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#F7F9FC] to-transparent z-10" />
+          
+          {/* Main Photo */}
+          <img src={img2} alt="Familia feliz en su nuevo hogar" 
+            className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" 
+            style={{ filter: "contrast(0.9) saturate(1.1) brightness(1.05)" }}
+          />
+          
+          {/* Warm Lighting overlay */}
+          <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-30 z-0" />
+          
+          {/* Blue Silhouette (Lucide Home as placeholder for logo watermark) */}
+          <div className="absolute top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.03] pointer-events-none mix-blend-multiply">
+            <Home className="w-[500px] h-[500px] text-primary-blue stroke-[0.5]" />
+          </div>
+          
+        </motion.div> {/* END RIGHT COLUMN */}
+
+        {/* Mobile Trust Indicators */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
+          className="w-full flex md:hidden flex-wrap items-center justify-center gap-4 text-slate-500 font-semibold text-[13px] mt-8 z-20 pb-4">
+          <div className="flex items-center gap-1.5 text-onyx"><span className="text-primary-blue text-sm">★★★★★</span> 4.500 clientes</div>
+          <div className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-primary-blue" /> +300 comunidades</div>
+          <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-blue" /> 98% satisfacción</div>
+        </motion.div>
+
+        </div>
       </section>
 
-      {/*
-        ── TRUST BADGES ──
-        PROBLEMA 2: cambiado de azul-navy (#0a1829) a gris oscuro neutro (#1A1D23).
-        Esto crea tres bloques claramente distintos en móvil:
-          [foto/hero — blanco/foto] → [trust bar — gris casi negro] → [stats — navy azul]
-        El azul solo aparece como acento en los iconos de cada badge, no como fondo.
-      */}
-      <div
-        className="w-full z-10 relative py-3 px-4 flex justify-center overflow-hidden"
-        style={{ background: "#1A1D23" }}
-      >
-        {/* Separador top: diferencia visualmente del hero blanco */}
-        <div className="absolute top-0 inset-x-0 h-px bg-white/[0.10]" />
-        <div className="w-full max-w-5xl flex flex-wrap justify-center md:justify-between items-center gap-x-6 gap-y-2">
-          {[
-            { icon: <Building className="w-3.5 h-3.5 text-primary-blue" />, label: "+300 comunidades" },
-            { icon: <Award className="w-3.5 h-3.5 text-primary-blue" />, label: "+15 años de trayectoria" },
-            { icon: <Zap className="w-3.5 h-3.5 text-primary-blue" />, label: "Respuesta en 24h" },
-            { icon: <CheckCircle2 className="w-3.5 h-3.5 text-primary-blue" />, label: "Equipo certificado" },
-          ].map(b => (
-            <div key={b.label} className="flex items-center gap-2 text-[11.5px] font-medium tracking-wide text-white/70 hover:text-white transition-colors cursor-default">
-              {b.icon}
-              <span>{b.label}</span>
-            </div>
-          ))}
-        </div>
-        {/* Separador bottom: diferencia visualmente del navy oscuro de stats */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-white/[0.06]" />
-      </div>
+
 
       {/* ── STATS (BELOW FOLD) ── */}
       {/*

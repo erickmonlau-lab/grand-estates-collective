@@ -365,7 +365,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-20 z-10">
           
           {/* LEFT COLUMN: Text & Search */}
-          <div className="flex-1 flex flex-col items-start text-left w-full max-w-[620px] mt-4 lg:mt-8 z-20">
+          <div className="flex-1 flex flex-col items-start text-left w-full max-w-[800px] mt-4 lg:mt-8 z-20">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -386,26 +386,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUBTITLE ── */}
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-10">
+              className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-8">
               Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.
             </motion.p>
-
-            {/* ── CTAs (Primary & Secondary) ── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
-              <button 
-                onClick={() => {
-                  if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio" });
-                  document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="h-[56px] md:h-[60px] px-8 rounded-full bg-primary-blue text-white font-bold text-[14px] tracking-wide shadow-[0_8px_20px_rgba(0,130,200,0.25)] hover:-translate-y-1 hover:shadow-[0_12px_25px_rgba(0,130,200,0.35)] transition-all duration-300">
-                Explorar inmuebles
-              </button>
-              <a href="#contacto"
-                className="h-[56px] md:h-[60px] px-8 rounded-full bg-white border border-slate-200 text-onyx font-bold text-[14px] tracking-wide hover:border-slate-300 hover:bg-slate-50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-sm">
-                Valorar mi vivienda
-              </a>
-            </motion.div>
 
             {/* Mobile search trigger (Since widget is hidden on mobile) */}
             <div className="w-full md:hidden flex flex-col mb-12">
@@ -426,38 +409,42 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
             <motion.div ref={barRef} id="search-widget-block"
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className={`relative z-20 w-full hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-105' : 'scale-100'}`}
+              className={`relative z-20 w-full hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'}`}
             >
-              {/* The Widget Box */}
-              <div className="w-full bg-white/70 backdrop-blur-2xl rounded-[2rem] overflow-visible pointer-events-auto shadow-[0_12px_40px_-15px_rgba(0,0,0,0.08)] border border-slate-200/60 transition-all duration-300 ease-out">
+              
+              {/* ── PREMIUM SEGMENTED TABS ── */}
+              <div className="flex items-center bg-slate-200/60 backdrop-blur-md p-1.5 rounded-[1.25rem] w-max mb-6 shadow-inner border border-slate-300/30 relative z-30">
+                {(["comprar","alquilar"] as const).map(m => {
+                  const isActive = mode === m;
+                  return (
+                    <button key={m} onClick={() => setMode(m)}
+                      className={`relative px-10 py-3.5 rounded-[1rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
+                        isActive ? "text-onyx" : "text-slate-500 hover:text-slate-800"
+                      }`}>
+                      {isActive && (
+                        <motion.div layoutId="activeModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-sm border border-slate-100" />
+                      )}
+                      <span className="relative z-10 text-base md:text-lg">{m === "comprar" ? "Comprar" : "Alquilar"}</span>
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* ── BIG MODE TABS ── */}
-            <div className="grid grid-cols-2 overflow-hidden rounded-t-[2rem]">
-              {(["comprar","alquilar"] as const).map(m => {
-                const isActive = mode === m;
-                return (
-                  <button key={m} onClick={() => setMode(m)}
-                    className={`relative flex items-center justify-center gap-3 sm:gap-4 py-3 sm:py-6 font-bold tracking-[0.12em] uppercase transition-all duration-300 focus:outline-none overflow-hidden ${
-                      isActive ? "text-onyx bg-white border-b-2 border-onyx" : "text-slate-400 bg-slate-50 border-b-2 border-transparent hover:text-slate-600"
-                    }`}>
-                    <span className="relative z-10 text-base">{m === "comprar" ? "Comprar" : "Alquilar"}</span>
-                  </button>
-                );
-              })}
-            </div>
+              {/* The Widget Box */}
+              <div className="w-full bg-white/90 backdrop-blur-3xl rounded-[2rem] overflow-visible pointer-events-auto shadow-[0_24px_80px_-12px_rgba(0,0,0,0.12)] border border-white/60 transition-all duration-300 ease-out">
 
             {/* ── FIELDS ── */}
-            <div className="grid grid-cols-2 sm:flex sm:flex-row">
+            <div className="grid grid-cols-2 sm:flex sm:flex-row items-center divide-y sm:divide-y-0 sm:divide-x divide-slate-200/60 p-2 md:p-3">
 
               {/* ZONA */}
-              <div className="col-span-2 relative flex-1 border-b sm:border-b-0 sm:border-r-2 border-slate-300" style={{flex:'1'}}>
+              <div className="col-span-2 relative flex-1" style={{flex:'1'}}>
                 <button onClick={() => toggleDrop("zona")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "zona" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">Localidad</div>
-                    <div className={`text-sm sm:text-base font-bold truncate ${zona === "Cualquier zona" ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">Localidad</div>
+                    <div className={`text-base sm:text-xl font-bold truncate ${zona === "Cualquier zona" ? "text-primary-blue" : "text-slate-900"}`}>
                       {zona}
                     </div>
                   </div>
@@ -513,14 +500,14 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               </div>
 
               {/* TIPO */}
-              <div className="col-span-1 relative border-r sm:border-b-0 sm:border-r-2 border-slate-300" style={{flex:'1.3'}}>
+              <div className="col-span-1 relative" style={{flex:'1.3'}}>
                 <button onClick={() => toggleDrop("tipo")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "tipo" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">Tipo de inmueble</div>
-                    <div className={`text-sm sm:text-base font-bold truncate ${tipo === "Cualquier tipo" ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">Tipo de inmueble</div>
+                    <div className={`text-base sm:text-xl font-bold truncate ${tipo === "Cualquier tipo" ? "text-primary-blue" : "text-slate-900"}`}>
                       {tipo}
                     </div>
                   </div>
@@ -576,16 +563,16 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               </div>
 
               {/* PRECIO */}
-              <div className="col-span-1 relative flex-1 border-b sm:border-b-0 sm:border-r-2 border-slate-300">
+              <div className="col-span-1 relative flex-1">
                 <button onClick={() => toggleDrop("precio")}
-                  className={`w-full flex items-center gap-2 sm:gap-4 px-4 sm:px-7 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "precio" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[10px] sm:text-xs font-bold tracking-[0.12em] uppercase text-slate-900 mb-0.5 sm:mb-1">
+                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">
                       {mode === "alquilar" ? "Renta" : "Precio máx."}
                     </div>
-                    <div className={`text-sm sm:text-base font-bold truncate ${precio === prices[0] ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className={`text-base sm:text-xl font-bold truncate ${precio === prices[0] ? "text-primary-blue" : "text-slate-900"}`}>
                       {precio}
                     </div>
                   </div>
@@ -661,13 +648,13 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                 </AnimatePresence>
 
                 <motion.button
-                  whileHover={{ scale: 1 }} whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   onClick={handleSearch}
-                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-6 bg-onyx text-white font-bold text-[10px] tracking-[0.2em] uppercase overflow-hidden group focus:outline-none border-l border-slate-200 hover:bg-slate-800 transition-colors"
+                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-10 sm:px-12 py-5 sm:py-8 rounded-[1.25rem] bg-onyx text-white font-bold text-xs sm:text-[14px] tracking-[0.2em] uppercase overflow-hidden group focus:outline-none hover:bg-slate-800 transition-colors shadow-lg"
                 >
-                  <Search className="w-5 h-5 relative z-10" />
+                  <Search className="w-5 h-5 sm:w-6 sm:h-6 relative z-10" />
                   <span className="relative z-10">Buscar</span>
-                  <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </div>
 
@@ -685,8 +672,17 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               ))}
             </div>
 
-            {/* Desktop "Ver Catálogo" Button */}
-            <div className="w-full mt-4 flex justify-end">
+            {/* ── SECONDARY ACTIONS ── */}
+            <div className="w-full mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <a href="#contacto"
+                className="text-sm font-bold text-slate-500 hover:text-primary-blue transition-colors flex items-center gap-2 group"
+              >
+                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-primary-blue/10 transition-colors">
+                  <Building2 className="w-4 h-4" />
+                </div>
+                Valorar mi vivienda
+              </a>
+
               <button
                 onClick={() => {
                   if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquiera", tipo: "Todos", precio: "Cualquier precio" });
@@ -702,17 +698,17 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* ── TRUST INDICATORS ── */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full mt-10 hidden md:flex items-center gap-8 text-slate-500 font-semibold text-[13px] tracking-wide">
+            className="w-full mt-10 hidden md:flex items-center gap-10 text-slate-500 font-bold text-sm tracking-wide">
             <div className="flex items-center gap-2 text-onyx">
               <span className="text-primary-blue text-sm">★★★★★</span>
               4.500 clientes felices
             </div>
             <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-primary-blue" />
+              <Building2 className="w-5 h-5 text-primary-blue" />
               +300 comunidades
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary-blue" />
+              <CheckCircle2 className="w-5 h-5 text-primary-blue" />
               98% satisfacción
             </div>
           </motion.div>
@@ -720,24 +716,22 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         </div> {/* END LEFT COLUMN */}
 
         {/* RIGHT COLUMN: Image & Silhouette */}
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-          className="w-full lg:w-[45%] relative h-[450px] md:h-[600px] lg:h-[700px] rounded-[2rem] overflow-hidden mt-8 lg:mt-0 shadow-2xl flex-shrink-0 z-20 hidden md:block">
-          
-          {/* White Lateral Gradient for blending */}
-          <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#F7F9FC] to-transparent z-10" />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+          className="absolute right-0 top-0 w-full lg:w-[45%] h-full z-0 hidden lg:block"
+          style={{ maskImage: "linear-gradient(to right, transparent 0%, black 25%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 25%)" }}>
           
           {/* Main Photo */}
           <img src={img2} alt="Familia feliz en su nuevo hogar" 
             className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" 
-            style={{ filter: "contrast(0.9) saturate(1.1) brightness(1.05)" }}
+            style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }}
           />
           
           {/* Warm Lighting overlay */}
-          <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-30 z-0" />
+          <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
           {/* Blue Silhouette (Lucide Home as placeholder for logo watermark) */}
-          <div className="absolute top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.03] pointer-events-none mix-blend-multiply">
-            <Home className="w-[500px] h-[500px] text-primary-blue stroke-[0.5]" />
+          <div className="absolute top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.04] pointer-events-none mix-blend-multiply">
+            <Home className="w-[600px] h-[600px] text-primary-blue stroke-[0.5]" />
           </div>
           
         </motion.div> {/* END RIGHT COLUMN */}

@@ -414,10 +414,10 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Cinematic Strip) ── */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[21/9] rounded-2xl mb-4 relative z-10 overflow-hidden shadow-sm border border-slate-100/50">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_35%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+            {/* ── FOTOGRAFÍA (Editorial Crop - Director de Arte) ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="w-full aspect-[4/3] rounded-[28px] mt-2 mb-7 relative z-10 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-slate-100/50">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[80%_75%] scale-[1.4] origin-[80%_75%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
 
             {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}

@@ -414,45 +414,53 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Editorial Crop - Director de Arte) ── */}
+            {/* ── FOTOGRAFÍA (Lienzo Emergente - Arquitectura Integrada) ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[4/3] rounded-[28px] mt-2 mb-7 relative z-10 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-slate-100/50">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[80%_75%] scale-[1.4] origin-[80%_75%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+              className="w-full aspect-[4/3] rounded-t-[3rem] rounded-b-none mt-2 mb-0 relative z-10 overflow-hidden">
+              <motion.img src={img2} alt="Familia feliz" 
+                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%]" 
+                style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
+                animate={{ scale: [1.35, 1.38, 1.35] }} 
+                transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
+              />
             </motion.div>
 
-            {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full bg-slate-100/80 p-1 rounded-xl mb-4 flex relative z-10 h-[40px]">
-              {(["comprar","alquilar"] as const).map(m => {
-                const isActive = mode === m;
-                return (
-                  <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative rounded-lg font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
-                    }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-lg shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
-                    <span className="relative z-10 text-[13px] capitalize">{m}</span>
-                  </button>
-                );
-              })}
-            </motion.div>
+            {/* ── CONTROLES INTERACTIVOS (Buscador superpuesto / Mordisco arquitectónico) ── */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+              className="w-full flex flex-col items-center relative z-20 -mt-10 mb-6">
+              
+              {/* SEGMENTED CONTROL (Glassmorphism sutil) */}
+              <div className="w-full bg-white/60 backdrop-blur-md p-1 rounded-xl mb-4 flex h-[40px] shadow-[0_4px_30px_rgba(0,0,0,0.06)] border border-white/80">
+                {(["comprar","alquilar"] as const).map(m => {
+                  const isActive = mode === m;
+                  return (
+                    <button key={m} onClick={() => setMode(m)}
+                      className={`flex-1 relative rounded-lg font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                        isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-600 hover:text-slate-900"
+                      }`}>
+                      {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-lg shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
+                      <span className="relative z-10 text-[13px] capitalize">{m}</span>
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* ── CTA BUSCADOR INDEPENDIENTE ── */}
-            <motion.button initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-              onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_20px_rgba(0,0,0,0.04)] rounded-[1.25rem] p-3 mb-6 active:scale-[0.98] transition-transform z-10 relative"
-            >
-              <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-3">
-                <Search className="w-4 h-4 text-primary-blue stroke-[2]" />
-              </div>
-              <div className="flex flex-col items-start flex-1 overflow-hidden">
-                <span className="font-bold text-onyx text-[15px] tracking-wide mb-0.5">Comenzar búsqueda</span>
-                <span className="text-slate-400 font-medium text-[12px] truncate w-full text-left">Cualquier zona • Tipo • Precio</span>
-              </div>
-              <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
-                <ArrowRight className="w-3 h-3 text-slate-400 -rotate-45" />
-              </div>
-            </motion.button>
+              {/* CTA BUSCADOR */}
+              <button onClick={() => setMobileSheetOpen(true)}
+                className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_25px_rgba(0,0,0,0.06)] rounded-[1.25rem] p-3 active:scale-[0.98] transition-transform"
+              >
+                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-3">
+                  <Search className="w-4 h-4 text-primary-blue stroke-[2]" />
+                </div>
+                <div className="flex flex-col items-start flex-1 overflow-hidden">
+                  <span className="font-bold text-onyx text-[15px] tracking-wide mb-0.5">Comenzar búsqueda</span>
+                  <span className="text-slate-400 font-medium text-[12px] truncate w-full text-left">Cualquier zona • Tipo • Precio</span>
+                </div>
+                <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
+                  <ArrowRight className="w-3 h-3 text-slate-400 -rotate-45" />
+                </div>
+              </button>
+            </motion.div>
             
           </div>
           {/* =============================================================== */}

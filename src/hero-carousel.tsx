@@ -417,13 +417,12 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Lienzo Emergente - Arquitectura Integrada) ── */}
+            {/* ── FOTOGRAFÍA (Arquitectura Integrada Edge-to-Edge) ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-[4/3] rounded-t-[3rem] mt-2 mb-0 relative z-10"
-              style={{ maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}>
+              className="w-[calc(100%+3rem)] -mx-6 aspect-[5/4] rounded-t-[3rem] mt-2 mb-0 relative z-10 overflow-hidden">
               <motion.img src={img2} alt="Familia feliz" 
-                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%] mix-blend-multiply" 
-                style={{ filter: "contrast(1.02) saturate(1.05) brightness(1.02)" }} 
+                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%]" 
+                style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
                 animate={{ scale: [1.35, 1.38, 1.35] }} 
                 transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
               />
@@ -431,9 +430,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native) ── */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 -mt-8 mb-10 px-2">
+              className="w-[calc(100%+1rem)] -mx-2 flex flex-col items-center relative z-20 -mt-10 mb-10">
               
-              <div className="w-full bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] rounded-[2rem] p-4 flex flex-col border border-slate-100/80">
+              <div className="w-full bg-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[2rem] p-4 flex flex-col border border-slate-100">
                 
                 {/* SELECTOR SEGMENTADO INTEGRADO */}
                 <div className="w-full bg-slate-50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-100">

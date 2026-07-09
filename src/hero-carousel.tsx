@@ -356,7 +356,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       {/*
         ── MOBILE & DESKTOP HERO (Premium SaaS Style) ──
       */}
-      <section className="relative w-full min-h-[100dvh] pt-[110px] md:pt-[130px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
+      <section className="relative w-full min-h-[100dvh] pt-[110px] md:pt-[130px] overflow-x-hidden bg-white"
         style={{ fontFamily: "var(--font-system)" }}
       >
         {/* Soft Radial Blue Glow Behind Right Section */}

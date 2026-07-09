@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X, Building, Award, Zap, CheckCircle2 } from "lucide-react";
+import { Search, MapPin, ChevronDown, Home, Building2, Warehouse, Trees, ArrowRight, Key, Phone, Star, X, Building, Award, Zap, CheckCircle2, Smile, ShieldCheck } from "lucide-react";
 
 import img1 from "@/assets/premium_rental_apartment.webp";
 import img2 from "@/assets/family_no_boy.jpg";

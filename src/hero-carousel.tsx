@@ -404,11 +404,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.05] tracking-tight text-[3rem] mb-10">
-              Encontramos tu<br/>
-              <span className="text-primary-blue">hogar</span>.<br/>
-              Nos ocupamos<br/>
-              del resto.
+              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.5rem,10vw,3.5rem)] mb-10 w-full">
+              Encontramos tu <span className="text-primary-blue">hogar</span>. Nos ocupamos del resto.
             </motion.h1>
 
             {/* ── SUBTITLE (Respirado) ── */}
@@ -416,12 +413,6 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               className="text-slate-500 font-medium text-[17px] leading-relaxed pr-8 mb-8">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
-
-            {/* ── FOTOGRAFÍA EDITORIAL INDEPENDIENTE ── */}
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="w-full h-[200px] rounded-[2rem] overflow-hidden shadow-lg shadow-black/5 mb-7 relative z-10">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
-            </motion.div>
 
             {/* ── SEGMENTED CONTROL ── */}
             <div className="w-full bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner border border-slate-200/50 flex relative z-10">
@@ -442,7 +433,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── CTA AIRBNB STYLE (Premium & Protagonista) ── */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-xl rounded-[1.25rem] px-6 py-5 mb-14 active:scale-95 transition-transform z-10 relative"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-xl rounded-[1.25rem] px-6 py-5 mb-10 active:scale-95 transition-transform z-10 relative"
             >
               <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4 shadow-sm">
                 <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
@@ -452,6 +443,12 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                 <span className="text-slate-400 font-medium text-[13px]">Cualquier zona • Tipo • Precio</span>
               </div>
             </motion.button>
+            
+            {/* ── FOTOGRAFÍA EDITORIAL INDEPENDIENTE (Debajo del buscador) ── */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+              className="w-full h-[180px] rounded-3xl overflow-hidden shadow-lg shadow-black/5 mb-4 relative z-10">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+            </motion.div>
             
           </div>
           {/* =============================================================== */}

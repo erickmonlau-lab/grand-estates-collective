@@ -669,13 +669,13 @@ function FormField({ label, placeholder, type = "text", textarea }: { label: str
         <textarea
           rows={3}
           placeholder={placeholder}
-          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors resize-none placeholder:text-onyx/30"
+          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors resize-none placeholder:text-onyx/30"
         />
       ) : (
         <input
           type={type}
           placeholder={placeholder}
-          className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors placeholder:text-onyx/30"
+          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors placeholder:text-onyx/30"
         />
       )}
     </div>
@@ -916,8 +916,8 @@ function Index() {
                     onClick={() => setSearchParams(p => ({ ...p, tipo }))}
                     className={`px-6 py-2.5 rounded-full text-[14px] whitespace-nowrap transition-all duration-300 ${
                       searchParams.tipo === tipo 
-                        ? "bg-primary-blue text-white shadow-md shadow-primary-blue/20 font-bold" 
-                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                        ? "bg-[#0082c8] text-white border-transparent" 
+                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
                     {tipo === "Cualquier tipo" ? "Todos" : tipo}
@@ -935,8 +935,8 @@ function Index() {
                     onClick={() => setSearchParams(p => ({ ...p, zona }))}
                     className={`px-6 py-2.5 rounded-full text-[14px] whitespace-nowrap transition-all duration-300 ${
                       searchParams.zona === zona 
-                        ? "bg-primary-blue text-white shadow-md shadow-primary-blue/20 font-bold" 
-                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900"
+                        ? "bg-[#0082c8] text-white border-transparent" 
+                        : "border border-slate-200 bg-white text-slate-600 font-semibold hover:border-slate-300 hover:bg-slate-50"
                     }`}
                   >
                     {zona === "Cualquier zona" ? "Todas las zonas" : zona}
@@ -1310,15 +1310,15 @@ function Index() {
       </section>
 
       {/* ── NOSOTROS / WHY US ── */}
-      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-[#89888d] text-onyx">
+      <section id="nosotros" className="py-28 md:py-36 px-6 md:px-12 bg-[#0f172a] text-white">
         <div className="max-w-5xl mx-auto flex flex-col gap-12 lg:gap-20">
           <Reveal>
             <div>
-              <h3 className="text-5xl sm:text-6xl md:text-[6rem] lg:text-[7rem] font-black text-onyx mb-2 tracking-tighter uppercase leading-none break-words">{t.nosotros.tag}</h3>
-              <h2 key={language} className="text-[2.75rem] sm:text-5xl md:text-[6rem] lg:text-[7rem] font-black leading-[0.95] md:leading-none tracking-tighter text-white break-words" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
+              <h3 className="text-5xl sm:text-6xl md:text-[6rem] lg:text-[7rem] font-black text-white/5 mb-2 tracking-tighter uppercase leading-none break-words">{t.nosotros.tag}</h3>
+              <h2 key={language} className="text-[2.75rem] sm:text-5xl md:text-[6rem] lg:text-[7rem] font-extrabold leading-[0.95] md:leading-none tracking-tighter text-white break-words" style={{ fontFamily: "Outfit, 'Plus Jakarta Sans', sans-serif" }}>
                 {t.nosotros.title1} <br className="hidden md:block" />
-                <span className="text-onyx font-black">{t.nosotros.titleAccent}</span>
-                <span className="text-white font-black">{" "}{t.nosotros.title3}</span>
+                <span className="text-white font-extrabold">{t.nosotros.titleAccent}</span>
+                <span className="text-white font-extrabold">{" "}{t.nosotros.title3}</span>
               </h2>
             </div>
           </Reveal>
@@ -1326,13 +1326,13 @@ function Index() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
             {t.nosotros.items.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.1}>
-                <div className="flex flex-col gap-6 items-start bg-white border-[3px] border-onyx rounded-[32px] p-8 h-full">
-                  <div className="w-14 h-14 rounded-2xl bg-onyx/5 flex items-center justify-center text-onyx shrink-0">
+                <div className="flex flex-col gap-6 items-start bg-[#1e293b] border border-slate-700/50 rounded-[32px] p-8 h-full">
+                  <div className="w-14 h-14 rounded-2xl bg-[#0082c8]/10 flex items-center justify-center text-[#0082c8] shrink-0">
                     {iconMap[item.icon]}
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-3xl text-onyx mb-3 tracking-tighter leading-tight">{item.title}</h4>
-                    <p className="text-onyx/70 text-base leading-relaxed font-medium">{item.desc}</p>
+                    <h4 className="font-extrabold text-3xl text-white mb-3 tracking-tighter leading-tight">{item.title}</h4>
+                    <p className="text-slate-300 text-base leading-relaxed font-medium">{item.desc}</p>
                   </div>
                 </div>
               </Reveal>
@@ -1363,7 +1363,7 @@ function Index() {
               ];
               return (
                 <Reveal key={item.name} delay={i * 0.1}>
-                  <div className="bg-white rounded-[2rem] p-10 flex flex-col items-center text-center h-full border-[3px] border-onyx shadow-[8px_8px_0px_#0f172a] transition-all duration-300 hover:shadow-[0px_0px_0px_#0f172a] hover:translate-x-[8px] hover:translate-y-[8px]">
+                  <div className="bg-white rounded-xl p-10 flex flex-col items-center text-center h-full border border-slate-100 shadow-md transition-all duration-300 hover:-translate-y-1">
                     {/* Estrellas */}
                     <div className="flex justify-center gap-1.5 mb-8">
                       {[...Array(5)].map((_, s) => (
@@ -1376,7 +1376,7 @@ function Index() {
                     
                     {/* Autor */}
                     <div className="flex flex-col items-center gap-4 mt-auto">
-                      <img src={avatars[i % avatars.length]} alt={item.name} className="w-16 h-16 rounded-full object-cover border-[3px] border-onyx shrink-0" />
+                      <img src={avatars[i % avatars.length]} alt={item.name} className="w-16 h-16 rounded-full object-cover border border-slate-100 shrink-0" />
                       <div>
                         <div className="font-bold text-lg text-onyx mb-1">{item.name}</div>
                         <div className="text-sm text-slate-500 font-semibold uppercase tracking-wider">{item.zone}</div>
@@ -1652,7 +1652,7 @@ function Index() {
 
           <div className="lg:col-span-6 lg:col-start-7">
             <Reveal delay={0.1}>
-              <div className="bg-white border-[3px] border-onyx p-8 md:p-12 rounded-[2rem] shadow-[12px_12px_0px_#0f172a]">
+              <div className="bg-white border border-slate-100 p-8 md:p-12 rounded-xl shadow-md">
                 <h3 className="font-black text-3xl md:text-4xl text-onyx mb-10 tracking-tighter leading-tight">Solicite información sin compromiso</h3>
                 <form key={language} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -1662,14 +1662,14 @@ function Index() {
                   <FormField label={t.contact.emailLabel} type="email" placeholder={language === 'es' ? "tu-correo@ejemplo.com" : "correo@email.com"} />
                   <div>
                     <label className="text-onyx font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contact.serviceLabel}</label>
-                    <select className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-5 py-4 text-[15px] font-medium text-onyx focus:border-onyx focus:bg-white focus:ring-0 transition-colors">
+                    <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors">
                       {t.contact.serviceOpts.map(opt => <option key={opt}>{opt}</option>)}
                     </select>
                   </div>
                   <FormField label={t.contact.messageLabel} placeholder={t.contact.messagePlaceholder} textarea />
                   <button
                     type="button"
-                    className="w-full bg-[#0082c8] border-[3px] border-onyx text-white py-5 mt-6 rounded-2xl text-[16px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-onyx hover:text-white shadow-[6px_6px_0px_#0f172a] hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px]"
+                    className="w-full bg-[#0082c8] text-white py-5 mt-6 rounded-lg text-[16px] font-bold uppercase tracking-widest transition-all duration-300 hover:bg-[#0070ab]"
                   >
                     {t.contact.submit}
                   </button>

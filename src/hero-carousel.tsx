@@ -393,48 +393,45 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* =============================================================== */}
           {/* ── MOBILE TOP SECTION (EDITORIAL APPLE STYLE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
+          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-0">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-              className="flex items-center gap-2 font-semibold text-[11px] text-primary-blue mb-4 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
+              className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-3 bg-slate-50 border border-slate-100/50 rounded-full px-2.5 py-1 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
               Administración • Asesoría • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.25rem,9.5vw,3rem)] mb-4 w-full">
-              Encontramos tu<br/>
-              <span className="text-primary-blue">hogar</span>.<br/>
-              Nos ocupamos<br/>
-              del resto.
+              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(1.75rem,8.5vw,2.5rem)] mb-3 w-full pr-4">
+              Encontramos tu <span className="text-primary-blue">hogar</span>. Nos ocupamos del resto.
             </motion.h1>
 
             {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-4">
+              className="text-slate-500 font-medium text-[14px] leading-snug max-w-[280px] mb-4">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (ADN Desktop / Editorial) ── */}
+            {/* ── FOTOGRAFÍA (Cinematic Strip) ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-              className="w-[100vw] -mx-6 h-[180px] mb-4 relative z-10 overflow-hidden">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+              className="w-full aspect-[21/9] rounded-2xl mb-4 relative z-10 overflow-hidden shadow-sm border border-slate-100/50">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_35%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
 
             {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full bg-slate-100/80 p-1 rounded-[1.25rem] mb-4 flex relative z-10 h-[44px]">
+              className="w-full bg-slate-100/80 p-1 rounded-xl mb-4 flex relative z-10 h-[40px]">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative rounded-xl font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                    className={`flex-1 relative rounded-lg font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
                       isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
                     }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
-                    <span className="relative z-10 text-[14px] capitalize">{m}</span>
+                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-lg shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
+                    <span className="relative z-10 text-[13px] capitalize">{m}</span>
                   </button>
                 );
               })}
@@ -443,17 +440,17 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── CTA BUSCADOR INDEPENDIENTE ── */}
             <motion.button initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[1.5rem] p-4 mb-9 active:scale-[0.98] transition-transform z-10 relative"
+              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_20px_rgba(0,0,0,0.04)] rounded-[1.25rem] p-3 mb-6 active:scale-[0.98] transition-transform z-10 relative"
             >
-              <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-4">
-                <Search className="w-5 h-5 text-primary-blue stroke-[2]" />
+              <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-3">
+                <Search className="w-4 h-4 text-primary-blue stroke-[2]" />
               </div>
-              <div className="flex flex-col items-start flex-1">
-                <span className="font-bold text-onyx text-[16px] tracking-wide mb-1">Comenzar búsqueda</span>
-                <span className="text-slate-400 font-medium text-[13px]">Cualquier zona • Tipo • Precio</span>
+              <div className="flex flex-col items-start flex-1 overflow-hidden">
+                <span className="font-bold text-onyx text-[15px] tracking-wide mb-0.5">Comenzar búsqueda</span>
+                <span className="text-slate-400 font-medium text-[12px] truncate w-full text-left">Cualquier zona • Tipo • Precio</span>
               </div>
-              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
-                <ArrowRight className="w-4 h-4 text-slate-400 -rotate-45" />
+              <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
+                <ArrowRight className="w-3 h-3 text-slate-400 -rotate-45" />
               </div>
             </motion.button>
             
@@ -755,11 +752,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* Mobile Trust Indicators */}
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-            className="w-full grid grid-cols-2 gap-4 md:hidden text-slate-500 font-medium text-[14px] mb-16 z-30">
-            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Star className="w-5 h-5 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[13px]">Clientes felices</span></div>
-            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Building2 className="w-5 h-5 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[13px]">Comunidades</span></div>
-            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Smile className="w-5 h-5 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[13px]">Satisfacción</span></div>
-            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><ShieldCheck className="w-5 h-5 text-primary-blue" /> 15+</div><span className="text-slate-500 font-medium text-[13px]">Experiencia</span></div>
+            className="w-full grid grid-cols-2 gap-2 md:hidden text-slate-500 font-medium text-[14px] mb-8 z-30">
+            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Star className="w-4 h-4 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[11px] leading-none">Clientes</span></div>
+            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Building2 className="w-4 h-4 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[11px] leading-none">Comunidades</span></div>
+            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Smile className="w-4 h-4 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[11px] leading-none">Satisfacción</span></div>
+            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><ShieldCheck className="w-4 h-4 text-primary-blue" /> 15+</div><span className="text-slate-500 font-medium text-[11px] leading-none">Experiencia</span></div>
           </motion.div>
 
         </div> {/* END MAIN CONTAINER */}

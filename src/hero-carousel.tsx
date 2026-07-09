@@ -359,10 +359,18 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       <section className="relative w-full min-h-[100dvh] pt-[110px] md:pt-[130px] overflow-x-hidden bg-white"
         style={{ fontFamily: "var(--font-system)" }}
       >
-        {/* Soft Radial Blue Glow Behind Right Section */}
+        {/* Soft Radial Blue Glow Behind Right Section (Desktop) */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-14 lg:pb-[160px]">
+        {/* MOBILE FULL-BLEED BACKGROUND */}
+        <div className="absolute inset-0 w-full h-[100dvh] md:hidden z-0 overflow-hidden pointer-events-none">
+          <img src={img2} alt="Fondo hero" className="w-full h-full object-cover object-bottom" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 to-transparent" />
+          {/* Subtle gradient at the bottom so the widget pops */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/20 to-transparent" />
+        </div>
+
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-14 lg:pb-[160px] h-full min-h-[calc(100dvh-110px)] md:min-h-0">
           
           {/* =============================================================== */}
           {/* ── DESKTOP TOP SECTION ── */}
@@ -391,51 +399,43 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (EDITORIAL APPLE STYLE) ── */}
+          {/* ── MOBILE TOP SECTION (FULL-BLEED IMMERSIVE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
+          <div className="md:hidden w-full flex flex-col justify-between min-h-[calc(100dvh-110px)] z-10 relative overflow-visible mt-2">
             
-            {/* ── BADGE ── */}
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-              className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-5 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
-              Administración • Asesoría • Inmobiliaria
-            </motion.div>
+            {/* TEXT LAYER (TOP) */}
+            <div className="w-full flex flex-col items-start pt-4">
+              {/* ── BADGE ── */}
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
+                className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-5 bg-white/60 backdrop-blur-sm border border-slate-200/50 rounded-full px-3 py-1.5 shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
+                Administración • Asesoría • Inmobiliaria
+              </motion.div>
 
-            {/* ── HEADLINE (Editorial & Dominant) ── */}
-            <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.15] tracking-tight text-[clamp(2.1rem,9vw,2.75rem)] mb-5 w-full">
-              Encontramos<br/>
-              tu hogar.<br/>
-              <span className="text-primary-blue">Del resto</span><br/>
-              nos ocupamos.
-            </motion.h1>
+              {/* ── HEADLINE ── */}
+              <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
+                className="text-onyx font-black leading-[1.15] tracking-tight text-[clamp(2.1rem,9vw,2.75rem)] mb-5 w-full drop-shadow-sm">
+                Encontramos<br/>
+                tu hogar.<br/>
+                <span className="text-primary-blue">Del resto</span><br/>
+                nos ocupamos.
+              </motion.h1>
 
-            {/* ── SUBTITLE (Respirado) ── */}
-            <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[15px] leading-relaxed max-w-[280px] mb-8">
-              Gestionamos cada paso para que disfrutes sin preocupaciones.
-            </motion.p>
+              {/* ── SUBTITLE ── */}
+              <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                className="text-onyx/80 font-medium text-[15px] leading-relaxed max-w-[280px] mb-8">
+                Gestionamos cada paso para que disfrutes sin preocupaciones.
+              </motion.p>
+            </div>
             
-            {/* ── SUPER-WIDGET INTEGRADO (Imagen + Buscador) ── */}
+            {/* SEARCH WIDGET (BOTTOM) */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full flex flex-col bg-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[2.5rem] p-2 mt-2 mb-10 border border-slate-100">
+              className="w-full flex flex-col items-center relative z-20 pb-10">
               
-              {/* IMAGEN INTEGRADA EN LA TARJETA */}
-              <div className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden relative mb-4">
-                <motion.img src={img2} alt="Familia feliz" 
-                  className="w-full h-full object-cover object-bottom origin-bottom" 
-                  style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
-                  animate={{ scale: [1.35, 1.38, 1.35] }} 
-                  transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
-                />
-              </div>
-
-              {/* CONTROLES DE BÚSQUEDA */}
-              <div className="w-full flex flex-col px-2 pb-2">
+              <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2rem] p-3 flex flex-col border border-white/60">
                 
                 {/* SELECTOR SEGMENTADO INTEGRADO */}
-                <div className="w-full bg-slate-50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-100">
+                <div className="w-full bg-slate-100/50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-200/50">
                   {(["comprar","alquilar"] as const).map(m => {
                     const isActive = mode === m;
                     return (
@@ -452,9 +452,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
                 {/* GRAN BOTÓN DE BÚSQUEDA */}
                 <button onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center bg-slate-50 hover:bg-slate-100/70 rounded-[1.5rem] p-3.5 active:scale-[0.98] transition-all"
+                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[1.5rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
                 >
-                  <div className="w-12 h-12 rounded-[1rem] bg-white shadow-sm flex items-center justify-center shrink-0 mr-4 border border-slate-100">
+                  <div className="w-12 h-12 rounded-[1rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
                     <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col items-start flex-1 overflow-hidden">

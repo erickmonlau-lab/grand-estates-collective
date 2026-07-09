@@ -424,7 +424,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               {/* IMAGEN INTEGRADA EN LA TARJETA */}
               <div className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden relative mb-4">
                 <motion.img src={img2} alt="Familia feliz" 
-                  className="w-full h-full object-cover object-[center_20%] origin-[center_20%]" 
+                  className="w-full h-full object-cover object-bottom origin-bottom" 
                   style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
                   animate={{ scale: [1.35, 1.38, 1.35] }} 
                   transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 

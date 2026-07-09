@@ -362,14 +362,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         {/* Soft Radial Blue Glow Behind Right Section (Desktop) */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        {/* MOBILE FULL-BLEED BACKGROUND */}
-        <div className="absolute inset-0 w-full h-[100dvh] md:hidden z-0 overflow-hidden pointer-events-none">
-          <img src={img2} alt="Fondo hero" className="w-full h-full object-cover object-[80%_center]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 to-transparent" />
-          {/* Subtle gradient at the bottom so the widget pops */}
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/20 to-transparent" />
-        </div>
-
+        {/* MOBILE FULL-BLEED BACKGROUND - REMOVED FOR PURE BLOCK ARCHITECTURE */}
+        
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-14 lg:pb-[160px] h-full min-h-[calc(100dvh-110px)] md:min-h-0">
           
           {/* =============================================================== */}
@@ -399,15 +393,15 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (FULL-BLEED IMMERSIVE) ── */}
+          {/* ── MOBILE TOP SECTION (PURE BLOCK ARCHITECTURE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col justify-between min-h-[calc(100dvh-110px)] z-10 relative overflow-visible mt-2">
+          <div className="md:hidden w-full flex flex-col z-10 relative overflow-visible mt-2">
             
-            {/* TEXT LAYER (TOP) */}
-            <div className="w-full flex flex-col items-start pt-16">
+            {/* BLOCK 1: TEXT ON WHITE */}
+            <div className="w-full flex flex-col items-start bg-white pb-6 pt-2">
               {/* ── BADGE ── */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-                className="flex items-center gap-1.5 font-semibold text-[11px] text-primary-blue mb-6 bg-white/60 backdrop-blur-sm border border-slate-200/50 rounded-full px-4 py-2 shadow-sm">
+                className="flex items-center gap-1.5 font-semibold text-[11px] text-primary-blue mb-6 bg-slate-50 border border-slate-200/50 rounded-full px-4 py-2 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
                 Administración • Asesoría • Inmobiliaria
               </motion.div>
@@ -423,46 +417,56 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
               {/* ── SUBTITLE ── */}
               <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-                className="text-onyx/80 font-medium text-[17px] leading-relaxed max-w-[300px] mb-8">
+                className="text-onyx/80 font-medium text-[17px] leading-relaxed max-w-[300px]">
                 Gestionamos cada paso para que disfrutes sin preocupaciones.
               </motion.p>
             </div>
             
-            {/* SEARCH WIDGET (BOTTOM) */}
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 pb-12 px-2">
+            {/* BLOCK 2: PHOTOGRAPH + EMBEDDED WIDGET */}
+            {/* We use -mx-6 to make it edge-to-edge overriding the wrapper padding */}
+            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="relative -mx-6 w-[calc(100%+3rem)] aspect-[4/5] sm:aspect-square overflow-hidden mb-8 shadow-sm">
               
-              <div className="w-full bg-white/90 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.15)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
-                
-                {/* SELECTOR SEGMENTADO INTEGRADO */}
-                <div className="w-full bg-slate-100/60 p-1.5 rounded-[1.5rem] mb-4 flex relative h-[54px] border border-slate-200/50">
-                  {(["comprar","alquilar"] as const).map(m => {
-                    const isActive = mode === m;
-                    return (
-                      <button key={m} onClick={() => setMode(m)}
-                        className={`flex-1 relative rounded-[1.25rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
-                        }`}>
-                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1.25rem] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
-                        <span className="relative z-10 text-[15px] capitalize">{m}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+              <img src={img2} alt="Familia feliz" className="absolute inset-0 w-full h-full object-cover object-[80%_center]" />
+              
+              {/* Subtle dark gradient at the bottom so the widget stands out */}
+              <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
 
-                {/* GRAN BOTÓN DE BÚSQUEDA */}
-                <button onClick={() => setMobileSheetOpen(true)}
-                  className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
-                >
-                  <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
-                    <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
+              {/* SEARCH WIDGET ANCHORED INSIDE THE PHOTOGRAPH */}
+              <div className="absolute bottom-6 inset-x-4 flex flex-col items-center">
+                <div className="w-full bg-white/95 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.25)] rounded-[2.5rem] p-4 flex flex-col border border-white/60">
+                  
+                  {/* SELECTOR SEGMENTADO INTEGRADO */}
+                  <div className="w-full bg-slate-100/60 p-1.5 rounded-[1.5rem] mb-4 flex relative h-[54px] border border-slate-200/50">
+                    {(["comprar","alquilar"] as const).map(m => {
+                      const isActive = mode === m;
+                      return (
+                        <button key={m} onClick={() => setMode(m)}
+                          className={`flex-1 relative rounded-[1.25rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                            isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                          }`}>
+                          {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1.25rem] shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
+                          <span className="relative z-10 text-[15px] capitalize">{m}</span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <div className="flex flex-col items-start flex-1 overflow-hidden">
-                    <span className="font-extrabold text-onyx text-[16px] tracking-wide mb-1 whitespace-nowrap">Comenzar búsqueda</span>
-                    <span className="text-slate-400 font-semibold text-[13.5px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
-                  </div>
-                </button>
+
+                  {/* GRAN BOTÓN DE BÚSQUEDA */}
+                  <button onClick={() => setMobileSheetOpen(true)}
+                    className="w-full flex items-center bg-white hover:bg-slate-50 rounded-[2rem] p-3.5 active:scale-[0.98] transition-all shadow-sm border border-slate-100"
+                  >
+                    <div className="w-14 h-14 rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0 mr-4 border border-slate-100">
+                      <Search className="w-6 h-6 text-primary-blue stroke-[2.5]" />
+                    </div>
+                    <div className="flex flex-col items-start flex-1 overflow-hidden">
+                      <span className="font-extrabold text-onyx text-[16px] tracking-wide mb-1 whitespace-nowrap">Comenzar búsqueda</span>
+                      <span className="text-slate-400 font-semibold text-[13.5px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
+                    </div>
+                  </button>
+                </div>
               </div>
+
             </motion.div>
             
           </div>

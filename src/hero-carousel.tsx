@@ -393,24 +393,27 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* =============================================================== */}
           {/* ── MOBILE TOP SECTION (EDITORIAL APPLE STYLE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-0">
+          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-              className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-3 bg-slate-50 border border-slate-100/50 rounded-full px-2.5 py-1 shadow-sm">
+              className="flex items-center gap-1.5 font-semibold text-[10px] text-primary-blue mb-5 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
               Administración • Asesoría • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(1.75rem,8.5vw,2.5rem)] mb-3 w-full pr-4">
-              Encontramos tu <span className="text-primary-blue">hogar</span>. Nos ocupamos del resto.
+              className="text-onyx font-black leading-[1.15] tracking-tight text-[clamp(2.1rem,9vw,2.75rem)] mb-5 w-full">
+              Encontramos<br/>
+              tu hogar.<br/>
+              <span className="text-primary-blue">Del resto</span><br/>
+              nos ocupamos.
             </motion.h1>
 
             {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[14px] leading-snug max-w-[280px] mb-4">
+              className="text-slate-500 font-medium text-[15px] leading-relaxed max-w-[280px] mb-8">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
@@ -425,41 +428,38 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               />
             </motion.div>
 
-            {/* ── CONTROLES INTERACTIVOS (Buscador superpuesto / Mordisco arquitectónico) ── */}
+            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native) ── */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-20 -mt-10 mb-6">
+              className="w-full flex flex-col items-center relative z-20 -mt-8 mb-10 px-2">
               
-              {/* SEGMENTED CONTROL (Glassmorphism sutil) */}
-              <div className="w-full bg-white/60 backdrop-blur-md p-1 rounded-xl mb-4 flex h-[40px] shadow-[0_4px_30px_rgba(0,0,0,0.06)] border border-white/80">
-                {(["comprar","alquilar"] as const).map(m => {
-                  const isActive = mode === m;
-                  return (
-                    <button key={m} onClick={() => setMode(m)}
-                      className={`flex-1 relative rounded-lg font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                        isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" : "text-slate-600 hover:text-slate-900"
-                      }`}>
-                      {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-lg shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)] border border-slate-200/50" />}
-                      <span className="relative z-10 text-[13px] capitalize">{m}</span>
-                    </button>
-                  );
-                })}
-              </div>
+              <div className="w-full bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] rounded-[2rem] p-4 flex flex-col border border-slate-100/80">
+                
+                {/* SELECTOR NATIVO INTEGRADO */}
+                <div className="flex items-center justify-between w-full px-4 py-2 mb-3">
+                  <button onClick={() => setMode(mode === 'comprar' ? 'alquilar' : 'comprar')} className="flex items-center gap-1.5 focus:outline-none group">
+                    <span className="text-onyx font-black text-[17px] tracking-tight capitalize group-active:scale-95 transition-transform">{mode}</span>
+                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors mt-0.5" />
+                  </button>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    Modalidad
+                  </span>
+                </div>
 
-              {/* CTA BUSCADOR */}
-              <button onClick={() => setMobileSheetOpen(true)}
-                className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_25px_rgba(0,0,0,0.06)] rounded-[1.25rem] p-3 active:scale-[0.98] transition-transform"
-              >
-                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-3">
-                  <Search className="w-4 h-4 text-primary-blue stroke-[2]" />
-                </div>
-                <div className="flex flex-col items-start flex-1 overflow-hidden">
-                  <span className="font-bold text-onyx text-[15px] tracking-wide mb-0.5">Comenzar búsqueda</span>
-                  <span className="text-slate-400 font-medium text-[12px] truncate w-full text-left">Cualquier zona • Tipo • Precio</span>
-                </div>
-                <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
-                  <ArrowRight className="w-3 h-3 text-slate-400 -rotate-45" />
-                </div>
-              </button>
+                <div className="w-full h-px bg-slate-100/80 mb-3" />
+
+                {/* GRAN BOTÓN DE BÚSQUEDA */}
+                <button onClick={() => setMobileSheetOpen(true)}
+                  className="w-full flex items-center bg-slate-50 hover:bg-slate-100/70 rounded-[1.5rem] p-3.5 active:scale-[0.98] transition-all"
+                >
+                  <div className="w-12 h-12 rounded-[1rem] bg-white shadow-sm flex items-center justify-center shrink-0 mr-4 border border-slate-100">
+                    <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
+                  </div>
+                  <div className="flex flex-col items-start flex-1 overflow-hidden">
+                    <span className="font-bold text-onyx text-[16px] tracking-wide mb-1">Comenzar búsqueda</span>
+                    <span className="text-slate-400 font-medium text-[13px] truncate w-full text-left">Barcelona · Chalet · Precio</span>
+                  </div>
+                </button>
+              </div>
             </motion.div>
             
           </div>
@@ -760,11 +760,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* Mobile Trust Indicators */}
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-            className="w-full grid grid-cols-2 gap-2 md:hidden text-slate-500 font-medium text-[14px] mb-8 z-30">
-            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Star className="w-4 h-4 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[11px] leading-none">Clientes</span></div>
-            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Building2 className="w-4 h-4 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[11px] leading-none">Comunidades</span></div>
-            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><Smile className="w-4 h-4 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[11px] leading-none">Satisfacción</span></div>
-            <div className="flex flex-col items-start gap-0.5 bg-white p-3 rounded-xl shadow-[0_4px_15px_rgb(0,0,0,0.02)] border border-slate-50"><div className="flex items-center gap-1.5 text-onyx font-black text-[16px] tracking-tight"><ShieldCheck className="w-4 h-4 text-primary-blue" /> 15+</div><span className="text-slate-500 font-medium text-[11px] leading-none">Experiencia</span></div>
+            className="w-full grid grid-cols-2 gap-3 md:hidden text-slate-500 font-medium text-[14px] mb-12 z-30 px-2">
+            <div className="flex flex-col items-start gap-1 bg-white p-4 rounded-[1.25rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-slate-50/80"><div className="flex items-center gap-2 text-onyx font-black text-[18px] tracking-tight"><Star className="w-4 h-4 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-400 font-medium text-[12px] leading-none">Clientes</span></div>
+            <div className="flex flex-col items-start gap-1 bg-white p-4 rounded-[1.25rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-slate-50/80"><div className="flex items-center gap-2 text-onyx font-black text-[18px] tracking-tight"><Building2 className="w-4 h-4 text-primary-blue" /> +300</div><span className="text-slate-400 font-medium text-[12px] leading-none">Comunidades</span></div>
+            <div className="flex flex-col items-start gap-1 bg-white p-4 rounded-[1.25rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-slate-50/80"><div className="flex items-center gap-2 text-onyx font-black text-[18px] tracking-tight"><Smile className="w-4 h-4 text-primary-blue" /> 98%</div><span className="text-slate-400 font-medium text-[12px] leading-none">Satisfacción</span></div>
+            <div className="flex flex-col items-start gap-1 bg-white p-4 rounded-[1.25rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-slate-50/80"><div className="flex items-center gap-2 text-onyx font-black text-[18px] tracking-tight"><ShieldCheck className="w-4 h-4 text-primary-blue" /> 15+</div><span className="text-slate-400 font-medium text-[12px] leading-none">Experiencia</span></div>
           </motion.div>
 
         </div> {/* END MAIN CONTAINER */}

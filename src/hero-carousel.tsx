@@ -362,10 +362,12 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         {/* Soft Radial Blue Glow Behind Right Section */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-32 lg:pb-[160px]">
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-14 lg:pb-[160px]">
           
-          {/* TOP SECTION: Text */}
-          <div className="w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8">
+          {/* =============================================================== */}
+          {/* ── DESKTOP TOP SECTION ── */}
+          {/* =============================================================== */}
+          <div className="hidden md:block w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -377,58 +379,85 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── HEADLINE ── */}
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
               className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4.5rem)] mb-6">
-              Encontramos<br className="md:hidden"/> tu <span className="text-primary-blue">hogar</span>.<br className="hidden md:block"/>
-              Nos ocupamos<br className="md:hidden"/> del resto.
+              Encontramos tu <span className="text-primary-blue">hogar</span>.<br/>
+              Nos ocupamos del resto.
             </motion.h1>
 
             {/* ── SUBTITLE ── */}
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-8">
-              <span className="hidden md:inline">Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.</span>
-              <span className="md:hidden">Gestión integral sin preocupaciones. Disfruta el proceso.</span>
+              Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.
             </motion.p>
-            
-            {/* ── MOBILE PHOTO ── */}
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
-              className="w-full h-[220px] rounded-2xl overflow-hidden relative md:hidden shadow-md border border-slate-200/50">
-              <img src={img2} alt="Familia" className="w-full h-full object-cover object-[50%_30%]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
-            </motion.div>
           </div>
 
-          {/* ── MOBILE SEARCH BLOCK ── */}
-          <div className="w-full md:hidden flex flex-col mb-12">
+          {/* =============================================================== */}
+          {/* ── MOBILE TOP SECTION (COMPLETE REDESIGN) ── */}
+          {/* =============================================================== */}
+          <div className="md:hidden w-full flex flex-col items-start z-20 relative">
             
-            {/* Mobile Tabs */}
-            <div className="flex w-full bg-slate-100 p-2 rounded-[1.25rem] mb-6 shadow-sm border border-slate-200/50">
+            {/* ── BADGE ── */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+              className="flex items-center gap-2 font-bold text-[10px] text-primary-blue mb-6 border border-primary-blue/20 bg-primary-blue/5 px-3 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
+              Premium Real Estate
+            </motion.div>
+
+            {/* ── HEADLINE (Editorial) ── */}
+            <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-onyx font-black leading-[1.1] tracking-tight text-[2.75rem] mb-7">
+              Encontramos tu<br/>
+              <span className="text-primary-blue">hogar</span>.<br/>
+              Nos ocupamos<br/>
+              del resto.
+            </motion.h1>
+
+            {/* ── SUBTITLE (Direct) ── */}
+            <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-4 mb-8">
+              Gestionamos cada paso para que disfrutes sin preocupaciones.
+            </motion.p>
+
+            {/* ── PHOTO ── */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }}
+              className="w-full relative rounded-2xl overflow-hidden shadow-sm mb-6 bg-slate-50" style={{ height: "200px" }}>
+              <img src={img2} alt="Familia" className="absolute inset-0 w-full h-full object-cover object-[80%_25%]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
+            </motion.div>
+
+            {/* ── SEGMENTED CONTROL ── */}
+            <div className="w-full bg-slate-100/80 p-1.5 rounded-2xl mb-5 shadow-inner border border-slate-200/50 flex relative">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative py-3.5 rounded-[1rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
-                      isActive ? "text-onyx" : "text-slate-500 hover:text-slate-800"
+                    className={`flex-1 relative py-3.5 rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
+                      isActive ? "text-onyx drop-shadow-sm" : "text-slate-500 hover:text-slate-800"
                     }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-sm border border-slate-100" />}
+                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12)] border border-slate-200/50" />}
                     <span className="relative z-10 text-[15px] capitalize">{m}</span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Mobile CTA */}
+            {/* ── CTA AIRBNB STYLE ── */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center justify-between bg-onyx text-white font-bold py-5 px-6 rounded-2xl text-[16px] shadow-xl hover:scale-[1.02] transition-transform active:scale-95"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-[1.25rem] px-5 py-4 mb-7 active:scale-95 transition-transform"
             >
-              <div className="flex items-center gap-3">
-                <Search className="w-6 h-6 text-white stroke-[2.5]" />
-                <span className="tracking-wider">Comenzar búsqueda</span>
+              <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4">
+                <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
               </div>
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md">
-                <ArrowRight className="w-5 h-5 text-white" />
+              <div className="flex flex-col items-start flex-1">
+                <span className="font-bold text-onyx text-[15px] tracking-wide">Comenzar búsqueda</span>
+                <span className="text-slate-400 font-medium text-[12px]">Cualquier zona • Tipo • Precio</span>
               </div>
             </motion.button>
+            
           </div>
+          {/* =============================================================== */}
+          {/* ── END MOBILE ── */}
+          {/* =============================================================== */}
 
             {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
             <motion.div ref={barRef} id="search-widget-block"
@@ -723,7 +752,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* Mobile Trust Indicators */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full grid grid-cols-2 gap-y-8 gap-x-4 md:hidden text-slate-500 font-medium text-[13px] mt-2 mb-8 z-30 px-2">
+            className="w-full grid grid-cols-2 gap-y-8 gap-x-4 md:hidden text-slate-500 font-medium text-[13px] mb-14 z-30 px-2">
             <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Star className="w-5 h-5 text-primary-blue fill-primary-blue/20" /> 4.500</div>clientes felices</div>
             <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Building2 className="w-5 h-5 text-primary-blue" /> +300</div>comunidades</div>
             <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Smile className="w-5 h-5 text-primary-blue" /> 98%</div>satisfacción</div>

@@ -368,7 +368,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           <div className="flex-1 flex flex-col items-start text-left w-full max-w-[620px] mt-4 lg:mt-8 z-20">
             
             {/* ── BADGE ── */}
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: easeOut }}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex items-center gap-2.5 font-semibold bg-[#EEF6FF] border border-primary-blue/10 px-4 py-2 rounded-full text-[11px] md:text-[13px] text-primary-blue mb-8 shadow-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-blue opacity-75"></span>
@@ -378,20 +378,20 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             </motion.div>
 
             {/* ── HEADLINE ── */}
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: easeOut }}
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
               className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4.5rem)] mb-6">
               Encontramos tu <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/> del resto.
             </motion.h1>
 
             {/* ── SUBTITLE ── */}
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: easeOut }}
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-10">
               Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.
             </motion.p>
 
             {/* ── CTAs (Primary & Secondary) ── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: easeOut }}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
               <button 
                 onClick={() => {
@@ -425,7 +425,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
             <motion.div ref={barRef} id="search-widget-block"
-              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: easeOut }}
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               className={`relative z-20 w-full hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-105' : 'scale-100'}`}
             >
               {/* The Widget Box */}

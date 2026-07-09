@@ -365,7 +365,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-20 lg:pb-[100px]">
           
           {/* TOP SECTION: Text */}
-          <div className="w-full max-w-[800px] lg:max-w-[600px] xl:max-w-[650px] z-20 mb-8 lg:mb-[90px] lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[600px] xl:max-w-[650px] z-20 mb-8 lg:mb-[60px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -656,7 +656,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* ── TRUST INDICATORS ── */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full mt-10 hidden md:flex items-center justify-between max-w-[1000px] mx-auto text-slate-500 font-bold text-sm tracking-wide z-30 px-8">
+            className="w-full mt-6 hidden md:flex items-center justify-between max-w-[1000px] mx-auto text-slate-500 font-bold text-sm tracking-wide z-30 px-8">
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center gap-3">
                 <Star className="w-8 h-8 text-primary-blue stroke-[1.5]" />
@@ -720,10 +720,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* Warm Lighting overlay */}
           <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
-          {/* House Outline Decoration */}
-          <svg className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[300px] h-[550px] pointer-events-none z-20 opacity-40" viewBox="0 0 300 550" preserveAspectRatio="none">
-            <path d="M 0,550 L 0,250 L 300,0" fill="none" stroke="#2563EB" strokeWidth="1.5" />
-          </svg>
+          {/* House Outline Decoration removed for cleaner look */}
           
         </motion.div>
 

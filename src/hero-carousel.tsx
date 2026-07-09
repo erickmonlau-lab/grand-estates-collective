@@ -369,12 +369,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-2.5 font-semibold bg-[#EEF6FF] border border-primary-blue/10 px-4 py-2 rounded-full text-[11px] md:text-[13px] text-primary-blue mb-8 shadow-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-blue opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-blue"></span>
-              </span>
-              <span>Administración de fincas • Asesoría jurídica • Inmobiliaria</span>
+              className="flex items-center gap-2 font-bold text-[11px] md:text-xs text-primary-blue mb-8">
+              <span className="w-2 h-2 rounded-full bg-primary-blue"></span>
+              Administración de fincas • Asesoría jurídica • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE ── */}
@@ -413,19 +410,19 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               className={`relative z-30 w-full max-w-[1200px] hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'} lg:-mt-[100px]`}
             >
               
-              {/* ── PREMIUM SEGMENTED TABS ── */}
-              <div className="flex items-center bg-slate-200/60 backdrop-blur-md p-1.5 rounded-[1.25rem] w-max mb-6 shadow-inner border border-slate-300/30 relative z-30">
+              {/* ── PREMIUM SEGMENTED TABS (FLOATING) ── */}
+              <div className="flex items-center bg-slate-100 p-1.5 rounded-[1.25rem] w-max mb-4 ml-8 relative z-30 shadow-sm border border-slate-200/50">
                 {(["comprar","alquilar"] as const).map(m => {
                   const isActive = mode === m;
                   return (
                     <button key={m} onClick={() => setMode(m)}
-                      className={`relative px-10 py-3.5 rounded-[1rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
+                      className={`relative px-8 py-2.5 rounded-[1rem] font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
                         isActive ? "text-onyx" : "text-slate-500 hover:text-slate-800"
                       }`}>
                       {isActive && (
                         <motion.div layoutId="activeModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-sm border border-slate-100" />
                       )}
-                      <span className="relative z-10 text-base md:text-lg">{m === "comprar" ? "Comprar" : "Alquilar"}</span>
+                      <span className="relative z-10 text-sm md:text-base capitalize">{m}</span>
                     </button>
                   );
                 })}
@@ -444,8 +441,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                     drop === "zona" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">Localidad</div>
-                    <div className={`text-base sm:text-xl font-bold truncate ${zona === "Cualquier zona" ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className="text-[10px] font-bold tracking-[0.15em] uppercase text-slate-500 mb-1 sm:mb-2">Localidad</div>
+                    <div className={`text-sm sm:text-[15px] font-bold truncate ${zona === "Cualquier zona" ? "text-primary-blue" : "text-slate-900"}`}>
                       {zona}
                     </div>
                   </div>
@@ -507,8 +504,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                     drop === "tipo" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">Tipo de inmueble</div>
-                    <div className={`text-base sm:text-xl font-bold truncate ${tipo === "Cualquier tipo" ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className="text-[10px] font-bold tracking-[0.15em] uppercase text-slate-500 mb-1 sm:mb-2">Tipo de inmueble</div>
+                    <div className={`text-sm sm:text-[15px] font-bold truncate ${tipo === "Cualquier tipo" ? "text-primary-blue" : "text-slate-900"}`}>
                       {tipo}
                     </div>
                   </div>
@@ -570,10 +567,10 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                     drop === "precio" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-slate-500 mb-1 sm:mb-1.5">
+                    <div className="text-[10px] font-bold tracking-[0.15em] uppercase text-slate-500 mb-1 sm:mb-2">
                       {mode === "alquilar" ? "Renta" : "Precio máx."}
                     </div>
-                    <div className={`text-base sm:text-xl font-bold truncate ${precio === prices[0] ? "text-primary-blue" : "text-slate-900"}`}>
+                    <div className={`text-sm sm:text-[15px] font-bold truncate ${precio === prices[0] ? "text-primary-blue" : "text-slate-900"}`}>
                       {precio}
                     </div>
                   </div>
@@ -651,7 +648,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
                 <motion.button
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   onClick={handleSearch}
-                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-10 sm:px-12 py-5 sm:py-8 rounded-[1.25rem] bg-onyx text-white font-bold text-xs sm:text-[14px] tracking-[0.2em] uppercase overflow-hidden group focus:outline-none hover:bg-slate-800 transition-colors shadow-lg"
+                  className="relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-onyx text-white font-bold text-xs sm:text-[13px] tracking-[0.2em] uppercase overflow-hidden group focus:outline-none hover:bg-slate-800 transition-colors shadow-lg"
                 >
                   <Search className="w-5 h-5 sm:w-6 sm:h-6 relative z-10" />
                   <span className="relative z-10">Buscar</span>
@@ -662,64 +659,69 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             </div>
 
             {/* ── BOTTOM QUICK FILTERS ── */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 px-6 py-4 border-t border-slate-200 bg-white">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 px-6 py-4 border-t border-slate-100 bg-white rounded-b-[2rem]">
               <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-slate-400 shrink-0 w-full sm:w-auto text-center sm:text-left mb-1 sm:mb-0">Búsqueda rápida:</span>
               {["Eixample", "Gràcia", "Sant Antoni", "Pedralbes", "Sarrià-Sant Gervasi"].map(z => (
                 <button key={z}
                   onClick={() => { setZona(z); handleSearch(); }}
-                  className="px-4 py-2 text-[10px] font-bold tracking-widest uppercase border border-slate-200 text-slate-700 bg-white hover:bg-onyx hover:text-white transition-colors">
+                  className="px-4 py-2 rounded-xl text-[10px] font-bold tracking-widest uppercase border border-slate-200 text-slate-500 bg-white hover:bg-onyx hover:text-white transition-colors">
                   {z}
                 </button>
               ))}
             </div>
 
-            {/* ── SECONDARY ACTIONS ── */}
-            <div className="w-full mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <a href="#contacto"
-                className="text-sm font-bold text-slate-500 hover:text-primary-blue transition-colors flex items-center gap-2 group"
-              >
-                <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-primary-blue/10 transition-colors">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                Valorar mi vivienda
-              </a>
-
-              <button
-                onClick={() => {
-                  if (onPerformSearch) onPerformSearch({ mode: "comprar", zona: "Cualquiera", tipo: "Todos", precio: "Cualquier precio" });
-                  document.getElementById("propiedades")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="text-sm font-bold text-slate-500 hover:text-primary-blue transition-colors pr-2 group flex items-center gap-1"
-              >
-                Ver catálogo completo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+            {/* NO SECONDARY ACTIONS IN THIS MATCH */}
           </div>
         </motion.div>
 
           {/* ── TRUST INDICATORS ── */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full mt-10 hidden md:flex items-center gap-10 text-slate-500 font-bold text-sm tracking-wide z-30">
-            <div className="flex items-center gap-2 text-onyx">
-              <span className="text-primary-blue text-sm">★★★★★</span>
-              4.500 clientes felices
+            className="w-full mt-10 hidden md:flex items-center justify-between max-w-[1000px] mx-auto text-slate-500 font-bold text-sm tracking-wide z-30 px-8">
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-3">
+                <Star className="w-8 h-8 text-primary-blue stroke-[1.5]" />
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-onyx font-black text-lg">4.500</span>
+                  <span className="text-slate-500 font-medium text-xs">clientes felices</span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-primary-blue" />
-              +300 comunidades
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-3">
+                <Building2 className="w-8 h-8 text-primary-blue stroke-[1.5]" />
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-onyx font-black text-lg">+300</span>
+                  <span className="text-slate-500 font-medium text-xs">comunidades</span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-primary-blue" />
-              98% satisfacción
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-3">
+                <Smile className="w-8 h-8 text-primary-blue stroke-[1.5]" />
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-onyx font-black text-lg">98%</span>
+                  <span className="text-slate-500 font-medium text-xs">satisfacción</span>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-8 h-8 text-primary-blue stroke-[1.5]" />
+                <div className="flex flex-col items-start leading-tight">
+                  <span className="text-onyx font-black text-lg">15+</span>
+                  <span className="text-slate-500 font-medium text-xs">años de experiencia</span>
+                </div>
+              </div>
             </div>
           </motion.div>
 
           {/* Mobile Trust Indicators */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
             className="w-full flex md:hidden flex-wrap items-center justify-center gap-4 text-slate-500 font-semibold text-[13px] mt-8 z-30 pb-4">
-            <div className="flex items-center gap-1.5 text-onyx"><span className="text-primary-blue text-sm">★★★★★</span> 4.500 clientes</div>
+            <div className="flex items-center gap-1.5 text-onyx"><Star className="w-4 h-4 text-primary-blue" /> 4.500 clientes</div>
             <div className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-primary-blue" /> +300 comunidades</div>
-            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-blue" /> 98% satisfacción</div>
+            <div className="flex items-center gap-1.5"><Smile className="w-4 h-4 text-primary-blue" /> 98% satisfacción</div>
+            <div className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-primary-blue" /> 15+ años</div>
           </motion.div>
 
         </div> {/* END MAIN CONTAINER */}
@@ -738,10 +740,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* Warm Lighting overlay */}
           <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
-          {/* Blue Silhouette */}
-          <div className="absolute top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.04] pointer-events-none mix-blend-multiply">
-            <Home className="w-[600px] h-[600px] text-primary-blue stroke-[0.5]" />
-          </div>
+          {/* House Outline Decoration */}
+          <div className="absolute left-[8%] bottom-0 w-[2px] h-[45%] bg-[#A8C5EE] z-20 pointer-events-none opacity-80" />
+          <div className="absolute left-[8%] bottom-[45%] w-[400px] h-[2px] bg-[#A8C5EE] z-20 pointer-events-none origin-bottom-left -rotate-[35deg] opacity-80" />
           
         </motion.div>
 

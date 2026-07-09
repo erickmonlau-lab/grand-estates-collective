@@ -391,65 +391,71 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (TEXT & UI ONLY) ── */}
+          {/* ── MOBILE TOP SECTION (EDITORIAL APPLE STYLE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
+          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-9">
             
             {/* ── BADGE ── */}
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-2 font-bold text-[11px] text-primary-blue mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary-blue"></span>
-              Administración de fincas • Asesoría jurídica
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
+              className="flex items-center gap-2 font-semibold text-[11px] text-primary-blue mb-6 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
+              Administración • Asesoría • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.5rem,10vw,3.5rem)] mb-10 w-full">
-              Encontramos tu <span className="text-primary-blue">hogar</span>. Nos ocupamos del resto.
+            <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
+              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.75rem,13vw,3.5rem)] mb-6 w-full">
+              Encontramos tu<br/>
+              <span className="text-primary-blue">hogar</span>.<br/>
+              Nos ocupamos<br/>
+              del resto.
             </motion.h1>
 
             {/* ── SUBTITLE (Respirado) ── */}
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-8 mb-8">
+            <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-9">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
+            
+            {/* ── FOTOGRAFÍA (Independiente) ── */}
+            <motion.div initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+              className="w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_8px_24px_rgb(0,0,0,0.04)] mb-7 relative z-10 bg-slate-50 border border-slate-100">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+            </motion.div>
 
             {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}
-            <div className="w-full bg-slate-100 p-[5px] rounded-2xl mb-6 shadow-inner border border-slate-200/50 flex relative z-10 h-[60px]">
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+              className="w-full bg-slate-100/80 p-1 rounded-[1.25rem] mb-6 flex relative z-10 h-[48px]">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
-                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                    className={`flex-1 relative rounded-xl font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
                     }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)] border border-slate-200/50" />}
-                    <span className="relative z-10 text-[15px] capitalize">{m}</span>
+                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
+                    <span className="relative z-10 text-[14px] capitalize">{m}</span>
                   </button>
                 );
               })}
-            </div>
+            </motion.div>
 
-            {/* ── CTA AIRBNB STYLE (Premium & Protagonista) ── */}
-            <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
+            {/* ── CTA BUSCADOR INDEPENDIENTE ── */}
+            <motion.button initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-[1.25rem] px-6 py-4 active:scale-95 transition-transform z-20 relative translate-y-8"
+              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[1.5rem] p-5 mb-9 active:scale-[0.98] transition-transform z-10 relative"
             >
-              <div className="w-[52px] h-[52px] rounded-full bg-primary-blue/10 flex items-center justify-center shrink-0 mr-4">
-                <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
+              <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-4">
+                <Search className="w-5 h-5 text-primary-blue stroke-[2]" />
               </div>
               <div className="flex flex-col items-start flex-1">
-                <span className="font-bold text-onyx text-[16px] tracking-wide mb-0.5">Comenzar búsqueda</span>
+                <span className="font-bold text-onyx text-[16px] tracking-wide mb-1">Comenzar búsqueda</span>
                 <span className="text-slate-400 font-medium text-[13px]">Cualquier zona • Tipo • Precio</span>
               </div>
+              <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center shrink-0 ml-2">
+                <ArrowRight className="w-4 h-4 text-slate-400 -rotate-45" />
+              </div>
             </motion.button>
-            
-            {/* ── FOTOGRAFÍA A SANGRE (Overlapping) ── */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-              className="w-[calc(100%+3rem)] -mx-6 h-[260px] overflow-hidden relative z-10 mb-8">
-              <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-onyx/30 to-transparent z-10 pointer-events-none"></div>
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%] scale-[1.1]" style={{ filter: "contrast(1.05) saturate(1.05) brightness(0.98)" }} />
-            </motion.div>
             
           </div>
           {/* =============================================================== */}
@@ -748,12 +754,12 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </motion.div>
 
           {/* Mobile Trust Indicators */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full grid grid-cols-2 gap-y-10 gap-x-6 md:hidden text-slate-500 font-medium text-[14px] mb-16 z-30 px-2 mt-4">
-            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Star className="w-6 h-6 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[14px]">clientes felices</span></div>
-            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Building2 className="w-6 h-6 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[14px]">comunidades</span></div>
-            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Smile className="w-6 h-6 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[14px]">satisfacción</span></div>
-            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><ShieldCheck className="w-6 h-6 text-primary-blue" /> 15+ años</div><span className="text-slate-500 font-medium text-[14px]">experiencia</span></div>
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+            className="w-full grid grid-cols-2 gap-4 md:hidden text-slate-500 font-medium text-[14px] mb-16 z-30">
+            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Star className="w-5 h-5 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[13px]">Clientes felices</span></div>
+            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Building2 className="w-5 h-5 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[13px]">Comunidades</span></div>
+            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><Smile className="w-5 h-5 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[13px]">Satisfacción</span></div>
+            <div className="flex flex-col items-start gap-1.5 bg-white p-5 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-50"><div className="flex items-center gap-2.5 text-onyx font-black text-[20px] tracking-tight"><ShieldCheck className="w-5 h-5 text-primary-blue" /> 15+</div><span className="text-slate-500 font-medium text-[13px]">Experiencia</span></div>
           </motion.div>
 
         </div> {/* END MAIN CONTAINER */}

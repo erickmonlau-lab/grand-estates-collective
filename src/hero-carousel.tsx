@@ -356,27 +356,27 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       {/*
         ── MOBILE & DESKTOP HERO (Premium SaaS Style) ──
       */}
-      <section className="relative w-full min-h-[100dvh] pt-[120px] md:pt-[150px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
+      <section className="relative w-full min-h-[100dvh] pt-[90px] md:pt-[110px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
         style={{ fontFamily: "var(--font-system)" }}
       >
         {/* Soft Radial Blue Glow Behind Right Section */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-4 lg:pt-12 pb-24 lg:pb-[160px]">
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-20 lg:pb-[100px]">
           
           {/* TOP SECTION: Text */}
-          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-[120px] lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-[90px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-2 font-bold text-[11px] md:text-xs text-primary-blue mb-8">
+              className="flex items-center gap-2 font-bold text-[11px] md:text-xs text-primary-blue mb-6">
               <span className="w-2 h-2 rounded-full bg-primary-blue"></span>
               Administración de fincas • Asesoría jurídica • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE ── */}
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4.5rem)] mb-6">
+              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4rem)] mb-4">
               Encontramos tu <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/> del resto.
             </motion.h1>
@@ -407,7 +407,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
             <motion.div ref={barRef} id="search-widget-block"
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className={`relative z-30 w-full max-w-[1200px] hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'} lg:-mt-[100px]`}
+              className={`relative z-30 w-full max-w-[1200px] hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'} lg:-mt-[70px]`}
             >
               
               {/* ── PREMIUM SEGMENTED TABS (FLOATING) ── */}
@@ -437,7 +437,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               {/* ZONA */}
               <div className="col-span-2 relative flex-1" style={{flex:'1'}}>
                 <button onClick={() => toggleDrop("zona")}
-                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-8 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "zona" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
@@ -500,7 +500,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               {/* TIPO */}
               <div className="col-span-1 relative" style={{flex:'1.3'}}>
                 <button onClick={() => toggleDrop("tipo")}
-                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-8 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "tipo" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">
@@ -563,7 +563,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               {/* PRECIO */}
               <div className="col-span-1 relative flex-1">
                 <button onClick={() => toggleDrop("precio")}
-                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-10 py-5 sm:py-8 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
+                  className={`w-full flex items-center gap-3 sm:gap-5 px-6 sm:px-8 py-4 sm:py-6 transition-all duration-200 text-left focus:outline-none group rounded-[1.5rem] ${
                     drop === "precio" ? "bg-slate-50" : "hover:bg-slate-50"
                   }`}>
                   <div className="flex-1 min-w-0">

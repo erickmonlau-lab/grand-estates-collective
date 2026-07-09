@@ -367,8 +367,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* =============================================================== */}
           {/* ── UNIFIED TOP SECTION (DESKTOP & MOBILE) ── */}
           {/* =============================================================== */}
-          <div className="w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[550px] xl:max-w-[650px] z-20 mb-10 lg:mb-[72px] lg:pr-8 relative">
             
+            {/* Mobile Gradient Backdrop for Legibility */}
+            <div className="absolute -inset-y-12 -inset-x-6 md:hidden bg-gradient-to-r from-white via-white/80 to-transparent -z-10" />
+
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex items-center gap-2 font-bold text-[11px] md:text-xs text-primary-blue mb-6">
@@ -731,22 +734,22 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         </div> {/* END MAIN CONTAINER */}
 
         {/* RIGHT BACKGROUND LAYER: Image & Silhouette */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          className="absolute right-0 top-[80px] lg:top-[110px] w-full lg:w-[50%] h-[400px] lg:h-[600px] z-0 opacity-20 lg:opacity-100"
-          style={{ maskImage: "linear-gradient(to right, transparent 0%, black 40%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)" }}>
-          
-          {/* Main Photo */}
-          <img src={img2} alt="Familia feliz en su nuevo hogar" 
-            className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" 
-            style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }}
-          />
-          
-          {/* Warm Lighting overlay */}
-          <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
-          
-          {/* House Outline Decoration removed for cleaner look */}
-          
-        </motion.div>
+        <div className="absolute right-0 top-[80px] lg:top-[110px] w-full lg:w-[50%] h-[400px] lg:h-[600px] z-0 opacity-15 lg:opacity-100 pointer-events-none">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+            className="w-full h-full"
+            style={{ maskImage: "linear-gradient(to right, transparent 0%, black 40%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)" }}>
+            
+            {/* Main Photo */}
+            <img src={img2} alt="Familia feliz en su nuevo hogar" 
+              className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" 
+              style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }}
+            />
+            
+            {/* Warm Lighting overlay */}
+            <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
+            
+          </motion.div>
+        </div>
 
       </section>
 

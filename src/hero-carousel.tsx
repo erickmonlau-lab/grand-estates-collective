@@ -365,7 +365,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-4 lg:pt-12 pb-24 lg:pb-[160px]">
           
           {/* TOP SECTION: Text */}
-          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-0 lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-[120px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -623,27 +623,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               {/* BUSCAR */}
               <div className="col-span-2 flex items-center p-3 sm:p-4 relative">
 
-                {/* Tooltip Hint — desktop only */}
-                <AnimatePresence>
-                  {showHint && drop === null && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 20, scale: 0.9, rotate: -2 }}
-                      animate={{ opacity: 1, x: 0, scale: 1, rotate: 2 }}
-                      exit={{ opacity: 0, scale: 0.95, x: 10, rotate: 0 }}
-                      transition={{ type: 'spring', damping: 15, stiffness: 200 }}
-                      className="absolute left-full top-1/2 -translate-y-1/2 ml-4 hidden lg:flex flex-row items-center z-50 pointer-events-none"
-                    >
-                      <svg width="40" height="40" viewBox="0 0 24 24" className="text-slate-900/95 z-10 drop-shadow-md transform -rotate-12 translate-x-2">
-                        <path d="M22 18 C16 18, 12 12, 4 12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
-                        <path d="M4 12 L10 6 M4 12 L10 18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <div className="bg-slate-900/95 backdrop-blur-md text-white text-sm font-semibold py-3 px-5 rounded-2xl rounded-l-sm border border-slate-700/50 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] text-balance text-left min-w-[190px]">
-                        Cuando ya lo tengas,<br/>
-                        <span className="text-cyan-400 font-black">¡dale a buscar!</span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Tooltip Removed */}
 
                 <motion.button
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
@@ -741,8 +721,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
           {/* House Outline Decoration */}
-          <div className="absolute left-[8%] bottom-0 w-[2px] h-[45%] bg-[#A8C5EE] z-20 pointer-events-none opacity-80" />
-          <div className="absolute left-[8%] bottom-[45%] w-[400px] h-[2px] bg-[#A8C5EE] z-20 pointer-events-none origin-bottom-left -rotate-[35deg] opacity-80" />
+          <svg className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[300px] h-[600px] pointer-events-none z-20 opacity-40" viewBox="0 0 300 600" preserveAspectRatio="none">
+            <path d="M 0,600 L 0,250 L 300,0" fill="none" stroke="#2563EB" strokeWidth="1.5" />
+          </svg>
           
         </motion.div>
 

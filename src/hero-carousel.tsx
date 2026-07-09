@@ -391,48 +391,39 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* ── MOBILE TOP SECTION (IMMERSIVE EDITORIAL) ── */}
+          {/* ── MOBILE TOP SECTION (TEXT & UI ONLY) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-20 relative overflow-visible">
+          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-2 font-bold text-[11px] text-primary-blue mb-6">
+              className="flex items-center gap-2 font-bold text-[11px] text-primary-blue mb-8">
               <span className="w-2 h-2 rounded-full bg-primary-blue"></span>
-              Administración de fincas • Asesoría jurídica • Inmobiliaria
+              Administración de fincas • Asesoría jurídica
             </motion.div>
 
-            {/* ── HEADLINE (Editorial) ── */}
+            {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.05] tracking-tight text-[2.75rem] mb-6">
+              className="text-onyx font-black leading-[1.05] tracking-tight text-[3rem] mb-10">
               Encontramos tu<br/>
               <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/>
               del resto.
             </motion.h1>
 
-            {/* ── SUBTITLE (Direct) ── */}
+            {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-4 mb-4">
+              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-8 mb-12">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
 
-            {/* ── IMMERSIVE PHOTOGRAPH ── */}
-            {/* Se expande a sangre (-mx-6 compensa el px-6 del padre) y desaparece a la izquierda con un gradient */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.3 }}
-              className="relative w-[100vw] -mx-6 h-[260px] sm:h-[320px] overflow-hidden mb-5 flex-shrink-0"
-              style={{ maskImage: "linear-gradient(to right, transparent 0%, black 50%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 50%)" }}>
-              <img src={img2} alt="Familia feliz" className="absolute inset-0 w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
-              <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 pointer-events-none" />
-            </motion.div>
-
             {/* ── SEGMENTED CONTROL ── */}
-            <div className="w-full bg-slate-100 p-1.5 rounded-2xl mb-4 shadow-inner border border-slate-200/50 flex relative">
+            <div className="w-full bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner border border-slate-200/50 flex relative z-10">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative py-3.5 rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
+                    className={`flex-1 relative py-4 rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
                       isActive ? "text-onyx drop-shadow-sm bg-white shadow-sm" : "text-slate-500 hover:text-slate-800"
                     }`}>
                     {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12)] border border-slate-200/50" />}
@@ -442,17 +433,17 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               })}
             </div>
 
-            {/* ── CTA AIRBNB STYLE ── */}
+            {/* ── CTA AIRBNB STYLE (Premium & Protagonista) ── */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-[1.25rem] px-5 py-4 mb-4 active:scale-95 transition-transform"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-xl rounded-[1.25rem] px-6 py-5 mb-14 active:scale-95 transition-transform z-10 relative"
             >
-              <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4">
+              <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4 shadow-sm">
                 <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
               </div>
               <div className="flex flex-col items-start flex-1">
-                <span className="font-bold text-onyx text-[15px] tracking-wide">Comenzar búsqueda</span>
-                <span className="text-slate-400 font-medium text-[12px]">Cualquier zona • Tipo • Precio</span>
+                <span className="font-bold text-onyx text-[16px] tracking-wide mb-0.5">Comenzar búsqueda</span>
+                <span className="text-slate-400 font-medium text-[13px]">Cualquier zona • Tipo • Precio</span>
               </div>
             </motion.button>
             
@@ -763,21 +754,26 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
         </div> {/* END MAIN CONTAINER */}
 
-        {/* RIGHT BACKGROUND LAYER: Image & Silhouette */}
+        {/* =============================================================== */}
+        {/* ── BACKGROUND LAYERS (DESKTOP & MOBILE) ── */}
+        {/* =============================================================== */}
+        
+        {/* DESKTOP BACKGROUND */}
         <div className="absolute right-0 top-[110px] w-[50%] h-[600px] z-0 hidden lg:block pointer-events-none">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
             className="w-full h-full"
             style={{ maskImage: "linear-gradient(to right, transparent 0%, black 40%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)" }}>
-            
-            {/* Main Photo */}
-            <img src={img2} alt="Familia feliz en su nuevo hogar" 
-              className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" 
-              style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }}
-            />
-            
-            {/* Warm Lighting overlay */}
+            <img src={img2} alt="Familia feliz en su nuevo hogar" className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
-            
+          </motion.div>
+        </div>
+
+        {/* MOBILE BACKGROUND (Ethereal Decoration) */}
+        <div className="absolute right-0 bottom-0 w-[85%] h-[450px] z-0 lg:hidden pointer-events-none opacity-[0.15] blur-[1px]">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+            className="w-full h-full"
+            style={{ maskImage: "radial-gradient(ellipse at bottom right, black 30%, transparent 75%)", WebkitMaskImage: "radial-gradient(ellipse at bottom right, black 30%, transparent 75%)" }}>
+            <img src={img2} alt="" className="absolute inset-0 w-full h-full object-cover object-[85%_30%]" />
           </motion.div>
         </div>
 

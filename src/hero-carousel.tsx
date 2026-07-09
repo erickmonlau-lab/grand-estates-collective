@@ -356,16 +356,16 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       {/*
         ── MOBILE & DESKTOP HERO (Premium SaaS Style) ──
       */}
-      <section className="relative w-full min-h-[100dvh] pt-[120px] md:pt-[150px] pb-12 md:pb-24 overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
+      <section className="relative w-full min-h-[100dvh] pt-[120px] md:pt-[150px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
         style={{ fontFamily: "var(--font-system)" }}
       >
         {/* Soft Radial Blue Glow Behind Right Section */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/5 rounded-full blur-[120px] pointer-events-none hidden lg:block" />
 
-        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-20 z-10">
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-4 lg:pt-12 pb-24 lg:pb-[160px]">
           
-          {/* LEFT COLUMN: Text & Search */}
-          <div className="flex-1 flex flex-col items-start text-left w-full max-w-[800px] mt-4 lg:mt-8 z-20">
+          {/* TOP SECTION: Text */}
+          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-0 lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -386,11 +386,12 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUBTITLE ── */}
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-8">
+              className="text-slate-500 font-medium text-lg md:text-xl max-w-md leading-relaxed mb-4">
               Gestionamos cada paso para que disfrutes de una compra, venta o administración sin preocupaciones.
             </motion.p>
+          </div>
 
-            {/* Mobile search trigger (Since widget is hidden on mobile) */}
+          {/* Mobile search trigger (Since widget is hidden on mobile) */}
             <div className="w-full md:hidden flex flex-col mb-12">
               <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
                 onClick={() => setMobileSheetOpen(true)}
@@ -409,7 +410,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── SEARCH WIDGET (DESKTOP ONLY) ── */}
             <motion.div ref={barRef} id="search-widget-block"
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className={`relative z-20 w-full hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'}`}
+              className={`relative z-30 w-full max-w-[1200px] hidden md:flex flex-col transition-all duration-300 ease-in-out ${drop ? 'scale-[1.02]' : 'scale-100'} lg:-mt-[100px]`}
             >
               
               {/* ── PREMIUM SEGMENTED TABS ── */}
@@ -698,7 +699,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* ── TRUST INDICATORS ── */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full mt-10 hidden md:flex items-center gap-10 text-slate-500 font-bold text-sm tracking-wide">
+            className="w-full mt-10 hidden md:flex items-center gap-10 text-slate-500 font-bold text-sm tracking-wide z-30">
             <div className="flex items-center gap-2 text-onyx">
               <span className="text-primary-blue text-sm">★★★★★</span>
               4.500 clientes felices
@@ -713,11 +714,19 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             </div>
           </motion.div>
 
-        </div> {/* END LEFT COLUMN */}
+          {/* Mobile Trust Indicators */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
+            className="w-full flex md:hidden flex-wrap items-center justify-center gap-4 text-slate-500 font-semibold text-[13px] mt-8 z-30 pb-4">
+            <div className="flex items-center gap-1.5 text-onyx"><span className="text-primary-blue text-sm">★★★★★</span> 4.500 clientes</div>
+            <div className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-primary-blue" /> +300 comunidades</div>
+            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-blue" /> 98% satisfacción</div>
+          </motion.div>
 
-        {/* RIGHT COLUMN: Image & Silhouette */}
+        </div> {/* END MAIN CONTAINER */}
+
+        {/* RIGHT BACKGROUND LAYER: Image & Silhouette */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          className="absolute right-0 top-0 w-full lg:w-[45%] h-full z-0 hidden lg:block"
+          className="absolute right-0 top-[120px] w-full lg:w-[55%] h-[600px] lg:h-[750px] z-0 hidden lg:block"
           style={{ maskImage: "linear-gradient(to right, transparent 0%, black 25%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 25%)" }}>
           
           {/* Main Photo */}
@@ -729,22 +738,13 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* Warm Lighting overlay */}
           <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
-          {/* Blue Silhouette (Lucide Home as placeholder for logo watermark) */}
+          {/* Blue Silhouette */}
           <div className="absolute top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-[0.04] pointer-events-none mix-blend-multiply">
             <Home className="w-[600px] h-[600px] text-primary-blue stroke-[0.5]" />
           </div>
           
-        </motion.div> {/* END RIGHT COLUMN */}
-
-        {/* Mobile Trust Indicators */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-          className="w-full flex md:hidden flex-wrap items-center justify-center gap-4 text-slate-500 font-semibold text-[13px] mt-8 z-20 pb-4">
-          <div className="flex items-center gap-1.5 text-onyx"><span className="text-primary-blue text-sm">★★★★★</span> 4.500 clientes</div>
-          <div className="flex items-center gap-1.5"><Building2 className="w-4 h-4 text-primary-blue" /> +300 comunidades</div>
-          <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-primary-blue" /> 98% satisfacción</div>
         </motion.div>
 
-        </div>
       </section>
 
 

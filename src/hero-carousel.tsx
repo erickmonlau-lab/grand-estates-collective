@@ -414,16 +414,16 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
 
-            {/* ── SEGMENTED CONTROL ── */}
-            <div className="w-full bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner border border-slate-200/50 flex relative z-10">
+            {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}
+            <div className="w-full bg-slate-100 p-[5px] rounded-2xl mb-6 shadow-inner border border-slate-200/50 flex relative z-10 h-[60px]">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
                   <button key={m} onClick={() => setMode(m)}
-                    className={`flex-1 relative py-4 rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none ${
-                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-sm" : "text-slate-500 hover:text-slate-800"
+                    className={`flex-1 relative rounded-xl font-bold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                      isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
                     }`}>
-                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-[1rem] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.12)] border border-slate-200/50" />}
+                    {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1)] border border-slate-200/50" />}
                     <span className="relative z-10 text-[15px] capitalize">{m}</span>
                   </button>
                 );
@@ -433,10 +433,10 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── CTA AIRBNB STYLE (Premium & Protagonista) ── */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-xl rounded-[1.25rem] px-6 py-5 mb-10 active:scale-95 transition-transform z-10 relative"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-[1.25rem] px-6 py-4 mb-6 active:scale-95 transition-transform z-10 relative hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)]"
             >
-              <div className="w-12 h-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 mr-4 shadow-sm">
-                <Search className="w-5 h-5 text-onyx stroke-[2.5]" />
+              <div className="w-[52px] h-[52px] rounded-full bg-primary-blue/10 flex items-center justify-center shrink-0 mr-4">
+                <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
               </div>
               <div className="flex flex-col items-start flex-1">
                 <span className="font-bold text-onyx text-[16px] tracking-wide mb-0.5">Comenzar búsqueda</span>
@@ -446,8 +446,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             
             {/* ── FOTOGRAFÍA EDITORIAL INDEPENDIENTE (Debajo del buscador) ── */}
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-              className="w-full h-[180px] rounded-3xl overflow-hidden shadow-lg shadow-black/5 mb-4 relative z-10">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+              className="w-full h-[170px] rounded-3xl overflow-hidden shadow-md shadow-black/5 mb-14 relative z-10">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%] scale-[1.15]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
             
           </div>
@@ -748,11 +748,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
           {/* Mobile Trust Indicators */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.6 }}
-            className="w-full grid grid-cols-2 gap-y-8 gap-x-4 md:hidden text-slate-500 font-medium text-[13px] mb-14 z-30 px-2">
-            <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Star className="w-5 h-5 text-primary-blue fill-primary-blue/20" /> 4.500</div>clientes felices</div>
-            <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Building2 className="w-5 h-5 text-primary-blue" /> +300</div>comunidades</div>
-            <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><Smile className="w-5 h-5 text-primary-blue" /> 98%</div>satisfacción</div>
-            <div className="flex flex-col items-start gap-1"><div className="flex items-center gap-2 text-onyx font-black text-[16px]"><ShieldCheck className="w-5 h-5 text-primary-blue" /> 15+ años</div>experiencia</div>
+            className="w-full grid grid-cols-2 gap-y-10 gap-x-6 md:hidden text-slate-500 font-medium text-[14px] mb-16 z-30 px-2 mt-4">
+            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Star className="w-6 h-6 text-primary-blue fill-primary-blue/20" /> 4.500</div><span className="text-slate-500 font-medium text-[14px]">clientes felices</span></div>
+            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Building2 className="w-6 h-6 text-primary-blue" /> +300</div><span className="text-slate-500 font-medium text-[14px]">comunidades</span></div>
+            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><Smile className="w-6 h-6 text-primary-blue" /> 98%</div><span className="text-slate-500 font-medium text-[14px]">satisfacción</span></div>
+            <div className="flex flex-col items-start gap-1.5"><div className="flex items-center gap-2.5 text-onyx font-black text-[22px] tracking-tight"><ShieldCheck className="w-6 h-6 text-primary-blue" /> 15+ años</div><span className="text-slate-500 font-medium text-[14px]">experiencia</span></div>
           </motion.div>
 
         </div> {/* END MAIN CONTAINER */}

@@ -413,9 +413,15 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-8 mb-12">
+              className="text-slate-500 font-medium text-[17px] leading-relaxed pr-8 mb-8">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
+
+            {/* ── FOTOGRAFÍA EDITORIAL INDEPENDIENTE ── */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="w-full h-[200px] rounded-[2rem] overflow-hidden shadow-lg shadow-black/5 mb-7 relative z-10">
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+            </motion.div>
 
             {/* ── SEGMENTED CONTROL ── */}
             <div className="w-full bg-slate-100 p-1.5 rounded-2xl mb-8 shadow-inner border border-slate-200/50 flex relative z-10">
@@ -755,7 +761,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         </div> {/* END MAIN CONTAINER */}
 
         {/* =============================================================== */}
-        {/* ── BACKGROUND LAYERS (DESKTOP & MOBILE) ── */}
+        {/* ── BACKGROUND LAYERS (DESKTOP) ── */}
         {/* =============================================================== */}
         
         {/* DESKTOP BACKGROUND */}
@@ -765,15 +771,6 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             style={{ maskImage: "linear-gradient(to right, transparent 0%, black 40%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)" }}>
             <img src={img2} alt="Familia feliz en su nuevo hogar" className="absolute inset-0 w-full h-full object-cover object-[75%_30%] z-0" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
-          </motion.div>
-        </div>
-
-        {/* MOBILE BACKGROUND (Ethereal Decoration) */}
-        <div className="absolute right-0 bottom-0 w-[85%] h-[450px] z-0 lg:hidden pointer-events-none opacity-[0.15] blur-[1px]">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-            className="w-full h-full"
-            style={{ maskImage: "radial-gradient(ellipse at bottom right, black 30%, transparent 75%)", WebkitMaskImage: "radial-gradient(ellipse at bottom right, black 30%, transparent 75%)" }}>
-            <img src={img2} alt="" className="absolute inset-0 w-full h-full object-cover object-[85%_30%]" />
           </motion.div>
         </div>
 

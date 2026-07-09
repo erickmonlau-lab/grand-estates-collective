@@ -419,18 +419,18 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             
             {/* ── FOTOGRAFÍA (Formato Panorámico Contenido) ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-full aspect-video rounded-3xl mt-2 relative z-0 overflow-hidden bg-white">
+              className="w-full aspect-[4/3] rounded-3xl mt-2 relative z-0 overflow-hidden bg-white">
               <motion.img src={img2} alt="Familia feliz" 
-                className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%] mix-blend-multiply" 
+                className="w-full h-full object-cover object-[center_20%] origin-[center_20%] mix-blend-multiply" 
                 style={{ filter: "contrast(1.02) saturate(1.05) brightness(1.02)" }} 
                 animate={{ scale: [1.35, 1.38, 1.35] }} 
                 transition={{ duration: 12, ease: "easeInOut", repeat: Infinity }} 
               />
             </motion.div>
 
-            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native solapado) ── */}
+            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native separado) ── */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full flex flex-col items-center relative z-10 -mt-12 mb-10">
+              className="w-full flex flex-col items-center relative z-10 mt-6 mb-10">
               
               <div className="w-full flex flex-col p-4">
                 

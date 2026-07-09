@@ -393,18 +393,18 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           {/* =============================================================== */}
           {/* ── MOBILE TOP SECTION (EDITORIAL APPLE STYLE) ── */}
           {/* =============================================================== */}
-          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-9">
+          <div className="md:hidden w-full flex flex-col items-start z-10 relative overflow-visible mt-2">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut" }}
-              className="flex items-center gap-2 font-semibold text-[11px] text-primary-blue mb-6 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
+              className="flex items-center gap-2 font-semibold text-[11px] text-primary-blue mb-4 bg-slate-50 border border-slate-100/50 rounded-full px-3 py-1.5 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-blue"></span>
               Administración • Asesoría • Inmobiliaria
             </motion.div>
 
             {/* ── HEADLINE (Editorial & Dominant) ── */}
             <motion.h1 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.25rem,9.5vw,3rem)] mb-6 w-full">
+              className="text-onyx font-black leading-[1.1] tracking-tight text-[clamp(2.25rem,9.5vw,3rem)] mb-4 w-full">
               Encontramos tu<br/>
               <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/>
@@ -413,19 +413,19 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── SUBTITLE (Respirado) ── */}
             <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-7">
+              className="text-slate-500 font-medium text-[16px] leading-relaxed max-w-[280px] mb-4">
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
             {/* ── FOTOGRAFÍA (ADN Desktop / Editorial) ── */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-              className="w-[100vw] -mx-6 aspect-[16/10] mb-6 relative z-10 overflow-hidden">
+              className="w-[100vw] -mx-6 h-[180px] mb-4 relative z-10 overflow-hidden">
               <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
             </motion.div>
 
             {/* ── SEGMENTED CONTROL (iOS Premium Style) ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-full bg-slate-100/80 p-1 rounded-[1.25rem] mb-6 flex relative z-10 h-[48px]">
+              className="w-full bg-slate-100/80 p-1 rounded-[1.25rem] mb-4 flex relative z-10 h-[44px]">
               {(["comprar","alquilar"] as const).map(m => {
                 const isActive = mode === m;
                 return (
@@ -443,7 +443,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── CTA BUSCADOR INDEPENDIENTE ── */}
             <motion.button initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[1.5rem] p-5 mb-9 active:scale-[0.98] transition-transform z-10 relative"
+              className="w-full flex items-center bg-white border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[1.5rem] p-4 mb-9 active:scale-[0.98] transition-transform z-10 relative"
             >
               <div className="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center shrink-0 mr-4">
                 <Search className="w-5 h-5 text-primary-blue stroke-[2]" />

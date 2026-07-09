@@ -356,7 +356,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
       {/*
         ── MOBILE & DESKTOP HERO (Premium SaaS Style) ──
       */}
-      <section className="relative w-full min-h-[100dvh] pt-[90px] md:pt-[110px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
+      <section className="relative w-full min-h-[100dvh] pt-[110px] md:pt-[130px] overflow-x-hidden bg-gradient-to-b from-[#FFFFFF] to-[#F7F9FC]"
         style={{ fontFamily: "var(--font-system)" }}
       >
         {/* Soft Radial Blue Glow Behind Right Section */}
@@ -365,7 +365,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
         <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-14 lg:px-[120px] flex flex-col items-start text-left z-10 pt-2 lg:pt-4 pb-20 lg:pb-[100px]">
           
           {/* TOP SECTION: Text */}
-          <div className="w-full max-w-[800px] lg:max-w-[700px] xl:max-w-[800px] z-20 mb-8 lg:mb-[90px] lg:pr-8">
+          <div className="w-full max-w-[800px] lg:max-w-[600px] xl:max-w-[650px] z-20 mb-8 lg:mb-[90px] lg:pr-8">
             
             {/* ── BADGE ── */}
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
@@ -376,7 +376,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
             {/* ── HEADLINE ── */}
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.75rem,5vw,4rem)] mb-4">
+              className="text-onyx font-black leading-[1.05] tracking-tight text-[clamp(2.5rem,4vw,3.75rem)] mb-4">
               Encontramos tu <span className="text-primary-blue">hogar</span>.<br/>
               Nos ocupamos<br/> del resto.
             </motion.h1>
@@ -708,7 +708,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
 
         {/* RIGHT BACKGROUND LAYER: Image & Silhouette */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
-          className="absolute right-0 top-[120px] w-full lg:w-[55%] h-[600px] lg:h-[750px] z-0 hidden lg:block"
+          className="absolute right-0 top-[130px] w-full lg:w-[50%] h-[500px] lg:h-[600px] z-0 hidden lg:block"
           style={{ maskImage: "linear-gradient(to right, transparent 0%, black 25%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 25%)" }}>
           
           {/* Main Photo */}
@@ -721,8 +721,8 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
           <div className="absolute inset-0 bg-[#FFECD2] mix-blend-overlay opacity-20 z-0 pointer-events-none" />
           
           {/* House Outline Decoration */}
-          <svg className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[300px] h-[600px] pointer-events-none z-20 opacity-40" viewBox="0 0 300 600" preserveAspectRatio="none">
-            <path d="M 0,600 L 0,250 L 300,0" fill="none" stroke="#2563EB" strokeWidth="1.5" />
+          <svg className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[300px] h-[550px] pointer-events-none z-20 opacity-40" viewBox="0 0 300 550" preserveAspectRatio="none">
+            <path d="M 0,550 L 0,250 L 300,0" fill="none" stroke="#2563EB" strokeWidth="1.5" />
           </svg>
           
         </motion.div>

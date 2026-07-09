@@ -417,9 +417,9 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               Gestionamos cada paso para que disfrutes sin preocupaciones.
             </motion.p>
             
-            {/* ── FOTOGRAFÍA (Arquitectura Integrada Edge-to-Edge) ── */}
+            {/* ── FOTOGRAFÍA (Formato Panorámico Contenido) ── */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
-              className="w-[calc(100%+3rem)] -mx-6 aspect-[5/4] rounded-t-[3rem] mt-2 mb-0 relative z-10 overflow-hidden">
+              className="w-full aspect-video rounded-3xl mt-2 relative z-0 overflow-hidden">
               <motion.img src={img2} alt="Familia feliz" 
                 className="w-full h-full object-cover object-[80%_75%] origin-[80%_75%]" 
                 style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} 
@@ -428,11 +428,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               />
             </motion.div>
 
-            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native) ── */}
+            {/* ── SUPER-WIDGET DE BÚSQUEDA (UX App-Native solapado) ── */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="w-[calc(100%+1rem)] -mx-2 flex flex-col items-center relative z-20 -mt-10 mb-10">
+              className="w-full flex flex-col items-center relative z-10 -mt-12 mb-10">
               
-              <div className="w-full bg-white shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[2rem] p-4 flex flex-col border border-slate-100">
+              <div className="w-full bg-white shadow-xl rounded-3xl p-4 flex flex-col border border-slate-100/50">
                 
                 {/* SELECTOR SEGMENTADO INTEGRADO */}
                 <div className="w-full bg-slate-50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-100">

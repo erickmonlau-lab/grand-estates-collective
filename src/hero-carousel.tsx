@@ -434,18 +434,21 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               
               <div className="w-full bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] rounded-[2rem] p-4 flex flex-col border border-slate-100/80">
                 
-                {/* SELECTOR NATIVO INTEGRADO */}
-                <div className="flex items-center justify-between w-full px-4 py-2 mb-3">
-                  <button onClick={() => setMode(mode === 'comprar' ? 'alquilar' : 'comprar')} className="flex items-center gap-1.5 focus:outline-none group">
-                    <span className="text-onyx font-black text-[17px] tracking-tight capitalize group-active:scale-95 transition-transform">{mode}</span>
-                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors mt-0.5" />
-                  </button>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    Modalidad
-                  </span>
+                {/* SELECTOR SEGMENTADO INTEGRADO */}
+                <div className="w-full bg-slate-50 p-1 rounded-[1.25rem] mb-3 flex relative h-[44px] border border-slate-100">
+                  {(["comprar","alquilar"] as const).map(m => {
+                    const isActive = mode === m;
+                    return (
+                      <button key={m} onClick={() => setMode(m)}
+                        className={`flex-1 relative rounded-xl font-semibold tracking-wide transition-colors duration-300 focus:outline-none flex items-center justify-center h-full ${
+                          isActive ? "text-onyx drop-shadow-sm bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                        }`}>
+                        {isActive && <motion.div layoutId="mobileActiveModeTab" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="absolute inset-0 bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] border border-slate-200/50" />}
+                        <span className="relative z-10 text-[13.5px] capitalize">{m}</span>
+                      </button>
+                    );
+                  })}
                 </div>
-
-                <div className="w-full h-px bg-slate-100/80 mb-3" />
 
                 {/* GRAN BOTÓN DE BÚSQUEDA */}
                 <button onClick={() => setMobileSheetOpen(true)}

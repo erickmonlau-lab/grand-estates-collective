@@ -433,7 +433,7 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
             {/* ── CTA AIRBNB STYLE (Premium & Protagonista) ── */}
             <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
               onClick={() => setMobileSheetOpen(true)}
-              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-[1.25rem] px-6 py-4 mb-6 active:scale-95 transition-transform z-10 relative hover:shadow-[0_8px_30px_rgb(0,0,0,0.1)]"
+              className="w-full flex items-center bg-white border border-slate-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-[1.25rem] px-6 py-4 active:scale-95 transition-transform z-20 relative translate-y-8"
             >
               <div className="w-[52px] h-[52px] rounded-full bg-primary-blue/10 flex items-center justify-center shrink-0 mr-4">
                 <Search className="w-5 h-5 text-primary-blue stroke-[2.5]" />
@@ -444,10 +444,11 @@ export default function HeroCarousel({ onPerformSearch }: HeroCarouselProps) {
               </div>
             </motion.button>
             
-            {/* ── FOTOGRAFÍA EDITORIAL INDEPENDIENTE (Debajo del buscador) ── */}
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-              className="w-full h-[170px] rounded-3xl overflow-hidden shadow-md shadow-black/5 mb-14 relative z-10">
-              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%] scale-[1.15]" style={{ filter: "contrast(0.95) saturate(1.05) brightness(1.02)" }} />
+            {/* ── FOTOGRAFÍA A SANGRE (Overlapping) ── */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+              className="w-[calc(100%+3rem)] -mx-6 h-[260px] overflow-hidden relative z-10 mb-8">
+              <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-onyx/30 to-transparent z-10 pointer-events-none"></div>
+              <img src={img2} alt="Familia feliz" className="w-full h-full object-cover object-[85%_25%] scale-[1.1]" style={{ filter: "contrast(1.05) saturate(1.05) brightness(0.98)" }} />
             </motion.div>
             
           </div>

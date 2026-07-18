@@ -62,13 +62,13 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'linear-gradient(to right, rgba(11,18,33,0.95) 0%, rgba(11,18,33,0.85) 30%, rgba(11,18,33,0.2) 75%, transparent 100%)',
+          background: 'linear-gradient(to right, rgba(11,18,33,0.55) 0%, rgba(11,18,33,0.35) 30%, rgba(11,18,33,0.05) 65%, transparent 100%)',
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
         style={{
-          background: 'linear-gradient(to top, rgba(11,18,33,0.9) 0%, rgba(11,18,33,0.4) 20%, transparent 40%)',
+          background: 'linear-gradient(to top, rgba(11,18,33,0.55) 0%, transparent 35%)',
         }}
       />
 

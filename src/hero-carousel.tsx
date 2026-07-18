@@ -138,8 +138,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               }}
             >
               Encontramos<br />
-              el <span className="italic font-medium text-[#3b82f6]">hogar</span> que<br />
-              mereces<span className="text-[#3b82f6]">.</span>
+              el <span className="italic font-medium text-[#3b76f6]">hogar</span> que<br />
+              mereces<span className="text-[#3b76f6]">.</span>
             </h1>
           </motion.div>
 
@@ -204,11 +204,11 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] flex items-center justify-center text-white shrink-0 shadow-sm relative z-10">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#0b1221] flex items-center justify-center text-white shrink-0 shadow-sm relative z-10">
                 <Home className="w-5 h-5" strokeWidth={2.5} />
               </div>
               <span className="absolute left-0 right-0 text-center font-bold text-[11px] sm:text-[13px] tracking-[0.15em] uppercase text-[#0f172a] pointer-events-none z-0">
-                Ver propiedades
+                VER PROPIEDADES
               </span>
               <motion.span className="flex items-center text-[#0f172a] relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -218,16 +218,16 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             {/* Button 2: Gradient */}
             <motion.a
               href="#valuator-form"
-              className="group relative flex items-center justify-between w-full bg-gradient-to-r from-[#2563eb] to-[#8b5cf6] text-white p-1.5 pr-6 rounded-full text-decoration-none shadow-[0_10px_30px_rgba(139,92,246,0.3)]"
+              className="group relative flex items-center justify-between w-full bg-gradient-to-r from-[#8b5cf6] to-[#0b1221] text-white p-1.5 pr-6 rounded-full text-decoration-none shadow-[0_10px_30px_rgba(139,92,246,0.3)]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shrink-0 shadow-inner relative z-10">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#3b76f6] border border-white/20 flex items-center justify-center text-white shrink-0 shadow-inner relative z-10">
                 <Key className="w-5 h-5" strokeWidth={2.5} />
               </div>
               <span className="absolute left-0 right-0 text-center font-bold text-[11px] sm:text-[13px] tracking-[0.15em] uppercase text-white pointer-events-none z-0">
-                Valorar mi inmueble
+                VALORAR MI INMUEBLE
               </span>
               <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -254,7 +254,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           />
           {/* Light blue fill matching the bottom area */}
           <path
-            fill="#f4f8ff"
+            fill="#e8f2ff"
             d="M0,150 C 350,250 1000,50 1440,150 L1440,250 L0,250 Z"
           />
         </svg>
@@ -265,7 +265,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-        className="relative z-20 w-full shrink-0 flex items-end justify-center px-4 pb-6 sm:pb-8 pt-4 bg-gradient-to-b from-transparent to-[#f4f8ff]"
+        className="relative z-20 w-full shrink-0 flex items-end justify-center px-4 pb-6 sm:pb-8 pt-4 bg-gradient-to-b from-transparent to-[#e8f2ff]"
       >
         <div
           className="w-full max-w-[1150px] bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.06)] flex flex-col items-center border border-white"
@@ -273,7 +273,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           <div className="w-full grid grid-cols-4 divide-x divide-slate-100">
             {STATS.map((s, i) => (
               <div key={i} className="flex flex-col items-center justify-start gap-3 sm:gap-4 px-1 sm:px-4 text-center min-w-0">
-                <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#f4f8ff] border border-blue-100 flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-[#e8f2ff] border border-blue-100 flex items-center justify-center shrink-0">
                   <s.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] stroke-[1.5]" />
                 </div>
                 <div className="flex flex-col items-center w-full">

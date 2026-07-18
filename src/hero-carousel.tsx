@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Smile, ShieldCheck, Phone } from "lucide-react";
-import heroBg from "@/assets/gesgrama_modern_facade_twilight.jpg"; 
+import { ArrowRight, ShieldCheck, Users, TrendingUp, Building2, Phone } from "lucide-react";
+import heroBg from "@/assets/family_barcelona_penthouse.jpg"; 
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -59,37 +59,30 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
   return <span ref={ref}>{prefix}{display}{suffix}</span>;
 }
 
-const STATS = [
-  { icon: Star,        num: 4500, prefix: '',  suffix: '+',  label: 'Clientes satisfechos'   },
-  { icon: Building2,   num: 300,  prefix: '+', suffix: '',   label: 'Comunidades gestionadas' },
-  { icon: Smile,       num: 98,   prefix: '',  suffix: '%',  label: 'Índice de satisfacción'  },
-  { icon: ShieldCheck, num: 15,   prefix: '',  suffix: '+',  label: 'Años de experiencia'     },
-];
-
 const expo = [0.16, 1, 0.3, 1] as const;
 
 export default function HeroCarousel(_props: HeroCarouselProps) {
   return (
-    <div className="w-full flex flex-col justify-between overflow-hidden bg-slate-950" style={{ minHeight: '100dvh' }}>
+    <div className="w-full flex flex-col justify-between overflow-hidden bg-white" style={{ minHeight: '100dvh' }}>
       
-      {/* ── SECCIÓN HERO (Superior - Estilo DISET Dark / Gesgrama Premium) ── */}
+      {/* ── SECCIÓN HERO (Superior - Estilo Gesgrama Premium Light) ── */}
       <section
         id="hero"
         className="relative w-full flex-1 flex flex-col justify-between overflow-hidden"
-        style={{ minHeight: '85dvh', backgroundColor: '#020617' }}
+        style={{ minHeight: '85dvh', backgroundColor: '#ffffff' }}
       >
-        {/* 1. Imagen de Fondo de fachada Gesgrama en el atardecer */}
+        {/* 1. Imagen de Fondo de familia en salón con vistas a Sagrada Familia */}
         <img 
           src={heroBg} 
-          alt="Fachada moderna Gesgrama en Barcelona" 
-          className="absolute inset-0 w-full h-full object-cover object-[right_center] pointer-events-none opacity-80" 
+          alt="Familia en ático con vistas a la Sagrada Familia" 
+          className="absolute inset-0 w-full h-full object-cover object-[right_center] pointer-events-none" 
         />
 
-        {/* 2. Degradado Oscuro Lateral y de fondo para legibilidad perfecta (muy fuerte, no transparente) */}
+        {/* 2. Degradado Blanco Suave Lateral para legibilidad perfecta */}
         <div 
           className="absolute inset-0 pointer-events-none z-[1]"
           style={{
-            background: 'linear-gradient(to right, #020617 0%, #020617 50%, rgba(2, 6, 23, 0.9) 75%, transparent 100%)'
+            background: 'linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0.9) 70%, transparent 100%)'
           }}
         />
 
@@ -107,32 +100,35 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             }}
             className="w-full max-w-[650px] flex flex-col items-start"
           >
-            {/* Eyebrow: 25+ AÑOS DE EXPERIENCIA · BARCELONA con dot azul */}
+            {/* Eyebrow: 25+ AÑOS DE EXPERIENCIA EN BARCELONA */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: expo } } }}
-              className="inline-flex items-center gap-2 bg-slate-900/60 border border-slate-700/60 rounded-full pl-3.5 pr-4 py-1.5 mb-4 shadow-md backdrop-blur-sm"
+              className="inline-flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-full pl-2 pr-4.5 py-1.5 mb-3.5 shadow-sm"
             >
-              <span className="w-2 h-2 rounded-full bg-[#0099ff] animate-pulse shrink-0" />
-              <span className="text-[8.5px] md:text-[9.5px] font-bold tracking-[0.15em] uppercase text-white pt-0.5">
-                25+ AÑOS DE EXPERIENCIA · BARCELONA
+              <div className="w-5 h-5 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#2563eb]" strokeWidth={2.5} />
+              </div>
+              <span className="text-[8.5px] md:text-[9.5px] font-bold tracking-[0.12em] uppercase text-slate-500 pt-0.5">
+                25+ AÑOS DE EXPERIENCIA EN BARCELONA
               </span>
             </motion.div>
 
             {/* Headline: Especialistas en administración y gestión de patrimonio en Barcelona */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="mb-4 w-full"
+              className="mb-3.5 w-full"
             >
               <h1
-                className="block text-white font-extrabold tracking-tight leading-[1.08]"
+                className="block text-slate-800 font-extrabold tracking-tight leading-[1.08]"
                 style={{
                   fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontSize: 'clamp(2.25rem, 6vw, 4.3rem)',
+                  fontSize: 'clamp(2.3rem, 5.8vw, 4.3rem)',
                 }}
               >
-                Especialistas<br />
-                en <span className="text-[#0099ff] font-extrabold">administración</span><br />
-                y <span className="text-[#0099ff] font-extrabold">gestión de patrimonio</span><br />
+                Especialistas en<br />
+                <span className="text-[#2563eb] font-extrabold">administración</span><br />
+                y <span className="text-[#2563eb] font-extrabold">gestión de</span><br />
+                <span className="text-[#2563eb] font-extrabold">patrimonio</span><br />
                 en Barcelona
               </h1>
             </motion.div>
@@ -140,39 +136,83 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             {/* Subtitle */}
             <motion.p
               variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="text-slate-300 font-normal leading-relaxed mb-6 max-w-[420px] sm:max-w-[480px] font-sans"
+              className="text-slate-500 font-normal leading-relaxed mb-5.5 max-w-[420px] sm:max-w-[480px] font-sans"
               style={{ fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)' }}
             >
               Administración de comunidades, gestión de alquileres, consultoría jurídica y optimización de inmuebles para propietarios, inversores y comunidades.
             </motion.p>
 
-            {/* Buttons Stack (Stacked vertically - Estilo DISET) */}
+            {/* Buttons Stack (Stacked vertically - Estilo Gesgrama) */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="flex flex-col gap-3.5 w-full max-w-[340px] sm:max-w-[400px] mb-4"
+              className="flex flex-col gap-3.5 w-full max-w-[340px] sm:max-w-[400px] mb-6"
             >
-              {/* Button 1: Solicitad Información / Presupuesto (Electric Blue) */}
+              {/* Button 1: Solicitar Información (Solid Blue) */}
               <motion.a
                 href="#contacto"
-                className="group relative flex items-center justify-center w-full bg-[#0099ff] hover:bg-[#0077d6] text-white py-3.5 px-6 rounded-full text-decoration-none shadow-[0_8px_20px_rgba(0,153,255,0.3)] text-center font-bold text-[13px] tracking-wide"
+                className="group relative flex items-center justify-between w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white p-1.5 pr-6 rounded-2xl text-decoration-none shadow-[0_8px_20px_rgba(37,99,235,0.2)]"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <span>Solicitar Información</span>
+                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 relative z-10">
+                  <Building2 className="w-4.5 h-4.5" strokeWidth={2} />
+                </div>
+                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-white pointer-events-none z-0">
+                  Solicitar Información
+                </span>
+                <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                  <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                </motion.span>
               </motion.a>
 
-              {/* Button 2: Llamar Ahora (White with Outline) */}
+              {/* Button 2: Llamar Ahora (Light Gray borderless outline) */}
               <motion.a
-                href="tel:+34930000000"
-                className="group relative flex items-center justify-center gap-2 w-full bg-white hover:bg-slate-50 text-slate-900 py-3.5 px-6 rounded-full text-decoration-none border border-slate-200 text-center font-bold text-[13px] tracking-wide"
+                href="tel:+34934685656"
+                className="group relative flex items-center justify-between w-full bg-[#f8fafc] hover:bg-[#f1f5f9] text-slate-700 p-1.5 pr-6 rounded-2xl text-decoration-none border border-slate-200"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <Phone className="w-4 h-4 text-slate-800 shrink-0" strokeWidth={2.5} />
-                <span>Llamar Ahora</span>
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-600 shrink-0 border border-slate-200 relative z-10">
+                  <Phone className="w-4.5 h-4.5" strokeWidth={2} />
+                </div>
+                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-slate-700 pointer-events-none z-0">
+                  Llamar Ahora
+                </span>
+                <motion.span className="flex items-center text-slate-600 relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                  <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                </motion.span>
               </motion.a>
+            </motion.div>
+
+            {/* 3. Trust Badges en la base del contenido */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
+              className="w-full border-t border-slate-100/80 pt-5 mt-1"
+            >
+              <div className="grid grid-cols-3 divide-x divide-slate-200/80 text-center">
+                {/* Confianza */}
+                <div className="flex flex-col items-center px-2">
+                  <ShieldCheck className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Confianza</span>
+                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Transparencia y compromiso</span>
+                </div>
+
+                {/* Experiencia */}
+                <div className="flex flex-col items-center px-2">
+                  <Users className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Experiencia</span>
+                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Más de 25 años a tu lado</span>
+                </div>
+
+                {/* Resultados */}
+                <div className="flex flex-col items-center px-2">
+                  <TrendingUp className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Resultados</span>
+                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Eficiencia y rentabilidad</span>
+                </div>
+              </div>
             </motion.div>
 
           </motion.div>

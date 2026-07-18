@@ -80,21 +80,12 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         src={heroBg}
         alt="Familia en su nuevo hogar"
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[70%_center] sm:object-center"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[72%_top] sm:object-center"
       />
 
       {/* ── Soft Gradients ── */}
       <div
-        className="absolute inset-0 pointer-events-none z-[1]"
-        style={{
-          background: 'linear-gradient(to right, rgba(11,18,33,0.55) 0%, rgba(11,18,33,0.35) 30%, rgba(11,18,33,0.05) 65%, transparent 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none z-[2]"
-        style={{
-          background: 'linear-gradient(to top, rgba(11,18,33,0.55) 0%, transparent 35%)',
-        }}
+        className="absolute inset-0 pointer-events-none z-[1] bg-gradient-to-r from-slate-950/90 via-slate-900/60 to-transparent"
       />
 
       {/* ── Spacer for fixed navbar ── */}
@@ -237,24 +228,24 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         </motion.div>
       </div>
 
-      {/* ── Soft Wave Divider (Lower height on mobile) ── */}
+      {/* ── Soft Wave Divider (Lower height on mobile, glow shadow) ── */}
       <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-[5] pointer-events-none">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 250"
           preserveAspectRatio="none"
-          className="w-full h-[60px] sm:h-[120px] md:h-[180px]"
+          className="w-full h-[60px] sm:h-[120px] md:h-[180px] drop-shadow-[0_-10px_25px_rgba(59,130,246,0.25)]"
         >
           {/* Subtle glowing stroke */}
           <path
             fill="none"
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="2"
+            stroke="rgba(234,242,255,0.7)"
+            strokeWidth="3"
             d="M0,150 C 350,250 1000,50 1440,150"
           />
           {/* Light blue fill matching the bottom area */}
           <path
-            fill="#e8f2ff"
+            fill="#eaf2ff"
             d="M0,150 C 350,250 1000,50 1440,150 L1440,250 L0,250 Z"
           />
         </svg>
@@ -265,7 +256,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-        className="relative z-20 w-full shrink-0 flex items-end justify-center px-4 pb-4 sm:pb-6 pt-0 bg-gradient-to-b from-transparent to-[#e8f2ff] -mt-4"
+        className="relative z-20 w-full shrink-0 flex items-end justify-center px-4 pb-4 sm:pb-6 pt-0 bg-gradient-to-b from-transparent to-[#eaf2ff] -mt-6"
       >
         <div
           className="w-full max-w-[1150px] bg-white rounded-3xl p-4 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.06)] flex flex-col items-center border border-white"
@@ -273,7 +264,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           <div className="w-full grid grid-cols-4 divide-x divide-slate-100">
             {STATS.map((s, i) => (
               <div key={i} className="flex flex-col items-center justify-start gap-2 px-0.5 sm:px-4 text-center min-w-0">
-                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#e8f2ff] border border-blue-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[#eaf2ff] border border-blue-100 flex items-center justify-center shrink-0">
                   <s.icon className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] stroke-[1.5]" />
                 </div>
                 <div className="flex flex-col items-center w-full">

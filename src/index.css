@@ -1,117 +1,174 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   GESGRAMA DESIGN SYSTEM — v2
+   One blue. One navy. One grayscale. No exceptions.
+───────────────────────────────────────────────────────────────────────────── */
 @theme {
+  --color-brand:      #0082c8;
+  --color-brand-dark: #006aaa;
+  --color-navy:       #0f172a;
+  --color-navy-soft:  #1e2d42;
+  --color-gray-1:     #64748b;
+  --color-gray-2:     #94a3b8;
+  --color-gray-3:     #cbd5e1;
+  --color-gray-4:     #f1f5f9;
+  --color-gray-5:     #f8fafc;
+
+  /* legacy aliases */
   --color-primary-blue: #0082c8;
-  --color-onyx: #0f172a;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-system: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --color-onyx:         #0f172a;
+
+  --font-sans:  "Inter",    ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
 }
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius:       16px;
+  --shadow-card:  0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(15,23,42,0.06);
+  --shadow-hover: 0 8px 32px rgba(15,23,42,0.14);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* BASE */
+html { scroll-behavior: smooth; }
 body {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: white;
 }
+section[id] { scroll-margin-top: 80px; }
 
-/* ──────────────────────────────────────────────────
-   TYPOGRAPHY — Premium Font Stack (Inter)
-────────────────────────────────────────────────── */
+/* SCROLLBAR HIDE */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
-
-/* ──────────────────────────────────────────────────
-   MARQUEE — "La Maquinaria Perfecta"
-   Infinite horizontal scroll strip — core visual element
-────────────────────────────────────────────────── */
+/* MARQUEE */
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
-@keyframes marquee-scroll-slow {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 .marquee-track {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  gap: 14px;
+  display: flex; align-items: center;
+  width: max-content; gap: 14px;
   animation: marquee-scroll 42s linear infinite;
   will-change: transform;
 }
+.marquee-track:hover { animation-play-state: paused; }
 
-.marquee-track:hover {
-  animation-play-state: paused;
+/* EYEBROW */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #0082c8; margin-bottom: 12px;
+}
+.eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 2px;
+  background: #0082c8; border-radius: 2px;
 }
 
-/* ──────────────────────────────────────────────────
-   CURSOR GLOW — Ambient mouse tracking
-────────────────────────────────────────────────── */
-.hero-cursor-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    520px circle at var(--mx, -1000px) var(--my, -1000px),
-    rgba(0, 130, 200, 0.055),
-    transparent 38%
-  );
+/* BUTTONS */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #0082c8; color: #fff;
+  font-size: 15px; font-weight: 600;
+  padding: 13px 24px; border-radius: var(--radius);
+  border: none; cursor: pointer;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  text-decoration: none; white-space: nowrap;
 }
+.btn-primary:hover {
+  background: #006aaa; transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,130,200,0.28);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: transparent; color: #0f172a;
+  font-size: 15px; font-weight: 600;
+  padding: 12px 24px; border-radius: var(--radius);
+  border: 1.5px solid #cbd5e1; cursor: pointer;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  text-decoration: none; white-space: nowrap;
+}
+.btn-outline:hover { border-color: #0082c8; color: #0082c8; background: #f1f5f9; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: #0082c8;
+  font-size: 14px; font-weight: 600;
+  padding: 0; border: none; cursor: pointer;
+  transition: color 0.15s; text-decoration: none;
+}
+.btn-ghost:hover { color: #006aaa; }
 
-/* ──────────────────────────────────────────────────
-   DOT GRID BACKGROUND
-────────────────────────────────────────────────── */
+/* CARDS */
+.card {
+  background: #fff; border-radius: var(--radius);
+  border: 1px solid #f1f5f9;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+/* INPUTS */
+.field-input {
+  width: 100%; background: #f8fafc;
+  border: 1.5px solid #e2e8f0; border-radius: 12px;
+  padding: 12px 16px; font-size: 15px;
+  font-family: 'Inter', sans-serif; color: #0f172a;
+  outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field-input::placeholder { color: #94a3b8; }
+.field-input:focus { border-color: #0082c8; box-shadow: 0 0 0 3px rgba(0,130,200,0.1); }
+
+/* FILTER SELECTS */
+.console-select {
+  width: 100%; height: 46px; border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="%2394a3b8" stroke-width="2" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>') no-repeat right 13px center;
+  padding: 0 34px 0 13px;
+  font-family: 'Inter', sans-serif; font-size: 14px; color: #0f172a;
+  appearance: none; -webkit-appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s; cursor: pointer;
+}
+.console-select:focus { outline: none; border-color: #0082c8; box-shadow: 0 0 0 3px rgba(0,130,200,0.1); }
+
+/* DOT GRID */
 .dot-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.10) 1px, transparent 1px);
-  background-size: 28px 28px;
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(15,23,42,0.08) 1px, transparent 1px);
+  background-size: 28px 28px; pointer-events: none;
 }
 
-/* ──────────────────────────────────────────────────
-   MARQUEE ITEM ANIMATIONS
-────────────────────────────────────────────────── */
-@keyframes slow-pulse-ring {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 130, 200, 0.25); }
-  50%       { box-shadow: 0 0 0 18px rgba(0, 130, 200, 0); }
+/* CURSOR GLOW */
+.hero-cursor-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx,-1000px) var(--my,-1000px), rgba(0,130,200,0.05), transparent 38%);
 }
 
-@keyframes float-up {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
+/* FOOTER ANIMATION (ESTATICA CON SALTO) */
+@keyframes windowPulse {
+  0%, 100% { fill-opacity: 0.4; }
+  50% { fill-opacity: 1; }
 }
 
-/* ──────────────────────────────────────────────────
-   SCROLLBAR HIDE
-────────────────────────────────────────────────── */
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* ──────────────────────────────────────────────────
-   BUTTON MAGNETIC HOVER GLOW (Replaced with brutalism where applied)
-────────────────────────────────────────────────── */
-.btn-primary-glow:hover {
-  box-shadow: 4px 4px 0 0 rgba(15, 23, 42, 1);
-  transform: translate(-2px, -2px);
+@keyframes jumpJoy {
+  0%, 75%, 100% { transform: translateY(0) scaleY(1); }
+  /* Agachado breve (preparacion) */
+  80% { transform: translateY(0) scaleY(0.85); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  /* Impulso hacia arriba (salto con bounce) */
+  85% { transform: translateY(-15px) scaleY(1.05); }
+  /* Aterrizaje y amortiguacion */
+  92% { transform: translateY(0) scaleY(0.9); }
+  96% { transform: translateY(0) scaleY(1); }
 }
 
-section[id] { scroll-margin-top: 100px; }
 
-
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}

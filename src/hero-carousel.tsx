@@ -78,11 +78,19 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           className="absolute inset-0 w-full h-[100dvh] object-cover object-[center_right] pointer-events-none z-[1]" 
         />
 
-        {/* 2. Degradado Azul Oscuro Lateral para texto */}
+        {/* 2. Degradado Blanco Suave Lateral para legibilidad perfecta */}
+        {/* Mobile vertical fade */}
         <div 
-          className="absolute inset-0 pointer-events-none z-[2]"
+          className="absolute inset-0 pointer-events-none z-[2] md:hidden"
           style={{
-            background: 'linear-gradient(to right, #0b1221 0%, #0b1221 35%, rgba(11, 18, 33, 0.8) 55%, transparent 100%)'
+            background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 42%, rgba(255, 255, 255, 0.95) 48%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0) 80%, #ffffff 94%, #ffffff 100%)'
+          }}
+        />
+        {/* Desktop horizontal fade */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-[2] hidden md:block"
+          style={{
+            background: 'linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0.9) 70%, transparent 100%)'
           }}
         />
 

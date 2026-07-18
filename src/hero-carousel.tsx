@@ -10,7 +10,7 @@ interface HeroCarouselProps {
 // ── Animated Counter ──
 function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { once: true, margin: "-50px" });
   const [display, setDisplay] = useState('0');
 
   useEffect(() => {
@@ -31,7 +31,32 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
     requestAnimationFrame(animateCount);
   }, [inView, to]);
 
-  return <span>{prefix}{display}{suffix}</span>;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDisplay((current) => {
+        if (current === '0') {
+          let startTime: number;
+          const duration = 2000;
+          const animateCount = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            const percentage = Math.min(progress / duration, 1);
+            const easeOut = 1 - Math.pow(1 - percentage, 3);
+            const currentCount = Math.floor(easeOut * to);
+            setDisplay(currentCount.toString());
+            if (percentage < 1) requestAnimationFrame(animateCount);
+            else setDisplay(to.toString());
+          };
+          requestAnimationFrame(animateCount);
+        }
+        return current;
+      });
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [to]);
+
+  return <span ref={ref}>{prefix}{display}{suffix}</span>;
 }
 
 const STATS = [
@@ -133,7 +158,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             className="grid grid-cols-3 gap-2 sm:gap-6 mb-10 text-white w-full max-w-[550px] relative z-10"
           >
             {/* Feature 1 */}
-            <div className="flex flex-row items-center gap-2 min-w-0">
+            <div className="flex flex-col items-center gap-1.5 text-center min-w-0">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
                 <Shield className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>
@@ -144,7 +169,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             </div>
 
             {/* Feature 2 */}
-            <div className="flex flex-row items-center gap-2 min-w-0">
+            <div className="flex flex-col items-center gap-1.5 text-center min-w-0">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>
@@ -155,7 +180,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             </div>
 
             {/* Feature 3 */}
-            <div className="flex flex-row items-center gap-2 min-w-0">
+            <div className="flex flex-col items-center gap-1.5 text-center min-w-0">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0">
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>

@@ -828,8 +828,20 @@ function Index() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[96%] max-w-[1400px] z-[100] flex items-center justify-between py-3 md:py-4 px-6 md:px-8 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_15px_35px_rgba(0,0,0,0.05)]"
       >
-        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2 -my-4 md:-my-6">
-          <img src={logoImg} alt="Gesgrama" className="h-14 md:h-18 lg:h-[4.8rem] w-auto object-contain" />
+        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 text-white shrink-0 shadow-sm">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <div className="flex flex-col leading-[1] text-left">
+            <span className="font-extrabold text-[14px] sm:text-[16px] tracking-wide text-slate-800" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              HOGAR<span className="text-[#a0a0a0] font-light">&</span>CO.
+            </span>
+            <span className="font-bold text-[7px] sm:text-[7.5px] tracking-[0.2em] text-slate-400 uppercase mt-0.5">
+              INMOBILIARIA
+            </span>
+          </div>
         </a>
 
         <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
@@ -845,7 +857,7 @@ function Index() {
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                  className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#505050] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
@@ -855,7 +867,7 @@ function Index() {
           </div>
           <a
             href="#contacto"
-            className="hidden sm:inline-flex items-center gap-2 bg-[#2563eb] text-white hover:bg-blue-700 px-6 md:px-8 py-3.5 md:py-3.5 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#454545] text-white hover:bg-slate-800 px-6 md:px-8 py-3.5 md:py-3.5 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
           >
             <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
             {t.nav.portal}

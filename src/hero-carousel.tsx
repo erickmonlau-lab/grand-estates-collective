@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Users, TrendingUp, Building2, Phone } from "lucide-react";
+import { ArrowRight, ShieldCheck, Users, TrendingUp, Building2, Phone, Star, Home } from "lucide-react";
 import heroBg from "@/assets/family_barcelona_penthouse.jpg"; 
 
 interface HeroCarouselProps {

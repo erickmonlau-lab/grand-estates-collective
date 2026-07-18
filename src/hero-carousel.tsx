@@ -158,16 +158,16 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               {/* Button 1: Solicitar Información (Solid Blue) */}
               <motion.a
                 href="#contacto"
-                className="group relative flex items-center justify-between w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white p-1.5 pr-6 rounded-2xl text-decoration-none shadow-[0_8px_20px_rgba(37,99,235,0.2)]"
+                className="group relative flex items-center justify-between w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white p-1.5 pr-6 rounded-full text-decoration-none shadow-[0_8px_20px_rgba(37,99,235,0.2)]"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shrink-0 relative z-10">
+                <div className="w-10 h-10 rounded-full bg-white/20 border border-white/10 flex items-center justify-center text-white shrink-0 relative z-10">
                   <Building2 className="w-4.5 h-4.5" strokeWidth={2} />
                 </div>
-                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-white pointer-events-none z-0">
-                  Solicitar Información
+                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white pointer-events-none z-0">
+                  SOLICITAR INFORMACIÓN
                 </span>
                 <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
                   <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
@@ -177,18 +177,18 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               {/* Button 2: Llamar Ahora (Light Gray borderless outline) */}
               <motion.a
                 href="tel:+34934685656"
-                className="group relative flex items-center justify-between w-full bg-[#f8fafc] hover:bg-[#f1f5f9] text-slate-700 p-1.5 pr-6 rounded-2xl text-decoration-none border border-slate-200"
+                className="group relative flex items-center justify-between w-full bg-[#f8fafc] hover:bg-[#f1f5f9] text-slate-700 p-1.5 pr-6 rounded-full text-decoration-none border border-slate-200"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-slate-600 shrink-0 border border-slate-200 relative z-10">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-600 shrink-0 border border-slate-200 relative z-10 shadow-sm">
                   <Phone className="w-4.5 h-4.5" strokeWidth={2} />
                 </div>
-                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase text-slate-700 pointer-events-none z-0">
-                  Llamar Ahora
+                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-slate-700 pointer-events-none z-0">
+                  LLAMAR AHORA
                 </span>
-                <motion.span className="flex items-center text-slate-600 relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
+                <motion.span className="flex items-center text-slate-400 relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
                   <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
                 </motion.span>
               </motion.a>

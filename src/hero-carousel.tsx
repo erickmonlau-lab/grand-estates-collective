@@ -176,18 +176,18 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               {/* Button 2: Ver propiedades */}
               <motion.a
                 href="#propiedades"
-                className="group relative flex items-center justify-between w-full bg-white hover:bg-slate-50 text-[#0b1221] p-4 px-6 rounded-2xl text-decoration-none shadow-md"
+                className="group relative flex items-center justify-between w-full bg-white hover:bg-slate-50 text-slate-800 p-4 px-6 rounded-2xl text-decoration-none border border-slate-200 shadow-sm"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="flex items-center gap-4">
-                  <Building2 className="w-6 h-6 text-[#0b1221]" strokeWidth={1.5} />
-                  <span className="font-bold text-[13px] tracking-wide uppercase text-[#0b1221] pointer-events-none z-0">
+                  <Building2 className="w-6 h-6 text-slate-700" strokeWidth={1.5} />
+                  <span className="font-bold text-[13px] tracking-wide uppercase text-slate-800 pointer-events-none z-0">
                     VER PROPIEDADES
                   </span>
                 </div>
-                <motion.span className="flex items-center text-[#0b1221] relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                <motion.span className="flex items-center text-slate-500 relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
                   <ArrowRight className="w-5 h-5" strokeWidth={2} />
                 </motion.span>
               </motion.a>

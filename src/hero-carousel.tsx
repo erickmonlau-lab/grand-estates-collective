@@ -72,16 +72,14 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
   return (
     <section
       id="hero"
-      className="relative w-full flex flex-col justify-between overflow-hidden"
-      style={{ height: '100dvh', backgroundColor: '#0b1221' }}
+      className="relative w-full flex flex-col justify-between overflow-hidden bg-cover bg-no-repeat"
+      style={{
+        height: '100dvh',
+        backgroundColor: '#0b1221',
+        backgroundImage: `url(${heroBg})`,
+        backgroundPosition: '70% top'
+      }}
     >
-      {/* ── Background Image ── */}
-      <motion.img
-        src={heroBg}
-        alt="Familia en su nuevo hogar"
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[72%_top] sm:object-center"
-      />
 
       {/* ── Soft Gradients ── */}
       <div
@@ -228,28 +226,13 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         </motion.div>
       </div>
 
-      {/* ── Soft Wave Divider (Lower height on mobile, glow shadow) ── */}
-      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-[5] pointer-events-none">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 250"
-          preserveAspectRatio="none"
-          className="w-full h-[60px] sm:h-[120px] md:h-[180px] drop-shadow-[0_-10px_25px_rgba(59,130,246,0.25)]"
-        >
-          {/* Subtle glowing stroke */}
-          <path
-            fill="none"
-            stroke="rgba(234,242,255,0.7)"
-            strokeWidth="3"
-            d="M0,150 C 350,250 1000,50 1440,150"
-          />
-          {/* Light blue fill matching the bottom area */}
-          <path
-            fill="#eaf2ff"
-            d="M0,150 C 350,250 1000,50 1440,150 L1440,250 L0,250 Z"
-          />
-        </svg>
-      </div>
+      {/* ── Soft Curved Divider (Ellipse Transition with Glow) ── */}
+      <div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] h-[90px] sm:h-[130px] rounded-t-[100%] bg-[#eaf2ff] z-[5] pointer-events-none"
+        style={{
+          boxShadow: '0 -20px 40px rgba(59, 130, 246, 0.35), inset 0 20px 20px rgba(255,255,255,0.7)',
+        }}
+      />
 
       {/* ── Metrics Banner (Bottom - Compact dimensions, perfectly anchored) ── */}
       <motion.div

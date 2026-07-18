@@ -75,22 +75,14 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         <img 
           src={heroBg} 
           alt="Familia en ático con vistas a la Sagrada Familia" 
-          className="absolute bottom-[80px] md:bottom-0 left-0 w-full h-[40dvh] md:h-full md:w-[50%] md:left-auto md:right-0 object-cover object-[center_top] md:object-center pointer-events-none z-[1]" 
+          className="absolute inset-0 w-full h-[100dvh] object-cover object-[center_right] pointer-events-none z-[1]" 
         />
 
-        {/* 2. Degradado Blanco Suave Lateral y Vertical para legibilidad perfecta y mezcla */}
-        {/* Mobile vertical fade */}
+        {/* 2. Degradado Azul Oscuro Lateral para texto */}
         <div 
-          className="absolute inset-0 pointer-events-none z-[2] md:hidden"
+          className="absolute inset-0 pointer-events-none z-[2]"
           style={{
-            background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 42%, rgba(255, 255, 255, 0.95) 48%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0) 80%, #ffffff 94%, #ffffff 100%)'
-          }}
-        />
-        {/* Desktop horizontal fade */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-[2] hidden md:block"
-          style={{
-            background: 'linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0.9) 70%, transparent 100%)'
+            background: 'linear-gradient(to right, #0b1221 0%, #0b1221 35%, rgba(11, 18, 33, 0.8) 55%, transparent 100%)'
           }}
         />
 
@@ -98,7 +90,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         <div className="w-full h-[85px] sm:h-[95px] shrink-0" />
 
         {/* Main Content Area */}
-        <div className="relative z-10 flex-1 flex flex-col justify-start md:justify-center px-6 lg:px-10 xl:px-0 w-full max-w-[1200px] mx-auto py-2">
+        <div className="relative z-10 flex-1 flex flex-col justify-start md:justify-center px-6 lg:px-10 xl:px-0 w-full max-w-[1200px] mx-auto py-2 pt-16 md:pt-2">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -108,88 +100,87 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             }}
             className="w-full max-w-[650px] flex flex-col items-start"
           >
-            {/* Eyebrow: 25+ AÑOS DE EXPERIENCIA EN BARCELONA */}
+            {/* Eyebrow: ADMINISTRACIÓN & PATRIMONIO */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: expo } } }}
-              className="inline-flex items-center gap-2 bg-slate-50 border border-slate-200/80 rounded-full pl-2 pr-4.5 py-1.5 mb-3.5 shadow-sm"
+              className="flex items-center gap-3 mb-6"
             >
-              <div className="w-5 h-5 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#2563eb]" strokeWidth={2.5} />
-              </div>
-              <span className="text-[8.5px] md:text-[9.5px] font-bold tracking-[0.12em] uppercase text-slate-500 pt-0.5">
-                25+ AÑOS DE EXPERIENCIA EN BARCELONA
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb]"></div>
+              <span className="text-[11px] md:text-[12px] font-bold tracking-[0.15em] uppercase text-white">
+                ADMINISTRACIÓN & PATRIMONIO
               </span>
             </motion.div>
 
-            {/* Headline: Especialistas en administración y gestión de patrimonio en Barcelona */}
+            {/* Headline: Encontramos el hogar que mereces. */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="mb-3.5 w-full"
+              className="mb-8 w-full"
             >
               <h1
-                className="block text-slate-800 font-extrabold tracking-tight leading-[1.08]"
+                className="block text-white font-medium tracking-tight leading-[1.1]"
                 style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontSize: 'clamp(2.15rem, 5.5vw, 4.3rem)',
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 'clamp(3rem, 6.5vw, 5.5rem)',
                 }}
               >
-                Especialistas en<br />
-                <span className="text-[#2563eb] font-extrabold">administración</span><br />
-                y <span className="text-[#2563eb] font-extrabold">gestión de</span><br />
-                <span className="text-[#2563eb] font-extrabold">patrimonio</span><br />
-                en Barcelona
+                Encontramos<br />
+                el <span className="text-[#2563eb] font-bold italic">hogar</span> que<br />
+                mereces.
               </h1>
+              <div className="w-20 h-1 bg-[#2563eb] mt-6"></div>
             </motion.div>
 
             {/* Subtitle */}
             <motion.p
               variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="text-slate-500 font-normal leading-relaxed mb-5.5 max-w-[420px] sm:max-w-[480px] font-sans"
-              style={{ fontSize: 'clamp(0.85rem, 1.1vw, 0.95rem)' }}
+              className="text-slate-300 font-medium leading-relaxed mb-10 max-w-[420px] sm:max-w-[450px] font-sans"
+              style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
             >
-              Administración de comunidades, gestión de alquileres, consultoría jurídica y optimización de inmuebles para propietarios, inversores y comunidades.
+              Compra, alquila o vende tu propiedad<br/>
+              con un equipo experto que te<br/>
+              acompaña en cada decisión.
             </motion.p>
 
-            {/* Buttons Stack (Stacked vertically - Estilo Gesgrama) */}
+            {/* Buttons Stack */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="flex flex-col gap-3.5 w-full max-w-[340px] sm:max-w-[400px] mb-6"
+              className="flex flex-col gap-4 w-full max-w-[360px] sm:max-w-[420px] mb-6"
             >
-              {/* Button 1: Solicitar Información (Solid Blue) */}
+              {/* Button 1: Valorar mi inmueble */}
               <motion.a
-                href="#contacto"
-                className="group relative flex items-center justify-between w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white p-1.5 pr-6 rounded-full text-decoration-none shadow-[0_8px_20px_rgba(37,99,235,0.2)]"
+                href="#valuator-form"
+                className="group relative flex items-center justify-between w-full bg-[#1d4ed8] hover:bg-[#1e40af] text-white p-4 px-6 rounded-2xl text-decoration-none shadow-[0_8px_20px_rgba(29,78,216,0.3)]"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-10 h-10 rounded-full bg-white/20 border border-white/10 flex items-center justify-center text-white shrink-0 relative z-10">
-                  <Building2 className="w-4.5 h-4.5" strokeWidth={2} />
+                <div className="flex items-center gap-4">
+                  <Home className="w-6 h-6 text-white" strokeWidth={1.5} />
+                  <span className="font-bold text-[13px] tracking-wide uppercase text-white pointer-events-none z-0">
+                    VALORAR MI INMUEBLE
+                  </span>
                 </div>
-                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white pointer-events-none z-0">
-                  SOLICITAR INFORMACIÓN
-                </span>
-                <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                  <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                  <ArrowRight className="w-5 h-5" strokeWidth={2} />
                 </motion.span>
               </motion.a>
 
-              {/* Button 2: Llamar Ahora (Light Gray borderless outline) */}
+              {/* Button 2: Ver propiedades */}
               <motion.a
-                href="tel:+34934685656"
-                className="group relative flex items-center justify-between w-full bg-[#f8fafc] hover:bg-[#f1f5f9] text-slate-700 p-1.5 pr-6 rounded-full text-decoration-none border border-slate-200"
+                href="#propiedades"
+                className="group relative flex items-center justify-between w-full bg-white hover:bg-slate-50 text-[#0b1221] p-4 px-6 rounded-2xl text-decoration-none shadow-md"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-600 shrink-0 border border-slate-200 relative z-10 shadow-sm">
-                  <Phone className="w-4.5 h-4.5" strokeWidth={2} />
+                <div className="flex items-center gap-4">
+                  <Building2 className="w-6 h-6 text-[#0b1221]" strokeWidth={1.5} />
+                  <span className="font-bold text-[13px] tracking-wide uppercase text-[#0b1221] pointer-events-none z-0">
+                    VER PROPIEDADES
+                  </span>
                 </div>
-                <span className="absolute left-0 right-0 text-center font-bold text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-slate-700 pointer-events-none z-0">
-                  LLAMAR AHORA
-                </span>
-                <motion.span className="flex items-center text-slate-400 relative z-10" initial={{ x: 0 }} whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                  <ArrowRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                <motion.span className="flex items-center text-[#0b1221] relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+                  <ArrowRight className="w-5 h-5" strokeWidth={2} />
                 </motion.span>
               </motion.a>
             </motion.div>
@@ -197,34 +188,46 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           </motion.div>
         </div>
 
-        {/* 3. Trust Badges en la base de la pantalla (Flotando como tarjeta redondeada en móvil) */}
+        {/* 3. Trust Badges Floating (Dark Navy) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: expo, delay: 0.4 }}
-          className="w-full bg-white rounded-t-[2.2rem] border-t border-slate-100/80 pt-6 pb-8 px-6 shadow-[0_-15px_35px_rgba(0,0,0,0.03)] mt-auto relative z-20 md:border-none md:shadow-none md:bg-transparent md:pt-4 md:pb-6 md:px-0 md:rounded-none md:w-full md:max-w-[1200px] md:mx-auto"
+          className="w-full max-w-[1200px] mx-auto bg-[#0f172a] rounded-[2rem] p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative z-20 mb-8 mt-auto mx-4 md:mx-auto border border-slate-800"
+          style={{ width: 'calc(100% - 2rem)' }}
         >
-          <div className="grid grid-cols-3 divide-x divide-slate-200/80 text-center">
-            {/* Confianza */}
-            <div className="flex flex-col items-center px-2">
-              <ShieldCheck className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Confianza</span>
-              <span className="text-[9px] text-slate-400 font-medium leading-tight">Transparencia y compromiso</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-800 text-center">
+            
+            {/* Clientes satisfechos */}
+            <div className="flex flex-col items-center pt-4 md:pt-0">
+              <Star className="w-10 h-10 text-[#3b82f6] mb-4" strokeWidth={1.5} />
+              <div className="text-3xl font-black text-white mb-2 tracking-tight">4500+</div>
+              <span className="text-[13px] text-slate-400 font-medium leading-tight">Clientes<br/>satisfechos</span>
             </div>
 
-            {/* Experiencia */}
-            <div className="flex flex-col items-center px-2">
-              <Users className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Experiencia</span>
-              <span className="text-[9px] text-slate-400 font-medium leading-tight">Más de 25 años a tu lado</span>
+            {/* Comunidades gestionadas */}
+            <div className="flex flex-col items-center pt-4 md:pt-0 border-t-0 md:border-l border-slate-800">
+              <Building2 className="w-10 h-10 text-[#3b82f6] mb-4" strokeWidth={1.5} />
+              <div className="text-3xl font-black text-white mb-2 tracking-tight">+300</div>
+              <span className="text-[13px] text-slate-400 font-medium leading-tight">Comunidades<br/>gestionadas</span>
             </div>
 
-            {/* Resultados */}
-            <div className="flex flex-col items-center px-2">
-              <TrendingUp className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Resultados</span>
-              <span className="text-[9px] text-slate-400 font-medium leading-tight">Eficiencia y rentabilidad</span>
+            {/* Índice de satisfacción */}
+            <div className="flex flex-col items-center pt-6 md:pt-0">
+              <svg className="w-10 h-10 text-[#3b82f6] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div className="text-3xl font-black text-white mb-2 tracking-tight">98%</div>
+              <span className="text-[13px] text-slate-400 font-medium leading-tight">Índice de<br/>satisfacción</span>
             </div>
+
+            {/* Años de experiencia */}
+            <div className="flex flex-col items-center pt-6 md:pt-0 border-t-0 md:border-l border-slate-800">
+              <ShieldCheck className="w-10 h-10 text-[#3b82f6] mb-4" strokeWidth={1.5} />
+              <div className="text-3xl font-black text-white mb-2 tracking-tight">15+</div>
+              <span className="text-[13px] text-slate-400 font-medium leading-tight">Años de<br/>experiencia</span>
+            </div>
+
           </div>
         </motion.div>
 

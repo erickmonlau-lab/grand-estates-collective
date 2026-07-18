@@ -56,8 +56,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
   return (
     <section
       id="hero"
-      className="relative w-full flex flex-col justify-between overflow-hidden"
-      style={{ height: '100dvh', backgroundColor: '#0f172a' }}
+      className="relative w-full flex flex-col justify-between overflow-clip"
+      style={{ minHeight: '100dvh', backgroundColor: '#0f172a' }}
     >
       {/* ── Background Image & Overlays ── */}
       <motion.img

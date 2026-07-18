@@ -85,8 +85,13 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           className="absolute inset-0 w-full h-full object-cover object-[right_center] pointer-events-none" 
         />
 
-        {/* 2. Degradado Blanco Suave desde la izquierda para legibilidad perfecta */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent w-[70%] sm:w-[50%] pointer-events-none"></div>
+        {/* 2. Degradado Blanco y Gris Suave desde la izquierda para legibilidad perfecta */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            background: 'linear-gradient(to right, #ffffff 0%, #f8fafc 45%, #f1f5f9 68%, rgba(241, 245, 249, 0.4) 85%, transparent 100%)'
+          }}
+        />
 
         {/* Spacer for fixed navbar */}
         <div className="w-full h-[85px] sm:h-[95px] shrink-0" />

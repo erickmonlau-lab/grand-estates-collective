@@ -74,13 +74,13 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'linear-gradient(to right, rgba(15,23,42,1) 0%, rgba(15,23,42,0.9) 35%, rgba(15,23,42,0.4) 60%, transparent 100%)',
+          background: 'linear-gradient(to right, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.7) 35%, rgba(15,23,42,0.15) 60%, transparent 100%)',
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
         style={{
-          background: 'linear-gradient(to top, rgba(15,23,42,0.95) 0%, transparent 30%)',
+          background: 'linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 25%)',
         }}
       />
 
@@ -228,7 +228,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 500"
           preserveAspectRatio="none"
-          className="w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px]"
+          className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px]"
         >
           {/* Subtle glowing edge */}
           <path

@@ -826,7 +826,7 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[96%] max-w-[1400px] z-[100] flex items-center justify-between py-3 md:py-4 px-6 md:px-8 rounded-full bg-[#0b1221] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[96%] max-w-[1400px] z-[100] flex items-center justify-between py-3 md:py-4 px-6 md:px-8 rounded-full bg-[#0b1221] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
       >
         <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2 -my-4 md:-my-6">
           <img src={logoImg} alt="Gesgrama" className="h-16 md:h-20 lg:h-[5.5rem] w-auto object-contain" />

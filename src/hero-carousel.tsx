@@ -106,7 +106,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               className="flex items-center gap-3 mb-6"
             >
               <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb]"></div>
-              <span className="text-[11px] md:text-[12px] font-bold tracking-[0.15em] uppercase text-white">
+              <span className="text-[11px] md:text-[12px] font-bold tracking-[0.15em] uppercase text-[#2563eb]">
                 ADMINISTRACIÓN & PATRIMONIO
               </span>
             </motion.div>
@@ -117,7 +117,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               className="mb-8 w-full"
             >
               <h1
-                className="block text-white font-medium tracking-tight leading-[1.1]"
+                className="block text-[#0b1221] font-medium tracking-tight leading-[1.1]"
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontSize: 'clamp(3rem, 6.5vw, 5.5rem)',
@@ -133,7 +133,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             {/* Subtitle */}
             <motion.p
               variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="text-slate-300 font-medium leading-relaxed mb-10 max-w-[420px] sm:max-w-[450px] font-sans"
+              className="text-slate-700 font-medium leading-relaxed mb-10 max-w-[420px] sm:max-w-[450px] font-sans"
               style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
             >
               Compra, alquila o vende tu propiedad<br/>

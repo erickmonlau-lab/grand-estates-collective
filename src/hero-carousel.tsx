@@ -74,13 +74,13 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
       <div
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: 'linear-gradient(to right, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.7) 35%, rgba(15,23,42,0.15) 60%, transparent 100%)',
+          background: 'linear-gradient(to right, rgba(15,15,20,0.65) 0%, rgba(15,15,20,0.4) 35%, rgba(15,15,20,0.05) 60%, transparent 100%)',
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
         style={{
-          background: 'linear-gradient(to top, rgba(15,23,42,0.8) 0%, transparent 25%)',
+          background: 'linear-gradient(to top, rgba(15,15,20,0.55) 0%, transparent 25%)',
         }}
       />
 
@@ -281,7 +281,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           <div className="w-full border-t border-slate-200/60 mt-5 pt-4 flex flex-col items-center justify-center">
             <div className="relative pb-1 flex items-center justify-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#0082c8] shrink-0" />
-              <span className="font-bold text-[10px] tracking-[0.25em] uppercase text-slate-700">
+              <span className="font-bold text-[8px] min-[360px]:text-[9px] sm:text-[10px] tracking-[0.04em] min-[360px]:tracking-[0.08em] sm:tracking-[0.25em] uppercase text-slate-700 whitespace-nowrap">
                 Tu tranquilidad, nuestro compromiso
               </span>
               <div className="absolute -bottom-px left-1/4 right-1/4 h-[2px] bg-[#0082c8] rounded-full" />

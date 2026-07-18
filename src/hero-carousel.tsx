@@ -63,7 +63,7 @@ const expo = [0.16, 1, 0.3, 1] as const;
 
 export default function HeroCarousel(_props: HeroCarouselProps) {
   return (
-    <div className="w-full flex flex-col justify-between overflow-hidden bg-white" style={{ minHeight: '100dvh' }}>
+    <div className="w-full flex flex-col justify-between overflow-hidden bg-white relative" style={{ minHeight: '100dvh' }}>
       
       {/* ── SECCIÓN HERO (Superior - Estilo Gesgrama Premium Light) ── */}
       <section
@@ -75,12 +75,20 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         <img 
           src={heroBg} 
           alt="Familia en ático con vistas a la Sagrada Familia" 
-          className="absolute inset-0 w-full h-full object-cover object-[right_center] pointer-events-none" 
+          className="absolute bottom-[80px] md:bottom-0 left-0 w-full h-[40dvh] md:h-full md:w-[50%] md:left-auto md:right-0 object-cover object-[center_top] md:object-center pointer-events-none z-[1]" 
         />
 
-        {/* 2. Degradado Blanco Suave Lateral para legibilidad perfecta */}
+        {/* 2. Degradado Blanco Suave Lateral y Vertical para legibilidad perfecta y mezcla */}
+        {/* Mobile vertical fade */}
         <div 
-          className="absolute inset-0 pointer-events-none z-[1]"
+          className="absolute inset-0 pointer-events-none z-[2] md:hidden"
+          style={{
+            background: 'linear-gradient(to bottom, #ffffff 0%, #ffffff 42%, rgba(255, 255, 255, 0.95) 48%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0) 80%, #ffffff 94%, #ffffff 100%)'
+          }}
+        />
+        {/* Desktop horizontal fade */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-[2] hidden md:block"
           style={{
             background: 'linear-gradient(to right, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0.9) 70%, transparent 100%)'
           }}
@@ -90,7 +98,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         <div className="w-full h-[85px] sm:h-[95px] shrink-0" />
 
         {/* Main Content Area */}
-        <div className="relative z-10 flex-1 flex flex-col justify-center px-6 lg:px-10 xl:px-0 w-full max-w-[1200px] mx-auto py-2">
+        <div className="relative z-10 flex-1 flex flex-col justify-start md:justify-center px-6 lg:px-10 xl:px-0 w-full max-w-[1200px] mx-auto py-2">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -122,7 +130,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 className="block text-slate-800 font-extrabold tracking-tight leading-[1.08]"
                 style={{
                   fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontSize: 'clamp(2.3rem, 5.8vw, 4.3rem)',
+                  fontSize: 'clamp(2.15rem, 5.5vw, 4.3rem)',
                 }}
               >
                 Especialistas en<br />
@@ -186,37 +194,40 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               </motion.a>
             </motion.div>
 
-            {/* 3. Trust Badges en la base del contenido */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-              className="w-full border-t border-slate-100/80 pt-5 mt-1"
-            >
-              <div className="grid grid-cols-3 divide-x divide-slate-200/80 text-center">
-                {/* Confianza */}
-                <div className="flex flex-col items-center px-2">
-                  <ShieldCheck className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Confianza</span>
-                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Transparencia y compromiso</span>
-                </div>
-
-                {/* Experiencia */}
-                <div className="flex flex-col items-center px-2">
-                  <Users className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Experiencia</span>
-                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Más de 25 años a tu lado</span>
-                </div>
-
-                {/* Resultados */}
-                <div className="flex flex-col items-center px-2">
-                  <TrendingUp className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
-                  <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Resultados</span>
-                  <span className="text-[9px] text-slate-400 font-medium leading-tight">Eficiencia y rentabilidad</span>
-                </div>
-              </div>
-            </motion.div>
-
           </motion.div>
         </div>
+
+        {/* 3. Trust Badges en la base de la pantalla (Flotando como tarjeta redondeada en móvil) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: expo, delay: 0.4 }}
+          className="w-full bg-white rounded-t-[2.2rem] border-t border-slate-100/80 pt-6 pb-8 px-6 shadow-[0_-15px_35px_rgba(0,0,0,0.03)] mt-auto relative z-20 md:border-none md:shadow-none md:bg-transparent md:pt-4 md:pb-6 md:px-0 md:rounded-none md:w-full md:max-w-[1200px] md:mx-auto"
+        >
+          <div className="grid grid-cols-3 divide-x divide-slate-200/80 text-center">
+            {/* Confianza */}
+            <div className="flex flex-col items-center px-2">
+              <ShieldCheck className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Confianza</span>
+              <span className="text-[9px] text-slate-400 font-medium leading-tight">Transparencia y compromiso</span>
+            </div>
+
+            {/* Experiencia */}
+            <div className="flex flex-col items-center px-2">
+              <Users className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Experiencia</span>
+              <span className="text-[9px] text-slate-400 font-medium leading-tight">Más de 25 años a tu lado</span>
+            </div>
+
+            {/* Resultados */}
+            <div className="flex flex-col items-center px-2">
+              <TrendingUp className="w-5 h-5 text-[#2563eb] mb-1.5 shrink-0" strokeWidth={2} />
+              <span className="font-bold text-[11px] text-slate-800 tracking-tight leading-none mb-1">Resultados</span>
+              <span className="text-[9px] text-slate-400 font-medium leading-tight">Eficiencia y rentabilidad</span>
+            </div>
+          </div>
+        </motion.div>
+
       </section>
 
     </div>

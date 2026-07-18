@@ -826,54 +826,42 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[96%] max-w-[1400px] z-[100] flex items-center justify-between py-3 md:py-4 px-6 md:px-8 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-[0_15px_35px_rgba(0,0,0,0.05)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] md:w-[96%] max-w-[1400px] z-[100] flex items-center justify-between py-3 md:py-4 px-6 md:px-8 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
       >
-        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2.5 pl-1 md:pl-2">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#0099ff] to-[#0066cc] text-white shrink-0 shadow-md">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-          </div>
-          <div className="flex flex-col leading-[1.05] text-left">
-            <span className="font-black text-[15px] sm:text-[17px] tracking-tight text-[#0f172a] uppercase" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-              GES<span className="text-[#0099ff]">GRAMA</span>
-            </span>
-            <span className="font-bold text-[6.5px] sm:text-[7px] tracking-[0.18em] text-[#0099ff] uppercase">
-              Administración & Patrimonio
-            </span>
-          </div>
+        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2 -my-4 md:-my-6">
+          <img src={logoImg} alt="Gesgrama" className="h-16 md:h-20 lg:h-[5.5rem] w-auto object-contain" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
-          <a href="#propiedades" className="hover:text-[#0099ff] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="#servicios" className="hover:text-[#0099ff] transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <a href="#nosotros" className="hover:text-[#0099ff] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
-          <a href="#contacto" className="hover:text-[#0099ff] transition-colors duration-200 py-1">{t.nav.contacto}</a>
+        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-white tracking-widest uppercase">
+          <a href="#propiedades" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
+          <a href="#servicios" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.servicios}</a>
+          <a href="#nosotros" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
+          <a href="#contacto" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
 
         <div className="flex items-center gap-3 lg:gap-6 shrink-0 pr-1">
-          <div className="flex items-center bg-slate-50 border border-slate-200/60 rounded-full p-1 md:p-1.5 text-[10px] md:text-[12px] font-bold">
+          <div className="flex items-center bg-[#0b1221]/60 border border-white/10 rounded-full p-1 md:p-1.5 text-[10px] md:text-[12px] font-bold shadow-inner">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#0099ff] text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'}`}
+                  className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-300 hover:text-white'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
-                {idx < 2 && <div className="w-px h-3 bg-slate-200 mx-0.5"></div>}
+                {idx < 2 && <div className="w-px h-3 bg-white/10 mx-0.5"></div>}
               </div>
             ))}
           </div>
           <a
             href="#contacto"
-            className="hidden sm:inline-flex items-center gap-2 bg-[#0099ff] text-white hover:bg-[#0077d6] px-6 md:px-8 py-3.5 md:py-3.5 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#005c99] text-white hover:bg-[#004b7a] px-6 md:px-8 py-3.5 md:py-3.5 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
           >
             <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
             {t.nav.portal}
           </a>
           <button
-            className="lg:hidden p-2 text-slate-800"
+            className="lg:hidden p-2 text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

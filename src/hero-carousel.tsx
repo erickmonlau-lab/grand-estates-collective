@@ -85,11 +85,11 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           className="absolute inset-0 w-full h-full object-cover object-[right_center] pointer-events-none opacity-80" 
         />
 
-        {/* 2. Degradado Oscuro Lateral y de fondo para legibilidad perfecta */}
+        {/* 2. Degradado Oscuro Lateral y de fondo para legibilidad perfecta (muy fuerte, no transparente) */}
         <div 
           className="absolute inset-0 pointer-events-none z-[1]"
           style={{
-            background: 'linear-gradient(to right, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.8) 45%, rgba(15, 23, 42, 0.5) 65%, rgba(15, 23, 42, 0.15) 85%, transparent 100%)'
+            background: 'linear-gradient(to right, #020617 0%, #020617 50%, rgba(2, 6, 23, 0.9) 75%, transparent 100%)'
           }}
         />
 

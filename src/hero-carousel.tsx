@@ -101,7 +101,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           {/* Eyebrow */}
           <motion.div
             variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: expo } } }}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full pl-1.5 pr-4 py-1.5 mb-5 md:mb-6"
+            className="inline-flex items-center gap-2 bg-[#0b1221]/60 backdrop-blur-md border border-white/5 rounded-full pl-1.5 pr-4 py-1.5 mb-5 md:mb-6 shadow-xl"
           >
             <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-[#0f172a] shrink-0">
               <Home className="w-3 h-3" strokeWidth={2.5} />
@@ -185,36 +185,32 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           >
             <motion.a
               href="#propiedades"
-              className="group flex items-center justify-between w-full bg-white hover:bg-slate-50 text-[#0f172a] pl-2 pr-6 py-2 rounded-full text-decoration-none shadow-lg"
+              className="group relative flex items-center justify-between w-full bg-white hover:bg-slate-50 text-[#0f172a] pl-2 pr-6 py-2 rounded-full text-decoration-none shadow-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1d4ed8] flex items-center justify-center text-white shrink-0 shadow-sm">
-                  <Home className="w-5 h-5" strokeWidth={2} />
-                </div>
-                <span className="font-bold text-[11px] sm:text-[12px] tracking-[0.15em] uppercase text-[#0f172a]">Ver propiedades</span>
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1d4ed8] flex items-center justify-center text-white shrink-0 shadow-sm relative z-10">
+                <Home className="w-5 h-5" strokeWidth={2} />
               </div>
-              <motion.span className="flex items-center text-[#0f172a]" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
+              <span className="absolute left-0 right-0 text-center font-bold text-[11px] sm:text-[12px] tracking-[0.15em] uppercase text-[#0f172a] pointer-events-none z-0">Ver propiedades</span>
+              <motion.span className="flex items-center text-[#0f172a] relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 stroke-[2]" />
               </motion.span>
             </motion.a>
 
             <motion.a
               href="#valuator-form"
-              className="group flex items-center justify-between w-full bg-gradient-to-r from-[#2563eb] to-[#8b5cf6] text-white pl-2 pr-6 py-2 rounded-full text-decoration-none shadow-[0_10px_30px_rgba(139,92,246,0.3)]"
+              className="group relative flex items-center justify-between w-full bg-gradient-to-r from-[#2563eb] to-[#8b5cf6] text-white pl-2 pr-6 py-2 rounded-full text-decoration-none shadow-[0_10px_30px_rgba(139,92,246,0.3)]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white shrink-0 shadow-inner">
-                  <Key className="w-5 h-5" strokeWidth={2} />
-                </div>
-                <span className="font-bold text-[11px] sm:text-[12px] tracking-[0.15em] uppercase text-white">Valorar mi inmueble</span>
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/20 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white shrink-0 shadow-inner relative z-10">
+                <Key className="w-5 h-5" strokeWidth={2} />
               </div>
-              <motion.span className="flex items-center text-white" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
+              <span className="absolute left-0 right-0 text-center font-bold text-[11px] sm:text-[12px] tracking-[0.15em] uppercase text-white pointer-events-none z-0">Valorar mi inmueble</span>
+              <motion.span className="flex items-center text-white relative z-10" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 stroke-[2]" />
               </motion.span>
             </motion.a>
@@ -230,14 +226,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           preserveAspectRatio="none"
           className="w-full h-[140px] sm:h-[180px] md:h-[250px]"
         >
-          {/* Glowing stroke */}
-          <path
-            fill="none"
-            stroke="rgba(255,255,255,1)"
-            strokeWidth="3"
-            d="M0,250 C 350,350 1000,50 1440,150"
-          />
-          {/* Main filled wave (matches stats banner slightly blueish background) */}
+          {/* Main filled wave */}
           <path
             fill="#eff6ff"
             d="M0,250 C 350,350 1000,50 1440,150 L1440,320 L0,320 Z"
@@ -259,7 +248,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             {STATS.map((s, i) => (
               <div key={i} className="flex flex-col items-center justify-center gap-2 sm:gap-3 px-1 sm:px-2 md:px-6 lg:px-8 text-center min-w-0">
                 <div className="shrink-0 flex items-center justify-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white shadow-[0_0_15px_rgba(37,99,235,0.15),inset_0_0_8px_rgba(37,99,235,0.05)] border border-blue-50 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#f8fafc] border border-[#e2e8f0] shadow-sm flex items-center justify-center">
                     <s.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] stroke-[1.5]" />
                   </div>
                 </div>
@@ -288,8 +277,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               </span>
             </div>
             {/* The thin curved line underneath */}
-            <svg width="120" height="10" viewBox="0 0 120 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-1 opacity-60">
-              <path d="M0 5C30 9 90 9 120 5" stroke="#3b82f6" strokeWidth="1" strokeLinecap="round"/>
+            <svg width="120" height="12" viewBox="0 0 120 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-1 opacity-50">
+              <path d="M0 6 Q 60 12 120 6" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
         </div>

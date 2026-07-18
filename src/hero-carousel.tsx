@@ -67,7 +67,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
         initial={{ scale: 1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0 }}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[80%_36%] md:object-center"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[98%_36%] md:object-center"
       />
 
       {/* Degradado oscuro para contrastar el texto */}
@@ -142,38 +142,38 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
           {/* Trust features row (Horizontal layout, Icon Left, Text Right) */}
           <motion.div
             variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-            className="flex flex-row items-center justify-start gap-4 sm:gap-6 mb-8 text-white w-full max-w-[600px] relative z-10"
+            className="grid grid-cols-3 gap-2 sm:gap-6 mb-8 text-white w-full max-w-[620px] relative z-10"
           >
             {/* Feature 1 */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
-                <Shield className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+            <div className="flex flex-row items-center gap-1.5 sm:gap-2.5 min-w-0">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/25 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
+                <Shield className="w-3.5 h-3.5 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>
-              <div className="flex flex-col text-[7px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.3] text-white/90">
-                <span>Confianza</span>
-                <span>Y Seguridad</span>
+              <div className="flex flex-col text-[6.5px] min-[360px]:text-[7.5px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.2] text-white/90 min-w-0">
+                <span className="block truncate">Confianza</span>
+                <span className="block text-white/60 truncate">Y Seguridad</span>
               </div>
             </div>
 
             {/* Feature 2 */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+            <div className="flex flex-row items-center gap-1.5 sm:gap-2.5 min-w-0">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/25 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
+                <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>
-              <div className="flex flex-col text-[7px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.3] text-white/90">
-                <span>Acompañamiento</span>
-                <span>Personalizado</span>
+              <div className="flex flex-col text-[6.5px] min-[360px]:text-[7.5px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.2] text-white/90 min-w-0">
+                <span className="block truncate">Acompañamiento</span>
+                <span className="block text-white/60 truncate">Personalizado</span>
               </div>
             </div>
 
             {/* Feature 3 */}
-            <div className="flex flex-row items-center gap-2">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
-                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={1.5} />
+            <div className="flex flex-row items-center gap-1.5 sm:gap-2.5 min-w-0">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/25 backdrop-blur-md flex items-center justify-center text-white shrink-0 shadow-sm">
+                <TrendingUp className="w-3.5 h-3.5 sm:w-5 sm:h-5" strokeWidth={1.5} />
               </div>
-              <div className="flex flex-col text-[7px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.3] text-white/90">
-                <span>Mejores</span>
-                <span>Oportunidades</span>
+              <div className="flex flex-col text-[6.5px] min-[360px]:text-[7.5px] sm:text-[9px] font-bold uppercase tracking-wider leading-[1.2] text-white/90 min-w-0">
+                <span className="block truncate">Mejores</span>
+                <span className="block text-white/60 truncate">Oportunidades</span>
               </div>
             </div>
           </motion.div>

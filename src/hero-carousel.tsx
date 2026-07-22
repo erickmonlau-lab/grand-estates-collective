@@ -53,19 +53,17 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       {/* ── Completely White Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* ── Bold Black/Dark Hand-Drawn Building Sketches (Decorations in corners) ── */}
+      {/* ── Soft Blueprint/Technical Drawing Style (No filters, using original blue-gray pencil line art style) ── */}
       <div 
-        className="absolute left-[-60px] bottom-[-20px] w-[350px] h-[350px] z-0 opacity-[0.06] pointer-events-none select-none bg-contain bg-no-repeat bg-center"
+        className="absolute left-[-60px] bottom-[-20px] w-[350px] h-[350px] z-0 opacity-15 pointer-events-none select-none bg-contain bg-no-repeat bg-center"
         style={{ 
-          backgroundImage: `url(${gesgramaBuilding})`,
-          filter: 'brightness(0) contrast(100%)' // Converts drawing to solid black outline
+          backgroundImage: `url(${gesgramaBuilding})`
         }}
       />
       <div 
-        className="absolute right-[-80px] top-[10%] w-[380px] h-[380px] z-0 opacity-[0.06] pointer-events-none select-none bg-contain bg-no-repeat bg-center"
+        className="absolute right-[-80px] top-[10%] w-[380px] h-[380px] z-0 opacity-15 pointer-events-none select-none bg-contain bg-no-repeat bg-center"
         style={{ 
-          backgroundImage: `url(${gesgramaBuilding})`,
-          filter: 'brightness(0) contrast(100%)' // Converts drawing to solid black outline
+          backgroundImage: `url(${gesgramaBuilding})`
         }}
       />
 

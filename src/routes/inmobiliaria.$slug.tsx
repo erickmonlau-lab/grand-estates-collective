@@ -15,8 +15,23 @@ const SITE_DOMAIN = "https://www.gesgrama.es";
 function PropertyDetail() {
   const { slug } = Route.useParams();
   const property = properties.find((p) => p.slug === slug);
-  const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
+  const [language, setLanguage] = useState<"es" | "en" | "ca">(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("language");
+      if (stored === "es" || stored === "en" || stored === "ca") {
+        return stored;
+      }
+    }
+    return "es";
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const changeLanguage = (lang: "es" | "en" | "ca") => {
+    setLanguage(lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("language", lang);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -25,7 +40,7 @@ function PropertyDetail() {
         setLanguage(stored);
       }
     }
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -150,7 +165,7 @@ function PropertyDetail() {
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
-                  onClick={() => setLanguage(lang)}
+                  onClick={() => changeLanguage(lang)}
                   className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
                 >
                   {lang.toUpperCase()}

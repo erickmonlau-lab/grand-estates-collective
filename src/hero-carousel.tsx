@@ -223,11 +223,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       <div className="max-w-[1280px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8">
         
         {/* Top/Main Hero Content Container */}
-        <div className="max-w-xl text-left py-2 sm:py-4 relative">
-          
-          {/* Subtle Blue & Dark Soft Glow Radial Backdrop for Maximum Legibility */}
-          <div className="absolute -top-10 -left-10 w-[120%] h-[130%] bg-[#1e3a8a]/40 md:bg-[#1d4ed8]/30 rounded-full blur-3xl pointer-events-none -z-10" />
-
+        <div className="max-w-xl text-left py-2 sm:py-4">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -239,15 +235,26 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               <span>{t.heroCarousel.tag}</span>
             </div>
 
-            {/* Main Title H1 - Accent 'más cerca.' in Brand Blue */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+            {/* Main Title H1 - ALWAYS UNTRANSLATED in Spanish with Glyph-Level Glowing Text-Shadow */}
+            <h1 
+              className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans"
+              style={{ textShadow: "0 0 20px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.9)" }}
+            >
               Tu próximo<br />
               hogar,<br />
-              <span className="text-[#3b82f6] drop-shadow-[0_2px_10px_rgba(37,99,235,0.8)]">más cerca.</span>
+              <span 
+                className="text-[#3b82f6]"
+                style={{ textShadow: "0 0 20px rgba(37, 99, 235, 0.95), 0 0 35px rgba(29, 78, 216, 0.85), 0 2px 6px rgba(0, 0, 0, 0.9)" }}
+              >
+                más cerca.
+              </span>
             </h1>
 
-            {/* Subtitle with soft dark background pill/contrast */}
-            <p className="text-white text-sm sm:text-base md:text-lg max-w-md mb-6 font-semibold leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] bg-slate-950/20 backdrop-blur-xs p-3.5 rounded-2xl border border-white/10">
+            {/* Subtitle with Glyph-Level Text Shadow Blur */}
+            <p 
+              className="text-white/95 text-sm sm:text-base md:text-lg max-w-md mb-6 font-semibold leading-relaxed font-sans"
+              style={{ textShadow: "0 0 16px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.9)" }}
+            >
               {t.heroCarousel.subtitle}
             </p>
 
@@ -274,7 +281,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </div>
 
             {/* Trust Proof */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white/95 drop-shadow-xs">
+            <div 
+              className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white/95"
+              style={{ textShadow: "0 0 12px rgba(0, 0, 0, 0.95)" }}
+            >
               <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
               <span>{t.heroCarousel.trustBadge}</span>
             </div>

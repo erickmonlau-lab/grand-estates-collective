@@ -415,7 +415,72 @@ export const translations = {
       btnPrimary: "Valorar mi propiedad",
       btnSecondary: "Hablar con un asesor"
     },
-    propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
+    propertiesData: {
+      "prop-1": {
+        name: "Piso en l'Eixample",
+        type: "Piso",
+        location: "Eixample",
+        floor: "4ª planta con ascensor",
+        description: "Espectacular piso reformado en pleno corazón de l'Eixample, conservando la bóveda catalana y elementos originales. Cuenta con un salón muy luminoso gracias a sus grandes ventanales. La cocina está totalmente equipada con electrodomésticos de alta gama y diseño abierto. Dispone de tres habitaciones espaciosas, dos de ellas con baño en suite. Materiales de primera calidad y aislamiento acústico inmejorable.",
+        features: ["Bóveda catalana restaurada", "Aire acondicionado central", "Suelo de parquet natural", "Ventanas Climalit oscilobatientes", "Conserje 24h"]
+      },
+      "prop-2": {
+        name: "Ático con terraza",
+        type: "Ático",
+        location: "Sarrià-Sant Gervasi",
+        floor: "7ª planta (Ático)",
+        description: "Exclusivo ático en el prestigioso distrito de Sarrià-Sant Gervasi. Lo más destacado de esta propiedad es su impresionante terraza de 40m² con vistas despejadas a la ciudad, perfecta para disfrutar del buen tiempo. El inmueble destaca por sus acabados premium, excelente iluminación natural y espacios abiertos. Cuatro amplios dormitorios y tres cuartos de baño de diseño. Plaza de garaje doble incluida.",
+        features: ["Terraza privada 40m²", "Plaza de garaje doble", "Acabados premium", "Orientación Sur", "Trastero incluido"]
+      },
+      "prop-3": {
+        name: "Local comercial en Gràcia",
+        type: "Local comercial",
+        location: "Gràcia",
+        floor: "Planta baja",
+        description: "Excelente oportunidad de inversión en el dinámico barrio de Gràcia. Este local a pie de calle cuenta con un gran escaparate acristalado de 5 metros que ofrece máxima visibilidad en una zona de mucho tránsito peatonal. Distribuido en una gran sala diáfana, un almacén posterior y un cuarto de baño.",
+        features: ["A pie de calle", "Gran escaparate (5m)", "Espacio diáfano", "Paso constante de peatones", "A 2 min del metro"]
+      },
+      "prop-4": {
+        name: "Chalet independiente en Pedralbes",
+        type: "Chalet",
+        location: "Pedralbes",
+        floor: "Varias plantas",
+        description: "Majestuoso chalet independiente situado en la tranquila y exclusiva zona de Pedralbes. Rodeado de zonas verdes, esta propiedad ofrece privacidad absoluta. Dispone de un gran jardín consolidado con piscina privada, zona chill-out y porche. En el interior, encontramos amplios salones, cocina office con isla, cinco dormitorios dobles y sótano con bodega.",
+        features: ["Piscina privada", "Jardín 800m²", "Bodega", "Seguridad 24h", "Garaje para 3 coches"]
+      },
+      "prop-5": {
+        name: "Piso exterior luminoso en Sant Antoni",
+        type: "Piso",
+        location: "Sant Antoni",
+        floor: "3ª planta con ascensor",
+        description: "Precioso piso exterior a escasos metros del Mercado de Sant Antoni. La vivienda destaca por su excelente luminosidad en todas las estancias gracias a sus amplios ventanales. Ha sido reformada recientemente cuidando hasta el más mínimo detalle.",
+        features: ["Cerca del Mercado", "Mucha luz natural", "Armarios empotrados", "Cocina americana", "Rentabilidad alta"]
+      },
+      "prop-6": {
+        name: "Ático dúplex con solárium",
+        type: "Ático",
+        location: "Gràcia",
+        floor: "5ª planta (Dúplex)",
+        description: "Espectacular ático dúplex en Vila de Gràcia con solárium privado de 30m² y vistas panorámicas. Salón comedor de doble altura con grandes ventanales. Cocina de diseño totalmente equipada y acabados de lujo.",
+        features: ["Solárium privado 30m²", "Doble altura", "Vistas despejadas", "Ascensor", "Reformado a estrenar"]
+      },
+      "prop-7": {
+        name: "Oficina corporativa en Diagonal",
+        type: "Oficina",
+        location: "Eixample",
+        floor: "1ª planta principal",
+        description: "Oficina señorial representativa en la Avenida Diagonal. Techos altos con molduras originales, suelos de mosaico hidráulico restaurado y cableado de red de alta velocidad instalado.",
+        features: ["Finca regia", "Excelente ubicación", "Red de fibra instalada", "Mosaico hidráulico", "Luz natural"]
+      },
+      "prop-8": {
+        name: "Local cerca de Sagrada Família",
+        type: "Local comercial",
+        location: "Eixample",
+        floor: "Planta baja",
+        description: "Local comercial en rentabilidad en zona turística privilegiada junto a la Sagrada Família. Salida de humos aprobada, amplia fachada acristalada y excelente afluencia de peatones todo el año.",
+        features: ["Alta rentabilidad", "Salida de humos", "Zona muy turística", "Fachada de 6 metros", "Inversión asegurada"]
+      }
+    }
   },
   en: {
     nav: {
@@ -833,7 +898,72 @@ export const translations = {
       btnPrimary: "Value my property",
       btnSecondary: "Speak with an advisor"
     },
-    propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
+    propertiesData: {
+      "prop-1": {
+        name: "Flat in l'Eixample",
+        type: "Flat",
+        location: "Eixample",
+        floor: "4th floor with elevator",
+        description: "Spectacular renovated flat in the heart of l'Eixample, preserving Catalan vaults and original features. Very bright living room with large windows. Fully equipped kitchen with high-end appliances.",
+        features: ["Restored Catalan vault", "Central AC", "Natural parquet floor", "Double glazed windows", "24h Concierge"]
+      },
+      "prop-2": {
+        name: "Penthouse with terrace",
+        type: "Penthouse",
+        location: "Sarrià-Sant Gervasi",
+        floor: "7th floor (Penthouse)",
+        description: "Exclusive penthouse in Sarrià-Sant Gervasi featuring a 40m² private terrace with unobstructed city views. Four spacious bedrooms and three designer bathrooms. Double garage space included.",
+        features: ["40m² Private terrace", "Double garage space", "Premium finishes", "South facing", "Storage room included"]
+      },
+      "prop-3": {
+        name: "Commercial premises in Gràcia",
+        type: "Commercial premises",
+        location: "Gràcia",
+        floor: "Ground floor",
+        description: "Great investment opportunity in vibrant Gràcia. Street-level premises with 5-meter glass showcase for maximum visibility.",
+        features: ["Street level", "5m Showcase", "Open plan space", "High foot traffic", "2 min from metro"]
+      },
+      "prop-4": {
+        name: "Detached villa in Pedralbes",
+        type: "Villa",
+        location: "Pedralbes",
+        floor: "Multiple floors",
+        description: "Majestic detached villa in exclusive Pedralbes. Private garden with pool, chill-out zone, five double bedrooms, and wine cellar.",
+        features: ["Private pool", "800m² Garden", "Wine cellar", "24h Security", "3-Car garage"]
+      },
+      "prop-5": {
+        name: "Bright exterior flat in Sant Antoni",
+        type: "Flat",
+        location: "Sant Antoni",
+        floor: "3rd floor with elevator",
+        description: "Beautiful exterior flat steps away from Sant Antoni Market. Highly bright rooms, recently renovated with top quality materials.",
+        features: ["Near Sant Antoni Market", "Abundant natural light", "Built-in wardrobes", "Open kitchen", "High yield investment"]
+      },
+      "prop-6": {
+        name: "Duplex penthouse with solarium",
+        type: "Penthouse",
+        location: "Gràcia",
+        floor: "5th floor (Duplex)",
+        description: "Stunning duplex penthouse in Vila de Gràcia with 30m² private solarium and panoramic views. Double height living area.",
+        features: ["30m² Private solarium", "Double height ceiling", "Clear views", "Elevator", "Brand new renovation"]
+      },
+      "prop-7": {
+        name: "Corporate office on Diagonal",
+        type: "Office",
+        location: "Eixample",
+        floor: "1st main floor",
+        description: "Stately corporate office on Avenida Diagonal. High ceilings, original mouldings, restored mosaic tiles, and high-speed fiber network.",
+        features: ["Stately building", "Prime location", "Fiber network installed", "Hydraulic mosaic", "Natural light"]
+      },
+      "prop-8": {
+        name: "Premises near Sagrada Família",
+        type: "Commercial premises",
+        location: "Eixample",
+        floor: "Ground floor",
+        description: "High yield commercial premises next to Sagrada Família. Approved smoke outlet, wide glass facade, and high year-round tourist traffic.",
+        features: ["High ROI", "Smoke extraction", "Touristic hotspot", "6-meter Facade", "Secure investment"]
+      }
+    }
   },
   ca: {
     nav: {
@@ -1251,6 +1381,71 @@ export const translations = {
       btnPrimary: "Valorar el meu immoble",
       btnSecondary: "Parlar amb un assessor"
     },
-    propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
+    propertiesData: {
+      "prop-1": {
+        name: "Pis a l'Eixample",
+        type: "Pis",
+        location: "Eixample",
+        floor: "4a planta amb ascensor",
+        description: "Espectacular pis reformat al cor de l'Eixample, conservant la volta catalana i elements originals. Compta amb un saló molt lluminós gràcies a les seves grans finestres.",
+        features: ["Volta catalana restaurada", "Aire condicionat central", "Sòl de parquet natural", "Finestres Climalit", "Conserge 24h"]
+      },
+      "prop-2": {
+        name: "Àtic amb terrassa",
+        type: "Àtic",
+        location: "Sarrià-Sant Gervasi",
+        floor: "7a planta (Àtic)",
+        description: "Exclusiu àtic al prestigiós districte de Sarrià-Sant Gervasi amb terrassa privada de 40m² i vistes a la ciutat. Quatre dormitoris amplis i tres banys de disseny.",
+        features: ["Terrassa privada 40m²", "Plaça de garatge doble", "Acabats prèmium", "Orientació Sud", "Traster inclòs"]
+      },
+      "prop-3": {
+        name: "Local comercial a Gràcia",
+        type: "Local comercial",
+        location: "Gràcia",
+        floor: "Planta baixa",
+        description: "Excel·lent oportunitat d'inversió al dinàmic barri de Gràcia. A peu de carrer amb gran aparador de 5 metres i màxima visibilitat.",
+        features: ["A peu de carrer", "Gran aparador (5m)", "Espai diàfan", "Pas constant de vianants", "A 2 min del metro"]
+      },
+      "prop-4": {
+        name: "Xalet independent a Pedralbes",
+        type: "Xalet",
+        location: "Pedralbes",
+        floor: "Diverses plantes",
+        description: "Majestuós xalet independent a Pedralbes. Jardí amb piscina privada, zona chill-out, cinc dormitoris dobles i celler.",
+        features: ["Piscina privada", "Jardí 800m²", "Celler", "Seguretat 24h", "Garatge per a 3 cotxes"]
+      },
+      "prop-5": {
+        name: "Pis exterior lluminós a Sant Antoni",
+        type: "Pis",
+        location: "Sant Antoni",
+        floor: "3a planta amb ascensor",
+        description: "Preciós pis exterior a pocs metres del Mercat de Sant Antoni. Destaca per la seva lluminositat i reforma recents.",
+        features: ["A prop del Mercat", "Molta llum natural", "Armaris de paret", "Cuina americana", "Alta rendibilitat"]
+      },
+      "prop-6": {
+        name: "Àtic dúplex amb solàrium",
+        type: "Àtic",
+        location: "Gràcia",
+        floor: "5a planta (Dúplex)",
+        description: "Espectacular àtic dúplex a Vila de Gràcia amb solàrium privat de 30m² i vistes panoràmiques. Saló menjador de doble alçada.",
+        features: ["Solàrium privat 30m²", "Doble alçada", "Vistes buidades", "Ascensor", "Reformat per estrenar"]
+      },
+      "prop-7": {
+        name: "Oficina corporativa a Diagonal",
+        type: "Oficina",
+        location: "Eixample",
+        floor: "1a planta principal",
+        description: "Oficina senyorial representativa a l'Avinguda Diagonal. Sostres alts amb motllures originals i mosaic hidràulic restaurat.",
+        features: ["Finca règia", "Excel·lent ubicació", "Xarxa de fibra instal·lada", "Mosaic hidràulic", "Llum natural"]
+      },
+      "prop-8": {
+        name: "Local a prop de Sagrada Família",
+        type: "Local comercial",
+        location: "Eixample",
+        floor: "Planta baixa",
+        description: "Local comercial en rendibilitat en zona turística privilegiada al costat de la Sagrada Família. Sortida de fums aprovada.",
+        features: ["Alta rendibilitat", "Sortida de fums", "Zona molt turística", "Façana de 6 metres", "Inversió meva/segura"]
+      }
+    }
   }
 } as const;

@@ -219,6 +219,28 @@ function Index() {
       return updated;
     });
   };
+
+  const getTranslatedFilterLabel = (category: 'tipo' | 'zona' | 'habitaciones' | 'precio', val: string) => {
+    if (category === 'tipo') {
+      if (val === 'Cualquier tipo') return t.properties.anyType;
+      if (val === 'Piso') return language === 'ca' ? 'Pis' : language === 'en' ? 'Flat' : 'Piso';
+      if (val === 'Ático') return language === 'ca' ? 'Àtic' : language === 'en' ? 'Penthouse' : 'Ático';
+      if (val === 'Local comercial') return language === 'ca' ? 'Local comercial' : language === 'en' ? 'Commercial premises' : 'Local comercial';
+      if (val === 'Chalet') return language === 'ca' ? 'Xalet' : language === 'en' ? 'Villa' : 'Chalet';
+    }
+    if (category === 'zona') {
+      if (val === 'Cualquier zona') return t.properties.allZones;
+    }
+    if (category === 'habitaciones') {
+      if (val === 'Cualquier número') return t.properties.anyBedrooms;
+      if (val.includes('+')) return `${val.replace('+', '')}+ ${t.properties.bedrooms.toLowerCase()}`;
+    }
+    if (category === 'precio') {
+      if (val === 'Cualquier precio') return t.properties.anyPrice;
+      if (val.endsWith('€')) return `< ${val}`;
+    }
+    return val;
+  };
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
     home: <Home className="w-7 h-7" />,
@@ -577,7 +599,7 @@ function Index() {
                     </div>
                     <div>
                       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{consoleFilters.tipo}</div>
+                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
                     </div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
@@ -644,7 +666,7 @@ function Index() {
                     </div>
                     <div>
                       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{consoleFilters.zona}</div>
+                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
                     </div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
@@ -708,7 +730,7 @@ function Index() {
                     </div>
                     <div>
                       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{consoleFilters.habitaciones}</div>
+                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
                     </div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
@@ -777,7 +799,7 @@ function Index() {
                     </div>
                     <div>
                       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{consoleFilters.precio}</div>
+                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
                     </div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
@@ -879,6 +901,7 @@ function Index() {
 
             const renderPropertyCard = (property: any, idx: number) => {
               const isFav = favorites.includes(property.id);
+              const pData = (t.propertiesData as any)?.[property.id] || property;
 
               return (
                 <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
@@ -891,7 +914,7 @@ function Index() {
                   >
                     {/* Image Block */}
                     <div className="relative h-[180px] sm:h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
-                      <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                      <img src={property.image} alt={pData.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                       
                       {/* Heart Favorite Button with LocalStorage Persistence */}
                       <button
@@ -933,15 +956,15 @@ function Index() {
                     {/* Soft colored type badge */}
                     <div className="mb-3.5">
                       {(() => {
-                        const type = property.type || "Piso";
+                        const type = pData.type || property.type || "Piso";
                         let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
-                        if (type === "Ático") {
+                        if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
                           badgeClass = "bg-sky-100 text-sky-800";
-                        } else if (type === "Chalet") {
+                        } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
                           badgeClass = "bg-indigo-100 text-indigo-900";
-                        } else if (type === "Local comercial") {
+                        } else if (type.includes("Local")) {
                           badgeClass = "bg-emerald-100 text-emerald-900";
-                        } else if (type === "Oficina") {
+                        } else if (type.includes("Oficina") || type.includes("Office")) {
                           badgeClass = "bg-amber-100 text-amber-900";
                         }
                         return (
@@ -952,10 +975,10 @@ function Index() {
                       })()}
                     </div>
 
-                    <h3 className="text-base font-bold text-onyx mb-1.5">{property.name}</h3>
+                    <h3 className="text-base font-bold text-onyx mb-1.5">{pData.name}</h3>
                     <p className="text-sm text-slate-500 font-medium flex items-center gap-1.5 mb-6">
                       <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                      {property.location}
+                      {pData.location}
                     </p>
 
                     {/* Features Footer */}

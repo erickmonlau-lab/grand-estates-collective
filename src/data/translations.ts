@@ -61,8 +61,8 @@ export const translations = {
     },
     valorador: {
       tag: "Herramienta Inteligente",
-      title: "Consola de Valoración de Inmuebles",
-      titleAccent: "de Inmuebles",
+      title: "Valoración Inteligente",
+      titleAccent: "de tu Inmueble",
       subtitle: "Obtén una estimación precisa del precio de mercado en menos de 1 minuto.",
       modoVenta: "Valorar para Venta",
       modoAlquiler: "Valorar para Alquiler",
@@ -357,6 +357,13 @@ export const translations = {
       callBtn: "Llamar",
       ref: "Ref:"
     },
+    finalCta: {
+      tag: "Comienza Hoy",
+      title: "¿Listo para dar el siguiente paso?",
+      subtitle: "Ya sea para comprar, vender o administrar tu propiedad, nuestro equipo de expertos en Barcelona está a tu disposición.",
+      btnPrimary: "Valorar mi propiedad",
+      btnSecondary: "Hablar con un asesor"
+    },
     propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
   },
   en: {
@@ -421,8 +428,8 @@ export const translations = {
     },
     valorador: {
       tag: "Smart Tool",
-      title: "Property Valuation Console",
-      titleAccent: "Properties",
+      title: "Smart Valuation",
+      titleAccent: "of your Property",
       subtitle: "Get an accurate market price estimation in less than 1 minute.",
       modoVenta: "Value for Sale",
       modoAlquiler: "Value for Rent",
@@ -717,6 +724,13 @@ export const translations = {
       callBtn: "Call",
       ref: "Ref:"
     },
+    finalCta: {
+      tag: "Start Today",
+      title: "Ready to take the next step?",
+      subtitle: "Whether to buy, sell or manage your property, our team of experts in Barcelona is at your disposal.",
+      btnPrimary: "Value my property",
+      btnSecondary: "Speak with an advisor"
+    },
     propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
   },
   ca: {
@@ -781,8 +795,8 @@ export const translations = {
     },
     valorador: {
       tag: "Eina Intel·ligent",
-      title: "Consola de Valoració d'Immobles",
-      titleAccent: "d'Immobles",
+      title: "Valoració Intel·ligent",
+      titleAccent: "del teu Immoble",
       subtitle: "Obtingui una estimació precisa del preu de mercat en menys de 1 minut.",
       modoVenta: "Valorar per a Venda",
       modoAlquiler: "Valorar per a Lloguer",
@@ -1076,6 +1090,13 @@ export const translations = {
       whatsappBtn: "WhatsApp",
       callBtn: "Trucar",
       ref: "Ref:"
+    },
+    finalCta: {
+      tag: "Comença Avui",
+      title: "A punt per fer el següent pas?",
+      subtitle: "Ja sigui per comprar, vendre o administrar la teva propietat, el nostre equip d'experts a Barcelona està a la teva disposició.",
+      btnPrimary: "Valorar el meu immoble",
+      btnSecondary: "Parlar amb un assessor"
     },
     propertiesData: {} as Record<string, { name: string; type: string; location: string; floor: string; description: string; features: string[] }>
   }

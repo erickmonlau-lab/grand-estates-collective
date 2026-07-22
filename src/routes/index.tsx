@@ -9,6 +9,8 @@ import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.jpg";
 import gallery1 from "@/assets/gallery-1.webp";
 import { FooterAnimationGSAP } from '@/components/FooterAnimationGSAP';
+import WhatsAppButton from '@/components/WhatsAppButton';
+import CookieBanner from '@/components/CookieBanner';
 
 export const Route = createFileRoute("/")(  {
   component: Index,
@@ -298,26 +300,26 @@ function Index() {
         </AnimatePresence>
       </motion.nav>
 
-      {/* â”€â”€ HERO â”€â”€ */}
+      {/* ── HERO ── */}
       <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
-      {/* â”€â”€ VALORADOR DE INMUEBLES (EXACT REFERENCE 2 & 3 MOCKUP) â”€â”€ */}
-      <section id="valuator-form" className="relative overflow-hidden bg-white text-onyx py-16 md:py-24">
-        <div className="bg-[#8b97a8] rounded-[28px] md:rounded-[36px] shadow-sm p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
+      {/* ── VALORADOR DE INMUEBLES (BG SWAPPED TO BLUE - POINT 4) ── */}
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14">
+        <div className="bg-[#005c99] rounded-[28px] md:rounded-[36px] shadow-xl p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* LEFT COLUMN: Form */}
             <div className="lg:col-span-7 flex flex-col justify-center">
-              <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#1d4ed8] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs">
-                <Star className="w-3.5 h-3.5 fill-[#1d4ed8]" />
+              <span className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs backdrop-blur-md">
+                <Star className="w-3.5 h-3.5 fill-white text-white" />
                 {t.valorador.tag}
               </span>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0f172a] mb-4 leading-[1.1] tracking-tight font-sans">
-                {t.valorador.title} <span className="text-[#2563eb]">{t.valorador.titleAccent}</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-[1.1] tracking-tight font-sans">
+                {t.valorador.title} <span className="text-blue-200">{t.valorador.titleAccent}</span>
               </h2>
 
-              <p className="text-slate-700 text-base md:text-17px max-w-[500px] mb-8 leading-relaxed font-semibold">
+              <p className="text-blue-100 text-base md:text-17px max-w-[500px] mb-8 leading-relaxed font-semibold">
                 {t.valorador.subtitle}
               </p>
 
@@ -379,13 +381,13 @@ function Index() {
                     </button>
 
                     {/* Footer Badges */}
-                    <div className="flex flex-wrap items-center gap-6 text-[#0f172a]/90 text-sm font-bold">
+                    <div className="flex flex-wrap items-center gap-6 text-white/90 text-sm font-bold">
                       <span className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
+                        <Check className="w-4 h-4 text-emerald-300 stroke-[3]" />
                         {t.valorador.sinCompromiso}
                       </span>
                       <span className="flex items-center gap-2">
-                        <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
+                        <Star className="w-4 h-4 text-amber-300 fill-amber-300" />
                         {t.valorador.resultadoInmediato}
                       </span>
                     </div>
@@ -873,29 +875,29 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ SERVICES SECTION (REFERENCE IMAGE 4 STYLE) â”€â”€ */}
-      <section id="servicios" className="py-16 md:py-24 px-4 md:px-8 bg-[#005c99] text-white">
-        <div className="max-w-[1300px] mx-auto">
+      {/* ── SERVICES SECTION (SWAPPED TO LIGHT BUBBLE CARD - POINTS 2 & 4) ── */}
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="text-center mb-14">
             <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-white/20 text-white backdrop-blur-md border border-white/10 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-sm">
+              <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
                 <Building2 className="w-3.5 h-3.5" />
                 {t.servicios.tag}
               </span>
             </Reveal>
             <Reveal>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-4 tracking-tight font-sans">
-                {t.servicios.title1} <span className="text-blue-200">{t.servicios.title2}</span>
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-[#0f172a] mb-4 tracking-tight font-sans">
+                {t.servicios.title1} <span className="text-[#2563eb]">{t.servicios.title2}</span>
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-blue-100 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+              <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
           </div>
 
-          {/* Grid de 4 tarjetas Bubble blancas */}
+          {/* Grid de 4 tarjetas Bubble en gris suave */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {t.servicios.items.map((item, i) => {
               const icons = [
@@ -1179,27 +1181,28 @@ function Index() {
                 "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
               ];
               return (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="bg-white rounded-3xl p-5 flex flex-col h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4">
-                    <img src={imgs[i]} alt={post.titulo} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  </div>
-                  <div className="p-2 flex flex-col flex-1">
-                    <div className="flex items-center gap-3 text-[11px] font-bold mb-2.5">
-                      <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{post.categoria}</span>
-                      <span className="text-slate-400 font-medium">{post.fecha}</span>
+                <Reveal key={i} delay={i * 0.1}>
+                  <div className="bg-white rounded-3xl p-5 flex flex-col h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4">
+                      <img src={imgs[i]} alt={post.titulo} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     </div>
-                    <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors">{post.titulo}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1">{post.resumen}</p>
-                    <div className="mt-auto pt-2">
-                      <span className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                        {t.noticias.seguirLeyendo} <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                    <div className="p-2 flex flex-col flex-1">
+                      <div className="flex items-center gap-3 text-[11px] font-bold mb-2.5">
+                        <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{post.categoria}</span>
+                        <span className="text-slate-400 font-medium">{post.fecha}</span>
+                      </div>
+                      <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors">{post.titulo}</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1">{post.resumen}</p>
+                      <div className="mt-auto pt-2">
+                        <span className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                          {t.noticias.seguirLeyendo} <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Reveal>
-            )})}
+                </Reveal>
+              );
+            })}
           </div>
 
           <div className="text-center">
@@ -1211,68 +1214,70 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ (MODO OSCURO - DARK NAVY BUBBLES) â”€â”€ */}
+      {/* ── FAQ (FLOATING DARK NAVY BUBBLE CARD - POINT 3 FIX) ── */}
       <section 
         id="faq" 
-        className="py-24 md:py-32 px-6 md:px-12 bg-[#0f172a] text-white"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14"
       >
-        <div className="max-w-3xl mx-auto flex flex-col items-center">
-          <Reveal>
-            <div className="text-center mb-14">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563eb]/20 flex items-center justify-center mx-auto mb-4 text-[#60a5fa]">
-                <MessageCircle className="w-6 h-6" />
+        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/10 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+          <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
+            <Reveal>
+              <div className="text-center mb-14">
+                <div className="w-12 h-12 rounded-2xl bg-[#2563eb]/20 flex items-center justify-center mx-auto mb-4 text-[#60a5fa]">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb]/20 text-[#60a5fa] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
+                  {t.faq.tag}
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold leading-tight text-white tracking-tight font-serif mb-3">
+                  {t.faq.title} <span className="text-[#60a5fa] italic font-serif">{t.faq.titleAccent}</span>
+                </h2>
+                <p className="text-slate-300 text-base md:text-lg font-medium">
+                  {t.faq.subtitle}
+                </p>
               </div>
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb]/20 text-[#60a5fa] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                {t.faq.tag}
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight text-white tracking-tight font-serif mb-3">
-                {t.faq.title} <span className="text-[#60a5fa] italic font-serif">{t.faq.titleAccent}</span>
-              </h2>
-              <p className="text-slate-300 text-base md:text-lg font-medium">
-                {t.faq.subtitle}
-              </p>
-            </div>
-          </Reveal>
+            </Reveal>
 
-          <div className="w-full flex flex-col gap-4 mb-10">
-            {t.faq.items.map((item, i) => {
-              const isActive = activeFaq === i;
-              return (
-                <Reveal key={i} delay={i * 0.08}>
-                  <div 
-                    onClick={() => setActiveFaq(isActive ? null : i)}
-                    className="cursor-pointer bg-[#1e293b]/70 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:px-8 md:py-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-white/20 group"
-                  >
-                    <div className="flex justify-between items-center gap-6">
-                      <h3 className="font-bold text-white text-base md:text-lg pr-4">{item.q}</h3>
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isActive ? 'bg-[#2563eb] text-white rotate-45' : 'bg-white/10 text-slate-300 hover:bg-white/20'}`}>
-                        <span className="text-lg font-bold leading-none">+</span>
+            <div className="w-full flex flex-col gap-4 mb-10">
+              {t.faq.items.map((item, i) => {
+                const isActive = activeFaq === i;
+                return (
+                  <Reveal key={i} delay={i * 0.08}>
+                    <div 
+                      onClick={() => setActiveFaq(isActive ? null : i)}
+                      className="cursor-pointer bg-[#1e293b]/70 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:px-8 md:py-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-white/20 group"
+                    >
+                      <div className="flex justify-between items-center gap-6">
+                        <h3 className="font-bold text-white text-base md:text-lg pr-4">{item.q}</h3>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isActive ? 'bg-[#2563eb] text-white rotate-45' : 'bg-white/10 text-slate-300 hover:bg-white/20'}`}>
+                          <span className="text-lg font-bold leading-none">+</span>
+                        </div>
                       </div>
+                      <AnimatePresence>
+                        {isActive && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <p className="pt-4 text-slate-300 leading-relaxed font-medium text-sm md:text-base border-t border-white/10 mt-4">
+                              {item.a}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden"
-                        >
-                          <p className="pt-4 text-slate-300 leading-relaxed font-medium text-sm md:text-base border-t border-white/10 mt-4">
-                            {item.a}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
+                  </Reveal>
+                );
+              })}
+            </div>
 
-          <div className="text-center">
-            <a href="#contacto" className="inline-flex items-center gap-2 text-[#60a5fa] hover:text-white font-semibold text-sm hover:gap-3 transition-all">
-              {t.faq.askDoubt} <ArrowRight className="w-4 h-4" />
-            </a>
+            <div className="text-center">
+              <a href="#contacto" className="inline-flex items-center gap-2 text-[#60a5fa] hover:text-white font-semibold text-sm hover:gap-3 transition-all">
+                {t.faq.askDoubt} <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1309,9 +1314,9 @@ function Index() {
                     </div>
                     <div>
                       <div className="font-bold text-sm text-[#0f172a]">{t.cobertura.sedeCentral}</div>
-                      <div className="text-xs text-slate-500">Av. Diagonal, 490<br />08006 Barcelona</div>
-                      <a href="tel:+34934885858" className="inline-flex items-center gap-1.5 text-[#2563eb] font-bold text-xs mt-2">
-                        <Phone className="w-3.5 h-3.5" /> 934 885 858
+                      <div className="text-xs text-slate-500">Av. dels Banús, 49<br />08923 Santa Coloma de Gramenet, Barcelona</div>
+                      <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#2563eb] font-bold text-xs mt-2">
+                        <Phone className="w-3.5 h-3.5" /> 934 685 656
                       </a>
                     </div>
                   </div>
@@ -1369,6 +1374,41 @@ function Index() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ── FINAL CLOSING CTA BANNER (POINT 6 FIX) ── */}
+      <section id="final-cta" className="py-10 md:py-14 px-4 md:px-8 bg-white text-white">
+        <div className="bg-gradient-to-r from-[#005c99] to-[#2563eb] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/20 p-8 md:p-16 mx-auto max-w-[1300px] relative z-10 overflow-hidden text-center">
+          <Reveal>
+            <span className="inline-flex items-center gap-1.5 bg-white/20 text-white backdrop-blur-md border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 shadow-sm">
+              <Star className="w-3.5 h-3.5 fill-white text-white" />
+              {t.finalCta.tag}
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight font-sans max-w-3xl mx-auto">
+              {t.finalCta.title}
+            </h2>
+            <p className="text-blue-100 text-base md:text-xl max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+              {t.finalCta.subtitle}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+              <a
+                href="#valuator-form"
+                className="w-full sm:w-auto bg-white hover:bg-slate-100 text-[#005c99] px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
+              >
+                <Home className="w-4 h-4 text-[#005c99]" />
+                <span>{t.finalCta.btnPrimary}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href="#contacto"
+                className="w-full sm:w-auto bg-white/15 hover:bg-white/25 text-white border border-white/30 px-8 py-4 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Phone className="w-4 h-4 text-white" />
+                <span>{t.finalCta.btnSecondary}</span>
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -1465,6 +1505,10 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Utilities (Point 7 Fix) */}
+      <WhatsAppButton language={language} />
+      <CookieBanner language={language} />
 
     </div>
   );

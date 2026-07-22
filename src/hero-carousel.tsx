@@ -232,7 +232,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </svg>
 
         {/* Hero Family Photo (Right Side Masked with Organic Fade) */}
-        <div className="absolute right-0 top-0 w-full lg:w-[62%] h-full">
+        <div className="absolute right-0 top-0 w-full lg:w-[62%] h-[100vh] pointer-events-none select-none overflow-hidden">
           <img 
             src={heroBg} 
             alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Barcelona" 

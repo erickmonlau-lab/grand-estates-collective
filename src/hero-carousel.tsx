@@ -43,83 +43,143 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-// ── Designer Vector Building Sketches (Inline SVGs) ──
+// ── Designer Vector Building Sketches (Detailed High-End Line Art) ──
 const BuildingSketchLeft = () => (
-  <svg className="absolute left-[2%] bottom-[8%] w-[280px] h-[380px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 100 140" fill="none" stroke="currentColor" strokeWidth="0.6">
-    {/* Ground line */}
-    <line x1="0" y1="135" x2="100" y2="135" />
+  <svg className="absolute left-[1.5%] bottom-[5%] w-[320px] h-[450px] text-slate-300 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.5">
+    {/* Ground Baseline */}
+    <line x1="0" y1="150" x2="120" y2="150" strokeWidth="0.8" />
     
-    {/* Modern Building Facade Elevation */}
-    <rect x="15" y="15" width="70" height="120" rx="1.5" />
+    {/* Main Facade Elevation Outline */}
+    <rect x="20" y="20" width="80" height="130" rx="1.5" />
     
-    {/* Floor lines */}
-    <line x1="15" y1="45" x2="85" y2="45" strokeDasharray="2 2" strokeWidth="0.4" />
-    <line x1="15" y1="75" x2="85" y2="75" strokeDasharray="2 2" strokeWidth="0.4" />
-    <line x1="15" y1="105" x2="85" y2="105" strokeDasharray="2 2" strokeWidth="0.4" />
+    {/* Floor Slabs / Structural lines (Extended slightly past the building) */}
+    <line x1="15" y1="52" x2="105" y2="52" strokeWidth="0.4" />
+    <line x1="15" y1="84" x2="105" y2="84" strokeWidth="0.4" />
+    <line x1="15" y1="116" x2="105" y2="116" strokeWidth="0.4" />
     
-    {/* Modern Window Grid & Balconies */}
-    <rect x="25" y="25" width="12" height="12" rx="0.5" />
-    <rect x="63" y="25" width="12" height="12" rx="0.5" />
-    <rect x="25" y="55" width="12" height="12" rx="0.5" />
-    <rect x="63" y="55" width="12" height="12" rx="0.5" />
-    <rect x="25" y="85" width="12" height="12" rx="0.5" />
-    <rect x="63" y="85" width="12" height="12" rx="0.5" />
+    {/* Structural Columns on Ground Floor */}
+    <line x1="28" y1="116" x2="28" y2="150" strokeWidth="0.8" />
+    <line x1="48" y1="116" x2="48" y2="150" strokeWidth="0.8" />
+    <line x1="72" y1="116" x2="72" y2="150" strokeWidth="0.8" />
+    <line x1="92" y1="116" x2="92" y2="150" strokeWidth="0.8" />
     
-    {/* Balcony Railings */}
-    <line x1="22" y1="37" x2="40" y2="37" />
-    <line x1="22" y1="37" x2="22" y2="42" />
-    <line x1="40" y1="37" x2="40" y2="42" />
+    {/* Floor 3: Glass Curtain Wall with shading lines */}
+    <rect x="25" y="26" width="30" height="20" rx="0.5" />
+    <line x1="35" y1="26" x2="35" y2="46" strokeWidth="0.3" />
+    <line x1="45" y1="26" x2="45" y2="46" strokeWidth="0.3" />
+    {/* Shading / Reflection lines */}
+    <line x1="28" y1="42" x2="32" y2="30" strokeWidth="0.25" opacity="0.6" />
+    <line x1="38" y1="42" x2="42" y2="30" strokeWidth="0.25" opacity="0.6" />
     
-    <line x1="60" y1="37" x2="78" y2="37" />
-    <line x1="60" y1="37" x2="60" y2="42" />
-    <line x1="78" y1="37" x2="78" y2="42" />
+    <rect x="65" y="26" width="30" height="20" rx="0.5" />
+    <line x1="75" y1="26" x2="75" y2="46" strokeWidth="0.3" />
+    <line x1="85" y1="26" x2="85" y2="46" strokeWidth="0.3" />
+    <line x1="68" y1="42" x2="72" y2="30" strokeWidth="0.25" opacity="0.6" />
+    <line x1="78" y1="42" x2="82" y2="30" strokeWidth="0.25" opacity="0.6" />
 
-    <line x1="22" y1="67" x2="40" y2="67" />
-    <line x1="22" y1="67" x2="22" y2="72" />
-    <line x1="40" y1="67" x2="40" y2="72" />
+    {/* Floor 2: Double Balcony Unit */}
+    <rect x="25" y="58" width="28" height="20" rx="0.5" />
+    <rect x="67" y="58" width="28" height="20" rx="0.5" />
     
-    <line x1="60" y1="67" x2="78" y2="67" />
-    <line x1="60" y1="67" x2="60" y2="72" />
-    <line x1="78" y1="67" x2="78" y2="72" />
+    {/* Balcony structure with thin railings */}
+    <rect x="22" y="70" width="34" height="8" rx="0.5" fill="#f8fafc" />
+    <line x1="22" y1="74" x2="56" y2="74" strokeWidth="0.3" />
+    {[...Array(9)].map((_, i) => (
+      <line key={i} x1={25 + i * 3.5} y1="70" x2={25 + i * 3.5} y2="78" strokeWidth="0.25" />
+    ))}
 
-    {/* Door */}
-    <rect x="42" y="110" width="16" height="25" />
-    <circle cx="54" cy="122" r="0.7" fill="currentColor" />
+    <rect x="64" y="70" width="34" height="8" rx="0.5" fill="#f8fafc" />
+    <line x1="64" y1="74" x2="98" y2="74" strokeWidth="0.3" />
+    {[...Array(9)].map((_, i) => (
+      <line key={i} x1={67 + i * 3.5} y1="70" x2={67 + i * 3.5} y2="78" strokeWidth="0.25" />
+    ))}
 
-    {/* Architectural Axis Guides */}
-    <line x1="8" y1="5" x2="8" y2="135" strokeDasharray="3 3" strokeWidth="0.3" />
-    <line x1="92" y1="5" x2="92" y2="135" strokeDasharray="3 3" strokeWidth="0.3" />
+    {/* Floor 1: Large Windows & Center Atrium */}
+    <rect x="25" y="90" width="70" height="20" rx="0.5" />
+    <line x1="42" y1="90" x2="42" y2="110" strokeWidth="0.4" />
+    <line x1="78" y1="90" x2="78" y2="110" strokeWidth="0.4" />
+    {/* Shading */}
+    <line x1="30" y1="106" x2="36" y2="94" strokeWidth="0.2" opacity="0.5" />
+    <line x1="48" y1="106" x2="54" y2="94" strokeWidth="0.2" opacity="0.5" />
+    <line x1="62" y1="106" x2="68" y2="94" strokeWidth="0.2" opacity="0.5" />
+    <line x1="84" y1="106" x2="90" y2="94" strokeWidth="0.2" opacity="0.5" />
+
+    {/* Ground Floor Entry Lobby */}
+    <rect x="52" y="124" width="16" height="26" rx="0.5" />
+    <line x1="60" y1="124" x2="60" y2="150" strokeWidth="0.4" />
+    <circle cx="56" cy="137" r="0.6" fill="currentColor" />
+    <circle cx="64" cy="137" r="0.6" fill="currentColor" />
+
+    {/* Architectural Axes & Circles at Top */}
+    <line x1="28" y1="12" x2="28" y2="150" strokeDasharray="3 3" strokeWidth="0.3" opacity="0.7" />
+    <circle cx="28" cy="8" r="3" />
+    <text x="28" y="10.5" className="fill-slate-500 font-mono text-[6px] font-bold" textAnchor="middle">A</text>
+
+    <line x1="92" y1="12" x2="92" y2="150" strokeDasharray="3 3" strokeWidth="0.3" opacity="0.7" />
+    <circle cx="92" cy="8" r="3" />
+    <text x="92" y="10.5" className="fill-slate-500 font-mono text-[6px] font-bold" textAnchor="middle">B</text>
+
+    {/* Elevation Dimension text */}
+    <line x1="12" y1="20" x2="12" y2="150" strokeWidth="0.3" />
+    <line x1="9" y1="20" x2="15" y2="20" strokeWidth="0.3" />
+    <line x1="9" y1="150" x2="15" y2="150" strokeWidth="0.3" />
+    <text x="7" y="88" className="fill-slate-400 font-mono text-[7px]" transform="rotate(-90 7 88)" textAnchor="middle">H = 15.60m</text>
+
+    {/* Detailed Tree at base */}
+    <path d="M 12 150 L 12 142 M 12 142 L 8 139 M 12 142 L 15 138" strokeWidth="0.5" />
+    <circle cx="12" cy="135" r="5" strokeDasharray="1.5 1.5" />
+    <circle cx="9" cy="137" r="4.5" strokeDasharray="1.5 1.5" />
+    <circle cx="15" cy="136" r="4.5" strokeDasharray="1.5 1.5" />
   </svg>
 );
 
 const BuildingSketchRight = () => (
-  <svg className="absolute right-[2%] top-[14%] w-[300px] h-[380px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 100 130" fill="none" stroke="currentColor" strokeWidth="0.6">
+  <svg className="absolute right-[1.5%] top-[12%] w-[330px] h-[450px] text-slate-300 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.5">
     {/* Ground line */}
-    <line x1="0" y1="120" x2="100" y2="120" />
+    <line x1="0" y1="130" x2="130" y2="130" strokeWidth="0.8" />
     
-    {/* Modern Penthouse Villa Line art */}
-    <path d="M 15 120 L 15 65 L 50 65 L 50 40 L 85 40 L 85 120 Z" />
+    {/* Modern Isometric/Perspective Architectural Facade */}
+    {/* Volume 1: Left block */}
+    <path d="M 20 130 L 20 60 L 65 50 L 65 130 Z" />
     
-    {/* Window groups */}
-    <rect x="25" y="75" width="15" height="30" rx="0.5" />
-    <rect x="58" y="50" width="20" height="15" rx="0.5" />
-    <rect x="58" y="80" width="20" height="25" rx="0.5" />
+    {/* Volume 2: Right Cantilevered Block */}
+    <path d="M 65 130 L 65 30 L 110 40 L 110 115 L 65 115" />
     
-    {/* Window divisions */}
-    <line x1="32.5" y1="75" x2="32.5" y2="105" strokeWidth="0.4" />
-    <line x1="68" y1="50" x2="68" y2="65" strokeWidth="0.4" />
-    <line x1="68" y1="80" x2="68" y2="105" strokeWidth="0.4" />
+    {/* Structural lines & perspective helpers */}
+    <line x1="20" y1="60" x2="65" y2="30" strokeDasharray="2 2" strokeWidth="0.3" opacity="0.6" />
+    <line x1="65" y1="50" x2="110" y2="20" strokeDasharray="2 2" strokeWidth="0.3" opacity="0.6" />
     
-    {/* Pergola / Canopy structure */}
-    <line x1="10" y1="65" x2="55" y2="65" />
-    <line x1="15" y1="57" x2="48" y2="57" strokeWidth="0.4" />
-    <line x1="22" y1="57" x2="22" y2="65" strokeWidth="0.4" />
-    <line x1="32" y1="57" x2="32" y2="65" strokeWidth="0.4" />
-    <line x1="42" y1="57" x2="42" y2="65" strokeWidth="0.4" />
+    {/* Large Windows left block */}
+    <path d="M 28 115 L 28 85 L 57 78 L 57 108 Z" />
+    <line x1="42.5" y1="111.5" x2="42.5" y2="81.5" strokeWidth="0.4" />
+    {/* Reflection lines */}
+    <line x1="33" y1="108" x2="38" y2="90" strokeWidth="0.2" opacity="0.5" />
+    <line x1="47" y1="104" x2="52" y2="86" strokeWidth="0.2" opacity="0.5" />
 
-    {/* Trees minimal architectural outline */}
-    <path d="M 8 120 L 8 105 A 4 4 0 0 1 12 101 A 4 4 0 0 1 16 105 L 16 120" strokeWidth="0.4" />
-    <path d="M 90 120 L 90 110 A 3 3 0 0 1 93 107 A 3 3 0 0 1 96 110 L 96 120" strokeWidth="0.4" />
+    {/* Cantilever balcony block */}
+    <path d="M 72 75 L 103 82 L 103 105 L 72 98 Z" />
+    {/* Railings */}
+    <line x1="72" y1="84" x2="103" y2="91" strokeWidth="0.4" />
+    {[...Array(8)].map((_, i) => (
+      <line key={i} x1={75 + i * 3.8} y1={75 + i * 0.85} x2={75 + i * 3.8} y2={84 + i * 0.85} strokeWidth="0.25" />
+    ))}
+
+    {/* Top Floor Sliding Doors */}
+    <path d="M 72 65 L 72 45 L 103 52 L 103 72 Z" />
+    <line x1="87.5" y1="68.5" x2="87.5" y2="48.5" strokeWidth="0.4" />
+    <line x1="77" y1="63" x2="82" y2="49" strokeWidth="0.2" opacity="0.5" />
+    <line x1="91" y1="67" x2="96" y2="53" strokeWidth="0.2" opacity="0.5" />
+
+    {/* Compass / Orientation Indicator in Corner */}
+    <circle cx="108" cy="142" r="7" strokeWidth="0.4" />
+    <line x1="108" y1="135" x2="108" y2="149" strokeWidth="0.3" />
+    <line x1="101" y1="142" x2="115" y2="142" strokeWidth="0.3" />
+    <polygon points="108,136 110,142 106,142" fill="currentColor" />
+    <text x="108" y="133" className="fill-slate-400 font-mono text-[6px] font-bold" textAnchor="middle">N</text>
+
+    {/* Stylized Olive / Cypress Tree */}
+    <path d="M 118 130 L 118 110 M 118 110 L 115 106 M 118 110 L 121 107" strokeWidth="0.5" />
+    <path d="M 118 112 C 114 112, 114 90, 118 90 C 122 90, 122 112, 118 112 Z" strokeDasharray="1.5 1.5" />
   </svg>
 );
 
@@ -132,7 +192,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       {/* ── Completely White Base Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* ── Elegant Vector Line Drawings of Buildings (Instead of superimposed images) ── */}
+      {/* ── Elegant Vector Line Drawings of Buildings (Specially detailed high-end CAD lines) ── */}
       <BuildingSketchLeft />
       <BuildingSketchRight />
 

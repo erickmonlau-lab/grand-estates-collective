@@ -262,7 +262,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0f172a] leading-[1.08] tracking-tight mb-4 font-sans">
               Tu próximo<br />
               hogar,<br />
-              <span className="text-[#2563eb]">
+              <span 
+                className="text-[#2563eb]"
+                style={{ textShadow: "0 0 25px rgba(37, 99, 235, 0.4), 0 0 12px rgba(255, 255, 255, 0.8)" }}
+              >
                 más cerca.
               </span>
             </h1>
@@ -294,15 +297,17 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </a>
             </div>
 
-            {/* Trust Proof */}
+            {/* Trust Proof with Green Glow Shadow behind text */}
             <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#334155]">
-              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 stroke-[3] shrink-0" />
-              <span>{t.heroCarousel.trustBadge}</span>
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 stroke-[3] shrink-0 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+              <span style={{ textShadow: "0 0 14px rgba(16, 185, 129, 0.4), 0 0 6px rgba(16, 185, 129, 0.2)" }}>
+                {t.heroCarousel.trustBadge}
+              </span>
             </div>
           </motion.div>
         </div>
 
-        {/* Floating Stat Cards Row (Image 3 Style with Blue Underline Accents) */}
+        {/* Floating Stat Cards Row (Spaced Icon & Number Layout) */}
         <div className="grid grid-cols-4 gap-1.5 sm:gap-4 mt-6 sm:mt-10 pb-10 sm:pb-0 relative z-20">
           
           {/* Stat 1: Clientes Satisfechos */}
@@ -310,18 +315,18 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[110px] sm:min-h-[140px] min-w-0"
           >
-            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
-              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
-                <Building2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-3 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
               <p className="text-sm sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={4500} suffix="+" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1.5"></div>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.clientesLabel}</p>
             </div>
           </motion.div>
@@ -331,18 +336,18 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[110px] sm:min-h-[140px] min-w-0"
           >
-            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
-              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
-                <Shield className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-3 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
               <p className="text-sm sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={98} suffix="%" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1.5"></div>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.satisfaccionLabel}</p>
             </div>
           </motion.div>
@@ -352,18 +357,18 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[110px] sm:min-h-[140px] min-w-0"
           >
-            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
-              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
-                <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-3 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
               <p className="text-sm sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 {t.heroCarousel.stats.comunidadesNum}
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1.5"></div>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.comunidadesLabel}</p>
             </div>
           </motion.div>
@@ -373,18 +378,18 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-xl border border-slate-200/80 flex flex-col justify-between h-full min-h-[110px] sm:min-h-[140px] min-w-0"
           >
-            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
-              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
-                <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
+            <div className="flex items-center justify-start mb-3 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
               <p className="text-sm sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={15} suffix="+" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full my-1.5"></div>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.anosLabel}</p>
             </div>
           </motion.div>

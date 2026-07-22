@@ -207,7 +207,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative text-slate-900 pt-20 pb-6 sm:pb-10 md:pt-32 md:pb-12 lg:pt-36 xl:pt-40 lg:pb-14 h-screen flex flex-col overflow-hidden select-none bg-[#f8fafc] px-3.5 md:px-8 xl:px-12" style={{ minHeight: '100svh' }}>
+    <section id="hero" className="relative text-slate-900 pt-20 pb-6 sm:pb-10 md:pt-32 md:pb-12 lg:pt-36 xl:pt-40 lg:pb-14 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc] px-3.5 md:px-8 xl:px-12">
       
       {/* ── Background Architectural Line-Art Sketch (Left & Right Edges) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -231,24 +231,20 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
         </svg>
 
-        {/* Hero Family Photo — gradient baked via CSS mask-image */}
-        <div
-          className="absolute right-0 top-0 w-full lg:w-[62%] h-full pointer-events-none select-none overflow-hidden"
-          style={{
-            maskImage: 'linear-gradient(to right, #f8fafc 0%, #f8fafc 15%, rgba(248,250,252,0.5) 40%, transparent 70%)',
-            WebkitMaskImage: 'linear-gradient(to right, #f8fafc 0%, #f8fafc 15%, rgba(248,250,252,0.5) 40%, transparent 70%)'
-          }}
-        >
+        {/* Hero Family Photo (Right Side Masked with Organic Fade) */}
+        <div className="absolute right-0 top-0 w-full lg:w-[62%] h-[100vh] pointer-events-none select-none overflow-hidden">
           <img 
             src={heroBg} 
             alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Barcelona" 
             className="w-full h-full object-cover object-[80%_center] md:object-right"
             fetchPriority="high"
           />
+          {/* Light-mode fade mask on the left of the image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent lg:via-[#f8fafc]/40" />
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto w-full relative z-10 flex flex-col justify-between flex-1 pt-4 sm:pt-8 lg:pt-8 xl:pt-10">
+      <div className="max-w-[1440px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8 lg:pt-8 xl:pt-10">
         
         {/* Top/Main Hero Content Container — Generously Scaled for Desktop (md: lg: & xl:) */}
         <div className="max-w-xl lg:max-w-3xl xl:max-w-4xl text-left py-2 sm:py-4 lg:py-8">
@@ -357,7 +353,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           {/* Stat 4: Años */}
           <div className="flex flex-col items-center text-center px-1 lg:px-6 py-2 sm:py-3 lg:py-5 border-l border-slate-200/60">
             <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-4">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10" />
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10 fill-[#2563eb]" />
             </div>
             <p className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-[#0f172a] leading-none font-sans lg:mb-2">
               <Counter to={15} suffix="+" />

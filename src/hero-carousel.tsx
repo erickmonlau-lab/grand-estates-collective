@@ -352,7 +352,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           {/* Stat 4: Años */}
           <div className="flex flex-col items-center text-center px-1 lg:px-4 py-2 sm:py-3 lg:py-4 border-l border-slate-200/60">
             <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-3">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7 fill-[#2563eb]" />
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
             </div>
             <p className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black text-[#0f172a] leading-none font-sans lg:mb-1">
               <Counter to={15} suffix="+" />

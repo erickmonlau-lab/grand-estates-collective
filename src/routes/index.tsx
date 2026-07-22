@@ -465,10 +465,10 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
+        className="fixed top-2 md:top-3 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] md:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-3 md:py-3.5 px-4 md:px-8 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-lg text-slate-900"
       >
-        <a href="#" className="hover:opacity-90 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
-          <img src={logoImg} alt="Gesgrama" className="h-11 sm:h-14 md:h-16 w-auto max-w-[200px] sm:max-w-[260px] md:max-w-[320px] object-contain drop-shadow-xs" />
+        <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
+          <img src={logoImg} alt="Gesgrama" className="h-13 sm:h-16 md:h-20 w-auto max-w-[220px] sm:max-w-[300px] md:max-w-[380px] object-contain drop-shadow-xs" />
         </a>
 
         <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">

@@ -45,7 +45,7 @@ const expo = [0.16, 1, 0.3, 1] as const;
 
 // ── Compact Designer Vector Building Sketches (Inline SVGs) ──
 const BuildingSketchLeft = () => (
-  <svg className="absolute left-[-20px] bottom-[22%] w-[240px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.6">
+  <svg className="absolute left-[30px] bottom-[22%] w-[240px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="150" x2="120" y2="150" strokeWidth="0.8" />
     
@@ -132,7 +132,7 @@ const BuildingSketchLeft = () => (
 );
 
 const BuildingSketchRight = () => (
-  <svg className="absolute right-[-20px] top-[16%] w-[250px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.6">
+  <svg className="absolute right-[30px] top-[16%] w-[250px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="140" x2="130" y2="140" strokeWidth="0.8" />
     
@@ -215,7 +215,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       {/* ── Completely White Base Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* ── Compacted, Non-colliding Architect Sketches ── */}
+      {/* ── Balanced, Centered Architect Sketches (Not touching margins, not touching card) ── */}
       <BuildingSketchLeft />
       <BuildingSketchRight />
 

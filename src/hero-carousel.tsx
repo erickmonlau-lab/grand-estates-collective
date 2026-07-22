@@ -231,16 +231,24 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
         </svg>
 
-        {/* Hero Family Photo (Right Side Masked with Organic Fade) */}
-        <div className="absolute right-0 top-0 w-full lg:w-[62%] h-full">
+        {/* Hero Family Photo (Right Side Masked Organically via CSS mask-image for maximum natural integration) */}
+        <div 
+          className="absolute inset-0 left-auto right-0 w-full lg:w-[62%] h-full pointer-events-none select-none overflow-hidden"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.7) 28%, rgba(0,0,0,1) 48%)',
+            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.7) 28%, rgba(0,0,0,1) 48%)',
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            willChange: 'transform',
+          }}
+        >
           <img 
             src={heroBg} 
             alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Barcelona" 
-            className="w-full h-full object-cover object-[80%_center] md:object-right"
+            className="w-full h-full object-cover object-[80%_center] md:object-right pointer-events-none"
             fetchPriority="high"
           />
-          {/* Light-mode fade mask on the left of the image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent lg:via-[#f8fafc]/40" />
         </div>
       </div>
 

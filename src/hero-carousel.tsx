@@ -262,16 +262,16 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#0f172a] leading-[1.08] tracking-tight mb-4 font-sans">
               Tu próximo<br />
               hogar,<br />
-              <span 
-                className="text-[#2563eb]"
-                style={{ textShadow: "0 0 25px rgba(37, 99, 235, 0.4), 0 0 12px rgba(255, 255, 255, 0.8)" }}
-              >
+              <span className="text-[#2563eb]">
                 más cerca.
               </span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-[#334155] text-sm sm:text-base md:text-lg max-w-md mb-6 font-semibold leading-relaxed font-sans">
+            {/* Subtitle - Crisp Dark Navy for Ultra Legibility with White Backing Shadow */}
+            <p 
+              className="text-[#0f172a] md:text-slate-800 text-sm sm:text-base md:text-lg max-w-md mb-6 font-bold leading-relaxed font-sans"
+              style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9)" }}
+            >
               {t.heroCarousel.subtitle}
             </p>
 
@@ -297,10 +297,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </a>
             </div>
 
-            {/* Trust Proof with Green Glow Shadow behind text */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#334155]">
-              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 stroke-[3] shrink-0 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-              <span style={{ textShadow: "0 0 14px rgba(16, 185, 129, 0.4), 0 0 6px rgba(16, 185, 129, 0.2)" }}>
+            {/* Trust Proof - Crisp Dark Navy without Green Glow */}
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-[#0f172a]">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 stroke-[3] shrink-0" />
+              <span style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.95)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
             </div>

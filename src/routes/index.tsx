@@ -613,8 +613,8 @@ function Index() {
               {/* Divider */}
               <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
 
-              {/* Field 2: Zona */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
+              {/* Field 2: Zona (Hidden on mobile to eliminate redundancy with Zonas populares pills below) */}
+              <div className="hidden lg:block flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer"

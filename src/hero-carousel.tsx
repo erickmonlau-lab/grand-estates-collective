@@ -43,9 +43,9 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-// ── Compact Designer Vector Building Sketches (Inline SVGs) ──
+// ── Responsive Designer Vector Building Sketches (Inline SVGs) ──
 const BuildingSketchLeft = () => (
-  <svg className="absolute left-[30px] bottom-[22%] w-[240px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.6">
+  <svg className="w-full h-auto max-w-[240px] text-slate-200" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="150" x2="120" y2="150" strokeWidth="0.8" />
     
@@ -132,7 +132,7 @@ const BuildingSketchLeft = () => (
 );
 
 const BuildingSketchRight = () => (
-  <svg className="absolute right-[30px] top-[16%] w-[250px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.6">
+  <svg className="w-full h-auto max-w-[250px] text-slate-200" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="140" x2="130" y2="140" strokeWidth="0.8" />
     
@@ -215,9 +215,17 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       {/* ── Completely White Base Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* ── Balanced, Centered Architect Sketches (Not touching margins, not touching card) ── */}
-      <BuildingSketchLeft />
-      <BuildingSketchRight />
+      {/* ── Responsive Flex Layout for Sketches (Perfect dynamic centering in margins) ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-between hidden lg:flex">
+        {/* Left Margin Container: Allocates exactly the space between screen edge and the 1300px bubble */}
+        <div className="flex-1 max-w-[calc(50vw-650px)] flex items-end justify-center pb-[20vh] px-2 xl:px-6">
+           <BuildingSketchLeft />
+        </div>
+        {/* Right Margin Container */}
+        <div className="flex-1 max-w-[calc(50vw-650px)] flex items-start justify-center pt-[15vh] px-2 xl:px-6">
+           <BuildingSketchRight />
+        </div>
+      </div>
 
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
@@ -246,7 +254,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-slate-500 text-base md:text-lg max-w-lg mb-8 font-medium leading-relaxed font-sans">
+                <p className="text-slate-500 text-base md:text-lg max-w-[460px] mb-8 font-medium leading-relaxed font-sans text-balance">
                   {t.heroCarousel.subtitle}
                 </p>
 

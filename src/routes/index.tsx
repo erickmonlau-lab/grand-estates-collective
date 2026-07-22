@@ -1295,7 +1295,7 @@ function Index() {
                     {t.hero.verPropiedades}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
-                  <a href="#contacto" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                  <a href="#contacto" className="bg-transparent hover:bg-white/10 border-2 border-white text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
                     {t.hero.hablarAsesor}
                   </a>
                 </div>

@@ -107,11 +107,11 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
     const max = parsePrice(priceStr);
     return propertyPrice <= max;
   }
-  if (priceStr.includes("MÃ¡s de")) {
+  if (priceStr.includes("Más de")) {
     const min = parsePrice(priceStr);
     return propertyPrice >= min;
   }
-  // Rango: "1.000 - 1.500 â‚¬"
+  // Rango: "1.000 - 1.500 €"
   const match = priceStr.match(/(\d[\d.]*)\s*-\s*(\d[\d.]*)/);
   if (match) {
     const min = parseInt(match[1].replace(/[^\d]/g, ''), 10);
@@ -132,13 +132,13 @@ function Index() {
     zona: "Cualquier zona",
     tipo: "Cualquier tipo",
     precio: "Cualquier precio",
-    habitaciones: "Cualquier nÃºmero"
+    habitaciones: "Cualquier número"
   });
 
   const [consoleFilters, setConsoleFilters] = useState({
     tipo: "Cualquier tipo",
     zona: "Cualquier zona",
-    habitaciones: "Cualquier nÃºmero",
+    habitaciones: "Cualquier número",
     precio: "Cualquier precio"
   });
 
@@ -148,7 +148,7 @@ function Index() {
     setConsoleFilters({
       tipo: searchParams.tipo,
       zona: searchParams.zona,
-      habitaciones: searchParams.habitaciones || "Cualquier nÃºmero",
+      habitaciones: searchParams.habitaciones || "Cualquier número",
       precio: searchParams.precio
     });
   }, [searchParams]);
@@ -165,7 +165,7 @@ function Index() {
       zona: params.zona,
       tipo: params.tipo,
       precio: params.precio,
-      habitaciones: "Cualquier nÃºmero"
+      habitaciones: "Cualquier número"
     });
   };
 
@@ -190,8 +190,8 @@ function Index() {
     trending: <TrendingUp className="w-6 h-6" />
   };
 
-  const zonas = ["Eixample", "GrÃ cia", "SarriÃ -Sant Gervasi", "Sant Antoni", "Pedralbes", "Santa Coloma de Gramenet", "Badalona", "Hospitalet de Llobregat", "Maresme"];
-  const tipos = ["Piso", "Ãtico", "Chalet", "Local comercial", "Oficina"];
+  const zonas = ["Eixample", "Gràcia", "Sarrià-Sant Gervasi", "Sant Antoni", "Pedralbes", "Santa Coloma de Gramenet", "Badalona", "Hospitalet de Llobregat", "Maresme"];
+  const tipos = ["Piso", "Ático", "Chalet", "Local comercial", "Oficina"];
 
   // Filter properties
   const filteredProperties = properties
@@ -200,7 +200,7 @@ function Index() {
     .filter(p => p.operation === searchParams.mode)
     .filter(p => isPriceValid(searchParams.precio, p.price))
     .filter(p => {
-      if (searchParams.habitaciones === 'Cualquier nÃºmero' || !searchParams.habitaciones) return true;
+      if (searchParams.habitaciones === 'Cualquier número' || !searchParams.habitaciones) return true;
       const minHabs = parseInt(searchParams.habitaciones.replace("+", ""), 10);
       return p.bedrooms >= minHabs;
     });
@@ -400,11 +400,11 @@ function Index() {
                 <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">{t.valorador.valorEstimado}</div>
                 
                 <div className="text-4xl md:text-[44px] font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
-                  245<span className="text-slate-400 font-normal">.000â‚¬</span>
+                  245<span className="text-slate-400 font-normal">.000€</span>
                 </div>
                 
                 <div className="text-xs md:text-sm font-bold text-slate-500 mb-1 font-sans">
-                  {t.valorador.rangoEstimado} <span className="text-[#0f172a]">230.000â‚¬ â€“ 260.000â‚¬</span>
+                  {t.valorador.rangoEstimado} <span className="text-[#0f172a]">230.000€ – 260.000€</span>
                 </div>
                 <div className="text-[11px] leading-tight text-slate-400 mb-8 font-medium">
                   {t.valorador.estimacionAutomatizada}
@@ -490,7 +490,7 @@ function Index() {
                     {[
                       { label: t.properties.anyType, value: "Cualquier tipo" },
                       { label: "Piso", value: "Piso" },
-                      { label: "Ãtico", value: "Ãtico" },
+                      { label: "Ático", value: "Ático" },
                       { label: "Local comercial", value: "Local comercial" },
                       { label: "Chalet", value: "Chalet" }
                     ].map(opt => {
@@ -605,7 +605,7 @@ function Index() {
                 {openDropdown === "habitaciones" && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
                     {[
-                      { label: t.properties.anyBedrooms, value: "Cualquier nÃºmero" },
+                      { label: t.properties.anyBedrooms, value: "Cualquier número" },
                       { label: "1+ " + t.properties.bedrooms.toLowerCase(), value: "1+" },
                       { label: "2+ " + t.properties.bedrooms.toLowerCase(), value: "2+" },
                       { label: "3+ " + t.properties.bedrooms.toLowerCase(), value: "3+" },
@@ -614,7 +614,7 @@ function Index() {
                       const count = properties.filter(p => {
                         const matchesMode = p.operation === searchParams.mode;
                         if (!matchesMode) return false;
-                        if (opt.value === "Cualquier nÃºmero") return true;
+                        if (opt.value === "Cualquier número") return true;
                         const min = parseInt(opt.value.replace("+", ""), 10);
                         return p.bedrooms >= min;
                       }).length;
@@ -646,7 +646,7 @@ function Index() {
               {/* Divider */}
               <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
 
-              {/* Field 4: Precio MÃ¡ximo */}
+              {/* Field 4: Precio Máximo */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
@@ -667,8 +667,8 @@ function Index() {
                 {openDropdown === "precio" && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
                     {(searchParams.mode === "alquilar" 
-                      ? [t.properties.anyPrice, "Hasta 1.500 â‚¬", "Hasta 2.000 â‚¬", "Hasta 3.000 â‚¬"]
-                      : [t.properties.anyPrice, "Hasta 500.000 â‚¬", "Hasta 1.000.000 â‚¬", "Hasta 2.000.000 â‚¬"]
+                      ? [t.properties.anyPrice, "Hasta 1.500 €", "Hasta 2.000 €", "Hasta 3.000 €"]
+                      : [t.properties.anyPrice, "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
                     ).map(opt => {
                       const count = properties.filter(p => {
                         const matchesMode = p.operation === searchParams.mode;
@@ -770,7 +770,7 @@ function Index() {
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-[3px] h-6 bg-[#005c99] rounded-full shrink-0"></div>
                       <div className="text-[26px] font-black text-[#005c99] leading-none tracking-tight">
-                        {new Intl.NumberFormat('es-ES').format(property.price)}â‚¬
+                        {new Intl.NumberFormat('es-ES').format(property.price)}€
                       </div>
                     </div>
                     
@@ -779,7 +779,7 @@ function Index() {
                       {(() => {
                         const type = property.type || "Piso";
                         let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
-                        if (type === "Ãtico") {
+                        if (type === "Ático") {
                           badgeClass = "bg-sky-100 text-sky-800";
                         } else if (type === "Chalet") {
                           badgeClass = "bg-indigo-100 text-indigo-900";
@@ -814,7 +814,7 @@ function Index() {
                       </div>
                       <div className="flex items-center gap-2">
                         <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
-                        {property.surface} mÂ²
+                        {property.surface} m²
                       </div>
                     </div>
                   </div>
@@ -859,7 +859,7 @@ function Index() {
                     zona: "Cualquier zona",
                     tipo: "Cualquier tipo",
                     precio: "Cualquier precio",
-                    habitaciones: "Cualquier nÃºmero"
+                    habitaciones: "Cualquier número"
                   });
                 }}
                 className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
@@ -1150,7 +1150,7 @@ function Index() {
           </div>
         </div>
       </section>
-{/* â”€â”€ ÃšLTIMAS NOTICIAS (BLOG) â”€â”€ */}
+{/* â”€â”€ ÁšLTIMAS NOTICIAS (BLOG) â”€â”€ */}
       <section id="blog" className="py-24 md:py-32 px-6 md:px-12 bg-[#e2e8f0] text-onyx">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
@@ -1297,7 +1297,7 @@ function Index() {
               <div className="relative rounded-3xl overflow-hidden shadow-md aspect-[16/10] mb-8 border border-slate-200/60">
                 <img 
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Gesgrama oficina salÃ³n" 
+                  alt="Gesgrama oficina salón" 
                   className="w-full h-full object-cover" 
                 />
                 
@@ -1386,7 +1386,7 @@ function Index() {
               </p>
             </div>
 
-            {/* NavegaciÃ³n rÃ¡pida */}
+            {/* Navegación rápida */}
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.quickLinks}</h4>
               <ul className="space-y-3">
@@ -1412,7 +1412,7 @@ function Index() {
               <ul className="space-y-3 text-[14px] text-slate-300">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-primary-blue shrink-0 mt-0.5" />
-                  <span>Av. dels BanÃºs, 49<br />08923 Santa Coloma de Gramenet</span>
+                  <span>Av. dels Banús, 49<br />08923 Santa Coloma de Gramenet</span>
                 </li>
                 <li>
                   <a href="tel:+34934685656" className="flex items-center gap-2 hover:text-white transition-colors">

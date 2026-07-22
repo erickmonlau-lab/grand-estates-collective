@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Shield, Check, Home, Users, MapPin } from "lucide-react";
+import { ArrowRight, Star, Building2, Shield, Check, Home, Users } from "lucide-react";
 import heroBg from "@/assets/family_barcelona.webp"; 
 import { translations } from './data/translations';
 
@@ -207,7 +207,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative text-slate-900 pt-20 pb-6 sm:pb-10 md:pt-32 md:pb-12 lg:pt-36 xl:pt-40 lg:pb-14 min-h-[100svh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc] px-3.5 md:px-8 xl:px-12">
+    <section id="hero" className="relative text-slate-900 pt-20 pb-6 sm:pb-10 md:pt-32 md:pb-12 lg:pt-36 xl:pt-40 lg:pb-14 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc] px-3.5 md:px-8 xl:px-12">
       
       {/* ── Background Architectural Line-Art Sketch (Left & Right Edges) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -232,39 +232,35 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </svg>
 
         {/* Hero Family Photo (Right Side Masked with Organic Fade) */}
-        <div 
-          className="absolute right-0 top-0 w-full lg:w-[62%] h-[100vh] pointer-events-none select-none overflow-hidden"
-          style={{
-            maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.8) 30%, black 50%)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 10%, rgba(0,0,0,0.8) 30%, black 50%)'
-          }}
-        >
+        <div className="absolute right-0 top-0 w-full lg:w-[62%] h-full">
           <img 
             src={heroBg} 
             alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Barcelona" 
             className="w-full h-full object-cover object-[80%_center] md:object-right"
             fetchPriority="high"
           />
+          {/* Light-mode fade mask on the left of the image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent lg:via-[#f8fafc]/40" />
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8 lg:pt-8 xl:pt-10">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8 lg:pt-6">
         
-        {/* Top/Main Hero Content Container — Generously Scaled for Desktop (md: lg: & xl:) */}
-        <div className="max-w-xl lg:max-w-3xl xl:max-w-4xl text-left py-2 sm:py-4 lg:py-8">
+        {/* Top/Main Hero Content Container — Scaled for Desktop (lg: & xl:) */}
+        <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-2 sm:py-4 lg:py-6">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: expo }}
           >
             {/* Eyebrow Pill Badge */}
-            <div className="inline-flex items-center gap-2 bg-white text-[#2563eb] text-[10px] sm:text-[11px] lg:text-xs xl:text-sm font-extrabold uppercase tracking-wider px-3.5 sm:px-4 lg:px-5 py-1.5 lg:py-2.5 rounded-full mb-4 lg:mb-8 shadow-sm border border-slate-200">
-              <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+            <div className="inline-flex items-center gap-2 bg-white text-[#2563eb] text-[10px] sm:text-[11px] lg:text-xs font-extrabold uppercase tracking-wider px-3.5 sm:px-4 py-1.5 lg:py-2 rounded-full mb-4 lg:mb-6 shadow-sm border border-slate-200">
+              <span className="w-2 h-2 rounded-full bg-[#2563eb]"></span>
               <span>{t.heroCarousel.tag}</span>
             </div>
 
-            {/* Main Title H1 — Grand & Expansive for PC Viewports */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[84px] xl:text-[96px] font-black text-[#0f172a] leading-[1.08] lg:leading-[1.0] xl:leading-[0.98] tracking-tight mb-4 lg:mb-8 font-sans">
+            {/* Main Title H1 — Expanded for Desktop Viewports */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[84px] font-black text-[#0f172a] leading-[1.08] lg:leading-[1.03] tracking-tight mb-4 lg:mb-6 font-sans">
               Tu próximo<br />
               hogar,<br />
               <span className="text-[#2563eb]">
@@ -274,38 +270,37 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
 
             {/* Subtitle — Crisp Dark Navy scaled for Desktop */}
             <p 
-              className="text-[#0f172a] md:text-slate-800 text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl max-w-md lg:max-w-2xl xl:max-w-3xl mb-6 lg:mb-10 font-bold lg:font-semibold leading-relaxed font-sans"
+              className="text-[#0f172a] md:text-slate-800 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-md lg:max-w-xl mb-6 lg:mb-8 font-bold lg:font-semibold leading-relaxed font-sans"
               style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9)" }}
             >
               {t.heroCarousel.subtitle}
             </p>
 
             {/* CTA Buttons — Scaled up for Desktop Viewports */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 lg:gap-5 w-fit max-w-[88%] sm:max-w-none mb-5 lg:mb-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 lg:gap-4 w-fit max-w-[88%] sm:max-w-none mb-5 lg:mb-8">
               {/* Button 1: Solid Blue Pill (Valorar mi propiedad) */}
               <a
                 href="#valuator-form"
-                className="w-fit max-w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-7 lg:px-10 xl:px-12 py-3 sm:py-3.5 lg:py-4.5 xl:py-5 rounded-full font-extrabold text-xs sm:text-sm lg:text-lg xl:text-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-start gap-2.5 lg:gap-4 group cursor-pointer shrink-0"
+                className="w-fit max-w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-7 lg:px-9 py-3 sm:py-3.5 lg:py-4 rounded-full font-extrabold text-xs sm:text-sm lg:text-base transition-all shadow-lg flex items-center justify-start gap-2.5 lg:gap-3 group cursor-pointer shrink-0"
               >
-                <Home className="w-4 h-4 lg:w-6 lg:h-6 text-white" />
+                <Home className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
                 <span>{t.heroCarousel.btnValuation}</span>
-                <ArrowRight className="w-4 h-4 lg:w-6 lg:h-6 text-white group-hover:translate-x-1.5 transition-transform" />
+                <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 text-white group-hover:translate-x-1 transition-transform" />
               </a>
 
               {/* Button 2: Solid White Pill (Ver propiedades) */}
               <a
                 href="#propiedades"
-                className="w-fit max-w-full bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-7 lg:px-10 xl:px-12 py-3 sm:py-3.5 lg:py-4.5 xl:py-5 rounded-full font-extrabold text-xs sm:text-sm lg:text-lg xl:text-xl transition-all shadow-md hover:shadow-lg flex items-center justify-start gap-2.5 lg:gap-4 group cursor-pointer shrink-0"
+                className="w-fit max-w-full bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-7 lg:px-9 py-3 sm:py-3.5 lg:py-4 rounded-full font-extrabold text-xs sm:text-sm lg:text-base transition-all shadow-md flex items-center justify-start gap-2.5 lg:gap-3 group cursor-pointer shrink-0"
               >
-                <Building2 className="w-4 h-4 lg:w-6 lg:h-6 text-[#2563eb]" />
+                <Building2 className="w-4 h-4 lg:w-5 lg:h-5 text-[#2563eb]" />
                 <span>{t.heroCarousel.btnProperties}</span>
-                <ArrowRight className="w-4 h-4 lg:w-6 lg:h-6 text-slate-400 group-hover:translate-x-1.5 transition-transform" />
               </a>
             </div>
 
             {/* Trust Proof */}
-            <div className="flex items-center gap-2 lg:gap-3 text-xs sm:text-sm lg:text-lg xl:text-xl font-extrabold text-[#0f172a]">
-              <Check className="w-4 h-4 sm:w-5 sm:h-5 lg:w-7 lg:h-7 text-emerald-600 stroke-[3] shrink-0" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm lg:text-base font-extrabold text-[#0f172a]">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-emerald-600 stroke-[3] shrink-0" />
               <span style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.95)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
@@ -313,56 +308,56 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           </motion.div>
         </div>
 
-        {/* Floating Stat Cards Row — Compact on Mobile (< lg), Generous & Prominent on PC/Desktop (lg: & xl:) */}
+        {/* Floating Stat Cards Row — Compact on Mobile (< lg), Generous & Prominent on Desktop (lg: & xl:) */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="grid grid-cols-4 gap-1 sm:gap-3 lg:gap-8 relative z-20 mt-4 sm:mt-14 lg:mt-16 mb-2 sm:mb-0 rounded-2xl sm:rounded-3xl lg:rounded-[36px] p-1.5 sm:p-3 lg:p-8 xl:p-10 shadow-md lg:shadow-2xl border border-white/80 mr-11 sm:mr-0"
-          style={{ background: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+          className="grid grid-cols-4 gap-1 sm:gap-3 lg:gap-6 relative z-20 mt-4 sm:mt-14 lg:mt-12 mb-2 sm:mb-0 rounded-2xl sm:rounded-3xl lg:rounded-[28px] p-1.5 sm:p-3 lg:p-6 shadow-md lg:shadow-xl border border-white/80 mr-11 sm:mr-0"
+          style={{ background: 'rgba(255, 255, 255, 0.92)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
         >
           {/* Stat 1: Clientes */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-6 py-2 sm:py-3 lg:py-5">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-4">
-              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10" />
+          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-2 sm:py-3 lg:py-4">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-3">
+              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
             </div>
-            <p className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-[#0f172a] leading-none font-sans lg:mb-2">
+            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black text-[#0f172a] leading-none font-sans lg:mb-1">
               <Counter to={4500} suffix="+" />
             </p>
-            <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-base xl:text-lg font-bold md:font-extrabold text-slate-600 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[8px] sm:text-[10px] lg:text-xs xl:text-sm font-bold lg:font-extrabold text-slate-500 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
 
           {/* Stat 2: Satisfacción */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-6 py-2 sm:py-3 lg:py-5 border-l border-slate-200/60">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-4">
-              <Shield className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10" />
+          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-2 sm:py-3 lg:py-4 border-l border-slate-200/60">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-3">
+              <Shield className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
             </div>
-            <p className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-[#0f172a] leading-none font-sans lg:mb-2">
+            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black text-[#0f172a] leading-none font-sans lg:mb-1">
               <Counter to={98} suffix="%" />
             </p>
-            <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-base xl:text-lg font-bold md:font-extrabold text-slate-600 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[8px] sm:text-[10px] lg:text-xs xl:text-sm font-bold lg:font-extrabold text-slate-500 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
 
           {/* Stat 3: Comunidades */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-6 py-2 sm:py-3 lg:py-5 border-l border-slate-200/60">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-4">
-              <Users className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10" />
+          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-2 sm:py-3 lg:py-4 border-l border-slate-200/60">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-3">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7" />
             </div>
-            <p className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-[#0f172a] leading-none font-sans lg:mb-2">
+            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black text-[#0f172a] leading-none font-sans lg:mb-1">
               <Counter to={300} prefix="+" />
             </p>
-            <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-base xl:text-lg font-bold md:font-extrabold text-slate-600 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[8px] sm:text-[10px] lg:text-xs xl:text-sm font-bold lg:font-extrabold text-slate-500 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
 
           {/* Stat 4: Años */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-6 py-2 sm:py-3 lg:py-5 border-l border-slate-200/60">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-4">
-              <Star className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-8 lg:h-8 xl:w-10 xl:h-10" />
+          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-2 sm:py-3 lg:py-4 border-l border-slate-200/60">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5 sm:mb-2 lg:mb-3">
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 xl:w-7 xl:h-7 fill-[#2563eb]" />
             </div>
-            <p className="text-base sm:text-xl md:text-3xl lg:text-5xl xl:text-6xl font-black text-[#0f172a] leading-none font-sans lg:mb-2">
+            <p className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black text-[#0f172a] leading-none font-sans lg:mb-1">
               <Counter to={15} suffix="+" />
             </p>
-            <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-base xl:text-lg font-bold md:font-extrabold text-slate-600 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[8px] sm:text-[10px] lg:text-xs xl:text-sm font-bold lg:font-extrabold text-slate-500 leading-tight mt-0.5 font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </motion.div>
 

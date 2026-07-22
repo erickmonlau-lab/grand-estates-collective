@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home } from "lucide-react";
 import heroBg from "@/assets/family_no_boy.jpg"; 
-import realisticBg from "@/assets/realistic-bg.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -50,19 +49,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   return (
     <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center">
       
-      {/* ── Screen Blueprint Background (Subtle outline style on white background) ── */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-center bg-no-repeat" 
-        style={{ 
-          backgroundImage: `url(${realisticBg})`,
-          backgroundSize: '100% 100%' 
-        }} 
-      />
+      {/* ── Completely White / Light Clean Background ── */}
+      <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
         {/* Main Light Card */}
-        <div className="bg-white/95 backdrop-blur-md rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.04)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.04)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content Column */}
@@ -122,15 +115,15 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </motion.div>
             </div>
 
-            {/* Right Image Column (Family Photo) */}
+            {/* Right Image Column (Family Photo - zoomed/scaled closer) */}
             <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100">
               <motion.img
                 src={heroBg}
                 alt="Gesgrama - Tu próximo hogar"
-                initial={{ scale: 1.05, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
+                initial={{ scale: 1.35, y: 15, opacity: 0 }}
+                animate={{ scale: 1.3, y: 10, opacity: 1 }}
                 transition={{ duration: 1, ease: expo }}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-[center_35%]"
               />
             </div>
 
@@ -148,7 +141,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
           >
             <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Building2 className="w-6 h-6" /> {/* Match mockup icons */}
+              <Building2 className="w-6 h-6" />
             </div>
             <div>
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">

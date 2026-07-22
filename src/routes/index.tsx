@@ -296,7 +296,7 @@ function Index() {
         className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
       >
         <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
-          <img src={logoImg} alt="Gesgrama" className="h-7 sm:h-9 md:h-10 w-auto max-w-[120px] sm:max-w-[150px] object-contain" />
+          <img src={logoImg} alt="Gesgrama" className="h-9 sm:h-11 md:h-12 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[220px] object-contain" />
         </a>
 
         <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">

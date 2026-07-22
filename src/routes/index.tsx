@@ -404,9 +404,6 @@ function Index() {
       {/* ── HERO ── */}
       <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
-      {/* Smooth Transition: Hero (#f8fafc) -> Valuator (#e2e8f0) */}
-      <div className="w-full h-10 sm:h-14 bg-gradient-to-b from-[#f8fafc] to-[#e2e8f0] relative z-10 pointer-events-none" />
-
       {/* ── VALORADOR DE INMUEBLES (BG SWAPPED TO BLUE - POINT 4) ── */}
       <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
         <div className="bg-[#005c99] rounded-[28px] md:rounded-[36px] shadow-xl p-6 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
@@ -552,9 +549,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* Transition: Valuator (#0f172a) -> Propiedades (#e2e8f0) */}
-      <div className="w-full h-14 sm:h-20 bg-gradient-to-b from-[#005c99] to-[#e2e8f0] relative z-10 pointer-events-none" />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
@@ -1069,9 +1063,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Smooth Transition: Propiedades (#e2e8f0) -> Servicios (white) */}
-      <div className="w-full h-10 sm:h-14 bg-gradient-to-b from-[#e2e8f0] to-white relative z-10 pointer-events-none" />
-
       {/* ── SERVICES SECTION (LIGHT GRAY BUBBLE CARD #f1f5f9 - POINT 1 FIX) ── */}
       <section id="servicios" className="relative overflow-hidden bg-white text-onyx py-6 md:py-14">
         <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
@@ -1479,9 +1470,6 @@ function Index() {
           </div>
         </div>
       </section>
-
-      {/* Smooth Transition: FAQ (#e2e8f0) -> Contacto (white) */}
-      <div className="w-full h-10 sm:h-14 bg-gradient-to-b from-[#e2e8f0] to-white relative z-10 pointer-events-none" />
 
       {/* ── CONTACT ── */}
       <section id="contacto" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx">

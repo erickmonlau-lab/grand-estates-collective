@@ -85,15 +85,66 @@ export const translations = {
       demandaAlta: "Alta demanda en esta ubicación",
       solicitarInforme: "Solicitar Informe Oficial Gratuito",
       enviada: "¡Valoración Enviada!",
-      enviadaDesc: "En breve recibirás el informe en tu correo.",
+      enviadaDesc: "Gracias, un asesor se pondrá en contacto contigo en menos de 24 horas con la valoración de tu propiedad.",
       nuevaValoracion: "Nueva valoración",
       seleccionaZona: "Selecciona zona",
       sinCompromiso: "Sin compromiso",
       resultadoInmediato: "Resultado inmediato",
       valorEstimado: "Valor Estimado",
       rangoEstimado: "Rango estimado:",
-      estimacionAutomatizada: "Esta es una estimación automatizada.",
+      estimacionAutomatizada: "Estimación orientativa basada en datos de mercado, no sustituye una tasación profesional",
+      ejemploResultado: "EJEMPLO DE RESULTADO",
       actualizadoHoy: "Actualizado hoy"
+    },
+    serviceModal: {
+      close: "Cerrar",
+      contactBtn: "Solicitar este servicio",
+      items: [
+        {
+          title: "Administración de Fincas",
+          tagline: "Gestión integral de comunidades y edificios con la máxima transparencia.",
+          description: "Nos encargamos de la gestión administrativa, contable y técnica de su comunidad de propietarios. Controlamos los gastos, optimizamos presupuestos y resolvemos incidencias con rapidez.",
+          benefits: [
+            "Gestión de recibos, cuentas y control de morosidad",
+            "Convocatoria y junta de propietarios anuales y extraordinarias",
+            "Atención 24/7 para incidencias y averías comunitarias",
+            "Asesoramiento técnico para ITES y obras de conservación"
+          ]
+        },
+        {
+          title: "Gestión Inmobiliaria",
+          tagline: "Comercialización experta para vender o alquilar al mejor precio.",
+          description: "Acompañamos a propietarios e inversores en la venta y arrendamiento de viviendas, locales y oficinas. Valoración precisa, plan de marketing a medida y filtro exhaustivo de inquilinos.",
+          benefits: [
+            "Valoración oficial de mercado y estudio comparativo",
+            "Reportaje fotográfico profesional y plan de difusión",
+            "Filtrado de solvencia y garantías para arrendamientos",
+            "Acompañamiento legal hasta la firma ante notario"
+          ]
+        },
+        {
+          title: "Asesoría Jurídica y Fiscal",
+          tagline: "Seguridad jurídica total en todas sus operaciones inmobiliarias.",
+          description: "Nuestro equipo jurídico y fiscal le asesora en contratos de compraventa, herencias, donaciones, tributación inmobiliaria y resolución de conflictos entre partes.",
+          benefits: [
+            "Redacción y revisión de contratos de arras y alquiler",
+            "Planificación fiscal para optimizar impuestos de transmisión e IRPF",
+            "Gestión de herencias y transmisiones patrimoniales",
+            "Defensa y representación legal especializada"
+          ]
+        },
+        {
+          title: "Obras y Mantenimiento",
+          tagline: "Rehabilitación, reformas y conservación técnica con garantía de calidad.",
+          description: "Gestionamos proyectos de reforma integral, rehabilitación de fachadas, eficiencia energética y mantenimiento preventivo para revalorizar su activo inmobiliario.",
+          benefits: [
+            "Proyectos llave en mano con presupuesto cerrado",
+            "Rehabilitación de fachadas, cubiertas y bajantes",
+            "Certificación energética y subvenciones europeas NextGen",
+            "Supervisión y dirección de obra por técnicos colegiados"
+          ]
+        }
+      ]
     },
     properties: {
       tag: "Catálogo Exclusivo",
@@ -452,15 +503,66 @@ export const translations = {
       demandaAlta: "High demand in this location",
       solicitarInforme: "Request Free Official Report",
       enviada: "Valuation Sent!",
-      enviadaDesc: "You will receive the report in your email shortly.",
+      enviadaDesc: "Thank you, an advisor will contact you within 24 hours with your property valuation.",
       nuevaValoracion: "New valuation",
       seleccionaZona: "Select area",
       sinCompromiso: "No obligation",
       resultadoInmediato: "Instant result",
       valorEstimado: "Estimated Value",
       rangoEstimado: "Estimated range:",
-      estimacionAutomatizada: "This is an automated estimate.",
+      estimacionAutomatizada: "Orientative estimation based on market data, does not replace a professional appraisal",
+      ejemploResultado: "RESULT EXAMPLE",
       actualizadoHoy: "Updated today"
+    },
+    serviceModal: {
+      close: "Close",
+      contactBtn: "Request this service",
+      items: [
+        {
+          title: "Property Management",
+          tagline: "Comprehensive management of communities and buildings with maximum transparency.",
+          description: "We handle administrative, accounting, and technical management of your homeowners' association. We control expenses, optimize budgets, and solve incidents quickly.",
+          benefits: [
+            "Receipt management, accounting, and delinquency control",
+            "Organization of annual and extraordinary meetings",
+            "24/7 assistance for community incidents and repairs",
+            "Technical advice for ITE inspections and conservation work"
+          ]
+        },
+        {
+          title: "Real Estate Management",
+          tagline: "Expert marketing to sell or rent at the best price.",
+          description: "We accompany owners and investors in selling and renting homes, premises, and offices. Accurate valuation, custom marketing plan, and thorough tenant screening.",
+          benefits: [
+            "Official market valuation and comparative study",
+            "Professional photography and diffusion campaign",
+            "Solvency filtering and guarantees for leases",
+            "Legal support up to notary signing"
+          ]
+        },
+        {
+          title: "Legal & Tax Advisory",
+          tagline: "Total legal security in all your real estate transactions.",
+          description: "Our legal and tax team advises you on purchase contracts, inheritances, donations, real estate taxation, and conflict resolution.",
+          benefits: [
+            "Drafting and review of deposit and rental contracts",
+            "Tax planning to optimize transfer taxes and income tax",
+            "Management of inheritances and property transfers",
+            "Specialized legal representation and defense"
+          ]
+        },
+        {
+          title: "Works & Maintenance",
+          tagline: "Renovation, rehabilitation, and technical conservation with quality guarantee.",
+          description: "We manage complete renovation projects, facade restoration, energy efficiency, and preventive maintenance to revalue your real estate assets.",
+          benefits: [
+            "Turnkey projects with fixed budget",
+            "Restoration of facades, roofs, and downspouts",
+            "Energy certification and NextGen European grants",
+            "Site supervision by certified technicians"
+          ]
+        }
+      ]
     },
     properties: {
       tag: "Exclusive Portfolio",
@@ -819,15 +921,66 @@ export const translations = {
       demandaAlta: "Alta demanda en aquesta ubicació",
       solicitarInforme: "Sol·licitar Informe Oficial Gratuït",
       enviada: "Valoració Enviada!",
-      enviadaDesc: "En breu rebràs l'informe al teu correu.",
+      enviadaDesc: "Gràcies, un assessor es posarà en contacte amb tu en menys de 24 hores amb la valoració de la teva propietat.",
       nuevaValoracion: "Nova valoració",
       seleccionaZona: "Selecciona zona",
       sinCompromiso: "Sense compromís",
       resultadoInmediato: "Resultat immediat",
       valorEstimado: "Valor Estimat",
       rangoEstimado: "Rang estimat:",
-      estimacionAutomatizada: "Aquesta és una estimació automatitzada.",
+      estimacionAutomatizada: "Estimació orientativa basada en dades de mercat, no substitueix una taxació professional",
+      ejemploResultado: "EXEMPLE DE RESULTAT",
       actualizadoHoy: "Actualitzat avui"
+    },
+    serviceModal: {
+      close: "Tancar",
+      contactBtn: "Sol·licitar aquest servei",
+      items: [
+        {
+          title: "Administració de Finques",
+          tagline: "Gestió integral de comunitats i edificis amb la màxima transparència.",
+          description: "Ens encarreguem de la gestió administrativa, comptable i tècnica de la seva comunitat de propietaris. Controlem despeses, optimitzem pressupostos i resolem incidències amb rapidesa.",
+          benefits: [
+            "Gestió de rebuts, comptes i control de morositat",
+            "Convocatòria i junta de propietaris anuals i extraordinàries",
+            "Atenció 24/7 per a incidències i avaries comunitàries",
+            "Assessorament tècnic per a ITEs i obres de conservació"
+          ]
+        },
+        {
+          title: "Gestió Immobiliària",
+          tagline: "Comercialització experta per vendre o llogar al millor preu.",
+          description: "Acompanyem propietaris i inversors en la venda i arrendament d'habitatges, locals i oficines. Valoració precisa, pla de màrqueting a mida i filtre exhaustiu d'inquilins.",
+          benefits: [
+            "Valoració oficial de mercat i estudi comparatiu",
+            "Reportatge fotogràfic professional i pla de difusió",
+            "Filtratge de solvència i garanties per a arrendaments",
+            "Acompanyament legal fins a la signatura davant notari"
+          ]
+        },
+        {
+          title: "Assessoria Jurídica i Fiscal",
+          tagline: "Seguretat jurídica total en totes les seves operacions immobiliàries.",
+          description: "El nostre equip jurídic i fiscal l'assessora en contractes de compravenda, herències, donacions, tributació immobiliària i resolució de conflictes.",
+          benefits: [
+            "Redacció i revisió de contractes d'arres i lloguer",
+            "Planificació fiscal per optimitzar impostos de transmissió i IRPF",
+            "Gestió d'herències i transmissions patrimonials",
+            "Defensa i representació legal especialitzada"
+          ]
+        },
+        {
+          title: "Obres i Manteniment",
+          tagline: "Rehabilitació, reformes i conservació tècnica amb garantia de qualitat.",
+          description: "Gestionem projectes de reforma integral, rehabilitació de façanes, eficiència energètica i manteniment preventiu per revalorar el seu actiu immobiliari.",
+          benefits: [
+            "Projectes claus en mà amb pressupost tancat",
+            "Rehabilitació de façanes, cobertes i baixants",
+            "Certificació energètica i subvencions europees NextGen",
+            "Supervisió i direcció d'obra per tècnics col·legiats"
+          ]
+        }
+      ]
     },
     properties: {
       tag: "Catàleg Exclusiu",

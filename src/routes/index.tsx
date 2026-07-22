@@ -182,6 +182,8 @@ function Index() {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [mapInteractive, setMapInteractive] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
     home: <Home className="w-7 h-7" />,
@@ -207,7 +209,7 @@ function Index() {
       return p.bedrooms >= minHabs;
     });
 
-  let displayProperties = filteredProperties;
+  let displayProperties = filteredProperties.slice(0, visibleCount);
   let isFallback = false;
 
   if (filteredProperties.length === 0) {
@@ -399,6 +401,7 @@ function Index() {
             {/* RIGHT COLUMN: White Floating Price Card */}
             <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
               <div className="bg-white text-[#0f172a] rounded-3xl p-8 md:p-10 shadow-2xl w-full max-w-[380px] border border-slate-100">
+                <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1.5 font-sans">{t.valorador.ejemploResultado}</div>
                 <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">{t.valorador.valorEstimado}</div>
                 
                 <div className="text-4xl md:text-[44px] font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
@@ -854,30 +857,41 @@ function Index() {
           {/* CTA Footer */}
           <Reveal delay={0.1}>
             <div className="flex flex-col items-center justify-center mt-12 pt-12 border-t border-slate-200/60">
-              <button 
-                onClick={() => {
-                  setSearchParams({
-                    mode: "comprar",
-                    zona: "Cualquier zona",
-                    tipo: "Cualquier tipo",
-                    precio: "Cualquier precio",
-                    habitaciones: "Cualquier número"
-                  });
-                }}
-                className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
-              >
-                {t.properties.verTodas}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              {visibleCount < filteredProperties.length ? (
+                <button 
+                  onClick={() => setVisibleCount(filteredProperties.length)}
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                >
+                  {t.properties.verTodas} ({filteredProperties.length - visibleCount} {t.properties.disponibles})
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              ) : (
+                <button 
+                  onClick={() => {
+                    setSearchParams({
+                      mode: "comprar",
+                      zona: "Cualquier zona",
+                      tipo: "Cualquier tipo",
+                      precio: "Cualquier precio",
+                      habitaciones: "Cualquier número"
+                    });
+                    setVisibleCount(properties.length);
+                  }}
+                  className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-full font-bold text-sm transition-all shadow-xs flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                >
+                  {t.properties.verTodas}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
               <p className="text-xs text-slate-500 font-semibold">{t.properties.showingAll}</p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── SERVICES SECTION (SWAPPED TO LIGHT BUBBLE CARD - POINTS 2 & 4) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
+      {/* ── SERVICES SECTION (LIGHT GRAY BUBBLE CARD #f1f5f9 - POINT 1 FIX) ── */}
+      <section id="servicios" className="relative overflow-hidden bg-white text-onyx py-10 md:py-14">
+        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="text-center mb-14">
             <Reveal>
               <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
@@ -897,7 +911,7 @@ function Index() {
             </Reveal>
           </div>
 
-          {/* Grid de 4 tarjetas Bubble en gris suave */}
+          {/* Grid de 4 tarjetas Bubble blancas */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {t.servicios.items.map((item, i) => {
               const icons = [
@@ -914,13 +928,13 @@ function Index() {
               ];
               return (
                 <Reveal key={i} delay={i * 0.1}>
-                  <div className="group bg-white rounded-3xl p-5 border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col h-[420px]">
+                  <div className="group bg-white rounded-3xl p-5 border border-slate-200/70 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col h-[420px]">
                     {/* Superior: Imagen */}
                     <div className="relative h-[55%] w-full rounded-2xl mb-8">
                       <div className="w-full h-full rounded-2xl overflow-hidden">
                         <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       </div>
-                      {/* Icono circular superpuesto en esquina inferior (Azul con icono blanco) */}
+                      {/* Icono circular superpuesto en esquina inferior */}
                       <div className="absolute -bottom-4 left-4 w-12 h-12 rounded-full bg-[#2563eb] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
@@ -937,9 +951,12 @@ function Index() {
                         </p>
                       </div>
                       <div className="pt-4">
-                        <a href="#contacto" className="text-[#2563eb] hover:text-[#1d4ed8] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                        <button 
+                          onClick={() => setSelectedServiceIndex(i)}
+                          className="text-[#2563eb] hover:text-[#1d4ed8] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
+                        >
                           {t.servicios.saberMas} <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -1509,6 +1526,67 @@ function Index() {
       {/* Floating Utilities (Point 7 Fix) */}
       <WhatsAppButton language={language} />
       <CookieBanner language={language} />
+
+      {/* Service Detail Modal (Point 3 Fix) */}
+      <AnimatePresence>
+        {selectedServiceIndex !== null && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto"
+            >
+              <button
+                onClick={() => setSelectedServiceIndex(null)}
+                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Cerrar modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-14 h-14 rounded-2xl bg-[#2563eb]/10 text-[#2563eb] flex items-center justify-center mb-6">
+                <Building2 className="w-7 h-7" />
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#0f172a] mb-2 font-sans">
+                {t.serviceModal.items[selectedServiceIndex]?.title}
+              </h3>
+              <p className="text-[#2563eb] text-sm font-bold mb-4">
+                {t.serviceModal.items[selectedServiceIndex]?.tagline}
+              </p>
+              <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6 font-medium">
+                {t.serviceModal.items[selectedServiceIndex]?.description}
+              </p>
+
+              <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200/70 mb-8 space-y-3">
+                {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
+                  <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-semibold text-slate-700">
+                    <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
+                    <span>{benefit}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href="#contacto"
+                  onClick={() => setSelectedServiceIndex(null)}
+                  className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm py-3.5 px-6 rounded-full text-center transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                  {t.serviceModal.contactBtn} <ArrowRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => setSelectedServiceIndex(null)}
+                  className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm py-3.5 px-6 rounded-full transition-all cursor-pointer"
+                >
+                  {t.serviceModal.close}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

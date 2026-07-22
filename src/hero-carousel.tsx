@@ -214,10 +214,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         <img 
           src={heroBg} 
           alt="Gesgrama Barcelona penthouse family" 
-          className="w-full h-full object-cover object-[65%_center] md:object-[right_center]"
+          className="w-full h-full object-cover object-[98%_center] sm:object-[90%_center] md:object-right"
         />
-        {/* Soft Dark Gradient Overlay on left for perfect text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/20 md:from-black/80 md:via-black/40 md:to-transparent" />
+        {/* Soft Dark Gradient Overlay on left for text contrast, leaving family 100% bright */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/45 to-transparent md:from-black/80 md:via-black/35 md:to-transparent" />
       </div>
 
       <div className="max-w-[1280px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8">

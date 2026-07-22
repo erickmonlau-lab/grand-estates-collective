@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home } from "lucide-react";
-import heroBg from "@/assets/family_no_boy.jpg"; 
+import heroBg from "@/assets/family_barcelona.jpg"; 
+import gesgramaBuilding from "@/assets/gesgrama_building.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -49,8 +50,24 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   return (
     <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center">
       
-      {/* ── Completely White / Light Clean Background ── */}
+      {/* ── Completely White Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
+
+      {/* ── Bold Black/Dark Hand-Drawn Building Sketches (Decorations in corners) ── */}
+      <div 
+        className="absolute left-[-60px] bottom-[-20px] w-[350px] h-[350px] z-0 opacity-[0.06] pointer-events-none select-none bg-contain bg-no-repeat bg-center"
+        style={{ 
+          backgroundImage: `url(${gesgramaBuilding})`,
+          filter: 'brightness(0) contrast(100%)' // Converts drawing to solid black outline
+        }}
+      />
+      <div 
+        className="absolute right-[-80px] top-[10%] w-[380px] h-[380px] z-0 opacity-[0.06] pointer-events-none select-none bg-contain bg-no-repeat bg-center"
+        style={{ 
+          backgroundImage: `url(${gesgramaBuilding})`,
+          filter: 'brightness(0) contrast(100%)' // Converts drawing to solid black outline
+        }}
+      />
 
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
@@ -115,13 +132,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </motion.div>
             </div>
 
-            {/* Right Image Column (Family Photo - zoomed/scaled closer) */}
+            {/* Right Image Column (Family Photo - Natural aspect and perspective) */}
             <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100">
               <motion.img
                 src={heroBg}
                 alt="Gesgrama - Tu próximo hogar"
-                initial={{ scale: 1.35, y: 15, opacity: 0 }}
-                animate={{ scale: 1.3, y: 10, opacity: 1 }}
+                initial={{ scale: 1.05, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1, ease: expo }}
                 className="w-full h-full object-cover object-[center_35%]"
               />

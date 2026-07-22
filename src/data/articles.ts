@@ -1,4 +1,4 @@
-import gesgramaFacade from "@/assets/gesgrama_modern_facade_twilight.jpg";
+import gesgramaFacade from "@/assets/gesgrama_modern_facade_twilight.webp";
 import property1Img from "@/assets/property-1.webp";
 import realExteriorImg from "@/assets/real_exterior_white_1783264881525.webp";
 import brightAtriumImg from "@/assets/bright-atrium.webp";

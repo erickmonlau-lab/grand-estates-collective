@@ -1167,7 +1167,7 @@ export const translations = {
       ]
     },
     cobertura: {
-      tag: "Àrea de Coberta",
+      tag: "Àrea de Cobertura",
       title1: "Treballem a tota la província de",
       title2: "Barcelona",
       subtitle: "Equip propi a tota l'àrea metropolitana, Maresme, Vallès, Baix Llobregat i Costa Daurada.",
@@ -1180,8 +1180,8 @@ export const translations = {
     },
     galeria: {
       tag: "Projectes Destacats",
-      title1: "Galeria de",
-      title2: "els nostres treballs.",
+      title1: "Galeria",
+      title2: "dels nostres treballs.",
       subtitle: "Un recorregut visual per les comunitats i reformes gestionades amb els més alts estàndards de qualitat.",
       categorias: {
         todas: "Tots els projectes",
@@ -1224,7 +1224,7 @@ export const translations = {
           features: ["Reclamació de morositat", "Revisió i redacció de contractes", "Assessorament en herències i plusvàlues"]
         },
         {
-          title: "Obres i Mantenimiento",
+          title: "Obres i Manteniment",
           desc: "Supervisió tècnica d'obres de rehabilitació, tramitació de subvencions i ITE d'edificis.",
           features: ["Tramitació d'ITE i Informes Tècnics", "Gestió de subvencions NextGen", "Manteniment preventiu de finques"]
         }
@@ -1244,7 +1244,7 @@ export const translations = {
           location: "Eixample, Barcelona"
         },
         {
-          quote: "Vàrem vendre el nostre pis en menys d'un mes al preu desitjat. El seu coneixement del mercat local és una gran meva/diferència.",
+          quote: "Vàrem vendre el nostre pis en menys d'un mes al preu desitjat. El seu coneixement del mercat local és una gran diferència.",
           author: "R. Puig",
           location: "Sarrià-Sant Gervasi"
         },
@@ -1444,7 +1444,7 @@ export const translations = {
         location: "Eixample",
         floor: "Planta baixa",
         description: "Local comercial en rendibilitat en zona turística privilegiada al costat de la Sagrada Família. Sortida de fums aprovada.",
-        features: ["Alta rendibilitat", "Sortida de fums", "Zona molt turística", "Façana de 6 metres", "Inversió meva/segura"]
+        features: ["Alta rendibilitat", "Sortida de fums", "Zona molt turística", "Façana de 6 metres", "Inversió segura"]
       }
     }
   }

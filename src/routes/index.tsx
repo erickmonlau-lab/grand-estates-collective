@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
-import handKeysImg from "@/assets/hand_keys_blue.jpg";
+import handKeysImg from "@/assets/hand_keys_blue.webp";
 import gallery1 from "@/assets/gallery-1.webp";
 import { FooterAnimationGSAP } from '@/components/FooterAnimationGSAP';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -162,6 +162,11 @@ function Index() {
     return () => window.removeEventListener('click', handleClickOutside);
   }, []);
 
+  // ── Dynamic HTML lang attribute for SEO ──
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
   const handleHeroSearch = (params: { mode: any; zona: string; tipo: string; precio: string }) => {
     setSearchParams({
       mode: params.mode,
@@ -290,25 +295,50 @@ function Index() {
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
       <title>Gesgrama — Administración de Fincas, Inmobiliaria y Asesoría Jurídica en Barcelona</title>
-      <meta name="description" content="Gestión profesional y transparente de comunidades, compraventa de pisos y asesoría jurídica experta en Barcelona, Santa Coloma y área metropolitana." />
+      <meta name="description" content="Gesgrama: administración de fincas, inmobiliaria y asesoría jurídica en Barcelona y Santa Coloma de Gramenet. Gestión transparente de comunidades, compraventa de pisos, valoraciones gratuitas y asesoramiento legal. +15 años de experiencia, +300 comunidades gestionadas." />
       <link rel="canonical" href="https://www.gesgrama.es/" />
+
+      {/* Open Graph */}
       <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
-      <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona." />
+      <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona, Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
       <meta property="og:url" content="https://www.gesgrama.es/" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content="https://www.gesgrama.es/logo.webp" />
+      <meta property="og:site_name" content="Gesgrama" />
+      <meta property="og:locale" content="es_ES" />
+      <meta property="og:locale:alternate" content="ca_ES" />
+      <meta property="og:locale:alternate" content="en_GB" />
+
+      {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
+      <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Barcelona." />
+      <meta name="twitter:image" content="https://www.gesgrama.es/logo.webp" />
+
+      {/* Geo Targeting SEO — Barcelona, Cataluña, España */}
+      <meta name="geo.region" content="ES-CT" />
+      <meta name="geo.placename" content="Santa Coloma de Gramenet, Barcelona" />
+      <meta name="geo.position" content="41.4518;2.2085" />
+      <meta name="ICBM" content="41.4518, 2.2085" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="keywords" content="administración de fincas Barcelona, inmobiliaria Barcelona, pisos en venta Barcelona, gestión de comunidades, asesoría jurídica inmobiliaria, comprar piso Santa Coloma de Gramenet, administrador de fincas Cataluña, valoración de pisos Barcelona, alquiler pisos Barcelona, Gesgrama" />
+
+      {/* JSON-LD Structured Data — RealEstateAgent + LocalBusiness */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "RealEstateAgent",
+            "@type": ["RealEstateAgent", "LocalBusiness"],
             "name": "Gesgrama",
+            "alternateName": "Gesgrama Inmobiliaria y Administración de Fincas",
             "image": "https://www.gesgrama.es/logo.webp",
             "@id": "https://www.gesgrama.es",
             "url": "https://www.gesgrama.es",
             "telephone": "+34934685656",
+            "email": "info@gesgrama.es",
+            "description": "Empresa de administración de fincas, inmobiliaria y asesoría jurídica en Barcelona y Santa Coloma de Gramenet. Más de 15 años de experiencia gestionando comunidades de propietarios, compraventa de pisos y asesoramiento legal inmobiliario.",
+            "priceRange": "€€",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Av. dels Banús, 49",
@@ -317,7 +347,103 @@ function Index() {
               "addressRegion": "Barcelona",
               "addressCountry": "ES"
             },
-            "areaServed": ["Barcelona", "Santa Coloma de Gramenet", "Badalona", "Maresme", "Vallès"]
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 41.4518,
+              "longitude": 2.2085
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "19:00"
+              }
+            ],
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Barcelona",
+                "sameAs": "https://es.wikipedia.org/wiki/Barcelona"
+              },
+              {
+                "@type": "City",
+                "name": "Santa Coloma de Gramenet",
+                "sameAs": "https://es.wikipedia.org/wiki/Santa_Coloma_de_Gramenet"
+              },
+              {
+                "@type": "City",
+                "name": "Badalona"
+              },
+              {
+                "@type": "City",
+                "name": "L'Hospitalet de Llobregat"
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Maresme"
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Vallès"
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Baix Llobregat"
+              },
+              {
+                "@type": "State",
+                "name": "Cataluña",
+                "sameAs": "https://es.wikipedia.org/wiki/Catalu%C3%B1a"
+              }
+            ],
+            "sameAs": [
+              "https://www.gesgrama.es"
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Servicios Gesgrama",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Administración de Fincas",
+                    "description": "Gestión integral de comunidades de propietarios en Barcelona y área metropolitana"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Servicios Inmobiliarios",
+                    "description": "Compraventa y alquiler de pisos, áticos, chalets y locales comerciales en Barcelona"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Asesoría Jurídica Inmobiliaria",
+                    "description": "Asesoramiento legal en herencias, contratos de arrendamiento y reclamación de deudas"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Obras y Mantenimiento",
+                    "description": "Supervisión técnica de rehabilitaciones, tramitación de subvenciones y ITE de edificios"
+                  }
+                }
+              ]
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "312",
+              "bestRating": "5"
+            }
           })
         }}
       />
@@ -913,7 +1039,7 @@ function Index() {
                   >
                     {/* Image Block */}
                     <div className="relative h-[180px] sm:h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
-                      <img src={property.image} alt={pData.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                      <img src={property.image} alt={pData.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                       
                       {/* Heart Favorite Button with LocalStorage Persistence */}
                       <button
@@ -1105,7 +1231,7 @@ function Index() {
                   <div className="group bg-white text-[#0f172a] rounded-3xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-6 h-full">
                     {/* Thumbnail compacto (~25-30% de la tarjeta) con icono Cyan superpuesto */}
                     <div className="relative w-full sm:w-[130px] h-[110px] sm:h-[130px] rounded-2xl overflow-hidden shrink-0">
-                      <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <div className="absolute top-2.5 left-2.5 w-9 h-9 rounded-full bg-[#0284c7] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
@@ -1139,6 +1265,7 @@ function Index() {
       </section>
 
       {/* ── TESTIMONIALS / PHILOSOPHY ── */}
+      <div id="nosotros"></div>
       <section id="testimonios" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
@@ -1177,7 +1304,7 @@ function Index() {
                     
                     {/* Autor */}
                     <div className="flex flex-col items-center gap-3 mt-auto">
-                      <img src={avatars[i % avatars.length]} alt={item.author} className="w-14 h-14 rounded-full object-cover border-2 border-slate-100 shrink-0 shadow-sm" />
+                      <img src={avatars[i % avatars.length]} alt={item.author} loading="lazy" className="w-14 h-14 rounded-full object-cover border-2 border-slate-100 shrink-0 shadow-sm" />
                       <div>
                         <div className="font-bold text-base text-[#0f172a] mb-0.5">{item.author}</div>
                         <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.location}</div>

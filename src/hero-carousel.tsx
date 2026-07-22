@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home, Users } from "lucide-react";
-import heroBg from "@/assets/family_barcelona.jpg"; 
+import heroBg from "@/assets/family_barcelona.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -235,8 +235,9 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         <div className="absolute right-0 top-0 w-full lg:w-[62%] h-full">
           <img 
             src={heroBg} 
-            alt="Gesgrama Barcelona penthouse family" 
+            alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Barcelona" 
             className="w-full h-full object-cover object-[80%_center] md:object-right"
+            fetchPriority="high"
           />
           {/* Light-mode fade mask on the left of the image */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent lg:via-[#f8fafc]/40" />

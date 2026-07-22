@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Shield, Check, Home, LineChart, Zap, Users } from "lucide-react";
+import { ArrowRight, Star, Building2, Shield, Check, Home } from "lucide-react";
+import heroBg from "@/assets/family_no_boy.jpg"; 
 import realisticBg from "@/assets/realistic-bg.webp"; 
-import gesgramaBuilding from "@/assets/gesgrama_building.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -48,11 +48,11 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative bg-[#f1f5f9] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center">
+    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center">
       
-      {/* ── Screen Blueprint Background ── */}
+      {/* ── Screen Blueprint Background (Subtle outline style on white background) ── */}
       <div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-40 bg-center bg-no-repeat" 
+        className="absolute inset-0 z-0 pointer-events-none opacity-20 bg-center bg-no-repeat" 
         style={{ 
           backgroundImage: `url(${realisticBg})`,
           backgroundSize: '100% 100%' 
@@ -61,8 +61,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
 
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
-        {/* Main Levitating White Card */}
-        <div className="bg-white/95 backdrop-blur-md rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.06)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10 transition-all">
+        {/* Main Light Card */}
+        <div className="bg-white/95 backdrop-blur-md rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.04)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content Column */}
@@ -122,70 +122,22 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </motion.div>
             </div>
 
-            {/* Right Valuation Container Card (Exact Mockup Layout) */}
-            <div className="lg:col-span-5 w-full flex items-center justify-center lg:justify-end">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: expo }}
-                className="bg-white border border-slate-200/60 rounded-3xl p-6 md:p-8 shadow-[0_15px_35px_rgba(0,0,0,0.04)] w-full max-w-[380px] relative overflow-hidden"
-              >
-                {/* Floating Home Badge Icon */}
-                <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shadow-xs">
-                  <Home className="w-6 h-6" />
-                </div>
-
-                {/* Card Title */}
-                <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">
-                  {t.heroCarousel.estimatedValue}
-                </div>
-                
-                {/* Price Display */}
-                <div className="text-4xl md:text-[44px] font-black text-[#0f172a] mb-4 leading-none tracking-tight font-sans">
-                  245<span className="text-slate-400 font-normal">.000€</span>
-                </div>
-                
-                {/* Range Badge */}
-                <div className="inline-flex flex-col mb-6 bg-slate-50 border border-slate-100 rounded-xl px-4 py-2 w-fit">
-                  <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest leading-none mb-1">
-                    {t.heroCarousel.estimatedRange}
-                  </span>
-                  <span className="text-xs font-bold text-[#0f172a] leading-none">
-                    230.000€ – 260.000€
-                  </span>
-                </div>
-
-                {/* Building Blueprint Drawing (Rendered as blue/gray sketch) */}
-                <div className="w-full h-36 rounded-2xl overflow-hidden mb-6 bg-slate-50/50 border border-slate-100 p-2 flex items-center justify-center">
-                  <img 
-                    src={gesgramaBuilding} 
-                    alt="Blue-print Rendering" 
-                    className="w-full h-full object-contain opacity-60 mix-blend-multiply" 
-                  />
-                </div>
-                
-                {/* Card Check Rows */}
-                <div className="flex flex-col gap-2.5 text-[11px] font-bold text-slate-500 pt-4 border-t border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-[#2563eb] shrink-0" />
-                    <span>{t.heroCarousel.basedOnReal}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <LineChart className="w-4 h-4 text-[#2563eb] shrink-0" />
-                    <span>{t.heroCarousel.professionalAnalysis}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-[#2563eb] shrink-0" />
-                    <span>{t.heroCarousel.getInstantly}</span>
-                  </div>
-                </div>
-              </motion.div>
+            {/* Right Image Column (Family Photo) */}
+            <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+              <motion.img
+                src={heroBg}
+                alt="Gesgrama - Tu próximo hogar"
+                initial={{ scale: 1.05, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1, ease: expo }}
+                className="w-full h-full object-cover object-center"
+              />
             </div>
 
           </div>
         </div>
 
-        {/* Floating Stat Cards Row (Exact Image 3 Style) */}
+        {/* Floating Stat Cards Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 relative z-20">
           
           {/* Stat 1: Clientes Satisfechos */}
@@ -196,7 +148,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
           >
             <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Users className="w-6 h-6" />
+              <Building2 className="w-6 h-6" /> {/* Match mockup icons */}
             </div>
             <div>
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">

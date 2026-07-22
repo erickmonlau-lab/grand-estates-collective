@@ -465,10 +465,10 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
+        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
       >
-        <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
-          <img src={logoImg} alt="Gesgrama" className="h-9 sm:h-11 md:h-12 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[220px] object-contain" />
+        <a href="#" className="hover:opacity-90 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
+          <img src={logoImg} alt="Gesgrama" className="h-11 sm:h-14 md:h-16 w-auto max-w-[200px] sm:max-w-[260px] md:max-w-[320px] object-contain drop-shadow-xs" />
         </a>
 
         <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
@@ -525,6 +525,9 @@ function Index() {
                 exit={{ opacity: 0, y: -20, scale: 0.98 }}
                 className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-2 z-[100] lg:hidden"
               >
+                <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 px-2">
+                  <img src={logoImg} alt="Gesgrama Logo" className="h-11 w-auto object-contain" />
+                </div>
                 <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
                 <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
                 <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
@@ -549,10 +552,13 @@ function Index() {
             
             {/* LEFT COLUMN: Form */}
             <div className="lg:col-span-7 flex flex-col justify-center">
-              <span className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs backdrop-blur-md">
-                <Star className="w-3.5 h-3.5 fill-white text-white" />
-                {t.valorador.tag}
-              </span>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs backdrop-blur-md">
+                  <Star className="w-3.5 h-3.5 fill-white text-white" />
+                  {t.valorador.tag}
+                </span>
+                <img src={logoImg} alt="Gesgrama" className="h-7 w-auto object-contain brightness-200 contrast-200 opacity-90 hidden sm:block" />
+              </div>
 
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-[1.1] tracking-tight font-sans">
                 {t.valorador.title} <span className="text-blue-200">{t.valorador.titleAccent}</span>
@@ -1753,7 +1759,7 @@ function Index() {
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-8">
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
-              <img src={logoImg} alt="Gesgrama" className="h-12 w-auto object-contain opacity-100 mb-4" />
+              <img src={logoImg} alt="Gesgrama" className="h-16 sm:h-20 w-auto object-contain opacity-100 mb-5" />
               <p className="text-[13px] leading-relaxed text-slate-300 max-w-[200px]">
                 {t.footer.descripcion}
               </p>

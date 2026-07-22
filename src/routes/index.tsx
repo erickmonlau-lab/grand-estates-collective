@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties } from "../data/properties";
+import { articles } from "../data/articles";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush } from "lucide-react";
@@ -254,6 +255,38 @@ function Index() {
 
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
+      <title>Gesgrama — Administración de Fincas, Inmobiliaria y Asesoría Jurídica en Barcelona</title>
+      <meta name="description" content="Gestión profesional y transparente de comunidades, compraventa de pisos y asesoría jurídica experta en Barcelona, Santa Coloma y área metropolitana." />
+      <link rel="canonical" href="https://www.gesgrama.es/" />
+      <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
+      <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona." />
+      <meta property="og:url" content="https://www.gesgrama.es/" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://www.gesgrama.es/logo.webp" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "RealEstateAgent",
+            "name": "Gesgrama",
+            "image": "https://www.gesgrama.es/logo.webp",
+            "@id": "https://www.gesgrama.es",
+            "url": "https://www.gesgrama.es",
+            "telephone": "+34934685656",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Av. dels Banús, 49",
+              "addressLocality": "Santa Coloma de Gramenet",
+              "postalCode": "08923",
+              "addressRegion": "Barcelona",
+              "addressCountry": "ES"
+            },
+            "areaServed": ["Barcelona", "Santa Coloma de Gramenet", "Badalona", "Maresme", "Vallès"]
+          })
+        }}
+      />
 
 {/* â”€â”€ NAVIGATION (DARK PILL MOCKUP) â”€â”€ */}
       <motion.nav
@@ -1239,30 +1272,38 @@ function Index() {
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {t.noticias.items.map((post, i) => {
-              const imgs = [
-                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              ];
+            {articles.map((art, i) => {
+              const artContent = art[language];
               return (
-                <Reveal key={i} delay={i * 0.1}>
+                <Reveal key={art.id} delay={i * 0.1}>
                   <div className="bg-white rounded-3xl p-5 flex flex-col h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4">
-                      <img src={imgs[i]} alt={post.titulo} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      <img
+                        src={art.image}
+                        alt={artContent.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
                     </div>
                     <div className="p-2 flex flex-col flex-1">
                       <div className="flex items-center gap-3 text-[11px] font-bold mb-2.5">
-                        <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{post.categoria}</span>
-                        <span className="text-slate-400 font-medium">{post.fecha}</span>
+                        <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{artContent.category}</span>
+                        <span className="text-slate-400 font-medium">{artContent.date}</span>
                       </div>
-                      <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors">{post.titulo}</h3>
-                      <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1">{post.resumen}</p>
+                      <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2">
+                        {artContent.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1 line-clamp-3">
+                        {artContent.summary}
+                      </p>
                       <div className="mt-auto pt-2">
-                        <span className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
+                        <Link
+                          to="/noticias/$slug"
+                          params={{ slug: art.slug }}
+                          className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all"
+                        >
                           {t.noticias.seguirLeyendo} <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
+                        </Link>
                       </div>
                     </div>
                   </div>

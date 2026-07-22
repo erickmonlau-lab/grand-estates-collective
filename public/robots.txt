@@ -1,0 +1,6 @@
+# Robots.txt for Gesgrama
+User-agent: *
+Allow: /
+
+# Sitemap URL
+Sitemap: https://www.gesgrama.es/sitemap.xml

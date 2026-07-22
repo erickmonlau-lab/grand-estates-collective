@@ -1292,8 +1292,12 @@ function Index() {
                     {t.hero.verPropiedades}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
-                  <a href="#contacto" className="bg-transparent hover:bg-white/10 border-2 border-white text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
-                    {t.hero.hablarAsesor}
+                  <a 
+                    href="#contacto" 
+                    className="bg-[#0284c7] hover:bg-[#0369a1] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer"
+                  >
+                    <Phone className="w-4 h-4 text-white" />
+                    <span>{t.hero.hablarAsesor}</span>
                   </a>
                 </div>
 

@@ -218,7 +218,7 @@ function Index() {
   };
 
   const zonas = ["Eixample", "Gràcia", "Sarrià-Sant Gervasi", "Sant Antoni", "Pedralbes", "Santa Coloma de Gramenet", "Badalona", "Hospitalet de Llobregat", "Maresme"];
-  const tipos = ["Piso", "Ático", "Chalet", "Local comercial", "Oficina"];
+  const tipos = ["Piso", "Ático", "Chalet", "Local comercial", "Oficina"];
 
   // Filter properties
   const filteredProperties = properties
@@ -576,7 +576,7 @@ function Index() {
                     {[
                       { label: t.properties.anyType, value: "Cualquier tipo" },
                       { label: "Piso", value: "Piso" },
-                      { label: "Á tico", value: "Á tico" },
+                      { label: "Ático", value: "Ático" },
                       { label: "Local comercial", value: "Local comercial" },
                       { label: "Chalet", value: "Chalet" }
                     ].map(opt => {
@@ -595,11 +595,18 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold text-left transition-colors cursor-pointer font-sans ${
-                            isActive ? "bg-[#005c99] text-white" : "text-slate-600 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
                           }`}
                         >
-                          <span>{opt.label}</span>
+                          <div className="flex items-center gap-2">
+                            {isActive ? (
+                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                            ) : (
+                              <span className="w-3.5 h-3.5 shrink-0" />
+                            )}
+                            <span>{opt.label}</span>
+                          </div>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
                             {count}
                           </span>
@@ -652,11 +659,18 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold text-left transition-colors cursor-pointer font-sans ${
-                            isActive ? "bg-[#005c99] text-white" : "text-slate-600 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
                           }`}
                         >
-                          <span>{opt.label}</span>
+                          <div className="flex items-center gap-2">
+                            {isActive ? (
+                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                            ) : (
+                              <span className="w-3.5 h-3.5 shrink-0" />
+                            )}
+                            <span>{opt.label}</span>
+                          </div>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
                             {count}
                           </span>
@@ -714,11 +728,18 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold text-left transition-colors cursor-pointer font-sans ${
-                            isActive ? "bg-[#005c99] text-white" : "text-slate-600 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
                           }`}
                         >
-                          <span>{opt.label}</span>
+                          <div className="flex items-center gap-2">
+                            {isActive ? (
+                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                            ) : (
+                              <span className="w-3.5 h-3.5 shrink-0" />
+                            )}
+                            <span>{opt.label}</span>
+                          </div>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
                             {count}
                           </span>
@@ -771,11 +792,18 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, precio: opt }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-xs font-bold text-left transition-colors cursor-pointer font-sans ${
-                            isActive ? "bg-[#005c99] text-white" : "text-slate-600 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
                           }`}
                         >
-                          <span>{opt}</span>
+                          <div className="flex items-center gap-2">
+                            {isActive ? (
+                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                            ) : (
+                              <span className="w-3.5 h-3.5 shrink-0" />
+                            )}
+                            <span>{opt}</span>
+                          </div>
                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
                             {count}
                           </span>
@@ -846,7 +874,7 @@ function Index() {
                     className="group bg-white rounded-2xl flex flex-col h-full border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
                   >
                     {/* Image Block */}
-                    <div className="relative h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
+                    <div className="relative h-[180px] sm:h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
                       <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
                       
                       {/* Heart Favorite Button with LocalStorage Persistence */}
@@ -877,7 +905,7 @@ function Index() {
                     </div>
 
                   {/* Content Block */}
-                  <div className="p-6 flex flex-col flex-1">
+                  <div className="p-4 sm:p-6 flex flex-col flex-1">
                     {/* Visual accent next to the price */}
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-[3px] h-6 bg-[#005c99] rounded-full shrink-0"></div>
@@ -891,7 +919,7 @@ function Index() {
                       {(() => {
                         const type = property.type || "Piso";
                         let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
-                        if (type === "Á tico") {
+                        if (type === "Ático") {
                           badgeClass = "bg-sky-100 text-sky-800";
                         } else if (type === "Chalet") {
                           badgeClass = "bg-indigo-100 text-indigo-900";

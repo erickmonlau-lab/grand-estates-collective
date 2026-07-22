@@ -210,173 +210,140 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-20 pb-8 md:pt-36 md:pb-16 px-3.5 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center select-none">
+    <section id="hero" className="relative text-white pt-24 pb-10 md:pt-32 md:pb-16 px-3.5 md:px-8 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none">
       
-      {/* ── Completely White Base Background ── */}
-      <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
-
-      {/* ── Responsive Flex Layout for Sketches (Perfect dynamic centering in margins) ── */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex justify-between hidden lg:flex">
-        {/* Left Margin Container: Allocates exactly the space between screen edge and the 1300px bubble */}
-        <div className="flex-1 max-w-[calc(50vw-650px)] flex items-end justify-center pb-[20vh] px-2 xl:px-6">
-           <BuildingSketchLeft />
-        </div>
-        {/* Right Margin Container */}
-        <div className="flex-1 max-w-[calc(50vw-650px)] flex items-start justify-center pt-[15vh] px-2 xl:px-6">
-           <BuildingSketchRight />
-        </div>
+      {/* ── Background Image & Dark Overlay ── */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={heroBg} 
+          alt="Gesgrama Barcelona penthouse" 
+          className="w-full h-full object-cover object-[center_35%]"
+        />
+        {/* Soft Left Dark Gradient Overlay for optimal contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30 md:from-black/80 md:via-black/45 md:to-transparent" />
       </div>
 
-      <div className="max-w-[1300px] mx-auto w-full relative z-10">
+      <div className="max-w-[1280px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-2 sm:pt-6">
         
-        {/* Main Light Card */}
-        <div className="bg-white rounded-[24px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.03)] border border-slate-200/50 p-4 sm:p-6 md:p-12 lg:p-14 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10 lg:gap-14 items-center">
-            
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 flex flex-col justify-center items-start text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: expo }}
-                className="w-full"
+        {/* Top/Main Hero Content Container */}
+        <div className="max-w-2xl text-left py-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: expo }}
+          >
+            {/* Eyebrow Pill Badge */}
+            <div className="inline-flex items-center gap-2 bg-white text-slate-900 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-4 shadow-md">
+              <span className="w-2 h-2 rounded-full bg-slate-900"></span>
+              <span>{t.heroCarousel.tag}</span>
+            </div>
+
+            {/* Main Title H1 */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans drop-shadow-sm">
+              Tu próximo<br />
+              hogar,<br />
+              más cerca.
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-lg mb-6 font-medium leading-relaxed font-sans drop-shadow-xs">
+              {t.heroCarousel.subtitle}
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mb-5">
+              {/* Button 1: White Solid Pill */}
+              <a
+                href="#valuator-form"
+                className="bg-white hover:bg-slate-100 text-slate-900 px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-sm transition-all shadow-lg flex items-center justify-center gap-2.5 group cursor-pointer"
               >
-                {/* Eyebrow Tag */}
-                <span className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#dbeafe] text-[#2563eb] text-[9.5px] sm:text-[11px] font-bold tracking-wider uppercase px-3 py-1 sm:px-4 sm:py-1.5 rounded-full mb-3 sm:mb-6 w-fit shadow-xs leading-tight">
-                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#2563eb] animate-pulse"></span>
-                  {t.heroCarousel.tag}
-                </span>
+                <Home className="w-4 h-4 text-slate-900" />
+                <span>{t.heroCarousel.btnValuation}</span>
+                <ArrowRight className="w-4 h-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
+              </a>
 
-                {/* Main Title */}
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0f172a] leading-[1.08] tracking-tight mb-3 sm:mb-6 font-sans">
-                  {t.heroCarousel.titleMain}<br />
-                  <span className="text-[#2563eb]">{t.heroCarousel.titleAccent}</span>
-                </h1>
-
-                {/* Subtitle */}
-                <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-[560px] mb-4 sm:mb-8 font-medium leading-relaxed font-sans">
-                  {t.heroCarousel.subtitle}
-                </p>
-
-                {/* Buttons Row */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-auto mb-3 sm:mb-6">
-                  {/* Button 1: Valorar mi propiedad */}
-                  <a
-                    href="#valuator-form"
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 sm:gap-2.5 group cursor-pointer"
-                  >
-                    <Home className="w-4 h-4 text-white" />
-                    <span>{t.heroCarousel.btnValuation}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-
-                  {/* Button 2: Ver propiedades */}
-                  <a
-                    href="#propiedades"
-                    className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 sm:gap-2.5 group cursor-pointer"
-                  >
-                    <Building2 className="w-4 h-4 text-slate-500" />
-                    <span>{t.heroCarousel.btnProperties}</span>
-                  </a>
-                </div>
-
-                {/* Trust Badge Below Buttons */}
-                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-slate-600">
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
-                  </div>
-                  <span>{t.heroCarousel.trustBadge}</span>
-                </div>
-              </motion.div>
+              {/* Button 2: Glass Outline Pill */}
+              <a
+                href="#propiedades"
+                className="border border-white/60 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-sm transition-all shadow-sm flex items-center justify-center gap-2.5 group cursor-pointer"
+              >
+                <Building2 className="w-4 h-4 text-white" />
+                <span>{t.heroCarousel.btnProperties}</span>
+              </a>
             </div>
 
-            {/* Right Image Column (Clean, Portrait aspect family photo) */}
-            <div className="lg:col-span-5 w-full h-[210px] sm:h-[400px] lg:h-[440px] relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50">
-              <motion.img
-                src={heroBg}
-                alt="Gesgrama - Barcelona"
-                initial={{ scale: 1.03, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, ease: expo }}
-                className="w-full h-full object-cover object-[center_35%]"
-              />
+            {/* Trust Proof */}
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white/95 drop-shadow-xs">
+              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
+              <span>{t.heroCarousel.trustBadge}</span>
             </div>
-
-          </div>
+          </motion.div>
         </div>
 
-        {/* Floating Stat Cards Row (Strict 2x2 Grid on Mobile, 4-Cols on Desktop) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mt-4 sm:mt-6 relative z-20">
+        {/* Floating Stat Cards Row (Strict 4 Cards at Bottom with 112px Safety Margin for WhatsApp Button on mobile) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mt-8 sm:mt-12 pb-28 sm:pb-0 relative z-20">
           
           {/* Stat 1: Clientes Satisfechos */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-5 border border-slate-200/60 shadow-xs flex items-center gap-2.5 sm:gap-4 hover:shadow-md transition-shadow"
+            className="bg-white text-slate-900 rounded-2xl md:rounded-3xl p-4 sm:p-5 shadow-xl border border-white/20 flex flex-col items-start text-left justify-between"
           >
-            <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Building2 className="w-4 h-4 sm:w-6 sm:h-6" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-lg sm:text-2xl font-black text-[#0f172a] leading-none mb-0.5 font-sans">
+            <Building2 className="w-5 h-5 text-slate-800 mb-3" />
+            <div>
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
                 <Counter to={4500} suffix="+" />
               </p>
-              <p className="text-[10px] sm:text-xs text-slate-500 font-semibold leading-tight truncate">{t.heroCarousel.stats.clientesLabel}</p>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
             </div>
           </motion.div>
 
-          {/* Stat 2: Comunidades */}
+          {/* Stat 2: Satisfacción */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-5 border border-slate-200/60 shadow-xs flex items-center gap-2.5 sm:gap-4 hover:shadow-md transition-shadow"
+            className="bg-white text-slate-900 rounded-2xl md:rounded-3xl p-4 sm:p-5 shadow-xl border border-white/20 flex flex-col items-start text-left justify-between"
           >
-            <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Building2 className="w-4 h-4 sm:w-6 sm:h-6" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-lg sm:text-2xl font-black text-[#0f172a] leading-none mb-0.5 font-sans">
-                {t.heroCarousel.stats.comunidadesNum}
+            <Shield className="w-5 h-5 text-slate-800 mb-3" />
+            <div>
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
+                <Counter to={98} suffix="%" />
               </p>
-              <p className="text-[10px] sm:text-xs text-slate-500 font-semibold leading-tight truncate">{t.heroCarousel.stats.comunidadesLabel}</p>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
             </div>
           </motion.div>
 
-          {/* Stat 3: Satisfacción */}
+          {/* Stat 3: Comunidades */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-5 border border-slate-200/60 shadow-xs flex items-center gap-2.5 sm:gap-4 hover:shadow-md transition-shadow"
+            className="bg-white text-slate-900 rounded-2xl md:rounded-3xl p-4 sm:p-5 shadow-xl border border-white/20 flex flex-col items-start text-left justify-between"
           >
-            <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Shield className="w-4 h-4 sm:w-6 sm:h-6" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-lg sm:text-2xl font-black text-[#0f172a] leading-none mb-0.5 font-sans">
-                <Counter to={98} suffix="%" />
+            <Building2 className="w-5 h-5 text-slate-800 mb-3" />
+            <div>
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
+                {t.heroCarousel.stats.comunidadesNum}
               </p>
-              <p className="text-[10px] sm:text-xs text-slate-500 font-semibold leading-tight truncate">{t.heroCarousel.stats.satisfaccionLabel}</p>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
             </div>
           </motion.div>
 
           {/* Stat 4: Años de experiencia */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-5 border border-slate-200/60 shadow-xs flex items-center gap-2.5 sm:gap-4 hover:shadow-md transition-shadow"
+            className="bg-white text-slate-900 rounded-2xl md:rounded-3xl p-4 sm:p-5 shadow-xl border border-white/20 flex flex-col items-start text-left justify-between"
           >
-            <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
-              <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[#2563eb]" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-lg sm:text-2xl font-black text-[#0f172a] leading-none mb-0.5 font-sans">
+            <Star className="w-5 h-5 text-slate-800 mb-3 fill-slate-800" />
+            <div>
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
                 <Counter to={15} suffix="+" />
               </p>
-              <p className="text-[10px] sm:text-xs text-slate-500 font-semibold leading-tight truncate">{t.heroCarousel.stats.anosLabel}</p>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
             </div>
           </motion.div>
 

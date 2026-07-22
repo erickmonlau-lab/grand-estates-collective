@@ -43,9 +43,9 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-// ── Designer Vector Building Sketches (Detailed High-End Line Art) ──
+// ── Compact Designer Vector Building Sketches (Inline SVGs) ──
 const BuildingSketchLeft = () => (
-  <svg className="absolute left-[1%] bottom-[6%] w-[330px] h-[450px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.55">
+  <svg className="absolute left-[-20px] bottom-[22%] w-[240px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden md:block" viewBox="0 0 120 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="150" x2="120" y2="150" strokeWidth="0.8" />
     
@@ -67,7 +67,6 @@ const BuildingSketchLeft = () => (
     <rect x="22" y="26" width="35" height="20" rx="0.5" />
     <line x1="33" y1="26" x2="33" y2="46" strokeWidth="0.3" />
     <line x1="45" y1="26" x2="45" y2="46" strokeWidth="0.3" />
-    {/* Shading / Reflection lines */}
     <line x1="25" y1="42" x2="30" y2="30" strokeWidth="0.25" opacity="0.6" />
     <line x1="36" y1="42" x2="41" y2="30" strokeWidth="0.25" opacity="0.6" />
     
@@ -98,13 +97,12 @@ const BuildingSketchLeft = () => (
     <rect x="22" y="90" width="76" height="20" rx="0.5" />
     <line x1="40" y1="90" x2="40" y2="110" strokeWidth="0.4" />
     <line x1="80" y1="90" x2="80" y2="110" strokeWidth="0.4" />
-    {/* Shading */}
     <line x1="28" y1="106" x2="34" y2="94" strokeWidth="0.2" opacity="0.5" />
     <line x1="46" y1="106" x2="52" y2="94" strokeWidth="0.2" opacity="0.5" />
     <line x1="62" y1="106" x2="68" y2="94" strokeWidth="0.2" opacity="0.5" />
     <line x1="86" y1="106" x2="92" y2="94" strokeWidth="0.2" opacity="0.5" />
 
-    {/* Ground Floor Entry Lobby */}
+    {/* Ground Floor portal */}
     <rect x="52" y="124" width="16" height="26" rx="0.5" />
     <line x1="60" y1="124" x2="60" y2="150" strokeWidth="0.4" />
     <circle cx="56" cy="137" r="0.6" fill="currentColor" />
@@ -134,65 +132,53 @@ const BuildingSketchLeft = () => (
 );
 
 const BuildingSketchRight = () => (
-  <svg className="absolute right-[1%] top-[12%] w-[340px] h-[450px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.55">
+  <svg className="absolute right-[-20px] top-[16%] w-[250px] h-[330px] text-slate-200 pointer-events-none select-none z-0 hidden lg:block" viewBox="0 0 130 160" fill="none" stroke="currentColor" strokeWidth="0.6">
     {/* Ground Baseline */}
     <line x1="0" y1="140" x2="130" y2="140" strokeWidth="0.8" />
     
-    {/* ── Barcelona Eixample Chamfer Corner Facade elevation ── */}
-    {/* Outline of Chamfered structure */}
+    {/* Barcelona Eixample Corner Facade elevation */}
     <path d="M 20 140 L 20 25 L 45 15 L 85 15 L 110 25 L 110 140 Z" />
-    
-    {/* Vertical division lines representing the octagonal corner chamfer */}
     <line x1="45" y1="15" x2="45" y2="140" strokeWidth="0.4" />
     <line x1="85" y1="15" x2="85" y2="140" strokeWidth="0.4" />
-    
-    {/* Floor lines */}
     <line x1="20" y1="52" x2="110" y2="52" strokeWidth="0.4" />
     <line x1="20" y1="84" x2="110" y2="84" strokeWidth="0.4" />
     <line x1="20" y1="116" x2="110" y2="116" strokeWidth="0.4" />
     
-    {/* Modernist Balcony details in the corner (Chamfer section) */}
-    {/* Balcony 3 */}
+    {/* Modernist Balcony details */}
     <rect x="42" y="44" width="46" height="8" rx="0.5" fill="#f8fafc" />
     <line x1="42" y1="48" x2="88" y2="48" strokeWidth="0.3" />
     {[...Array(12)].map((_, i) => (
       <line key={i} x1={45 + i * 3.5} y1="44" x2={45 + i * 3.5} y2="52" strokeWidth="0.25" />
     ))}
     
-    {/* Balcony 2 */}
     <rect x="42" y="76" width="46" height="8" rx="0.5" fill="#f8fafc" />
     <line x1="42" y1="80" x2="88" y2="80" strokeWidth="0.3" />
     {[...Array(12)].map((_, i) => (
       <line key={i} x1={45 + i * 3.5} y1="76" x2={45 + i * 3.5} y2="84" strokeWidth="0.25" />
     ))}
 
-    {/* Balcony 1 */}
     <rect x="42" y="108" width="46" height="8" rx="0.5" fill="#f8fafc" />
     <line x1="42" y1="112" x2="88" y2="112" strokeWidth="0.3" />
     {[...Array(12)].map((_, i) => (
       <line key={i} x1={45 + i * 3.5} y1="108" x2={45 + i * 3.5} y2="116" strokeWidth="0.25" />
     ))}
 
-    {/* Windows on Side Facades */}
-    {/* Left Side Windows */}
+    {/* Windows */}
     <rect x="25" y="25" width="12" height="18" rx="0.5" />
     <rect x="25" y="57" width="12" height="18" rx="0.5" />
     <rect x="25" y="89" width="12" height="18" rx="0.5" />
-    {/* Shading side windows */}
     <line x1="28" y1="40" x2="33" y2="28" strokeWidth="0.2" opacity="0.5" />
     <line x1="28" y1="72" x2="33" y2="60" strokeWidth="0.2" opacity="0.5" />
     <line x1="28" y1="104" x2="33" y2="92" strokeWidth="0.2" opacity="0.5" />
 
-    {/* Right Side Windows */}
     <rect x="93" y="25" width="12" height="18" rx="0.5" />
     <rect x="93" y="57" width="12" height="18" rx="0.5" />
     <rect x="93" y="89" width="12" height="18" rx="0.5" />
-    {/* Shading */}
     <line x1="96" y1="40" x2="101" y2="28" strokeWidth="0.2" opacity="0.5" />
     <line x1="96" y1="72" x2="101" y2="60" strokeWidth="0.2" opacity="0.5" />
     <line x1="96" y1="104" x2="101" y2="92" strokeWidth="0.2" opacity="0.5" />
 
-    {/* Center Chamfer Windows (behind balconies) */}
+    {/* Center Windows */}
     <rect x="52" y="22" width="26" height="20" rx="0.5" />
     <line x1="65" y1="22" x2="65" y2="42" strokeWidth="0.4" />
     <rect x="52" y="54" width="26" height="20" rx="0.5" />
@@ -200,20 +186,20 @@ const BuildingSketchRight = () => (
     <rect x="52" y="86" width="26" height="20" rx="0.5" />
     <line x1="65" y1="86" x2="65" y2="106" strokeWidth="0.4" />
 
-    {/* Ground Floor portal */}
+    {/* Ground Portal */}
     <rect x="54" y="118" width="22" height="22" rx="1" />
     <line x1="65" y1="118" x2="65" y2="140" strokeWidth="0.5" />
     <circle cx="59" cy="129" r="0.7" fill="currentColor" />
     <circle cx="71" cy="129" r="0.7" fill="currentColor" />
 
-    {/* Compass in corner */}
+    {/* Compass */}
     <circle cx="15" cy="149" r="6" strokeWidth="0.4" />
     <line x1="15" y1="143" x2="15" y2="155" strokeWidth="0.3" />
     <line x1="9" y1="149" x2="21" y2="149" strokeWidth="0.3" />
     <polygon points="15,144 17,149 13,149" fill="currentColor" />
     <text x="15" y="141" className="fill-slate-400 font-mono text-[5px] font-bold" textAnchor="middle">N</text>
 
-    {/* Technical axes labels */}
+    {/* Axis Label */}
     <line x1="65" y1="10" x2="65" y2="140" strokeDasharray="3 3" strokeWidth="0.3" opacity="0.7" />
     <circle cx="65" cy="6" r="3" />
     <text x="65" y="8.5" className="fill-slate-500 font-mono text-[6px] font-bold" textAnchor="middle">C</text>
@@ -229,7 +215,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       {/* ── Completely White Base Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
 
-      {/* ── Elegant Vector Line Drawings of Buildings (Eixample Chamfer + Modern Facade) ── */}
+      {/* ── Compacted, Non-colliding Architect Sketches ── */}
       <BuildingSketchLeft />
       <BuildingSketchRight />
 

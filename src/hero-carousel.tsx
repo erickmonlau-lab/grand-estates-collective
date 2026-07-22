@@ -259,10 +259,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 <ArrowRight className="w-4 h-4 text-slate-900 group-hover:translate-x-1 transition-transform" />
               </a>
 
-              {/* Button 2: Brand Blue Solid Pill (Ver propiedades) */}
+              {/* Button 2: Glass Outline Pill (Ver propiedades) */}
               <a
-                href="#inmobiliaria"
-                className="w-fit max-w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-lg flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
+                href="#propiedades"
+                className="w-fit max-w-full border border-white/80 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-lg flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
               >
                 <Building2 className="w-4 h-4 text-white" />
                 <span>{t.heroCarousel.btnProperties}</span>
@@ -285,13 +285,15 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white text-slate-900 rounded-xl sm:rounded-3xl p-2.5 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[92px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
           >
-            <div className="flex items-center justify-start h-4 sm:h-7 mb-1">
-              <Building2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
+              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Building2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+              </div>
             </div>
             <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
-              <p className="text-xs sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
+              <p className="text-sm sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
                 <Counter to={4500} suffix="+" />
               </p>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.clientesLabel}</p>
@@ -303,13 +305,15 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white text-slate-900 rounded-xl sm:rounded-3xl p-2.5 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[92px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
           >
-            <div className="flex items-center justify-start h-4 sm:h-7 mb-1">
-              <Shield className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
+              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Shield className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+              </div>
             </div>
             <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
-              <p className="text-xs sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
+              <p className="text-sm sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
                 <Counter to={98} suffix="%" />
               </p>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.satisfaccionLabel}</p>
@@ -321,13 +325,15 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white text-slate-900 rounded-xl sm:rounded-3xl p-2.5 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[92px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
           >
-            <div className="flex items-center justify-start h-4 sm:h-7 mb-1">
-              <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
+              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
+              </div>
             </div>
             <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
-              <p className="text-xs sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
+              <p className="text-sm sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">
                 {t.heroCarousel.stats.comunidadesNum}
               </p>
               <p className="text-[8px] sm:text-xs font-bold text-slate-500 leading-tight h-[22px] sm:h-[32px] flex items-center">{t.heroCarousel.stats.comunidadesLabel}</p>
@@ -339,10 +345,12 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white text-slate-900 rounded-xl sm:rounded-3xl p-2.5 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[92px] sm:min-h-[120px] min-w-0"
+            className="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl border border-white/20 flex flex-col justify-between h-full min-h-[96px] sm:min-h-[120px] min-w-0"
           >
-            <div className="flex items-center justify-start h-4 sm:h-7 mb-1">
-              <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
+            <div className="flex items-center justify-start h-6 sm:h-8 mb-1">
+              <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#dbeafe] flex items-center justify-center text-[#2563eb] shrink-0">
+                <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
+              </div>
             </div>
             <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
               <p className="text-xs sm:text-2xl md:text-3xl font-black text-slate-900 leading-none mb-1 font-sans">

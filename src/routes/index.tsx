@@ -1063,30 +1063,30 @@ function Index() {
         </div>
       </section>
 
-      {/* ── SERVICES SECTION (LIGHT GRAY BUBBLE CARD #f1f5f9 - POINT 1 FIX) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-white text-onyx py-6 md:py-14">
-        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
-          <div className="text-center mb-14">
+      {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
+        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-sky-500/20 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
+          <div className="text-center mb-12">
             <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-[#ecfdf5] text-[#059669] border border-emerald-200/80 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
-                <Building2 className="w-3.5 h-3.5 text-[#059669]" />
+              <span className="inline-flex items-center gap-1.5 bg-[#0284c7]/20 text-[#38bdf8] border border-[#38bdf8]/30 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
+                <Building2 className="w-3.5 h-3.5 text-[#38bdf8]" />
                 {t.servicios.tag}
               </span>
             </Reveal>
             <Reveal>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-[#0f172a] mb-4 tracking-tight font-sans">
-                {t.servicios.title1} <span className="text-[#2563eb]">{t.servicios.title2}</span>
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-4 tracking-tight font-sans">
+                {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+              <p className="text-slate-300 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
           </div>
 
-          {/* Grid de 4 tarjetas Bubble blancas */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {t.servicios.items.map((item, i) => {
               const icons = [
                 <Building2 key={0} className="w-5 h-5" />,
@@ -1102,34 +1102,31 @@ function Index() {
               ];
               return (
                 <Reveal key={i} delay={i * 0.1}>
-                  <div className="group bg-white rounded-3xl p-5 border border-slate-200/70 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col h-[420px]">
-                    {/* Superior: Imagen */}
-                    <div className="relative h-[55%] w-full rounded-2xl mb-8">
-                      <div className="w-full h-full rounded-2xl overflow-hidden">
-                        <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      </div>
-                      {/* Icono circular superpuesto en esquina inferior (Emerald Green) */}
-                      <div className="absolute -bottom-4 left-4 w-12 h-12 rounded-full bg-[#059669] text-white shadow-md flex items-center justify-center z-10">
+                  <div className="group bg-white text-[#0f172a] rounded-3xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-6 h-full">
+                    {/* Thumbnail compacto (~25-30% de la tarjeta) con icono Cyan superpuesto */}
+                    <div className="relative w-full sm:w-[130px] h-[110px] sm:h-[130px] rounded-2xl overflow-hidden shrink-0">
+                      <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      <div className="absolute top-2.5 left-2.5 w-9 h-9 rounded-full bg-[#0284c7] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
                     </div>
 
-                    {/* Inferior: Contenido */}
-                    <div className="flex-1 flex flex-col justify-between px-2">
+                    {/* Texto informativo (Protagonista principal ~70% de espacio) */}
+                    <div className="flex-1 flex flex-col justify-between h-full py-1">
                       <div>
-                        <h3 className="text-xl font-bold text-[#0f172a] mb-2">
+                        <h3 className="text-xl font-extrabold text-[#0f172a] mb-2 leading-snug">
                           {item.title}
                         </h3>
-                        <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4">
                           {item.desc}
                         </p>
                       </div>
-                      <div className="pt-4">
+                      <div>
                         <button 
                           onClick={() => setSelectedServiceIndex(i)}
-                          className="text-[#059669] hover:text-[#047857] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
+                          className="text-[#0284c7] hover:text-[#0369a1] text-xs sm:text-sm font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
                         >
-                          {t.servicios.saberMas} <ArrowRight className="w-3.5 h-3.5" />
+                          {t.servicios.saberMas} <ArrowRight className="w-4 h-4 text-[#0284c7]" />
                         </button>
                       </div>
                     </div>

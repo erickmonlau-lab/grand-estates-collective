@@ -307,31 +307,28 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           </motion.div>
         </div>
 
-        {/* Floating Stat Cards Row (Mobile Horizontal Snap Scroll + Glass Blur + Unified #2563eb Blue) */}
-        <div 
-          className="flex overflow-x-auto snap-x snap-mandatory gap-3 -mx-3.5 px-3.5 pb-2 pt-1 sm:grid sm:grid-cols-4 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0 relative z-20 mt-8 sm:mt-14 mb-2 sm:mb-0 [::-webkit-scrollbar]:hidden"
-          style={{ webkitOverflowScrolling: 'touch', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
-        >
+        {/* Floating Stat Cards Row (Symmetrical 2x2 on Mobile, 4-Col on Desktop with Glass Blur) */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 relative z-20 mt-6 sm:mt-14 mb-2 sm:mb-0">
           
           {/* Stat 1: Clientes Satisfechos */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
-            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+            className="text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-md border border-white/80 flex flex-col justify-between min-h-[110px] sm:min-h-[140px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
           >
-            <div className="flex items-center justify-start mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
-                <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-2 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
+                <Building2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
-              <p className="text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1.5 font-sans">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={4500} suffix="+" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full mb-2"></div>
-              <p className="text-xs font-bold text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.clientesLabel}</p>
+              <div className="w-5 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
             </div>
           </motion.div>
 
@@ -340,20 +337,20 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
-            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+            className="text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-md border border-white/80 flex flex-col justify-between min-h-[110px] sm:min-h-[140px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
           >
-            <div className="flex items-center justify-start mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
-                <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-2 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
+                <Shield className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
-              <p className="text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1.5 font-sans">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={98} suffix="%" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full mb-2"></div>
-              <p className="text-xs font-bold text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
+              <div className="w-5 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
             </div>
           </motion.div>
 
@@ -362,20 +359,20 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
-            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+            className="text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-md border border-white/80 flex flex-col justify-between min-h-[110px] sm:min-h-[140px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
           >
-            <div className="flex items-center justify-start mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb]" />
+            <div className="flex items-center justify-start mb-2 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
+                <Users className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
-              <p className="text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1.5 font-sans">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 {t.heroCarousel.stats.comunidadesNum}
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full mb-2"></div>
-              <p className="text-xs font-bold text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
+              <div className="w-5 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
             </div>
           </motion.div>
 
@@ -384,20 +381,20 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
-            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+            className="text-slate-900 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 shadow-md border border-white/80 flex flex-col justify-between min-h-[110px] sm:min-h-[140px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
           >
-            <div className="flex items-center justify-start mb-3 sm:mb-4">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
-                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
+            <div className="flex items-center justify-start mb-2 sm:mb-4">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
+                <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] fill-[#2563eb]" />
               </div>
             </div>
-            <div className="min-w-0 w-full flex-1 flex flex-col justify-end pt-1">
-              <p className="text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1.5 font-sans">
+            <div className="min-w-0 w-full flex-1 flex flex-col justify-end">
+              <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={15} suffix="+" />
               </p>
-              <div className="w-6 h-0.5 bg-[#2563eb] rounded-full mb-2"></div>
-              <p className="text-xs font-bold text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.anosLabel}</p>
+              <div className="w-5 h-0.5 bg-[#2563eb] rounded-full my-1"></div>
+              <p className="text-[10px] sm:text-xs font-bold text-slate-500 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
             </div>
           </motion.div>
 

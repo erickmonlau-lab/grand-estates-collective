@@ -182,8 +182,30 @@ function Index() {
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [mapInteractive, setMapInteractive] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(3);
   const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
+
+  // Favorites state persisted in localStorage
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('gesgrama_favorites');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const toggleFavorite = (id: string) => {
+    setFavorites(prev => {
+      const updated = prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id];
+      try {
+        localStorage.setItem('gesgrama_favorites', JSON.stringify(updated));
+      } catch (e) {
+        console.error('Error saving favorites:', e);
+      }
+      return updated;
+    });
+  };
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
     home: <Home className="w-7 h-7" />,
@@ -752,22 +774,48 @@ function Index() {
 {/* Results Count & Sort */}
           {(() => {
 
-            const renderPropertyCard = (property: any, idx: number) => (
-              <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
-                  className="group bg-white rounded-2xl flex flex-col h-full border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
-                >
-                  {/* Image Block */}
-                  <div className="relative h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
-                    <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center text-onyx hover:text-red-500 hover:scale-110 transition-all cursor-pointer shadow-sm">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            const renderPropertyCard = (property: any, idx: number) => {
+              const isFav = favorites.includes(property.id);
+
+              return (
+                <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
+                    className="group bg-white rounded-2xl flex flex-col h-full border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
+                  >
+                    {/* Image Block */}
+                    <div className="relative h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
+                      <img src={property.image} alt={property.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                      
+                      {/* Heart Favorite Button with LocalStorage Persistence */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleFavorite(property.id);
+                        }}
+                        aria-label="Guardar en favoritos"
+                        className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md z-20 ${
+                          isFav 
+                            ? 'bg-red-500 text-white scale-110 shadow-red-500/30' 
+                            : 'bg-white/90 text-slate-700 hover:text-red-500 hover:scale-110'
+                        }`}
+                      >
+                        <svg 
+                          className="w-5 h-5 transition-transform duration-300" 
+                          fill={isFav ? "currentColor" : "none"} 
+                          viewBox="0 0 24 24" 
+                          stroke="currentColor" 
+                          strokeWidth={2}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                      </button>
                     </div>
-                  </div>
 
                   {/* Content Block */}
                   <div className="p-6 flex flex-col flex-1">
@@ -826,6 +874,7 @@ function Index() {
                 </motion.div>
               </Link>
             );
+          };
 
             return (
               <>
@@ -860,7 +909,7 @@ function Index() {
               {visibleCount < filteredProperties.length ? (
                 <button 
                   onClick={() => setVisibleCount(filteredProperties.length)}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
                 >
                   {t.properties.verTodas} ({filteredProperties.length - visibleCount} {t.properties.disponibles})
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -877,7 +926,7 @@ function Index() {
                     });
                     setVisibleCount(properties.length);
                   }}
-                  className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-4 rounded-full font-bold text-sm transition-all shadow-xs flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
                 >
                   {t.properties.verTodas}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

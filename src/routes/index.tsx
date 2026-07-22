@@ -1727,18 +1727,18 @@ function Index() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
               <a
                 href="#valuator-form"
-                className="w-full sm:w-auto bg-white hover:bg-slate-100 text-[#005c99] px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
               >
-                <Home className="w-4 h-4 text-[#005c99]" />
+                <Home className="w-4 h-4 text-white" />
                 <span>{t.finalCta.btnPrimary}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
               </a>
               <a
                 href="#contacto"
-                className="w-full sm:w-auto bg-white/15 hover:bg-white/25 text-white border border-white/30 px-8 py-4 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Phone className="w-4 h-4 text-white" />
-                <span>{t.finalCta.btnSecondary}</span>
+                <Phone className="w-4 h-4 text-[#2563eb]" />
+                <span className="font-bold text-[#0f172a]">{t.finalCta.btnSecondary}</span>
               </a>
             </div>
           </Reveal>

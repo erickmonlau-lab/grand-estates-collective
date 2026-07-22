@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Shield, Check, Home } from "lucide-react";
+import { ArrowRight, Star, Building2, Shield, Check, Home, Compass } from "lucide-react";
 import heroBg from "@/assets/family_barcelona.jpg"; 
 import gesgramaBuilding from "@/assets/gesgrama_building.webp"; 
 import { translations } from './data/translations';
@@ -48,30 +48,75 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center">
+    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center select-none">
       
-      {/* ── Completely White Background ── */}
-      <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
-
-      {/* ── Soft Blueprint/Technical Drawing Style (No filters, using original blue-gray pencil line art style) ── */}
+      {/* ── 1. Sophisticated Technical Blueprint Grid ── */}
       <div 
-        className="absolute left-[-60px] bottom-[-20px] w-[350px] h-[350px] z-0 opacity-15 pointer-events-none select-none bg-contain bg-no-repeat bg-center"
+        className="absolute inset-0 z-0 opacity-[0.25] pointer-events-none" 
         style={{ 
-          backgroundImage: `url(${gesgramaBuilding})`
-        }}
-      />
-      <div 
-        className="absolute right-[-80px] top-[10%] w-[380px] h-[380px] z-0 opacity-15 pointer-events-none select-none bg-contain bg-no-repeat bg-center"
-        style={{ 
-          backgroundImage: `url(${gesgramaBuilding})`
-        }}
+          backgroundImage: `
+            linear-gradient(to right, #cbd5e1 1px, transparent 1px),
+            linear-gradient(to bottom, #cbd5e1 1px, transparent 1px)
+          `,
+          backgroundSize: '4rem 4rem'
+        }} 
       />
 
+      {/* ── 2. Subtle Radial Blueprint Dots overlay ── */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.4] pointer-events-none" 
+        style={{ 
+          backgroundImage: 'radial-gradient(#94a3b8 1.5px, transparent 1.5px)',
+          backgroundSize: '2rem 2rem'
+        }} 
+      />
+
+      {/* ── 3. Technical Coordinate Crosshairs (+) & Labels ── */}
+      <div className="absolute top-[12%] left-[5%] font-mono text-[9px] text-slate-400 opacity-60 z-0">
+        + ZONE_BCN_E-01 / 41.3851° N, 2.1734° E
+      </div>
+      <div className="absolute bottom-[8%] right-[5%] font-mono text-[9px] text-slate-400 opacity-60 z-0">
+        + REF: GES_2026_HERO / SCALE 1:50
+      </div>
+
+      {/* ── 4. Technical Architectural Sketch Backgrounds (Faded, aligned with grid) ── */}
+      <div className="absolute left-[3%] bottom-[5%] w-[380px] h-[380px] z-0 opacity-[0.09] pointer-events-none select-none">
+        <div 
+          className="w-full h-full bg-contain bg-no-repeat bg-left-bottom"
+          style={{ backgroundImage: `url(${gesgramaBuilding})` }}
+        />
+        {/* Horizontal dimension line overlay */}
+        <div className="absolute bottom-4 left-0 right-10 h-px bg-slate-400/80 flex items-center justify-between px-2">
+          <span className="text-[8px] font-mono text-slate-400">| 0.00m</span>
+          <span className="text-[8px] font-mono text-slate-500 bg-[#f8fafc] px-1 font-bold">L-ELEVATION: 18.50m</span>
+          <span className="text-[8px] font-mono text-slate-400">18.50m |</span>
+        </div>
+      </div>
+
+      <div className="absolute right-[2%] top-[12%] w-[420px] h-[420px] z-0 opacity-[0.09] pointer-events-none select-none">
+        <div 
+          className="w-full h-full bg-contain bg-no-repeat bg-right-top"
+          style={{ backgroundImage: `url(${gesgramaBuilding})` }}
+        />
+        {/* Technical angle arc overlay (drawn in SVG) */}
+        <svg className="absolute top-8 right-8 w-24 h-24 text-slate-500/60" viewBox="0 0 100 100" fill="none">
+          <path d="M 10 90 A 80 80 0 0 1 90 10" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+          <line x1="10" y1="90" x2="90" y2="90" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="90" y1="10" x2="90" y2="90" stroke="currentColor" strokeWidth="0.5" />
+          <text x="50" y="75" className="fill-slate-500 font-mono text-[10px]" textAnchor="middle">R=80.0</text>
+        </svg>
+      </div>
+
+      {/* ── Main Layout Wrapper ── */}
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
-        {/* Main Light Card */}
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.04)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* ── Main Levitating Architect Canvas Card ── */}
+        <div className="bg-white/95 backdrop-blur-md rounded-[28px] md:rounded-[36px] shadow-[0_25px_60px_rgba(15,23,42,0.05)] border border-slate-200/60 p-6 md:p-12 lg:p-14 relative z-10 overflow-hidden">
+          
+          {/* Subtle Grid overlay inside the card to integrate it with the technical theme */}
+          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '1rem 1rem' }} />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col justify-center items-start text-left">
@@ -82,8 +127,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 className="w-full"
               >
                 {/* Eyebrow Tag */}
-                <span className="inline-flex items-center gap-2 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse"></span>
+                <span className="inline-flex items-center gap-2 bg-[#dbeafe] text-[#2563eb] text-[11.5px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs">
+                  <Compass className="w-3.5 h-3.5 text-[#2563eb] animate-spin-slow" />
                   {t.heroCarousel.tag}
                 </span>
 
@@ -130,22 +175,59 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </motion.div>
             </div>
 
-            {/* Right Image Column (Family Photo - Natural aspect and perspective) */}
-            <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100">
-              <motion.img
-                src={heroBg}
-                alt="Gesgrama - Tu próximo hogar"
-                initial={{ scale: 1.05, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 1, ease: expo }}
-                className="w-full h-full object-cover object-[center_35%]"
-              />
+            {/* Right Column: Family Photo with Technical Blueprint Framing */}
+            <div className="lg:col-span-5 w-full flex items-center justify-center relative">
+              
+              {/* Technical Ruler Markings (Top & Left) */}
+              <div className="absolute top-[-20px] left-[10px] right-[10px] h-[5px] flex justify-between z-10 pointer-events-none opacity-50">
+                {[...Array(11)].map((_, i) => (
+                  <div key={i} className={`w-0.5 bg-slate-400 ${i % 5 === 0 ? 'h-3' : 'h-1.5'}`} />
+                ))}
+              </div>
+              <div className="absolute left-[-20px] top-[10px] bottom-[10px] w-[5px] flex flex-col justify-between z-10 pointer-events-none opacity-50">
+                {[...Array(11)].map((_, i) => (
+                  <div key={i} className={`h-0.5 bg-slate-400 ${i % 5 === 0 ? 'w-3' : 'w-1.5'}`} />
+                ))}
+              </div>
+
+              {/* Dimension callout: width */}
+              <div className="absolute top-[-35px] left-1/2 -translate-x-1/2 flex items-center gap-3 z-10 pointer-events-none opacity-60">
+                <div className="w-8 h-px bg-slate-400" />
+                <span className="font-mono text-[9px] text-slate-500 bg-white px-1.5 py-0.5 border border-slate-100 rounded-sm font-bold">w = 12.40m</span>
+                <div className="w-8 h-px bg-slate-400" />
+              </div>
+
+              {/* Main Photo Wrapper */}
+              <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[430px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_15px_30px_rgba(0,0,0,0.06)] border-2 border-slate-100 bg-slate-50">
+                <motion.img
+                  src={heroBg}
+                  alt="Gesgrama - Barcelona"
+                  initial={{ scale: 1.05, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1, ease: expo }}
+                  className="w-full h-full object-cover object-[center_35%]"
+                />
+                
+                {/* Elevation Stamp */}
+                <div className="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-xs text-white font-mono text-[9px] px-3 py-1.5 rounded-md border border-white/10 flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                  <span>ELEVATION VIEW E-01</span>
+                </div>
+              </div>
+
+              {/* Dimension callout: height */}
+              <div className="absolute right-[-35px] top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 z-10 pointer-events-none opacity-60 origin-center rotate-90">
+                <div className="w-8 h-px bg-slate-400" />
+                <span className="font-mono text-[9px] text-slate-500 bg-white px-1.5 py-0.5 border border-slate-100 rounded-sm font-bold">h = 8.50m</span>
+                <div className="w-8 h-px bg-slate-400" />
+              </div>
+
             </div>
 
           </div>
         </div>
 
-        {/* Floating Stat Cards Row */}
+        {/* ── Floating Stat Cards Row (Aligned with Technical theme) ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 relative z-20">
           
           {/* Stat 1: Clientes Satisfechos */}
@@ -153,12 +235,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow relative overflow-hidden group"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-full translate-x-12 -translate-y-12 group-hover:scale-110 transition-transform duration-500 z-0" />
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0 relative z-10">
               <Building2 className="w-6 h-6" />
             </div>
-            <div>
+            <div className="relative z-10">
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={4500} suffix="+" />
               </p>
@@ -171,12 +254,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow relative overflow-hidden group"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-full translate-x-12 -translate-y-12 group-hover:scale-110 transition-transform duration-500 z-0" />
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0 relative z-10">
               <Building2 className="w-6 h-6" />
             </div>
-            <div>
+            <div className="relative z-10">
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 {t.heroCarousel.stats.comunidadesNum}
               </p>
@@ -189,12 +273,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow relative overflow-hidden group"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-full translate-x-12 -translate-y-12 group-hover:scale-110 transition-transform duration-500 z-0" />
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0 relative z-10">
               <Shield className="w-6 h-6" />
             </div>
-            <div>
+            <div className="relative z-10">
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={98} suffix="%" />
               </p>
@@ -207,12 +292,13 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow relative overflow-hidden group"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-full translate-x-12 -translate-y-12 group-hover:scale-110 transition-transform duration-500 z-0" />
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0 relative z-10">
               <Star className="w-6 h-6 fill-[#2563eb]" />
             </div>
-            <div>
+            <div className="relative z-10">
               <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
                 <Counter to={15} suffix="+" />
               </p>

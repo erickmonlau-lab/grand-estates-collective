@@ -214,16 +214,16 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         <img 
           src={heroBg} 
           alt="Gesgrama Barcelona penthouse family" 
-          className="w-full h-full object-cover object-[98%_center] sm:object-[90%_center] md:object-right"
+          className="w-full h-full object-cover object-[80%_center] md:object-right"
         />
-        {/* Soft Dark Gradient Overlay on left for text contrast, leaving family 100% bright */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/45 to-transparent md:from-black/80 md:via-black/35 md:to-transparent" />
+        {/* Soft Dark Gradient Overlay on left for text contrast, leaving family 100% bright & uncovered */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent md:from-black/80 md:via-black/35 md:to-transparent" />
       </div>
 
       <div className="max-w-[1280px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8">
         
         {/* Top/Main Hero Content Container */}
-        <div className="max-w-2xl text-left py-2 sm:py-4">
+        <div className="max-w-xl text-left py-2 sm:py-4">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -235,7 +235,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               <span>{t.heroCarousel.tag}</span>
             </div>
 
-            {/* Main Title H1 - ALL WHITE, LARGE & BOLD (100% Match to Mockup) */}
+            {/* Main Title H1 - ALL WHITE, LARGE & BOLD */}
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans drop-shadow-sm">
               Tu próximo<br />
               hogar,<br />
@@ -243,16 +243,16 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-lg mb-6 font-medium leading-relaxed font-sans drop-shadow-xs">
+            <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-md mb-6 font-medium leading-relaxed font-sans drop-shadow-xs">
               {t.heroCarousel.subtitle}
             </p>
 
-            {/* CTA Buttons (100% Match to Mockup) */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mb-5">
+            {/* CTA Buttons (Compact Left Aligned so Family on Right is 100% Uncovered) */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-fit max-w-[88%] sm:max-w-none mb-5">
               {/* Button 1: White Solid Pill (Valorar mi propiedad) */}
               <a
                 href="#valuator-form"
-                className="bg-white hover:bg-slate-100 text-slate-900 px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-lg flex items-center justify-center gap-2.5 group cursor-pointer"
+                className="w-fit max-w-full bg-white hover:bg-slate-100 text-slate-900 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-lg flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
               >
                 <Home className="w-4 h-4 text-slate-900" />
                 <span>{t.heroCarousel.btnValuation}</span>
@@ -262,7 +262,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               {/* Button 2: Translucent Glass Outline Pill (Ver propiedades) */}
               <a
                 href="#inmobiliaria"
-                className="border border-white/60 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-6 sm:px-7 py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2.5 group cursor-pointer"
+                className="w-fit max-w-full border border-white/60 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-sm flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
               >
                 <Building2 className="w-4 h-4 text-white" />
                 <span>{t.heroCarousel.btnProperties}</span>

@@ -305,21 +305,31 @@ function Index() {
         {/* MOBILE MENU */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-4 z-50 lg:hidden"
-            >
-              <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-white hover:text-[#0082c8]">{t.nav.propiedades}</a>
-              <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-white hover:text-[#0082c8]">{t.nav.servicios}</a>
-              <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-white hover:text-[#0082c8]">{t.nav.nosotros}</a>
-              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold text-white hover:text-[#0082c8]">{t.nav.contacto}</a>
-              <a href="#contacto" className="mt-4 text-center bg-[#005c99] text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2">
-                <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                {t.nav.portal}
-              </a>
-            </motion.div>
+            <>
+              {/* Backdrop Overlay to close menu when touching outside */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+                className="fixed inset-0 bg-black/60 backdrop-blur-xs z-[90] lg:hidden"
+              />
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-2 z-[100] lg:hidden"
+              >
+                <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
+                <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+                <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
+                <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
+                <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="mt-2 text-center bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-md">
+                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                  {t.nav.portal}
+                </a>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </motion.nav>
@@ -328,8 +338,8 @@ function Index() {
       <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── VALORADOR DE INMUEBLES (BG SWAPPED TO BLUE - POINT 4) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14">
-        <div className="bg-[#005c99] rounded-[28px] md:rounded-[36px] shadow-xl p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
+        <div className="bg-[#005c99] rounded-[28px] md:rounded-[36px] shadow-xl p-6 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* LEFT COLUMN: Form */}
@@ -458,9 +468,9 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) â”€â”€ */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-6 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
+      {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
+      <section id="propiedades" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-5 sm:p-8 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
           <Reveal>
             <div className="mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
               <div className="max-w-2xl">
@@ -517,7 +527,7 @@ function Index() {
                     {[
                       { label: t.properties.anyType, value: "Cualquier tipo" },
                       { label: "Piso", value: "Piso" },
-                      { label: "Ático", value: "Ático" },
+                      { label: "Á tico", value: "Á tico" },
                       { label: "Local comercial", value: "Local comercial" },
                       { label: "Chalet", value: "Chalet" }
                     ].map(opt => {
@@ -832,7 +842,7 @@ function Index() {
                       {(() => {
                         const type = property.type || "Piso";
                         let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
-                        if (type === "Ático") {
+                        if (type === "Á tico") {
                           badgeClass = "bg-sky-100 text-sky-800";
                         } else if (type === "Chalet") {
                           badgeClass = "bg-indigo-100 text-indigo-900";
@@ -939,8 +949,8 @@ function Index() {
       </section>
 
       {/* ── SERVICES SECTION (LIGHT GRAY BUBBLE CARD #f1f5f9 - POINT 1 FIX) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-white text-onyx py-10 md:py-14">
-        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
+      <section id="servicios" className="relative overflow-hidden bg-white text-onyx py-6 md:py-14">
+        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="text-center mb-14">
             <Reveal>
               <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
@@ -1016,11 +1026,11 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ TESTIMONIALS / PHILOSOPHY â”€â”€ */}
-      <section id="testimonios" className="py-24 md:py-32 px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
+      {/* ── TESTIMONIALS / PHILOSOPHY ── */}
+      <section id="testimonios" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
-            <div className="mb-16 text-center">
+            <div className="mb-8 md:mb-16 text-center">
               <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
                 {t.testimonios.tag}
               </span>
@@ -1069,10 +1079,10 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) â”€â”€ */}
-      <section id="cobertura" className="py-10 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-6 md:p-12 mx-auto max-w-[1300px] relative z-10">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-14 items-center">
+      {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
+      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-white text-onyx">
+        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-12 mx-auto max-w-[1300px] relative z-10">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
             
             {/* LEFT CONTENT */}
             <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
@@ -1082,17 +1092,17 @@ function Index() {
                   {t.cobertura.tag}
                 </span>
                 
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#0f172a] mb-4 font-sans">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#0f172a] mb-4 font-sans">
                   {t.cobertura.title1} {t.cobertura.title2}
                 </h2>
-                <p className="text-slate-500 text-base md:text-lg max-w-lg mb-8 font-medium leading-relaxed">
+                <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-lg mb-6 font-medium leading-relaxed">
                   {t.cobertura.subtitle}
                 </p>
               </Reveal>
 
               {/* Help Bubble Card */}
               <Reveal delay={0.1} className="w-full">
-                <div className="bg-[#f8fafc] border border-slate-200/80 rounded-2xl md:rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xs">
+                <div className="bg-white border border-slate-200/80 rounded-2xl md:rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xs">
                   <div className="flex items-center gap-4 w-full sm:w-auto">
                     <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-sm">
                       <MessageCircle className="w-6 h-6" />
@@ -1109,10 +1119,9 @@ function Index() {
               </Reveal>
             </div>
 
-            {/* RIGHT CONTENT: MAP */}
+            {/* RIGHT CONTENT: MAP (POINT 1 MOBILE BUG FIX) */}
             <div 
-              className="w-full lg:w-1/2 relative h-[380px] md:h-[450px] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-200/60 bg-slate-100 group shadow-xs"
-              onMouseLeave={() => setMapInteractive(false)}
+              className="w-full lg:w-1/2 relative h-[320px] sm:h-[380px] md:h-[450px] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-200/60 bg-slate-100 group shadow-xs"
             >
               <Reveal delay={0.2} className="w-full h-full">
                 <iframe
@@ -1123,22 +1132,11 @@ function Index() {
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${mapInteractive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-auto"
                 ></iframe>
 
-                {!mapInteractive && (
-                  <div 
-                    className="absolute inset-0 bg-black/0 cursor-pointer z-20 flex items-center justify-center group/overlay"
-                    onClick={() => setMapInteractive(true)}
-                  >
-                    <div className="bg-[#0f172a]/90 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-md border border-white/10 opacity-0 group-hover/overlay:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      {t.cobertura.clickMapa}
-                    </div>
-                  </div>
-                )}
-
                 {/* Floating Card Bottom Right */}
-                <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-slate-100 z-30 pointer-events-auto">
+                <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg border border-slate-100 z-30 pointer-events-auto max-w-full">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0">
                       <MapPin className="w-4 h-4" />
@@ -1156,6 +1154,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 {/* â”€â”€ CTA (FLOATING DARK NAVY BUBBLE CARD) â”€â”€ */}
       <section className="py-10 md:py-14 px-4 md:px-8 bg-white text-white">
         <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-sm border border-white/10 p-8 md:p-14 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
@@ -1218,8 +1217,9 @@ function Index() {
           </div>
         </div>
       </section>
-{/* â”€â”€ ÁšLTIMAS NOTICIAS (BLOG) â”€â”€ */}
-      <section id="blog" className="py-24 md:py-32 px-6 md:px-12 bg-[#e2e8f0] text-onyx">
+
+      {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      <section id="blog" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
             <div className="mb-14 text-center">
@@ -1283,9 +1283,9 @@ function Index() {
       {/* ── FAQ (FLOATING DARK NAVY BUBBLE CARD - POINT 3 FIX) ── */}
       <section 
         id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-10 md:py-14"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14"
       >
-        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/10 p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/10 p-6 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
           <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
             <Reveal>
               <div className="text-center mb-14">
@@ -1348,8 +1348,8 @@ function Index() {
         </div>
       </section>
 
-      {/* â”€â”€ CONTACT â”€â”€ */}
-      <section id="contacto" className="py-24 md:py-32 px-6 md:px-12 bg-white text-onyx">
+      {/* ── CONTACT ── */}
+      <section id="contacto" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5">
             <Reveal>
@@ -1414,9 +1414,12 @@ function Index() {
 
                   <div>
                     <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.asunto}</label>
-                    <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-5 py-3.5 text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors">
-                      {Object.values(t.contacto.form.asuntoOpciones).map(opt => <option key={opt as string}>{opt as string}</option>)}
-                    </select>
+                    <div className="relative">
+                      <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-3.5 sm:px-5 py-3.5 text-xs sm:text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
+                        {Object.values(t.contacto.form.asuntoOpciones).map(opt => <option key={opt as string} className="text-xs sm:text-sm">{opt as string}</option>)}
+                      </select>
+                      <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
                   </div>
 
                   <div>
@@ -1443,18 +1446,18 @@ function Index() {
         </div>
       </section>
 
-      {/* ── FINAL CLOSING CTA BANNER (POINT 6 FIX) ── */}
-      <section id="final-cta" className="py-10 md:py-14 px-4 md:px-8 bg-white text-white">
-        <div className="bg-gradient-to-r from-[#005c99] to-[#2563eb] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/20 p-8 md:p-16 mx-auto max-w-[1300px] relative z-10 overflow-hidden text-center">
+      {/* ── FINAL CLOSING CTA BANNER (POINT 3 & 4 MOBILE FIX) ── */}
+      <section id="final-cta" className="py-6 md:py-14 px-4 md:px-8 bg-white text-white">
+        <div className="bg-gradient-to-r from-[#005c99] to-[#2563eb] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/20 px-5 py-12 sm:px-10 sm:py-16 md:p-16 mx-auto max-w-[1300px] relative z-10 overflow-hidden text-center">
           <Reveal>
             <span className="inline-flex items-center gap-1.5 bg-white/20 text-white backdrop-blur-md border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 shadow-sm">
               <Star className="w-3.5 h-3.5 fill-white text-white" />
               {t.finalCta.tag}
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight font-sans max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight font-sans max-w-3xl mx-auto px-2">
               {t.finalCta.title}
             </h2>
-            <p className="text-blue-100 text-base md:text-xl max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+            <p className="text-blue-100 text-sm sm:text-base md:text-xl max-w-2xl mx-auto mb-8 font-medium leading-relaxed px-2">
               {t.finalCta.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">

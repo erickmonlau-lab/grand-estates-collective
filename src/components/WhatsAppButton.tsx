@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 
 interface WhatsAppButtonProps {
@@ -13,10 +13,33 @@ const tooltips = {
 
 export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const text = tooltips[language] || tooltips.es;
 
+  // Temporarily fade/scale down WhatsApp button during active user scrolling on mobile
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    const handleScroll = () => {
+      setIsScrolling(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        setIsScrolling(false);
+      }, 700);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div 
+      className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
+        isScrolling ? "opacity-25 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
+      }`}
+    >
       {/* Tooltip on hover */}
       {showTooltip && (
         <div className="bg-[#0f172a] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-xl border border-white/10 animate-in fade-in slide-in-from-right-2 duration-200 hidden sm:block">
@@ -24,7 +47,7 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
         </div>
       )}
 
-      {/* WhatsApp Floating Button */}
+      {/* WhatsApp Floating Button - Scaled appropriately for mobile viewports */}
       <a
         href="https://wa.me/34934685656?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20inmobiliarios."
         target="_blank"
@@ -32,11 +55,11 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         aria-label="WhatsApp Gesgrama"
-        className="relative group bg-[#25d366] hover:bg-[#20ba5a] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 cursor-pointer"
+        className="relative group bg-[#25d366] hover:bg-[#20ba5a] text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 cursor-pointer"
       >
         {/* Pulse ring animation */}
         <span className="absolute inset-0 rounded-full bg-[#25d366] animate-ping opacity-30 pointer-events-none"></span>
-        <MessageCircle className="w-7 h-7 fill-white stroke-none group-hover:rotate-12 transition-transform duration-300" />
+        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-white stroke-none group-hover:rotate-12 transition-transform duration-300" />
       </a>
     </div>
   );

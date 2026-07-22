@@ -1068,8 +1068,8 @@ function Index() {
         <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="text-center mb-14">
             <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
-                <Building2 className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1.5 bg-[#ecfdf5] text-[#059669] border border-emerald-200/80 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
+                <Building2 className="w-3.5 h-3.5 text-[#059669]" />
                 {t.servicios.tag}
               </span>
             </Reveal>
@@ -1108,8 +1108,8 @@ function Index() {
                       <div className="w-full h-full rounded-2xl overflow-hidden">
                         <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       </div>
-                      {/* Icono circular superpuesto en esquina inferior */}
-                      <div className="absolute -bottom-4 left-4 w-12 h-12 rounded-full bg-[#2563eb] text-white shadow-md flex items-center justify-center z-10">
+                      {/* Icono circular superpuesto en esquina inferior (Emerald Green) */}
+                      <div className="absolute -bottom-4 left-4 w-12 h-12 rounded-full bg-[#059669] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
                     </div>
@@ -1127,7 +1127,7 @@ function Index() {
                       <div className="pt-4">
                         <button 
                           onClick={() => setSelectedServiceIndex(i)}
-                          className="text-[#2563eb] hover:text-[#1d4ed8] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
+                          className="text-[#059669] hover:text-[#047857] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
                         >
                           {t.servicios.saberMas} <ArrowRight className="w-3.5 h-3.5" />
                         </button>

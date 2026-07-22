@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Shield, Check, Home, Users } from "lucide-react";
+import { ArrowRight, Star, Building2, Shield, Check, Home, Users, MapPin } from "lucide-react";
 import heroBg from "@/assets/family_barcelona.webp"; 
 import { translations } from './data/translations';
 
@@ -255,7 +255,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           >
             {/* Eyebrow Pill Badge */}
             <div className="inline-flex items-center gap-2 bg-white text-[#2563eb] text-[10px] sm:text-[11px] lg:text-xs xl:text-sm font-extrabold uppercase tracking-wider px-3.5 sm:px-4 lg:px-5 py-1.5 lg:py-2.5 rounded-full mb-4 lg:mb-8 shadow-sm border border-slate-200">
-              <span className="w-2 h-2 lg:w-2.5 lg:h-2.5 rounded-full bg-[#2563eb]"></span>
+              <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
               <span>{t.heroCarousel.tag}</span>
             </div>
 
@@ -295,6 +295,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               >
                 <Building2 className="w-4 h-4 lg:w-6 lg:h-6 text-[#2563eb]" />
                 <span>{t.heroCarousel.btnProperties}</span>
+                <ArrowRight className="w-4 h-4 lg:w-6 lg:h-6 text-slate-400 group-hover:translate-x-1.5 transition-transform" />
               </a>
             </div>
 

@@ -254,7 +254,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-slate-500 text-base md:text-lg max-w-[460px] mb-8 font-medium leading-relaxed font-sans text-balance">
+                <p className="text-slate-500 text-base md:text-lg max-w-[560px] mb-8 font-medium leading-relaxed font-sans">
                   {t.heroCarousel.subtitle}
                 </p>
 

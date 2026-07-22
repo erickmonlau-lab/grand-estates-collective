@@ -327,13 +327,13 @@ function Index() {
                     <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4 text-green-600">
                       <Check className="w-7 h-7 stroke-[3]" />
                     </div>
-                    <h3 className="font-bold text-2xl mb-2">{"¡Valoración Enviada!"}</h3>
-                    <p className="text-slate-500 mb-6">{"En breve recibirás el informe en tu correo."}</p>
+                    <h3 className="font-bold text-2xl mb-2">{t.valorador.enviada}</h3>
+                    <p className="text-slate-500 mb-6">{t.valorador.enviadaDesc}</p>
                     <button 
                       onClick={() => { setValuatorSubmitted(false); setValuatorData({ zona: "", tipo: "", metros: "", contacto: "" }); }} 
                       className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-full transition-all shadow-sm cursor-pointer"
                     >
-                      {"Nueva valoración"}
+                      {t.valorador.nuevaValoracion}
                     </button>
                   </div>
                 ) : (
@@ -349,7 +349,7 @@ function Index() {
                             onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
                             className="w-full bg-transparent border-0 p-0 text-sm font-semibold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
                           >
-                            <option value="" disabled hidden>{"Selecciona zona"}</option>
+                            <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
                             {zonas.map(z => <option key={z} value={z}>{z}</option>)}
                           </select>
                         </div>
@@ -361,7 +361,7 @@ function Index() {
                         <Home className="w-4 h-4 text-slate-400 shrink-0" />
                         <input
                           type="text"
-                          placeholder={"Superficie (m²)"}
+                          placeholder={t.valorador.superficieLabel}
                           value={valuatorData.metros}
                           onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
                           className="w-full bg-transparent border-0 p-0 text-sm font-semibold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
@@ -375,18 +375,18 @@ function Index() {
                       className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 mb-6"
                     >
                       <Home className="w-4 h-4" />
-                      {"Calcular Valoración Estimada"} <ArrowRight className="w-4 h-4" />
+                      {t.valorador.botonCalcular} <ArrowRight className="w-4 h-4" />
                     </button>
 
                     {/* Footer Badges */}
                     <div className="flex flex-wrap items-center gap-6 text-[#0f172a]/90 text-sm font-bold">
                       <span className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
-                        {"Sin compromiso"}
+                        {t.valorador.sinCompromiso}
                       </span>
                       <span className="flex items-center gap-2">
                         <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                        {"Resultado inmediato"}
+                        {t.valorador.resultadoInmediato}
                       </span>
                     </div>
                   </div>
@@ -397,17 +397,17 @@ function Index() {
             {/* RIGHT COLUMN: White Floating Price Card */}
             <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
               <div className="bg-white text-[#0f172a] rounded-3xl p-8 md:p-10 shadow-2xl w-full max-w-[380px] border border-slate-100">
-                <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">{"Valor Estimado"}</div>
+                <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">{t.valorador.valorEstimado}</div>
                 
                 <div className="text-4xl md:text-[44px] font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
                   245<span className="text-slate-400 font-normal">.000â‚¬</span>
                 </div>
                 
                 <div className="text-xs md:text-sm font-bold text-slate-500 mb-1 font-sans">
-                  {"Rango estimado:"} <span className="text-[#0f172a]">230.000â‚¬ â€“ 260.000â‚¬</span>
+                  {t.valorador.rangoEstimado} <span className="text-[#0f172a]">230.000â‚¬ â€“ 260.000â‚¬</span>
                 </div>
                 <div className="text-[11px] leading-tight text-slate-400 mb-8 font-medium">
-                  {"Esta es una estimación automatizada."}
+                  {t.valorador.estimacionAutomatizada}
                 </div>
                 
                 {/* Rounded Bar Chart (Reference 2 & 3) */}
@@ -422,7 +422,7 @@ function Index() {
 
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-500 font-sans">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                  {"Actualizado hoy"}
+                  {t.valorador.actualizadoHoy}
                 </div>
               </div>
             </div>
@@ -916,7 +916,7 @@ function Index() {
                     {/* Superior: Imagen */}
                     <div className="relative h-[55%] w-full rounded-2xl mb-8">
                       <div className="w-full h-full rounded-2xl overflow-hidden">
-                        <img src={bgs[i]} alt={item.label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <img src={bgs[i]} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       </div>
                       {/* Icono circular superpuesto en esquina inferior (Azul con icono blanco) */}
                       <div className="absolute -bottom-4 left-4 w-12 h-12 rounded-full bg-[#2563eb] text-white shadow-md flex items-center justify-center z-10">
@@ -928,7 +928,7 @@ function Index() {
                     <div className="flex-1 flex flex-col justify-between px-2">
                       <div>
                         <h3 className="text-xl font-bold text-[#0f172a] mb-2">
-                          {item.label}
+                          {item.title}
                         </h3>
                         <p className="text-xs text-slate-500 font-medium leading-relaxed">
                           {item.desc}
@@ -936,7 +936,7 @@ function Index() {
                       </div>
                       <div className="pt-4">
                         <a href="#contacto" className="text-[#2563eb] hover:text-[#1d4ed8] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                          {"Saber más"} <ArrowRight className="w-3.5 h-3.5" />
+                          {t.servicios.saberMas} <ArrowRight className="w-3.5 h-3.5" />
                         </a>
                       </div>
                     </div>
@@ -973,7 +973,7 @@ function Index() {
                 "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
               ];
               return (
-                <Reveal key={item.name} delay={i * 0.1}>
+                <Reveal key={item.author} delay={i * 0.1}>
                   <div className="bg-[#eef2f7] rounded-3xl p-8 md:p-10 flex flex-col items-center text-center h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                     {/* Estrellas */}
                     <div className="flex justify-center gap-1.5 mb-6">
@@ -987,10 +987,10 @@ function Index() {
                     
                     {/* Autor */}
                     <div className="flex flex-col items-center gap-3 mt-auto">
-                      <img src={avatars[i % avatars.length]} alt={item.name} className="w-14 h-14 rounded-full object-cover border-2 border-slate-100 shrink-0 shadow-sm" />
+                      <img src={avatars[i % avatars.length]} alt={item.author} className="w-14 h-14 rounded-full object-cover border-2 border-slate-100 shrink-0 shadow-sm" />
                       <div>
-                        <div className="font-bold text-base text-[#0f172a] mb-0.5">{item.name}</div>
-                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.zone}</div>
+                        <div className="font-bold text-base text-[#0f172a] mb-0.5">{item.author}</div>
+                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.location}</div>
                       </div>
                     </div>
                   </div>
@@ -1011,14 +1011,14 @@ function Index() {
               <Reveal>
                 <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
                   <MapPin className="w-3.5 h-3.5" />
-                  ÃREA DE COBERTURA
+                  {t.cobertura.tag}
                 </span>
                 
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#0f172a] mb-4 font-sans">
                   {t.cobertura.title1} {t.cobertura.title2}
                 </h2>
                 <p className="text-slate-500 text-base md:text-lg max-w-lg mb-8 font-medium leading-relaxed">
-                  Equipo propio en toda el Ã¡rea metropolitana, Maresme, VallÃ¨s, Baix Llobregat y Costa Daurada.
+                  {t.cobertura.subtitle}
                 </p>
               </Reveal>
 
@@ -1035,7 +1035,7 @@ function Index() {
                     </div>
                   </div>
                   <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs px-6 py-3.5 rounded-full transition-all shadow-sm flex items-center justify-center gap-2 shrink-0">
-                    Contactar ahora <ArrowRight className="w-4 h-4" />
+                    {t.cobertura.contactarAhora} <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               </Reveal>
@@ -1064,7 +1064,7 @@ function Index() {
                     onClick={() => setMapInteractive(true)}
                   >
                     <div className="bg-[#0f172a]/90 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-md border border-white/10 opacity-0 group-hover/overlay:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      Haz clic para interactuar con el mapa
+                      {t.cobertura.clickMapa}
                     </div>
                   </div>
                 )}
@@ -1077,7 +1077,7 @@ function Index() {
                     </div>
                     <div>
                       <h4 className="font-bold text-[#0f172a] text-sm">{t.cobertura.sedeCentral}</h4>
-                      <p className="text-slate-500 text-xs">Av. Diagonal, 490 â€¢ Barcelona</p>
+                      <p className="text-slate-500 text-xs">{t.cobertura.direccionSede}</p>
                     </div>
                   </div>
                 </div>
@@ -1097,12 +1097,11 @@ function Index() {
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
               <Reveal>
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit">
-                  ADMINISTRACIÃ“N DE FINCAS EN BARCELONA
+                  {t.hero.tag}
                 </span>
                 
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-white mb-6 font-sans">
-                  Su comunidad,<br/>
-                  <span className="text-[#2563eb]">{t.hero.heroTitle}</span>
+                  {t.hero.heroTitle}
                 </h2>
                 
                 <p className="text-slate-300 text-base md:text-lg max-w-md mb-8 font-medium">
@@ -1111,11 +1110,11 @@ function Index() {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
                   <a href="#propiedades" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
-                    Ver propiedades en venta
+                    {t.hero.verPropiedades}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a href="#contacto" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
-                    Hablar con un asesor
+                    {t.hero.hablarAsesor}
                   </a>
                 </div>
 
@@ -1160,7 +1159,7 @@ function Index() {
                 <Calendar className="w-6 h-6" />
               </div>
               <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                BLOG Y NOTICIAS
+                {t.noticias.tag}
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-[#0f172a] mb-4 font-serif">
                 {t.noticias.title1} <span className="text-[#2563eb] italic font-serif">{t.noticias.title2}</span>
@@ -1172,58 +1171,40 @@ function Index() {
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              {
-                date: "9 marzo, 2025", category: "Inmobiliaria",
-                title: "Â¿QuÃ© es un asesor inmobiliario y por quÃ© podrÃ­as necesitarlo?",
-                desc: "El asesor inmobiliario puede ser clave para comprar, vender o alquilar con Ã©xito.",
-                img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              },
-              {
-                date: "4 marzo, 2025", category: "Inmobiliaria",
-                title: "Â¿QuÃ© es un contrato de exclusividad inmobiliaria?",
-                desc: "El contrato de exclusividad asegura un compromiso firme entre propietario y agencia.",
-                img: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              },
-              {
-                date: "20 febrero, 2025", category: "Inmobiliaria",
-                title: "Â¿QuÃ© es un perito judicial inmobiliario?",
-                desc: "Un perito judicial inmobiliario aporta valor y objetividad en procesos legales y tasaciones.",
-                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              },
-              {
-                date: "28 enero, 2025", category: "Inmobiliaria",
-                title: "Descubre todo sobre una vivienda de obra nueva",
-                desc: "Ventajas, proceso de compra y claves para elegir tu prÃ³xima vivienda de obra nueva.",
-                img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-              }
-            ].map((post, i) => (
+            {t.noticias.items.map((post, i) => {
+              const imgs = [
+                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                "https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              ];
+              return (
               <Reveal key={i} delay={i * 0.1}>
                 <div className="bg-white rounded-3xl p-5 flex flex-col h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4">
-                    <img src={post.img} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={imgs[i]} alt={post.titulo} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="p-2 flex flex-col flex-1">
                     <div className="flex items-center gap-3 text-[11px] font-bold mb-2.5">
-                      <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{post.category}</span>
-                      <span className="text-slate-400 font-medium">{post.date}</span>
+                      <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{post.categoria}</span>
+                      <span className="text-slate-400 font-medium">{post.fecha}</span>
                     </div>
-                    <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors">{post.title}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1">{post.desc}</p>
+                    <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors">{post.titulo}</h3>
+                    <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1">{post.resumen}</p>
                     <div className="mt-auto pt-2">
                       <span className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all">
-                        Seguir leyendo <ArrowRight className="w-3.5 h-3.5" />
+                        {t.noticias.seguirLeyendo} <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>
                   </div>
                 </div>
               </Reveal>
-            ))}
+            )})}
           </div>
 
           <div className="text-center">
             <a href="#" className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full text-sm font-semibold transition-all shadow-sm hover:shadow-md">
-              Ver todas las noticias
+              {t.noticias.verTodasBtn}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -1342,7 +1323,7 @@ function Index() {
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
               <div className="bg-white border border-slate-200/60 p-8 md:p-12 rounded-3xl shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)]">
-                <h3 className="font-bold text-2xl md:text-3xl text-[#0f172a] mb-8 tracking-tight">{t.contacto.formTitle}</h3>
+                <h3 className="font-bold text-2xl md:text-3xl text-[#0f172a] mb-8 tracking-tight">{t.contacto.form.formTitle}</h3>
                 <form key={language} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
@@ -1401,7 +1382,7 @@ function Index() {
             <div className="lg:col-span-1">
               <img src={logoImg} alt="Gesgrama" className="h-12 w-auto object-contain opacity-100 mb-4" />
               <p className="text-[13px] leading-relaxed text-slate-300 max-w-[200px]">
-                AdministraciÃ³n de Fincas, Inmobiliaria y AsesorÃ­a JurÃ­dica en el Ã¡rea de Barcelona desde 2009.
+                {t.footer.descripcion}
               </p>
             </div>
 

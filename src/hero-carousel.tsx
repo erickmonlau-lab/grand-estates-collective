@@ -2,9 +2,11 @@ import { useRef, useEffect, useState } from 'react';
 import { motion, useInView, useMotionValue } from 'framer-motion';
 import { ArrowRight, Star, Building2, Smile, ShieldCheck, Shield, Users, TrendingUp, Home, Key } from "lucide-react";
 import heroBg from "@/assets/family_barcelona_right.jpg"; 
+import { translations } from './data/translations';
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
+  language?: "es" | "en" | "ca";
 }
 
 // ── Animated Counter ──
@@ -44,15 +46,16 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
 }
 
 const STATS = [
-  { icon: Star,        num: 4500, prefix: '',  suffix: '+',  label: 'Clientes satisfechos'   },
-  { icon: Building2,   num: 300,  prefix: '+', suffix: '',   label: 'Comunidades gestionadas' },
-  { icon: Smile,       num: 98,   prefix: '',  suffix: '%',  label: 'Índice de satisfacción'  },
-  { icon: ShieldCheck, num: 15,   prefix: '',  suffix: '+',  label: 'Años de experiencia'     },
+  { icon: Star,        num: 4500, prefix: '',  suffix: '+' },
+  { icon: Building2,   num: 300,  prefix: '+', suffix: '' },
+  { icon: Smile,       num: 98,   prefix: '',  suffix: '%' },
+  { icon: ShieldCheck, num: 15,   prefix: '',  suffix: '+' },
 ];
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-export default function HeroCarousel(_props: HeroCarouselProps) {
+export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
+  const t = translations[language];
   return (
     <section
       id="hero"
@@ -107,7 +110,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
               <Home className="w-3.5 h-3.5" />
             </div>
             <span className="text-[10px] md:text-[11px] font-bold tracking-[0.18em] uppercase text-white/95 pr-1">
-              Administración & Patrimonio
+              {t.heroCarousel.eyebrow}
             </span>
           </motion.div>
 
@@ -124,9 +127,9 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 textShadow: '0 8px 32px rgba(0,0,0,0.3)'
               }}
             >
-              Encontramos<br />
-              el <span className="italic font-medium text-[#0082c8]">hogar</span> que<br />
-              mereces<span className="text-[#0082c8]">.</span>
+              {t.heroCarousel.headline1}<br />
+              {language === 'es' ? 'el ' : language === 'en' ? 'the ' : 'la '}<span className="italic font-medium text-[#0082c8]">{t.heroCarousel.headline2}</span> {t.heroCarousel.headline3}<br />
+              {t.heroCarousel.headline4}<span className="text-[#0082c8]">.</span>
             </h1>
           </motion.div>
 
@@ -136,7 +139,12 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             className="text-white/80 font-light leading-relaxed mb-6 max-w-[480px]"
             style={{ fontSize: 'clamp(1rem, 1.1vw, 1.1rem)' }}
           >
-            Compra, alquila <span className="text-[#0082c8] font-semibold">o</span> vende tu propiedad con un equipo experto que te acompaña en cada decisión.
+            {t.heroCarousel.subtitle.split(` ${t.heroCarousel.subtitleOr} `).map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="text-[#0082c8] font-semibold"> {t.heroCarousel.subtitleOr} </span>}
+              </span>
+            ))}
           </motion.p>
 
           {/* Trust features row */}
@@ -150,8 +158,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>Confianza</span>
-                <span className="text-white/60">y seguridad</span>
+                <span>{t.heroCarousel.trust1a}</span>
+                <span className="text-white/60">{t.heroCarousel.trust1b}</span>
               </div>
             </div>
 
@@ -161,8 +169,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 <Users className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>Acompañamiento</span>
-                <span className="text-white/60">personalizado</span>
+                <span>{t.heroCarousel.trust2a}</span>
+                <span className="text-white/60">{t.heroCarousel.trust2b}</span>
               </div>
             </div>
 
@@ -172,8 +180,8 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>Mejores</span>
-                <span className="text-white/60">oportunidades</span>
+                <span>{t.heroCarousel.trust3a}</span>
+                <span className="text-white/60">{t.heroCarousel.trust3b}</span>
               </div>
             </div>
           </motion.div>
@@ -194,7 +202,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 <div className="w-9 h-9 rounded-full bg-[#0082c8] flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Home className="w-4.5 h-4.5" />
                 </div>
-                <span className="font-bold text-[11px] tracking-[0.15em] uppercase">Ver propiedades</span>
+                <span className="font-bold text-[11px] tracking-[0.15em] uppercase">{t.heroCarousel.btnProperties}</span>
               </div>
               <motion.span className="flex items-center" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -212,7 +220,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                 <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Key className="w-4.5 h-4.5" />
                 </div>
-                <span className="font-bold text-[11px] tracking-[0.12em] uppercase">Valorar mi inmueble</span>
+                <span className="font-bold text-[11px] tracking-[0.12em] uppercase">{t.heroCarousel.btnValuation}</span>
               </div>
               <motion.span className="flex items-center text-white" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
                 <ArrowRight className="w-4 h-4 stroke-[2]" />
@@ -268,7 +276,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
                     {s.suffix && <span className="text-[0.7em] ml-0.5">{s.suffix}</span>}
                   </div>
                   <div className="font-bold text-[6px] min-[380px]:text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] tracking-normal sm:tracking-[0.12em] uppercase text-slate-500 w-full break-words leading-[1.2] px-0.5 max-h-[2.4em] overflow-hidden">
-                    {s.label}
+                    {t.heroCarousel.stats[i]}
                   </div>
                   {/* Small blue underline helper */}
                   <div className="w-4 sm:w-8 h-[2px] sm:h-[2.5px] bg-[#0082c8]/60 mt-1.5 sm:mt-3 rounded-full" />
@@ -282,7 +290,7 @@ export default function HeroCarousel(_props: HeroCarouselProps) {
             <div className="relative pb-1 flex items-center justify-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#0082c8] shrink-0" />
               <span className="font-bold text-[10px] tracking-[0.25em] uppercase text-slate-700">
-                Tu tranquilidad, nuestro compromiso
+                {t.heroCarousel.commitment}
               </span>
               <div className="absolute -bottom-px left-1/4 right-1/4 h-[2px] bg-[#0082c8] rounded-full" />
             </div>

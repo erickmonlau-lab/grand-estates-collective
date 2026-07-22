@@ -223,7 +223,11 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       <div className="max-w-[1280px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-8">
         
         {/* Top/Main Hero Content Container */}
-        <div className="max-w-xl text-left py-2 sm:py-4">
+        <div className="max-w-xl text-left py-2 sm:py-4 relative">
+          
+          {/* Subtle Blue & Dark Soft Glow Radial Backdrop for Maximum Legibility */}
+          <div className="absolute -top-10 -left-10 w-[120%] h-[130%] bg-[#1e3a8a]/40 md:bg-[#1d4ed8]/30 rounded-full blur-3xl pointer-events-none -z-10" />
+
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -236,14 +240,14 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </div>
 
             {/* Main Title H1 - Accent 'más cerca.' in Brand Blue */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans drop-shadow-sm">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-[1.08] tracking-tight mb-4 font-sans drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
               Tu próximo<br />
               hogar,<br />
-              <span className="text-[#2563eb]">más cerca.</span>
+              <span className="text-[#3b82f6] drop-shadow-[0_2px_10px_rgba(37,99,235,0.8)]">más cerca.</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-md mb-6 font-medium leading-relaxed font-sans drop-shadow-xs">
+            {/* Subtitle with soft dark background pill/contrast */}
+            <p className="text-white text-sm sm:text-base md:text-lg max-w-md mb-6 font-semibold leading-relaxed font-sans drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] bg-slate-950/20 backdrop-blur-xs p-3.5 rounded-2xl border border-white/10">
               {t.heroCarousel.subtitle}
             </p>
 

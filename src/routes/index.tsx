@@ -298,12 +298,19 @@ function Index() {
       <meta name="description" content="Gesgrama: administración de fincas, inmobiliaria y asesoría jurídica en Barcelona y Santa Coloma de Gramenet. Gestión transparente de comunidades, compraventa de pisos, valoraciones gratuitas y asesoramiento legal. +15 años de experiencia, +300 comunidades gestionadas." />
       <link rel="canonical" href="https://www.gesgrama.es/" />
 
+      {/* Google Search Favicon Directives */}
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      <link rel="icon" type="image/png" sizes="48x48" href="https://www.gesgrama.es/favicon-48x48.png" />
+      <link rel="icon" type="image/png" sizes="192x192" href="https://www.gesgrama.es/favicon-192x192.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="https://www.gesgrama.es/apple-touch-icon.png" />
+      <link rel="shortcut icon" href="https://www.gesgrama.es/favicon.ico" />
+
       {/* Open Graph */}
       <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
       <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona, Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
       <meta property="og:url" content="https://www.gesgrama.es/" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://www.gesgrama.es/logo.webp" />
+      <meta property="og:image" content="https://www.gesgrama.es/logo.png" />
       <meta property="og:site_name" content="Gesgrama" />
       <meta property="og:locale" content="es_ES" />
       <meta property="og:locale:alternate" content="ca_ES" />
@@ -313,7 +320,7 @@ function Index() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
       <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Barcelona." />
-      <meta name="twitter:image" content="https://www.gesgrama.es/logo.webp" />
+      <meta name="twitter:image" content="https://www.gesgrama.es/logo.png" />
 
       {/* Geo Targeting SEO — Barcelona, Cataluña, España */}
       <meta name="geo.region" content="ES-CT" />
@@ -332,7 +339,8 @@ function Index() {
             "@type": ["RealEstateAgent", "LocalBusiness"],
             "name": "Gesgrama",
             "alternateName": "Gesgrama Inmobiliaria y Administración de Fincas",
-            "image": "https://www.gesgrama.es/logo.webp",
+            "image": "https://www.gesgrama.es/logo.png",
+            "logo": "https://www.gesgrama.es/logo.png",
             "@id": "https://www.gesgrama.es",
             "url": "https://www.gesgrama.es",
             "telephone": "+34934685656",

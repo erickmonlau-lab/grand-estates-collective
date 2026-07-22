@@ -207,7 +207,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative text-slate-900 pt-20 pb-10 md:pt-32 md:pb-12 px-3.5 md:px-8 min-h-fit md:min-h-screen flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc]">
+    <section id="hero" className="relative text-slate-900 pt-20 pb-6 sm:pb-10 md:pt-32 md:pb-12 px-3.5 md:px-8 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc]">
       
       {/* ── Background Architectural Line-Art Sketch (Left & Right Edges) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

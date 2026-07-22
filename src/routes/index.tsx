@@ -480,14 +480,30 @@ function Index() {
                   {t.valorador.estimacionAutomatizada}
                 </div>
                 
-                {/* Rounded Bar Chart (Reference 2 & 3) */}
-                <div className="flex items-end gap-2 h-14 mb-8">
-                  <div className="flex-1 bg-[#60a5fa] rounded-full h-[30%]"></div>
-                  <div className="flex-1 bg-[#3b82f6] rounded-full h-[50%]"></div>
-                  <div className="flex-1 bg-[#93c5fd] rounded-full h-[40%]"></div>
-                  <div className="flex-1 bg-[#3b82f6] rounded-full h-[80%]"></div>
-                  <div className="flex-1 bg-[#60a5fa] rounded-full h-[65%]"></div>
-                  <div className="flex-1 bg-[#2563eb] rounded-full h-full shadow-sm"></div>
+                {/* Sparkline Price Trend Chart */}
+                <div className="mb-6 pt-3 border-t border-slate-100">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 mb-2 font-sans">
+                    <span>Tendencia de precios (6 meses)</span>
+                    <span className="text-emerald-600 flex items-center gap-0.5 font-sans"><TrendingUp className="w-3.5 h-3.5" /> +4.2%</span>
+                  </div>
+                  <div className="w-full h-12 relative">
+                    <svg className="w-full h-full overflow-visible" viewBox="0 0 200 40" fill="none">
+                      <defs>
+                        <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M 0 35 L 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 200 4 L 200 40 L 0 40 Z" fill="url(#sparklineGrad)" />
+                      <path d="M 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 200 4" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <circle cx="0" cy="30" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="40" cy="22" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="80" cy="20" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="120" cy="14" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="160" cy="10" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="200" cy="4" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
+                    </svg>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-500 font-sans">
@@ -1196,7 +1212,7 @@ function Index() {
             {/* Left Content */}
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
               <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit">
+                <span className="inline-flex items-center text-center justify-center gap-1.5 bg-[#2563eb] text-white text-[9.5px] sm:text-[11px] font-bold tracking-wider uppercase px-3.5 sm:px-4 py-1.5 rounded-full mb-4 sm:mb-6 w-fit max-w-full leading-tight">
                   {t.hero.tag}
                 </span>
                 
@@ -1408,8 +1424,9 @@ function Index() {
               {/* Image Card with Central Office Overlay */}
               <div className="relative rounded-3xl overflow-hidden shadow-md aspect-[16/10] mb-8 border border-slate-200/60">
                 <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
-                  alt="Gesgrama oficina salón" 
+                  src={gesgramaOffice} 
+                  alt="Gesgrama oficina principal" 
+                  loading="lazy"
                   className="w-full h-full object-cover" 
                 />
                 

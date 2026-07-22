@@ -210,7 +210,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center select-none">
+    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-20 pb-8 md:pt-36 md:pb-16 px-3.5 md:px-8 overflow-hidden min-h-[100dvh] flex flex-col justify-center select-none">
       
       {/* ── Completely White Base Background ── */}
       <div className="absolute inset-0 z-0 bg-[#f8fafc] pointer-events-none" />
@@ -230,8 +230,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
       <div className="max-w-[1300px] mx-auto w-full relative z-10">
         
         {/* Main Light Card */}
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.03)] border border-slate-200/50 p-6 md:p-12 lg:p-14 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="bg-white rounded-[24px] md:rounded-[36px] shadow-[0_20px_50px_rgba(15,23,42,0.03)] border border-slate-200/50 p-4 sm:p-6 md:p-12 lg:p-14 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-10 lg:gap-14 items-center">
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 flex flex-col justify-center items-start text-left">
@@ -242,28 +242,28 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 className="w-full"
               >
                 {/* Eyebrow Tag */}
-                <span className="inline-flex items-center gap-2 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse"></span>
+                <span className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#dbeafe] text-[#2563eb] text-[9.5px] sm:text-[11px] font-bold tracking-wider uppercase px-3 py-1 sm:px-4 sm:py-1.5 rounded-full mb-3 sm:mb-6 w-fit shadow-xs leading-tight">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#2563eb] animate-pulse"></span>
                   {t.heroCarousel.tag}
                 </span>
 
                 {/* Main Title */}
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0f172a] leading-[1.08] tracking-tight mb-6 font-sans">
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#0f172a] leading-[1.08] tracking-tight mb-3 sm:mb-6 font-sans">
                   {t.heroCarousel.titleMain}<br />
                   <span className="text-[#2563eb]">{t.heroCarousel.titleAccent}</span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-slate-500 text-base md:text-lg max-w-[560px] mb-8 font-medium leading-relaxed font-sans">
+                <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-[560px] mb-4 sm:mb-8 font-medium leading-relaxed font-sans">
                   {t.heroCarousel.subtitle}
                 </p>
 
                 {/* Buttons Row */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-6">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-auto mb-3 sm:mb-6">
                   {/* Button 1: Valorar mi propiedad */}
                   <a
                     href="#valuator-form"
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 group cursor-pointer"
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 sm:gap-2.5 group cursor-pointer"
                   >
                     <Home className="w-4 h-4 text-white" />
                     <span>{t.heroCarousel.btnValuation}</span>
@@ -273,7 +273,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                   {/* Button 2: Ver propiedades */}
                   <a
                     href="#propiedades"
-                    className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2.5 group cursor-pointer"
+                    className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-sm transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 sm:gap-2.5 group cursor-pointer"
                   >
                     <Building2 className="w-4 h-4 text-slate-500" />
                     <span>{t.heroCarousel.btnProperties}</span>
@@ -281,9 +281,9 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 </div>
 
                 {/* Trust Badge Below Buttons */}
-                <div className="flex items-center gap-2.5 text-xs font-bold text-slate-600">
-                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-bold text-slate-600">
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 stroke-[3]" />
                   </div>
                   <span>{t.heroCarousel.trustBadge}</span>
                 </div>
@@ -291,7 +291,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </div>
 
             {/* Right Image Column (Clean, Portrait aspect family photo) */}
-            <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50">
+            <div className="lg:col-span-5 w-full h-[210px] sm:h-[400px] lg:h-[440px] relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100 bg-slate-50">
               <motion.img
                 src={heroBg}
                 alt="Gesgrama - Barcelona"
@@ -306,7 +306,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </div>
 
         {/* Floating Stat Cards Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 relative z-20">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mt-4 sm:mt-6 relative z-20">
           
           {/* Stat 1: Clientes Satisfechos */}
           <motion.div

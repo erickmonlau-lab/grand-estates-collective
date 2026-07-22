@@ -375,7 +375,7 @@ export const translations = {
         mensaje: "Mensaje o detalles de su consulta",
         mensajePlaceholder: "Escriba aquí los detalles...",
         privacidad: "He leído y acepto la Política de Privacidad",
-        botonEnviar: "Enviar Solicitud de Información",
+        botonEnviar: "Enviar solicitud",
         enviando: "Enviando solicitud...",
         exito: "¡Solicitud enviada con éxito! Nos pondremos en contacto muy pronto."
       }
@@ -793,7 +793,7 @@ export const translations = {
         mensaje: "Message or inquiry details",
         mensajePlaceholder: "Write your message details here...",
         privacidad: "I have read and accept the Privacy Policy",
-        botonEnviar: "Send Request Information",
+        botonEnviar: "Send request",
         enviando: "Sending request...",
         exito: "Request sent successfully! We will get in touch with you shortly."
       }
@@ -1211,7 +1211,7 @@ export const translations = {
         mensaje: "Missatge o detalls de la seva consulta",
         mensajePlaceholder: "Escrigui aquí els detalls...",
         privacidad: "He llegit i accepto la Política de Privacitat",
-        botonEnviar: "Enviar Sol·licitud d'Informació",
+        botonEnviar: "Enviar sol·licitud",
         enviando: "Enviant sol·licitud...",
         exito: "Sol·licitud enviada amb èxit! Ens posarem en contacte molt aviat."
       }

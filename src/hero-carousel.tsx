@@ -207,7 +207,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative text-slate-900 pt-20 pb-4 md:pt-32 md:pb-12 px-3.5 md:px-8 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc]">
+    <section id="hero" className="relative text-slate-900 pt-20 pb-10 md:pt-32 md:pb-12 px-3.5 md:px-8 min-h-[100dvh] flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc]">
       
       {/* ── Background Architectural Line-Art Sketch (Left & Right Edges) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -308,14 +308,18 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </div>
 
         {/* Floating Stat Cards Row (Mobile Horizontal Snap Scroll + Glass Blur + Unified #2563eb Blue) */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-3.5 px-3.5 pb-6 pt-1 sm:grid sm:grid-cols-4 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0 relative z-20 mt-9 sm:mt-14 mb-4 sm:mb-0 scrollbar-none">
+        <div 
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 -mx-3.5 px-3.5 pb-2 pt-1 sm:grid sm:grid-cols-4 sm:overflow-visible sm:mx-0 sm:px-0 sm:pb-0 relative z-20 mt-8 sm:mt-14 mb-2 sm:mb-0 [::-webkit-scrollbar]:hidden"
+          style={{ webkitOverflowScrolling: 'touch', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+        >
           
           {/* Stat 1: Clientes Satisfechos */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="snap-start shrink-0 w-[155px] sm:w-auto bg-white/85 backdrop-blur-md text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/70 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
           >
             <div className="flex items-center justify-start mb-3 sm:mb-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
@@ -336,7 +340,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="snap-start shrink-0 w-[155px] sm:w-auto bg-white/85 backdrop-blur-md text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/70 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
           >
             <div className="flex items-center justify-start mb-3 sm:mb-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
@@ -357,7 +362,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="snap-start shrink-0 w-[155px] sm:w-auto bg-white/85 backdrop-blur-md text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/70 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
           >
             <div className="flex items-center justify-start mb-3 sm:mb-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">
@@ -378,7 +384,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="snap-start shrink-0 w-[155px] sm:w-auto bg-white/85 backdrop-blur-md text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/70 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            className="snap-start shrink-0 w-[140px] sm:w-auto text-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl border border-white/80 flex flex-col justify-between h-full min-h-[130px] sm:min-h-[145px]"
+            style={{ background: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
           >
             <div className="flex items-center justify-start mb-3 sm:mb-4">
               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] shrink-0">

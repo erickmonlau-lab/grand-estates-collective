@@ -186,6 +186,18 @@ function Index() {
   const [visibleCount, setVisibleCount] = useState(3);
   const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
 
+  // Lock body scroll when service modal is open
+  useEffect(() => {
+    if (selectedServiceIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedServiceIndex]);
+
   // Favorites state persisted in localStorage
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
@@ -824,6 +836,10 @@ function Index() {
                     habitaciones: consoleFilters.habitaciones,
                     precio: consoleFilters.precio
                   }));
+                  const el = document.getElementById('propiedades');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
                 }}
                 className="bg-[#0b1221] hover:bg-[#1b263b] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer font-sans"
               >
@@ -1668,12 +1684,12 @@ function Index() {
       {/* Service Detail Modal (Point 3 Fix) */}
       <AnimatePresence>
         {selectedServiceIndex !== null && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[85vh] overflow-y-auto my-auto"
             >
               <button
                 onClick={() => setSelectedServiceIndex(null)}

@@ -36,7 +36,7 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
 
   return (
     <div 
-      className={`fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
+      className={`fixed bottom-2.5 right-2.5 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
         isScrolling ? "opacity-20 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
       }`}
     >
@@ -55,11 +55,11 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         aria-label="WhatsApp Gesgrama"
-        className="relative group bg-[#25d366] hover:bg-[#20ba5a] text-white w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 cursor-pointer"
+        className="relative group bg-[#25d366] hover:bg-[#20ba5a] text-white w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_6px_20px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 cursor-pointer"
       >
         {/* Pulse ring animation */}
         <span className="absolute inset-0 rounded-full bg-[#25d366] animate-ping opacity-30 pointer-events-none"></span>
-        <MessageCircle className="w-5 h-5 sm:w-7 sm:h-7 fill-white stroke-none group-hover:rotate-12 transition-transform duration-300" />
+        <MessageCircle className="w-4 h-4 sm:w-7 sm:h-7 fill-white stroke-none group-hover:rotate-12 transition-transform duration-300" />
       </a>
     </div>
   );

@@ -308,12 +308,12 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           </motion.div>
         </div>
 
-        {/* Floating Stat Cards Row — Compact Inline Strip (4-col on all sizes) */}
+        {/* Floating Stat Cards Row — Compact Inline Strip with right clearance for floating WhatsApp button */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="grid grid-cols-4 gap-1.5 sm:gap-3 relative z-20 mt-6 sm:mt-14 mb-2 sm:mb-0 rounded-2xl sm:rounded-3xl p-2 sm:p-3 shadow-md border border-white/80"
+          className="grid grid-cols-4 gap-1 sm:gap-3 relative z-20 mt-4 sm:mt-14 mb-2 sm:mb-0 rounded-2xl sm:rounded-3xl p-1.5 sm:p-3 shadow-md border border-white/80 mr-11 sm:mr-0"
           style={{ background: 'rgba(255, 255, 255, 0.92)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
         >
           {/* Stat 1: Clientes */}

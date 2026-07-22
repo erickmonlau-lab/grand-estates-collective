@@ -308,9 +308,13 @@ function Index() {
       {/* Open Graph */}
       <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
       <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona, Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
-      <meta property="og:url" content="https://www.gesgrama.es/" />
+      <meta property="og:url" content="https://grand-estates-collective.vercel.app/" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://www.gesgrama.es/logo.png" />
+      <meta property="og:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
+      <meta property="og:image:secure_url" content="https://grand-estates-collective.vercel.app/og-image.png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
       <meta property="og:site_name" content="Gesgrama" />
       <meta property="og:locale" content="es_ES" />
       <meta property="og:locale:alternate" content="ca_ES" />
@@ -320,7 +324,7 @@ function Index() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
       <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Barcelona." />
-      <meta name="twitter:image" content="https://www.gesgrama.es/logo.png" />
+      <meta name="twitter:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
 
       {/* Geo Targeting SEO — Barcelona, Cataluña, España */}
       <meta name="geo.region" content="ES-CT" />
@@ -1167,10 +1171,10 @@ function Index() {
             <div className="flex flex-col items-center justify-center mt-12 pt-12 border-t border-slate-200/60">
               {visibleCount < filteredProperties.length ? (
                 <button 
-                  onClick={() => setVisibleCount(filteredProperties.length)}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                  onClick={() => setVisibleCount(prev => prev + 4)}
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 cursor-pointer"
                 >
-                  {t.properties.verTodas} ({filteredProperties.length - visibleCount} {t.properties.disponibles})
+                  {t.properties.verMas}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               ) : (
@@ -1185,13 +1189,12 @@ function Index() {
                     });
                     setVisibleCount(properties.length);
                   }}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 mb-2 cursor-pointer"
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 cursor-pointer"
                 >
                   {t.properties.verTodas}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               )}
-              <p className="text-xs text-slate-500 font-semibold">{t.properties.showingAll}</p>
             </div>
           </Reveal>
         </div>
@@ -1423,16 +1426,17 @@ function Index() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
-                  <a href="#propiedades" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2 group w-full sm:w-auto">
-                    {t.hero.verPropiedades}
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <a href="#valuator-form" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer">
+                    <Home className="w-4 h-4 text-white" />
+                    <span>{t.heroCarousel.btnValuation}</span>
+                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a 
                     href="#contacto" 
-                    className="bg-[#0284c7] hover:bg-[#0369a1] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer"
+                    className="bg-white hover:bg-slate-50 text-[#0f172a] px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer border border-slate-200"
                   >
-                    <Phone className="w-4 h-4 text-white" />
-                    <span>{t.hero.hablarAsesor}</span>
+                    <Phone className="w-4 h-4 text-[#2563eb]" />
+                    <span className="font-bold text-[#0f172a]">{t.hero.hablarAsesor}</span>
                   </a>
                 </div>
 

@@ -94,7 +94,7 @@ export const translations = {
       rangoEstimado: "Rango estimado:",
       estimacionAutomatizada: "Estimación orientativa basada en datos de mercado, no sustituye una tasación profesional",
       ejemploResultado: "EJEMPLO DE RESULTADO",
-      actualizadoHoy: "Actualizado hoy"
+      actualizadoHoy: "Mercado actualizado este mes"
     },
     serviceModal: {
       close: "Cerrar",
@@ -177,8 +177,8 @@ export const translations = {
       sortBy: "Ordenar por",
       mostRecent: "Más recientes",
       fallbackMsg: "No se encontraron inmuebles con los filtros seleccionados.",
-      verTodas: "Ver todas las propiedades",
-      showingAll: "Mostrando todas las propiedades disponibles"
+      verTodas: "Ver catálogo completo",
+      showingAll: "Todas las propiedades del catálogo mostradas"
     },
     filosofia: {
       tag: "Confianza & Transparencia",
@@ -576,8 +576,8 @@ export const translations = {
       valorEstimado: "Estimated Value",
       rangoEstimado: "Estimated range:",
       estimacionAutomatizada: "Orientative estimation based on market data, does not replace a professional appraisal",
-      ejemploResultado: "RESULT EXAMPLE",
-      actualizadoHoy: "Updated today"
+      ejemploResultado: "SAMPLE RESULT",
+      actualizadoHoy: "Market updated this month"
     },
     serviceModal: {
       close: "Close",
@@ -660,8 +660,8 @@ export const translations = {
       sortBy: "Sort by",
       mostRecent: "Most recent",
       fallbackMsg: "No properties found with the selected filters.",
-      verTodas: "View all properties",
-      showingAll: "Showing all available properties"
+      verTodas: "View full catalog",
+      showingAll: "All available properties shown"
     },
     filosofia: {
       tag: "Trust & Transparency",
@@ -1060,7 +1060,7 @@ export const translations = {
       rangoEstimado: "Rang estimat:",
       estimacionAutomatizada: "Estimació orientativa basada en dades de mercat, no substitueix una taxació professional",
       ejemploResultado: "EXEMPLE DE RESULTAT",
-      actualizadoHoy: "Actualitzat avui"
+      actualizadoHoy: "Mercat actualitzat aquest mes"
     },
     serviceModal: {
       close: "Tancar",
@@ -1143,8 +1143,8 @@ export const translations = {
       sortBy: "Ordenar per",
       mostRecent: "Més recents",
       fallbackMsg: "No s'han trobat immobles amb els filtres seleccionats.",
-      verTodas: "Veure totes les propietats",
-      showingAll: "Mostrant totes les propietats disponibles"
+      verTodas: "Veure catàleg complet",
+      showingAll: "Totes les propietats del catàleg mostrades"
     },
     filosofia: {
       tag: "Confiança i Transparència",

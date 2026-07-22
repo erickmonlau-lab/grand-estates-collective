@@ -465,30 +465,30 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] md:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-1.5 sm:py-2.5 md:py-3.5 px-3.5 sm:px-5 md:px-8 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md md:shadow-lg text-slate-900"
+        className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] md:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-1.5 sm:py-2.5 md:py-3.5 px-3.5 sm:px-5 md:px-8 rounded-full bg-[#1e293b]/95 backdrop-blur-md border border-slate-700/80 shadow-2xl text-white"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-0.5 sm:pl-1 md:pl-2">
           <img src={logoImg} alt="Gesgrama" className="h-9 sm:h-13 md:h-18 lg:h-20 w-auto max-w-[170px] sm:max-w-[260px] md:max-w-[360px] object-contain drop-shadow-xs" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
-          <a href="#propiedades" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="#servicios" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <a href="#nosotros" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
-          <a href="#contacto" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.contacto}</a>
+        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-white tracking-widest uppercase">
+          <a href="#propiedades" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
+          <a href="#servicios" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.servicios}</a>
+          <a href="#nosotros" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
+          <a href="#contacto" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 lg:gap-6 shrink-0 pr-1">
-          <div className="flex items-center bg-slate-100/90 border border-slate-200 rounded-full p-1 text-[10px] md:text-[12px] font-bold shadow-inner">
+          <div className="flex items-center bg-slate-800/90 border border-slate-700 rounded-full p-1 text-[10px] md:text-[12px] font-bold shadow-inner">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+                  className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-300 hover:text-white'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
-                {idx < 2 && <div className="w-px h-3 bg-slate-300 mx-0.5"></div>}
+                {idx < 2 && <div className="w-px h-3 bg-slate-700 mx-0.5"></div>}
               </div>
             ))}
           </div>
@@ -500,7 +500,7 @@ function Index() {
             {t.nav.portal}
           </a>
           <button
-            className="lg:hidden p-2 text-slate-800 hover:text-black cursor-pointer"
+            className="lg:hidden p-2 text-white hover:text-slate-200 cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

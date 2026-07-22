@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView, useMotionValue } from 'framer-motion';
-import { ArrowRight, Star, Building2, Smile, ShieldCheck, Shield, Users, TrendingUp, Home, Key } from "lucide-react";
-import heroBg from "@/assets/family_barcelona_right.jpg"; 
+import { motion, useInView } from 'framer-motion';
+import { ArrowRight, Star, Building2, Shield, Check, Home } from "lucide-react";
+import heroBg from "@/assets/family_no_boy.jpg"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -13,23 +13,19 @@ interface HeroCarouselProps {
 function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
-  const mv = useMotionValue(0);
   const [display, setDisplay] = useState('0');
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
-    const duration = 2000;
     let startTime: number;
+    const duration = 2000;
 
     const animateCount = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      
       const easeOut = 1 - Math.pow(1 - percentage, 3);
       const currentCount = Math.floor(easeOut * to);
-      
       setDisplay(currentCount.toString());
 
       if (percentage < 1) {
@@ -45,258 +41,168 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
   return <span ref={ref}>{prefix}{display}{suffix}</span>;
 }
 
-const STATS = [
-  { icon: Star,        num: 4500, prefix: '',  suffix: '+' },
-  { icon: Building2,   num: 300,  prefix: '+', suffix: '' },
-  { icon: Smile,       num: 98,   prefix: '',  suffix: '%' },
-  { icon: ShieldCheck, num: 15,   prefix: '',  suffix: '+' },
-];
-
 const expo = [0.16, 1, 0.3, 1] as const;
 
 export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
+
   return (
-    <section
-      id="hero"
-      className="relative w-full flex flex-col justify-between overflow-hidden"
-      style={{ height: '100dvh', backgroundColor: '#0f172a' }}
-    >
-      {/* ── Background Image & Overlays ── */}
-      <motion.img
-        src={heroBg}
-        alt="Familia en su nuevo hogar con vistas a la Sagrada Familia"
-        aria-hidden="true"
-        initial={{ scale: 1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0 }}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none object-[80%_36%] md:object-center"
-      />
+    <section id="hero" className="relative bg-[#f8fafc] text-onyx pt-28 pb-12 md:pt-36 md:pb-16 px-4 md:px-8 overflow-hidden">
+      <div className="max-w-[1300px] mx-auto relative z-10">
+        
+        {/* Main Light Card */}
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-6 md:p-12 lg:p-14 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 flex flex-col justify-center items-start text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: expo }}
+              >
+                {/* Eyebrow Tag */}
+                <span className="inline-flex items-center gap-2 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 w-fit shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse"></span>
+                  {t.heroCarousel.tag}
+                </span>
 
-      {/* Degradado oscuro para que contraste perfectamente el texto, pero suave sin líneas de corte */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[1]"
-        style={{
-          background: 'linear-gradient(to right, rgba(15,23,42,1) 0%, rgba(15,23,42,0.9) 35%, rgba(15,23,42,0.4) 60%, transparent 100%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none z-[2]"
-        style={{
-          background: 'linear-gradient(to top, rgba(15,23,42,0.95) 0%, transparent 30%)',
-        }}
-      />
+                {/* Main Title */}
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0f172a] leading-[1.08] tracking-tight mb-6 font-sans">
+                  {t.heroCarousel.titleMain}<br />
+                  <span className="text-[#2563eb]">{t.heroCarousel.titleAccent}</span>
+                </h1>
 
-      {/* ── Spacer for fixed navbar ── */}
-      <div className="w-full h-[90px] md:h-[110px] shrink-0 z-10" />
+                {/* Subtitle */}
+                <p className="text-slate-500 text-base md:text-lg max-w-lg mb-8 font-medium leading-relaxed">
+                  {t.heroCarousel.subtitle}
+                </p>
 
-      {/* ── Main Content Area - Perfectamente alineado al ancho de las métricas ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center px-6 lg:px-8 xl:px-0 w-full max-w-[1150px] mx-auto py-4">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.13, delayChildren: 0.25 } },
-          }}
-          className="w-full max-w-[720px]"
-        >
-          {/* Eyebrow */}
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: expo } } }}
-            className="inline-flex items-center gap-2 bg-[#0b1221]/60 border border-white/10 rounded-full px-4 py-2 mb-6"
-          >
-            <div className="w-6 h-6 rounded-full bg-[#0082c8] flex items-center justify-center text-white shrink-0">
-              <Home className="w-3.5 h-3.5" />
-            </div>
-            <span className="text-[10px] md:text-[11px] font-bold tracking-[0.18em] uppercase text-white/95 pr-1">
-              {t.heroCarousel.eyebrow}
-            </span>
-          </motion.div>
+                {/* Buttons Row */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-6">
+                  {/* Button 1: Valorar mi propiedad */}
+                  <a
+                    href="#valuator-form"
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 group cursor-pointer"
+                  >
+                    <Home className="w-4 h-4 text-white" />
+                    <span>{t.heroCarousel.btnValuation}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
 
-          {/* Headline */}
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-            className="mb-8"
-          >
-            <h1
-              className="block text-white tracking-tight leading-[1.05]"
-              style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: 'clamp(3.5rem, 6.5vw, 6rem)',
-                textShadow: '0 8px 32px rgba(0,0,0,0.3)'
-              }}
-            >
-              {t.heroCarousel.headline1}<br />
-              {language === 'es' ? 'el ' : language === 'en' ? 'the ' : 'la '}<span className="italic font-medium text-[#0082c8]">{t.heroCarousel.headline2}</span> {t.heroCarousel.headline3}<br />
-              {t.heroCarousel.headline4}<span className="text-[#0082c8]">.</span>
-            </h1>
-          </motion.div>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-            className="text-white/80 font-light leading-relaxed mb-6 max-w-[480px]"
-            style={{ fontSize: 'clamp(1rem, 1.1vw, 1.1rem)' }}
-          >
-            {t.heroCarousel.subtitle.split(` ${t.heroCarousel.subtitleOr} `).map((part, i, arr) => (
-              <span key={i}>
-                {part}
-                {i < arr.length - 1 && <span className="text-[#0082c8] font-semibold"> {t.heroCarousel.subtitleOr} </span>}
-              </span>
-            ))}
-          </motion.p>
-
-          {/* Trust features row */}
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-            className="flex flex-row items-start justify-start gap-4 sm:gap-8 mb-8 lg:mb-10 text-white w-full max-w-[550px] relative z-10"
-          >
-            {/* Feature 1 */}
-            <div className="flex flex-col items-center text-center gap-2 min-w-[70px] sm:min-w-[100px]">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#1e293b]/60 border border-white/10 flex items-center justify-center text-sky-400 shrink-0 shadow-sm">
-                <Shield className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-              <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>{t.heroCarousel.trust1a}</span>
-                <span className="text-white/60">{t.heroCarousel.trust1b}</span>
-              </div>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="flex flex-col items-center text-center gap-2 min-w-[70px] sm:min-w-[100px]">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#1e293b]/60 border border-white/10 flex items-center justify-center text-sky-400 shrink-0 shadow-sm">
-                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-              <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>{t.heroCarousel.trust2a}</span>
-                <span className="text-white/60">{t.heroCarousel.trust2b}</span>
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="flex flex-col items-center text-center gap-2 min-w-[70px] sm:min-w-[100px]">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#1e293b]/60 border border-white/10 flex items-center justify-center text-sky-400 shrink-0 shadow-sm">
-                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
-              <div className="flex flex-col text-[8px] sm:text-[10px] md:text-[11px] font-bold uppercase tracking-wide leading-[1.2] text-white/95">
-                <span>{t.heroCarousel.trust3a}</span>
-                <span className="text-white/60">{t.heroCarousel.trust3b}</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Buttons */}
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: expo } } }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full max-w-md sm:max-w-none"
-          >
-            <motion.a
-              href="#propiedades"
-              className="group flex items-center justify-between sm:justify-center gap-4 bg-[#f1f5f9] hover:bg-slate-200 text-[#0f172a] pl-2.5 pr-8 py-2.5 rounded-full text-decoration-none shadow-md"
-              whileHover={{ scale: 1.02, y: -1.5 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex items-center gap-3.5">
-                <div className="w-9 h-9 rounded-full bg-[#0082c8] flex items-center justify-center text-white shrink-0 shadow-sm">
-                  <Home className="w-4.5 h-4.5" />
+                  {/* Button 2: Ver propiedades */}
+                  <a
+                    href="#propiedades"
+                    className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2.5 group cursor-pointer"
+                  >
+                    <Building2 className="w-4 h-4 text-slate-500" />
+                    <span>{t.heroCarousel.btnProperties}</span>
+                  </a>
                 </div>
-                <span className="font-bold text-[11px] tracking-[0.15em] uppercase">{t.heroCarousel.btnProperties}</span>
-              </div>
-              <motion.span className="flex items-center" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </motion.span>
-            </motion.a>
 
-            <motion.a
-              href="#valuator-form"
-              className="group flex items-center justify-between sm:justify-center gap-4 bg-gradient-to-r from-[#0082c8] to-[#8b5cf6] text-white pl-2.5 pr-8 py-2.5 rounded-full text-decoration-none shadow-[0_8px_24px_rgba(139,92,246,0.25)]"
-              whileHover={{ scale: 1.02, y: -1.5 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex items-center gap-3.5">
-                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0 shadow-sm">
-                  <Key className="w-4.5 h-4.5" />
-                </div>
-                <span className="font-bold text-[11px] tracking-[0.12em] uppercase">{t.heroCarousel.btnValuation}</span>
-              </div>
-              <motion.span className="flex items-center text-white" initial={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.25 }}>
-                <ArrowRight className="w-4 h-4 stroke-[2]" />
-              </motion.span>
-            </motion.a>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* ── Curved Bottom Divider ── */}
-      <div className="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-[0] z-[5] pointer-events-none drop-shadow-[0_-20px_45px_rgba(56,189,248,0.5)]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 500"
-          preserveAspectRatio="none"
-          className="w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px]"
-        >
-          {/* Subtle glowing edge */}
-          <path
-           fill="none"
-           stroke="rgba(255,255,255,0.95)"
-           strokeWidth="6"
-           d="M0,400 C 400,500 800,100 1440,0"
-          />
-          {/* Main filled wave */}
-          <path
-           fill="#eef2f6"
-           d="M0,400 C 400,500 800,100 1440,0 L1440,500 L0,500 Z"
-          />
-        </svg>
-      </div>
-
-      {/* ── Metrics Banner (Bottom) ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.8, ease: 'easeOut' }}
-        className="relative z-20 w-full shrink-0 flex items-end justify-center px-4 pb-6"
-      >
-        <div
-          className="w-full max-w-[1150px] bg-white rounded-[2.5rem] p-6 md:p-8 border border-white shadow-[0_25px_50px_rgba(0,0,0,0.05)] flex flex-col items-center"
-        >
-          <div className="w-full grid grid-cols-4 divide-x divide-slate-200/60 pb-2">
-            {STATS.map((s, i) => (
-              <div key={i} className="flex flex-col items-center justify-center gap-1.5 sm:gap-3 px-1 sm:px-2 md:px-6 lg:px-8 text-center min-w-0">
-                <div className="shrink-0 flex items-center justify-center">
-                  <s.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-[#1e3a8a] stroke-[1.5]" />
-                </div>
-                <div className="flex flex-col items-center w-full">
-                  <div className="font-black text-[13px] min-[380px]:text-[15px] sm:text-xl md:text-2xl lg:text-3xl text-slate-900 leading-none tracking-tight mb-1 truncate w-full" style={{ fontVariantNumeric: 'tabular-nums' }}>
-                    {s.prefix && <span>{s.prefix}</span>}
-                    <Counter to={s.num} />
-                    {s.suffix && <span className="text-[0.7em] ml-0.5">{s.suffix}</span>}
+                {/* Trust Badge Below Buttons */}
+                <div className="flex items-center gap-2.5 text-xs font-bold text-slate-600">
+                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
-                  <div className="font-bold text-[6px] min-[380px]:text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] tracking-normal sm:tracking-[0.12em] uppercase text-slate-500 w-full break-words leading-[1.2] px-0.5 max-h-[2.4em] overflow-hidden">
-                    {t.heroCarousel.stats[i]}
-                  </div>
-                  {/* Small blue underline helper */}
-                  <div className="w-4 sm:w-8 h-[2px] sm:h-[2.5px] bg-[#0082c8]/60 mt-1.5 sm:mt-3 rounded-full" />
+                  <span>{t.heroCarousel.trustBadge}</span>
                 </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Bottom Commitment Tag */}
-          <div className="w-full border-t border-slate-200/60 mt-5 pt-4 flex flex-col items-center justify-center">
-            <div className="relative pb-1 flex items-center justify-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#0082c8] shrink-0" />
-              <span className="font-bold text-[10px] tracking-[0.25em] uppercase text-slate-700">
-                {t.heroCarousel.commitment}
-              </span>
-              <div className="absolute -bottom-px left-1/4 right-1/4 h-[2px] bg-[#0082c8] rounded-full" />
+              </motion.div>
             </div>
+
+            {/* Right Image Column */}
+            <div className="lg:col-span-5 w-full h-[320px] sm:h-[400px] lg:h-[440px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-slate-100">
+              <motion.img
+                src={heroBg}
+                alt="Gesgrama - Tu próximo hogar"
+                initial={{ scale: 1.05, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1, ease: expo }}
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
+
           </div>
         </div>
-      </motion.div>
+
+        {/* Floating Stat Cards Row (Exact Image 2 Style) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          
+          {/* Stat 1: Clientes Satisfechos */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+          >
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+              <Star className="w-6 h-6 fill-[#2563eb]" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
+                <Counter to={4500} suffix="+" />
+              </p>
+              <p className="text-xs text-slate-500 font-semibold leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+            </div>
+          </motion.div>
+
+          {/* Stat 2: Comunidades */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+          >
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+              <Building2 className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
+                {t.heroCarousel.stats.comunidadesNum}
+              </p>
+              <p className="text-xs text-slate-500 font-semibold leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+            </div>
+          </motion.div>
+
+          {/* Stat 3: Satisfacción */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+          >
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+              <Shield className="w-6 h-6" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
+                <Counter to={98} suffix="%" />
+              </p>
+              <p className="text-xs text-slate-500 font-semibold leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            </div>
+          </motion.div>
+
+          {/* Stat 4: Años de experiencia */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-2xl md:rounded-3xl p-5 border border-slate-200/60 shadow-xs flex items-center gap-4 hover:shadow-md transition-shadow"
+          >
+            <div className="w-12 h-12 rounded-full bg-blue-50 text-[#2563eb] flex items-center justify-center shrink-0">
+              <Check className="w-6 h-6 stroke-[3]" />
+            </div>
+            <div>
+              <p className="text-2xl font-black text-[#0f172a] leading-none mb-1 font-sans">
+                <Counter to={15} suffix="+" />
+              </p>
+              <p className="text-xs text-slate-500 font-semibold leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+            </div>
+          </motion.div>
+
+        </div>
+
+      </div>
     </section>
   );
 }

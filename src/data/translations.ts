@@ -36,28 +36,23 @@ export const translations = {
       heroSub: "Gestión profesional, transparente y cercana para comunidades que funcionan."
     },
     heroCarousel: {
-      eyebrow: "Administración & Patrimonio",
-      headline1: "Encontramos",
-      headline2: "hogar",
-      headline3: "que",
-      headline4: "mereces",
-      subtitle: "Compra, alquila o vende tu propiedad con un equipo experto que te acompaña en cada decisión.",
-      subtitleOr: "o",
-      trust1a: "Confianza",
-      trust1b: "y seguridad",
-      trust2a: "Acompañamiento",
-      trust2b: "personalizado",
-      trust3a: "Mejores",
-      trust3b: "oportunidades",
+      tag: "INMOBILIARIA Y ADMINISTRACIÓN EN BARCELONA",
+      titleMain: "Tu próximo hogar,",
+      titleAccent: "más cerca.",
+      subtitle: "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
+      btnValuation: "Valorar mi propiedad",
       btnProperties: "Ver propiedades",
-      btnValuation: "Valorar mi inmueble",
-      stats: [
-        "Clientes satisfechos",
-        "Comunidades gestionadas",
-        "Índice de satisfacción",
-        "Años de experiencia"
-      ],
-      commitment: "Tu tranquilidad, nuestro compromiso"
+      trustBadge: "Más de 4.500 clientes ya confían en Gesgrama",
+      stats: {
+        clientesNum: "4.500+",
+        clientesLabel: "Clientes satisfechos",
+        comunidadesNum: "+300",
+        comunidadesLabel: "Comunidades",
+        satisfaccionNum: "98%",
+        satisfaccionLabel: "Satisfacción",
+        anosNum: "15+",
+        anosLabel: "Años de experiencia"
+      }
     },
     valorador: {
       tag: "Herramienta Inteligente",
@@ -396,28 +391,23 @@ export const translations = {
       heroSub: "Professional, transparent and close management for communities that work."
     },
     heroCarousel: {
-      eyebrow: "Property Management & Real Estate",
-      headline1: "We find",
-      headline2: "home",
-      headline3: "you",
-      headline4: "deserve",
-      subtitle: "Buy, rent or sell your property with an expert team guiding you at every step.",
-      subtitleOr: "or",
-      trust1a: "Trust",
-      trust1b: "and security",
-      trust2a: "Personalized",
-      trust2b: "support",
-      trust3a: "Better",
-      trust3b: "opportunities",
-      btnProperties: "View properties",
+      tag: "REAL ESTATE & PROPERTY MANAGEMENT IN BARCELONA",
+      titleMain: "Your next home,",
+      titleAccent: "closer than ever.",
+      subtitle: "We guide you to buy, sell or care for your property with transparency, local expertise and a team that delivers.",
       btnValuation: "Value my property",
-      stats: [
-        "Satisfied clients",
-        "Communities managed",
-        "Satisfaction rate",
-        "Years of experience"
-      ],
-      commitment: "Your peace of mind, our commitment"
+      btnProperties: "View properties",
+      trustBadge: "Over 4,500 clients already trust Gesgrama",
+      stats: {
+        clientesNum: "4,500+",
+        clientesLabel: "Satisfied clients",
+        comunidadesNum: "300+",
+        comunidadesLabel: "Communities",
+        satisfaccionNum: "98%",
+        satisfaccionLabel: "Satisfaction",
+        anosNum: "15+",
+        anosLabel: "Years of experience"
+      }
     },
     valorador: {
       tag: "Smart Tool",
@@ -756,28 +746,23 @@ export const translations = {
       heroSub: "Gestió professional, transparent i propera per a comunitats que funcionen."
     },
     heroCarousel: {
-      eyebrow: "Administració & Patrimoni",
-      headline1: "Trobem",
-      headline2: "llar",
-      headline3: "que",
-      headline4: "mereixes",
-      subtitle: "Compra, lloga o ven la teva propietat amb un equip expert que t'acompanya en cada decisió.",
-      subtitleOr: "o",
-      trust1a: "Confiança",
-      trust1b: "i seguretat",
-      trust2a: "Acompanyament",
-      trust2b: "personalitzat",
-      trust3a: "Millors",
-      trust3b: "oportunitats",
-      btnProperties: "Veure propietats",
+      tag: "IMMOBILIÀRIA I ADMINISTRACIÓ A BARCELONA",
+      titleMain: "La teva propera llar,",
+      titleAccent: "més a prop.",
+      subtitle: "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon.",
       btnValuation: "Valorar el meu immoble",
-      stats: [
-        "Clients satisfets",
-        "Comunitats gestionades",
-        "Índex de satisfacció",
-        "Anys d'experiència"
-      ],
-      commitment: "La teva tranquil·litat, el nostre compromís"
+      btnProperties: "Veure propietats",
+      trustBadge: "Més de 4.500 clients ja confien en Gesgrama",
+      stats: {
+        clientesNum: "4.500+",
+        clientesLabel: "Clients satisfets",
+        comunidadesNum: "+300",
+        comunidadesLabel: "Comunitats",
+        satisfaccionNum: "98%",
+        satisfaccionLabel: "Satisfacció",
+        anosNum: "15+",
+        anosLabel: "Anys d'experiència"
+      }
     },
     valorador: {
       tag: "Eina Intel·ligent",

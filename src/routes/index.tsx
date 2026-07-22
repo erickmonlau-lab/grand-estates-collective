@@ -288,47 +288,47 @@ function Index() {
         }}
       />
 
-{/* â”€â”€ NAVIGATION (DARK PILL MOCKUP) â”€â”€ */}
+        {/* ── NAVIGATION (FLOATING WHITE CAPSULE PILL MOCKUP) ── */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-5 md:px-7 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/10 shadow-[0_15px_30px_rgba(0,0,0,0.35)]"
+        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
       >
         <a href="#" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
           <img src={logoImg} alt="Gesgrama" className="h-7 sm:h-9 md:h-10 w-auto max-w-[120px] sm:max-w-[150px] object-contain" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-white tracking-widest uppercase">
-          <a href="#propiedades" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="#servicios" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <a href="#nosotros" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
-          <a href="#contacto" className="hover:text-[#0082c8] transition-colors duration-200 py-1">{t.nav.contacto}</a>
+        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
+          <a href="#propiedades" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
+          <a href="#servicios" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.servicios}</a>
+          <a href="#nosotros" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
+          <a href="#contacto" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
 
-        <div className="flex items-center gap-3 lg:gap-6 shrink-0 pr-1">
-          <div className="flex items-center bg-[#0b1221]/60 border border-white/10 rounded-full p-1 md:p-1.5 text-[10px] md:text-[12px] font-bold shadow-inner">
+        <div className="flex items-center gap-2 sm:gap-3 lg:gap-6 shrink-0 pr-1">
+          <div className="flex items-center bg-slate-100/90 border border-slate-200 rounded-full p-1 text-[10px] md:text-[12px] font-bold shadow-inner">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-300 hover:text-white'}`}
+                  className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
-                {idx < 2 && <div className="w-px h-3 bg-white/10 mx-0.5"></div>}
+                {idx < 2 && <div className="w-px h-3 bg-slate-300 mx-0.5"></div>}
               </div>
             ))}
           </div>
           <a
             href="#contacto"
-            className="hidden sm:inline-flex items-center gap-2 bg-[#005c99] text-white hover:bg-[#004b7a] px-6 md:px-8 py-3.5 md:py-3.5 rounded-full text-[12px] md:text-[13px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-px"
+            className="hidden sm:inline-flex items-center gap-2 bg-[#2563eb] text-white hover:bg-[#1d4ed8] px-5 md:px-7 py-2.5 md:py-3 rounded-full text-[11px] md:text-[12px] uppercase tracking-[0.15em] font-bold transition-all duration-300 shadow-md hover:shadow-lg"
           >
             <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
             {t.nav.portal}
           </a>
           <button
-            className="lg:hidden p-2 text-white"
+            className="lg:hidden p-2 text-slate-800 hover:text-black cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

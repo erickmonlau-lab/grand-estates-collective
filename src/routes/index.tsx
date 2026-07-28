@@ -1772,8 +1772,8 @@ function Index() {
         </div>
       </section>
 
-{/* â”€â”€ FOOTER GSAP â”€â”€ */}
-      <footer className="bg-[#0b1221] text-slate-300 relative z-20">
+      {/* ── FOOTER GSAP ── */}
+      <footer className="bg-[#757989] text-white relative z-20 border-t border-white/20">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-0 flex flex-col lg:flex-row gap-12 relative">
           
           {/* Text Columns */}
@@ -1783,10 +1783,10 @@ function Index() {
               <div className="bg-white p-2.5 px-3 rounded-2xl inline-block mb-4 shadow-md border border-white/20">
                 <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-12 sm:h-14 w-auto object-contain rounded-lg" />
               </div>
-              <p className="text-[12px] font-extrabold text-blue-400 uppercase tracking-wider mb-2 font-accent">
+              <p className="text-[12px] font-extrabold text-blue-200 uppercase tracking-wider mb-2 font-accent">
                 www.gesgrama.com
               </p>
-              <p className="text-[13px] leading-relaxed text-slate-300 max-w-[220px]">
+              <p className="text-[13px] leading-relaxed text-slate-100 max-w-[220px]">
                 {t.footer.descripcion}
               </p>
             </div>
@@ -1802,8 +1802,8 @@ function Index() {
                   { label: t.nav.contacto, href: "#contacto" },
                 ].map(link => (
                   <li key={link.href}>
-                    <a href={link.href} className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary-blue group-hover:scale-150 transition-transform" />
+                    <a href={link.href} className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
                       {link.label}
                     </a>
                   </li>
@@ -1814,31 +1814,31 @@ function Index() {
             {/* Contacto */}
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.contactInfo}</h4>
-              <ul className="space-y-3 text-[13px] text-slate-300">
+              <ul className="space-y-3 text-[13px] text-slate-100">
                 <li className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-[#60a5fa] shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-blue-200 shrink-0 mt-0.5" />
                   <span>Av. dels Sants nº 49-51 local<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
                 </li>
                 <li>
                   <a href="tel:+34934685656" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Phone className="w-4 h-4 text-[#60a5fa] shrink-0" />
+                    <Phone className="w-4 h-4 text-blue-200 shrink-0" />
                     Oficina: 93 468 56 56 (Fax: 93 468 56 50)
                   </a>
                 </li>
                 <li>
-                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors">
-                    <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-300 hover:text-emerald-200 font-semibold transition-colors">
+                    <MessageCircle className="w-4 h-4 text-emerald-300 shrink-0" />
                     WhatsApp: 604 259 424
                   </a>
                 </li>
                 <li>
                   <a href="mailto:info@gesgrama.com" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Mail className="w-4 h-4 text-[#60a5fa] shrink-0" />
+                    <Mail className="w-4 h-4 text-blue-200 shrink-0" />
                     info@gesgrama.com
                   </a>
                 </li>
                 <li className="pt-1">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold border border-blue-400/30">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900/40 text-blue-100 text-[11px] font-bold border border-blue-300/40">
                     <Clock className="w-3.5 h-3.5" /> Atención al Cliente 24/7
                   </span>
                 </li>
@@ -1850,20 +1850,20 @@ function Index() {
               <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.legal}</h4>
               <ul className="space-y-3">
                 <li>
-                  <Link to="/aviso-legal" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                  <Link to="/aviso-legal" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
                     Aviso Legal
                   </Link>
                 </li>
                 <li>
-                  <Link to="/politica-privacidad" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                  <Link to="/politica-privacidad" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
                     Política de Privacidad
                   </Link>
                 </li>
                 <li>
-                  <Link to="/politica-cookies" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                  <Link to="/politica-cookies" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
                     Política de Cookies
                   </Link>
                 </li>
@@ -1876,38 +1876,38 @@ function Index() {
             <div>
               <h4 className="text-[15px] font-bold text-white mb-4">Acreditaciones Profesionales</h4>
               <div className="flex flex-col gap-3">
-                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-blue-600/20 text-blue-400 font-extrabold text-xs flex items-center justify-center border border-blue-500/30">
+                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
+                  <div className="w-9 h-9 rounded-lg bg-blue-600/30 text-blue-200 font-extrabold text-xs flex items-center justify-center border border-blue-400/40">
                     AICAT
                   </div>
                   <div>
                     <strong className="text-xs text-white block">Registre d'Agents Immobiliaris</strong>
-                    <span className="text-[11px] text-slate-400">Inscripció AICAT Nº 5583</span>
+                    <span className="text-[11px] text-slate-200">Inscripció AICAT Nº 5583</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-amber-600/20 text-amber-400 font-extrabold text-xs flex items-center justify-center border border-amber-500/30">
+                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
+                  <div className="w-9 h-9 rounded-lg bg-amber-500/30 text-amber-200 font-extrabold text-xs flex items-center justify-center border border-amber-400/40">
                     API
                   </div>
                   <div>
                     <strong className="text-xs text-white block">Col·legi de la Propietat Immobiliària</strong>
-                    <span className="text-[11px] text-slate-400">Agente Colegiado Oficial</span>
+                    <span className="text-[11px] text-slate-200">Agente Colegiado Oficial</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-600/20 text-emerald-400 font-extrabold text-xs flex items-center justify-center border border-emerald-500/30">
+                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-500/30 text-emerald-200 font-extrabold text-xs flex items-center justify-center border border-emerald-400/40">
                     ADM
                   </div>
                   <div>
                     <strong className="text-xs text-white block">Administradores Judiciales</strong>
-                    <span className="text-[11px] text-slate-400">Asociación de Fincas y Comunidades</span>
+                    <span className="text-[11px] text-slate-200">Asociación de Fincas y Comunidades</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-800/80">
+            <div className="mt-4 pt-4 border-t border-white/20">
               <FooterAnimationGSAP className="w-full h-auto block" />
             </div>
           </div>
@@ -1915,10 +1915,10 @@ function Index() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800">
-          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-[12px] text-slate-400">© 2026 Gesgrama. Todos los derechos reservados.</p>
-            <div className="flex gap-4 text-xs text-slate-400">
+        <div className="border-t border-white/20 bg-[#656978]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
+            <p className="text-[12px] text-slate-100 font-medium">© 2026 Gesgrama. Todos los derechos reservados.</p>
+            <div className="flex gap-4 text-xs text-slate-100 font-medium">
               <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
               <span>·</span>
               <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>

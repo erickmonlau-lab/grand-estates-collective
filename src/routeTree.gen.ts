@@ -9,10 +9,34 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PoliticaPrivacidadRouteImport } from './routes/politica-privacidad'
+import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
+import { Route as ConvocatoriaJuntaRouteImport } from './routes/convocatoria-junta'
+import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias.$slug'
 import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria.$slug'
 
+const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
+  id: '/politica-privacidad',
+  path: '/politica-privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
+  id: '/politica-cookies',
+  path: '/politica-cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConvocatoriaJuntaRoute = ConvocatoriaJuntaRouteImport.update({
+  id: '/convocatoria-junta',
+  path: '/convocatoria-junta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvisoLegalRoute = AvisoLegalRouteImport.update({
+  id: '/aviso-legal',
+  path: '/aviso-legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,36 +55,102 @@ const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
+  '/convocatoria-junta': typeof ConvocatoriaJuntaRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
+  '/convocatoria-junta': typeof ConvocatoriaJuntaRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aviso-legal': typeof AvisoLegalRoute
+  '/convocatoria-junta': typeof ConvocatoriaJuntaRoute
+  '/politica-cookies': typeof PoliticaCookiesRoute
+  '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/inmobiliaria/$slug' | '/noticias/$slug'
+  fullPaths:
+    | '/'
+    | '/aviso-legal'
+    | '/convocatoria-junta'
+    | '/politica-cookies'
+    | '/politica-privacidad'
+    | '/inmobiliaria/$slug'
+    | '/noticias/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/inmobiliaria/$slug' | '/noticias/$slug'
-  id: '__root__' | '/' | '/inmobiliaria/$slug' | '/noticias/$slug'
+  to:
+    | '/'
+    | '/aviso-legal'
+    | '/convocatoria-junta'
+    | '/politica-cookies'
+    | '/politica-privacidad'
+    | '/inmobiliaria/$slug'
+    | '/noticias/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/aviso-legal'
+    | '/convocatoria-junta'
+    | '/politica-cookies'
+    | '/politica-privacidad'
+    | '/inmobiliaria/$slug'
+    | '/noticias/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AvisoLegalRoute: typeof AvisoLegalRoute
+  ConvocatoriaJuntaRoute: typeof ConvocatoriaJuntaRoute
+  PoliticaCookiesRoute: typeof PoliticaCookiesRoute
+  PoliticaPrivacidadRoute: typeof PoliticaPrivacidadRoute
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/politica-privacidad': {
+      id: '/politica-privacidad'
+      path: '/politica-privacidad'
+      fullPath: '/politica-privacidad'
+      preLoaderRoute: typeof PoliticaPrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-cookies': {
+      id: '/politica-cookies'
+      path: '/politica-cookies'
+      fullPath: '/politica-cookies'
+      preLoaderRoute: typeof PoliticaCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/convocatoria-junta': {
+      id: '/convocatoria-junta'
+      path: '/convocatoria-junta'
+      fullPath: '/convocatoria-junta'
+      preLoaderRoute: typeof ConvocatoriaJuntaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aviso-legal': {
+      id: '/aviso-legal'
+      path: '/aviso-legal'
+      fullPath: '/aviso-legal'
+      preLoaderRoute: typeof AvisoLegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AvisoLegalRoute: AvisoLegalRoute,
+  ConvocatoriaJuntaRoute: ConvocatoriaJuntaRoute,
+  PoliticaCookiesRoute: PoliticaCookiesRoute,
+  PoliticaPrivacidadRoute: PoliticaPrivacidadRoute,
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
 }

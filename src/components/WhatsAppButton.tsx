@@ -49,12 +49,12 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
 
       {/* WhatsApp Floating Button - Scaled appropriately for mobile viewports */}
       <a
-        href="https://wa.me/34934685656?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20inmobiliarios."
+        href="https://wa.me/34604259424?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20inmobiliarios."
         target="_blank"
         rel="noopener noreferrer"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        aria-label="WhatsApp Gesgrama"
+        aria-label="WhatsApp Gesgrama 604 259 424"
         className="relative group bg-[#25d366] hover:bg-[#20ba5a] text-white w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_6px_20px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 cursor-pointer"
       >
         {/* Pulse ring animation */}

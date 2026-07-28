@@ -8,7 +8,7 @@ export const translations = {
       portal: "Portal de Clientes"
     },
     hero: {
-      tag: "Inmobiliaria y Administración en Barcelona",
+      tag: "Inmobiliaria y Administración en Sta. Coloma de Gramenet",
       title1: "Administración de Fincas,",
       title2: "Inmobiliaria y",
       title3: "Asesoría jurídica.",
@@ -36,7 +36,7 @@ export const translations = {
       heroSub: "Gestión profesional, transparente y cercana para comunidades que funcionan."
     },
     heroCarousel: {
-      tag: "INMOBILIARIA Y ADMINISTRACIÓN EN BARCELONA",
+      tag: "INMOBILIARIA Y ADMINISTRACIÓN EN STA. COLOMA DE GRAMENET",
       titleMain: "Tu próximo hogar,",
       titleAccent: "más cerca.",
       subtitle: "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
@@ -381,7 +381,7 @@ export const translations = {
       }
     },
     footer: {
-      descripcion: "Administración de Fincas, Inmobiliaria y Asesoría Jurídica en el área de Barcelona desde 2009.",
+      descripcion: "Administración de Fincas, Inmobiliaria y Asesoría Jurídica en Santa Coloma de Gramenet desde 2009.",
       derechos: "Todos los derechos reservados.",
       quickLinks: "Enlaces rápidos",
       contactInfo: "Información de contacto",
@@ -864,7 +864,7 @@ export const translations = {
       }
     },
     footer: {
-      descripcion: "Property Management, Real Estate and Legal Advice in the Barcelona area since 2009.",
+      descripcion: "Property Management, Real Estate and Legal Advice in Santa Coloma de Gramenet since 2009.",
       derechos: "All rights reserved.",
       quickLinks: "Quick Links",
       contactInfo: "Contact Information",
@@ -1347,7 +1347,7 @@ export const translations = {
       }
     },
     footer: {
-      descripcion: "Administració de Finques, Immobiliària i Assessoria Jurídica a l'àrea de Barcelona des de 2009.",
+      descripcion: "Administració de Finques, Immobiliària i Assessoria Jurídica a Santa Coloma de Gramenet des de 2009.",
       derechos: "Tots els drets reservats.",
       quickLinks: "Enllaços ràpids",
       contactInfo: "Informació de contacte",

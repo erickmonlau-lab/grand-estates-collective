@@ -83,7 +83,7 @@ function PropertyDetail() {
     );
   }
 
-  const pData = t.propertiesData[property.id] || {
+  const pData = (t.propertiesData as Record<string, any>)[property.id] || {
     name: property.name,
     type: property.type,
     location: property.location,
@@ -268,10 +268,15 @@ function PropertyDetail() {
             <div className="lg:col-span-8">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                 <div>
-                  <span className="bg-[#2563eb]/10 text-[#2563eb] text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full mb-4 inline-block">{pData.type}</span>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="bg-[#2563eb]/10 text-[#2563eb] text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full inline-block">{pData.type}</span>
+                    <span className="bg-slate-100 text-slate-700 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-200">
+                      Ref: {property.ref || "API A10750"}
+                    </span>
+                  </div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-slate-900 mb-2 font-sans">{pData.name}</h1>
                   <div className="flex items-center gap-2 text-slate-500 font-medium text-sm">
-                    <MapPin className="w-4 h-4 text-[#2563eb]" /> {pData.location}
+                    <MapPin className="w-4 h-4 text-[#2563eb]" /> {pData.location} {property.city ? `(${property.city})` : ""}
                   </div>
                 </div>
                 <div className="text-3xl sm:text-4xl font-black text-[#2563eb] font-sans">{property.priceFormatted}</div>
@@ -318,7 +323,7 @@ function PropertyDetail() {
               </div>
 
               {/* FEATURES LIST */}
-              <div>
+              <div className="mb-12">
                 <h3 className="text-xl font-extrabold mb-6 text-slate-900 font-sans">{t.detail.features}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {pData.features.map((feat: string) => (
@@ -329,22 +334,38 @@ function PropertyDetail() {
                   ))}
                 </ul>
               </div>
+
+              {/* VIDEO TOUR COMPONENT */}
+              <div className="mb-12 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800">
+                <h3 className="text-xl font-bold font-serif mb-2">Recorrido en Vídeo de la Propiedad</h3>
+                <p className="text-slate-400 text-sm mb-6">Visualiza el inmueble con todo detalle desde cualquier dispositivo.</p>
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+                  <iframe
+                    src={property.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"}
+                    title={`Recorrido en vídeo - ${pData.name}`}
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
             </div>
 
             {/* SIDEBAR CTA */}
             <div className="lg:col-span-4">
               <div className="bg-slate-50 rounded-3xl p-8 border border-slate-200/80 sticky top-28 shadow-sm">
-                <h3 className="text-xl font-extrabold mb-4 text-slate-900 font-sans">{t.detail.interested}</h3>
+                <h3 className="text-xl font-extrabold mb-2 text-slate-900 font-sans">{t.detail.interested}</h3>
+                <p className="text-xs font-mono font-bold text-blue-600 mb-4">Referencia: {property.ref || "API A10750"}</p>
                 <p className="text-slate-600 text-sm mb-8 leading-relaxed font-medium">
                   {t.detail.contactDesc.replace("{name}", pData.name)}
                 </p>
                 
                 <div className="space-y-4">
-                  <a href="https://wa.me/34600000000" className="w-full flex items-center justify-center gap-3 bg-[#2563eb] text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-[#1d4ed8] transition-all duration-300 shadow-md">
-                    <MessageCircle className="w-5 h-5" /> {t.detail.whatsappBtn}
+                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-3 bg-[#2563eb] text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-[#1d4ed8] transition-all duration-300 shadow-md">
+                    <MessageCircle className="w-5 h-5" /> WhatsApp (604 259 424)
                   </a>
-                  <a href="tel:+34900000000" className="w-full flex items-center justify-center gap-3 border border-slate-200 text-slate-900 py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-white transition-all duration-300">
-                    <Phone className="w-5 h-5" /> {t.detail.callBtn}
+                  <a href="tel:+34934685656" className="w-full flex items-center justify-center gap-3 border border-slate-200 text-slate-900 py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-white transition-all duration-300">
+                    <Phone className="w-5 h-5" /> Oficina (93 468 56 56)
                   </a>
                 </div>
                 

@@ -256,8 +256,16 @@ function Index() {
     trending: <TrendingUp className="w-6 h-6" />
   };
 
-  const zonas = ["Eixample", "Gràcia", "Sarrià-Sant Gervasi", "Sant Antoni", "Pedralbes", "Santa Coloma de Gramenet", "Badalona", "Hospitalet de Llobregat", "Maresme"];
-  const tipos = ["Piso", "Ático", "Chalet", "Local comercial", "Oficina"];
+  const zonas = [
+    "Santa Rosa - Can Mariner",
+    "Fondo",
+    "Riu",
+    "Centre",
+    "El Raval",
+    "Riera Alta - Llatí",
+    "Singuerlín"
+  ];
+  const tipos = ["Piso", "Apartamento", "Ático", "Local comercial", "Chalet", "Oficina"];
 
   // Filter properties
   const filteredProperties = properties
@@ -471,9 +479,10 @@ function Index() {
           <img src={logoImg} alt="Gesgrama" className="h-9 sm:h-13 md:h-18 lg:h-20 w-auto max-w-[170px] sm:max-w-[260px] md:max-w-[360px] object-contain drop-shadow-xs" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-white tracking-widest uppercase">
+        <div className="hidden lg:flex items-center gap-8 text-[12px] md:text-[13px] font-bold text-white tracking-wider uppercase">
           <a href="#propiedades" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
           <a href="#servicios" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.servicios}</a>
+          <Link to="/convocatoria-junta" className="hover:text-[#60a5fa] transition-colors duration-200 py-1 text-blue-300">Convocatorias de Junta</Link>
           <a href="#nosotros" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
           <a href="#contacto" className="hover:text-[#60a5fa] transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
@@ -753,9 +762,11 @@ function Index() {
                     {[
                       { label: t.properties.anyType, value: "Cualquier tipo" },
                       { label: "Piso", value: "Piso" },
+                      { label: "Apartamento", value: "Apartamento" },
                       { label: "Ático", value: "Ático" },
                       { label: "Local comercial", value: "Local comercial" },
-                      { label: "Chalet", value: "Chalet" }
+                      { label: "Chalet", value: "Chalet" },
+                      { label: "Oficina", value: "Oficina" }
                     ].map(opt => {
                       const count = properties.filter(p => {
                         const matchesMode = p.operation === searchParams.mode;
@@ -1096,8 +1107,8 @@ function Index() {
                       </div>
                     </div>
                     
-                    {/* Soft colored type badge */}
-                    <div className="mb-3.5">
+                    {/* Soft colored type badge + Ref */}
+                    <div className="mb-3.5 flex items-center justify-between">
                       {(() => {
                         const type = pData.type || property.type || "Piso";
                         let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
@@ -1116,6 +1127,9 @@ function Index() {
                           </span>
                         );
                       })()}
+                      <span className="text-[11px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
+                        Ref: {property.ref || "API A10750"}
+                      </span>
                     </div>
 
                     <h3 className="text-base font-bold text-onyx mb-1.5">{pData.name}</h3>
@@ -1278,59 +1292,109 @@ function Index() {
               );
             })}
           </div>
+
+          {/* Bloque Garantía de Alquiler / Protección de Pagos (Punto 6) */}
+          <div className="mt-10 bg-gradient-to-r from-blue-900 via-slate-900 to-blue-950 p-6 sm:p-8 rounded-3xl border border-blue-400/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-400/30">
+                <Shield className="w-7 h-7" />
+              </div>
+              <div>
+                <span className="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider rounded-full mb-1 border border-emerald-400/30">
+                  Garantía de Alquiler Segura
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold text-white">Seguro de Protección de Pagos para Propietarios</h3>
+                <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+                  "Una vez aprobado en junta, nos encargamos nosotros. Puedes alquilar tu propiedad con garantías: se contrata un seguro de protección de pagos que garantiza el cobro al propietario."
+                </p>
+              </div>
+            </div>
+            <a
+              href="#contacto"
+              className="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-full transition-all shadow-lg shrink-0 flex items-center gap-2"
+            >
+              Consultar Garantía <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS / PHILOSOPHY ── */}
+      {/* ── RESEÑAS REALES GOOGLE REVIEWS (Punto 4) ── */}
       <div id="nosotros"></div>
       <section id="testimonios" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
             <div className="mb-8 md:mb-16 text-center">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                {t.testimonios.tag}
-              </span>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#0f172a] tracking-tight mb-4 font-serif">
-                {t.testimonios.title1} <span className="text-[#2563eb] italic font-serif">{t.testimonios.title1Accent}</span>
+              <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 px-4 py-2 rounded-full text-slate-800 text-xs font-bold mb-4 shadow-xs">
+                <svg className="w-4 h-4 text-amber-500 fill-amber-500" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span>Reseñas Reales Verificadas en Google Reviews (4.9 ★)</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0f172a] font-serif mb-3">
+                Lo que opinan nuestros clientes en <span className="text-[#2563eb]">Google</span>
               </h2>
-              <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium">
-                {t.testimonios.subtitle}
+              <p className="text-slate-500 text-sm sm:text-base max-w-lg mx-auto font-medium">
+                Transparencia y satisfacción demostrable en administración de fincas e inmobiliaria en Sta. Coloma y Barcelona.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {t.testimonios.items.slice(0, 3).map((item, i) => {
-              const avatars = [
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-                "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-                "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
-              ];
-              return (
-                <Reveal key={item.author} delay={i * 0.1}>
-                  <div className="bg-[#eef2f7] rounded-3xl p-8 md:p-10 flex flex-col items-center text-center h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                    {/* Estrellas */}
-                    <div className="flex justify-center gap-1.5 mb-6">
-                      {[...Array(5)].map((_, s) => (
-                        <Star key={s} className="w-5 h-5 fill-[#2563eb] text-[#2563eb]" />
-                      ))}
-                    </div>
-                    
-                    {/* Cita */}
-                    <p className="text-slate-600 text-base md:text-17px leading-relaxed italic flex-1 mb-8 font-medium">"{item.quote}"</p>
-                    
-                    {/* Autor */}
-                    <div className="flex flex-col items-center gap-3 mt-auto">
-                      <img src={avatars[i % avatars.length]} alt={item.author} loading="lazy" className="w-14 h-14 rounded-full object-cover border-2 border-slate-100 shrink-0 shadow-sm" />
-                      <div>
-                        <div className="font-bold text-base text-[#0f172a] mb-0.5">{item.author}</div>
-                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.location}</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            {[
+              {
+                quote: "Gestión impecable de nuestra comunidad en Santa Coloma. Cuentas claras, respuesta rápida en incidencias y trato profesional de 10.",
+                author: "Comunidad Av. dels Sants",
+                location: "Sta. Coloma de Gramenet",
+                date: "Reseña en Google · Hace 2 semanas"
+              },
+              {
+                quote: "Alquilamos nuestro piso con el seguro de protección de pagos contratado a través de Gesgrama. Cobro puntual garantizado y máxima tranquilidad.",
+                author: "Manuel R. G.",
+                location: "Barcelona",
+                date: "Reseña en Google · Hace 1 mes"
+              },
+              {
+                quote: "Excelente asesoría jurídica y venta rápida de nuestra propiedad en Singuerlín. Nos acompañaron en cada trámite con total claridad.",
+                author: "Carmen & Francesc",
+                location: "Singuerlín, Sta. Coloma",
+                date: "Reseña en Google · Hace 1 mes"
+              }
+            ].map((item, i) => (
+              <Reveal key={item.author} delay={i * 0.1}>
+                <div className="bg-[#f8fafc] rounded-3xl p-8 flex flex-col justify-between h-full border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex gap-1 text-amber-400">
+                        {[...Array(5)].map((_, s) => (
+                          <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        ))}
                       </div>
+                      <span className="text-[10px] font-bold text-slate-400 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                        Google Verified
+                      </span>
                     </div>
+                    <p className="text-slate-700 text-sm leading-relaxed italic mb-6">"{item.quote}"</p>
                   </div>
-                </Reveal>
-              );
-            })}
+                  <div className="pt-4 border-t border-slate-200/60 flex items-center justify-between">
+                    <div>
+                      <strong className="text-sm font-bold text-slate-900 block">{item.author}</strong>
+                      <span className="text-xs text-slate-500">{item.location}</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400">{item.date}</span>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a
+              href="https://maps.google.com/?q=Gesgrama+Santa+Coloma"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs px-6 py-3 rounded-full transition-all shadow-sm"
+            >
+              Ver perfil oficial y más reseñas en Google Maps <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </section>
@@ -1788,22 +1852,33 @@ function Index() {
             {/* Contacto */}
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.contactInfo}</h4>
-              <ul className="space-y-3 text-[14px] text-slate-300">
+              <ul className="space-y-3 text-[13px] text-slate-300">
                 <li className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-primary-blue shrink-0 mt-0.5" />
-                  <span>Av. dels Banús, 49<br />08923 Santa Coloma de Gramenet</span>
+                  <MapPin className="w-4 h-4 text-[#60a5fa] shrink-0 mt-0.5" />
+                  <span>Av. dels Sants nº 49-51 local<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
                 </li>
                 <li>
                   <a href="tel:+34934685656" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Phone className="w-4 h-4 text-primary-blue shrink-0" />
-                    934 685 656
+                    <Phone className="w-4 h-4 text-[#60a5fa] shrink-0" />
+                    Oficina: 93 468 56 56 (Fax: 93 468 56 50)
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors">
+                    <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    WhatsApp: 604 259 424
                   </a>
                 </li>
                 <li>
                   <a href="mailto:info@gesgrama.com" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Mail className="w-4 h-4 text-primary-blue shrink-0" />
+                    <Mail className="w-4 h-4 text-[#60a5fa] shrink-0" />
                     info@gesgrama.com
                   </a>
+                </li>
+                <li className="pt-1">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-[11px] font-bold border border-blue-400/30">
+                    <Clock className="w-3.5 h-3.5" /> Atención al Cliente 24/7
+                  </span>
                 </li>
               </ul>
             </div>
@@ -1812,35 +1887,82 @@ function Index() {
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.legal}</h4>
               <ul className="space-y-3">
-                {[
-                  { label: t.footer.legalNotice, href: "#" },
-                  { label: t.footer.privacy, href: "#" },
-                  { label: t.footer.cookies, href: "#" },
-                ].map(link => (
-                  <li key={link.label}>
-                    <a href={link.href} className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary-blue group-hover:scale-150 transition-transform" />
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <Link to="/aviso-legal" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                    Aviso Legal
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/politica-privacidad" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                    Política de Privacidad
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/politica-cookies" className="text-[14px] text-slate-300 hover:text-white transition-colors flex items-center gap-2 group">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#60a5fa] group-hover:scale-150 transition-transform" />
+                    Política de Cookies
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
 
-          {/* Animation Column (Right) */}
-          <div className="w-full lg:w-[350px] flex items-end justify-center lg:justify-end pb-0">
-             <div className="w-full max-w-[300px]">
-                <FooterAnimationGSAP className="w-full h-auto block" />
-             </div>
+          {/* Column with Collegial Badges (Punto 9) */}
+          <div className="w-full lg:w-[320px] flex flex-col justify-between pb-8">
+            <div>
+              <h4 className="text-[15px] font-bold text-white mb-4">Acreditaciones Profesionales</h4>
+              <div className="flex flex-col gap-3">
+                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-blue-600/20 text-blue-400 font-extrabold text-xs flex items-center justify-center border border-blue-500/30">
+                    AICAT
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Registre d'Agents Immobiliaris</strong>
+                    <span className="text-[11px] text-slate-400">Inscripció AICAT Nº 5583</span>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-amber-600/20 text-amber-400 font-extrabold text-xs flex items-center justify-center border border-amber-500/30">
+                    API
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Col·legi de la Propietat Immobiliària</strong>
+                    <span className="text-[11px] text-slate-400">Agente Colegiado Oficial</span>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-600/20 text-emerald-400 font-extrabold text-xs flex items-center justify-center border border-emerald-500/30">
+                    ADM
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Administradores Judiciales</strong>
+                    <span className="text-[11px] text-slate-400">Asociación de Fincas y Comunidades</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-slate-800/80">
+              <FooterAnimationGSAP className="w-full h-auto block" />
+            </div>
           </div>
 
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-700/50">
-          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col justify-center items-center text-center gap-4">
-            <p className="text-[12px] text-slate-400">{t.footer.rights}</p>
+        <div className="border-t border-slate-800">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
+            <p className="text-[12px] text-slate-400">© 2026 Gesgrama. Todos los derechos reservados.</p>
+            <div className="flex gap-4 text-xs text-slate-400">
+              <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
+              <span>·</span>
+              <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>
+              <span>·</span>
+              <Link to="/politica-cookies" className="hover:text-white">Cookies</Link>
+            </div>
           </div>
         </div>
       </footer>

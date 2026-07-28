@@ -5,7 +5,7 @@ export const translations = {
       servicios: "Servicios",
       nosotros: "Nosotros",
       contacto: "Contacto",
-      portal: "Portal de Clientes"
+      portal: "WhatsApp"
     },
     hero: {
       tag: "Inmobiliaria y Administración en Sta. Coloma de Gramenet",
@@ -488,7 +488,7 @@ export const translations = {
       servicios: "Services",
       nosotros: "About Us",
       contacto: "Contact",
-      portal: "Client Portal"
+      portal: "WhatsApp"
     },
     hero: {
       tag: "Property Management & Real Estate in Barcelona",

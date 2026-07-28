@@ -476,15 +476,13 @@ function Index() {
         className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[90%] max-w-[1100px] z-[100] flex items-center justify-between py-1.5 sm:py-2 md:py-2.5 px-3.5 sm:px-5 md:px-7 rounded-full bg-[#757989] border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-1">
-          <div className="bg-white/95 p-1 px-2 rounded-xl shadow-xs border border-white/40 flex items-center justify-center">
-            <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-9 md:h-10 w-auto object-contain rounded-md" />
-          </div>
+          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-9 md:h-10 w-auto object-contain brightness-0 invert" />
         </a>
 
         <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-[11px] md:text-[12px] font-extrabold text-white tracking-wide uppercase font-body">
           <a href="#propiedades" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.propiedades}</a>
           <a href="#servicios" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <Link to="/convocatoria-junta" className="inline-flex items-center bg-[#2563eb] text-white border border-blue-400/60 px-3 py-1 rounded-full hover:bg-[#1d4ed8] transition-colors font-bold shadow-xs">Convocatorias de Junta</Link>
+          <Link to="/convocatoria-junta" className="hover:text-blue-200 transition-colors duration-200 py-1">Convocatorias de Junta</Link>
           <a href="#nosotros" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.nosotros}</a>
           <a href="#contacto" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
@@ -504,11 +502,13 @@ function Index() {
             ))}
           </div>
           <a
-            href="#contacto"
+            href="https://wa.me/34604259424"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center gap-1.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
           >
-            <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-            {t.nav.portal}
+            <MessageCircle className="w-3.5 h-3.5 shrink-0 fill-current text-white" />
+            <span>WhatsApp</span>
           </a>
           <button
             className="lg:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer"
@@ -537,17 +537,16 @@ function Index() {
                 className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-2 z-[100] lg:hidden"
               >
                 <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 px-2">
-                  <div className="bg-white p-1 px-2 rounded-xl">
-                    <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama Logo" className="h-9 w-auto object-contain rounded-md" />
-                  </div>
+                  <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama Logo" className="h-8 w-auto object-contain brightness-0 invert" />
                 </div>
                 <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
                 <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+                <Link to="/convocatoria-junta" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">Convocatorias de Junta</Link>
                 <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
                 <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-                <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="mt-2 text-center bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-md">
-                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                  {t.nav.portal}
+                <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-2 text-center bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-md">
+                  <MessageCircle className="w-4 h-4 shrink-0 fill-current text-white" />
+                  <span>WhatsApp</span>
                 </a>
               </motion.div>
             </>

@@ -36,12 +36,12 @@ export const articles: Article[] = [
     image: property1Img,
     es: {
       title: "¿Qué es un asesor inmobiliario y por qué podrías necesitarlo?",
-      summary: "El asesor inmobiliario puede ser clave para comprar, vender o alquilar con éxito en el mercado actual de Barcelona.",
+      summary: "El asesor inmobiliario puede ser clave para comprar, vender o alquilar con éxito en el mercado actual de Santa Coloma de Gramenet.",
       category: "Inmobiliaria",
       date: "9 marzo, 2025",
       readTime: "5 min de lectura",
       author: "Equipo Inmobiliario Gesgrama",
-      intro: "En un mercado tan dinámico y competitivo como el de Barcelona y su área metropolitana, llevar a cabo una operación de compraventa o arrendamiento puede convertirse en un proceso complejo. Es aquí donde la figura del asesor inmobiliario cobra un valor estratégico imprescindible.",
+      intro: "En un mercado tan dinámico y competitivo como el de Santa Coloma de Gramenet y su área metropolitana, llevar a cabo una operación de compraventa o arrendamiento puede convertirse en un proceso complejo. Es aquí donde la figura del asesor inmobiliario cobra un valor estratégico imprescindible.",
       sections: [
         {
           heading: "¿Qué hace exactamente un asesor inmobiliario profesional?",
@@ -77,12 +77,12 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Què és un assessor immobiliari i per què podries necessitar-ho?",
-      summary: "L'assessor immobiliari pot ser clau per comprar, vendre o llogar amb èxit en el mercat actual de Barcelona.",
+      summary: "L'assessor immobiliari pot ser clau per comprar, vendre o llogar amb èxit en el mercat actual de Santa Coloma de Gramenet.",
       category: "Immobiliària",
       date: "9 març, 2025",
       readTime: "5 min de lectura",
       author: "Equip Immobiliari Gesgrama",
-      intro: "En un mercat tan dinàmic i competitiu com el de Barcelona i la seva àrea metropolitana, dur a terme una operació de compravenda o arrendament pot convertir-se en un procés complex. És aquí on la figura de l'assessor immobiliari pren un valor estratègic imprescindible.",
+      intro: "En un mercat tan dinàmic i competitiu com el de Santa Coloma de Gramenet i la seva àrea metropolitana, dur a terme una operació de compravenda o arrendament pot convertir-se en un procés complex. És aquí on la figura de l'assessor immobiliari pren un valor estratègic imprescindible.",
       sections: [
         {
           heading: "Què fa exactament un assessor immobiliari professional?",

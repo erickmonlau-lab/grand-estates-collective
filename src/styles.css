@@ -188,11 +188,11 @@
     font-family: "AG Book Rounded", system-ui, sans-serif;
   }
 
-  html, body, button, input, select, textarea, div, p, span, a, li {
-    font-family: "AG Book Rounded", system-ui, sans-serif;
+  html, body, button, input, select, textarea, div, p, span, a, li, h3, h4, h5, h6 {
+    font-family: "AG Book Rounded", system-ui, sans-serif !important;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, .font-heading {
     font-family: "Aachen BT", Georgia, serif !important;
   }
 }

@@ -476,7 +476,9 @@ function Index() {
         className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[90%] max-w-[1100px] z-[100] flex items-center justify-between py-1.5 sm:py-2 md:py-2.5 px-3.5 sm:px-5 md:px-7 rounded-full bg-[#757989] border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-1">
-          <img src={logoImg} alt="Gesgrama" className="h-8 sm:h-10 md:h-11 lg:h-12 w-auto object-contain brightness-0 invert" />
+          <div className="bg-white/95 p-1 px-2 rounded-xl shadow-xs border border-white/40 flex items-center justify-center">
+            <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-9 md:h-10 w-auto object-contain rounded-md" />
+          </div>
         </a>
 
         <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-[11px] md:text-[12px] font-extrabold text-white tracking-wide uppercase font-body">
@@ -535,7 +537,9 @@ function Index() {
                 className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-2 z-[100] lg:hidden"
               >
                 <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 px-2">
-                  <img src={logoImg} alt="Gesgrama Logo" className="h-11 w-auto object-contain" />
+                  <div className="bg-white p-1 px-2 rounded-xl">
+                    <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama Logo" className="h-9 w-auto object-contain rounded-md" />
+                  </div>
                 </div>
                 <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
                 <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
@@ -1776,8 +1780,13 @@ function Index() {
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-8">
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
-              <img src={logoImg} alt="Gesgrama" className="h-16 sm:h-20 w-auto object-contain opacity-100 mb-5" />
-              <p className="text-[13px] leading-relaxed text-slate-300 max-w-[200px]">
+              <div className="bg-white p-2.5 px-3 rounded-2xl inline-block mb-4 shadow-md border border-white/20">
+                <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-12 sm:h-14 w-auto object-contain rounded-lg" />
+              </div>
+              <p className="text-[12px] font-extrabold text-blue-400 uppercase tracking-wider mb-2 font-accent">
+                www.gesgrama.com
+              </p>
+              <p className="text-[13px] leading-relaxed text-slate-300 max-w-[220px]">
                 {t.footer.descripcion}
               </p>
             </div>

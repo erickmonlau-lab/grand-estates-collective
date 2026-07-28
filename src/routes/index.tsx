@@ -468,36 +468,36 @@ function Index() {
         }}
       />
 
-        {/* ── NAVIGATION (HIGH-CONTRAST VISUAL WHITE CAPSULE PILL) ── */}
+        {/* ── NAVIGATION (EXACT GREY #757989 CAPSULE PILL FROM USER IMAGE) ── */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[90%] max-w-[1100px] z-[100] flex items-center justify-between py-1.5 sm:py-2 md:py-2.5 px-3.5 sm:px-5 md:px-7 rounded-full bg-white border-2 border-slate-200/90 shadow-[0_12px_40px_rgba(15,23,42,0.15)] text-[#0f172a]"
+        className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[90%] max-w-[1100px] z-[100] flex items-center justify-between py-1.5 sm:py-2 md:py-2.5 px-3.5 sm:px-5 md:px-7 rounded-full bg-[#757989] border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-1">
-          <img src={logoImg} alt="Gesgrama" className="h-8 sm:h-10 md:h-11 lg:h-12 w-auto object-contain" />
+          <img src={logoImg} alt="Gesgrama" className="h-8 sm:h-10 md:h-11 lg:h-12 w-auto object-contain brightness-0 invert" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-[11px] md:text-[12px] font-extrabold text-[#0f172a] tracking-wide uppercase font-body">
-          <a href="#propiedades" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="#servicios" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <Link to="/convocatoria-junta" className="inline-flex items-center bg-blue-50/90 text-[#2563eb] border border-blue-200/80 px-3 py-1 rounded-full hover:bg-blue-100/90 transition-colors font-bold">Convocatorias de Junta</Link>
-          <a href="#nosotros" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.nosotros}</a>
-          <a href="#contacto" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.contacto}</a>
+        <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-[11px] md:text-[12px] font-extrabold text-white tracking-wide uppercase font-body">
+          <a href="#propiedades" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.propiedades}</a>
+          <a href="#servicios" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.servicios}</a>
+          <Link to="/convocatoria-junta" className="inline-flex items-center bg-[#2563eb] text-white border border-blue-400/60 px-3 py-1 rounded-full hover:bg-[#1d4ed8] transition-colors font-bold shadow-xs">Convocatorias de Junta</Link>
+          <a href="#nosotros" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.nosotros}</a>
+          <a href="#contacto" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.contacto}</a>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <div className="flex items-center bg-slate-100 border border-slate-200/90 rounded-full p-0.5 text-[10px] md:text-[11px] font-extrabold">
+          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-[10px] md:text-[11px] font-extrabold">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-2 sm:px-2.5 md:px-3 py-0.5 md:py-1 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-xs' : 'text-slate-600 hover:text-[#0f172a]'}`}
+                  className={`px-2 sm:px-2.5 md:px-3 py-0.5 md:py-1 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-xs' : 'text-slate-200 hover:text-white'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
-                {idx < 2 && <div className="w-px h-3 bg-slate-300 mx-0.5"></div>}
+                {idx < 2 && <div className="w-px h-3 bg-white/30 mx-0.5"></div>}
               </div>
             ))}
           </div>
@@ -509,7 +509,7 @@ function Index() {
             {t.nav.portal}
           </a>
           <button
-            className="lg:hidden p-1.5 text-[#0f172a] hover:text-[#2563eb] cursor-pointer"
+            className="lg:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}

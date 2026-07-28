@@ -1292,109 +1292,62 @@ function Index() {
               );
             })}
           </div>
-
-          {/* Bloque Garantía de Alquiler / Protección de Pagos (Punto 6) */}
-          <div className="mt-10 bg-gradient-to-r from-blue-900 via-slate-900 to-blue-950 p-6 sm:p-8 rounded-3xl border border-blue-400/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-400/30">
-                <Shield className="w-7 h-7" />
-              </div>
-              <div>
-                <span className="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider rounded-full mb-1 border border-emerald-400/30">
-                  Garantía de Alquiler Segura
-                </span>
-                <h3 className="text-lg sm:text-xl font-bold text-white">Seguro de Protección de Pagos para Propietarios</h3>
-                <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                  "Una vez aprobado en junta, nos encargamos nosotros. Puedes alquilar tu propiedad con garantías: se contrata un seguro de protección de pagos que garantiza el cobro al propietario."
-                </p>
-              </div>
-            </div>
-            <a
-              href="#contacto"
-              className="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm px-6 py-3.5 rounded-full transition-all shadow-lg shrink-0 flex items-center gap-2"
-            >
-              Consultar Garantía <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* ── RESEÑAS REALES GOOGLE REVIEWS (Punto 4) ── */}
+      {/* ── TESTIMONIOS (RESEÑAS REALES DE CLIENTES) ── */}
       <div id="nosotros"></div>
       <section id="testimonios" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto relative z-10">
           <Reveal>
             <div className="mb-8 md:mb-16 text-center">
-              <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 px-4 py-2 rounded-full text-slate-800 text-xs font-bold mb-4 shadow-xs">
-                <svg className="w-4 h-4 text-amber-500 fill-amber-500" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <span>Reseñas Reales Verificadas en Google Reviews (4.9 ★)</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0f172a] font-serif mb-3">
-                Lo que opinan nuestros clientes en <span className="text-[#2563eb]">Google</span>
+              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
+                {t.testimonios.tag}
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-[#0f172a] tracking-tight mb-4 font-sans">
+                Lo que dicen nuestros <span className="text-[#2563eb]">clientes</span>
               </h2>
-              <p className="text-slate-500 text-sm sm:text-base max-w-lg mx-auto font-medium">
-                Transparencia y satisfacción demostrable en administración de fincas e inmobiliaria en Sta. Coloma y Barcelona.
+              <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+                Transparencia y satisfacción demostrable en administración de fincas e inmobiliaria en Santa Coloma de Gramenet.
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                quote: "Gestión impecable de nuestra comunidad en Santa Coloma. Cuentas claras, respuesta rápida en incidencias y trato profesional de 10.",
+                quote: "Llevan administrando nuestra comunidad en Santa Coloma desde hace años. La transparencia en las cuentas y la rapidez de respuesta son sencillamente excelentes.",
                 author: "Comunidad Av. dels Sants",
-                location: "Sta. Coloma de Gramenet",
-                date: "Reseña en Google · Hace 2 semanas"
+                location: "Sta. Coloma de Gramenet"
               },
               {
                 quote: "Alquilamos nuestro piso con el seguro de protección de pagos contratado a través de Gesgrama. Cobro puntual garantizado y máxima tranquilidad.",
                 author: "Manuel R. G.",
-                location: "Barcelona",
-                date: "Reseña en Google · Hace 1 mes"
+                location: "Sta. Coloma de Gramenet"
               },
               {
                 quote: "Excelente asesoría jurídica y venta rápida de nuestra propiedad en Singuerlín. Nos acompañaron en cada trámite con total claridad.",
                 author: "Carmen & Francesc",
-                location: "Singuerlín, Sta. Coloma",
-                date: "Reseña en Google · Hace 1 mes"
+                location: "Singuerlín, Sta. Coloma"
               }
             ].map((item, i) => (
               <Reveal key={item.author} delay={i * 0.1}>
-                <div className="bg-[#f8fafc] rounded-3xl p-8 flex flex-col justify-between h-full border border-slate-200/80 shadow-sm hover:shadow-md transition-all">
+                <div className="bg-[#eef2f7] rounded-3xl p-8 md:p-10 flex flex-col justify-between h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex gap-1 text-amber-400">
-                        {[...Array(5)].map((_, s) => (
-                          <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                        ))}
-                      </div>
-                      <span className="text-[10px] font-bold text-slate-400 bg-white px-2 py-0.5 rounded-md border border-slate-200">
-                        Google Verified
-                      </span>
+                    <div className="flex gap-1.5 mb-6">
+                      {[...Array(5)].map((_, s) => (
+                        <Star key={s} className="w-5 h-5 fill-[#2563eb] text-[#2563eb]" />
+                      ))}
                     </div>
-                    <p className="text-slate-700 text-sm leading-relaxed italic mb-6">"{item.quote}"</p>
+                    <p className="text-slate-600 text-base md:text-17px leading-relaxed italic mb-8 font-medium">"{item.quote}"</p>
                   </div>
-                  <div className="pt-4 border-t border-slate-200/60 flex items-center justify-between">
-                    <div>
-                      <strong className="text-sm font-bold text-slate-900 block">{item.author}</strong>
-                      <span className="text-xs text-slate-500">{item.location}</span>
-                    </div>
-                    <span className="text-[10px] text-slate-400">{item.date}</span>
+                  <div className="pt-4 border-t border-slate-200/60 flex flex-col items-start gap-1">
+                    <strong className="font-bold text-base text-[#0f172a]">{item.author}</strong>
+                    <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.location}</span>
                   </div>
                 </div>
               </Reveal>
             ))}
-          </div>
-
-          <div className="text-center">
-            <a
-              href="https://maps.google.com/?q=Gesgrama+Santa+Coloma"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs px-6 py-3 rounded-full transition-all shadow-sm"
-            >
-              Ver perfil oficial y más reseñas en Google Maps <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </section>

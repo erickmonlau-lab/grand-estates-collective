@@ -345,8 +345,8 @@ export const translations = {
           a: "Aplicamos un protocolo estricto: requerimiento amistoso, monitorio judicial rápido sin coste inicial para la comunidad y seguimiento continuado."
         },
         {
-          q: "¿Tienen servicio de urgencias 24 horas para averías?",
-          a: "Sí, disponemos de una línea de atención telefónica de emergencias 24/7 para siniestros graves en elementos comunes (agua, luz, portones)."
+          q: "¿Cómo funciona el seguro de protección de pagos para alquilar mi propiedad?",
+          a: "Una vez aprobado en junta, nos encargamos nosotros. Puedes alquilar tu propiedad con garantías: se contrata un seguro de protección de pagos que garantiza el cobro al propietario."
         }
       ],
       askDoubt: "¿Tienes alguna duda más?"
@@ -828,8 +828,8 @@ export const translations = {
           a: "We follow a strict protocol: friendly reminder, fast judicial payment procedure without initial cost to the community and continuous follow-up."
         },
         {
-          q: "Do you offer 24-hour emergency assistance for breakdowns?",
-          a: "Yes, we have a 24/7 emergency hotline for severe damage in common elements (water, electricity, gates)."
+          q: "How does payment protection insurance for renting my property work?",
+          a: "Once approved in the owners' meeting, we take care of everything. You can rent your property with guarantees: payment protection insurance is contracted to guarantee payment to the owner."
         }
       ],
       askDoubt: "Have any more questions?"
@@ -1311,8 +1311,8 @@ export const translations = {
           a: "Apliquem un protocol estricte: requeriment amistós, monitori judicial ràpid sense cost inicial i seguiment continuat."
         },
         {
-          q: "Tenen servei d'urgències 24 hores per a avaries?",
-          a: "Sí, disposem d'una línia d'atenció telefònica d'emergències 24/7 per a sinistres greus en elements comuns (aigua, llum, portals)."
+          q: "Com funciona l'assegurança de protecció de pagaments per llogar la meva propietat?",
+          a: "Una vegada aprovat en junta, ens en encarreguem nosaltres. Pots llogar la teva propietat amb garanties: es contracta una assegurança de protecció de pagaments que garanteix el cobrament al propietari."
         }
       ],
       askDoubt: "Tens cap dubte més?"

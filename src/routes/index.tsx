@@ -3,14 +3,15 @@ import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { articles } from "../data/articles";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, HelpCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush, Search, Heart, User, LogOut, Info, Ruler } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
 import gallery1 from "@/assets/gallery-1.webp";
-import WhatsAppButton from '@/components/WhatsAppButton';
-import CookieBanner from '@/components/CookieBanner';
+
+const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
+const CookieBanner = lazy(() => import('@/components/CookieBanner'));
 
 export const Route = createFileRoute("/")(  {
   component: Index,
@@ -2244,8 +2245,10 @@ function Index() {
       </footer>
 
       {/* Floating Utilities (Point 7 Fix) */}
-      <WhatsAppButton language={language} />
-      <CookieBanner language={language} />
+      <Suspense fallback={null}>
+        <WhatsAppButton language={language} />
+        <CookieBanner language={language} />
+      </Suspense>
 
       {/* Service Detail Modal (Point 3 Fix) */}
       <AnimatePresence>

@@ -433,7 +433,7 @@ function ArticleDetail() {
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-[#2563eb]/10 text-[#2563eb] text-xs font-black uppercase tracking-wider mb-2 font-sans">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-2 font-sans shadow-xs">
                 {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
               </span>
               <p className="text-base sm:text-lg md:text-xl font-extrabold text-slate-900 leading-relaxed font-sans">

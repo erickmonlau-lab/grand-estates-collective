@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
@@ -434,19 +434,46 @@ function ArticleDetail() {
                 {sec.bulletPoints && sec.bulletPoints.length > 0 && (
                   <div className="my-10 bg-[#EEF2FA] p-6 sm:p-8 md:p-10 rounded-3xl border border-[#dce4f5] shadow-sm">
                     <div className="grid grid-cols-1 gap-5">
-                      {sec.bulletPoints.map((bp, bpIdx) => (
-                        <div 
-                          key={bpIdx} 
-                          className="flex items-start gap-4 sm:gap-5 bg-white p-5 sm:p-6 md:p-7 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow"
-                        >
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 font-black text-base sm:text-lg shadow-md">
-                            ✓
+                      {sec.bulletPoints.map((bp, bpIdx) => {
+                        const isLegalWarning = bp.includes("VERIFICACIÓN LEGAL/FISCAL REQUERIDA") || bp.includes("VERIFICACIÓ LEGAL/FISCAL REQUERIDA") || bp.includes("LEGAL/TAX VERIFICATION REQUIRED");
+                        if (isLegalWarning) {
+                          const cleanText = bp.replace(/\[⚠️ VERIFICACIÓN LEGAL\/FISCAL REQUERIDA:\s*/gi, "")
+                                              .replace(/\[⚠️ VERIFICACIÓ LEGAL\/FISCAL REQUERIDA:\s*/gi, "")
+                                              .replace(/\[⚠️ LEGAL\/TAX VERIFICATION REQUIRED:\s*/gi, "")
+                                              .replace(/\]$/g, "");
+                          return (
+                            <div 
+                              key={bpIdx} 
+                              className="flex items-start gap-4 sm:gap-5 bg-amber-50/90 border-l-4 border-amber-500 p-5 sm:p-6 md:p-7 rounded-2xl border-y border-r border-amber-200/80 shadow-xs hover:shadow-md transition-shadow"
+                            >
+                              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5 font-black shadow-sm">
+                                <AlertTriangle className="w-5 h-5" />
+                              </div>
+                              <div className="flex-1">
+                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900 text-[10px] font-black uppercase tracking-wider mb-1.5">
+                                  {language === "ca" ? "Verificació Legal / Fiscal Requerida" : language === "en" ? "Legal / Tax Verification Required" : "Verificación Legal / Fiscal Requerida"}
+                                </span>
+                                <p className="text-base sm:text-lg md:text-xl font-bold text-amber-950 leading-relaxed">
+                                  {cleanText}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div 
+                            key={bpIdx} 
+                            className="flex items-start gap-4 sm:gap-5 bg-white p-5 sm:p-6 md:p-7 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow"
+                          >
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 font-black text-base sm:text-lg shadow-md">
+                              ✓
+                            </div>
+                            <span className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-snug sm:leading-relaxed pt-0.5">
+                              {bp}
+                            </span>
                           </div>
-                          <span className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-snug sm:leading-relaxed pt-0.5">
-                            {bp}
-                          </span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 )}

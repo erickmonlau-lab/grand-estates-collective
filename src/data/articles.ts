@@ -117,41 +117,73 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Què és un assessor immobiliari i per què podries necessitar-ho?",
-      summary: "Descobreix en què consisteix la feina real d'un assessor immobiliari professional i per què al mercat de Santa Coloma de Gramenet el seu paper és més decisiu que mai.",
+      summary: "Descobreix en què consisteix la feina real d'un assessor immobiliari professional, quins avantatges aporta al comprador i venedor, i per què al mercat de Santa Coloma de Gramenet el seu paper és més decisiu que mai.",
       category: "Immobiliària",
       date: "9 març, 2025",
       readTime: "9 min de lectura",
       author: "Equip Immobiliari Gesgrama",
-      intro: "El mercat immobiliari a Santa Coloma de Gramenet viu una transformació profunda. Els preus s'han ajustat, la demanda de lloguer creix i els compradors són cada vegada més exigents. En aquest escenari, la figura de l'assessor immobiliari professional s'ha convertit en una necessitat real per a qualsevol persona que vulgui vendre, comprar o arrendar un immoble amb garanties.",
+      intro: "En els darrers anys, el mercat immobiliari a Santa Coloma de Gramenet ha experimentat una transformació profunda. Els preus de compravenda s'han ajustat, la demanda de lloguer ha crescut amb força i els compradors són cada vegada més exigents i informats. En aquest escenari, la figura de l'assessor immobiliari professional ha deixat de ser un luxe per convertir-se en una necessitat real per a qualsevol persona que vulgui vendre, comprar o arrendar un immoble amb garanties.",
       sections: [
         {
           heading: "Més enllà de l'intermediari: què fa realment un assessor immobiliari",
           level: "h2",
           content: [
-            "L'assessor immobiliari professional actua com a consultor estratègic que acompanya el client en cada fase del procés: des de la valoració inicial fins a la firma de l'escriptura davant notari. Realitza un Anàlisi Comparatiu de Mercat (ACM) exhaustiu, comprovant dades de vendes tancades recentment al barri específic per determinar un preu de sortida competitiu.",
-            "A més, l'assessor es converteix en el filtre de seguretat de tota l'operació. Comprova la solvència financera dels interessats, verifica que l'immoble no presenta càrregues ocultes, coordina la Cèdula d'Habitabilitat i el Certificat d'Eficiència Energètica, i revisa cada clàusula del contracte d'arres."
+            "Existeix una confusió freqüent entre el concepte d'intermediari i el d'assessor immobiliari. El primer es limita a posar en contacte comprador i venedor i cobrar una comissió. L'assessor immobiliari professional va molt més enllà: actua com a consultor estratègic que acompanya el client en cada fase del procés, des de la primera valoració de l'immoble fins a la signatura de l'escriptura davant notari.",
+            "En la pràctica diària, això significa que l'assessor de Gesgrama realitza un Anàlisi Comparatiu de Mercat (ACM) exhaustiu, creuant dades de vendes tancades recentment al barri específic on s'ubica l'immoble —ja sigui a Singuerlín, Fondo, Centre o Riera Alta-Llatí— per determinar un preu de sortida competitiu que atregui compradors qualificats sense sacrificar el marge del propietari.",
+            "A més, l'assessor es converteix en el filtre de seguretat de tota l'operació. Comprova la solvència financera dels interessats abans de concertar visites, verifica que l'immoble no presenta càrregues ocultes mitjançant la nota simple registral, coordina l'obtenció de la Cèdula d'Habitabilitat i el Certificat d'Eficiència Energètica (CEE), i revisa cada clàusula del contracte d'arres per garantir que els interessos del client estan completament protegits."
           ],
           bulletPoints: [
-            "Valoració professional precisa basada en tancaments registrals reals del barri.",
-            "Pla de comercialització complet: fotografia professional, vídeo 360° i Home Staging.",
-            "Filtratge de compradors: comprovació de hipoteca preaprovada o capacitat de pagament.",
-            "Gestió documental completa: Cèdula, CEE, nota simple i certificat de deutes de la comunitat."
+            "Valoració professional precisa basada en tancaments registrals reals del barri, no en preus d'oferta de portals.",
+            "Pla de comercialització complet: fotografia amb càmera professional, vídeo de recorregut virtual 360° i Home Staging.",
+            "Filtratge de compradors: comprovació d'hipoteca preaprovada o capacitat de pagament documentada abans de la visita.",
+            "Gestió documental: Cèdula d'Habitabilitat, CEE, nota simple, certificat de deutes de la comunitat i darrers rebuts d'IBI.",
+            "Acompanyament jurídic: revisió del contracte d'arres, coordinació notarial i liquidació d'impostos."
           ]
         },
         {
           heading: "Per què intentar vendre sol és més car del que sembla",
           level: "h2",
           content: [
-            "Sense accés a dades reals de mercat, els propietaris tendeixen a sobrevalorar el seu habitatge, generant un llarg període d'exposició sense ofertes. Quan finalment baixen el preu, ho fan més del necessari. L'assessor evita aquest error freqüent.",
-            "La gestió de visites, la negociació i la redacció del contracte d'arres consumeixen desenes d'hores i generen un estrès considerable. L'assessor professional absorbeix tota aquesta càrrega operativa amb experiència i seguretat jurídica."
+            "Molts propietaris calculen el cost d'un assessor mirant únicament el percentatge d'honoraris i decideixen que és millor estalviar aquest import gestionant la venda pel seu compte. Aquest raonament sol ser un error financer.",
+            "El primer problema és el preu de sortida. Sense accés a dades reals de mercat, els propietaris tendeixen a sobrevalorar el seu habitatge, generant un llarg període d'exposició sense ofertes. Quan finalment baixen el preu, ho fan més del necessari.",
+            "El segon problema és el temps. Gestionar trucades de curiosos no qualificats, coordinar visites a deshores, negociar amb compradors sense finançament aprovat i redactar correctament un contracte d'arres consumeixen desenes d'hores. L'assessor professional absorbeix tota aquesta càrrega operativa.",
+            "El tercer problema és el legal. Una clàusula mal redactada al contracte d'arres pot comportar la pèrdua de la paga i senyal o obrir la porta a reclamacions judicials per vicis ocults. A Santa Coloma, la revisió tècnica i legal prèvia és indispensable."
+          ]
+        },
+        {
+          heading: "Situacions on l'assessor és imprescindible",
+          level: "h2",
+          content: [
+            "Venda d'habitatges procedents d'herències amb diversos hereus, venda de pisos amb inquilí i compra de primer habitatge amb finançament hipotecari."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Els honoraris de l'agència immobiliària pagats pel venedor poden deduir-se com a despesa de la transmissió per calcular el guany patrimonial a l'IRPF. Confirmar amb assessor fiscal].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: A Catalunya, els agents immobiliaris han d'estar inscrits al Registre d'Agents Immobiliaris de Catalunya (AICAT). Verificar la inscripció de l'agent abans de signar qualsevol encàrrec]."
+          ]
+        },
+        {
+          heading: "Quant triga una venda ben gestionada a Santa Coloma",
+          level: "h3",
+          content: [
+            "Segons la nostra experiència a Santa Coloma de Gramenet, un habitatge correctament valorat i publicitat rep les primeres visites qualificades a la primera o segona setmana.",
+            "El termini mitjà per tancar una compravenda amb finançament hipotecari oscil·la entre 45 i 90 dies des del contracte d'arres fins a l'escriptura notarial. En lloguer, un pis ben presentat a Fondo o Singuerlín es lloga habitualment en 7 a 21 dies."
+          ]
+        },
+        {
+          heading: "Preguntes freqüents sobre els assessors immobiliaris",
+          level: "h3",
+          content: [
+            "És obligatori contractar una agència? No, però les operacions gestionades per professionals tanquen a un preu mitjà superior i en menys temps.",
+            "Qui paga els honoraris? En compravenda el venedor; en lloguer la normativa estableix des de 2023 que les despeses d'agència corresponen a l'arrendador.",
+            "Què passa si no es ven en exclusiva? En Gesgrama revisem conjuntament l'estratègia i el contracte es pot resoldre de mutu acord."
           ]
         }
       ],
-      conclusion: "Comptar amb un assessor immobiliari de confiança a Santa Coloma no és una despesa, és una decisió estratègica que protegeix el valor del teu patrimoni i et dona tranquil·litat en cada detall legal i comercial."
+      conclusion: "Comptar amb un assessor immobiliari de confiança a Santa Coloma de Gramenet no és una despesa, és una decisió estratègica que protegeix el valor del teu patrimoni, redueix el temps de l'operació i et dona la tranquil·litat de saber que cada detall legal, fiscal i comercial està correctament gestionat. A Gesgrama portem més de tres dècades sent aquest aliat de confiança."
     },
     en: {
       title: "What is a real estate advisor and why might you need one?",
-      summary: "Find out what a professional real estate advisor actually does, what advantages they bring to buyers and sellers, and why their role in the Santa Coloma de Gramenet market is more decisive than ever.",
+      summary: "Discover what a professional real estate advisor actually does, what advantages they bring to buyers and sellers, and why their role in the Santa Coloma de Gramenet market is more decisive than ever.",
       category: "Real Estate",
       date: "March 9, 2025",
       readTime: "9 min read",
@@ -162,26 +194,58 @@ export const articles: Article[] = [
           heading: "Beyond the middleman: what a real estate advisor actually does",
           level: "h2",
           content: [
-            "A professional real estate advisor acts as a strategic consultant accompanying the client through every stage of the process: from the initial property valuation through to signing at the notary. They conduct a thorough Comparative Market Analysis (CMA), cross-referencing recent closed sale data in the specific neighborhood to set a competitive listing price.",
-            "The advisor also becomes the security filter for the entire transaction: verifying buyer financial capacity, checking for hidden encumbrances, coordinating the occupancy license and energy certificate, and reviewing every clause of the deposit contract."
+            "There is a common confusion between a simple middleman and a real estate advisor. The former merely connects buyer and seller for a fee. A professional real estate advisor goes much further: acting as a strategic consultant accompanying the client through every stage from initial valuation to notary deed signing.",
+            "In daily practice, Gesgrama's advisors conduct a thorough Comparative Market Analysis (CMA), cross-referencing recent closed sales data in the specific neighborhood — whether in Singuerlín, Fondo, Centre or Riera Alta-Llatí — to set a competitive listing price that attracts qualified buyers without sacrificing owner margin.",
+            "Furthermore, the advisor serves as the security filter for the entire transaction: screening buyer financial capacity before viewings, verifying that the property has no hidden encumbrances via land registry notes, coordinating occupancy licenses and Energy Performance Certificates (EPC), and reviewing every deposit contract clause to protect the client's interests."
           ],
           bulletPoints: [
-            "Precise professional valuation based on actual registered sales in the neighborhood.",
-            "Full marketing plan: professional photography, virtual tour video, and home staging.",
-            "Buyer screening: mortgage pre-approval or documented payment capacity verified before viewings.",
-            "Full document management: occupancy license, EPC, land registry note, community debt certificate."
+            "Accurate professional valuation based on real neighborhood land registry closures, not portal listing prices.",
+            "Comprehensive marketing plan: professional photography, 360° virtual tour video, and Home Staging.",
+            "Buyer screening: pre-approved mortgage or documented payment capacity verified before viewings.",
+            "Full document management: Occupancy License, EPC, registry note, community debt certificate, and IBI receipts.",
+            "Legal guidance: deposit contract review, notary coordination, and tax settlement assistance."
           ]
         },
         {
-          heading: "Why selling alone costs more than it seems",
+          heading: "Why trying to sell alone costs more than it seems",
           level: "h2",
           content: [
-            "Without access to real market data, owners tend to overprice their property, generating long exposure periods without offers. When they finally reduce the price, they do so by more than necessary.",
-            "Managing calls, visits, negotiations and drafting the deposit contract correctly consumes dozens of hours. The professional advisor absorbs this entire operational burden with expertise and legal security."
+            "Many owners calculate advisor costs looking only at fee percentages, deciding to save money by managing sales themselves. This reasoning is usually a costly financial mistake.",
+            "The first issue is the listing price. Without real market data, owners tend to overvalue their homes — known as 'owner bias' — causing long exposure periods without offers. When they finally drop prices, they drop them further than necessary.",
+            "The second issue is time. Handling unqualified calls, coordinating off-hour viewings, negotiating with unfinanced buyers, and drafting deposit contracts consume dozens of hours. A professional advisor absorbs this operational burden.",
+            "The third issue is legal liability. A poorly drafted deposit contract clause can lead to lost deposits or court claims for hidden defects. In Santa Coloma, prior technical and legal review is indispensable."
+          ]
+        },
+        {
+          heading: "Situations where an advisor is indispensable",
+          level: "h2",
+          content: [
+            "Estate inheritance sales involving multiple heirs, tenant-occupied flat sales, and first-time buyer home purchases requiring mortgage financing."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Agency fees paid by the seller are tax-deductible expenses when calculating capital gains on personal income tax. Confirm with your tax advisor].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: In Catalonia, real estate agents must be officially registered in the Registry of Real Estate Agents of Catalonia (AICAT). Verify agent registration before signing management agreements]."
+          ]
+        },
+        {
+          heading: "How long a well-managed sale takes in Santa Coloma",
+          level: "h3",
+          content: [
+            "Based on our operational experience in Santa Coloma de Gramenet, a correctly valued and marketed property receives its first qualified viewings within 1 to 2 weeks.",
+            "The average timeframe to close a sale with mortgage financing ranges from 45 to 90 days from deposit contract to notary deed signing. For rentals, well-presented flats in Fondo or Singuerlín typically rent within 7 to 21 days."
+          ]
+        },
+        {
+          heading: "Frequently asked questions about real estate advisors",
+          level: "h3",
+          content: [
+            "Is hiring an agency mandatory? No, but professional transactions close at higher average prices and faster.",
+            "Who pays agency fees? In sales, the seller typically pays; in residential rentals, 2023 regulations mandate that agency fees are paid by the landlord, not the tenant.",
+            "What happens if the flat doesn't sell during exclusivity? At Gesgrama, exclusive listings come with formal advertising commitments. If unsold within the agreed period, price strategy is reviewed or agreements can be resolved mutually."
           ]
         }
       ],
-      conclusion: "Working with a trusted real estate advisor in Santa Coloma de Gramenet is not a cost — it is a strategic decision that protects your property's value and gives you complete peace of mind on every legal, fiscal, and commercial detail."
+      conclusion: "Working with a trusted real estate advisor in Santa Coloma de Gramenet is not a cost — it is a strategic decision that protects your property's value, reduces transaction time, and gives you complete peace of mind knowing every legal, tax, and commercial detail is handled expertly. Gesgrama has been that trusted partner for over three decades."
     }
   },
   // ─────────────────────────────────────────────
@@ -232,7 +296,9 @@ export const articles: Article[] = [
           level: "h2",
           content: [
             "Un contrato de encargo en exclusiva bien redactado debe establecer con total claridad los siguientes elementos: la duración del encargo y las condiciones de prórroga, el precio de venta acordado y el rango de negociación autorizado por el propietario, las acciones de marketing concretas que se compromete a ejecutar la agencia y en qué plazos, los honorarios profesionales pactados y el momento en que son exigibles.",
-            "También debe incluir cláusulas de protección para ambas partes: una cláusula de penalización razonable si el propietario vende directamente a un comprador presentado por la agencia durante la vigencia del contrato, y una cláusula de resolución anticipada si la agencia no cumple con los compromisos de marketing asumidos.",
+            "También debe incluir cláusulas de protección para ambas partes: una cláusula de penalización razonable si el propietario vende directamente a un comprador presentado por la agencia durante la vigencia del contrato, y una cláusula de resolución anticipada si la agencia no cumple con los compromisos de marketing asumidos."
+          ],
+          bulletPoints: [
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el plazo estándar legalmente establecido y las condiciones del derecho de desistimiento en contratos formalizados fuera de establecimiento mercantil según el RDL 1/2007 de defensa de consumidores y usuarios].",
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar que las cláusulas de penalización por venta directa del propietario no resulten abusivas conforme a la jurisprudencia de protección al consumidor y puedan resistir una posible impugnación judicial]."
           ]
@@ -250,7 +316,7 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Què és un contracte d'exclusivitat immobiliària i quins avantatges té?",
-      summary: "Analitzem en profunditat l'encàrrec de venda en exclusiva, les obligacions de l'agència, les clàusules essencials i per què estadísticament assoleix un preu final més alt.",
+      summary: "Analitzem en profunditat l'encàrrec de venda en exclusiva, les obligacions de l'agència, les clàusules essencials i per què estadísticament assoleix un preu final més alt per al venedor.",
       category: "Immobiliària",
       date: "4 març, 2025",
       readTime: "8 min de lectura",
@@ -262,25 +328,45 @@ export const articles: Article[] = [
           level: "h2",
           content: [
             "El contracte d'encàrrec de venda en exclusiva és un acord mercantil pel qual el propietari atorga a una única agència el dret exclusiu de gestionar i comercialitzar la venda del seu immoble durant un període determinat, habitualment entre tres i sis mesos.",
-            "A canvi, l'agència assumeix obligacions concretes: inversió publicitària màxima, reportatge fotogràfic professional, pla de difusió específic i defensa activa del preu de venda."
+            "A canvi d'aquest compromís, l'agència assumeix obligacions concretes: inversió publicitària màxima als portals principals, reportatge fotogràfic professional, tour virtual, pla de difusió específic i defensa activa del preu de venda.",
+            "En Gesgrama treballem amb un model d'exclusiva col·laborativa: si una altra agència té un comprador qualificat, col·laborem compartint honoraris mentre protegim els interessos del propietari."
           ],
           bulletPoints: [
-            "Màxima inversió publicitaria i posicionament destacat als portals principals.",
-            "Unitat de preu: l'immoble no apareix amb preus discrepants a diferents anuncis.",
-            "Control total de la negociació i filtratge de compradors qualificats.",
-            "Col·laboració amb altres agències quan aporten compradors qualificats."
+            "Màxima inversió publicitària i posicionament destacat als portals principals.",
+            "Unitat de missatge i preu: l'immoble no apareix amb preus discrepants a diferents anuncis.",
+            "Control total de la negociació: només es porten ofertes verificades i amb finançament aprovat.",
+            "Registre de visites: s'identifiquen totes les persones que accedeixen a l'immoble per seguretat.",
+            "Col·laboració amb altres agències quan aporten un comprador qualificat."
           ]
         },
         {
-          heading: "Per què la multiagència crema el pis",
+          heading: "Per què la multiagència crema el pis: el cost invisible de treballar amb tots",
           level: "h2",
           content: [
-            "Quan diverses agències publiquen el mateix pis a preus lleugerament diferents, el comprador percep que el pis 'es ven desesperadament' i negocia a la baixa de forma agressiva. Aquest efecte pot fer perdre entre un 5% i un 15% del valor de mercat real.",
-            "Amb l'exclusiva, hi ha un únic preu al mercat, un únic missatge i una única estratègia de negociació controlada, la qual cosa protegeix el valor de l'immoble."
+            "Quan un propietari dona l'encàrrec a cinc agències, cap d'elles inverteix a fons en la comercialització per por a perdre la inversió si una altra tanca la venda. El resultat són anuncis genèrics amb fotos de mòbil.",
+            "Si cinc agències publiquen el mateix pis a preus diferents, el comprador percep que el pis es ven amb desesperació i negocia agressivament a la baixa, perdent entre un 5% i un 15% del valor real."
+          ]
+        },
+        {
+          heading: "Què ha d'incloure un contracte d'exclusiva transparent",
+          level: "h2",
+          content: [
+            "Un contracte d'exclusiva ben redactat ha d'establir clarament la durada, condicions de pròrroga, preu acordat, accions de màrqueting promeses i honoraris professionals pactats."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar el termini estàndard legalment establert i les condicions del dret de desestimació en contractes fora d'establiment mercantil segons el RDL 1/2007 de defensa de consumidors].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar que les clàusules de penalització per venda directa del propietari no resultin abusives conforme a la jurisprudència de protecció al consumidor]."
+          ]
+        },
+        {
+          heading: "Quines dades recolzen l'eficàcia de l'exclusiva?",
+          level: "h3",
+          content: [
+            "A Santa Coloma de Gramenet, les operacions en exclusiva tanquen a un preu mitjà entre un 4% i un 8% superior a les operacions en multiagència, reduint a més el temps de venda a 4-8 setmanes des de la publicació."
           ]
         }
       ],
-      conclusion: "El contracte d'exclusiva amb Gesgrama és un pacte de confiança recíproca que ens obliga a donar el màxim per defensar el valor del teu habitatge i vendre al millor preu possible."
+      conclusion: "El contracte d'exclusiva amb Gesgrama és un pacte de confiança recíproca que ens obliga a donar el màxim per defensar el valor del teu habitatge i vendre al millor preu possible en el menor temps i amb la màxima seguretat jurídica."
     },
     en: {
       title: "What is an exclusive real estate listing and what are its advantages?",
@@ -289,28 +375,47 @@ export const articles: Article[] = [
       date: "March 4, 2025",
       readTime: "8 min read",
       author: "Gesgrama Real Estate Team",
-      intro: "When a property owner decides to sell, one of the first decisions is whether to manage the sale through a single exclusive agency or give the listing to several agencies simultaneously. The market reality shows clearly that multiple non-exclusive listings harm sellers.",
+      intro: "When a property owner decides to sell, one of the first decisions is whether to manage the sale through a single exclusive agency or give the listing to several agencies simultaneously. Market reality demonstrates clearly that multiple non-exclusive listings harm sellers.",
       sections: [
         {
           heading: "What an exclusive listing agreement actually involves",
           level: "h2",
           content: [
-            "An exclusive listing contract grants a single trusted agency the exclusive right to manage and market a property's sale for a set period, usually three to six months. In return, the agency takes on concrete commitments: maximum advertising investment, professional photography, a dedicated marketing plan and active price defense.",
-            "At Gesgrama we use a collaborative exclusivity model: if another reputable agency has a qualified buyer, we collaborate and share the fee, while we continue coordinating and protecting the owner's interests."
+            "An exclusive listing agreement grants a single real estate agency the exclusive right to market a property for a set period, typically three to six months. In return, the agency commits to maximum advertising investment, professional photography, virtual tours, and active price defense.",
+            "At Gesgrama, we use a collaborative exclusivity model: if another reputable agency brings a qualified buyer, we collaborate and share fees while continuing to protect the owner's interests."
           ],
           bulletPoints: [
-            "Maximum advertising investment and featured positioning on major portals.",
+            "Maximum advertising investment and featured positioning on major property portals.",
             "Price unity: the property never appears with discrepant prices across multiple listings.",
-            "Full negotiation control and verified buyer screening.",
-            "Collaboration with other agencies when they bring qualified buyers."
+            "Full negotiation control: only verified offers with pre-approved financing are presented.",
+            "Visitor logging: all prospective buyers accessing the property are identified for security.",
+            "Agency collaboration: working with external brokers who bring qualified buyers."
           ]
         },
         {
           heading: "Why multiple listings burn your property's value",
           level: "h2",
           content: [
-            "When five agencies list the same property at slightly different prices, buyers immediately perceive the property as desperate to sell and negotiate aggressively downward. This 'burned listing' effect can destroy 5-15% of the property's real market value.",
-            "With exclusivity, there is one price, one message and one controlled negotiation strategy — protecting the property's full market value."
+            "When five agencies list the same property, none invest significantly in marketing for fear of losing their investment if another broker closes the deal. The result: low-quality mobile photos and generic descriptions.",
+            "Discrepant prices across listings signal seller desperation, encouraging aggressive low-ball offers that can strip 5-15% off the property's true market value."
+          ]
+        },
+        {
+          heading: "What a transparent exclusive contract must include",
+          level: "h2",
+          content: [
+            "A well-drafted exclusive contract clearly defines contract duration, renewal terms, agreed price, marketing deliverables, and agreed professional fees."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm the legally established standard term and cooling-off cancellation rights for contracts signed outside business premises under consumer protection law RDL 1/2007].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify that penalty clauses for direct sales by the owner are non-abusive under consumer protection case law]."
+          ]
+        },
+        {
+          heading: "What data supports exclusivity effectiveness?",
+          level: "h3",
+          content: [
+            "In Santa Coloma de Gramenet, exclusive listings close at an average price 4% to 8% higher than multi-agency sales, while cutting average sale time to 4-8 weeks from initial listing."
           ]
         }
       ],
@@ -388,52 +493,70 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Què és un perit judicial immobiliari i quan necessites un?",
-      summary: "Guia completa sobre el rol del perit judicial immobiliari en herències, divorcis, taxacions contradictòries i procediments tributaris.",
+      summary: "Guia completa sobre el rol del perit judicial immobiliari en herències, divorcis, taxacions contradictòries i procediments tributaris. Quina metodologia aplica i quina validesa legal té el seu informe.",
       category: "Serveis Jurídics & Peritatge",
       date: "20 febrer, 2025",
       readTime: "9 min de lectura",
       author: "Gabinet Tècnic Gesgrama",
-      intro: "En situacions com un divorci, el repartiment d'una herència o un litigi amb Hisenda pel valor d'un habitatge, és imprescindible comptar amb un perit judicial immobiliari: un expert tècnic el dictamen del qual té plena validesa com a prova davant dels tribunals.",
+      intro: "En situacions com un divorci, el repartiment d'una herència, un litigi amb Hisenda pel valor d'un habitatge o un procediment judicial per danys estructurals, és imprescindible comptar amb un professional capaç de determinar de forma objectiva, rigorosa i imparcial el valor real d'un ben immoble: el perit judicial immobiliari.",
       sections: [
         {
           heading: "Qui és i quina titulació ha de tenir un perit judicial immobiliari",
           level: "h2",
           content: [
             "Un perit judicial immobiliari és un professional amb titulació tècnica superior —habitualment arquitecte o aparellador— inscrit als llistats de perits dels Jutjats o dels Col·legis Professionals.",
-            "El perit ha d'emetre el seu informe amb total objectivitat i imparcialitat, sota jurament, independentment de qui l'hagi contractat."
+            "La inscripció oficial garanteix els coneixements tècnics necessaris per emetre un dictamen amb validesa processal. El perit està obligat a actuar amb total objectivitat i imparcialitat sota jurament."
           ],
           bulletPoints: [
-            "Titulació tècnica superior obligatòria.",
-            "Inscripció als llistats oficials de perits judicials.",
+            "Titulació tècnica superior (arquitecte, aparellador, enginyer d'edificació) obligatòria.",
+            "Inscripció als llistats oficials de perits dels Jutjats o Col·legis Professionals.",
             "Obligació d'objectivitat i imparcialitat sota jurament.",
-            "Experiència acreditada en valoracions per a procediments judicials i tributaris."
+            "Experiència acreditada en valoracions pericials per a procediments judicials i tributaris."
           ]
         },
         {
           heading: "En quines situacions cal sol·licitar un peritatge immobiliari",
           level: "h2",
           content: [
-            "Les situacions més freqüents a Santa Coloma de Gramenet: repartiment d'herències, liquidació de la societat de guanys en divorcis, Taxació Pericial Contradictòria (TPC) davant l'ATC, i procediments per vicis ocults o danys estructurals."
+            "Repartiment d'herències familiars per aconseguir valoracions equitatives, liquidació de guanyals en divorcis, Taxació Pericial Contradictoria (TPC) per impugnar comprovacions de valors de l'ATC en ITP o Sucesiones, i reclamacions per vicis ocults o danys estructurals."
+          ]
+        },
+        {
+          heading: "Metodologia que aplica el perit: com es calcula el valor",
+          level: "h2",
+          content: [
+            "Mètode de comparació de vendes reals registrades, mètode del cost de reemplaçament i mètode de capitalització de rendes de lloguer."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar el compliment dels Articles 335 a 352 de la Llei d'Enjudiciament Civil (LEC) sobre la forma d'aportació de dictàmens pericials i el deure de ratificació oral].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar el termini legal per sol·licitar la Taxació Pericial Contradictòria conforme a la Llei General Tributària (LGT Art. 135) i normativa catalana]."
+          ]
+        },
+        {
+          heading: "Per què la qualitat de l'informe pericial marca la diferència",
+          level: "h3",
+          content: [
+            "Un informe ben estructurat, amb metodologia clara i conclusions sòlidament justificades té molt més pes provatori davant d'un jutge o un tribunal."
           ]
         }
       ],
-      conclusion: "Si t'enfrontes a una herència conflictiva, un divorci o una notificació de comprovació de valors d'Hisenda, sol·licitar l'informe d'un perit judicial immobiliari és la decisió més intel·ligent per defensar els teus interessos."
+      conclusion: "Si t'enfrontes a una herència conflictiva, un divorcio amb béns comuns o una comprovació de valors d'Hisenda, sol·licitar l'informe d'un perit judicial és la decisió més intel·ligent per defensar els teus interessos amb rigor i validesa legal."
     },
     en: {
       title: "What is a judicial real estate expert and when do you need one?",
-      summary: "Complete guide to the judicial property expert's role in inheritances, divorces, tax contestations, and structural damage proceedings.",
+      summary: "Complete guide to the judicial property expert's role in inheritances, divorces, tax contestations, and structural damage proceedings. What methodology they apply and the legal weight of their report.",
       category: "Legal & Valuation Services",
       date: "February 20, 2025",
       readTime: "9 min read",
       author: "Gesgrama Technical Advisory",
-      intro: "In situations such as divorce, inheritance disputes, or tax authority challenges to a property's declared value, a judicial real estate expert becomes essential: a technical professional whose formal appraisal report carries full legal weight in court and before administrative bodies.",
+      intro: "In situations such as divorce, inheritance distribution disputes, tax authority challenges to property values, or construction damage litigation, an impartial technical expert is indispensable: the judicial real estate expert.",
       sections: [
         {
           heading: "Who is a judicial real estate expert and what qualifications are required?",
           level: "h2",
           content: [
-            "A judicial real estate expert is a technically qualified professional — typically an architect or building engineer — registered on official court expert lists. They must issue their appraisal with complete objectivity and impartiality under oath, regardless of which party engaged them.",
-            "Their report applies recognized valuation methodologies: comparative sales analysis using registered transaction data, replacement cost method, or income capitalization — never portal listing prices or market intuition."
+            "A judicial real estate expert is a technically qualified professional — typically an architect or building engineer — registered on official court expert lists.",
+            "Official registration guarantees procedural validity. Experts are legally bound to deliver impartial assessments under oath, regardless of who engaged them."
           ],
           bulletPoints: [
             "Mandatory higher technical qualification (architect, building engineer).",
@@ -446,11 +569,29 @@ export const articles: Article[] = [
           heading: "When is a judicial property appraisal needed?",
           level: "h2",
           content: [
-            "Key situations: estate inheritance distribution, divorce community property liquidation, Contradictory Expert Appraisal (TPC) to contest tax authority valuation, and construction defect/hidden defect litigation."
+            "Inheritance distribution for equitable valuation, divorce asset liquidation, Contradictory Expert Appraisal (TPC) to contest tax authority property overvaluations, and structural defect litigation."
+          ]
+        },
+        {
+          heading: "Methodology applied by the expert: how valuation is calculated",
+          level: "h2",
+          content: [
+            "Comparative market sales analysis using registered transaction data, replacement cost methodology, and rental income capitalization."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm compliance with Articles 335 to 352 of Spain's Civil Procedure Act (LEC) regarding expert report submission and oral cross-examination duties].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify legal deadlines to request Contradictory Expert Appraisal under General Tax Law Art. 135 and local Catalan tax rules]."
+          ]
+        },
+        {
+          heading: "Why expert report quality makes all the difference",
+          level: "h3",
+          content: [
+            "A well-structured report with transparent methodology and documented sources carries decisive evidentiary weight in court."
           ]
         }
       ],
-      conclusion: "Facing an inheritance dispute, a contested divorce, a tax authority valuation challenge, or a construction defect claim? A qualified judicial real estate expert's report is the most effective tool to defend your interests with rigor and full legal guarantees."
+      conclusion: "Facing a complex inheritance, divorce asset partition, or tax authority valuation dispute? A qualified judicial real estate expert's report is the most effective tool to defend your financial interests with full legal authority."
     }
   },
   // ─────────────────────────────────────────────
@@ -494,7 +635,9 @@ export const articles: Article[] = [
           content: [
             "La compra sobre plano —es decir, adquirir la vivienda antes de que esté construida, únicamente a partir de los planos del proyecto— es la modalidad más habitual en las promociones de obra nueva. Ofrece la ventaja de poder elegir la unidad preferida (orientación, planta, vistas) y de beneficiarse del precio más bajo del ciclo, ya que la promotora vende a un precio inferior durante la fase de preventa para financiar parcialmente la construcción.",
             "Sin embargo, la compra sobre plano también entraña riesgos que hay que gestionar con rigor. El principal es el riesgo de promotora: si la empresa promotora entra en concurso de acreedores antes de finalizar la obra, el comprador podría perder las cantidades entregadas a cuenta si estas no están correctamente garantizadas.",
-            "La legislación española obliga a las promotoras a garantizar todas las cantidades entregadas a cuenta por los compradores mediante un aval bancario solidario o un seguro específico de devolución de cantidades anticipadas. Esto significa que si la promotora quiebra, el comprador puede reclamar la devolución íntegra de su dinero directamente al banco avalista o a la aseguradora.",
+            "La legislación española obliga a las promotoras a garantizar todas las cantidades entregadas a cuenta por los compradores mediante un aval bancario solidario o un seguro específico de devolución de cantidades anticipadas. Esto significa que si la promotora quiebra, el comprador puede reclamar la devolución íntegra de su dinero directamente al banco avalista o a la aseguradora."
+          ],
+          bulletPoints: [
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar que las cantidades entregadas a cuenta durante la fase de construcción estén garantizadas mediante aval bancario o seguro conforme a la LOE y normativa vigente. Exigir el certificado de aval individual por cada entrega].",
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el tipo de IVA aplicable a la compra de obra nueva (10% general para vivienda libre, 4% para VPO de régimen especial) y el tipo del Impuesto de Actos Jurídicos Documentados (IAJD) vigente en Cataluña (actualmente 1,5% con carácter general, con reducciones para colectivos específicos)]."
           ]
@@ -523,69 +666,111 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Descobreix tot sobre un habitatge d'obra nova",
-      summary: "Tot el que has de saber abans de comprar un habitatge d'obra nova: avantatges energètics, compra sobre plànol, garanties legals i impostos aplicables.",
+      summary: "Tot el que has de saber abans de comprar un habitatge d'obra nova: avantatges energètics, compra sobre plànol, garanties legals decenals, impostos aplicables i les claus per triar una promoció amb total seguretat.",
       category: "Immobiliària",
       date: "28 gener, 2025",
       readTime: "10 min de lectura",
       author: "Departament d'Obra Nova Gesgrama",
-      intro: "Comprar un habitatge d'obra nova és una de les decisions patrimonials més importants. La possibilitat d'estrenar un espai dissenyat amb criteris moderns i màxima eficiència energètica el converteix en una opció molt demandada, però el procés de compra sobre plànol té particularitats fonamentals que cal conèixer.",
+      intro: "Comprar un habitatge d'obra nova és una de les decisions patrimonials més il·lusionants i complexes. La possibilitat d'estrenar un espai dissenyat amb criteris arquitectònics moderns, amb els més alts estàndards d'eficiència energètica i acabats personalitzables, la converteix en una opció molt demandada.",
       sections: [
         {
           heading: "Els avantatges reals de l'obra nova davant la segona mà",
           level: "h2",
           content: [
-            "L'eficiència energètica és l'avantatge més tangible i econòmicament mesurable. Les noves edificacions incorporen aïllament tèrmic continu (SATE), fusteria exterior amb trencament de pont tèrmic i aerotèrmia. Resultat: estalvis reals de fins al 70% a les factures d'energia.",
-            "La personalització durant la fase de construcció permet triar distribució, paviments, revestiments de banys i cuines i acabats generals. Aquesta capacitat és completament impossible en un habitatge de segona mà."
+            "L'eficiència energètica és l'avantatge més tangible: aïllament tèrmic SATE, fusteria amb trencament de pont tèrmic i aerotèrmia d'alta eficiència, assolint qualificació A o B i estalvis de fins al 70% a les factures d'energia.",
+            "La personalització de distribucions i acabats interiors durant la construcció permet adaptar l'habitatge al gust del comprador abans d'entrar a viure.",
+            "Les zones comunitàries modernes inclouen ascensors d'última generació, garatge amb punts de recàrrega de vehicles elèctrics i trasters amplis."
           ],
           bulletPoints: [
-            "Qualificació energètica A o B: factures fins a un 70% més baixes.",
-            "Personalització de distribució i acabats durant la construcció.",
-            "Tecnologia domòtica integrada.",
-            "Zones comunitàries modernes: ascensors, garatge amb punts de recàrrega i trasters."
+            "Qualificació energètica A o B: factures fins a un 70% més baixes que en habitatges antics.",
+            "Personalització de distribució i acabats durant la fase de construcció.",
+            "Tecnologia domòtica integrada: control d'il·luminació, climatització i seguretat.",
+            "Zones comunitàries modernes: ascensors, garatge amb punts de recàrrega i trasters amplis.",
+            "Sense reformes imprevistes: tot és nou des del primer dia."
           ]
         },
         {
-          heading: "Les tres garanties legals que protegeixen el comprador d'obra nova",
+          heading: "Comprar sobre plànol: procés, avals i riscos a conèixer",
           level: "h2",
           content: [
-            "La Llei d'Ordenació de l'Edificació (LOE) estableix tres nivells de garantia obligatòria: 1 any per a acabats, 3 anys per a habitabilitat i instal·lacions, i 10 anys per a danys estructurals mitjançant el Segur Decenal obligatori."
+            "La compra sobre plànol permet triar la millor unitat i beneficiar-se de preus d'estrena. La legislació obliga a les meves promotores a garantir les quantitats lliurades a compte mitjançant aval bancari solidari o segur especial."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar que les quantitats lliurades a compte durant la fase de construcció estiguin garantides mitjançant aval bancari o segur segons la LOE].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar el tipus d'IVA aplicable a l'obra nova (10% general, 4% VPO) i el tipus d'IAJD vigent a Catalunya (1,5% general)]."
+          ]
+        },
+        {
+          heading: "Les tres garanties legals que protegeixen el comprador",
+          level: "h2",
+          content: [
+            "Garantia d'1 any per a acabats interiors, 3 anys per a instal·lacions i habitabilitat, i 10 anys (garantia decenal) per a danys estructurals a la fonamentació o pilars."
+          ]
+        },
+        {
+          heading: "Preguntes freqüents sobre la compra d'obra nova",
+          level: "h3",
+          content: [
+            "Quan comença a comptar la garantia decenal? Des de la data de recepció de l'obra per part del promotor.",
+            "Quina documentació he d'exigir al lliurament? El Llibre de l'Edifici amb projecte executiu, instruccions de manteniment i certificats de garantia."
           ]
         }
       ],
-      conclusion: "L'obra nova representa l'opció més moderna i eficient del mercat residencial. Amb Gesgrama, cada promoció recomanada ha passat per una anàlisi rigorosa de la solvència del promotor i les garanties legals vigents."
+      conclusion: "L'obra nova representa l'opció més moderna i eficient. Amb Gesgrama, t'assegurem que cada promoció ha passat per una anàlisi rigorosa de la solvència del promotor i les garanties legals vigents."
     },
     en: {
       title: "Discover everything about a new construction home",
-      summary: "Everything you need to know before buying new construction: energy advantages, off-plan purchase process, legal warranties, applicable taxes, and how to choose a development with full confidence.",
+      summary: "Everything you need to know before buying new construction: energy efficiency benefits, buying off-plan, 10-year legal warranties, applicable taxes, and key steps to choose a development with confidence.",
       category: "Real Estate",
       date: "January 28, 2025",
       readTime: "10 min read",
       author: "Gesgrama New Development Advisory",
-      intro: "Buying a new construction home is one of the most exciting and complex property decisions you can make. The opportunity to live in a space designed to modern architectural standards with top-tier energy efficiency and customizable finishes makes new developments highly sought-after, but the off-plan purchase process has crucial specifics worth understanding thoroughly.",
+      intro: "Buying a new construction property is one of the most exciting yet complex property decisions you can make. Having a home built to modern architectural standards with top energy ratings and customizable finishes makes new developments highly desirable.",
       sections: [
         {
           heading: "Real advantages of new construction versus resale properties",
           level: "h2",
           content: [
-            "Energy efficiency is the most tangible and economically measurable advantage. New buildings incorporate continuous thermal insulation (SATE), triple glazing with thermal break, and aerothermal climate systems. Result: real energy bill savings of up to 70% versus 1970s-era buildings.",
-            "Customization during construction is another exclusive benefit: buyers can choose interior layouts, flooring, bathroom and kitchen finishes within predefined option ranges — completely impossible with a resale property."
+            "Energy efficiency is the most tangible benefit: continuous thermal insulation (SATE), triple glazing, and aerothermal climate systems yield A or B energy ratings and utility savings up to 70%.",
+            "Off-plan customization enables buyers to select interior layouts, flooring, and kitchen finishes during construction.",
+            "Modern communal amenities feature high-speed elevators, EV charging garages, and generous storage rooms."
           ],
           bulletPoints: [
-            "Energy rating A or B: utility bills up to 70% lower than in older buildings.",
-            "Customization of layout and finishes during construction.",
-            "Integrated smart home technology.",
-            "Modern communal areas: elevators, EV charging garage, storage rooms."
+            "Energy rating A or B: up to 70% utility savings versus older buildings.",
+            "Customization of layout and interior finishes during construction.",
+            "Integrated home automation systems.",
+            "Modern communal areas: elevators, EV charging garage, and storage rooms.",
+            "No unexpected renovations needed: pristine condition from day one."
           ]
         },
         {
-          heading: "The three legal warranties protecting new construction buyers",
+          heading: "Buying off-plan: process, bank guarantees, and risk management",
           level: "h2",
           content: [
-            "Spain's Building Management Act (LOE) mandates three warranty tiers: 1 year for finishes, 3 years for habitability and systems, and a 10-year structural warranty covered by mandatory Decennial Insurance — protecting buyers against cracks, settlement, or structural failure."
+            "Off-plan purchasing allows early selection of prime units. Spanish law mandates that developers guarantee all advance payments via bank guarantees or insurance policies."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify that advance payments made during construction are backed by individual bank guarantees under LOE regulations].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm applicable VAT rates (10% standard, 4% social housing) and Catalan Stamp Duty (IAJD 1.5% standard)]."
+          ]
+        },
+        {
+          heading: "The three legal warranties protecting new home buyers",
+          level: "h2",
+          content: [
+            "1-year warranty for cosmetic finishes, 3-year warranty for habitability and utilities, and 10-year structural warranty (Decennial Insurance) for foundation and structural elements."
+          ]
+        },
+        {
+          heading: "Frequently asked questions about buying new construction",
+          level: "h3",
+          content: [
+            "When does the 10-year warranty start? From the official building completion certificate date.",
+            "What documents must be delivered at handover? The Building Logbook (Libro del Edificio) with complete maintenance plans and system warranties."
           ]
         }
       ],
-      conclusion: "New construction represents the most modern and efficient option in the residential market. With Gesgrama, every development we recommend has undergone rigorous analysis of developer solvency and legal warranty compliance to fully protect your investment."
+      conclusion: "New construction offers the most modern and efficient residential experience. Gesgrama ensures every recommended development passes strict developer solvency and legal warranty verification."
     }
   },
   // ─────────────────────────────────────────────
@@ -650,69 +835,97 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Guia completa per llogar o vendre el teu pis a Singuerlín i Centre",
-      summary: "Anàlisi detallada del mercat immobiliari a Singuerlín i Centre de Santa Coloma de Gramenet: preus, demanda, tipologies d'habitatge i tot el que has de saber.",
+      summary: "Anàlisi detallada del mercat immobiliari a Singuerlín i Centre de Santa Coloma de Gramenet: preus per metre quadrat, perfil de demanda, tipologies d'habitatges i tot el que has de saber abans de vendre o llogar.",
       category: "Immobiliària Local",
       date: "15 març, 2025",
       readTime: "9 min de lectura",
       author: "Equip Immobiliari Gesgrama",
-      intro: "Si tens un pis a Singuerlín o al Centre de Santa Coloma i vols vendre'l o llogar-lo, estàs en una posició privilegiada dins el mercat metropolità. Aquests dos barris concentren les característiques més demandades pels compradors i llogatadors.",
+      intro: "Si tens un pis a Singuerlín o al Centre de Santa Coloma de Gramenet i estàs pensant en vendre'l o llogar-lo, estàs en una posició privilegiada dins el mercat immobiliari metropolità. Aquests dos barris concentren algunes de les característiques més demandades pels compradors i inquilins de l'àrea: bona connectivitat amb Barcelona, oferta comercial i de serveis consolidada, i una relació qualitat-preu molt competitiva.",
       sections: [
         {
           heading: "Anàlisi del mercat a Singuerlín: famílies, metro L9N i preu de la tranquil·litat",
           level: "h2",
           content: [
-            "Singuerlín s'ha consolidat com un dels destins residencials preferits per les famílies joves que busquen sortir de Barcelona sense renunciar a la connectivitat. La línia L9N de metro ha estat un factor determinant en la revaloització del barri.",
-            "La tipologia predominant és la de pisos de tres dormitoris amb balcó o terrassa, molts d'ells reformats. Els edificis amb ascensor instal·lat recentment presenten la major rotació i els preus per metre quadrat més alts."
+            "El barri de Singuerlín s'ha consolidat com un dels destins residencials preferits per famílies joves que busquen sortir de Barcelona sense renunciar a la connectivitat. La línia L9N de metro ha estat un factor determinant en la revalorització del barri.",
+            "La tipologia predominant són pisos de tres dormitoris amb balcó o terrassa exterior. Els edificis amb ascensor instal·lat recentment presenten la major rotació i els preus per metre quadrat més alts del barri.",
+            "El perfil del comprador és majoritàriament parelles joves amb capacitat d'endutament hipotecari del 80-90% del valor de taxació."
           ],
           bulletPoints: [
-            "Alta demanda de pisos de 3 dormitoris amb balcó i ascensor.",
-            "Connectivitat directa amb Barcelona via L9N.",
-            "Perfil de comprador jove amb hipoteca del 80-90%.",
-            "Forta demanda de lloguer per treballadors de polígons industrials."
+            "Alta demanda de pisos de 3 dormitoris amb balcó i ascensor instal·lat.",
+            "Connectivitat directa amb Barcelona via L9N de metro.",
+            "Perfil de comprador jove amb hipoteca del 80-90% del valor de taxació.",
+            "Forta demanda de lloguer per treballadors de polígons industrials nord."
           ]
         },
         {
-          heading: "El Centre: el cor comercial amb màxima rendibilitat de lloguer",
+          heading: "El Centre de Santa Coloma: el cor comercial amb màxima rendibilitat de lloguer",
           level: "h2",
           content: [
-            "Al Centre, l'escassetat de pisos disponibles en lloguer genera una pressió de demanda molt alta. Per al propietari inversor, el Centre ofereix les rendibilitats brutes de lloguer més altes de Santa Coloma, entre el 5% i el 7% anual."
+            "El Centre és el nucli històric i comercial de Santa Coloma de Gramenet, amb metro L1 i accés directe a rondes. L'escassetat de pisos de lloguer genera una pressió de demanda molt alta.",
+            "Per al propietari inversor, el Centre ofereix les rendibilitats brutes de lloguer més altes de Santa Coloma, assolint entre un 5% i un 7% anual en habitatges reformats ben ubicats."
+          ]
+        },
+        {
+          heading: "Passos per vendre el teu pis al millor preu a tots dos barris",
+          level: "h2",
+          content: [
+            "Requisits clau: valoració professional basada en tancaments notarials reals, preparació visual de l'habitatge amb fotografia d'alta resolució i verificació documental prèvia (nota simple, ITE, Cèdula d'Habitabilitat i CEE)."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar l'aplicació de l'índex de referència de preus de lloguer en zones tensionades de Santa Coloma segons la Llei 12/2023 de Habitatge].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar el termini de dipòsit obligatori de la fiança (1 mensualitat) davant l'INCASÒL dins dels 2 mesos següents a la signatura].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar les deduccions a l'IRPF per despeses de conservació, amortització i segur d'impagament sobre els rendiments de lloguer]."
           ]
         }
       ],
-      conclusion: "Singuerlín i el Centre són els barris amb major dinamisme del mercat immobiliari de Santa Coloma. Gesgrama t'ofereix el coneixement local específic per a que la teva operació sigui un èxit."
+      conclusion: "Singuerlín i el Centre són dos dels barris amb major dinamisme immobiliari de Santa Coloma. Tant si vols vendre com si prefereixes llogar, Gesgrama t'ofereix el coneixement local i l'acompanyament professional per assolir l'èxit."
     },
     en: {
       title: "Complete guide to renting or selling your flat in Singuerlín and Centre",
-      summary: "Detailed analysis of the real estate market in Singuerlín and Centre, Santa Coloma de Gramenet: price trends, demand profiles, property types and everything you need to know.",
+      summary: "Detailed real estate market analysis for Singuerlín and Centre in Santa Coloma de Gramenet: prices per square meter, demand profiles, property types, and key advice for sellers and landlords.",
       category: "Local Real Estate",
       date: "March 15, 2025",
       readTime: "9 min read",
       author: "Gesgrama Real Estate Team",
-      intro: "If you own a property in Singuerlín or Centre in Santa Coloma de Gramenet and are thinking about selling or renting it, you are in a privileged position within the metropolitan market. Both neighborhoods concentrate the features most sought-after by buyers and tenants.",
+      intro: "If you own a property in Singuerlín or Centre in Santa Coloma de Gramenet and plan to sell or rent it, you hold an advantageous position in the metropolitan property market. Both neighborhoods offer features highly demanded by buyers and tenants.",
       sections: [
         {
-          heading: "Singuerlín market: families, L9N metro and competitive pricing",
+          heading: "Singuerlín market analysis: families, L9N metro, and neighborhood appeal",
           level: "h2",
           content: [
-            "Singuerlín has become the preferred residential destination for young families moving out of Barcelona without sacrificing connectivity. The L9N metro line has been a key driver of the neighborhood's value appreciation.",
-            "The dominant property type is 3-bedroom flats with balcony or terrace, many recently renovated. Buildings with recently installed lifts see the highest market turnover and achieve the highest prices per square meter."
+            "Singuerlín has established itself as a top choice for young families relocating from Barcelona without sacrificing transport links. The L9N metro line opening significantly boosted property values.",
+            "The dominant property layout is 3-bedroom flats with exterior balconies. Buildings with recently added lifts see the fastest sales velocity and highest square-meter prices.",
+            "Buyers are primarily young couples securing 80-90% mortgage loan-to-value financing."
           ],
           bulletPoints: [
-            "High demand for 3-bedroom flats with balcony and lift.",
+            "High demand for 3-bedroom flats with balconies and retrofitted lifts.",
             "Direct metro connectivity to Barcelona via L9N.",
-            "Young buyer profile with 80-90% mortgage financing.",
-            "Strong rental demand from industrial park workers."
+            "Young family buyer profile with 80-90% mortgage financing.",
+            "Strong rental demand from northern industrial park workers."
           ]
         },
         {
-          heading: "Centre: the commercial heart with maximum rental yields",
+          heading: "Centre Santa Coloma: commercial heart with maximum rental yields",
           level: "h2",
           content: [
-            "In Centre, the shortage of available rental flats generates consistently high demand pressure. For investor landlords, Centre offers Santa Coloma's highest gross rental yields — 5% to 7% annually on well-positioned renovated flats."
+            "Centre is Santa Coloma's historic and retail hub, featuring L1 metro access. Rental supply shortages create intense tenant demand.",
+            "For investor landlords, Centre yields the highest gross rental returns in Santa Coloma — between 5% and 7% annually on renovated 2-bedroom flats."
+          ]
+        },
+        {
+          heading: "Steps to sell your property at top market value",
+          level: "h2",
+          content: [
+            "Key steps: professional appraisal based on actual registered sales, visual staging with HD photography, and pre-sale document checks (registry notes, ITE, occupancy license, EPC)."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify rent cap index application in designated stress zones under Housing Law 12/2023 for small vs. large landlords].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm mandatory 1-month rental deposit submission deadline to INCASÒL within 2 months of lease signing].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify personal income tax deductions for maintenance costs, depreciation, and rent default insurance against net rental income]."
           ]
         }
       ],
-      conclusion: "Singuerlín and Centre are Santa Coloma's most dynamic real estate markets. Gesgrama brings you neighborhood-specific local market knowledge and professional support to make your sale or rental a success in time and price."
+      conclusion: "Singuerlín and Centre represent Santa Coloma's most dynamic property sub-markets. Whether selling or renting, Gesgrama provides localized expertise and professional guidance for optimal transaction outcomes."
     }
   },
   // ─────────────────────────────────────────────
@@ -765,7 +978,9 @@ export const articles: Article[] = [
           content: [
             "El contexto actual de subvenciones europeas para la rehabilitación energética de edificios es excepcionalmente favorable. Los fondos Next Generation EU, canalizados a través del Plan de Recuperación, Transformación y Resiliencia del Gobierno de España, incluyen líneas de ayuda que pueden cubrir entre el 40% y el 80% del coste de las obras de mejora energética en edificios residenciales.",
             "Las actuaciones subvencionadas son principalmente aquellas que reducen la demanda energética del edificio: aplicación de SATE en fachadas, sustitución de cubiertas mejorando el aislamiento, instalación de sistemas de ventilación mecánica controlada y sustitución de instalaciones de calefacción centralizada por sistemas más eficientes.",
-            "La tramitación de estas ayudas requiere una solicitud colectiva a nombre de la comunidad de propietarios, previa presentación de un proyecto técnico firmado y de un Informe de Evaluación del Edificio (IEE) que certifique el estado actual y la mejora energética prevista.",
+            "La tramitación de estas ayudas requiere una solicitud colectiva a nombre de la comunidad de propietarios, previa presentación de un proyecto técnico firmado y de un Informe de Evaluación del Edificio (IEE) que certifique el estado actual y la mejora energética prevista."
+          ],
+          bulletPoints: [
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el Decreto 67/2015 de la Generalitat de Catalunya sobre la ITE y los plazos de obligatoriedad para edificios con más de 45 años de antigüedad en el ámbito municipal de Santa Coloma de Gramenet].",
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar las deducciones de IRPF por obras de rehabilitación energética (20% por reducción del 7% de la demanda de calefacción y refrigeración, 40% por reducción del 30%, y 60% en rehabilitación integral del edificio) y los plazos de convocatoria de subvenciones Next Generation vigentes]."
           ]
@@ -775,67 +990,97 @@ export const articles: Article[] = [
     },
     ca: {
       title: "ITE i rehabilitació d'edificis a Fondo, Santa Rosa i Can Mariner",
-      summary: "Guia tècnica i pràctica sobre la ITE, les obligacions de conservació de finques a Santa Coloma i com accedir a les subvencions europees per a rehabilitació energètica.",
+      summary: "Guia tècnica i pràctica sobre la Inspecció Tècnica d'Edificis (ITE), les obligacions de conservació de finques a Santa Coloma i com accedir a les subvencions europees per a rehabilitació energètica.",
       category: "Administració de Finques",
       date: "22 març, 2025",
       readTime: "10 min de lectura",
       author: "Departament Tècnic Gesgrama",
-      intro: "Els barris de Fondo, Santa Rosa i Can Mariner alberguen una part molt significativa del parc edificatori més antic de Santa Coloma de Gramenet, construït principalment entre els anys 60 i 75. Avui, molts d'aquests edificis estan en l'obligatorietat de la ITE i sovint necessiten obres de rehabilitació.",
+      intro: "Els barris de Fondo, Santa Rosa i Can Mariner alberguen una part molt significativa del parc edificatori més antic de Santa Coloma de Gramenet. Molts d'aquests edificis van ser construïts entre 1960 i 1975. Avui, aquestes finques tenen o superen els 50 anys d'antiguitat, el que les situa en la zona d'obligatorietat de la ITE i de rehabilitació.",
       sections: [
         {
           heading: "Què és la ITE i per què és una obligació legal i no una opció",
           level: "h2",
           content: [
-            "La ITE és un examen tècnic preventiu realitzat per un arquitecte o aparellador col·legiat que avalua l'estat de conservació de l'immoble en els seus aspectes crítics. A Catalunya, la ITE és obligatòria a partir dels 45 anys d'antiguitat de l'edifici.",
-            "El resultat pot ser: Sense Deficiències, Amb Deficiències Lleus, Greus o Molt Greus. El Certificat d'Aptitud té una validesa de 10 anys si no hi ha deficiències greus."
+            "La Inspecció Tècnica de l'Edifici (ITE) és un examen tècnic preventiu realitzat per un arquitecte o aparellador col·legiat que avalua l'estat de conservació de l'estructura, façanes, cobertes i instal·lacions comunitàries.",
+            "A Catalunya, la ITE està regulada pel Decret 67/2015 de la Generalitat. L'obligatorietat comença als 45 anys d'antiguitat de l'edifici i es renova cada 10 anys.",
+            "El resultat pot ser: Sense Deficiències, Amb Deficiències Lleus, Greus o Molt Greus. No passar la ITE genera sancions administratives de l'Ajuntament de Santa Coloma i impedeix escripturar la venda de pisos."
           ],
           bulletPoints: [
-            "Obligatòria a partir dels 45 anys d'antiguitat.",
+            "Obligatòria a partir dels 45 anys d'antiguitat de l'edifici segons normativa catalana.",
             "Ha de ser realitzada per un arquitecte o aparellador col·legiat.",
+            "El Certificat d'Aptitud obtingut té validesa de 10 anys si no hi ha deficiències greus.",
             "L'incompliment genera sancions i bloqueja la venda de pisos de la finca."
+          ]
+        },
+        {
+          heading: "Les obres de rehabilitació més freqüents a Fondo, Santa Rosa i Can Mariner",
+          level: "h2",
+          content: [
+            "Façanes amb despreniments de revocs: la solució habitual és la instal·lació de sistema SATE d'aïllament tèrmic exterior.",
+            "Rehabilitació integral de terrats i cobertes amb pèrdues d'estanquitat per eliminar humitats a darrers pisos.",
+            "Instal·lació d'ascensor en finques antigues que no en tenien, millorant l'accessibilitat i revaloritzant els habitatges."
           ]
         },
         {
           heading: "Subvencions Next Generation EU per a la rehabilitació",
           level: "h2",
           content: [
-            "Els fons Next Generation EU poden cobrir entre el 40% i el 80% del cost de les obres de millora energètica: aplicació de SATE a façanes, substitució de cobertes millorant l'aïllament i instal·lació de ventilació mecànica controlada."
+            "Els fons europeus Next Generation poden cobrir entre el 40% i el 80% del cost d'obres de millora energètica (SATE, aïllament de cobertes i climatització eficient)."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar el Decret 67/2015 de la Generalitat de Catalunya sobre la ITE i terminis d'obligatorietat per a edificis de més de 45 anys a Santa Coloma de Gramenet].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar les deduccions d'IRPF per obres de rehabilitació energètica (20%, 40% i 60% en rehabilitació integral) i convocatòries vigents]."
           ]
         }
       ],
-      conclusion: "A Gesgrama coordinem tot el procés de la ITE i la rehabilitació: selecció del tècnic, tràmit de llicències, sol·licitud de subvencions europees i seguiment de les obres."
+      conclusion: "Gestionar la ITE i la rehabilitació d'una finca a Fondo, Santa Rosa o Can Mariner no ha de ser una càrrega. A Gesgrama coordinem tot el procés: selecció de tècnic, llicències, subvencions i seguiment d'obres."
     },
     en: {
       title: "Building inspection (ITE) and renovation in Fondo, Santa Rosa, and Can Mariner",
-      summary: "Practical technical guide to mandatory building inspections, conservation obligations, and how to access European renovation grants in Santa Coloma.",
+      summary: "Technical and practical guide to mandatory building inspections (ITE), building maintenance duties in Santa Coloma, and accessing European energy renovation grants.",
       category: "Property Management",
       date: "March 22, 2025",
       readTime: "10 min read",
       author: "Gesgrama Technical Department",
-      intro: "The neighborhoods of Fondo, Santa Rosa, and Can Mariner contain Santa Coloma de Gramenet's oldest residential building stock, mostly built between 1960 and 1975. Many of these buildings are now approaching or exceeding 50 years, placing them firmly within mandatory inspection territory.",
+      intro: "Fondo, Santa Rosa, and Can Mariner house much of Santa Coloma de Gramenet's oldest building stock, largely constructed between 1960 and 1975. Today these properties are reaching or exceeding 50 years of age, placing them within mandatory Technical Building Inspection (ITE) territory.",
       sections: [
         {
-          heading: "What the ITE is and why it is a legal obligation, not an option",
+          heading: "What the ITE is and why it is a mandatory legal requirement",
           level: "h2",
           content: [
-            "The Technical Building Inspection (ITE) is a preventive technical review carried out by a registered architect or building engineer evaluating the building's structural integrity, facades, roofs, and communal systems. In Catalonia, it is mandatory for buildings over 45 years old.",
-            "The result can be: No Deficiencies, Minor Deficiencies, Serious Deficiencies, or Very Serious Deficiencies. The Aptitude Certificate is valid for 10 years if there are no serious deficiencies. Non-compliance results in municipal sanctions and blocks property sales within the building."
+            "The Technical Building Inspection (ITE) is a preventive structural assessment carried out by a registered architect or building surveyor examining load-bearing structures, facades, roofs, and communal utility networks.",
+            "In Catalonia, ITE is governed by Decree 67/2015. Mandatory inspections begin at 45 years of building age and must be renewed every 10 years.",
+            "Outcomes range from No Deficiencies to Minor, Serious, or Very Serious Deficiencies. Failing to undertake ITE leads to municipal fines and blocks land registry sales of individual apartments."
           ],
           bulletPoints: [
-            "Mandatory from 45 years of building age under Catalan regulations.",
-            "Must be carried out by a registered architect or building engineer.",
-            "Non-compliance generates sanctions and blocks flat sales within the building."
+            "Mandatory from 45 years of building age under Catalan legislation.",
+            "Must be conducted by a registered architect or chartered building surveyor.",
+            "Aptitude Certificates are valid for 10 years if no serious defects are found.",
+            "Non-compliance triggers municipal fines and blocks flat sales deeds."
           ]
         },
         {
-          heading: "European Next Generation EU renovation grants",
+          heading: "Most common renovation works in Fondo, Santa Rosa, and Can Mariner",
           level: "h2",
           content: [
-            "Current EU Next Generation funds can cover 40-80% of the cost of energy improvement works: external thermal insulation (SATE), roof replacement with improved insulation, and controlled mechanical ventilation installation."
+            "Facade render deterioration repairs using External Thermal Insulation Systems (SATE) to improve building energy efficiency.",
+            "Flat roof waterproofing replacement to fix top-floor moisture infiltration.",
+            "Retrofitting elevators in older walk-up buildings to dramatically enhance accessibility and unit market values."
+          ]
+        },
+        {
+          heading: "Next Generation EU grants for building renovation",
+          level: "h2",
+          content: [
+            "EU Next Generation subsidies cover between 40% and 80% of energy renovation costs for envelope insulation (SATE), roof thermal upgrades, and efficient HVAC systems."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm Catalan Decree 67/2015 provisions regarding 45-year ITE deadlines in Santa Coloma de Gramenet].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify personal income tax deductions (20%, 40%, and 60% for building-wide renovations) and active Next Generation grant call windows]."
           ]
         }
       ],
-      conclusion: "Gesgrama coordinates the entire ITE and renovation process: technical expert selection, permits, European grant applications, and works supervision until completion."
+      conclusion: "Managing ITE compliance and building renovation in Fondo, Santa Rosa, or Can Mariner does not have to overwhelm homeowners. Gesgrama handles technical expert selection, municipal permits, European grant applications, and site supervision."
     }
   },
   // ─────────────────────────────────────────────
@@ -878,7 +1123,9 @@ export const articles: Article[] = [
           content: [
             "Además de la Plusvalía Municipal, el vendedor debe declarar en su Declaración de la Renta (IRPF) la ganancia patrimonial obtenida con la venta. Esta ganancia se integra en la base imponible del ahorro y tributa a tipos progresivos.",
             "La ganancia patrimonial se calcula de la siguiente manera: al valor de transmisión (precio de venta escriturado menos los gastos e impuestos que asumió el vendedor en la venta, incluyendo honorarios de agencia y Plusvalía Municipal) se le resta el valor de adquisición (precio de compra original más todos los gastos e impuestos pagados en su momento al comprar: ITP o IVA, Notaría, Registro, IAJD, honorarios de agencia si los hubo, y el coste de reformas o mejoras realizadas en el inmueble que estén debidamente justificadas con facturas).",
-            "Es importante incluir en el valor de adquisición todas las inversiones realizadas en el inmueble que sean mejoras —no simples reparaciones— porque reducen la ganancia patrimonial y, por tanto, el IRPF a pagar.",
+            "Es importante incluir en el valor de adquisición todas las inversiones realizadas en el inmueble que sean mejoras —no simples reparaciones— porque reducen la ganancia patrimonial y, por tanto, el IRPF a pagar."
+          ],
+          bulletPoints: [
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar la exención total del IRPF por reinversión en vivienda habitual, disponible cuando el importe total obtenido en la venta se reinvierte en la adquisición de otra vivienda habitual en un plazo máximo de 2 años anteriores o 2 años posteriores a la venta].",
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar la exención total del IRPF por venta de vivienda habitual para personas mayores de 65 años o personas en situación de dependencia severa o gran dependencia, sin necesidad de reinversión].",
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar los tipos impositivos del ahorro vigentes en el momento de la declaración para el cálculo del IRPF sobre la ganancia patrimonial]."
@@ -903,68 +1150,95 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Plusvàlua municipal i despeses en vendre un pis a Santa Coloma",
-      summary: "Guia fiscal completa per a venedors de pisos a Riera Alta-Llatí i El Raval: càlcul de la Plusvàlua Municipal, IRPF per guany patrimonial i tots els costos a anticipar.",
+      summary: "Guia fiscal completa per a venedors de pisos a Riera Alta-Llatí i El Raval: com es calcula la Plusvàlua Municipal, quin IRPF pagaràs pel guany patrimonial, i totes les despeses i impostos que has d'anticipar.",
       category: "Assessorament Jurídic & Fiscal",
       date: "28 març, 2025",
       readTime: "9 min de lectura",
       author: "Àrea Jurídica Gesgrama",
-      intro: "Vendre un pis a Santa Coloma de Gramenet genera una sèrie d'obligacions fiscals i costos que el propietari ha de conèixer amb precisió. Confondre el preu de venda amb el benefici net real és un dels errors més freqüents i costosos dels venedors particulars.",
+      intro: "Vendre un pis a Riera Alta-Llatí, El Raval o qualsevol altre barri de Santa Coloma de Gramenet genera una sèrie d'obligacions fiscals i costos que el propietari ha de conèixer amb precisió abans de tancar l'operació. Confondre el preu de venda amb el benefici net real és un dels errors més freqüents. Una planificació fiscal prèvia pot suposar diferències de milers d'euros.",
       sections: [
         {
           heading: "La Plusvàlua Municipal (IIVTNU): com es calcula i quant es paga",
           level: "h2",
           content: [
-            "La Plusvàlua Municipal grava l'augment de valor del sòl urbà durant el temps de tinença. Des de 2021, el contribuent pot triar entre el Mètode Objectiu i el Mètode Real, pagant pel que resulti més favorable.",
-            "Si es ven a pèrdues (preu de venda inferior al de compra), l'operació està exempta de Plusvàlua Municipal."
+            "L'Impost sobre l'Increment de Valor dels Terrenys de Naturalesa Urbana (Plusvàlua Municipal) és un tribut local a favor de l'Ajuntament de Santa Coloma de Gramenet que grava l'augment de valor del sòl urbà durant el temps de tinença.",
+            "Des de 2021, el contribuent pot triar entre dos mètodes de càlcul: el Mètode Objectiu (basat en el valor cadastral del sòl i coeficients municipals) i el Mètode Real (basat en la diferència real entre preu de venda i de compra del sòl). S'aplica el que sigui econòmicament més favorable.",
+            "Si l'habitatge es ven a pèrdues (preu de transmissió inferior al d'adquisició), l'operació està totalment exempta de Plusvàlua Municipal."
           ],
           bulletPoints: [
-            "El venedor pot triar entre Mètode Objectiu i Mètode Real.",
-            "Si es ven a pèrdues, l'operació està exempta.",
-            "El termini d'autoliquidació és de 30 dies hàbils des de l'escriptura."
+            "El venedor pot triar entre Mètode Objectiu i Mètode Real per al càlcul de la plusvàlua.",
+            "Si es ven a pèrdues, l'operació està exempta de Plusvàlua Municipal.",
+            "El termini d'autoliquidació és de 30 dies hàbils des de la data de l'escriptura pública de compravenda.",
+            "La quota es calcula aplicant el tipus impositiu de l'Ajuntament de Santa Coloma sobre la base imposable."
           ]
         },
         {
-          heading: "IRPF per guany patrimonial: quant et queda realment",
+          heading: "IRPF per guany patrimonial: quant et queda realment després de vendre",
           level: "h2",
           content: [
-            "El guany patrimonial es calcula restant al valor de transmissió net el valor d'adquisició (preu de compra més tots els despeses i impostos pagats en comprar i el cost de reformes justificades). Les inversions en millores redueixen el guany i per tant l'IRPF a pagar."
+            "El venedor ha de declarar a l'IRPF el guany patrimonial obtingut. Es calcula restant al valor de transmissió (preu de venda menys despeses de venda com comissions d'agència i plusvàlua) el valor d'adquisició (preu de compra original més impostos com ITP/IVA, notaria, registre i despeses de reformes de millora justificades amb factura)."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar l'exempció total de l'IRPF per reinversió en habitatge habitual, disponible quan l'import obtingut es reinverteix en un altre habitatge habitual en un termini màxim de 2 anys anteriors o posteriors a la venda].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar l'exempció total de l meva IRPF per venda d'habitatge habitual per a persones majors de 65 anys o en situació de gran dependència, sense necessitat de reinversió].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar els tipus impositius de l'estalvi vigents en el moment de la declaració per al càlcul de l'IRPF sobre el guany patrimonial]."
+          ]
+        },
+        {
+          heading: "Totes les despeses que ha d'assumir el venedor",
+          level: "h2",
+          content: [
+            "Despeses addicionals a considerar: honoraris de l'agència immobiliària (deduïbles de l'IRPF), despeses de cancel·lació registral d'hipoteca pendent, renovació de Cèdula d'Habitabilitat, Certificat d'Eficiència Energètica (CEE) i certificat de deutes de la comunitat."
           ]
         }
       ],
-      conclusion: "A Gesgrama realitzem per als nostres clients venedors una simulació tributària personalitzada i gratuïta abans de signar res. Sol·licita la teva simulació sense compromís."
+      conclusion: "A Gesgrama realitzem per als nostres clients venedors una simulació tributària personalitzada i gratuïta abans de signar res. Conèixer l'import exacte de Plusvàlua Municipal, IRPF i despeses et permet negociar amb seguretat. Sol·licita la teva simulació."
     },
     en: {
       title: "Municipal capital gains tax and selling costs in Santa Coloma",
-      summary: "Complete fiscal guide for property sellers in Riera Alta-Llatí and El Raval: how the Municipal Plusvalía is calculated, income tax on capital gains, and all costs to anticipate.",
+      summary: "Complete fiscal guide for flat sellers in Riera Alta-Llatí and El Raval: how Municipal Plusvalía is calculated, personal income tax (IRPF) on capital gains, and all costs to budget for.",
       category: "Legal & Tax Advisory",
       date: "March 28, 2025",
       readTime: "9 min read",
       author: "Gesgrama Legal Department",
-      intro: "Selling a property in Santa Coloma de Gramenet triggers a series of tax obligations and costs that the owner must understand precisely before completing the transaction. Confusing the sale price with actual net proceeds is one of the most common and costly mistakes private sellers make.",
+      intro: "Selling an apartment in Riera Alta-Llatí, El Raval, or any Santa Coloma de Gramenet neighborhood incurs tax liabilities and fees that sellers must budget for accurately before closing deals. Confusing gross sale prices with net profit is a frequent, costly mistake.",
       sections: [
         {
-          heading: "Municipal Plusvalía (IIVTNU): how it's calculated and how much you'll pay",
+          heading: "Municipal Plusvalía Tax (IIVTNU): calculation methods and amounts due",
           level: "h2",
           content: [
-            "The Municipal Land Value Increment Tax (Plusvalía Municipal) taxes the increase in urban land value during the period of ownership. Since 2021, taxpayers can choose between the Objective Method and the Real Gain Method, paying whichever is more favorable.",
-            "If the property sells at a loss (sale price below purchase price), the transaction is fully exempt from Municipal Plusvalía."
+            "The Municipal Land Value Increment Tax (IIVTNU) is a local tax paid to Santa Coloma de Gramenet Town Hall taxing land value appreciation during ownership.",
+            "Taxpayers choose between two calculation methods: the Objective Method (multiplying land cadastral value by municipal annual ownership coefficients) and the Real Method (calculating actual net gain on the land portion between purchase and sale deeds). Taxpayers pay whichever produces a lower tax bill.",
+            "If an apartment sells at a financial loss (sale deed price lower than original purchase price), the sale is fully exempt from Municipal Plusvalía."
           ],
           bulletPoints: [
-            "Sellers can choose between Objective Method and Real Gain Method.",
-            "If sold at a loss, the transaction is fully exempt.",
-            "Self-assessment payment deadline is 30 working days from the deed signing date."
+            "Sellers choose between Objective and Real calculation methods for lower tax burden.",
+            "Sales executed at a financial loss are fully exempt from Municipal Plusvalía tax.",
+            "Self-assessment payment deadline is 30 working days from notary deed execution.",
+            "Final tax due applies Santa Coloma municipal tax rates to the calculated tax base."
           ]
         },
         {
-          heading: "Income tax on capital gains: what you actually keep",
+          heading: "IRPF capital gains tax: calculating net sale proceeds",
           level: "h2",
           content: [
-            "Capital gain is calculated by subtracting the net acquisition cost (original purchase price plus all purchase taxes, notary fees, registry costs, and documented improvement costs) from the net transfer value (sale price minus selling costs and taxes).",
-            "All documented improvement investments reduce the taxable gain and therefore the income tax payable."
+            "Sellers must declare capital gains on their annual personal income tax return (IRPF). Capital gain equals net transfer value (sale price minus agency fees and Plusvalía tax) minus net acquisition value (original purchase price plus original purchase taxes, notary fees, registry costs, and documented structural improvement expenses)."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify complete IRPF personal income tax exemption for primary residence reinvestment when full sale proceeds are reinvested in a new primary residence within 2 years before or after the sale date].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify complete IRPF exemption for primary residence sales by individuals over age 65 or severely dependent persons, with no reinvestment required].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm active tax savings brackets applicable at declaration time for capital gains calculation]."
+          ]
+        },
+        {
+          heading: "All seller expenses: complete itemized breakdown",
+          level: "h2",
+          content: [
+            "Additional seller expenses: real estate broker commissions (deductible from capital gains tax), mortgage registry cancellation fees (bank certificate, notary deed, land registry), Occupancy License renewal, Energy Performance Certificate (EPC), and community debt certificates."
           ]
         }
       ],
-      conclusion: "At Gesgrama we provide sellers with a personalized and free tax simulation before signing anything. Request yours with no commitment."
+      conclusion: "Gesgrama provides sellers with a free customized pre-sale tax simulation before any contract signing. Knowing exact Municipal Plusvalía, IRPF, and closing costs lets you negotiate sales prices with confidence. Request your free simulation today."
     }
   },
   // ─────────────────────────────────────────────
@@ -1007,8 +1281,7 @@ export const articles: Article[] = [
           content: [
             "El presupuesto anual de la comunidad es el documento que más frecuentemente genera conflictos entre propietarios si no está bien elaborado y bien presentado. Un presupuesto transparente, detallado y realista es la base de la confianza de los vecinos en la administración.",
             "El presupuesto ordinario debe incluir todos los gastos previsibles del ejercicio: seguros del edificio (multirriesgo y responsabilidad civil), gastos de mantenimiento de ascensores, portería y jardinería, suministros de zonas comunes (luz de escalera, agua de cisterna), honorarios de la administración y dotación al fondo de reserva.",
-            "El fondo de reserva es un concepto especialmente importante en Cataluña: el Codi Civil de Catalunya obliga a las comunidades a mantener un fondo de reserva mínimo del 5% del presupuesto ordinario del año anterior. Este fondo es la garantía de que la comunidad puede hacer frente a gastos imprevistos urgentes —como la reparación de una avería del ascensor o la sustitución de una tubería reventada— sin necesidad de convocar de urgencia una junta extraordinaria para aprobar una derrama.",
-            "Las derramas extraordinarias son necesarias cuando el importe de una obra o reparación supera los recursos del fondo de reserva. Para su aprobación, la cuantía máxima que puede imponerse sin voto favorable de la junta está establecida por el Codi Civil de Catalunya: si la obra o reparación es urgente y necesaria para la seguridad del edificio, el president puede ordenarla sin junta previa, con cargo a posteriori a la comunidad."
+            "El fondo de reserva es un concepto especialmente importante en Cataluña: el Codi Civil de Catalunya obliga a las comunidades a mantener un fondo de reserva mínimo del 5% del presupuesto ordinario del año anterior. Este fondo es la garantía de que la comunidad puede hacer frente a gastos imprevistos urgentes —como la reparación de una avería del ascensor o la sustitución de una tubería reventada— sin necesidad de convocar de urgencia una junta extraordinaria para aprobar una derrama."
           ]
         },
         {
@@ -1017,7 +1290,7 @@ export const articles: Article[] = [
           content: [
             "La morosidad en las comunidades de propietarios es uno de los problemas más frecuentes y desestabilizadores de la gestión comunitaria. En los barrios de Riu Nord, Riu Sud y Oliveres-Can Serra, como en cualquier zona con un parque de viviendas de alquiler significativo, es habitual que algunos propietarios atraviesen dificultades económicas que se trasladan al pago de las cuotas comunitarias.",
             "El primer paso de una gestión eficaz de la morosidad es la prevención: mantener un control mensual de los cobros, enviar avisos de impago de forma inmediata en cuanto se produce el incumplimiento y mantener una comunicación directa con el propietario moroso para intentar llegar a un acuerdo de pago fraccionado antes de recurrir a la vía judicial.",
-            "Si la vía amistosa fracasa, el ordenamiento jurídico catalán ofrece herramientas muy eficaces para el cobro de deudas comunitarias. El procedimiento monitorio especial de la Ley de Propiedad Horizontal (aplicable en Cataluña con las adaptaciones del Codi Civil) permite al administrador de la finca instar la reclamación judicial de la deuda de forma ágil, sin necesidad de abogado ni procurador hasta un determinado importe."
+            "Si la vía amistosa fracasa, el ordenamiento jurídico catalán ofrece herramientas muy eficaces para el cobro de deudas comunitarias. El procedimiento monitorio especial de la Ley de Propiedad Horizontal (aplicable en Cataluña con las adaptaciones del Codi Civil) permite al administrador de la finca instar la reclamación judicial de la deuda de forma ágil."
           ],
           bulletPoints: [
             "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el Art. 553-5 del Codi Civil de Catalunya sobre la afección real del piso por deudas comunitarias del año en curso y los 4 anteriores con carácter preferente frente a terceros adquirentes].",
@@ -1040,69 +1313,99 @@ export const articles: Article[] = [
     },
     ca: {
       title: "Claus per administrar la teva comunitat a Riu Nord, Riu Sud i Oliveres",
-      summary: "Guia pràctica completa sobre la gestió professional de comunitats de propietaris a Santa Coloma: marc legal català, juntes, pressupostos, morositat i eficiència energètica.",
+      summary: "Guia pràctica completa sobre la gestió professional de comunitats de propietaris a Santa Coloma de Gramenet: marc legal català, juntes de propietaris, pressupostos, morositat i eficiència energètica.",
       category: "Administració de Finques",
       date: "2 d'abril, 2025",
       readTime: "10 min de lectura",
       author: "Administració de Finques Gesgrama",
-      intro: "Les comunitats de propietaris a Riu Nord, Riu Sud i Oliveres-Can Serra s'enfronten cada any als mateixos reptes: manteniment preventiu, aprovació de pressupostos, gestió de derrames, control de la morositat i compliment de les obligacions legals. La diferència entre una comunitat ben gestionada i una que acumula problemes és, gairebé sempre, la qualitat de l'administració professional.",
+      intro: "Les comunitats de propietaris a Riu Nord, Riu Sud i Oliveres-Can Serra s'enfronten cada any als mateixos reptes: manteniment preventiu, aprovació de pressupostos, gestió de derrames, control de la morositat i compliment de les obligacions legals. La diferència entre una comunitat ben gestionada i una que acumula problemes és la qualitat de l'administració professional.",
       sections: [
         {
           heading: "El Codi Civil de Catalunya: el marc legal específic de Catalunya",
           level: "h2",
           content: [
             "A Catalunya, les comunitats de propietaris es regeixen pel Llibre Cinquè del Codi Civil de Catalunya (CCC, Art. 553-1 a 553-66), no per la Llei de Propietat Horitzontal estatal.",
-            "El CCC estableix un sistema de doble quòrum: en la majoria de decisions es requereix simultàniament una determinada majoria del nombre de propietaris i una determinada majoria de les quotes de participació."
+            "El CCC estableix un sistema de doble quòrum: en la majoria de decisions es requereix simultàniament una determinada majoria del nombre de propietaris que voten I una determinada majoria de les quotes de participació.",
+            "Tipus de majoria: majoria simple per a acords ordinaris de gestió, majoria de 4/5 per a modificació d'estatuts o desafectació d'elements comuns, i unanimitat per a l'extinció del règim de propietat horitzontal."
           ],
           bulletPoints: [
-            "A Catalunya aplica el Codi Civil de Catalunya, no la LPH estatal.",
+            "A Catalunya aplica el Codi Civil de Catalunya (Llibre V), no la LPH estatal.",
             "Sistema de doble quòrum: majoria de propietaris I majoria de quotes simultàniament.",
-            "Majoria simple per a acords ordinaris de gestió.",
-            "Majoria de 4/5 per a modificació d'estatuts."
+            "Majoria simple per a acords ordinaris de gestió i manteniment.",
+            "Majoria de 4/5 per a modificació d'estatuts i desafectació d'elements comuns.",
+            "Unanimitat només per a l'extinció del règim de propietat horitzontal."
+          ]
+        },
+        {
+          heading: "El pressupost anual i les derrames: com gestionar-los correctament",
+          level: "h2",
+          content: [
+            "El pressupost ordinari inclou totes les despeses previsibles de l'exercici (segurs, manteniment d'ascensors, neteja, llum d'escala i fons de reserva).",
+            "El Codi Civil de Catalunya obliga les comunitats a mantenir un fons de reserva mínim del 5% del pressupost ordinari de l'any anterior per respondre a urgències immediates."
           ]
         },
         {
           heading: "Morositat: com prevenir-la i reclamar-la efectivament",
           level: "h2",
           content: [
-            "El primer pas és la prevenció: control mensual dels cobraments, avisos d'impagament immediats i comunicació directa amb el propietari morós. Si la via amistosa fracassa, el procediment monitorio especial permet reclamar la deuda de forma àgil i sense advocat fins a un determinat import."
+            "Control mensual de cobraments i comunicació directa. Si falla la via amistosa, el procediment monitori especial permet instar la reclamació judicial de forma àgil."
+          ],
+          bulletPoints: [
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar l'Art. 553-5 del Codi Civil de Catalunya sobre l'afecció real del pis per deutes comunitaris de l'any en curs i els 4 anteriors amb caràcter preferent].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Verificar les meves meves majories requerides pel CCC per a l'aprovació d'instal·lacions d'autoconsum fotovoltaic o punts de recàrrega elèctrics].",
+            "[⚠️ VERIFICACIÓ LEGAL/FISCAL REQUERIDA: Confirmar l'obligació d'eliminar meves barreres arquitectòniques per a propietaris majors de 70 anys o amb discapacitat]."
           ]
         }
       ],
-      conclusion: "Una administració de finques professional garanteix que l'edifici estigui ben mantingut, les comptes siguin transparents, els morosos paguin i els veïns visquin en pau. Gesgrama porta dècades sent l'administrador de confiança a Riu Nord, Riu Sud i Oliveres."
+      conclusion: "Una administració de finques professional és la inversió que garanteix que l'edifici estigui ben mantingut, les comptes siguin transparents, els morosos paguin i els veïns visquin en pau. Gesgrama és l'administrador de confiança a Riu Nord, Riu Sud i Oliveres."
     },
     en: {
       title: "Keys to managing your HOA in Riu Nord, Riu Sud and Oliveres",
-      summary: "Complete practical guide to professional homeowner association management in Santa Coloma: Catalan legal framework, meetings, budgets, debt collection and energy efficiency.",
+      summary: "Complete practical guide to professional homeowner association management in Santa Coloma de Gramenet: Catalan legal framework, owner meetings, budgets, debt collection, and energy efficiency.",
       category: "Property Management",
       date: "April 2, 2025",
       readTime: "10 min read",
       author: "Gesgrama Property Management",
-      intro: "HOAs in Riu Nord, Riu Sud and Oliveres-Can Serra face the same annual challenges as any community in a mature urban housing stock: preventive maintenance, budget approval, extraordinary levies for necessary works, debt collection and legal compliance. The difference between a well-managed community and one that accumulates problems is almost always the quality of its professional administration.",
+      intro: "HOAs in Riu Nord, Riu Sud and Oliveres-Can Serra face annual maintenance, budgeting, extraordinary levy management, debt recovery, and legal compliance challenges. Professional administration makes all the difference.",
       sections: [
         {
           heading: "The Catalan Civil Code: Catalonia's specific legal framework for HOAs",
           level: "h2",
           content: [
-            "Unlike the rest of Spain where HOAs are governed by the 1960 Horizontal Property Act, in Catalonia the regime is regulated by Book Five of the Catalan Civil Code (CCC, Articles 553-1 to 553-66).",
-            "The CCC establishes a double-quorum system: most decisions require a majority of both the number of owners AND the participation quotas they represent simultaneously."
+            "In Catalonia, HOAs are governed by Book Five of the Catalan Civil Code (CCC, Articles 553-1 to 553-66), not the national Horizontal Property Act.",
+            "The CCC establishes a double-quorum decision system: most resolutions require both a majority of voting owners AND a majority of participation quotas simultaneously.",
+            "Majority rules: simple majority for ordinary management, 4/5 majority to modify bylaws or declassify common elements, and unanimity for HOA dissolution."
           ],
           bulletPoints: [
-            "Catalonia applies the Catalan Civil Code (Book V), not the national Horizontal Property Act.",
-            "Double quorum system: majority of owners AND majority of participation quotas required simultaneously.",
-            "Simple majority for ordinary management and maintenance decisions.",
-            "4/5 majority to modify statutes or declassify common elements."
+            "Catalonia applies the Catalan Civil Code (Book V), not national LPH legislation.",
+            "Double quorum requirement: majority of owners AND majority of participation quotas simultaneously.",
+            "Simple majority for ordinary maintenance and operational resolutions.",
+            "4/5 majority to modify bylaws or common element status.",
+            "Unanimity required only for HOA dissolution."
           ]
         },
         {
-          heading: "Debt collection: preventing and recovering unpaid community fees",
+          heading: "Annual budgets and extraordinary levies: proper management",
           level: "h2",
           content: [
-            "The first step is prevention: monthly payment tracking, immediate non-payment notices, and direct communication with the defaulting owner. If amicable resolution fails, the monitorio procedure allows recovering community debts quickly and without legal representation up to a certain threshold."
+            "Annual budgets cover predictable expenses (building insurance, lift servicing, lighting, cleaning, reserve funds).",
+            "Catalan law mandates maintaining a minimum reserve fund equal to 5% of the prior year's ordinary budget to handle urgent structural emergencies."
+          ]
+        },
+        {
+          heading: "Debt collection: prevention and effective recovery",
+          level: "h2",
+          content: [
+            "Monthly accounting control and payment reminder procedures. If amicable negotiation fails, special monitorio legal proceedings allow swift court debt recovery."
+          ],
+          bulletPoints: [
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm Catalan Civil Code Art. 553-5 regarding super-priority property lien for current year plus 4 prior years of unpaid HOA dues].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Verify CCC voting majorities for shared solar PV or EV charger installation in community garages].",
+            "[⚠️ LEGAL/TAX VERIFICATION REQUIRED: Confirm mandatory architectural barrier removal duties for residents over 70 or disabled persons]."
           ]
         }
       ],
-      conclusion: "Professional property management is not a cost for the community — it is the investment that ensures the building is properly maintained, accounts are transparent, debtors pay, and residents live in peace. Gesgrama has been the trusted HOA administrator across Riu Nord, Riu Sud, Oliveres-Can Serra and all of Santa Coloma's neighborhoods for decades."
+      conclusion: "Professional property management ensures proper building upkeep, transparent accounting, debt recovery, and peaceful neighbor relations. Gesgrama has been the trusted administrator in Riu Nord, Riu Sud, and Oliveres for decades."
     }
   }
 ];

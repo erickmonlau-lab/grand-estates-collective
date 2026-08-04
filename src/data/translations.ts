@@ -152,7 +152,7 @@ export const translations = {
       ]
     },
     properties: {
-      tag: "Catálogo Exclusivo",
+      tag: "Nuestros Inmuebles",
       title1: "Pisos, locales y",
       title2: "mucho más.",
       title: "Pisos, locales y",
@@ -649,7 +649,7 @@ export const translations = {
       ]
     },
     properties: {
-      tag: "Exclusive Portfolio",
+      tag: "Our Properties",
       title1: "Apartments, premises and",
       title2: "much more.",
       title: "Apartments, premises and",

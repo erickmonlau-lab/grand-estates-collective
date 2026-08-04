@@ -270,29 +270,21 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               <span>{t.heroCarousel.tag}</span>
             </motion.div>
 
-            {/* Main Title H1 */}
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.08, ease: expo }}
-              className="text-[26px] xs:text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading"
-            >
+            {/* Main Title H1 - INSTANT SSR/HTML PAINT WITHOUT JS OPACITY DELAY */}
+            <h1 className="text-[26px] xs:text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading">
               {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
               <span className="text-[#2563eb]">
                 {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
               </span>
-            </motion.h1>
+            </h1>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.16, ease: expo }}
+            {/* Subtitle (LCP Element) - INSTANT HTML RENDER WITHOUT HYDRATION BLOCK */}
+            <p
               className="text-[#0f172a] text-sm sm:text-xl md:text-2xl mb-3.5 sm:mb-8 font-extrabold leading-snug sm:leading-relaxed font-sans"
               style={{ textShadow: "0 0 16px rgba(255, 255, 255, 0.98), 0 1px 6px rgba(255, 255, 255, 0.95)" }}
             >
               {t.heroCarousel.subtitle}
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
             <motion.div

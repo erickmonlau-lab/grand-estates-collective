@@ -1624,9 +1624,9 @@ function Index() {
                       <MessageCircle className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans">
+                      <h3 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans">
                         {language === "ca" ? "Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
-                      </h4>
+                      </h3>
                       <p className="text-slate-600 text-sm sm:text-base font-bold leading-tight mt-1 font-sans">
                         {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
                       </p>
@@ -2191,7 +2191,7 @@ function Index() {
           {/* Column with Collegial Badges */}
           <div className="w-full lg:w-[340px] flex flex-col justify-between pb-8">
             <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}</h4>
+              <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}</h3>
               <div className="flex flex-col gap-3.5">
                 <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
                   <div className="w-11 h-11 rounded-lg bg-blue-600 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">

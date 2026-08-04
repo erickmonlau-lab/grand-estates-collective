@@ -112,7 +112,7 @@ function NoticiasCatalogComponent() {
           </h2>
         </div>
 
-        {/* ARTICLES GRID (4 CARDS) */}
+        {/* ARTICLES GRID (8 CARDS) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {articles.map((art) => {
             const content = art[language] || art.es;

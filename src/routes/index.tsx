@@ -1780,7 +1780,7 @@ function Index() {
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
-            {articles.map((art, i) => {
+            {articles.slice(0, 4).map((art, i) => {
               const artContent = art[language];
               return (
                 <Reveal key={art.id} delay={i * 0.1}>

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Building2, TrendingUp, Shield, Paintbrush, Check, MessageCircle, ArrowLeft, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 
+const SITE_DOMAIN = "https://www.gesgrama.es";
+
 export const Route = createFileRoute("/servicios/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
@@ -68,8 +70,6 @@ export const Route = createFileRoute("/servicios/$slug")({
   },
   component: ServiceDetail,
 });
-
-const SITE_DOMAIN = "https://www.gesgrama.es";
 
 const servicesData: Record<string, {
   id: string;

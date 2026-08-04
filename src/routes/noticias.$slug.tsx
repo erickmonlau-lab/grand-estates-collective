@@ -6,6 +6,8 @@ import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
 
+const SITE_DOMAIN = "https://www.gesgrama.es";
+
 export const Route = createFileRoute("/noticias/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
@@ -77,8 +79,6 @@ export const Route = createFileRoute("/noticias/$slug")({
   },
   component: ArticleDetail,
 });
-
-const SITE_DOMAIN = "https://www.gesgrama.es";
 
 function ArticleDetail() {
   const { slug } = Route.useParams();

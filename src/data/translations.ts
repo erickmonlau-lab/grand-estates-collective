@@ -8,7 +8,7 @@ export const translations = {
       portal: "WhatsApp"
     },
     hero: {
-      tag: "Inmobiliaria y Administración en Sta. Coloma de Gramenet",
+      tag: "Gestión Inmobiliaria y Fincas",
       title1: "Administración de Fincas,",
       title2: "Inmobiliaria y",
       title3: "Asesoría jurídica.",
@@ -23,11 +23,12 @@ export const translations = {
       anyHab: "Cualquier número",
       anyPrice: "Cualquier precio",
       buscar: "Buscar inmuebles",
+      contacto: "Contactar ahora",
       buscarBtn: "Buscar",
       stats: {
-        comunidades: "Comunidades gestionadas",
-        anos: "Años de experiencia",
-        satisfaccion: "Clientes satisfechos"
+        comunidades: "Fincas en gestión",
+        anos: "Años de servicio local",
+        satisfaccion: "Atención personalizada"
       },
       badge: "Exclusividad Gesgrama",
       hablarAsesor: "Hablar con un asesor",
@@ -36,13 +37,13 @@ export const translations = {
       heroSub: "Gestión profesional, transparente y cercana para comunidades que funcionan."
     },
     heroCarousel: {
-      tag: "INMOBILIARIA Y ADMINISTRACIÓN EN STA. COLOMA DE GRAMENET",
+      tag: "GESTIÓN INMOBILIARIA Y FINCAS",
       titleMain: "Tu próximo hogar,",
       titleAccent: "más cerca.",
       subtitle: "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
       btnValuation: "Valorar mi propiedad",
       btnProperties: "Ver propiedades",
-      trustBadge: "Más de 4.500 clientes ya confían en Gesgrama",
+      trustBadge: "Más de 4.500 clientes ya confían en\u00A0Gesgrama",
       estimatedValue: "Valor estimado",
       estimatedRange: "Rango estimado",
       basedOnReal: "Basado en datos reales de mercado",
@@ -87,11 +88,15 @@ export const translations = {
       enviada: "¡Valoración Enviada!",
       enviadaDesc: "Gracias, un asesor se pondrá en contacto contigo en menos de 24 horas con la valoración de tu propiedad.",
       nuevaValoracion: "Nueva valoración",
-      seleccionaZona: "Selecciona zona",
+      calculando: "Calculando precio de mercado...",
+      calcularBtn: "Calcular Valoración Estimada",
       sinCompromiso: "Sin compromiso",
       resultadoInmediato: "Resultado inmediato",
-      valorEstimado: "Valor Estimado",
-      rangoEstimado: "Rango estimado:",
+      analizando: "Analizando datos de",
+      valorEstimado: "VALOR ESTIMADO",
+      rangoEstimado: "Rango estimado",
+      disclaimer: "Valoración orientativa basada en promedios del sector inmobiliario.",
+      seleccionaZona: "Selecciona zona",
       estimacionAutomatizada: "Estimación orientativa basada en datos de mercado, no sustituye una tasación profesional",
       ejemploResultado: "EJEMPLO DE RESULTADO",
       actualizadoHoy: "Mercado actualizado este mes"
@@ -106,8 +111,8 @@ export const translations = {
           description: "Nos encargamos de la gestión administrativa, contable y técnica de su comunidad de propietarios. Controlamos los gastos, optimizamos presupuestos y resolvemos incidencias con rapidez.",
           benefits: [
             "Gestión de recibos, cuentas y control de morosidad",
-            "Convocatoria y junta de propietarios anuales y extraordinarias",
-            "Atención 24/7 para incidencias y averías comunitarias",
+            "Coordinación de obras de mantenimiento y conservación",
+            "Respuesta ágil a incidencias y averías comunitarias",
             "Asesoramiento técnico para ITES y obras de conservación"
           ]
         },
@@ -178,17 +183,21 @@ export const translations = {
       mostRecent: "Más recientes",
       fallbackMsg: "No se encontraron inmuebles con los filtros seleccionados.",
       verTodas: "Ver catálogo completo",
-      showingAll: "Todas las propiedades del catálogo mostradas"
+      showingAll: "Todas las propiedades del catálogo mostradas",
+      priceLabel: "PRECIO",
+      agoMonths: "Hace {n} meses",
+      comprar: "Comprar",
+      alquilar: "Alquilar"
     },
     filosofia: {
       tag: "Confianza & Transparencia",
       title1: "Nuestra filosofía:",
       title2: "Gestión transparente y cercana.",
-      subtitle: "Con más de 15 años de trayectoria en Barcelona, combinamos la agilidad digital con el trato directo y profesional.",
+      subtitle: "Con más de 15 años de trayectoria en Santa Coloma de Gramenet, combinamos la agilidad digital con el trato directo y profesional.",
       items: [
         {
           title: "Transparencia Total",
-          desc: "Cuentas claras, acceso 24/7 a la documentación de su comunidad a través del Portal del Cliente."
+          desc: "Cuentas claras, acceso en línea a la documentación de su comunidad a través del Portal del Cliente."
         },
         {
           title: "Atención Personalizada",
@@ -245,7 +254,7 @@ export const translations = {
         {
           title: "Administración de Fincas",
           desc: "Gestión eficiente de comunidades de propietarios, contabilidad clara, control de morosidad y resolución ágil de incidencias.",
-          features: ["Portal 24/7 para propietarios", "Juntas presenciales y telemáticas", "Optimización de costes de suministros"]
+          features: ["Portal online para propietarios", "Juntas presenciales y telemáticas", "Optimización de costes de suministros"]
         },
         {
           title: "Gestión Inmobiliaria",
@@ -269,23 +278,22 @@ export const translations = {
       tag: "Historias Reales",
       title1: "Lo que dicen nuestros",
       title2: "clientes.",
-      title1Accent: "clientes.",
       subtitle: "La confianza de quienes trabajan con nosotros es nuestro mayor orgullo.",
       items: [
         {
-          quote: "Llevan administrando nuestra comunidad desde hace 8 años. La transparencia en las cuentas y la rapidez de respuesta son sencillamente excelentes.",
-          author: "M. García",
-          location: "Eixample, Barcelona"
+          quote: "Hola muy buena atención, mi madre necesitaba una casa y lo conseguimos con la excelente comercial Ximena, la chica de la recepción Hillary y la Administradora Fanny me ayudaron muchísimo en esta gestión! Recomiendo esta gestoria.",
+          author: "Felipe Tovar arcos",
+          time: "Hace 8 meses"
         },
         {
-          quote: "Vendimos nuestro piso en menos de un mes y al precio deseado. Su conocimiento del mercado local es un valor diferencial enorme.",
-          author: "R. Puig",
-          location: "Sarrià-Sant Gervasi"
+          quote: "Me llevan viviendas en alquiler y estoy muy contento, cada año me suben el IPC y cualquier incidencia responden muy rápido, un equipo fenomenal.",
+          author: "Alex Prados",
+          time: "Hace 6 meses"
         },
         {
-          quote: "El asesoramiento jurídico para la herencia fue impecable. Nos guiaron paso a paso con máxima profesionalidad.",
-          author: "A. Martínez",
-          location: "Gràcia, Barcelona"
+          quote: "Excelente gestoria. Son muy profesionales, atentos y resolutivos. Desde que gestionan nuestra comunidad, todo funciona con mucha más organización y transparencia. Totalmente recomendables.",
+          author: "Carlos Jr",
+          time: "Hace 9 meses"
         }
       ]
     },
@@ -333,20 +341,20 @@ export const translations = {
       subtitle: "Respuestas claras a las preguntas más habituales sobre nuestros servicios y metodologías de trabajo.",
       items: [
         {
-          q: "¿Cómo puedo cambiar la administración de mi comunidad a Gesgrama?",
-          a: "Nos encargamos de todo el proceso de transición sin coste adicional. Solicitamos la documentación a la administración anterior y convocamos la junta necesaria."
+          q: "¿Cómo se gestiona el cambio de administración a Gesgrama?",
+          a: "Nos encargamos de todo el proceso de transición sin coste adicional: solicitamos la documentación al administrador anterior, auditamos el estado de las cuentas y convocamos la junta inicial."
         },
         {
-          q: "¿Qué incluye la valoración gratuita de inmuebles?",
-          a: "Incluye un estudio comparativo de mercado basado en ventas reales recientes, análisis del estado del inmueble y recomendaciones de precio óptimo."
+          q: "¿Qué documentación necesito para vender mi piso con vosotros?",
+          a: "Necesitarás la escritura de propiedad, DNI/NIE, certificado de eficiencia energética, cédula de habitabilidad y el último recibo del IBI. Nosotros nos encargamos de tramitar lo que te falte."
         },
         {
-          q: "¿Cómo se gestiona el cobro de morosos en una comunidad?",
-          a: "Aplicamos un protocolo estricto: requerimiento amistoso, monitorio judicial rápido sin coste inicial para la comunidad y seguimiento continuado."
+          q: "¿Cómo garantizáis el cobro del alquiler si el inquilino no paga?",
+          a: "Ofrecemos un servicio integral de gestión de alquileres con seguro de impago garantizado, estudio de solvencia scoring del inquilino y cobertura legal ante cualquier eventualidad."
         },
         {
-          q: "¿Cómo funciona el seguro de protección de pagos para alquilar mi propiedad?",
-          a: "Una vez aprobado en junta, nos encargamos nosotros. Puedes alquilar tu propiedad con garantías: se contrata un seguro de protección de pagos que garantiza el cobro al propietario."
+          q: "¿Qué área geográfica cubrís para administración de fincas?",
+          a: "Nuestra sede central está en Santa Coloma de Gramenet y damos cobertura directa en todo el área metropolitana de Barcelona, Maresme y Vallès."
         }
       ],
       askDoubt: "¿Tienes alguna duda más?"
@@ -389,7 +397,9 @@ export const translations = {
       legalNotice: "Aviso legal",
       privacy: "Política de privacidad",
       cookies: "Política de cookies",
-      rights: "Todos los derechos reservados."
+      rights: "Todos los derechos reservados.",
+      admTitle: "Administradores Judiciales",
+      admStatus: "Asociación de Fincas y Comunidades"
     },
     detail: {
       notFound: "Propiedad no encontrada",
@@ -409,11 +419,15 @@ export const translations = {
       ref: "Ref:"
     },
     finalCta: {
-      tag: "Comienza Hoy",
+      tag: "COMIENZA HOY",
       title: "¿Listo para dar el siguiente paso?",
-      subtitle: "Ya sea para comprar, vender o administrar tu propiedad, nuestro equipo de expertos en Barcelona está a tu disposición.",
+      title1: "¿Listo para dar el",
+      title2: "siguiente paso",
+      subtitle: "Ya sea para comprar, vender o administrar tu propiedad, nuestro equipo de expertos en Santa Coloma de Gramenet y el área metropolitana está\u00A0a\u00A0tu\u00A0disposición.",
       btnPrimary: "Valorar mi propiedad",
-      btnSecondary: "Hablar con un asesor"
+      btnSecondary: "Hablar con un asesor",
+      btnValuate: "Valorar mi propiedad",
+      btnContact: "Hablar con un asesor"
     },
     propertiesData: {
       "prop-1": {
@@ -433,12 +447,12 @@ export const translations = {
         features: ["Terraza privada 40m²", "Plaza de garaje doble", "Acabados premium", "Orientación Sur", "Trastero incluido"]
       },
       "prop-3": {
-        name: "Local comercial en Gràcia",
-        type: "Local comercial",
-        location: "Gràcia",
-        floor: "Planta baja",
-        description: "Excelente oportunidad de inversión en el dinámico barrio de Gràcia. Este local a pie de calle cuenta con un gran escaparate acristalado de 5 metros que ofrece máxima visibilidad en una zona de mucho tránsito peatonal. Distribuido en una gran sala diáfana, un almacén posterior y un cuarto de baño.",
-        features: ["A pie de calle", "Gran escaparate (5m)", "Espacio diáfano", "Paso constante de peatones", "A 2 min del metro"]
+        name: "Ático dúplex con gran terraza",
+        type: "Ático",
+        location: "Centro",
+        floor: "Ático 4ª planta",
+        description: "Exclusivo ático en la zona Centro de Santa Coloma de Gramenet. Dispone de terraza privada de 35 m² orientada al sol con vistas panorámicas despejadas.",
+        features: ["Terraza privada 35m²", "Finca semi-nueva", "Ascensor", "Garaje en la misma finca"]
       },
       "prop-4": {
         name: "Chalet independiente en Pedralbes",
@@ -491,7 +505,7 @@ export const translations = {
       portal: "WhatsApp"
     },
     hero: {
-      tag: "Property Management & Real Estate in Barcelona",
+      tag: "Property Management & Real Estate in Santa Coloma de Gramenet",
       title1: "Property Management,",
       title2: "Real Estate &",
       title3: "Legal Advice.",
@@ -506,11 +520,12 @@ export const translations = {
       anyHab: "Any number",
       anyPrice: "Any price",
       buscar: "Search properties",
+      contacto: "Contact now",
       buscarBtn: "Search",
       stats: {
-        comunidades: "Communities managed",
-        anos: "Years of experience",
-        satisfaccion: "Satisfied clients"
+        comunidades: "Properties managed",
+        anos: "Years of local service",
+        satisfaccion: "Personalized support"
       },
       badge: "Gesgrama Exclusivity",
       hablarAsesor: "Speak with an advisor",
@@ -519,7 +534,7 @@ export const translations = {
       heroSub: "Professional, transparent and close management for communities that work."
     },
     heroCarousel: {
-      tag: "REAL ESTATE & PROPERTY MANAGEMENT IN BARCELONA",
+      tag: "REAL ESTATE & PROPERTY MANAGEMENT IN SANTA COLOMA DE GRAMENET",
       titleMain: "Your next home,",
       titleAccent: "closer than ever.",
       subtitle: "We guide you to buy, sell or care for your property with transparency, local expertise and a team that delivers.",
@@ -570,11 +585,15 @@ export const translations = {
       enviada: "Valuation Sent!",
       enviadaDesc: "Thank you, an advisor will contact you within 24 hours with your property valuation.",
       nuevaValoracion: "New valuation",
-      seleccionaZona: "Select area",
+      calculando: "Calculating market price...",
+      calcularBtn: "Calculate Estimated Valuation",
       sinCompromiso: "No obligation",
       resultadoInmediato: "Instant result",
-      valorEstimado: "Estimated Value",
-      rangoEstimado: "Estimated range:",
+      analizando: "Analyzing data for",
+      valorEstimado: "ESTIMATED VALUE",
+      rangoEstimado: "Estimated range",
+      disclaimer: "Guidance valuation based on real estate sector averages.",
+      seleccionaZona: "Select area",
       estimacionAutomatizada: "Orientative estimation based on market data, does not replace a professional appraisal",
       ejemploResultado: "SAMPLE RESULT",
       actualizadoHoy: "Market updated this month"
@@ -589,8 +608,8 @@ export const translations = {
           description: "We handle administrative, accounting, and technical management of your homeowners' association. We control expenses, optimize budgets, and solve incidents quickly.",
           benefits: [
             "Receipt management, accounting, and delinquency control",
-            "Organization of annual and extraordinary meetings",
-            "24/7 assistance for community incidents and repairs",
+            "Coordination of maintenance and conservation works",
+            "Prompt response to community incidents and repairs",
             "Technical advice for ITE inspections and conservation work"
           ]
         },
@@ -631,11 +650,11 @@ export const translations = {
     },
     properties: {
       tag: "Exclusive Portfolio",
-      title1: "Flats, premises and",
+      title1: "Apartments, premises and",
       title2: "much more.",
-      title: "Flats, premises and",
+      title: "Apartments, premises and",
       titleAccent: "much more.",
-      subtitle: "Browse our selection of properties for sale and rent with Gesgrama's direct guarantee.",
+      subtitle: "Browse our selection of properties for sale and rent with Gesgrama's direct\u00A0guarantee.",
       disponibles: "properties available",
       availableCount: "properties available",
       todasZonas: "All areas",
@@ -661,17 +680,21 @@ export const translations = {
       mostRecent: "Most recent",
       fallbackMsg: "No properties found with the selected filters.",
       verTodas: "View full catalog",
-      showingAll: "All available properties shown"
+      showingAll: "All available properties shown",
+      priceLabel: "PRICE",
+      agoMonths: "{n} months ago",
+      comprar: "Buy",
+      alquilar: "Rent"
     },
     filosofia: {
       tag: "Trust & Transparency",
       title1: "Our philosophy:",
       title2: "Transparent and close management.",
-      subtitle: "With over 15 years of experience in Barcelona, we combine digital agility with direct professional service.",
+      subtitle: "With over 15 years of experience in Santa Coloma de Gramenet, we combine digital agility with direct professional service.",
       items: [
         {
           title: "Total Transparency",
-          desc: "Clear accounts, 24/7 access to your community documentation through the Client Portal."
+          desc: "Clear accounts, online access to your community documentation through the Client Portal."
         },
         {
           title: "Personalized Attention",
@@ -728,7 +751,7 @@ export const translations = {
         {
           title: "Property Management",
           desc: "Efficient management of owners' communities, clear accounting, arrears control and agile incident resolution.",
-          features: ["24/7 Portal for owners", "In-person and remote meetings", "Supply cost optimization"]
+          features: ["Online portal for owners", "In-person and remote meetings", "Supply cost optimization"]
         },
         {
           title: "Real Estate Management",
@@ -752,23 +775,22 @@ export const translations = {
       tag: "Real Stories",
       title1: "What our",
       title2: "clients say.",
-      title1Accent: "clients say.",
       subtitle: "The trust of those who work with us is our greatest pride.",
       items: [
         {
-          quote: "They have been managing our community for 8 years. Transparency in accounts and response speed are simply excellent.",
-          author: "M. García",
-          location: "Eixample, Barcelona"
+          quote: "Hello, very good service, my mother needed a home and we got it with the excellent agent Ximena; the receptionist Hillary and Administrator Fanny helped me tremendously with this process! I highly recommend this agency.",
+          author: "Felipe Tovar arcos",
+          time: "8 months ago"
         },
         {
-          quote: "We sold our flat in less than a month at our asking price. Their local market knowledge is a real advantage.",
-          author: "R. Puig",
-          location: "Sarrià-Sant Gervasi"
+          quote: "They manage rental properties for me and I am very happy, every year they adjust the CPI and any issue is answered very quickly, a phenomenal team.",
+          author: "Alex Prados",
+          time: "6 months ago"
         },
         {
-          quote: "The legal advice for the inheritance was impeccable. They guided us step by step with great professionalism.",
-          author: "A. Martínez",
-          location: "Gràcia, Barcelona"
+          quote: "Excellent agency. They are very professional, attentive and decisive. Ever since they started managing our homeowners association, everything operates with far more organization and transparency. Fully recommended.",
+          author: "Carlos Jr",
+          time: "9 months ago"
         }
       ]
     },
@@ -816,23 +838,23 @@ export const translations = {
       subtitle: "Clear answers to the most common questions about our services and work methodologies.",
       items: [
         {
-          q: "How can I transfer my community management to Gesgrama?",
-          a: "We handle the entire transition process at no additional cost. We request documentation from the previous manager and call the required meeting."
+          q: "How is the change of management to Gesgrama handled?",
+          a: "We handle the entire transition process at no additional cost: requesting documents from the previous administrator, auditing accounts and calling the initial meeting."
         },
         {
-          q: "What does the free property valuation include?",
-          a: "It includes a comparative market analysis based on recent actual sales, building condition evaluation and optimal price recommendations."
+          q: "What documents do I need to sell my apartment with you?",
+          a: "You will need property deeds, ID, energy efficiency certificate, occupancy certificate and the latest IBI tax receipt. We handle any missing paperwork."
         },
         {
-          q: "How is community debt collection handled?",
-          a: "We follow a strict protocol: friendly reminder, fast judicial payment procedure without initial cost to the community and continuous follow-up."
+          q: "How do you guarantee rent payment if the tenant defaults?",
+          a: "We offer complete rental management with guaranteed default insurance, thorough credit scoring checks and full legal coverage for any eventuality."
         },
         {
-          q: "How does payment protection insurance for renting my property work?",
-          a: "Once approved in the owners' meeting, we take care of everything. You can rent your property with guarantees: payment protection insurance is contracted to guarantee payment to the owner."
+          q: "What geographic area do you cover for property management?",
+          a: "Our headquarters are in Santa Coloma de Gramenet and we cover the entire Barcelona metropolitan area, Maresme and Vallès."
         }
       ],
-      askDoubt: "Have any more questions?"
+      askDoubt: "Have more questions?"
     },
     contacto: {
       tag: "Contact",
@@ -872,7 +894,9 @@ export const translations = {
       legalNotice: "Legal Notice",
       privacy: "Privacy Policy",
       cookies: "Cookie Policy",
-      rights: "All rights reserved."
+      rights: "All rights reserved.",
+      admTitle: "Judicial Administrators",
+      admStatus: "Association of Estates & Communities"
     },
     detail: {
       notFound: "Property not found",
@@ -892,11 +916,15 @@ export const translations = {
       ref: "Ref:"
     },
     finalCta: {
-      tag: "Start Today",
+      tag: "START TODAY",
       title: "Ready to take the next step?",
-      subtitle: "Whether to buy, sell or manage your property, our team of experts in Barcelona is at your disposal.",
-      btnPrimary: "Value my property",
-      btnSecondary: "Speak with an advisor"
+      title1: "Ready to take the",
+      title2: "next step",
+      subtitle: "Whether to buy, sell or manage your property, our team of experts in Santa Coloma de Gramenet is at your service.",
+      btnPrimary: "Valuate my property",
+      btnSecondary: "Talk to an advisor",
+      btnValuate: "Valuate my property",
+      btnContact: "Talk to an advisor"
     },
     propertiesData: {
       "prop-1": {
@@ -916,12 +944,12 @@ export const translations = {
         features: ["40m² Private terrace", "Double garage space", "Premium finishes", "South facing", "Storage room included"]
       },
       "prop-3": {
-        name: "Commercial premises in Gràcia",
-        type: "Commercial premises",
-        location: "Gràcia",
-        floor: "Ground floor",
-        description: "Great investment opportunity in vibrant Gràcia. Street-level premises with 5-meter glass showcase for maximum visibility.",
-        features: ["Street level", "5m Showcase", "Open plan space", "High foot traffic", "2 min from metro"]
+        name: "Duplex Penthouse with Terrace",
+        type: "Penthouse",
+        location: "Center",
+        floor: "4th floor Penthouse",
+        description: "Exclusive penthouse in the Center area of Santa Coloma de Gramenet. Features a 35 m² private sunlit terrace with unobstructed panoramic views.",
+        features: ["35m² Private terrace", "Semi-new building", "Elevator", "Garage in the same building"]
       },
       "prop-4": {
         name: "Detached villa in Pedralbes",
@@ -974,7 +1002,7 @@ export const translations = {
       portal: "Portal de Clients"
     },
     hero: {
-      tag: "Immobiliària i Administració a Barcelona",
+      tag: "Immobiliària i Administració a Santa Coloma de Gramenet",
       title1: "Administració de Finques,",
       title2: "Immobiliària i",
       title3: "Assessoria jurídica.",
@@ -989,11 +1017,12 @@ export const translations = {
       anyHab: "Qualsevol número",
       anyPrice: "Qualsevol preu",
       buscar: "Cercar immobles",
+      contacto: "Contactar ara",
       buscarBtn: "Cercar",
       stats: {
-        comunidades: "Comunitats gestionades",
-        anos: "Anys d'experiència",
-        satisfaccion: "Clients satisfets"
+        comunidades: "Finques en gestió",
+        anos: "Anys de servei local",
+        satisfaccion: "Atenció personalitzada"
       },
       badge: "Exclusivitat Gesgrama",
       hablarAsesor: "Parlar amb un assessor",
@@ -1002,7 +1031,7 @@ export const translations = {
       heroSub: "Gestió professional, transparent i propera per a comunitats que funcionen."
     },
     heroCarousel: {
-      tag: "IMMOBILIÀRIA I ADMINISTRACIÓ A BARCELONA",
+      tag: "IMMOBILIÀRIA I ADMINISTRACIÓ A SANTA COLOMA DE GRAMENET",
       titleMain: "La teva propera llar,",
       titleAccent: "més a prop.",
       subtitle: "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon.",
@@ -1053,11 +1082,15 @@ export const translations = {
       enviada: "Valoració Enviada!",
       enviadaDesc: "Gràcies, un assessor es posarà en contacte amb tu en menys de 24 hores amb la valoració de la teva propietat.",
       nuevaValoracion: "Nova valoració",
-      seleccionaZona: "Selecciona zona",
+      calculando: "Calculant preu de mercat...",
+      calcularBtn: "Calcular Valoració Estimada",
       sinCompromiso: "Sense compromís",
       resultadoInmediato: "Resultat immediat",
-      valorEstimado: "Valor Estimat",
-      rangoEstimado: "Rang estimat:",
+      analizando: "Analitzant dades de",
+      valorEstimado: "VALOR ESTIMAT",
+      rangoEstimado: "Rang estimat",
+      disclaimer: "Valoració orientativa basada en mitjanes del sector immobiliari.",
+      seleccionaZona: "Selecciona zona",
       estimacionAutomatizada: "Estimació orientativa basada en dades de mercat, no substitueix una taxació professional",
       ejemploResultado: "EXEMPLE DE RESULTAT",
       actualizadoHoy: "Mercat actualitzat aquest mes"
@@ -1072,8 +1105,8 @@ export const translations = {
           description: "Ens encarreguem de la gestió administrativa, comptable i tècnica de la seva comunitat de propietaris. Controlem despeses, optimitzem pressupostos i resolem incidències amb rapidesa.",
           benefits: [
             "Gestió de rebuts, comptes i control de morositat",
-            "Convocatòria i junta de propietaris anuals i extraordinàries",
-            "Atenció 24/7 per a incidències i avaries comunitàries",
+            "Coordinació d'obres de manteniment i conservació",
+            "Resposta àgil a incidències i avaries comunitàries",
             "Assessorament tècnic per a ITEs i obres de conservació"
           ]
         },
@@ -1113,12 +1146,12 @@ export const translations = {
       ]
     },
     properties: {
-      tag: "Catàleg Exclusiu",
+      tag: "Els Nostres Immobles",
       title1: "Pisos, locals i",
       title2: "molt més.",
       title: "Pisos, locals i",
       titleAccent: "molt més.",
-      subtitle: "Explori la nostra selecció d'immobles en venda i lloguer amb la garantia directa de Gesgrama.",
+      subtitle: "Explora la nostra selecció d'immobles en venda i lloguer amb la garantia directa de Gesgrama.",
       disponibles: "propietats disponibles",
       availableCount: "propietats disponibles",
       todasZonas: "Totes les zones",
@@ -1144,17 +1177,21 @@ export const translations = {
       mostRecent: "Més recents",
       fallbackMsg: "No s'han trobat immobles amb els filtres seleccionats.",
       verTodas: "Veure catàleg complet",
-      showingAll: "Totes les propietats del catàleg mostrades"
+      showingAll: "Totes les propietats del catàleg mostrades",
+      priceLabel: "PREU",
+      agoMonths: "Fa {n} mesos",
+      comprar: "Comprar",
+      alquilar: "Llogar"
     },
     filosofia: {
       tag: "Confiança i Transparència",
       title1: "La nostra filosofia:",
       title2: "Gestió transparent i propera.",
-      subtitle: "Amb més de 15 anys de trajectòria a Barcelona, combinem l'agilitat digital amb el tracte directe i professional.",
+      subtitle: "Amb més de 15 anys de trajectòria a Santa Coloma de Gramenet, combinem l'agilitat digital amb el tracte directe i professional.",
       items: [
         {
           title: "Transparència Total",
-          desc: "Comptes clars, accés 24/7 a la documentació de la seva comunitat mitjançant el Portal del Client."
+          desc: "Comptes clars, accés digital a la documentació de la seva comunitat mitjançant el Portal del Client."
         },
         {
           title: "Atenció Personalitzada",
@@ -1211,7 +1248,7 @@ export const translations = {
         {
           title: "Administració de Finques",
           desc: "Gestió eficient de comunitats de propietaris, comptabilitat clara, control de morositat i resolució d'incidències.",
-          features: ["Portal 24/7 per a propietaris", "Juntes presencials i telemàtiques", "Optimització de costos de subministraments"]
+          features: ["Portal en línia per a propietaris", "Juntes presencials i telemàtiques", "Optimització de costos de subministraments"]
         },
         {
           title: "Gestió Immobiliària",
@@ -1235,23 +1272,22 @@ export const translations = {
       tag: "Històries Reals",
       title1: "El que diuen els nostres",
       title2: "clients.",
-      title1Accent: "clients.",
       subtitle: "La confiança de qui treballa amb nosaltres és el nostre major orgull.",
       items: [
         {
-          quote: "Porten administrant la nostra comunitat des de fa 8 anys. La transparència en els comptes i la rapidesa de resposta són excel·lents.",
-          author: "M. García",
-          location: "Eixample, Barcelona"
+          quote: "Hola, molt bona atenció, la meva mare necessitava un habitatge i ho vam aconseguir amb l'excel·lent comercial Ximena; la noia de recepció Hillary i l'Administradora Fanny em van ajudar moltíssim en aquesta gestió! Recomano aquesta gestoria.",
+          author: "Felipe Tovar arcos",
+          time: "Fa 8 mesos"
         },
         {
-          quote: "Vàrem vendre el nostre pis en menys d'un mes al preu desitjat. El seu coneixement del mercat local és una gran diferència.",
-          author: "R. Puig",
-          location: "Sarrià-Sant Gervasi"
+          quote: "Em porten habitatges en lloguer i estic molt content, cada any m'actualitzen l'IPC i qualsevol incidència responen molt ràpid, un equip fenomenal.",
+          author: "Alex Prados",
+          time: "Fa 6 mesos"
         },
         {
-          quote: "L'assessorament jurídic per a l'herència va ser impecable. Ens van guiar pas a pas amb màxima professionalitat.",
-          author: "A. Martínez",
-          location: "Gràcia, Barcelona"
+          quote: "Excel·lent gestoria. Són molt professionals, atents i resolutius. Des de quan gestionen la nostra comunitat, tot funciona amb molta més organització i transparència. Totalment recomanables.",
+          author: "Carlos Jr",
+          time: "Fa 9 mesos"
         }
       ]
     },
@@ -1299,23 +1335,23 @@ export const translations = {
       subtitle: "Respostes clares a les preguntes més habituals sobre els nostres serveis i metodologies de treball.",
       items: [
         {
-          q: "Com puc canviar l'administració de la meva comunitat a Gesgrama?",
-          a: "Ens encarreguem de tot el procés de transició sense cost addicional. Sol·licitem la documentació a l'administració anterior i convoquem la junta."
+          q: "Com es gestiona el canvi d'administració a Gesgrama?",
+          a: "Ens encarreguem de tot el procés de transició sense cost addicional: sol·licitem la documentació a l'administrador anterior, auditem l'estat dels comptes i convoquem la junta inicial."
         },
         {
-          q: "Què inclou la valoració gratuïta d'immobles?",
-          a: "Inclou un estudi comparatiu de mercat basat en vendes reals recents, anàlisi de l'estat de l'immoble i recomanacions de preu."
+          q: "Quina documentació necessito per vendre el meu pis amb vosaltres?",
+          a: "Necessitaràs l'escriptura de propietat, DNI/NIE, certificat d'eficiència energètica, cèdula d'habitabilitat i el darrer rebut de l'IBI. Ens encarreguem de tramitar el que et falti."
         },
         {
-          q: "Com es gestiona el cobrament de morosos en una comunitat?",
-          a: "Apliquem un protocol estricte: requeriment amistós, monitori judicial ràpid sense cost inicial i seguiment continuat."
+          q: "Com garanteix el cobrament del lloguer si el llogater no paga?",
+          a: "Oferim un servei integral de gestió de lloguers amb assegurança d'impagament garantida, estudi de solvència scoring del llogater i cobertura legal davant de qualsevol eventualitat."
         },
         {
-          q: "Com funciona l'assegurança de protecció de pagaments per llogar la meva propietat?",
-          a: "Una vegada aprovat en junta, ens en encarreguem nosaltres. Pots llogar la teva propietat amb garanties: es contracta una assegurança de protecció de pagaments que garanteix el cobrament al propietari."
+          q: "Quina àrea geogràfica cobriu per a administració de finques?",
+          a: "La nostra seu central és a Santa Coloma de Gramenet i donem cobertura directa a tota l'àrea metropolitana de Barcelona, Maresme i Vallès."
         }
       ],
-      askDoubt: "Tens cap dubte més?"
+      askDoubt: "Tens algun dubte més?"
     },
     contacto: {
       tag: "Contacte",
@@ -1355,7 +1391,9 @@ export const translations = {
       legalNotice: "Avís legal",
       privacy: "Política de privadesa",
       cookies: "Política de cookies",
-      rights: "Tots els drets reservats."
+      rights: "Tots els drets reservats.",
+      admTitle: "Administradors Judicials",
+      admStatus: "Associació de Finques i Comunitats"
     },
     detail: {
       notFound: "Propietat no trobada",
@@ -1375,11 +1413,15 @@ export const translations = {
       ref: "Ref:"
     },
     finalCta: {
-      tag: "Comença Avui",
+      tag: "COMENÇA AVUI",
       title: "A punt per fer el següent pas?",
-      subtitle: "Ja sigui per comprar, vendre o administrar la teva propietat, el nostre equip d'experts a Barcelona està a la teva disposició.",
+      title1: "A punt per fer el",
+      title2: "següent pas",
+      subtitle: "Ja sigui per comprar, vendre o administrar la teva propietat, el nostre equip d'experts a Santa Coloma de Gramenet i l'àrea metropolitana està a la teva disposició.",
       btnPrimary: "Valorar el meu immoble",
-      btnSecondary: "Parlar amb un assessor"
+      btnSecondary: "Parlar amb un assessor",
+      btnValuate: "Valorar el meu immoble",
+      btnContact: "Parlar amb un assessor"
     },
     propertiesData: {
       "prop-1": {
@@ -1399,12 +1441,12 @@ export const translations = {
         features: ["Terrassa privada 40m²", "Plaça de garatge doble", "Acabats prèmium", "Orientació Sud", "Traster inclòs"]
       },
       "prop-3": {
-        name: "Local comercial a Gràcia",
-        type: "Local comercial",
-        location: "Gràcia",
-        floor: "Planta baixa",
-        description: "Excel·lent oportunitat d'inversió al dinàmic barri de Gràcia. A peu de carrer amb gran aparador de 5 metres i màxima visibilitat.",
-        features: ["A peu de carrer", "Gran aparador (5m)", "Espai diàfan", "Pas constant de vianants", "A 2 min del metro"]
+        name: "Àtic dúplex amb gran terrassa",
+        type: "Àtic",
+        location: "Centre",
+        floor: "Àtic 4a planta",
+        description: "Exclusiu àtic a la zona Centre de Santa Coloma de Gramenet. Disposa de terrassa privada de 35 m² orientada al sol amb vistes panoràmiques clares.",
+        features: ["Terrassa privada 35m²", "Finca semi-nova", "Ascensor", "Garatge a la mateixa finca"]
       },
       "prop-4": {
         name: "Xalet independent a Pedralbes",

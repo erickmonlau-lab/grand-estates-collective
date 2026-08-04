@@ -1,7 +1,6 @@
 import gesgramaFacade from "@/assets/gesgrama_modern_facade_twilight.webp";
-import property1Img from "@/assets/property-1.webp";
-import realExteriorImg from "@/assets/real_exterior_white_1783264881525.webp";
-import brightAtriumImg from "@/assets/bright-atrium.webp";
+import property1Img from "@/assets/real_exterior_white_1783264881525.webp";
+import obraNuevaRealImg from "@/assets/art4_obra_nueva.jpg";
 
 export interface ArticleContent {
   title: string;
@@ -24,6 +23,8 @@ export interface Article {
   id: string;
   slug: string;
   image: string;
+  datePublished: string;  // ISO 8601
+  dateModified: string;   // ISO 8601
   es: ArticleContent;
   ca: ArticleContent;
   en: ArticleContent;
@@ -34,6 +35,8 @@ export const articles: Article[] = [
     id: "art-1",
     slug: "que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo",
     image: property1Img,
+    datePublished: "2025-03-09T08:00:00+01:00",
+    dateModified: "2025-03-09T08:00:00+01:00",
     es: {
       title: "¿Qué es un asesor inmobiliario y por qué podrías necesitarlo?",
       summary: "El asesor inmobiliario puede ser clave para comprar, vender o alquilar con éxito en el mercado actual de Santa Coloma de Gramenet.",
@@ -118,12 +121,12 @@ export const articles: Article[] = [
     },
     en: {
       title: "What is a real estate advisor and why might you need one?",
-      summary: "A real estate advisor can be key to buying, selling, or renting successfully in today's Barcelona market.",
+      summary: "A real estate advisor can be key to buying, selling, or renting successfully in Santa Coloma de Gramenet and its metropolitan area.",
       category: "Real Estate",
       date: "March 9, 2025",
       readTime: "5 min read",
       author: "Gesgrama Real Estate Team",
-      intro: "In a dynamic and competitive market like Barcelona and its metropolitan area, executing a property sale or lease can become a complex undertaking. This is where a expert real estate advisor provides essential strategic value.",
+      intro: "In a dynamic and competitive market like Santa Coloma de Gramenet and its metropolitan area, executing a property sale or lease can become a complex undertaking. This is where an expert real estate advisor provides essential strategic value.",
       sections: [
         {
           heading: "What exactly does a professional real estate advisor do?",
@@ -161,7 +164,9 @@ export const articles: Article[] = [
   {
     id: "art-2",
     slug: "que-es-un-contrato-de-exclusividad-inmobiliaria",
-    image: realExteriorImg,
+    image: "/images/cta_advisors_closed_laptop.jpg",
+    datePublished: "2025-03-04T08:00:00+01:00",
+    dateModified: "2025-03-04T08:00:00+01:00",
     es: {
       title: "¿Qué es un contrato de exclusividad inmobiliaria?",
       summary: "Descubre cómo la nota de encargo en exclusiva acelera la venta y garantiza la máxima inversión publicitaria en tu inmueble.",
@@ -290,6 +295,8 @@ export const articles: Article[] = [
     id: "art-3",
     slug: "que-es-un-perito-judicial-inmobiliario",
     image: gesgramaFacade,
+    datePublished: "2025-02-20T08:00:00+01:00",
+    dateModified: "2025-02-20T08:00:00+01:00",
     es: {
       title: "¿Qué es un perito judicial inmobiliario?",
       summary: "Un perito judicial inmobiliario aporta valor, rigor técnico y objetividad imparcial en procesos legales, herencias y dictámenes de tasación.",
@@ -417,7 +424,9 @@ export const articles: Article[] = [
   {
     id: "art-4",
     slug: "descubre-todo-sobre-una-vivienda-de-obra-nueva",
-    image: brightAtriumImg,
+    image: obraNuevaRealImg,
+    datePublished: "2025-01-28T08:00:00+01:00",
+    dateModified: "2025-01-28T08:00:00+01:00",
     es: {
       title: "Descubre todo sobre una vivienda de obra nueva",
       summary: "Ventajas energéticas, proceso de compra sobre plano, garantías decenales y claves para elegir tu nueva vivienda a estrenar.",

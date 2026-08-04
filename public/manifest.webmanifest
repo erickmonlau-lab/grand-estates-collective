@@ -1,0 +1,28 @@
+{
+  "name": "Gesgrama — Inmobiliaria y Administración de Fincas",
+  "short_name": "Gesgrama",
+  "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b172a",
+  "theme_color": "#2563eb",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    }
+  ]
+}

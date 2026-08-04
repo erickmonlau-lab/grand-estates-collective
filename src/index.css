@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   GESGRAMA DESIGN SYSTEM — v3  ·  Bubble UI
-   Gray London · Pill buttons · Floating cards · Premium feel
+   GESGRAMA DESIGN SYSTEM — v4  ·  High Legibility Edition
+   All text minimum 15px. Body minimum 16px. Strong contrast everywhere.
 ───────────────────────────────────────────────────────────────────────────── */
 @theme {
   --color-brand:      #2563eb;
@@ -22,6 +22,9 @@
 
   --font-sans:  "Inter",    ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", "Fraunces", ui-serif, Georgia, serif;
+  --font-aachen: "Aachen BT", Georgia, serif;
+  --font-agbook: "AG Book Rounded", "Inter", sans-serif;
+  --font-accelerator: "ACCELERATOR", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -34,15 +37,31 @@
   --shadow-bubble: 0 2px 8px rgba(15,23,42,0.04), 0 8px 32px rgba(15,23,42,0.06);
 }
 
-/* BASE */
-html { scroll-behavior: smooth; }
+/* ══════════════════════════════════════════════════════════════
+   BASE — GLOBAL TYPOGRAPHY ENFORCEMENT
+   Rule: NO text anywhere shall be smaller than 15px.
+   Body/paragraph minimum: 16px. Labels: 13px. Everything readable.
+══════════════════════════════════════════════════════════════ */
+html { scroll-behavior: smooth; font-size: 17px; }
 body {
   margin: 0; padding: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: #eef2f7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  color: #0f172a;
+  line-height: 1.65;
 }
+
+/* Inputs and form controls: always 16px to prevent iOS zoom and ensure legibility */
+input, select, textarea {
+  font-size: 1rem !important;
+  color: #0f172a !important;
+  line-height: 1.5 !important;
+  font-weight: 600 !important;
+}
+
 section[id] { scroll-margin-top: 80px; }
 
 /* SCROLLBAR HIDE */
@@ -65,32 +84,32 @@ section[id] { scroll-margin-top: 80px; }
 /* ── PILL BADGE (Section Tags) ── */
 .pill-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
   color: #fff; background: #2563eb;
-  padding: 6px 16px; border-radius: 9999px;
+  padding: 7px 18px; border-radius: 9999px;
   margin-bottom: 16px;
 }
 .pill-badge svg,
-.pill-badge img { width: 14px; height: 14px; }
+.pill-badge img { width: 15px; height: 15px; }
 
 /* legacy eyebrow -> now pill */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
   color: #fff; background: #2563eb;
-  padding: 6px 16px; border-radius: 9999px;
+  padding: 7px 18px; border-radius: 9999px;
   margin-bottom: 16px;
 }
 .eyebrow::before { display: none; }
 
-/* ── BUTTONS ── */
+/* ── BUTTONS — minimum 15px text, generous padding ── */
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: #2563eb; color: #fff;
-  font-size: 14px; font-weight: 600;
-  padding: 14px 28px; border-radius: 9999px;
+  font-size: 15px; font-weight: 700;
+  padding: 15px 30px; border-radius: 9999px;
   border: none; cursor: pointer;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
   text-decoration: none; white-space: nowrap;
@@ -102,8 +121,8 @@ section[id] { scroll-margin-top: 80px; }
 .btn-outline {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: #fff; color: #0f172a;
-  font-size: 14px; font-weight: 600;
-  padding: 14px 28px; border-radius: 9999px;
+  font-size: 15px; font-weight: 700;
+  padding: 15px 30px; border-radius: 9999px;
   border: 1.5px solid #e2e8f0; cursor: pointer;
   transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
   text-decoration: none; white-space: nowrap;
@@ -112,7 +131,7 @@ section[id] { scroll-margin-top: 80px; }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 6px;
   background: transparent; color: #2563eb;
-  font-size: 14px; font-weight: 600;
+  font-size: 15px; font-weight: 700;
   padding: 0; border: none; cursor: pointer;
   transition: color 0.15s, gap 0.2s; text-decoration: none;
 }
@@ -140,26 +159,28 @@ section[id] { scroll-margin-top: 80px; }
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
 
-/* ── INPUTS ── */
+/* ── INPUTS — 16px, dark text, generous padding ── */
 .field-input {
   width: 100%; background: #f8fafc;
   border: 1.5px solid #e2e8f0; border-radius: 16px;
-  padding: 14px 18px; font-size: 15px;
+  padding: 16px 20px; font-size: 16px;
   font-family: 'Inter', sans-serif; color: #0f172a;
   outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  font-weight: 600;
 }
-.field-input::placeholder { color: #94a3b8; }
+.field-input::placeholder { color: #64748b; font-size: 15px; }
 .field-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 
-/* FILTER SELECTS */
+/* FILTER SELECTS — 16px, dark text */
 .console-select {
-  width: 100%; height: 48px; border-radius: 14px;
+  width: 100%; height: 52px; border-radius: 14px;
   border: 1.5px solid #e2e8f0;
   background: #f8fafc url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="%2394a3b8" stroke-width="2" stroke-linecap="round"><path d="M2 4l4 4 4-4"/></svg>') no-repeat right 14px center;
-  padding: 0 36px 0 14px;
-  font-family: 'Inter', sans-serif; font-size: 14px; color: #0f172a;
+  padding: 0 36px 0 16px;
+  font-family: 'Inter', sans-serif; font-size: 16px; color: #0f172a;
   appearance: none; -webkit-appearance: none;
   transition: border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+  font-weight: 600;
 }
 .console-select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
 

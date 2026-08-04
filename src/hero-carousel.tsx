@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Star, Building2, Shield, Check, Home, Users } from "lucide-react";
+import { ArrowRight, Star, Building2, Shield, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
 import heroBg from "@/assets/family_barcelona.webp"; 
 import { translations } from './data/translations';
 
@@ -35,10 +35,17 @@ function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string
       }
     };
 
-    requestAnimationFrame(animateCount);
+    const frame = requestAnimationFrame(animateCount);
+    return () => cancelAnimationFrame(frame);
   }, [inView, to]);
 
-  return <span ref={ref}>{prefix}{display}{suffix}</span>;
+  return (
+    <span ref={ref} className="tabular-nums tracking-widest inline-flex items-center justify-center gap-1 font-extrabold">
+      {prefix && <span className="mr-0.5">{prefix}</span>}
+      <span>{display}</span>
+      {suffix && <span className="ml-0.5">{suffix}</span>}
+    </span>
+  );
 }
 
 const expo = [0.16, 1, 0.3, 1] as const;
@@ -207,9 +214,9 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
 
   return (
-    <section id="hero" className="relative text-slate-900 pt-20 pb-6 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 min-h-[92vh] lg:min-h-screen flex flex-col justify-between overflow-hidden select-none bg-[#f8fafc] px-4 md:px-8 xl:px-12">
+    <section id="hero" className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-24 lg:pt-26 pb-4 sm:pb-6 flex flex-col justify-between overflow-hidden select-none bg-[#F3F4F6] px-4 md:px-8 xl:px-12">
       
-      {/* ── Background Architectural Line-Art Sketch (Left & Right Edges) ── */}
+      {/* ── Hero Family Photo Background (Full Section Backdrop with White Overlay) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Left Architectural Building Sketch */}
         <svg className="absolute -left-10 top-0 h-full w-auto text-slate-300/40 opacity-50 hidden md:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
@@ -231,132 +238,145 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
         </svg>
 
-        {/* Hero Family Photo (Right Side Masked with Organic Fade) */}
-        <div className="absolute right-0 top-0 w-full lg:w-[60%] h-full">
+        {/* Full-bleed Photo container (Object position 58% shifts image content right so father is in the right corner and daughter is clearly visible in center) */}
+        <div className="absolute right-0 top-0 w-full lg:w-[60%] h-full bg-[#E5DDD5]">
           <img 
             src={heroBg} 
-            alt="Familia disfrutando su hogar gestionado por Gesgrama, inmobiliaria y administración de fincas en Santa Coloma" 
-            className="w-full h-full object-cover object-[80%_center] md:object-right"
+            alt="Familia disfrutando su hogar gestionado por Gesgrama" 
+            className="w-full h-full object-cover object-[58%_center] md:object-right"
+            loading="eager"
             fetchPriority="high"
+            width={1920}
+            height={1080}
           />
-          {/* Light-mode fade mask on the left of the image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent lg:via-[#f8fafc]/40" />
+          {/* Soft White Gradient Overlay (Horizontal): Smooth transition from text to photo */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F3F4F6] via-[#F3F4F6]/75 via-45% to-transparent lg:via-[#F3F4F6]/50 lg:to-transparent" />
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-3 sm:pt-6">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-16 sm:pt-6 lg:pt-8 pb-2 sm:pb-4">
         
         {/* Top/Main Hero Content Container */}
-        <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-2 sm:py-4">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: expo }}
-          >
+        <div className="max-w-[285px] xs:max-w-xs sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-0 sm:py-2 mt-1 sm:mt-0">
+          <div className="flex flex-col justify-start h-full py-0 sm:py-0">
             {/* Eyebrow Pill Badge */}
-            <div className="inline-flex items-center gap-2 bg-white text-[#2563eb] text-[10px] sm:text-xs font-accent font-extrabold uppercase tracking-wider px-4 py-1.5 rounded-full mb-4 shadow-xs border border-slate-200">
-              <span className="w-2 h-2 rounded-full bg-[#2563eb]"></span>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.0, ease: expo }}
+              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit"
+            >
+              <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white"></span>
               <span>{t.heroCarousel.tag}</span>
-            </div>
+            </motion.div>
 
-            {/* Main Title H1 — Aachen BT */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-black text-[#0f172a] leading-[1.05] tracking-tight mb-4 font-heading">
-              Tu próximo hogar,<br />
+            {/* Main Title H1 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.08, ease: expo }}
+              className="text-[26px] xs:text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading"
+            >
+              {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
               <span className="text-[#2563eb]">
-                más cerca.
+                {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p 
-              className="text-[#0f172a] md:text-slate-800 text-base sm:text-lg lg:text-xl max-w-md lg:max-w-xl mb-6 font-bold leading-relaxed font-body"
-              style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9)" }}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.16, ease: expo }}
+              className="text-[#0f172a] text-sm sm:text-xl md:text-2xl mb-3.5 sm:mb-8 font-extrabold leading-snug sm:leading-relaxed font-sans"
+              style={{ textShadow: "0 0 16px rgba(255, 255, 255, 0.98), 0 1px 6px rgba(255, 255, 255, 0.95)" }}
             >
               {t.heroCarousel.subtitle}
-            </p>
+            </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 w-fit max-w-[88%] sm:max-w-none mb-5">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.24, ease: expo }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-fit mb-3 sm:mb-6"
+            >
               {/* Button 1: Solid Blue Pill */}
               <a
                 href="#valuator-form"
-                className="w-fit max-w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 lg:px-8 py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base transition-all shadow-md flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-md flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
               >
-                <Home className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+                <Home className="w-4 h-4 text-white" />
                 <span>{t.heroCarousel.btnValuation}</span>
-                <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 text-white group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
               </a>
 
               {/* Button 2: Solid White Pill */}
               <a
                 href="#propiedades"
-                className="w-fit max-w-full bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-6 sm:px-7 lg:px-8 py-3 rounded-full font-bold text-xs sm:text-sm lg:text-base transition-all shadow-sm flex items-center justify-start gap-2.5 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-sm flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
               >
-                <Building2 className="w-4 h-4 lg:w-5 lg:h-5 text-[#2563eb]" />
+                <Building2 className="w-4 h-4 text-[#2563eb]" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Trust Proof */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm lg:text-base font-bold text-[#0f172a]">
-              <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 stroke-[3] shrink-0" />
-              <span style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.95)" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.32, ease: expo }}
+              className="flex items-center gap-2.5 sm:gap-3.5 text-xs sm:text-lg md:text-xl font-extrabold text-[#0f172a]"
+            >
+              <Check className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-emerald-600 stroke-[3] shrink-0" />
+              <span className="font-extrabold font-sans" style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.98)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Floating Stat Cards Row */}
+        {/* Integrated Stat Cards Row (Lifted up closer to trust badge) */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="grid grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-4 lg:mt-8 mb-2 rounded-2xl sm:rounded-3xl p-3 sm:p-4 lg:p-5 shadow-lg border border-white/80"
-          style={{ background: 'rgba(255, 255, 255, 0.94)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-0 sm:mt-8 lg:mt-10 mb-1"
         >
-          {/* Stat 1: Clientes */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-1.5 sm:py-2">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 lg:w-11 lg:h-11 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5">
-              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-            </div>
-            <p className="text-lg sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none font-sans">
+          {/* Card 1 (4500+): Fondo carbón oscuro / texto blanco */}
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
+            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <Counter to={4500} suffix="+" />
             </p>
-            <p className="text-[9px] sm:text-[11px] lg:text-xs font-bold text-slate-500 leading-tight mt-1 font-body">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
 
-          {/* Stat 2: Satisfacción */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-1.5 sm:py-2 border-l border-slate-200/60">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 lg:w-11 lg:h-11 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-            </div>
-            <p className="text-lg sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none font-sans">
+          {/* Card 2 (98%): Fondo blanco sólido / texto carbón oscuro */}
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
+            <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
+            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
               <Counter to={98} suffix="%" />
             </p>
-            <p className="text-[9px] sm:text-[11px] lg:text-xs font-bold text-slate-500 leading-tight mt-1 font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
 
-          {/* Stat 3: Comunidades */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-1.5 sm:py-2 border-l border-slate-200/60">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 lg:w-11 lg:h-11 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5">
-              <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-            </div>
-            <p className="text-lg sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none font-sans">
+          {/* Card 3 (+300): Fondo carbón oscuro / texto blanco */}
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+            <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
+            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <Counter to={300} prefix="+" />
             </p>
-            <p className="text-[9px] sm:text-[11px] lg:text-xs font-bold text-slate-500 leading-tight mt-1 font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
 
-          {/* Stat 4: Años */}
-          <div className="flex flex-col items-center text-center px-1 lg:px-4 py-1.5 sm:py-2 border-l border-slate-200/60">
-            <div className="w-7 h-7 sm:w-9 sm:h-9 lg:w-11 lg:h-11 rounded-full bg-[#2563eb]/10 flex items-center justify-center text-[#2563eb] mb-1.5">
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-            </div>
-            <p className="text-lg sm:text-2xl md:text-3xl font-black text-[#0f172a] leading-none font-sans">
+          {/* Card 4 (15+): Fondo blanco sólido / texto carbón oscuro */}
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
+            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
+            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
               <Counter to={15} suffix="+" />
             </p>
-            <p className="text-[9px] sm:text-[11px] lg:text-xs font-bold text-slate-500 leading-tight mt-1 font-body">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </motion.div>
 

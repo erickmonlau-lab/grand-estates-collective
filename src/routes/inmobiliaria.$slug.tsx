@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { properties } from "../data/properties";
+import { properties, formatLocation } from "../data/properties";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, ChevronRight, Menu, X, Home } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -7,6 +7,80 @@ import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
 
 export const Route = createFileRoute("/inmobiliaria/$slug")({
+  head: ({ params }) => {
+    const slug = params.slug as string;
+    const property = properties.find((p) => p.slug === slug);
+    if (!property) {
+      return {
+        meta: [
+          { title: "Propiedad no encontrada | Gesgrama Inmobiliaria" },
+          { name: "robots", content: "noindex, follow" },
+        ],
+      };
+    }
+    const canonicalUrl = `${SITE_DOMAIN}/inmobiliaria/${property.slug}`;
+    const ogImage = typeof property.gallery[0] === "string" && property.gallery[0].startsWith("http")
+      ? property.gallery[0]
+      : `https://www.gesgrama.es/og-image.png`;
+    const title = `${property.name} — ${property.priceFormatted} | Gesgrama Inmobiliaria`;
+    const description = `${property.type} en ${property.location}: ${property.description.slice(0, 130)}...`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { name: "robots", content: "index, follow" },
+        { property: "og:title", content: `${property.name} — ${property.priceFormatted}` },
+        { property: "og:description", content: `${property.type} en ${property.location}. ${property.bedrooms} hab. | ${property.surface} m²` },
+        { property: "og:image", content: ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "800" },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "Gesgrama Inmobiliaria" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: property.name },
+        { name: "twitter:description", content: `${property.type} en ${property.location}` },
+        { name: "twitter:image", content: ogImage },
+      ],
+      links: [
+        { rel: "canonical", href: canonicalUrl },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": property.name,
+            "description": property.description.slice(0, 160),
+            "url": canonicalUrl,
+            "image": [ogImage],
+            "offers": {
+              "@type": "Offer",
+              "price": property.price,
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock",
+              "url": canonicalUrl
+            },
+            "brand": { "@type": "Organization", "name": "Gesgrama" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Habitaciones", "value": property.bedrooms },
+              { "@type": "PropertyValue", "name": "Baños", "value": property.bathrooms },
+              { "@type": "PropertyValue", "name": "Superficie", "value": `${property.surface} m²` }
+            ],
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE_DOMAIN },
+                { "@type": "ListItem", "position": 2, "name": "Inmobiliaria", "item": `${SITE_DOMAIN}/#propiedades` },
+                { "@type": "ListItem", "position": 3, "name": property.name, "item": canonicalUrl }
+              ]
+            }
+          })
+        }
+      ]
+    };
+  },
   component: PropertyDetail,
 });
 
@@ -30,16 +104,28 @@ function PropertyDetail() {
     setLanguage(lang);
     if (typeof window !== "undefined") {
       localStorage.setItem("language", lang);
+      window.dispatchEvent(new Event("languagechange"));
     }
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const handleLangChange = () => {
       const stored = localStorage.getItem("language");
       if (stored === "es" || stored === "en" || stored === "ca") {
         setLanguage(stored);
       }
+    };
+    if (typeof window !== "undefined") {
+      handleLangChange();
+      window.addEventListener("languagechange", handleLangChange);
+      window.addEventListener("storage", handleLangChange);
     }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("languagechange", handleLangChange);
+        window.removeEventListener("storage", handleLangChange);
+      }
+    };
   }, [slug]);
 
   useEffect(() => {
@@ -118,29 +204,7 @@ function PropertyDetail() {
 
   return (
     <div className="bg-slate-100 text-onyx font-sans min-h-screen">
-      {/* Dynamic SEO Meta & Head Tags */}
-      <title>{`${pData.name} — ${property.priceFormatted} | Gesgrama Inmobiliaria`}</title>
-      <meta name="description" content={`${pData.type} en ${pData.location}: ${pData.description.slice(0, 140)}...`} />
-      <link rel="canonical" href={canonicalUrl} />
-
-      {/* Open Graph */}
-      <meta property="og:title" content={`${pData.name} — ${property.priceFormatted}`} />
-      <meta property="og:description" content={`${pData.type} en ${pData.location}. ${property.bedrooms} hab. | ${property.surface} m²`} />
-      <meta property="og:image" content={property.gallery[0]} />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content="website" />
-
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={pData.name} />
-      <meta name="twitter:description" content={`${pData.type} en ${pData.location}`} />
-      <meta name="twitter:image" content={property.gallery[0]} />
-
-      {/* JSON-LD Script */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* Head tags now served via Route.head() for SSR — removed from JSX */}
 
       {/* FLOATING CAPSULE NAVIGATION HEADER */}
       <motion.nav
@@ -251,7 +315,7 @@ function PropertyDetail() {
           {/* HERO GALLERY */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[350px] sm:h-[420px] md:h-[480px] mb-12 rounded-2xl overflow-hidden shadow-lg">
             <div className="md:col-span-2 relative rounded-2xl overflow-hidden">
-              <img src={property.gallery[0]} alt={pData.name} loading="eager" className="w-full h-full object-cover" />
+              <img src={property.gallery[0]} alt={pData.name} loading="eager" fetchPriority="high" width={800} height={600} className="w-full h-full object-cover" />
             </div>
             <div className="hidden md:grid grid-rows-2 gap-4 h-full">
               <div className="relative rounded-2xl overflow-hidden">
@@ -276,7 +340,7 @@ function PropertyDetail() {
                   </div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-slate-900 mb-2 font-sans">{pData.name}</h1>
                   <div className="flex items-center gap-2 text-slate-500 font-medium text-sm">
-                    <MapPin className="w-4 h-4 text-[#2563eb]" /> {pData.location} {property.city ? `(${property.city})` : ""}
+                    <MapPin className="w-4 h-4 text-[#2563eb]" /> {formatLocation(pData.location || property.location, language)} {property.city ? `(${property.city})` : ""}
                   </div>
                 </div>
                 <div className="text-3xl sm:text-4xl font-black text-[#2563eb] font-sans">{property.priceFormatted}</div>
@@ -341,11 +405,13 @@ function PropertyDetail() {
                 <p className="text-slate-400 text-sm mb-6">Visualiza el inmueble con todo detalle desde cualquier dispositivo.</p>
                 <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
                   <iframe
-                    src={property.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"}
+                    src={property.videoUrl || "https://www.youtube.com/embed/videoseries?list=PLgesgrama"}
                     title={`Recorrido en vídeo - ${pData.name}`}
                     className="w-full h-full border-0"
+                    loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    sandbox="allow-scripts allow-same-origin allow-presentation"
                   />
                 </div>
               </div>
@@ -361,8 +427,8 @@ function PropertyDetail() {
                 </p>
                 
                 <div className="space-y-4">
-                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-3 bg-[#2563eb] text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-[#1d4ed8] transition-all duration-300 shadow-md">
-                    <MessageCircle className="w-5 h-5" /> WhatsApp (604 259 424)
+                  <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-3 bg-[#2563eb] text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-[#1d4ed8] transition-all duration-300 shadow-md">
+                    <MessageCircle className="w-5 h-5" /> WhatsApp (601 25 94 24)
                   </a>
                   <a href="tel:+34934685656" className="w-full flex items-center justify-center gap-3 border border-slate-200 text-slate-900 py-4 rounded-xl text-xs font-extrabold uppercase tracking-widest hover:bg-white transition-all duration-300">
                     <Phone className="w-5 h-5" /> Oficina (93 468 56 56)

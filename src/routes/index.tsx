@@ -1,15 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
-import { properties } from "../data/properties";
+import { properties, formatLocation } from "../data/properties";
 import { articles } from "../data/articles";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush } from "lucide-react";
+import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, HelpCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush, Search, Heart, User, LogOut, Info, Ruler } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
 import gallery1 from "@/assets/gallery-1.webp";
-import { FooterAnimationGSAP } from '@/components/FooterAnimationGSAP';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
 
@@ -30,10 +29,10 @@ import { translations } from "../data/translations";
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.2, delay, ease: easeOut }}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.4, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -49,7 +48,7 @@ function Counter({ to, prefix = "", suffix = "" }: { to: number; prefix?: string
   useEffect(() => {
     if (!inView) return;
     const controls = animate(mv, to, {
-      duration: 2.2,
+      duration: 1.0,
       ease: easeOut,
       onUpdate: (v) => {
         const rounded = Math.round(v);
@@ -126,8 +125,43 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
 function Index() {
   useScroll(); // keep for potential future scroll effects
 
-  const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
+  const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("language");
+      if (stored === "es" || stored === "en" || stored === "ca") {
+        return stored;
+      }
+    }
+    return "es";
+  });
+
+  const setLanguage = (lang: "es" | "en" | "ca") => {
+    setLanguageState(lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("language", lang);
+      window.dispatchEvent(new Event("languagechange"));
+    }
+  };
   const t = translations[language];
+
+  useEffect(() => {
+    const handleLangChange = () => {
+      const stored = localStorage.getItem("language");
+      if (stored === "es" || stored === "en" || stored === "ca") {
+        setLanguageState(stored);
+      }
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("languagechange", handleLangChange);
+      window.addEventListener("storage", handleLangChange);
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("languagechange", handleLangChange);
+        window.removeEventListener("storage", handleLangChange);
+      }
+    };
+  }, []);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchParams, setSearchParams] = useState({
@@ -146,6 +180,7 @@ function Index() {
   });
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [sortOption, setSortOption] = useState<string>("recientes");
 
   useEffect(() => {
     setConsoleFilters({
@@ -177,14 +212,52 @@ function Index() {
     });
   };
 
-  // Valuator form state
-  const [valuatorSubmitted, setValuatorSubmitted] = useState(false);
+  // Valuator real calculation state
+  const ZONE_PRICE_PER_M2: Record<string, number> = {
+    "Riera Alta - Llatí": 1850,
+    "Singuerlín": 1720,
+    "Centre": 2350,
+    "Santa Rosa - Can Mariner": 1910,
+    "Fondo": 1680,
+    "El Raval": 1790,
+    "Riu": 1950
+  };
+
   const [valuatorData, setValuatorData] = useState({
-    zona: "",
-    tipo: "",
-    metros: "",
-    contacto: ""
+    zona: "Centre",
+    metros: "85"
   });
+  const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
+  const [calculatedResult, setCalculatedResult] = useState<{
+    estimatedValue: number;
+    rangeMin: number;
+    rangeMax: number;
+    zoneName: string;
+  }>({
+    estimatedValue: 588000,
+    rangeMin: 547000,
+    rangeMax: 629000,
+    zoneName: "Centre"
+  });
+
+  const handleCalculateValuation = () => {
+    setIsCalculatingValuation(true);
+    const m2 = parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85;
+    const pricePerM2 = ZONE_PRICE_PER_M2[valuatorData.zona] || 2150;
+    const exactValue = Math.round(m2 * pricePerM2);
+    const minVal = Math.round(exactValue * 0.93);
+    const maxVal = Math.round(exactValue * 1.07);
+
+    setTimeout(() => {
+      setCalculatedResult({
+        estimatedValue: exactValue,
+        rangeMin: minVal,
+        rangeMax: maxVal,
+        zoneName: valuatorData.zona || "Zona seleccionada"
+      });
+      setIsCalculatingValuation(false);
+    }, 1200);
+  };
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [mapInteractive, setMapInteractive] = useState(false);
@@ -203,7 +276,24 @@ function Index() {
     };
   }, [selectedServiceIndex]);
 
-  // Favorites state persisted in localStorage
+  // --- USER AUTHENTICATION STATE & MOCK DATABASE ---
+  const [user, setUser] = useState<{ email: string } | null>(() => {
+    try {
+      const stored = localStorage.getItem('gesgrama_current_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"login" | "register">("login");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
+  // Favorites state persisted directly in localStorage without login requirement
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('gesgrama_favorites');
@@ -235,6 +325,7 @@ function Index() {
     }
     if (category === 'zona') {
       if (val === 'Cualquier zona') return t.properties.allZones;
+      return formatLocation(val, language);
     }
     if (category === 'habitaciones') {
       if (val === 'Cualquier número') return t.properties.anyBedrooms;
@@ -260,29 +351,38 @@ function Index() {
     "Santa Rosa - Can Mariner",
     "Fondo",
     "Riu",
-    "Centre",
+    "Centro",
     "El Raval",
     "Riera Alta - Llatí",
     "Singuerlín"
   ];
   const tipos = ["Piso", "Apartamento", "Ático", "Local comercial", "Chalet", "Oficina"];
 
-  // Filter properties
+  // Filter and sort properties
   const filteredProperties = properties
-    .filter(p => searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona))
-    .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
-    .filter(p => p.operation === searchParams.mode)
-    .filter(p => isPriceValid(searchParams.precio, p.price))
     .filter(p => {
-      if (searchParams.habitaciones === 'Cualquier número' || !searchParams.habitaciones) return true;
-      const minHabs = parseInt(searchParams.habitaciones.replace("+", ""), 10);
-      return p.bedrooms >= minHabs;
+      if (searchParams.mode === "favoritos") {
+        return favorites.includes(p.id);
+      }
+      return p.operation === searchParams.mode;
+    })
+    .filter(p => {
+      if (searchParams.mode === "favoritos") return true;
+      return (searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona)) &&
+             (searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo) &&
+             isPriceValid(searchParams.precio, p.price) &&
+             (searchParams.habitaciones === 'Cualquier número' || !searchParams.habitaciones || p.bedrooms >= parseInt(searchParams.habitaciones.replace("+", ""), 10));
+    })
+    .sort((a, b) => {
+      if (sortOption === "precio_asc") return a.price - b.price;
+      if (sortOption === "precio_desc") return b.price - a.price;
+      return 0; // recientes / default order
     });
 
   let displayProperties = filteredProperties.slice(0, visibleCount);
   let isFallback = false;
 
-  if (filteredProperties.length === 0) {
+  if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
     isFallback = true;
     let similarProperties = properties
       .filter(p => searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona))
@@ -302,8 +402,8 @@ function Index() {
 
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
-      <title>Gesgrama — Administración de Fincas, Inmobiliaria y Asesoría Jurídica en Barcelona</title>
-      <meta name="description" content="Gesgrama: administración de fincas, inmobiliaria y asesoría jurídica en Barcelona y Santa Coloma de Gramenet. Gestión transparente de comunidades, compraventa de pisos, valoraciones gratuitas y asesoramiento legal. +15 años de experiencia, +300 comunidades gestionadas." />
+      <title>Gesgrama — Administración de Fincas, Inmobiliaria y Asesoría Jurídica en Santa Coloma de Gramenet</title>
+      <meta name="description" content="Gesgrama: administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana. Gestión transparente de comunidades, compraventa de pisos, valoraciones gratuitas y asesoramiento legal. +15 años de experiencia, +300 comunidades gestionadas." />
       <link rel="canonical" href="https://www.gesgrama.es/" />
 
       {/* Google Search Favicon Directives */}
@@ -314,8 +414,8 @@ function Index() {
       <link rel="shortcut icon" href="https://www.gesgrama.es/favicon.ico" />
 
       {/* Open Graph */}
-      <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
-      <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Barcelona, Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
+      <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" />
+      <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
       <meta property="og:url" content="https://grand-estates-collective.vercel.app/" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
@@ -330,8 +430,8 @@ function Index() {
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Barcelona" />
-      <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Barcelona." />
+      <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" />
+      <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana." />
       <meta name="twitter:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
 
       {/* Geo Targeting SEO — Barcelona, Cataluña, España */}
@@ -467,271 +567,169 @@ function Index() {
           })
         }}
       />
-
-        {/* ── NAVIGATION (EXACT GREY #757989 CAPSULE PILL FROM USER IMAGE) ── */}
       <motion.nav
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-2.5 md:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[90%] max-w-[1100px] z-[100] flex items-center justify-between py-1.5 sm:py-2 md:py-2.5 px-3.5 sm:px-5 md:px-7 rounded-full bg-[#757989] border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white"
+        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
       >
-        <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pl-1">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-9 md:h-10 w-auto object-contain brightness-0 invert" />
+        <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
+          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
         </a>
 
-        <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-[11px] md:text-[12px] font-extrabold text-white tracking-wide uppercase font-body">
-          <a href="#propiedades" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="#servicios" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <Link to="/convocatoria-junta" className="hover:text-blue-200 transition-colors duration-200 py-1">Convocatorias de Junta</Link>
-          <a href="#nosotros" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.nosotros}</a>
-          <a href="#contacto" className="hover:text-blue-200 transition-colors duration-200 py-1">{t.nav.contacto}</a>
+        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
+          {[
+            { label: t.nav.propiedades, href: "#propiedades" },
+            { label: t.nav.servicios, href: "#servicios" },
+            { label: t.nav.nosotros, href: "#nosotros" },
+            { label: t.nav.contacto, href: "#contacto" },
+          ].map(item => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            >
+              <span className="relative z-10">{item.label}</span>
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300 group-hover:w-1/2 opacity-0 group-hover:opacity-100" />
+            </a>
+          ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-[10px] md:text-[11px] font-extrabold">
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-xs font-black tracking-wider">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
                   onClick={() => setLanguage(lang)}
-                  className={`px-2 sm:px-2.5 md:px-3 py-0.5 md:py-1 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-xs' : 'text-slate-200 hover:text-white'}`}
+                  className={`px-2 sm:px-2.5 py-1 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-xs' : 'text-slate-200 hover:text-white'}`}
                 >
                   {lang.toUpperCase()}
                 </button>
-                {idx < 2 && <div className="w-px h-3 bg-white/30 mx-0.5"></div>}
+                {idx < 2 && <div className="w-px h-3.5 bg-white/30 mx-0.5"></div>}
               </div>
             ))}
           </div>
           <a
-            href="https://wa.me/34604259424"
+            href="https://wa.me/34601259424"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[10px] md:text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
+            className="hidden sm:inline-flex items-center gap-1.5 bg-[#25D366] text-white hover:bg-[#20ba5a] px-3.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs uppercase tracking-wider font-black transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02] shadow-[0_4px_14px_rgba(37,211,102,0.35)]"
           >
-            <MessageCircle className="w-3.5 h-3.5 shrink-0 fill-current text-white" />
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-white shrink-0">
+              <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+            </svg>
             <span>WhatsApp</span>
           </a>
           <button
-            className="lg:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer"
+            className="xl:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer ml-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
           </button>
         </div>
-
-        {/* MOBILE MENU */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <>
-              {/* Backdrop Overlay to close menu when touching outside */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setMobileMenuOpen(false)}
-                className="fixed inset-0 bg-black/60 backdrop-blur-xs z-[90] lg:hidden"
-              />
-              <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.98 }}
-                className="absolute top-full left-0 right-0 mt-4 bg-[#151f32] rounded-3xl p-6 shadow-2xl border border-white/10 flex flex-col gap-2 z-[100] lg:hidden"
-              >
-                <div className="flex items-center justify-between pb-3 mb-2 border-b border-white/10 px-2">
-                  <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama Logo" className="h-8 w-auto object-contain brightness-0 invert" />
-                </div>
-                <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
-                <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
-                <Link to="/convocatoria-junta" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">Convocatorias de Junta</Link>
-                <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
-                <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-bold text-white hover:text-[#60a5fa] hover:bg-white/5 py-3 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-                <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-2 text-center bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all shadow-md">
-                  <MessageCircle className="w-4 h-4 shrink-0 fill-current text-white" />
-                  <span>WhatsApp</span>
-                </a>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
       </motion.nav>
+
+      {/* MOBILE MENU — outside nav to avoid transform containing-block issues */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Solid Opaque Backdrop Overlay - Completely blocks underlying page content */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed left-0 right-0 top-0 bottom-0 bg-[#0f172a] z-[95] lg:hidden"
+              style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+            />
+            {/* Menu panel — fixed, anchored to top with max-height so bottom gesture zone is free */}
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.99 }}
+              className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
+              style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
+            >
+              <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
+              <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+              <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
+              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
+              
+              <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
+                <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
+                <span>WhatsApp</span>
+              </a>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* ── HERO ── */}
       <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
-      {/* ── VALORADOR DE INMUEBLES (BG SWAPPED TO BLUE - POINT 4) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
-        <div className="bg-[#005c99] rounded-[28px] md:rounded-[36px] shadow-xl p-6 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            
-            {/* LEFT COLUMN: Form */}
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs backdrop-blur-md">
-                  <Star className="w-3.5 h-3.5 fill-white text-white" />
-                  {t.valorador.tag}
-                </span>
-                <img src={logoImg} alt="Gesgrama" className="h-7 w-auto object-contain brightness-200 contrast-200 opacity-90 hidden sm:block" />
-              </div>
-
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-[1.1] tracking-tight font-sans">
-                {t.valorador.title} <span className="text-blue-200">{t.valorador.titleAccent}</span>
-              </h2>
-
-              <p className="text-blue-100 text-base md:text-17px max-w-[500px] mb-8 leading-relaxed font-semibold">
-                {t.valorador.subtitle}
-              </p>
-
-              <div className="w-full max-w-xl">
-                {valuatorSubmitted ? (
-                  <div className="bg-white text-[#0f172a] rounded-3xl p-8 shadow-md">
-                    <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4 text-green-600">
-                      <Check className="w-7 h-7 stroke-[3]" />
-                    </div>
-                    <h3 className="font-bold text-2xl mb-2">{t.valorador.enviada}</h3>
-                    <p className="text-slate-500 mb-6">{t.valorador.enviadaDesc}</p>
-                    <button 
-                      onClick={() => { setValuatorSubmitted(false); setValuatorData({ zona: "", tipo: "", metros: "", contacto: "" }); }} 
-                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-full transition-all shadow-sm cursor-pointer"
-                    >
-                      {t.valorador.nuevaValoracion}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="w-full">
-                    {/* Inputs Row */}
-                    <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
-                      {/* Select Zona */}
-                      <div className="flex-1 bg-white rounded-full px-5 py-3.5 flex items-center justify-between shadow-xs">
-                        <div className="flex items-center gap-3 w-full">
-                          <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                          <select
-                            value={valuatorData.zona}
-                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm font-semibold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
-                          >
-                            <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
-                            {zonas.map(z => <option key={z} value={z}>{z}</option>)}
-                          </select>
-                        </div>
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
-                      </div>
-
-                      {/* Input Superficie */}
-                      <div className="flex-1 bg-white rounded-full px-5 py-3.5 flex items-center gap-3 shadow-xs">
-                        <Home className="w-4 h-4 text-slate-400 shrink-0" />
-                        <input
-                          type="text"
-                          placeholder={t.valorador.superficieLabel}
-                          value={valuatorData.metros}
-                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm font-semibold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Submit Button */}
-                    <button
-                      onClick={() => { if (valuatorData.zona || valuatorData.metros) setValuatorSubmitted(true); }}
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 mb-6"
-                    >
-                      <Home className="w-4 h-4" />
-                      {t.valorador.botonCalcular} <ArrowRight className="w-4 h-4" />
-                    </button>
-
-                    {/* Footer Badges */}
-                    <div className="flex flex-wrap items-center gap-6 text-white/90 text-sm font-bold">
-                      <span className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-300 stroke-[3]" />
-                        {t.valorador.sinCompromiso}
-                      </span>
-                      <span className="flex items-center gap-2">
-                        <Star className="w-4 h-4 text-amber-300 fill-amber-300" />
-                        {t.valorador.resultadoInmediato}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: White Floating Price Card */}
-            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
-              <div className="bg-white text-[#0f172a] rounded-3xl p-8 md:p-10 shadow-2xl w-full max-w-[380px] border border-slate-100">
-                <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1.5 font-sans">{t.valorador.ejemploResultado}</div>
-                <div className="text-xs font-extrabold text-[#2563eb] uppercase tracking-wider mb-2 font-sans">{t.valorador.valorEstimado}</div>
-                
-                <div className="text-4xl md:text-[44px] font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
-                  245<span className="text-slate-400 font-normal">.000€</span>
-                </div>
-                
-                <div className="text-xs md:text-sm font-bold text-slate-500 mb-1 font-sans">
-                  {t.valorador.rangoEstimado} <span className="text-[#0f172a]">230.000€ – 260.000€</span>
-                </div>
-                <div className="text-[11px] leading-tight text-slate-400 mb-8 font-medium">
-                  {t.valorador.estimacionAutomatizada}
-                </div>
-                
-                {/* Sparkline Price Trend Chart */}
-                <div className="mb-6 pt-3 border-t border-slate-100">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 mb-2 font-sans">
-                    <span>Tendencia de precios (6 meses)</span>
-                    <span className="text-emerald-600 flex items-center gap-0.5 font-sans"><TrendingUp className="w-3.5 h-3.5" /> +4.2%</span>
-                  </div>
-                  <div className="w-full h-12 relative">
-                    <svg className="w-full h-full overflow-visible" viewBox="0 0 200 40" fill="none">
-                      <defs>
-                        <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M 0 35 L 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 200 4 L 200 40 L 0 40 Z" fill="url(#sparklineGrad)" />
-                      <path d="M 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 200 4" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      <circle cx="0" cy="30" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="40" cy="22" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="80" cy="20" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="120" cy="14" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="160" cy="10" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="200" cy="4" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-500 font-sans">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                  {t.valorador.actualizadoHoy}
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/60 p-5 sm:p-8 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
+      <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-8 md:py-16 border-t border-slate-200/80">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-md border border-slate-200/80 p-5 sm:p-8 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
           <Reveal>
-            <div className="mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-              <div className="max-w-2xl">
-                <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 w-fit">
-                  <Home className="w-3.5 h-3.5" />
-                  {t.properties.tag}
-                </span>
-                <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] text-[#0f172a] tracking-tight mb-4 font-sans">
-                  {t.properties.title} <span className="text-[#2563eb]">{t.properties.titleAccent}</span>
-                </h2>
-                <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium">
-                  {t.properties.subtitle}
-                </p>
-              </div>
+            <div className="mb-6">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md mb-4 font-sans">
+                <Home className="w-4 h-4 text-white" />
+                <span>{t.properties.tag}</span>
+              </span>
               
-              {/* Stat Card */}
-              <div className="flex items-center gap-4 bg-[#f8fafc] border border-slate-200/80 rounded-2xl md:rounded-3xl p-5 md:pr-8 shrink-0">
-                <div className="w-12 h-12 rounded-full bg-[#dbeafe] flex items-center justify-center shrink-0 text-[#2563eb]">
-                  <Home className="w-6 h-6" />
+              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] leading-tight tracking-tight mb-3 font-sans w-full">
+                {t.properties.title1} <span className="text-[#2563eb]">{t.properties.title2}</span>
+              </h2>
+              
+              <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl leading-relaxed font-extrabold font-sans max-w-4xl text-balance">
+                {t.properties.subtitle}
+              </p>
+            </div>
+
+            {/* Dedicated full-width row for Mode Selector + Stat Badge right above Search Console */}
+            <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
+              {/* Search Mode Selector Tabs - Responsive 3-column equal grid on mobile to fit all screen sizes */}
+              <div className="grid grid-cols-3 sm:flex sm:items-center bg-slate-100 p-1.5 sm:p-2 rounded-2xl border-2 border-slate-200 shadow-sm w-full sm:w-auto gap-1 sm:gap-0">
+                <button
+                  type="button"
+                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
+                  className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
+                    searchParams.mode === "comprar" ? "bg-[#2563eb] text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                  }`}
+                >
+                  {t.hero.comprar}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
+                  className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
+                    searchParams.mode === "alquilar" ? "bg-[#2563eb] text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                  }`}
+                >
+                  {t.hero.alquilar}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
+                  className={`px-1.5 xs:px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
+                    searchParams.mode === "favoritos" ? "bg-red-500 text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                  }`}
+                >
+                  <Heart className="w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0" />
+                  <span>Fav ({favorites.length})</span>
+                </button>
+              </div>
+
+              <div className="hidden sm:flex bg-[#0f172a] text-white rounded-2xl px-6 py-3.5 items-center gap-3.5 shadow-lg border border-slate-700/80 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Home className="w-5 h-5" />
                 </div>
-                <div>
-                  <p className="text-3xl font-black text-[#0f172a] mb-0.5">{filteredProperties.length}</p>
-                  <p className="text-xs text-slate-500 font-semibold leading-tight">{t.properties.availableCount}</p>
+                <div className="flex flex-col text-left">
+                  <div className="flex items-baseline gap-1.5 leading-none">
+                    <span className="text-2xl font-black text-white font-sans">{filteredProperties.length}</span>
+                    <span className="text-sm font-black text-blue-400 font-sans">{language === "ca" ? "propietats" : language === "en" ? "properties" : "propiedades"}</span>
+                  </div>
+                  <span className="text-xs font-bold text-slate-300 tracking-wide font-sans mt-0.5">{language === "ca" ? "disponibles ara" : language === "en" ? "available now" : "disponibles ahora"}</span>
                 </div>
               </div>
             </div>
@@ -740,24 +738,24 @@ function Index() {
           {/* FILTERS */}
           {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
           <div className="mt-8 mb-4">
-            <div className="bg-white border-[1.5px] border-slate-200 rounded-[16px] shadow-[0_4px_25px_rgba(0,0,0,0.04)] p-4 lg:p-3 flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-4 relative z-40">
+            <div className="bg-white border-2 border-slate-200 rounded-[20px] shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-4 lg:p-3 flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-4 relative z-40">
               
               {/* Field 1: Tipo de Inmueble */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "tipo" ? null : "tipo")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer"
+                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                      <Building2 className="w-4 h-4 text-[#005c99]" />
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                      <Building2 className="w-4 h-4 text-[#2563eb]" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
+                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
+                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
+                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "tipo" && (
@@ -767,9 +765,10 @@ function Index() {
                       { label: "Piso", value: "Piso" },
                       { label: "Apartamento", value: "Apartamento" },
                       { label: "Ático", value: "Ático" },
-                      { label: "Local comercial", value: "Local comercial" },
-                      { label: "Chalet", value: "Chalet" },
-                      { label: "Oficina", value: "Oficina" }
+                      { label: "Chalet / Villa", value: "Chalet" },
+                      { label: "Local Comercial", value: "Local" },
+                      { label: "Oficina", value: "Oficina" },
+                      { label: "Aparcamiento", value: "Aparcamiento" }
                     ].map(opt => {
                       const count = properties.filter(p => {
                         const matchesMode = p.operation === searchParams.mode;
@@ -811,29 +810,29 @@ function Index() {
               {/* Divider */}
               <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
 
-              {/* Field 2: Zona (Hidden on mobile to eliminate redundancy with Zonas populares pills below) */}
+              {/* Field 2: Zona */}
               <div className="hidden lg:block flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer"
+                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-[#005c99]" />
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                      <MapPin className="w-4 h-4 text-[#2563eb]" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
+                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
+                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
+                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "zona" && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
                     {[
                       { label: t.properties.allZones, value: "Cualquier zona" },
-                      ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: loc, value: loc }))
+                      ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
                     ].map(opt => {
                       const count = properties.filter(p => {
                         const matchesMode = p.operation === searchParams.mode;
@@ -879,24 +878,24 @@ function Index() {
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "habitaciones" ? null : "habitaciones")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer"
+                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                      <Home className="w-4 h-4 text-[#005c99]" />
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                      <Home className="w-4 h-4 text-[#2563eb]" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
+                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
+                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
+                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "habitaciones" && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
                     {[
-                      { label: t.properties.anyBedrooms, value: "Cualquier número" },
+                      { label: (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || "Cualquier número", value: "Cualquier número" },
                       { label: "1+ " + t.properties.bedrooms.toLowerCase(), value: "1+" },
                       { label: "2+ " + t.properties.bedrooms.toLowerCase(), value: "2+" },
                       { label: "3+ " + t.properties.bedrooms.toLowerCase(), value: "3+" },
@@ -948,24 +947,24 @@ function Index() {
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer"
+                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                      <svg className="w-4 h-4 text-[#005c99]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                      <span className="text-[#2563eb] text-xs font-black">€</span>
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
-                      <div className="text-sm font-bold text-onyx leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
+                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
+                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-onyx transition-colors" />
+                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "precio" && (
                   <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
                     {(searchParams.mode === "alquilar" 
-                      ? [t.properties.anyPrice, "Hasta 1.500 €", "Hasta 2.000 €", "Hasta 3.000 €"]
+                      ? [t.properties.anyPrice, "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
                       : [t.properties.anyPrice, "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
                     ).map(opt => {
                       const count = properties.filter(p => {
@@ -1020,31 +1019,31 @@ function Index() {
                     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 }}
-                className="bg-[#0b1221] hover:bg-[#1b263b] text-white font-bold text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer font-sans"
+                className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
               >
                 {t.hero.buscarBtn}
               </button>
             </div>
 
-            {/* Quick access chips for zones */}
-            <div className="flex flex-wrap items-center gap-2.5 mt-6">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mr-2 font-sans">{t.properties.popularZones}:</span>
+            {/* Quick access chips for zones - Horizontal scrollable carousel on mobile */}
+            <div className="flex items-center gap-2 mt-6 pb-6 border-b border-slate-100 overflow-x-auto no-scrollbar scroll-smooth -mx-1 px-1">
+              <span className="text-[11px] font-black text-slate-500 uppercase tracking-widest mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
-                ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: loc, value: loc }))
+                ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
               ].map(item => {
                 const isActive = searchParams.zona === item.value;
                 return (
                   <button
                     key={item.value}
                     onClick={() => {
-                      setConsoleFilters(p => ({ ...p, zona: item.value }));
-                      setSearchParams(p => ({ ...p, zona: item.value }));
+                      setConsoleFilters(prev => ({ ...prev, zona: item.value }));
+                      setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer font-sans ${
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap ${
                       isActive 
-                        ? "bg-[#005c99] text-white border-transparent shadow-sm" 
-                        : "bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200"
+                        ? "bg-[#2563eb] text-white shadow-xs" 
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                     }`}
                   >
                     {item.label}
@@ -1052,201 +1051,308 @@ function Index() {
                 );
               })}
             </div>
-          </div>
-{/* Results Count & Sort */}
-          {(() => {
 
-            const renderPropertyCard = (property: any, idx: number) => {
-              const isFav = favorites.includes(property.id);
-              const pData = (t.propertiesData as any)?.[property.id] || property;
+            {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
+            {(() => {
+              const renderPropertyCard = (property: any, idx: number) => {
+                const isFav = favorites.includes(property.id);
+                const pData = (t.propertiesData as any)?.[property.id] || property;
+
+                return (
+                  <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
+                      className="group bg-white rounded-3xl flex flex-col h-full border-2 border-slate-300 hover:border-[#2563eb] shadow-md hover:shadow-[0_20px_40px_rgba(37,99,235,0.15)] transition-all duration-300 overflow-hidden"
+                    >
+                      {/* Image Block */}
+                      <div className="relative h-[170px] sm:h-[220px] md:h-[250px] w-full overflow-hidden bg-slate-100">
+                        <img src={property.image} alt={pData.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                        
+                        {/* Heart Favorite Button */}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleFavorite(property.id);
+                          }}
+                          aria-label="Guardar en favoritos"
+                          className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md z-20 ${
+                            isFav 
+                              ? 'bg-red-500 text-white scale-110 shadow-red-500/30' 
+                              : 'bg-white/90 text-slate-700 hover:text-red-500 hover:scale-110'
+                          }`}
+                        >
+                          <Heart className="w-5 h-5 fill-current" />
+                        </button>
+                      </div>
+
+                      {/* Content Block */}
+                      <div className="p-5 sm:p-6 flex flex-col flex-1">
+                        {/* Badge + Ref */}
+                        <div className="mb-3 flex items-center justify-between gap-2">
+                          {(() => {
+                            const type = pData.type || property.type || "Piso";
+                            let badgeClass = "bg-[#2563eb] text-white";
+                            if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
+                              badgeClass = "bg-[#0284c7] text-white";
+                            } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
+                              badgeClass = "bg-[#4338ca] text-white";
+                            } else if (type.toLowerCase().includes("local")) {
+                              badgeClass = "bg-slate-700 text-white";
+                            } else if (type.includes("Oficina") || type.includes("Office")) {
+                              badgeClass = "bg-[#d97706] text-white";
+                            }
+                            return (
+                              <span className={`inline-flex items-center px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-xs ${badgeClass}`}>
+                                {type}
+                              </span>
+                            );
+                          })()}
+                          <span className="text-xs font-mono font-black text-slate-600 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                            Ref: {property.ref || "API A10750"}
+                          </span>
+                        </div>
+
+                        <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#2563eb] transition-colors font-sans text-balance">{pData.name}</h3>
+                        <p className="text-sm font-extrabold text-slate-500 flex items-center gap-1.5 mb-4 font-sans">
+                          <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                          {formatLocation(pData.location || property.location, language)}
+                        </p>
+
+                        {/* Features Row */}
+                        <div className="mb-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-extrabold text-slate-700 font-sans">
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4.5 h-4.5 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                            <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? (property.bedrooms === 1 ? "bd" : "bds") : "hab"}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4.5 h-4.5 text-[#0284c7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 2v4m0 0H4a2 2 0 00-2 2v3a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-2V2m-8 0h8M6 14v6m4-6v6m4-6v6" /></svg>
+                            <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? (property.bathrooms === 1 ? "bath" : "baths") : language === "ca" ? (property.bathrooms === 1 ? "bany" : "banys") : (property.bathrooms === 1 ? "baño" : "baños")}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <svg className="w-4.5 h-4.5 text-[#0369a1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+                            <span className="font-black text-[#0284c7] bg-[#0284c7]/10 px-2.5 py-0.5 rounded-md text-xs sm:text-sm">{property.surface} m²</span>
+                          </div>
+                        </div>
+
+                        {/* Price */}
+                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
+                          <div>
+                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
+                            <div className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none font-sans">
+                              {new Intl.NumberFormat('es-ES').format(property.price)}€
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
+                );
+              };
 
               return (
-                <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
-                    className="group bg-white rounded-2xl flex flex-col h-full border border-slate-200 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300 overflow-hidden"
-                  >
-                    {/* Image Block */}
-                    <div className="relative h-[180px] sm:h-[240px] md:h-[280px] w-full overflow-hidden bg-slate-100">
-                      <img src={property.image} alt={pData.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
-                      
-                      {/* Heart Favorite Button with LocalStorage Persistence */}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleFavorite(property.id);
-                        }}
-                        aria-label="Guardar en favoritos"
-                        className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md z-20 ${
-                          isFav 
-                            ? 'bg-red-500 text-white scale-110 shadow-red-500/30' 
-                            : 'bg-white/90 text-slate-700 hover:text-red-500 hover:scale-110'
-                        }`}
-                      >
-                        <svg 
-                          className="w-5 h-5 transition-transform duration-300" 
-                          fill={isFav ? "currentColor" : "none"} 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor" 
-                          strokeWidth={2}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </button>
-                    </div>
-
-                  {/* Content Block */}
-                  <div className="p-4 sm:p-6 flex flex-col flex-1">
-                    {/* Visual accent next to the price */}
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-[3px] h-6 bg-[#005c99] rounded-full shrink-0"></div>
-                      <div className="text-[26px] font-black text-[#005c99] leading-none tracking-tight">
-                        {new Intl.NumberFormat('es-ES').format(property.price)}€
-                      </div>
-                    </div>
-                    
-                    {/* Soft colored type badge + Ref */}
-                    <div className="mb-3.5 flex items-center justify-between">
-                      {(() => {
-                        const type = pData.type || property.type || "Piso";
-                        let badgeClass = "bg-[#005c99]/10 text-[#005c99]";
-                        if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
-                          badgeClass = "bg-sky-100 text-sky-800";
-                        } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
-                          badgeClass = "bg-indigo-100 text-indigo-900";
-                        } else if (type.includes("Local")) {
-                          badgeClass = "bg-emerald-100 text-emerald-900";
-                        } else if (type.includes("Oficina") || type.includes("Office")) {
-                          badgeClass = "bg-amber-100 text-amber-900";
-                        }
-                        return (
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold font-sans ${badgeClass}`}>
-                            {type}
-                          </span>
-                        );
-                      })()}
-                      <span className="text-[11px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
-                        Ref: {property.ref || "API A10750"}
+                <div className="mt-6">
+                  {/* Results Count & Sort directly below zones pills */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+                    <div className="flex items-center gap-2.5">
+                      <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black w-7 h-7 rounded-full shadow-sm">
+                        {filteredProperties.length}
                       </span>
+                      <p className="text-sm sm:text-base font-black text-[#0f172a] font-sans">
+                        {t.properties.availableCount}
+                      </p>
                     </div>
 
-                    <h3 className="text-base font-bold text-onyx mb-1.5">{pData.name}</h3>
-                    <p className="text-sm text-slate-500 font-medium flex items-center gap-1.5 mb-6">
-                      <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                      {pData.location}
-                    </p>
+                    <div className="flex items-center gap-3 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                      <span className="text-slate-500 font-extrabold uppercase tracking-wider text-xs font-sans">{t.properties.sortBy}:</span>
+                      <button 
+                        onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
+                        className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-4 py-2 font-black text-[#0f172a] hover:bg-slate-200 transition-colors shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
+                      >
+                        {sortOption === "precio_asc" ? "Precio: Menor a Mayor" : sortOption === "precio_desc" ? "Precio: Mayor a Menor" : t.properties.mostRecent} 
+                        <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                      </button>
 
-                    {/* Features Footer */}
-                    <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-sm font-bold text-onyx">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
-                        {property.bedrooms > 0 ? property.bedrooms : "2"}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-                        {property.bathrooms > 0 ? property.bathrooms : "1"}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
-                        {property.surface} m²
-                      </div>
+                      {openDropdown === "ordenar" && (
+                        <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                          {[
+                            { label: t.properties.mostRecent, value: "recientes" },
+                            { label: "Precio: Menor a Mayor", value: "precio_asc" },
+                            { label: "Precio: Mayor a Menor", value: "precio_desc" }
+                          ].map(opt => (
+                            <button
+                              key={opt.value}
+                              onClick={() => {
+                                setSortOption(opt.value);
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                                sortOption === opt.value ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                              }`}
+                            >
+                              <span>{opt.label}</span>
+                              {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              </Link>
-            );
-          };
 
-            return (
-              <>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200/60">
-                  <p className="text-sm font-bold text-slate-500">
-                    <strong className="text-[#005c99]">{filteredProperties.length}</strong> {t.properties.availableCount}
-                  </p>
-                  <div className="flex items-center gap-3 text-sm">
-                    <span className="text-slate-500 font-bold">{t.properties.sortBy}:</span>
-                    <button className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-4 py-2 font-bold text-onyx hover:bg-slate-50 transition-colors shadow-sm">
-                      {t.properties.mostRecent} <ChevronDown className="w-4 h-4 text-slate-400" />
-                    </button>
+                  {isFallback && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-amber-800 text-sm font-medium">
+                      {t.properties.fallbackMsg}
+                    </div>
+                  )}
+
+                  {/* PROPERTY CARDS GRID (INSIDE CARD BUBBLE) */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
+                    {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                  </div>
+
+                  {/* LOAD MORE BUTTON (INSIDE CARD BUBBLE) */}
+                  <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100">
+                    {visibleCount < filteredProperties.length ? (
+                      <button 
+                        onClick={() => setVisibleCount(prev => prev + 4)}
+                        className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans"
+                      >
+                        <span>{t.properties.verMas}</span>
+                        <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={() => {
+                          setSearchParams({
+                            mode: "comprar",
+                            zona: "Cualquier zona",
+                            tipo: "Cualquier tipo",
+                            precio: "Cualquier precio",
+                            habitaciones: "Cualquier número"
+                          });
+                          setVisibleCount(properties.length);
+                        }}
+                        className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans"
+                      >
+                        <span>{t.properties.verTodas}</span>
+                        <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
                   </div>
                 </div>
+              );
+            })()}
+          </div>
+        </div>
+      </section>
 
-                {isFallback && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 text-amber-800 text-sm font-medium">
-                    {t.properties.fallbackMsg}
-                  </div>
-                )}
+      {/* ── TESTIMONIOS ── */}
+      <div id="nosotros"></div>
+      <section id="testimonios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
+        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-2xl border-2 border-slate-400/90 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
+          {/* Dot Pattern Overlay */}
+          <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none z-0" />
+          <div className="relative z-10">
+            {/* Header */}
+            <Reveal>
+              <div className="mb-10 text-center">
+                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-sm font-black tracking-widest uppercase px-5 py-2 rounded-2xl shadow-md border border-white/10 mb-4">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <span>{t.testimonios.tag}</span>
+                </span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-[#0f172a] tracking-tight mb-3 font-sans">
+                  {t.testimonios.title1}{" "}
+                  <span className="relative inline-block text-[#2563eb] pb-2">
+                    {t.testimonios.title2}
+                    <svg className="absolute -bottom-1 left-0 w-full h-3 text-[#38bdf8]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
+                      <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                    </svg>
+                  </span>
+                </h2>
+              </div>
+            </Reveal>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-                  {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                </div>
-              </>
-            );
-          })()}
+            {/* 3 Real Google Reviews Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {t.testimonios.items.map((item, i) => {
+                const avatarBgs = ["bg-indigo-600", "bg-amber-700", "bg-[#2563eb]"];
+                const topBorders = ["border-t-4 border-[#0b214a]", "border-t-4 border-[#2563eb]", "border-t-4 border-[#0b214a]"];
+                const initials = ["F", "A", "C"];
+                return (
+                  <Reveal key={item.author} delay={i * 0.1}>
+                    <div className={`bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border border-slate-200 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden ${topBorders[i % topBorders.length]}`}>
+                      
+                      {/* Watermark Quote Icon */}
+                      <div className="absolute top-3 right-4 text-[#757989] opacity-30 select-none pointer-events-none text-6xl font-serif font-black leading-none">
+                        “
+                      </div>
 
-          {/* CTA Footer */}
-          <Reveal delay={0.1}>
-            <div className="flex flex-col items-center justify-center mt-12 pt-12 border-t border-slate-200/60">
-              {visibleCount < filteredProperties.length ? (
-                <button 
-                  onClick={() => setVisibleCount(prev => prev + 4)}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 cursor-pointer"
-                >
-                  {t.properties.verMas}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              ) : (
-                <button 
-                  onClick={() => {
-                    setSearchParams({
-                      mode: "comprar",
-                      zona: "Cualquier zona",
-                      tipo: "Cualquier tipo",
-                      precio: "Cualquier precio",
-                      habitaciones: "Cualquier número"
-                    });
-                    setVisibleCount(properties.length);
-                  }}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto hover:scale-105 cursor-pointer"
-                >
-                  {t.properties.verTodas}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              )}
+                      <div className="relative z-10">
+                        {/* Rating Stars & Badge */}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, s) => (
+                              <Star key={s} className="w-4.5 h-4.5 fill-amber-400 text-amber-400" />
+                            ))}
+                            <span className="text-xs font-black text-slate-700 ml-1">5/5</span>
+                          </div>
+                        </div>
+
+                        {/* Quote Text */}
+                        <p className="text-[#0f172a] text-sm sm:text-base leading-relaxed mb-6 font-medium tracking-tight">
+                          "{item.quote}"
+                        </p>
+                      </div>
+
+                      {/* Author Row */}
+                      <div className="pt-4 border-t border-slate-100 flex items-center gap-3.5 relative z-10">
+                        <div className={`w-10 h-10 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-sm flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border border-white/40`}>
+                          {initials[i % initials.length]}
+                        </div>
+                        <div className="flex flex-col">
+                          <strong className="font-extrabold text-base sm:text-lg text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
+                          <span className="text-xs text-slate-500 font-medium">
+                            {item.time}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
-        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-sky-500/20 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
-          <div className="text-center mb-12">
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8">
+        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-sky-500/20 p-5 sm:p-7 md:p-9 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
+          <div className="text-center mb-6 sm:mb-8">
             <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-[#0284c7]/20 text-[#38bdf8] border border-[#38bdf8]/30 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 shadow-xs">
-                <Building2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                {t.servicios.tag}
+              <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl mb-3 shadow-md border border-slate-200 font-sans">
+                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
+                <span>{t.servicios.tag}</span>
               </span>
             </Reveal>
             <Reveal>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white mb-4 tracking-tight font-sans">
+              <h2 key={language} className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-white mb-2 tracking-tight font-sans">
                 {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-slate-300 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+              <p className="text-white text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-3">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
           </div>
 
           {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {t.servicios.items.map((item, i) => {
               const icons = [
                 <Building2 key={0} className="w-5 h-5" />,
@@ -1262,34 +1368,44 @@ function Index() {
               ];
               return (
                 <Reveal key={i} delay={i * 0.1}>
-                  <div className="group bg-white text-[#0f172a] rounded-3xl p-6 border border-slate-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-6 h-full">
-                    {/* Thumbnail compacto (~25-30% de la tarjeta) con icono Cyan superpuesto */}
-                    <div className="relative w-full sm:w-[130px] h-[110px] sm:h-[130px] rounded-2xl overflow-hidden shrink-0">
+                  <div 
+                    onClick={() => setSelectedServiceIndex(i)}
+                    className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-4 md:p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-4 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                  >
+                    
+                    {/* Thumbnail con icono Cyan superpuesto */}
+                    <div className="relative w-full sm:w-[130px] h-[100px] sm:h-[115px] rounded-xl sm:rounded-2xl overflow-hidden shrink-0">
                       <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute top-2.5 left-2.5 w-9 h-9 rounded-full bg-[#0284c7] text-white shadow-md flex items-center justify-center z-10">
+                      <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-[#0284c7] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
                     </div>
 
-                    {/* Texto informativo (Protagonista principal ~70% de espacio) */}
-                    <div className="flex-1 flex flex-col justify-between h-full py-1">
+                    {/* Texto informativo + Botón Píldora Azul Cyan */}
+                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        <h3 className="text-xl font-extrabold text-[#0f172a] mb-2 leading-snug">
+                        <h3 className="text-xl md:text-2xl font-black text-[#0f172a] mb-2 leading-snug group-hover:text-[#0284c7] transition-colors">
                           {item.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4">
+                        <p className="text-sm sm:text-base text-[#475569] font-semibold leading-relaxed mb-4">
                           {item.desc}
                         </p>
                       </div>
                       <div>
                         <button 
-                          onClick={() => setSelectedServiceIndex(i)}
-                          className="text-[#0284c7] hover:text-[#0369a1] text-xs sm:text-sm font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all cursor-pointer border-0 bg-transparent p-0"
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedServiceIndex(i);
+                          }}
+                          className="bg-[#0284c7] hover:bg-[#0369a1] text-white font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
                         >
-                          {t.servicios.saberMas} <ArrowRight className="w-4 h-4 text-[#0284c7]" />
+                          <span>{t.servicios.saberMas}</span>
+                          <ArrowRight className="w-4 h-4 text-white" />
                         </button>
                       </div>
                     </div>
+
                   </div>
                 </Reveal>
               );
@@ -1298,107 +1414,229 @@ function Index() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS (RESEÑAS REALES DE CLIENTES) ── */}
-      <div id="nosotros"></div>
-      <section id="testimonios" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <Reveal>
-            <div className="mb-8 md:mb-16 text-center">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                {t.testimonios.tag}
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-[#0f172a] tracking-tight mb-4 font-sans">
-                Lo que dicen nuestros <span className="text-[#2563eb]">clientes</span>
-              </h2>
-              <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
-                Transparencia y satisfacción demostrable en administración de fincas e inmobiliaria en Santa Coloma de Gramenet.
-              </p>
-            </div>
-          </Reveal>
+      {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-3 sm:py-6 md:py-10">
+        <div className="bg-white rounded-[24px] sm:rounded-[36px] shadow-2xl border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-3 sm:mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center relative z-10">
+            
+            {/* LEFT COLUMN: Form */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-[11px] sm:text-sm font-black tracking-wider sm:tracking-widest uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-md font-sans">
+                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
+                  <span>{t.valorador.tag}</span>
+                </span>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "Llevan administrando nuestra comunidad en Santa Coloma desde hace años. La transparencia en las cuentas y la rapidez de respuesta son sencillamente excelentes.",
-                author: "Comunidad Av. dels Sants",
-                location: "Sta. Coloma de Gramenet"
-              },
-              {
-                quote: "Alquilamos nuestro piso con el seguro de protección de pagos contratado a través de Gesgrama. Cobro puntual garantizado y máxima tranquilidad.",
-                author: "Manuel R. G.",
-                location: "Sta. Coloma de Gramenet"
-              },
-              {
-                quote: "Excelente asesoría jurídica y venta rápida de nuestra propiedad en Singuerlín. Nos acompañaron en cada trámite con total claridad.",
-                author: "Carmen & Francesc",
-                location: "Singuerlín, Sta. Coloma"
-              }
-            ].map((item, i) => (
-              <Reveal key={item.author} delay={i * 0.1}>
-                <div className="bg-[#eef2f7] rounded-3xl p-8 md:p-10 flex flex-col justify-between h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                  <div>
-                    <div className="flex gap-1.5 mb-6">
-                      {[...Array(5)].map((_, s) => (
-                        <Star key={s} className="w-5 h-5 fill-[#2563eb] text-[#2563eb]" />
-                      ))}
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 leading-[1.15] sm:leading-[1.1] tracking-tight font-sans text-[#0f172a] flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>{t.valorador.title}</span>
+                <span className="bg-[#2563eb] text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl shadow-sm whitespace-nowrap">
+                  {t.valorador.titleAccent}
+                </span>
+              </h2>
+
+              <p className="text-slate-600 text-base sm:text-xl md:text-2xl max-w-[580px] mb-6 sm:mb-8 leading-relaxed font-extrabold font-sans">
+                {t.valorador.subtitle}
+              </p>
+
+              <div className="w-full max-w-xl">
+                <div className="w-full">
+                  {/* Inputs Row */}
+                  <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
+                    {/* Select Zona */}
+                    <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xs">
+                      <div className="flex items-center gap-3 w-full">
+                        <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                        <select
+                          value={valuatorData.zona}
+                          onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                          className="w-full bg-transparent border-0 p-0 text-sm font-bold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                        >
+                          <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
+                          {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
+                        </select>
+                      </div>
+                      <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                     </div>
-                    <p className="text-slate-600 text-base md:text-17px leading-relaxed italic mb-8 font-medium">"{item.quote}"</p>
+
+                    {/* Input Superficie (Ruler Icon) */}
+                    <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 flex items-center gap-3 shadow-xs">
+                      <Ruler className="w-4 h-4 text-[#2563eb] shrink-0" />
+                      <input
+                        type="text"
+                        placeholder={language === "ca" ? "Superfície aprox. (m²)" : language === "en" ? "Approx. surface (m²)" : "Superficie aprox. (m²)"}
+                        value={valuatorData.metros}
+                        onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                        className="w-full bg-transparent border-0 p-0 text-sm font-bold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
+                      />
+                    </div>
                   </div>
-                  <div className="pt-4 border-t border-slate-200/60 flex flex-col items-start gap-1">
-                    <strong className="font-bold text-base text-[#0f172a]">{item.author}</strong>
-                    <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">{item.location}</span>
+                  
+                  {/* Submit Button */}
+                  <button
+                    type="button"
+                    onClick={handleCalculateValuation}
+                    disabled={isCalculatingValuation}
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-4 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 mb-4 font-sans disabled:opacity-75"
+                  >
+                    <Home className="w-4 h-4 text-white" />
+                    <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </button>
+
+                  {/* Trust Badges - Clean horizontal row right under the button */}
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4 mt-2">
+                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-sm md:text-base font-black font-sans whitespace-nowrap border border-slate-700/60">
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
+                      <span>{t.valorador.sinCompromiso}</span>
+                    </span>
+                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-sm md:text-base font-black font-sans whitespace-nowrap border border-slate-700/60">
+                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400 shrink-0" />
+                      <span>{t.valorador.resultadoInmediato}</span>
+                    </span>
                   </div>
                 </div>
-              </Reveal>
-            ))}
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: White Floating Result Card with Permanent Blue Border */}
+            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
+              <div className="bg-white text-[#0f172a] rounded-3xl p-6 sm:p-8 shadow-2xl w-full max-w-[380px] border-2 border-[#2563eb] relative overflow-hidden text-center">
+                
+                {/* Spinner / Skeleton Loading Overlay */}
+                {isCalculatingValuation && (
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6 animate-in fade-in duration-200">
+                    <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
+                    <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
+                    <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
+                  </div>
+                )}
+
+                {/* 1. "VALOR ESTIMADO" pill badge */}
+                <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-widest mb-4 shadow-md font-sans">
+                  <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0 animate-pulse"></span>
+                  <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
+                </div>
+                
+                {/* Main Estimated Value */}
+                <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
+                  {new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} <span className="text-[#2563eb] font-bold">€</span>
+                </div>
+
+                {/* 2. Rango estimado de mercado en una sola línea limpia */}
+                <p className="text-sm font-bold text-slate-500 mb-2 font-sans">
+                  {t.valorador.rangoEstimado}: <span className="font-extrabold text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
+                </p>
+                <p className="text-xs sm:text-sm font-bold text-slate-600 mb-6 font-sans">
+                  *{t.valorador.disclaimer}
+                </p>
+                
+                {/* 3. Sparkline Price Trend Chart con badge en cabecera limpia sin solapar */}
+                <div className="pt-5 border-t border-slate-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-slate-500 font-sans uppercase tracking-wider">
+                      {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
+                    </span>
+                    <span className="bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-sm font-sans">
+                      <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +4.2%
+                    </span>
+                  </div>
+                  <div className="w-full h-12 relative">
+                    <svg className="w-full h-full overflow-visible" viewBox="0 0 200 45" fill="none">
+                      <defs>
+                        <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M 0 35 L 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 190 6 L 190 45 L 0 45 Z" fill="url(#sparklineGrad)" />
+                      <path d="M 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 190 6" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <circle cx="0" cy="30" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="40" cy="22" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="80" cy="20" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="120" cy="14" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="160" cy="10" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="190" cy="6" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
-      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-white text-onyx">
-        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-5 sm:p-8 md:p-12 mx-auto max-w-[1300px] relative z-10">
+      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-white">
+        <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-6 sm:p-10 md:p-12 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
             
             {/* LEFT CONTENT */}
             <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
               <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#dbeafe] text-[#2563eb] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {t.cobertura.tag}
+                <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 border border-slate-200">
+                  <MapPin className="w-4 h-4 text-[#2563eb]" />
+                  <span>{language === "ca" ? "ÀREA DE COBERTURA" : language === "en" ? "COVERAGE AREA" : "ÁREA DE COBERTURA"}</span>
                 </span>
                 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[#0f172a] mb-4 font-sans">
-                  {t.cobertura.title1} {t.cobertura.title2}
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight text-white mb-6 font-sans flex flex-col items-start gap-1">
+                  <span>{language === "ca" ? "Experts a" : language === "en" ? "Experts in" : "Expertos en"}</span>
+                  <span className="inline-block bg-[#2563eb] text-white px-4.5 py-1.5 rounded-2xl shadow-lg mt-1 whitespace-nowrap">
+                    Santa Coloma de
+                  </span>
+                  <span className="inline-block bg-[#2563eb] text-white px-4.5 py-1.5 rounded-2xl shadow-lg whitespace-nowrap">
+                    Gramenet
+                  </span>
                 </h2>
-                <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-lg mb-6 font-medium leading-relaxed">
-                  {t.cobertura.subtitle}
+                
+                <p className="text-white text-lg sm:text-xl md:text-2xl max-w-lg mb-4 font-extrabold leading-relaxed font-sans">
+                  {language === "ca" ? "Equip propi amb atenció personalitzada a tots els barris de Santa Coloma de Gramenet." : language === "en" ? "Our own team with personalized service in all neighborhoods of Santa Coloma de Gramenet." : "Equipo propio con atención personalizada en todos los barrios de Santa Coloma de Gramenet."}
                 </p>
+                <div className="flex flex-wrap gap-2 mb-8 max-w-lg">
+                  {[
+                    "Centro",
+                    "Singuerlín",
+                    "Santa Rosa - Can Mariner",
+                    "Fondo",
+                    "Riera Alta - Llatí",
+                    "El Raval",
+                    "Riu Nord / Riu Sud",
+                    "Oliveres - Can Serra"
+                  ].map((barrio) => (
+                    <span key={barrio} className="bg-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/20 backdrop-blur-sm">
+                      📍 {formatLocation(barrio, language)}
+                    </span>
+                  ))}
+                </div>
               </Reveal>
 
               {/* Help Bubble Card */}
               <Reveal delay={0.1} className="w-full">
-                <div className="bg-white border border-slate-200/80 rounded-2xl md:rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xs">
+                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl text-[#0f172a]">
                   <div className="flex items-center gap-4 w-full sm:w-auto">
-                    <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-sm">
+                    <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
                       <MessageCircle className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-[#0f172a]">{t.cobertura.necesitasAyuda}</h4>
-                      <p className="text-slate-500 text-xs font-medium">{t.cobertura.estamosAqui}</p>
+                      <h4 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans">
+                        {language === "ca" ? "Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
+                      </h4>
+                      <p className="text-slate-600 text-sm sm:text-base font-bold leading-tight mt-1 font-sans">
+                        {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
+                      </p>
                     </div>
                   </div>
-                  <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs px-6 py-3.5 rounded-full transition-all shadow-sm flex items-center justify-center gap-2 shrink-0">
-                    {t.cobertura.contactarAhora} <ArrowRight className="w-4 h-4" />
+                  <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-7 py-4 rounded-full transition-all shadow-md flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap">
+                    <span>{t.hero.contacto}</span>
+                    <ArrowRight className="w-4.5 h-4.5 text-white" />
                   </a>
                 </div>
               </Reveal>
             </div>
 
-            {/* RIGHT CONTENT: MAP (POINT 1 MOBILE BUG FIX) */}
-            <div 
-              className="w-full lg:w-1/2 relative h-[320px] sm:h-[380px] md:h-[450px] rounded-2xl md:rounded-3xl overflow-hidden border border-slate-200/60 bg-slate-100 group shadow-xs"
-            >
+            {/* RIGHT CONTENT: MAP WITH PROMINENT BLUE BORDER */}
+            <div className="w-full lg:w-1/2 relative h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border-4 border-[#2563eb] bg-slate-100 shadow-xl group">
               <Reveal delay={0.2} className="w-full h-full">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
@@ -1412,14 +1650,15 @@ function Index() {
                 ></iframe>
 
                 {/* Floating Card Bottom Right */}
-                <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 bg-white/95 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg border border-slate-100 z-30 pointer-events-auto max-w-full">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4" />
+                <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 bg-[#0b172a] text-white rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 z-30 pointer-events-auto max-w-full">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-[#0f172a] text-sm">{t.cobertura.sedeCentral}</h4>
-                      <p className="text-slate-500 text-xs">{t.cobertura.direccionSede}</p>
+                      <h4 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h4>
+                      <p className="text-white text-sm sm:text-base font-extrabold font-sans">Av. dels Banús, 49</p>
+                      <p className="text-slate-200 text-xs sm:text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                     </div>
                   </div>
                 </div>
@@ -1431,61 +1670,76 @@ function Index() {
         </div>
       </section>
 
-{/* â”€â”€ CTA (FLOATING DARK NAVY BUBBLE CARD) â”€â”€ */}
-      <section className="py-10 md:py-14 px-4 md:px-8 bg-white text-white">
-        <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-sm border border-white/10 p-8 md:p-14 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+      {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
+      <section className="py-10 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-8 md:p-14 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-14">
             
             {/* Left Content */}
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
               <Reveal>
-                <span className="inline-flex items-center text-center justify-center gap-1.5 bg-[#2563eb] text-white text-[9.5px] sm:text-[11px] font-bold tracking-wider uppercase px-3.5 sm:px-4 py-1.5 rounded-full mb-4 sm:mb-6 w-fit max-w-full leading-tight">
-                  {t.hero.tag}
+                <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 w-fit">
+                  <Building2 className="w-4 h-4" />
+                  <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
                 </span>
                 
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-white mb-6 font-sans">
-                  {t.hero.heroTitle}
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] tracking-tight text-[#0f172a] mb-5 font-sans">
+                  {language === "ca" ? (
+                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
+                  ) : language === "en" ? (
+                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
+                  ) : (
+                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
+                  )}
                 </h2>
                 
-                <p className="text-slate-300 text-base md:text-lg max-w-md mb-8 font-medium">
-                  {t.hero.heroSub}
+                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-xl mb-8 font-extrabold leading-snug font-sans text-balance">
+                  {language === "ca" 
+                    ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
+                    : language === "en" 
+                    ? "Transparent management, agile response and guaranteed cost optimization for your property." 
+                    : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
-                  <a href="#valuator-form" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer">
-                    <Home className="w-4 h-4 text-white" />
-                    <span>{t.heroCarousel.btnValuation}</span>
-                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
+                  <a href="#contacto" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_25px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans">
+                    <Phone className="w-4.5 h-4.5 text-white" />
+                    <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
+                    <ArrowRight className="w-4.5 h-4.5 text-white group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a 
-                    href="#contacto" 
-                    className="bg-white hover:bg-slate-50 text-[#0f172a] px-7 py-3.5 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer border border-slate-200"
+                    href="https://wa.me/34601259424" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#25D366] hover:bg-[#20ba5a] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans"
                   >
-                    <Phone className="w-4 h-4 text-[#2563eb]" />
-                    <span className="font-bold text-[#0f172a]">{t.hero.hablarAsesor}</span>
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white group-hover:scale-110 transition-transform">
+                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                    </svg>
+                    <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
                   </a>
                 </div>
 
-                {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-                  <div>
-                    <p className="text-2xl md:text-3xl font-black text-white mb-0.5">300+</p>
-                    <p className="text-xs text-slate-400 font-medium">{t.hero.stats.comunidades}</p>
+                {/* Stats Grid - Fondo gris y letra en blanco impecable */}
+                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3.5 pt-6 border-t border-slate-200/80">
+                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">Nº 5583</p>
+                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Registre Oficial AICAT" : language === "en" ? "Official AICAT Registry" : "Registro Oficial AICAT"}</p>
                   </div>
-                  <div>
-                    <p className="text-2xl md:text-3xl font-black text-white mb-0.5">15+</p>
-                    <p className="text-xs text-slate-400 font-medium">{t.hero.stats.anos}</p>
+                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                   </div>
-                  <div>
-                    <p className="text-2xl md:text-3xl font-black text-white mb-0.5">98%</p>
-                    <p className="text-xs text-slate-400 font-medium">{t.hero.stats.satisfaccion}</p>
+                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
+                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">100%</p>
+                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Col·legiats API / ADM" : language === "en" ? "Registered API / ADM" : "Colegiados API / ADM"}</p>
                   </div>
                 </div>
               </Reveal>
             </div>
 
-            {/* Right Image */}
-            <div className="w-full lg:w-1/2 h-[300px] md:h-[400px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-md">
+            {/* Right Image (Left in desktop) - Borde negro nítido */}
+            <div className="w-full lg:w-1/2 h-[280px] sm:h-[320px] md:h-[420px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-2 border-[#0f172a]">
               <Reveal delay={0.2} className="w-full h-full">
                 <img 
                   src={gesgramaOffice} 
@@ -1500,32 +1754,32 @@ function Index() {
       </section>
 
       {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
-      <section id="blog" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
-        <div className="max-w-[1400px] mx-auto">
+      <section id="blog" className="py-6 md:py-12 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
+        <div className="max-w-[1300px] mx-auto">
           <Reveal>
-            <div className="mb-14 text-center">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4 text-[#2563eb]">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                {t.noticias.tag}
+            <div className="mb-6 sm:mb-8 text-center">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl shadow-md mb-3">
+                <Calendar className="w-3.5 h-3.5 text-white" />
+                <span>{t.noticias.tag}</span>
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#0f172a] mb-4 font-serif">
-                {t.noticias.title1} <span className="text-[#2563eb] italic font-serif">{t.noticias.title2}</span>
+              
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] mb-2 font-sans tracking-tight">
+                {t.noticias.title1} <span className="text-[#2563eb]">{t.noticias.title2}</span>
               </h2>
-              <p className="text-slate-500 text-base md:text-lg max-w-lg mx-auto font-medium">
+              
+              <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-2">
                 {t.noticias.subtitle}
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
             {articles.map((art, i) => {
               const artContent = art[language];
               return (
                 <Reveal key={art.id} delay={i * 0.1}>
-                  <div className="bg-white rounded-3xl p-5 flex flex-col h-full border border-slate-200/60 shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:shadow-md hover:-translate-y-1 transition-all duration-300 group">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4">
+                  <div className="bg-white rounded-2xl p-4 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl mb-3 bg-slate-100">
                       <img
                         src={art.image}
                         alt={artContent.title}
@@ -1533,24 +1787,24 @@ function Index() {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
-                    <div className="p-2 flex flex-col flex-1">
-                      <div className="flex items-center gap-3 text-[11px] font-bold mb-2.5">
-                        <span className="bg-[#2563eb]/10 text-[#2563eb] px-3 py-1 rounded-full">{artContent.category}</span>
-                        <span className="text-slate-400 font-medium">{artContent.date}</span>
+                    <div className="flex flex-col flex-1">
+                      <div className="flex items-center gap-2 text-xs font-bold mb-2">
+                        <span className="text-slate-500 font-semibold">{artContent.date}</span>
                       </div>
-                      <h3 className="font-bold text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2">
+                      <h3 className="font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans">
                         {artContent.title}
                       </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-1 line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
                         {artContent.summary}
                       </p>
-                      <div className="mt-auto pt-2">
+                      <div className="mt-auto">
                         <Link
                           to="/noticias/$slug"
                           params={{ slug: art.slug }}
-                          className="text-[#2563eb] text-xs font-bold flex items-center gap-1.5 group-hover:gap-2.5 transition-all"
+                          className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-2.5 px-4 rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans"
                         >
-                          {t.noticias.seguirLeyendo} <ArrowRight className="w-3.5 h-3.5" />
+                          <span>{t.noticias.seguirLeyendo}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
                         </Link>
                       </div>
                     </div>
@@ -1561,51 +1815,57 @@ function Index() {
           </div>
 
           <div className="text-center">
-            <a href="#" className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full text-sm font-semibold transition-all shadow-sm hover:shadow-md">
-              {t.noticias.verTodasBtn}
-              <ArrowRight className="w-4 h-4" />
+            <a href="#" className="inline-flex items-center gap-2 bg-[#0b172a] hover:bg-[#1b263b] text-white px-7 py-3 rounded-full text-xs font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg font-sans">
+              <span>{t.noticias.verTodasBtn}</span>
+              <ArrowRight className="w-4 h-4 text-white" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ (FLOATING DARK NAVY BUBBLE CARD - POINT 3 FIX) ── */}
+      {/* ── FAQ (COMPACT LAYOUT WITH TIGHT PADDING) ── */}
       <section 
         id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8"
       >
-        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/10 p-6 sm:p-8 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+        <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
           <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
             <Reveal>
-              <div className="text-center mb-14">
-                <div className="w-12 h-12 rounded-2xl bg-[#2563eb]/20 flex items-center justify-center mx-auto mb-4 text-[#60a5fa]">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb]/20 text-[#60a5fa] text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                  {t.faq.tag}
+              <div className="text-center mb-8 flex flex-col items-center">
+                {/* White Badge with Icon next to Text */}
+                <span className="inline-flex items-center gap-2.5 bg-white text-[#0f172a] text-xs sm:text-sm font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md border border-slate-200 mb-5 font-sans">
+                  <HelpCircle className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
+                  <span>{t.faq.tag}</span>
                 </span>
-                <h2 className="text-4xl md:text-5xl font-bold leading-tight text-white tracking-tight font-serif mb-3">
-                  {t.faq.title} <span className="text-[#60a5fa] italic font-serif">{t.faq.titleAccent}</span>
+
+                {/* Title */}
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-white tracking-tight font-sans mb-3">
+                  <span className="bg-[#2563eb] text-white px-3.5 py-1 rounded-2xl inline-block shadow-md">
+                    {t.faq.title1}
+                  </span>{" "}
+                  {t.faq.title2}
                 </h2>
-                <p className="text-slate-300 text-base md:text-lg font-medium">
+
+                <p className="text-white text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-3">
                   {t.faq.subtitle}
                 </p>
               </div>
             </Reveal>
 
-            <div className="w-full flex flex-col gap-4 mb-10">
+            {/* Accordion Cards - Compact Gap */}
+            <div className="w-full flex flex-col gap-3 mb-7">
               {t.faq.items.map((item, i) => {
                 const isActive = activeFaq === i;
                 return (
                   <Reveal key={i} delay={i * 0.08}>
                     <div 
                       onClick={() => setActiveFaq(isActive ? null : i)}
-                      className="cursor-pointer bg-[#1e293b]/70 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:px-8 md:py-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:border-white/20 group"
+                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-4 sm:p-5 shadow-xs transition-all duration-300 hover:border-slate-400 group"
                     >
-                      <div className="flex justify-between items-center gap-6">
-                        <h3 className="font-bold text-white text-base md:text-lg pr-4">{item.q}</h3>
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isActive ? 'bg-[#2563eb] text-white rotate-45' : 'bg-white/10 text-slate-300 hover:bg-white/20'}`}>
-                          <span className="text-lg font-bold leading-none">+</span>
+                      <div className="flex justify-between items-center gap-4">
+                        <h3 className="font-extrabold text-[#0f172a] text-base sm:text-lg pr-2 font-sans leading-snug">{item.q}</h3>
+                        <div className={`w-8.5 h-8.5 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white rotate-45' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}>
+                          <span className="text-xl font-black leading-none">+</span>
                         </div>
                       </div>
                       <AnimatePresence>
@@ -1616,7 +1876,7 @@ function Index() {
                             exit={{ height: 0, opacity: 0 }}
                             className="overflow-hidden"
                           >
-                            <p className="pt-4 text-slate-300 leading-relaxed font-medium text-sm md:text-base border-t border-white/10 mt-4">
+                            <p className="pt-3.5 text-[#0f172a] leading-relaxed font-bold text-sm sm:text-base border-t border-slate-300/80 mt-3.5 font-sans">
                               {item.a}
                             </p>
                           </motion.div>
@@ -1628,172 +1888,219 @@ function Index() {
               })}
             </div>
 
+            {/* Bottom Eye-Catching Blue CTA Button */}
             <div className="text-center">
-              <a href="#contacto" className="inline-flex items-center gap-2 text-[#60a5fa] hover:text-white font-semibold text-sm hover:gap-3 transition-all">
-                {t.faq.askDoubt} <ArrowRight className="w-4 h-4" />
+              <a 
+                href="#contacto" 
+                className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
+              >
+                <span>{t.faq.askDoubt}</span>
+                <ArrowRight className="w-4 h-4 text-white" />
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
-      <section id="contacto" className="py-10 md:py-32 px-4 sm:px-6 md:px-12 bg-white text-onyx">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-                {t.contacto.badge}
-              </span>
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 font-serif text-[#0f172a]">
-                {t.contacto.title1} <br />
-                <span className="text-[#2563eb] italic font-serif">{t.contacto.title2}</span>
-              </h2>
-              <p className="text-slate-500 text-base md:text-lg mb-8 font-medium leading-relaxed">
-                {t.contacto.subtitle}
-              </p>
-              
-              {/* Image Card with Central Office Overlay */}
-              <div className="relative rounded-3xl overflow-hidden shadow-md aspect-[16/10] mb-8 border border-slate-200/60">
-                <img 
-                  src={gesgramaOffice} 
-                  alt="Gesgrama oficina principal" 
-                  loading="lazy"
-                  className="w-full h-full object-cover" 
-                />
+      {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
+      <section id="contacto" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-6 sm:p-10 md:p-14 mx-auto max-w-[1300px] relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* LEFT COLUMN: Title & Image Overlay Card */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <Reveal>
+                <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 w-fit">
+                  {t.contacto.badge}
+                </span>
                 
-                {/* Floating Office Badge */}
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-slate-100 max-w-[260px]">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb]/10 flex items-center justify-center shrink-0 text-[#2563eb] mt-0.5">
-                      <MapPin className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-sm text-[#0f172a]">{t.cobertura.sedeCentral}</div>
-                      <div className="text-xs text-slate-500">Av. dels Banús, 49<br />08923 Santa Coloma de Gramenet, Barcelona</div>
-                      <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#2563eb] font-bold text-xs mt-2">
-                        <Phone className="w-3.5 h-3.5" /> 934 685 656
-                      </a>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] leading-[1.08] tracking-tight mb-4 font-sans">
+                  {t.contacto.title1}<br />
+                  <span className="text-[#2563eb] italic font-serif">{t.contacto.title2}</span>
+                </h2>
+                
+                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl mb-8 font-extrabold leading-relaxed font-sans">
+                  {t.contacto.subtitle}
+                </p>
+
+                {/* Storefront Image Card with Central Office Overlay */}
+                <div className="relative rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 aspect-[16/10] group">
+                  <img 
+                    src={gesgramaOffice} 
+                    alt="Gesgrama oficina principal en Santa Coloma" 
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                  />
+                  
+                  {/* Floating Office Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 sm:left-4 sm:right-auto bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-slate-100 max-w-[300px] z-20">
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0 mt-0.5">
+                        <MapPin className="w-4.5 h-4.5" />
+                      </div>
+                      <div>
+                        <div className="font-black text-xs sm:text-sm text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
+                        <div className="text-sm sm:text-base text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
+                          Av. dels Banús, 49
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-600 font-extrabold font-sans">
+                          08923 Santa Coloma de Gramenet
+                        </div>
+                        <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#2563eb] font-black text-sm sm:text-base mt-1.5 font-sans">
+                          <Phone className="w-4 h-4 text-[#2563eb]" /> 93 468 56 56
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Reveal>
-          </div>
+              </Reveal>
+            </div>
 
-          <div className="lg:col-span-7">
-            <Reveal delay={0.1}>
-              <div className="bg-white border border-slate-200/60 p-8 md:p-12 rounded-3xl shadow-[0_2px_8px_rgba(15,23,42,0.04),0_8px_32px_rgba(15,23,42,0.06)]">
-                <h3 className="font-bold text-2xl md:text-3xl text-[#0f172a] mb-8 tracking-tight">{t.contacto.form.formTitle}</h3>
-                <form key={language} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.nombre}</label>
-                      <input type="text" placeholder={t.contacto.form.nombrePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-5 py-3.5 text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors" />
-                    </div>
-                    <div>
-                      <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.telefono}</label>
-                      <input type="text" placeholder="600 000 000" className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-5 py-3.5 text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors" />
-                    </div>
-                  </div>
+            {/* RIGHT COLUMN: Contact Form Card */}
+            <div className="lg:col-span-7">
+              <Reveal delay={0.1}>
+                <div className="bg-white border-2 border-[#757989] p-6 sm:p-8 md:p-10 rounded-3xl shadow-sm">
+                  <h3 className="font-black text-2xl sm:text-3xl text-[#0f172a] mb-6 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
                   
-                  <div>
-                    <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.email}</label>
-                    <input type="email" placeholder="tu-correo@ejemplo.com" className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-5 py-3.5 text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors" />
-                  </div>
-
-                  <div>
-                    <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.asunto}</label>
-                    <div className="relative">
-                      <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-3.5 sm:px-5 py-3.5 text-xs sm:text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
-                        {Object.values(t.contacto.form.asuntoOpciones).map(opt => <option key={opt as string} className="text-xs sm:text-sm">{opt as string}</option>)}
-                      </select>
-                      <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <form key={language} className="space-y-4">
+                    {/* Row 1: Nombre & Teléfono */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
+                        <input type="text" placeholder={t.contacto.form.nombrePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                      </div>
+                      <div>
+                        <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
+                        <input type="text" placeholder={t.contacto.form.telefonoPlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                      </div>
                     </div>
-                  </div>
+                    
+                    {/* Row 2: Correo */}
+                    <div>
+                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.email.toUpperCase()}</label>
+                      <input type="email" placeholder={t.contacto.form.emailPlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                    </div>
 
-                  <div>
-                    <label className="text-slate-500 font-bold uppercase tracking-wider block mb-2 text-[11px]">{t.contacto.form.mensaje}</label>
-                    <textarea rows={3} placeholder={t.contacto.form.mensajePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl px-5 py-3.5 text-sm font-medium text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors resize-none" />
-                  </div>
+                    {/* Row 3: Tipo de Consulta */}
+                    <div>
+                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
+                      <div className="relative">
+                        <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
+                          <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
+                          <option>{t.contacto.form.asuntoOpciones.venta}</option>
+                          <option>{t.contacto.form.asuntoOpciones.juridico}</option>
+                          <option>{t.contacto.form.asuntoOpciones.otro}</option>
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      </div>
+                    </div>
 
-                  <div className="flex items-center gap-2 pt-1">
-                    <input type="checkbox" id="privacy" className="rounded text-[#2563eb] focus:ring-[#2563eb]" />
-                    <label htmlFor="privacy" className="text-xs text-slate-500 font-medium">{t.contacto.form.privacidad}</label>
-                  </div>
+                    {/* Row 4: Mensaje */}
+                    <div>
+                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
+                      <textarea rows={3} placeholder={t.contacto.form.mensajePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors resize-none font-sans placeholder:text-slate-400" />
+                    </div>
 
-                  <button
-                    type="button"
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-4 rounded-full text-sm font-bold uppercase tracking-wider transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 mt-4 cursor-pointer"
-                  >
-                    <span>{t.contacto.form.botonEnviar}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </form>
-              </div>
-            </Reveal>
+                    {/* Checkbox Privacidad */}
+                    <div className="flex items-center gap-2 pt-1">
+                      <input type="checkbox" id="privacy" className="w-4 h-4 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" />
+                      <label htmlFor="privacy" className="text-xs sm:text-sm text-slate-700 font-semibold cursor-pointer font-sans">{t.contacto.form.privacidad}</label>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="button"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans"
+                    >
+                      <span>{t.contacto.form.botonEnviar}</span>
+                      <ArrowRight className="w-4 h-4 text-white" />
+                    </button>
+                  </form>
+                </div>
+              </Reveal>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── FINAL CLOSING CTA BANNER (POINT 3 & 4 MOBILE FIX) ── */}
-      <section id="final-cta" className="py-6 md:py-14 px-4 md:px-8 bg-white text-white">
-        <div className="bg-gradient-to-r from-[#005c99] to-[#2563eb] rounded-[28px] md:rounded-[36px] shadow-xl border border-white/20 px-5 py-12 sm:px-10 sm:py-16 md:p-16 mx-auto max-w-[1300px] relative z-10 overflow-hidden text-center">
-          <Reveal>
-            <span className="inline-flex items-center gap-1.5 bg-white/20 text-white backdrop-blur-md border border-white/20 text-[11px] font-bold tracking-wider uppercase px-4 py-1.5 rounded-full mb-6 shadow-sm">
-              <Star className="w-3.5 h-3.5 fill-white text-white" />
-              {t.finalCta.tag}
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight font-sans max-w-3xl mx-auto px-2">
-              {t.finalCta.title}
-            </h2>
-            <p className="text-blue-100 text-sm sm:text-base md:text-xl max-w-2xl mx-auto mb-8 font-medium leading-relaxed px-2">
-              {t.finalCta.subtitle}
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-              <a
-                href="#valuator-form"
-                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                <Home className="w-4 h-4 text-white" />
-                <span>{t.finalCta.btnPrimary}</span>
-                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#contacto"
-                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-8 py-4 rounded-full font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Phone className="w-4 h-4 text-[#2563eb]" />
-                <span className="font-bold text-[#0f172a]">{t.finalCta.btnSecondary}</span>
-              </a>
+      {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
+      <section id="final-cta" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-2xl border border-slate-200/80 p-6 sm:p-10 md:p-12 pb-6 md:pb-10 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
+            
+            {/* Left Content (Title, Subtitle & Buttons) */}
+            <div className="w-full lg:w-7/12 text-left py-0 lg:py-2">
+              <Reveal>
+                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-xs font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md mb-5">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  <span>{t.finalCta.tag}</span>
+                </span>
+                
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] mb-4 leading-tight tracking-tight font-sans">
+                  {t.finalCta.title1}{" "}
+                  <span className="inline-block bg-[#2563eb] text-white px-4 py-1.5 rounded-2xl shadow-sm">
+                    {t.finalCta.title2}
+                  </span>
+                  ?
+                </h2>
+                
+                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-xl mb-6 font-extrabold leading-relaxed font-sans text-balance">
+                  {t.finalCta.subtitle}
+                </p>
+                
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 max-w-xl mb-2 sm:mb-8">
+                  <a
+                    href="#valuator-form"
+                    className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                  >
+                    <Home className="w-4.5 h-4.5 text-white shrink-0" />
+                    <span className="whitespace-nowrap">{t.finalCta.btnValuate}</span>
+                  </a>
+                  <a
+                    href="#contacto"
+                    className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(15,23,42,0.3)] hover:shadow-[0_15px_30px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                  >
+                    <Phone className="w-4.5 h-4.5 text-white shrink-0" />
+                    <span className="whitespace-nowrap">{t.finalCta.btnContact}</span>
+                  </a>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+
+            {/* Right Side: Cut-out Advisors Image with closed laptop */}
+            <div className="w-full lg:w-5/12 flex justify-center lg:justify-end items-end self-end mt-0 lg:mt-0">
+              <img 
+                src="/images/cta_advisors_closed_laptop.jpg" 
+                alt="Asesores inmobiliarios Gesgrama" 
+                className="w-full max-w-[480px] h-auto object-contain block -mb-1"
+              />
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* ── FOOTER GSAP ── */}
-      <footer className="bg-[#757989] text-white relative z-20 border-t border-white/20">
+      <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10" style={{ backgroundColor: '#0b1221' }}>
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-0 flex flex-col lg:flex-row gap-12 relative">
           
           {/* Text Columns */}
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-8">
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
-              <div className="bg-white p-2.5 px-3 rounded-2xl inline-block mb-4 shadow-md border border-white/20">
-                <img src="/images/logo-gesgrama-full.jpg" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-12 sm:h-14 w-auto object-contain rounded-lg" />
+              <div className="inline-block mb-4">
+                <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
               </div>
-              <p className="text-[12px] font-extrabold text-blue-200 uppercase tracking-wider mb-2 font-accent">
-                www.gesgrama.com
-              </p>
-              <p className="text-[13px] leading-relaxed text-slate-100 max-w-[220px]">
+              <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
                 {t.footer.descripcion}
               </p>
             </div>
 
             {/* Navegación rápida */}
             <div>
-              <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.quickLinks}</h4>
-              <ul className="space-y-3">
+              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h4>
+              <ul className="space-y-3.5">
                 {[
                   { label: t.nav.propiedades, href: "#propiedades" },
                   { label: t.nav.servicios, href: "#servicios" },
@@ -1801,8 +2108,8 @@ function Index() {
                   { label: t.nav.contacto, href: "#contacto" },
                 ].map(link => (
                   <li key={link.href}>
-                    <a href={link.href} className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
+                    <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
                       {link.label}
                     </a>
                   </li>
@@ -1812,117 +2119,111 @@ function Index() {
 
             {/* Contacto */}
             <div>
-              <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.contactInfo}</h4>
-              <ul className="space-y-3 text-[13px] text-slate-100">
-                <li className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-blue-200 shrink-0 mt-0.5" />
-                  <span>Av. dels Sants nº 49-51 local<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
+              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.contactInfo}</h4>
+              <ul className="space-y-4 text-base text-slate-300 font-bold">
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
+                  <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
                 </li>
                 <li>
-                  <a href="tel:+34934685656" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Phone className="w-4 h-4 text-blue-200 shrink-0" />
-                    Oficina: 93 468 56 56 (Fax: 93 468 56 50)
+                  <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
+                    <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
+                    {language === "en" ? "Office:" : "Oficina:"} 93 468 56 56
                   </a>
                 </li>
                 <li>
-                  <a href="https://wa.me/34604259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-300 hover:text-emerald-200 font-semibold transition-colors">
-                    <MessageCircle className="w-4 h-4 text-emerald-300 shrink-0" />
-                    WhatsApp: 604 259 424
+                  <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
+                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                    </svg>
+                    WhatsApp: 601 25 94 24
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:info@gesgrama.com" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Mail className="w-4 h-4 text-blue-200 shrink-0" />
+                  <a href="mailto:info@gesgrama.com" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
+                    <Mail className="w-5 h-5 text-[#2563eb] shrink-0" />
                     info@gesgrama.com
                   </a>
-                </li>
-                <li className="pt-1">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-900/40 text-blue-100 text-[11px] font-bold border border-blue-300/40">
-                    <Clock className="w-3.5 h-3.5" /> Atención al Cliente 24/7
-                  </span>
                 </li>
               </ul>
             </div>
 
             {/* Legal */}
             <div>
-              <h4 className="text-[15px] font-bold text-white mb-5">{t.footer.legal}</h4>
-              <ul className="space-y-3">
+              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.legal}</h4>
+              <ul className="space-y-3.5">
                 <li>
-                  <Link to="/aviso-legal" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
-                    Aviso Legal
+                  <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                    <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                    {language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/politica-privacidad" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
-                    Política de Privacidad
+                  <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                    <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                    {language === "ca" ? "Política de Privacitat" : language === "en" ? "Privacy Policy" : "Política de Privacidad"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/politica-cookies" className="text-[14px] text-slate-100 hover:text-white transition-colors flex items-center gap-2 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-300 group-hover:scale-150 transition-transform" />
-                    Política de Cookies
+                  <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                    {language === "ca" ? "Política de Cookies" : language === "en" ? "Cookie Policy" : "Política de Cookies"}
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Column with Collegial Badges (Punto 9) */}
-          <div className="w-full lg:w-[320px] flex flex-col justify-between pb-8">
+          {/* Column with Collegial Badges */}
+          <div className="w-full lg:w-[340px] flex flex-col justify-between pb-8">
             <div>
-              <h4 className="text-[15px] font-bold text-white mb-4">Acreditaciones Profesionales</h4>
-              <div className="flex flex-col gap-3">
-                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
-                  <div className="w-9 h-9 rounded-lg bg-blue-600/30 text-blue-200 font-extrabold text-xs flex items-center justify-center border border-blue-400/40">
+              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}</h4>
+              <div className="flex flex-col gap-3.5">
+                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
+                  <div className="w-11 h-11 rounded-lg bg-blue-600 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                     AICAT
                   </div>
                   <div>
-                    <strong className="text-xs text-white block">Registre d'Agents Immobiliaris</strong>
-                    <span className="text-[11px] text-slate-200">Inscripció AICAT Nº 5583</span>
+                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Registre d'Agents Immobiliaris" : language === "en" ? "Registry of Real Estate Agents" : "Registro de Agentes Inmobiliarios"}</strong>
+                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Inscripció AICAT Nº 5583" : language === "en" ? "AICAT Reg. No. 5583" : "Inscripción AICAT Nº 5583"}</span>
                   </div>
                 </div>
 
-                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
-                  <div className="w-9 h-9 rounded-lg bg-amber-500/30 text-amber-200 font-extrabold text-xs flex items-center justify-center border border-amber-400/40">
+                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
+                  <div className="w-11 h-11 rounded-lg bg-amber-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                     API
                   </div>
                   <div>
-                    <strong className="text-xs text-white block">Col·legi de la Propietat Immobiliària</strong>
-                    <span className="text-[11px] text-slate-200">Agente Colegiado Oficial</span>
+                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Col·legi de la Propietat Immobiliària" : language === "en" ? "Real Estate Association" : "Colegio de la Propiedad Inmobiliaria"}</strong>
+                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Agent Col·legiat Oficial" : language === "en" ? "Official Registered Agent" : "Agente Colegiado Oficial"}</span>
                   </div>
                 </div>
 
-                <div className="bg-[#616575] border border-white/20 p-3 rounded-xl flex items-center gap-3 shadow-xs">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-500/30 text-emerald-200 font-extrabold text-xs flex items-center justify-center border border-emerald-400/40">
+                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
+                  <div className="w-11 h-11 rounded-lg bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                     ADM
                   </div>
                   <div>
-                    <strong className="text-xs text-white block">Administradores Judiciales</strong>
-                    <span className="text-[11px] text-slate-200">Asociación de Fincas y Comunidades</span>
+                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Administradors de Finques" : language === "en" ? "Property Administrators" : "Administradores de Fincas"}</strong>
+                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Associació de Finques i Comunitats" : language === "en" ? "Estates & Communities Association" : "Asociación de Fincas y Comunidades"}</span>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-4 pt-4 border-t border-white/20">
-              <FooterAnimationGSAP className="w-full h-auto block" />
             </div>
           </div>
 
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/20 bg-[#656978]">
+        <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-[12px] text-slate-100 font-medium">© 2026 Gesgrama. Todos los derechos reservados.</p>
-            <div className="flex gap-4 text-xs text-slate-100 font-medium">
-              <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights}</p>
+            <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
+              <Link to="/aviso-legal" className="hover:text-blue-200">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
               <span>·</span>
-              <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>
+              <Link to="/politica-privacidad" className="hover:text-blue-200">{language === "ca" ? "Privacitat" : language === "en" ? "Privacy" : "Privacidad"}</Link>
               <span>·</span>
-              <Link to="/politica-cookies" className="hover:text-white">Cookies</Link>
+              <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
             </div>
           </div>
         </div>
@@ -1935,38 +2236,39 @@ function Index() {
       {/* Service Detail Modal (Point 3 Fix) */}
       <AnimatePresence>
         {selectedServiceIndex !== null && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
+          <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[85vh] overflow-y-auto my-auto"
+              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto my-auto text-[#0f172a]"
             >
               <button
+                type="button"
                 onClick={() => setSelectedServiceIndex(null)}
-                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer z-10"
                 aria-label="Cerrar modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 stroke-[2.5]" />
               </button>
 
               <div className="w-14 h-14 rounded-2xl bg-[#2563eb]/10 text-[#2563eb] flex items-center justify-center mb-6">
                 <Building2 className="w-7 h-7" />
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-extrabold text-[#0f172a] mb-2 font-sans">
+              <h3 className="text-2xl md:text-3xl font-black text-[#0f172a] mb-2 font-sans">
                 {t.serviceModal.items[selectedServiceIndex]?.title}
               </h3>
-              <p className="text-[#2563eb] text-sm font-bold mb-4">
+              <p className="text-[#2563eb] text-sm sm:text-base font-extrabold mb-4 font-sans">
                 {t.serviceModal.items[selectedServiceIndex]?.tagline}
               </p>
-              <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6 font-medium">
+              <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-6 font-bold font-sans">
                 {t.serviceModal.items[selectedServiceIndex]?.description}
               </p>
 
-              <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200/70 mb-8 space-y-3">
+              <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200 mb-8 space-y-3">
                 {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-semibold text-slate-700">
+                  <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-extrabold text-slate-800 font-sans">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
                     <span>{benefit}</span>
                   </div>
@@ -1977,13 +2279,15 @@ function Index() {
                 <a
                   href="#contacto"
                   onClick={() => setSelectedServiceIndex(null)}
-                  className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-sm py-3.5 px-6 rounded-full text-center transition-all shadow-md flex items-center justify-center gap-2"
+                  className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm py-4 px-6 rounded-full text-center transition-all shadow-md flex items-center justify-center gap-2 font-sans uppercase tracking-wider"
                 >
-                  {t.serviceModal.contactBtn} <ArrowRight className="w-4 h-4" />
+                  <span>{t.serviceModal.contactBtn}</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </a>
                 <button
+                  type="button"
                   onClick={() => setSelectedServiceIndex(null)}
-                  className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm py-3.5 px-6 rounded-full transition-all cursor-pointer"
+                  className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-sm py-4 px-7 rounded-full transition-all cursor-pointer font-sans uppercase tracking-wider"
                 >
                   {t.serviceModal.close}
                 </button>

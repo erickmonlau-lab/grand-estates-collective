@@ -5,6 +5,7 @@ import gallery1 from "@/assets/gallery-1.webp";
 import gallery2 from "@/assets/gallery-2.webp";
 import gallery3 from "@/assets/gallery-3.webp";
 import brightAtrium from "@/assets/bright-atrium.webp";
+import modernOfficeImg from "/images/modern_office_space.jpg";
 
 export type PropertyType = "Piso" | "Apartamento" | "Ático" | "Local comercial" | "Chalet" | "Oficina" | "Todos";
 
@@ -35,13 +36,24 @@ export const SANTA_COLOMA_ZONES = [
   "Santa Rosa - Can Mariner",
   "Fondo",
   "Riu",
-  "Centre",
+  "Centro",
   "El Raval",
   "Riera Alta - Llatí",
   "Singuerlín"
 ];
 
 export const ALL_LOCATIONS = [...SANTA_COLOMA_ZONES];
+
+export function formatLocation(loc: string, language: string): string {
+  if (!loc) return "";
+  const normalized = loc.trim();
+  if (normalized === "Centre" || normalized === "Centro" || normalized === "Center") {
+    if (language === "ca") return "Centre";
+    if (language === "en") return "Center";
+    return "Centro";
+  }
+  return loc;
+}
 
 export const properties: Property[] = [
   {
@@ -93,7 +105,7 @@ export const properties: Property[] = [
     ref: "PJ2024",
     name: "Ático dúplex con gran terraza",
     type: "Ático",
-    location: "Centre",
+    location: "Centro",
     city: "Santa Coloma de Gramenet",
     price: 295000,
     priceFormatted: "295.000 €",
@@ -188,8 +200,8 @@ export const properties: Property[] = [
     floor: "3ª planta con ascensor",
     description: "Magnífica vivienda en el barrio de Riu, junto al parque fluvial. Vistas abiertas, excelente orientación solar y finca cuidada con ascensor.",
     features: ["Vistas despejadas", "Parque fluvial cercano", "Ascensor", "Cocina reformada"],
-    image: gallery3,
-    gallery: [gallery3, property3, gallery1],
+    image: modernOfficeImg,
+    gallery: [modernOfficeImg, property3, gallery1],
     operation: "comprar"
   }
 ];

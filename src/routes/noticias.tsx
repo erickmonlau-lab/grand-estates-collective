@@ -41,12 +41,6 @@ function NoticiasCatalogComponent() {
 
   const t = translations[language] || translations.es;
 
-  const filteredArticles = articles.filter((art) => {
-    const content = art[language] || art.es;
-    return content.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           content.summary.toLowerCase().includes(searchTerm.toLowerCase());
-  });
-
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-blue-500 selection:text-white">
       {/* NAVBAR */}

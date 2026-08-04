@@ -242,8 +242,6 @@ function ArticleDetail() {
           if (matchIndex > lastIndex) {
             newParts.push(part.substring(lastIndex, matchIndex));
           }
-          const isExemption = matchString.toLowerCase().includes("exent") || matchString.toLowerCase().includes("exempt");
-
           if (isDarkBg) {
             newParts.push(
               <span 
@@ -257,11 +255,7 @@ function ArticleDetail() {
             newParts.push(
               <span 
                 key={`${matchIndex}-${matchIdx}`} 
-                className={`font-black rounded px-2 py-0.5 inline-block ${
-                  isExemption 
-                    ? "bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs" 
-                    : "bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
-                }`}
+                className="font-black rounded px-2 py-0.5 inline-block bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
               >
                 {matchString}
               </span>

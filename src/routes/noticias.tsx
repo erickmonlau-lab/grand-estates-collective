@@ -2,10 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 import { useState, useEffect } from "react";
 import { Calendar, Clock, ArrowRight, Search, BookOpen, ChevronRight, Home, Building2, Phone, MapPin, Mail, MessageCircle, Menu, X } from "lucide-react";
-import logoImg from "@/assets/logo.webp";
 import { translations } from "../data/translations";
 
-export const Route = createFileRoute("/noticias/")({
+export const Route = createFileRoute("/noticias")({
   head: () => ({
     meta: [
       { title: "Noticias y Artículos Inmobiliarios | Blog Gesgrama" },
@@ -20,10 +19,10 @@ export const Route = createFileRoute("/noticias/")({
       { rel: "canonical", href: "https://www.gesgrama.es/noticias" }
     ]
   }),
-  component: NoticiasIndexComponent,
+  component: NoticiasCatalogComponent,
 });
 
-function NoticiasIndexComponent() {
+function NoticiasCatalogComponent() {
   const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -90,7 +89,7 @@ function NoticiasIndexComponent() {
       {/* HEADER HERO */}
       <header className="pt-28 pb-12 sm:pt-36 sm:pb-16 bg-[#0b172a] text-white relative overflow-hidden">
         <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-400 uppercase tracking-widest mb-4">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-400 uppercase tracking-widest mb-4 font-sans">
             <Link to="/" className="hover:underline">Inicio</Link>
             <span>/</span>
             <span className="text-white">Blog & Noticias</span>
@@ -118,7 +117,7 @@ function NoticiasIndexComponent() {
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
+      {/* MAIN CATALOG CONTENT */}
       <main className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 py-12 md:py-16">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-sans">
@@ -126,7 +125,7 @@ function NoticiasIndexComponent() {
           </h2>
         </div>
 
-        {/* ARTICLES GRID */}
+        {/* ARTICLES GRID (4 CARDS) */}
         {filteredArticles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredArticles.map((art) => {
@@ -142,7 +141,7 @@ function NoticiasIndexComponent() {
                     />
                   </div>
                   <div className="flex flex-col flex-1">
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-2">
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-2 font-sans">
                       <Calendar className="w-3.5 h-3.5 text-[#2563eb]" />
                       <span>{content.date}</span>
                       <span>•</span>
@@ -189,7 +188,7 @@ function NoticiasIndexComponent() {
         <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama" width={424} height={104} className="h-10 w-auto brightness-0 invert" />
           <p className="text-slate-400 text-sm font-medium font-sans">© {new Date().getFullYear()} Gesgrama Inmobiliaria. Todos los derechos reservados.</p>
-          <div className="flex gap-6 text-sm text-slate-300 font-bold">
+          <div className="flex gap-6 text-sm text-slate-300 font-bold font-sans">
             <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
             <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>
             <Link to="/politica-cookies" className="hover:text-white">Cookies</Link>

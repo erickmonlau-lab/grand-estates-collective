@@ -1760,11 +1760,11 @@ function Index() {
       </section>
 
       {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
-      <section id="blog" className="py-6 md:py-12 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
+      <section id="blog" className="pt-6 pb-14 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
         <div className="max-w-[1300px] mx-auto">
           <Reveal>
             <div className="mb-6 sm:mb-8 text-center">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl shadow-md mb-3">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl shadow-md mb-3">
                 <Calendar className="w-3.5 h-3.5 text-white" />
                 <span>{t.noticias.tag}</span>
               </span>
@@ -1820,12 +1820,18 @@ function Index() {
             })}
           </div>
 
-          <div className="text-center">
-            <a href="#" className="inline-flex items-center gap-2 bg-[#0b172a] hover:bg-[#1b263b] text-white px-7 py-3 rounded-full text-xs font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg font-sans">
-              <span>{t.noticias.verTodasBtn}</span>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </a>
-          </div>
+          <Reveal delay={0.3}>
+            <div className="text-center mt-8 sm:mt-12 mb-2 sm:mb-4">
+              <Link
+                to="/noticias/$slug"
+                params={{ slug: "como-funciona-la-administracion-de-fincas" }}
+                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer font-sans"
+              >
+                <span>{t.noticias.verTodasBtn}</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -1,9 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Building2, TrendingUp, Shield, Paintbrush, Check, Phone, MessageCircle, ArrowLeft, ArrowRight, MapPin, Mail, Home } from "lucide-react";
+import { Building2, TrendingUp, Shield, Paintbrush, Check, MessageCircle, ArrowLeft, ArrowRight } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
-import { translations } from "../data/translations";
 
 export const Route = createFileRoute("/servicios/$slug")({
   head: ({ params }) => {

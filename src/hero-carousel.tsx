@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
-import heroBg from "@/assets/family_barcelona.webp"; 
+import heroBg from "@/assets/family_barcelona_opt.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {

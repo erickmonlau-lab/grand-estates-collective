@@ -623,6 +623,7 @@ function Index() {
           <button
             className="xl:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer ml-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"}
           >
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
           </button>
@@ -664,8 +665,10 @@ function Index() {
         )}
       </AnimatePresence>
 
-      {/* ── HERO ── */}
-      <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
+      {/* ── MAIN LANDMARK ── */}
+      <main id="main-content">
+        {/* ── HERO ── */}
+        <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-8 md:py-16 border-t border-slate-200/80">
@@ -1448,6 +1451,8 @@ function Index() {
                       <div className="flex items-center gap-3 w-full">
                         <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
                         <select
+                          id="valuator-zona-select"
+                          aria-label="Seleccionar zona de la propiedad"
                           value={valuatorData.zona}
                           onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
                           className="w-full bg-transparent border-0 p-0 text-sm font-bold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
@@ -1537,7 +1542,7 @@ function Index() {
                     <span className="text-xs font-extrabold text-slate-500 font-sans uppercase tracking-wider">
                       {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                     </span>
-                    <span className="bg-emerald-500 text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-sm font-sans">
+                    <span className="bg-emerald-800 text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-sm font-sans">
                       <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +4.2%
                     </span>
                   </div>
@@ -1639,6 +1644,7 @@ function Index() {
             <div className="w-full lg:w-1/2 relative h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border-4 border-[#2563eb] bg-slate-100 shadow-xl group">
               <Reveal delay={0.2} className="w-full h-full">
                 <iframe
+                  title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
                   width="100%"
                   height="100%"
@@ -1983,9 +1989,9 @@ function Index() {
 
                     {/* Row 3: Tipo de Consulta */}
                     <div>
-                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
+                      <label htmlFor="contacto-asunto-select" className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
                       <div className="relative">
-                        <select className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
+                        <select id="contacto-asunto-select" aria-label="Seleccionar motivo o tipo de consulta" className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
                           <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
                           <option>{t.contacto.form.asuntoOpciones.venta}</option>
                           <option>{t.contacto.form.asuntoOpciones.juridico}</option>
@@ -2080,6 +2086,7 @@ function Index() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* ── FOOTER GSAP ── */}
       <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10" style={{ backgroundColor: '#0b1221' }}>
@@ -2190,7 +2197,7 @@ function Index() {
                 </div>
 
                 <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                  <div className="w-11 h-11 rounded-lg bg-amber-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                  <div className="w-11 h-11 rounded-lg bg-amber-700 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                     API
                   </div>
                   <div>
@@ -2200,7 +2207,7 @@ function Index() {
                 </div>
 
                 <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                  <div className="w-11 h-11 rounded-lg bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                  <div className="w-11 h-11 rounded-lg bg-emerald-800 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                     ADM
                   </div>
                   <div>

@@ -779,7 +779,7 @@ function ArticleDetail() {
                 </div>
               </div>
               <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                <div className="w-11 h-11 rounded-lg bg-amber-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                <div className="w-11 h-11 rounded-lg bg-amber-700 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                   API
                 </div>
                 <div>
@@ -788,7 +788,7 @@ function ArticleDetail() {
                 </div>
               </div>
               <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                <div className="w-11 h-11 rounded-lg bg-emerald-500 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                <div className="w-11 h-11 rounded-lg bg-emerald-800 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
                   ADM
                 </div>
                 <div>

@@ -1824,7 +1824,7 @@ function Index() {
             <div className="text-center mt-8 sm:mt-12 mb-2 sm:mb-4">
               <Link
                 to="/noticias/$slug"
-                params={{ slug: "como-funciona-la-administracion-de-fincas" }}
+                params={{ slug: articles[0]?.slug || "que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo" }}
                 className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer font-sans"
               >
                 <span>{t.noticias.verTodasBtn}</span>

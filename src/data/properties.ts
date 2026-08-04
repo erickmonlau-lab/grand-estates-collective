@@ -5,7 +5,7 @@ import gallery1 from "@/assets/gallery-1.webp";
 import gallery2 from "@/assets/gallery-2.webp";
 import gallery3 from "@/assets/gallery-3.webp";
 import brightAtrium from "@/assets/bright-atrium.webp";
-import modernOfficeImg from "/images/modern_office_space.jpg";
+import modernOfficeImg from "/images/modern_office_space.webp";
 
 export type PropertyType = "Piso" | "Apartamento" | "Ático" | "Local comercial" | "Chalet" | "Oficina" | "Todos";
 

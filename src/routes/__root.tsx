@@ -129,7 +129,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "email": "info@gesgrama.com",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Av. dels Sants nº 49-51 local",
+            "streetAddress": "Av. dels Banús, 49",
             "addressLocality": "Santa Coloma de Gramenet",
             "postalCode": "08923",
             "addressRegion": "Barcelona",

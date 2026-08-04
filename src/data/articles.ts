@@ -1,6 +1,6 @@
 import gesgramaFacade from "@/assets/gesgrama_modern_facade_twilight.webp";
 import property1Img from "@/assets/real_exterior_white_1783264881525.webp";
-import obraNuevaRealImg from "@/assets/art4_obra_nueva.jpg";
+import obraNuevaRealImg from "@/assets/art4_obra_nueva.webp";
 
 export interface ArticleContent {
   title: string;

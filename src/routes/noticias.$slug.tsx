@@ -517,7 +517,7 @@ function ArticleDetail() {
             >
               <div className="absolute inset-0 z-0">
                 <img
-                  src="/images/modern_office_space.jpg"
+                  src="/images/modern_office_space.webp"
                   alt="Nuestros Inmuebles"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
                 />

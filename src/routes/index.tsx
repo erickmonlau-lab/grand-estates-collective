@@ -575,7 +575,7 @@ function Index() {
         className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={424} height={104} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
+          <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
         </a>
 
         <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
@@ -2105,7 +2105,7 @@ function Index() {
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
               <div className="inline-block mb-4">
-                <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={424} height={104} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
+                <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
               </div>
               <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
                 {t.footer.descripcion}

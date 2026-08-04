@@ -246,10 +246,10 @@ function ArticleDetail() {
           newParts.push(
             <span 
               key={`${matchIndex}-${matchIdx}`} 
-              className={`font-black rounded px-1.5 py-0.5 inline-block ${
+              className={`font-black rounded px-2 py-0.5 inline-block ${
                 isExemption 
-                  ? "bg-emerald-100/90 text-emerald-900 border border-emerald-300/80 shadow-2xs" 
-                  : "bg-amber-100/90 text-amber-950 border border-amber-300/70"
+                  ? "bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs" 
+                  : "bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
               }`}
             >
               {matchString}
@@ -563,16 +563,18 @@ function ArticleDetail() {
                           return (
                             <div 
                               key={bpIdx} 
-                              className="flex items-start gap-4 sm:gap-5 bg-amber-50/90 border-l-4 border-amber-500 p-5 sm:p-6 md:p-7 rounded-2xl border-y border-r border-amber-200/80 shadow-xs hover:shadow-md transition-shadow"
+                              className="flex items-start gap-4 sm:gap-6 bg-[#0f172a] border-l-8 border-[#2563eb] p-6 sm:p-8 md:p-9 rounded-2xl md:rounded-3xl border-y border-r border-slate-800 shadow-xl hover:shadow-2xl transition-all"
                             >
-                              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 mt-0.5 font-black shadow-sm">
-                                <AlertTriangle className="w-5 h-5" />
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 font-black shadow-lg">
+                                <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
                               </div>
                               <div className="flex-1">
-                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-200/80 text-amber-900 text-[10px] font-black uppercase tracking-wider mb-1.5">
-                                  {language === "ca" ? "Verificació Legal / Fiscal Requerida" : language === "en" ? "Legal / Tax Verification Required" : "Verificación Legal / Fiscal Requerida"}
-                                </span>
-                                <p className="text-base sm:text-lg md:text-xl font-bold text-amber-950 leading-relaxed">
+                                <div className="mb-3">
+                                  <span className="inline-block px-4 py-1 rounded-full bg-white text-[#0f172a] text-xs sm:text-sm font-black uppercase tracking-wider shadow-md">
+                                    {language === "ca" ? "Verificació Legal / Fiscal Requerida" : language === "en" ? "Legal / Tax Verification Required" : "Verificación Legal / Fiscal Requerida"}
+                                  </span>
+                                </div>
+                                <p className="text-base sm:text-lg md:text-xl font-bold text-slate-100 leading-relaxed font-sans">
                                   {highlightKeyText(cleanText)}
                                 </p>
                               </div>

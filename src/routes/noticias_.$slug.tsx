@@ -422,22 +422,9 @@ function ArticleDetail() {
             </span>
           </div>
 
-          {/* TITLE (H1) WITH EXACT SOLID BLUE PILL CONTAINER MATCHING MAIN SITE */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.25] sm:leading-[1.2] mb-6 font-sans">
-            {(() => {
-              const words = content.title.split(" ");
-              if (words.length <= 3) return content.title;
-              const mainPart = words.slice(0, words.length - 2).join(" ");
-              const pillPart = words.slice(words.length - 2).join(" ");
-              return (
-                <>
-                  <span>{mainPart}</span>{" "}
-                  <span className="inline-block bg-[#2563eb] text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl shadow-sm mt-1 sm:mt-0 font-sans font-black">
-                    {pillPart}
-                  </span>
-                </>
-              );
-            })()}
+          {/* TITLE (H1) - CLEAN FLUID HEADING WITH NO UNWANTED WORD DROPDOWNS */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.2] sm:leading-[1.15] mb-6 font-sans">
+            {content.title}
           </h1>
 
           {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
@@ -475,25 +462,11 @@ function ArticleDetail() {
             {content.sections.map((sec, idx) => (
               <section key={idx} className="space-y-4">
                 {sec.level === "h2" ? (
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 pb-2 font-sans flex flex-wrap items-center gap-2">
-                    {(() => {
-                      const words = sec.heading.split(" ");
-                      if (words.length <= 2) return sec.heading;
-                      const splitIdx = Math.max(1, words.length - 2);
-                      const mainPart = words.slice(0, splitIdx).join(" ");
-                      const pillPart = words.slice(splitIdx).join(" ");
-                      return (
-                        <>
-                          <span>{mainPart}</span>
-                          <span className="inline-block bg-[#2563eb] text-white px-3 sm:px-4 py-1 rounded-xl sm:rounded-2xl shadow-sm font-sans font-black">
-                            {pillPart}
-                          </span>
-                        </>
-                      );
-                    })()}
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 border-l-8 border-[#2563eb] pl-4 py-1 my-6 leading-snug font-sans">
+                    {sec.heading}
                   </h2>
                 ) : (
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 font-sans border-l-4 border-[#2563eb] pl-3 py-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-400 pl-3 py-1 my-4 leading-snug font-sans">
                     {sec.heading}
                   </h3>
                 )}

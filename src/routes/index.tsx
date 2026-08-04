@@ -574,7 +574,7 @@ function Index() {
         className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
+          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={424} height={104} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
         </a>
 
         <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
@@ -1662,7 +1662,7 @@ function Index() {
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h4>
+                      <h3 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
                       <p className="text-white text-sm sm:text-base font-extrabold font-sans">Av. dels Banús, 49</p>
                       <p className="text-slate-200 text-xs sm:text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                     </div>
@@ -2085,6 +2085,8 @@ function Index() {
               <img 
                 src="/images/cta_advisors_closed_laptop.jpg" 
                 alt="Asesores inmobiliarios Gesgrama" 
+                width={1024}
+                height={1024}
                 className="w-full max-w-[480px] h-auto object-contain block -mb-1"
               />
             </div>
@@ -2103,7 +2105,7 @@ function Index() {
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
               <div className="inline-block mb-4">
-                <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
+                <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={424} height={104} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
               </div>
               <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
                 {t.footer.descripcion}
@@ -2112,7 +2114,7 @@ function Index() {
 
             {/* Navegación rápida */}
             <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h4>
+              <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h3>
               <ul className="space-y-3.5">
                 {[
                   { label: t.nav.propiedades, href: "#propiedades" },
@@ -2132,7 +2134,7 @@ function Index() {
 
             {/* Contacto */}
             <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.contactInfo}</h4>
+              <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.contactInfo}</h3>
               <ul className="space-y-4 text-base text-slate-300 font-bold">
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
@@ -2163,7 +2165,7 @@ function Index() {
 
             {/* Legal */}
             <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.legal}</h4>
+              <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.legal}</h3>
               <ul className="space-y-3.5">
                 <li>
                   <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">

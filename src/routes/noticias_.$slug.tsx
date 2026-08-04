@@ -208,7 +208,7 @@ function ArticleDetail() {
   const relatedArticles = articles.filter((a) => a.id !== article.id).slice(0, 3);
 
   // Helper function to highlight key data (dates, percentages, exemptions, deadlines) inside text
-  const highlightKeyText = (text: string) => {
+  const highlightKeyText = (text: string, isDarkBg: boolean = false) => {
     const keyPatterns = [
       /(\b30 días hábiles\b|\b30 dies hàbils\b|\b30 working days\b)/gi,
       /(\b2 años\b|\b2 anys\b|\b2 years\b)/gi,
@@ -243,18 +243,30 @@ function ArticleDetail() {
             newParts.push(part.substring(lastIndex, matchIndex));
           }
           const isExemption = matchString.toLowerCase().includes("exent") || matchString.toLowerCase().includes("exempt");
-          newParts.push(
-            <span 
-              key={`${matchIndex}-${matchIdx}`} 
-              className={`font-black rounded px-2 py-0.5 inline-block ${
-                isExemption 
-                  ? "bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs" 
-                  : "bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
-              }`}
-            >
-              {matchString}
-            </span>
-          );
+
+          if (isDarkBg) {
+            newParts.push(
+              <span 
+                key={`${matchIndex}-${matchIdx}`} 
+                className="font-black text-[#60a5fa]"
+              >
+                {matchString}
+              </span>
+            );
+          } else {
+            newParts.push(
+              <span 
+                key={`${matchIndex}-${matchIdx}`} 
+                className={`font-black rounded px-2 py-0.5 inline-block ${
+                  isExemption 
+                    ? "bg-emerald-100 text-emerald-950 border border-emerald-300 shadow-2xs" 
+                    : "bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
+                }`}
+              >
+                {matchString}
+              </span>
+            );
+          }
           lastIndex = matchIndex + matchString.length;
         });
         if (lastIndex < part.length) {
@@ -575,7 +587,7 @@ function ArticleDetail() {
                                   </span>
                                 </div>
                                 <p className="text-base sm:text-lg md:text-xl font-bold text-slate-100 leading-relaxed font-sans">
-                                  {highlightKeyText(cleanText)}
+                                  {highlightKeyText(cleanText, true)}
                                 </p>
                               </div>
                             </div>

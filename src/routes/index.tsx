@@ -1489,14 +1489,14 @@ function Index() {
                     <ArrowRight className="w-4 h-4 text-white" />
                   </button>
 
-                  {/* Trust Badges - Clean horizontal row right under the button */}
-                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4 mt-2">
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-sm md:text-base font-black font-sans whitespace-nowrap border border-slate-700/60">
-                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
+                  {/* Trust Badges - Horizontal row centered under button */}
+                  <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-2 sm:gap-4 mt-3 w-full">
+                    <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-md text-[11px] xs:text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 stroke-[3] shrink-0" />
                       <span>{t.valorador.sinCompromiso}</span>
                     </span>
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-sm md:text-base font-black font-sans whitespace-nowrap border border-slate-700/60">
-                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400 shrink-0" />
+                    <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-md text-[11px] xs:text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
                       <span>{t.valorador.resultadoInmediato}</span>
                     </span>
                   </div>

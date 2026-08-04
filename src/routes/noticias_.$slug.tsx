@@ -207,6 +207,66 @@ function ArticleDetail() {
   // Get 3 related articles
   const relatedArticles = articles.filter((a) => a.id !== article.id).slice(0, 3);
 
+  // Helper function to highlight key data (dates, percentages, exemptions, deadlines) inside text
+  const highlightKeyText = (text: string) => {
+    const keyPatterns = [
+      /(\b30 días hábiles\b|\b30 dies hàbils\b|\b30 working days\b)/gi,
+      /(\b2 años\b|\b2 anys\b|\b2 years\b)/gi,
+      /(\b45 a 90 días\b|\b45 a 90 dies\b|\b45 to 90 days\b)/gi,
+      /(\b7 a 21 días\b|\b7 a 21 dies\b|\b7 to 21 days\b)/gi,
+      /(\b65 años\b|\b65 anys\b|\bage 65\b)/gi,
+      /(\b10 años\b|\b10 anys\b|\b10 years\b|\b3 años\b|\b3 anys\b|\b3 years\b|\b1 año\b|\b1 any\b|\b1 year\b)/gi,
+      /(\bexenta del impuesto\b|\bexento del impuesto\b|\bexempta de l'impost\b|\bfully exempt\b|\bexención total\b|\bexempció total\b|\bfull exemption\b)/gi,
+      /(\b10%\b|\b4%\b|\b1,5%\b|\b80%\b|\b70%\b|\b5%\b|\b7%\b|\b15%\b|\b80-90%\b|\b5% a 7%\b|\b4% y un 8%\b|\b4% i un 8%\b|\b4% to 8%\b)/g
+    ];
+
+    // Replace matching patterns with styled elements
+    let parts: (string | JSX.Element)[] = [text];
+
+    keyPatterns.forEach((pattern) => {
+      const newParts: (string | JSX.Element)[] = [];
+      parts.forEach((part) => {
+        if (typeof part !== "string") {
+          newParts.push(part);
+          return;
+        }
+        const matches = Array.from(part.matchAll(pattern));
+        if (matches.length === 0) {
+          newParts.push(part);
+          return;
+        }
+        let lastIndex = 0;
+        matches.forEach((match, matchIdx) => {
+          const matchString = match[0];
+          const matchIndex = match.index || 0;
+          if (matchIndex > lastIndex) {
+            newParts.push(part.substring(lastIndex, matchIndex));
+          }
+          const isExemption = matchString.toLowerCase().includes("exent") || matchString.toLowerCase().includes("exempt");
+          newParts.push(
+            <span 
+              key={`${matchIndex}-${matchIdx}`} 
+              className={`font-black rounded px-1.5 py-0.5 inline-block ${
+                isExemption 
+                  ? "bg-emerald-100/90 text-emerald-900 border border-emerald-300/80 shadow-2xs" 
+                  : "bg-amber-100/90 text-amber-950 border border-amber-300/70"
+              }`}
+            >
+              {matchString}
+            </span>
+          );
+          lastIndex = matchIndex + matchString.length;
+        });
+        if (lastIndex < part.length) {
+          newParts.push(part.substring(lastIndex));
+        }
+      });
+      parts = newParts;
+    });
+
+    return <>{parts}</>;
+  };
+
   return (
     <div className="bg-slate-100 text-onyx font-sans min-h-screen">
       {/* JSON-LD now served via Route.head() for SSR — removed from JSX */}
@@ -334,7 +394,15 @@ function ArticleDetail() {
             </span>
             <span className="flex items-center gap-2 text-slate-600 font-semibold">
               <Clock className="w-4 h-4 text-[#2563eb]" />
-              {content.readTime}
+              {(() => {
+                const totalWords = [
+                  content.intro,
+                  ...content.sections.flatMap(s => s.content),
+                  ...(content.sections.flatMap(s => s.bulletPoints || []))
+                ].join(" ").split(/\s+/).filter(Boolean).length;
+                const minutes = Math.max(3, Math.ceil(totalWords / 180));
+                return `${minutes} ${language === "ca" ? "min de lectura" : language === "en" ? "min read" : "min de lectura"}`;
+              })()}
             </span>
             <span className="flex items-center gap-2 text-slate-600 font-semibold ml-auto hidden sm:flex">
               <User className="w-4 h-4 text-[#2563eb]" />
@@ -343,7 +411,7 @@ function ArticleDetail() {
           </div>
 
           {/* TITLE (H1) WITH EXACT SOLID BLUE PILL CONTAINER MATCHING MAIN SITE */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.25] sm:leading-[1.2] mb-8 font-sans">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.25] sm:leading-[1.2] mb-6 font-sans">
             {(() => {
               const words = content.title.split(" ");
               if (words.length <= 3) return content.title;
@@ -360,7 +428,22 @@ function ArticleDetail() {
             })()}
           </h1>
 
-          {/* FEATURED HERO IMAGE WITH COMPACT ACCESSIBLE HEIGHT (NO UNNECESSARY INITIAL SCROLL) */}
+          {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
+          <div className="mb-8 p-5 sm:p-7 rounded-2xl md:rounded-3xl bg-blue-50/90 border-l-8 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-4 sm:gap-5">
+            <div className="w-10 h-10 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
+              <BookOpen className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="inline-block px-3 py-1 rounded-full bg-[#2563eb]/10 text-[#2563eb] text-xs font-black uppercase tracking-wider mb-2 font-sans">
+                {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
+              </span>
+              <p className="text-base sm:text-lg md:text-xl font-extrabold text-slate-900 leading-relaxed font-sans">
+                {content.summary}
+              </p>
+            </div>
+          </div>
+
+          {/* FEATURED HERO IMAGE WITH COMPACT ACCESSIBLE HEIGHT */}
           <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 shadow-md border border-slate-200/80 h-[220px] sm:h-[300px] md:h-[360px] lg:h-[400px]">
             <img
               src={article.image}
@@ -372,10 +455,10 @@ function ArticleDetail() {
 
           {/* INTRO SUMMARY CALLOUT */}
           <div className="p-6 md:p-8 lg:p-10 rounded-2xl bg-slate-50 border-l-4 border-[#2563eb] text-slate-800 font-medium text-lg md:text-xl lg:text-2xl leading-relaxed mb-10 font-sans shadow-xs">
-            {content.intro}
+            {highlightKeyText(content.intro)}
           </div>
 
-          {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY) WITH EXACT SOLID BLUE PILL CONTAINERS */}
+          {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY FOR LIGHTHOUSE/PAGESPEED) */}
           <div className="prose prose-lg max-w-none text-slate-700 space-y-10 font-sans">
             {content.sections.map((sec, idx) => (
               <section key={idx} className="space-y-4">
@@ -398,13 +481,48 @@ function ArticleDetail() {
                     })()}
                   </h2>
                 ) : (
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 font-sans">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 font-sans border-l-4 border-[#2563eb] pl-3 py-1">
                     {sec.heading}
                   </h3>
                 )}
 
                 {sec.content.map((p, pIdx) => {
                   const isDefinitionBlock = p.includes("contrato de exclusividad inmobiliaria") || p.includes("compromiso firme de inversión");
+                  
+                  // 4. TARJETAS DESTACADAS PARA MÉTODOS Y CONTENIDO COMPARATIVO
+                  const isMethodCard = p.startsWith("Método Objetivo:") || p.startsWith("Método Real:") ||
+                                        p.startsWith("Mètode Objectiu:") || p.startsWith("Mètode Real:") ||
+                                        p.startsWith("Objective Method:") || p.startsWith("Real Method:") ||
+                                        p.startsWith("1.") || p.startsWith("2.") || p.startsWith("3.") || p.startsWith("4.") ||
+                                        p.startsWith("Garantía de") || p.startsWith("Garantia de") || p.startsWith("1-year warranty") || p.startsWith("3-year warranty") || p.startsWith("10-year structural warranty");
+
+                  if (isMethodCard) {
+                    const colonIndex = p.indexOf(":");
+                    const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex) : p.substring(0, 30);
+                    const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1) : p;
+
+                    const isFirstMethod = titlePart.toLowerCase().includes("objetivo") || titlePart.toLowerCase().includes("objectiu") || titlePart.toLowerCase().includes("objective") || titlePart.includes("1.");
+                    
+                    return (
+                      <div 
+                        key={pIdx} 
+                        className="my-6 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-slate-50 border-l-8 border-[#2563eb] border-y border-r border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative"
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider shadow-xs font-sans">
+                            {isFirstMethod ? "Opción 1 / Método A" : "Opción 2 / Método B"}
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-sans">
+                            {titlePart}
+                          </h3>
+                        </div>
+                        <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-medium">
+                          {highlightKeyText(bodyPart)}
+                        </p>
+                      </div>
+                    );
+                  }
+
                   if (isDefinitionBlock) {
                     return (
                       <div 
@@ -417,16 +535,17 @@ function ArticleDetail() {
                           </div>
                           <div className="flex-1">
                             <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold text-slate-900 leading-relaxed sm:leading-loose">
-                              {p}
+                              {highlightKeyText(p)}
                             </p>
                           </div>
                         </div>
                       </div>
                     );
                   }
+
                   return (
                     <p key={pIdx} className="text-base md:text-lg lg:text-xl leading-relaxed text-slate-700">
-                      {p}
+                      {highlightKeyText(p)}
                     </p>
                   );
                 })}
@@ -454,7 +573,7 @@ function ArticleDetail() {
                                   {language === "ca" ? "Verificació Legal / Fiscal Requerida" : language === "en" ? "Legal / Tax Verification Required" : "Verificación Legal / Fiscal Requerida"}
                                 </span>
                                 <p className="text-base sm:text-lg md:text-xl font-bold text-amber-950 leading-relaxed">
-                                  {cleanText}
+                                  {highlightKeyText(cleanText)}
                                 </p>
                               </div>
                             </div>
@@ -469,7 +588,7 @@ function ArticleDetail() {
                               ✓
                             </div>
                             <span className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-snug sm:leading-relaxed pt-0.5">
-                              {bp}
+                              {highlightKeyText(bp)}
                             </span>
                           </div>
                         );
@@ -478,6 +597,7 @@ function ArticleDetail() {
                   </div>
                 )}
               </section>
+
             ))}
 
             {/* CONCLUSION BOX - MARKS DISTINCT BACKGROUND WITH HIGH LEGIBILITY DARK TEXT */}

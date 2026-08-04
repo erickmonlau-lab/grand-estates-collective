@@ -1785,21 +1785,21 @@ function Index() {
               return (
                 <Reveal key={art.id} delay={i * 0.1}>
                   <div className="bg-white rounded-2xl p-4 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl mb-3 bg-slate-100">
+                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/10] overflow-hidden rounded-xl mb-3 bg-slate-100 cursor-pointer">
                       <img
                         src={art.image}
                         alt={artContent.title}
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                    </div>
+                    </Link>
                     <div className="flex flex-col flex-1">
                       <div className="flex items-center gap-2 text-xs font-bold mb-2">
                         <span className="text-slate-500 font-semibold">{artContent.date}</span>
                       </div>
-                      <h3 className="font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans">
+                      <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
                         {artContent.title}
-                      </h3>
+                      </Link>
                       <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
                         {artContent.summary}
                       </p>

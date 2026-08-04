@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PoliticaPrivacidadRouteImport } from './routes/politica-privacidad'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
-import { Route as NoticiasRouteImport } from './routes/noticias'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias.$slug'
 import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria.$slug'
@@ -27,11 +27,6 @@ const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
 const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
   id: '/politica-cookies',
   path: '/politica-cookies',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NoticiasRoute = NoticiasRouteImport.update({
-  id: '/noticias',
-  path: '/noticias',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -47,6 +42,11 @@ const AvisoLegalRoute = AvisoLegalRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
+  id: '/noticias/',
+  path: '/noticias/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
@@ -69,35 +69,35 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
-  '/noticias': typeof NoticiasRouteWithChildren
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/noticias/': typeof NoticiasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
-  '/noticias': typeof NoticiasRouteWithChildren
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/noticias': typeof NoticiasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
-  '/noticias': typeof NoticiasRouteWithChildren
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/noticias/': typeof NoticiasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,45 +105,45 @@ export interface FileRouteTypes {
     | '/'
     | '/aviso-legal'
     | '/blog'
-    | '/noticias'
     | '/politica-cookies'
     | '/politica-privacidad'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
+    | '/noticias/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/aviso-legal'
     | '/blog'
-    | '/noticias'
     | '/politica-cookies'
     | '/politica-privacidad'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
+    | '/noticias'
   id:
     | '__root__'
     | '/'
     | '/aviso-legal'
     | '/blog'
-    | '/noticias'
     | '/politica-cookies'
     | '/politica-privacidad'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
+    | '/noticias/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
   BlogRoute: typeof BlogRoute
-  NoticiasRoute: typeof NoticiasRouteWithChildren
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaPrivacidadRoute: typeof PoliticaPrivacidadRoute
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
+  NoticiasIndexRoute: typeof NoticiasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -160,13 +160,6 @@ declare module '@tanstack/react-router' {
       path: '/politica-cookies'
       fullPath: '/politica-cookies'
       preLoaderRoute: typeof PoliticaCookiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/noticias': {
-      id: '/noticias'
-      path: '/noticias'
-      fullPath: '/noticias'
-      preLoaderRoute: typeof NoticiasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -188,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias/': {
+      id: '/noticias/'
+      path: '/noticias'
+      fullPath: '/noticias/'
+      preLoaderRoute: typeof NoticiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicios/$slug': {
@@ -214,27 +214,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface NoticiasRouteChildren {
-  NoticiasSlugRoute: typeof NoticiasSlugRoute
-}
-
-const NoticiasRouteChildren: NoticiasRouteChildren = {
-  NoticiasSlugRoute: NoticiasSlugRoute,
-}
-
-const NoticiasRouteWithChildren = NoticiasRoute._addFileChildren(
-  NoticiasRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvisoLegalRoute: AvisoLegalRoute,
   BlogRoute: BlogRoute,
-  NoticiasRoute: NoticiasRouteWithChildren,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaPrivacidadRoute: PoliticaPrivacidadRoute,
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
+  NoticiasIndexRoute: NoticiasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

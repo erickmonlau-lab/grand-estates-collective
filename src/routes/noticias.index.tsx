@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Calendar, ArrowRight, Menu, X } from "lucide-react";
 import { translations } from "../data/translations";
 
-export const Route = createFileRoute("/noticias")({
+export const Route = createFileRoute("/noticias/")({
   head: () => ({
     meta: [
       { title: "Noticias y Artículos Inmobiliarios | Blog Gesgrama" },
@@ -112,14 +112,14 @@ function NoticiasCatalogComponent() {
             const content = art[language] || art.es;
             return (
               <article key={art.id} className="bg-white rounded-2xl p-5 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-slate-100">
+                <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-slate-100 cursor-pointer">
                   <img
                     src={art.image}
                     alt={content.title}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                </div>
+                </Link>
                 <div className="flex flex-col flex-1">
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-2 font-sans">
                     <Calendar className="w-3.5 h-3.5 text-[#2563eb]" />
@@ -127,9 +127,9 @@ function NoticiasCatalogComponent() {
                     <span>•</span>
                     <span>{content.readTime}</span>
                   </div>
-                  <h3 className="font-black text-[#0f172a] text-base leading-snug mb-3 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans">
+                  <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base leading-snug mb-3 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
                     {content.title}
-                  </h3>
+                  </Link>
                   <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-6 flex-1 line-clamp-3 font-sans">
                     {content.summary}
                   </p>

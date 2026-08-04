@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
-import heroBg from "@/assets/family_barcelona_opt_min.webp"; 
+import heroBgDesktop from "@/assets/family_barcelona_opt_min.webp";
+import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp"; 
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -238,17 +239,19 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
         </svg>
 
-        {/* Full-bleed Photo container (Object position 58% shifts image content right so father is in the right corner and daughter is clearly visible in center) */}
         <div className="absolute right-0 top-0 w-full lg:w-[60%] h-full bg-[#E5DDD5]">
-          <img 
-            src={heroBg} 
-            alt="Familia disfrutando su hogar gestionado por Gesgrama" 
-            className="w-full h-full object-cover object-[58%_center] md:object-right"
-            loading="eager"
-            fetchPriority="high"
-            width={1920}
-            height={1080}
-          />
+          <picture className="w-full h-full block">
+            <source media="(max-width: 640px)" srcSet={heroBgMobile} />
+            <img 
+              src={heroBgDesktop} 
+              alt="Familia disfrutando su hogar gestionado por Gesgrama" 
+              className="w-full h-full object-cover object-[58%_center] md:object-right"
+              loading="eager"
+              fetchPriority="high"
+              width={1920}
+              height={1080}
+            />
+          </picture>
           {/* Soft White Gradient Overlay (Horizontal): Smooth transition from text to photo */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#F3F4F6] via-[#F3F4F6]/75 via-45% to-transparent lg:via-[#F3F4F6]/50 lg:to-transparent" />
         </div>

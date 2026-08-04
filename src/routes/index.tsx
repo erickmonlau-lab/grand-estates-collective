@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
-import { articles } from "../data/articles";
+import { homeArticles as articles } from "../data/homeArticles";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, HelpCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush, Search, Heart, User, LogOut, Info, Ruler } from "lucide-react";
@@ -1782,27 +1782,29 @@ function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
             {articles.slice(0, 4).map((art, i) => {
-              const artContent = art[language];
+              const title = art.title[language];
+              const summary = art.summary[language];
+              const date = art.date;
               return (
                 <Reveal key={art.id} delay={i * 0.1}>
                   <div className="bg-white rounded-2xl p-4 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                     <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/10] overflow-hidden rounded-xl mb-3 bg-slate-100 cursor-pointer">
                       <img
                         src={art.image}
-                        alt={artContent.title}
+                        alt={title}
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>
                     <div className="flex flex-col flex-1">
                       <div className="flex items-center gap-2 text-xs font-bold mb-2">
-                        <span className="text-slate-500 font-semibold">{artContent.date}</span>
+                        <span className="text-slate-500 font-semibold">{date}</span>
                       </div>
                       <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
-                        {artContent.title}
+                        {title}
                       </Link>
                       <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
-                        {artContent.summary}
+                        {summary}
                       </p>
                       <div className="mt-auto">
                         <Link

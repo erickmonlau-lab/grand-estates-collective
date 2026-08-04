@@ -1,6 +1,10 @@
 import gesgramaFacade from "@/assets/gesgrama_modern_facade_twilight.webp";
 import property1Img from "@/assets/real_exterior_white_1783264881525.webp";
 import obraNuevaRealImg from "@/assets/art4_obra_nueva.webp";
+import gallery1 from "@/assets/gallery-1.webp";
+import gallery2 from "@/assets/gallery-2.webp";
+import gallery3 from "@/assets/gallery-3.webp";
+import property2 from "@/assets/property-2.webp";
 
 export interface ArticleContent {
   title: string;
@@ -549,6 +553,310 @@ export const articles: Article[] = [
         }
       ],
       conclusion: "Acquiring new construction with Gesgrama's guidance ensures legal safety, strict timeline tracking, and maximum long-term asset value."
+    }
+  },
+  {
+    id: "art-5",
+    slug: "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+    image: gallery1,
+    datePublished: "2025-03-15T09:00:00+01:00",
+    dateModified: "2025-03-15T09:00:00+01:00",
+    es: {
+      title: "Guía para alquilar o vender tu piso en Singuerlín y Centre",
+      summary: "Claves de valoración, demanda compradora y aspectos legales para propietarios en los barrios de Singuerlín y el Centre de Santa Coloma de Gramenet.",
+      category: "Inmobiliaria Local",
+      date: "15 marzo, 2025",
+      readTime: "6 min de lectura",
+      author: "Equipo Inmobiliario Gesgrama",
+      intro: "Los barrios de Singuerlín y el Centre representan dos de los motores residenciales más consolidados de Santa Coloma de Gramenet. Ya sea por la proximidad a la línea L9N de metro o la vida comercial del Centre, la demanda para alquilar y comprar se mantiene elevada.",
+      sections: [
+        {
+          heading: "Mercado inmobiliario en Singuerlín y Centre: precios y demanda",
+          level: "h2",
+          content: [
+            "En Singuerlín, las viviendas familiares con balcón o terraza son altamente demandadas por parejas jóvenes, mientras que en el Centre destacan los pisos reformados y fincas con ascensor cerca del Ayuntamiento.",
+            "Para fijar un precio competitivo sin perder rentabilidad, es vital contar con un estudio comparativo de mercado (ACM) basado en cierres notariales reales y no solo en precios de oferta en portales."
+          ],
+          bulletPoints: [
+            "Conexión directa con Barcelona mediante Metro L1 (Centre) y L9N (Singuerlín).",
+            "Elevada demanda de alquiler habitual por familias y profesionales.",
+            "Revalorización constante en fincas rehabilitadas energéticamente."
+          ]
+        },
+        {
+          heading: "Requisitos legales e impuestos al alquilar o vender",
+          level: "h2",
+          content: [
+            "Al poner en el mercado una propiedad en Santa Coloma, se debe disponer obligatoriamente de la Cédula de Habitabilidad y del Certificado de Eficiencia Energética (CEE).",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar el límite del índice de referencia de alquileres aplicable según la Ley 12/2023 de Vivienda para zona tensionada en Santa Coloma de Gramenet, así como el porcentaje de IRPF o plusvalía municipal].",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el plazo de depósito de fianza obligatorio en INCASÒL (2 meses en uso distinto de vivienda, 1 mes en vivienda habitual) en un plazo máximo de 2 meses desde la firma]."
+          ]
+        }
+      ],
+      conclusion: "Vender o alquilar en Singuerlín o Centre con el respaldo de Gesgrama garantiza seguridad jurídica, gestión documental integral y la mejor rentabilidad patrimonial."
+    },
+    ca: {
+      title: "Guia per llogar o vendre el teu pis a Singuerlín i Centre",
+      summary: "Claus de valoració, demanda compradora i aspectes legals per a propietaris als barris de Singuerlín i Centre de Santa Coloma de Gramenet.",
+      category: "Immobiliària Local",
+      date: "15 març, 2025",
+      readTime: "6 min de lectura",
+      author: "Equip Immobiliari Gesgrama",
+      intro: "Els barris de Singuerlín i el Centre representen dos dels motors residencials més consolidats de Santa Coloma de Gramenet.",
+      sections: [
+        {
+          heading: "Mercat immobiliari a Singuerlín i Centre",
+          level: "h2",
+          content: [
+            "A Singuerlín els habitatges familiars tenen molta demanda, mentre que al Centre destaquen els pisos reformats a prop de l'Ajuntament."
+          ]
+        }
+      ],
+      conclusion: "Vendre o llogar a Singuerlín o Centre amb Gesgrama et garanteix seguretat jurídica i la millor rendibilitat."
+    },
+    en: {
+      title: "Guide to renting or selling your flat in Singuerlín and Centre",
+      summary: "Valuation keys, buyer demand, and legal aspects for homeowners in Singuerlín and Centre neighborhoods in Santa Coloma de Gramenet.",
+      category: "Local Real Estate",
+      date: "March 15, 2025",
+      readTime: "6 min read",
+      author: "Gesgrama Real Estate Team",
+      intro: "Singuerlín and Centre represent two of the most established residential areas in Santa Coloma de Gramenet.",
+      sections: [
+        {
+          heading: "Real estate market in Singuerlín and Centre",
+          level: "h2",
+          content: [
+            "Family homes in Singuerlín with balconies are in high demand, while renovated flats near the Town Hall stand out in Centre."
+          ]
+        }
+      ],
+      conclusion: "Selling or renting in Singuerlín or Centre with Gesgrama ensures legal safety and maximum return."
+    }
+  },
+  {
+    id: "art-6",
+    slug: "ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+    image: gallery2,
+    datePublished: "2025-03-22T09:00:00+01:00",
+    dateModified: "2025-03-22T09:00:00+01:00",
+    es: {
+      title: "ITE y rehabilitación de edificios en Fondo, Santa Rosa y Can Mariner",
+      summary: "Todo lo que deben saber las comunidades de vecinos sobre la Inspección Técnica de Edificios (ITE) y las subvenciones de rehabilitación urbana.",
+      category: "Administración de Fincas",
+      date: "22 marzo, 2025",
+      readTime: "7 min de lectura",
+      author: "Departamento Técnico Gesgrama",
+      intro: "Los barrios de Fondo, Santa Rosa y Can Mariner cuentan con un parque inmobiliario consolidado construido en su mayoría entre las décadas de 1960 y 1980. Para mantener la seguridad estructural y revalorizar los inmuebles, la realización de la ITE es un paso legal ineludible.",
+      sections: [
+        {
+          heading: "¿Cuándo es obligatoria la ITE y qué aspectos inspecciona?",
+          level: "h2",
+          content: [
+            "La Inspección Técnica del Edificio analiza el estado de conservación de cimentación, estructura, fachadas, cubiertas e instalaciones comunitarias de agua y electricidad.",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar la obligatoriedad de la ITE para edificios de más de 45 años de antigüedad según el Decreto 67/2015 de la Generalitat de Catalunya, así como los plazos de vigencia del Certificado de Aptitud (10 años si es apto, 3 o 6 años si presenta deficiencias leves/graves)]."
+          ],
+          bulletPoints: [
+            "Inspección visual y diagnóstico por arquitecto o aparejador colegiado.",
+            "Emisión del Libro del Edificio y Plan de Mantenimiento preventivo.",
+            "Tramitación del Certificado de Aptitud ante la Agència de l'Habitatge de Catalunya."
+          ]
+        },
+        {
+          heading: "Subvenciones y financiación para comunidades en Santa Coloma",
+          level: "h2",
+          content: [
+            "Existen programas públicos de ayuda para la instalación de ascensores, aislamiento de fachadas SATE y mejora del consumo energético.",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar las deducciones fiscales de IRPF (hasta el 60%) por obras de rehabilitación energética aprobadas por el Plan de Recuperación Next Generation EU, y sus requisitos de reducción del 30% de energía primaria no renovable]."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama gestiona de forma integral la ITE, licencias municipales y subvenciones para que tu comunidad ahorre costes y gane en seguridad."
+    },
+    ca: {
+      title: "ITE i rehabilitació d'edificis a Fondo, Santa Rosa i Can Mariner",
+      summary: "Tot el que han de saber les comunitats de veïns sobre la Inspecció Tècnica d'Edificis (ITE) i les subvencions.",
+      category: "Administració de Finques",
+      date: "22 març, 2025",
+      readTime: "7 min de lectura",
+      author: "Departament Tècnic Gesgrama",
+      intro: "Els barris de Fondo, Santa Rosa i Can Mariner compten amb un parc immobiliari consolidat que requereix manteniment estructural.",
+      sections: [
+        {
+          heading: "Quan és obligatòria la ITE?",
+          level: "h2",
+          content: [
+            "La ITE analitza l'estat de conservació de l'estructura, cobertes i instal·lacions comunitàries."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama gestiona la ITE i les subvencions per a la teva comunitat a Santa Coloma."
+    },
+    en: {
+      title: "Building Inspection (ITE) and renovation in Fondo, Santa Rosa, and Can Mariner",
+      summary: "Everything homeowner associations need to know about Technical Building Inspections (ITE) and urban renewal grants.",
+      category: "Property Management",
+      date: "March 22, 2025",
+      readTime: "7 min read",
+      author: "Gesgrama Technical Department",
+      intro: "Fondo, Santa Rosa, and Can Mariner feature established buildings that benefit greatly from structural maintenance and energy upgrades.",
+      sections: [
+        {
+          heading: "When is the ITE mandatory?",
+          level: "h2",
+          content: [
+            "The Technical Inspection analyzes foundation, structure, facade, roof, and utility conditions."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama handles ITE procedures, permits, and subsidies to maximize building safety and value."
+    }
+  },
+  {
+    id: "art-7",
+    slug: "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+    image: gallery3,
+    datePublished: "2025-03-28T09:00:00+01:00",
+    dateModified: "2025-03-28T09:00:00+01:00",
+    es: {
+      title: "Plusvalía municipal y gastos al vender en Riera Alta-Llatí y El Raval",
+      summary: "Desglose claro de impuestos, tributos municipales y costes notariales al transmitir una vivienda en Santa Coloma de Gramenet.",
+      category: "Asesoría Jurídica & Fiscal",
+      date: "28 marzo, 2025",
+      readTime: "5 min de lectura",
+      author: "Área Jurídica Gesgrama",
+      intro: "Al vender un piso en sectores como Riera Alta-Llatí o El Raval de Santa Coloma, el vendedor debe contemplar una serie de tributos y gastos directos para calcular el beneficio neto real de la operación.",
+      sections: [
+        {
+          heading: "La Plusvalía Municipal (IIVTNU) en Santa Coloma de Gramenet",
+          level: "h2",
+          content: [
+            "El IIVTNU grava el incremento de valor del terreno urbano durante el periodo de propiedad.",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar los dos métodos de cálculo según el Real Decreto-ley 26/2021 (Método Objetivo mediante coeficientes catastrales vs. Método Real basado en la ganancia patrimonial efectiva) para aplicar la opción más favorable en la ordenanza fiscal del Ayuntamiento de Santa Coloma de Gramenet].",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar que no se paga plusvalía municipal si se demuestra que ha habido una pérdida patrimonial en la venta (precio de venta inferior al de compra)]."
+          ]
+        },
+        {
+          heading: "IRPF por Ganancia Patrimonial y Honorarios Profesionales",
+          level: "h2",
+          content: [
+            "La diferencia entre el valor de adquisición actualizado y el de transmisión debe tributarse en la declaración de la renta (IRPF).",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Verificar la exención total por reinversión en vivienda habitual (plazo de 2 años previos o posteriores) y la exención para mayores de 65 años en su residencia habitual]."
+          ]
+        }
+      ],
+      conclusion: "El departamento jurídico-fiscal de Gesgrama liquida y optimiza tus tributos para que vendas con total tranquilidad legal."
+    },
+    ca: {
+      title: "Plusvàlua municipal i despeses en vendre a Riera Alta-Llatí i El Raval",
+      summary: "Desglossament d'impostos, tributs municipals i despeses notarials en vendre un pis a Santa Coloma.",
+      category: "Assessorament Jurídic & Fiscal",
+      date: "28 març, 2025",
+      readTime: "5 min de lectura",
+      author: "Àrea Jurídica Gesgrama",
+      intro: "En vendre un pis a Riera Alta-Llatí o El Raval, cal conèixer els impostos aplicables.",
+      sections: [
+        {
+          heading: "La Plusvàlua Municipal a Santa Coloma",
+          level: "h2",
+          content: [
+            "El IIVTNU grava l'increment de valor del terreny urbà."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama optimitza la teva liquidació d'impostos per a una venda segura."
+    },
+    en: {
+      title: "Municipal capital gains tax and expenses when selling in Riera Alta-Llatí and El Raval",
+      summary: "Clear breakdown of local taxes, municipal fees, and notary costs when transferring property in Santa Coloma de Gramenet.",
+      category: "Legal & Tax Advisory",
+      date: "March 28, 2025",
+      readTime: "5 min read",
+      author: "Gesgrama Legal Department",
+      intro: "Selling a flat in Riera Alta-Llatí or El Raval requires understanding tax obligations to calculate net proceeds.",
+      sections: [
+        {
+          heading: "Municipal Plusvalía Tax in Santa Coloma",
+          level: "h2",
+          content: [
+            "The tax applies to the increase in urban land value during the ownership period."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama's legal team calculates and optimizes your taxes for a seamless property transaction."
+    }
+  },
+  {
+    id: "art-8",
+    slug: "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+    image: property2,
+    datePublished: "2025-04-02T09:00:00+01:00",
+    dateModified: "2025-04-02T09:00:00+01:00",
+    es: {
+      title: "Claves para administrar tu comunidad en Riu Nord, Riu Sud y Oliveres-Can Serra",
+      summary: "Buenas prácticas en gestión de morosidad, eficiencia de suministros y normativas comunitarias bajo el Codi Civil de Catalunya.",
+      category: "Administración de Fincas",
+      date: "2 abril, 2025",
+      readTime: "6 min de lectura",
+      author: "Administración de Fincas Gesgrama",
+      intro: "Las comunidades de propietarios en Riu Nord, Riu Sud y Oliveres-Can Serra comparten retos diarios en convivencia, gestión del presupuesto anual y mantenimiento de zonas comunes.",
+      sections: [
+        {
+          heading: "Régimen de mayorías y adopción de acuerdos comunitarios",
+          level: "h2",
+          content: [
+            "En Cataluña, la administración de fincas no se rige por la Ley de Propiedad Horizontal estatal sino por la legislación catalana.",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar la aplicación del Llibre Cinquè del Codi Civil de Catalunya (Artículos 553-25 y 553-26) en el cómputo de votos, doble mayoría de propietarios y cuotas, y régimen de mayorías simples vs. 4/5 para innovaciones o eliminación de barreras arquitectónicas]."
+          ]
+        },
+        {
+          heading: "Prevención de la morosidad y cobro de cuotas comunitarias",
+          level: "h2",
+          content: [
+            "Una gestión eficaz exige el seguimiento mensual del saldo comunitario e iniciar acciones reclamatorias inmediatas sin incurrir en costes excesivos para los vecinos al día.",
+            "[⚠️ VERIFICACIÓN LEGAL/FISCAL REQUERIDA: Confirmar el procedimiento monitorio especial del Código Civil Catalán y la afección real del inmueble por las deudas del año en curso y los 4 años anteriores (Art. 553-5)]"
+          ]
+        }
+      ],
+      conclusion: "Gesgrama ofrece una administración transparente, respuesta en 24h a incidencias y control riguroso de las cuentas de tu comunidad."
+    },
+    ca: {
+      title: "Claus per administrar la teva comunitat a Riu Nord, Riu Sud i Oliveres-Can Serra",
+      summary: "Bones pràctiques en gestió de morositat i normatives sota el Codi Civil de Catalunya.",
+      category: "Administració de Finques",
+      date: "2 d'abril, 2025",
+      readTime: "6 min de lectura",
+      author: "Administració de Finques Gesgrama",
+      intro: "Les comunitats a Riu Nord, Riu Sud i Oliveres tenen reptes diaris en gestió pressupostària.",
+      sections: [
+        {
+          heading: "Règim de majories segons el Codi Civil de Catalunya",
+          level: "h2",
+          content: [
+            "A Catalunya l'administració de finques es regeix pel Codi Civil català."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama ofereix administració transparent i resposta ràpida a incidències."
+    },
+    en: {
+      title: "Keys to managing your HOA in Riu Nord, Riu Sud, and Oliveres-Can Serra",
+      summary: "Best practices in delinquency prevention, utility efficiency, and regulations under the Catalan Civil Code.",
+      category: "Property Management",
+      date: "April 2, 2025",
+      readTime: "6 min read",
+      author: "Gesgrama Property Management",
+      intro: "HOAs in Riu Nord, Riu Sud, and Oliveres face common challenges in maintenance and financial management.",
+      sections: [
+        {
+          heading: "Voting majorities under the Catalan Civil Code",
+          level: "h2",
+          content: [
+            "Property management in Catalonia follows Book Five of the Catalan Civil Code."
+          ]
+        }
+      ],
+      conclusion: "Gesgrama provides transparent management and rapid issue resolution for your community."
     }
   }
 ];

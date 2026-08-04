@@ -5,7 +5,7 @@ import logoImg from "@/assets/logo.webp";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
-export const Route = createFileRoute("/servicios/$slug")({
+export const Route = createFileRoute("/servicios_/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
     const service = servicesData[slug] || servicesData["administracion-de-fincas"];

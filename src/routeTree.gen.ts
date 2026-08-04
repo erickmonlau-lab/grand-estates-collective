@@ -15,9 +15,9 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
-import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
-import { Route as NoticiasSlugRouteImport } from './routes/noticias.$slug'
-import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria.$slug'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
+import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
+import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
 
 const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
   id: '/politica-privacidad',
@@ -50,17 +50,17 @@ const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/servicios/$slug',
+  id: '/servicios_/$slug',
   path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => NoticiasRoute,
+  id: '/noticias_/$slug',
+  path: '/noticias/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
-  id: '/inmobiliaria/$slug',
+  id: '/inmobiliaria_/$slug',
   path: '/inmobiliaria/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -94,9 +94,9 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
-  '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
-  '/noticias/$slug': typeof NoticiasSlugRoute
-  '/servicios/$slug': typeof ServiciosSlugRoute
+  '/inmobiliaria_/$slug': typeof InmobiliariaSlugRoute
+  '/noticias_/$slug': typeof NoticiasSlugRoute
+  '/servicios_/$slug': typeof ServiciosSlugRoute
   '/noticias/': typeof NoticiasIndexRoute
 }
 export interface FileRouteTypes {
@@ -129,9 +129,9 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
-    | '/inmobiliaria/$slug'
-    | '/noticias/$slug'
-    | '/servicios/$slug'
+    | '/inmobiliaria_/$slug'
+    | '/noticias_/$slug'
+    | '/servicios_/$slug'
     | '/noticias/'
   fileRoutesById: FileRoutesById
 }
@@ -142,6 +142,7 @@ export interface RootRouteChildren {
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaPrivacidadRoute: typeof PoliticaPrivacidadRoute
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
+  NoticiasSlugRoute: typeof NoticiasSlugRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
   NoticiasIndexRoute: typeof NoticiasIndexRoute
 }
@@ -190,22 +191,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoticiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/servicios/$slug': {
-      id: '/servicios/$slug'
+    '/servicios_/$slug': {
+      id: '/servicios_/$slug'
       path: '/servicios/$slug'
       fullPath: '/servicios/$slug'
       preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/noticias/$slug': {
-      id: '/noticias/$slug'
-      path: '/$slug'
+    '/noticias_/$slug': {
+      id: '/noticias_/$slug'
+      path: '/noticias/$slug'
       fullPath: '/noticias/$slug'
       preLoaderRoute: typeof NoticiasSlugRouteImport
-      parentRoute: typeof NoticiasRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/inmobiliaria/$slug': {
-      id: '/inmobiliaria/$slug'
+    '/inmobiliaria_/$slug': {
+      id: '/inmobiliaria_/$slug'
       path: '/inmobiliaria/$slug'
       fullPath: '/inmobiliaria/$slug'
       preLoaderRoute: typeof InmobiliariaSlugRouteImport
@@ -221,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaPrivacidadRoute: PoliticaPrivacidadRoute,
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
+  NoticiasSlugRoute: NoticiasSlugRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
   NoticiasIndexRoute: NoticiasIndexRoute,
 }

@@ -8,7 +8,7 @@ import { translations } from "../data/translations";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
-export const Route = createFileRoute("/noticias/$slug")({
+export const Route = createFileRoute("/noticias_/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
     const article = articles.find((a) => a.slug === slug);

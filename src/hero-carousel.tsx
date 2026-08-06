@@ -263,15 +263,12 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         <div className="max-w-[285px] xs:max-w-xs sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-0 sm:py-2 mt-1 sm:mt-0">
           <div className="flex flex-col justify-start h-full py-0 sm:py-0">
             {/* Eyebrow Pill Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.0, ease: expo }}
+            <div
               className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit"
             >
               <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white"></span>
               <span>{t.heroCarousel.tag}</span>
-            </motion.div>
+            </div>
 
             {/* Main Title H1 - INSTANT SSR/HTML PAINT WITHOUT JS OPACITY DELAY */}
             <h1 className="text-[26px] xs:text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading">
@@ -290,10 +287,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.24, ease: expo }}
+            <div
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-fit mb-3 sm:mb-6"
             >
               {/* Button 1: Solid Blue Pill */}
@@ -314,28 +308,22 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 <Building2 className="w-4 h-4 text-[#2563eb]" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
-            </motion.div>
+            </div>
 
             {/* Trust Proof */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.32, ease: expo }}
+            <div
               className="flex items-center gap-2.5 sm:gap-3.5 text-xs sm:text-lg md:text-xl font-extrabold text-[#0f172a]"
             >
               <Check className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-emerald-600 stroke-[3] shrink-0" />
               <span className="font-extrabold font-sans" style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.98)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
-            </motion.div>
+            </div>
           </div>
         </div>
 
         {/* Integrated Stat Cards Row (Lifted up closer to trust badge) */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+        <div
           className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-0 sm:mt-8 lg:mt-10 mb-1"
         >
           {/* Card 1 (4500+): Fondo carbón oscuro / texto blanco */}
@@ -373,7 +361,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             </p>
             <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </section>

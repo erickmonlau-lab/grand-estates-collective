@@ -3,15 +3,15 @@ import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
 import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Home, Building2, Scale, Phone, Mail, MessageCircle, HelpCircle, Star, Clock, Shield, TrendingUp, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Paintbrush, Search, Heart, User, LogOut, Info, Ruler } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
 import gallery1 from "@/assets/gallery-1.webp";
 
-const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
-const CookieBanner = lazy(() => import('@/components/CookieBanner'));
+import WhatsAppButton from '@/components/WhatsAppButton';
+import CookieBanner from '@/components/CookieBanner';
 
 export const Route = createFileRoute("/")(  {
   component: Index,
@@ -38,30 +38,6 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
     >
       {children}
     </motion.div>
-  );
-}
-
-function Counter({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const mv = useMotionValue(0);
-  const [display, setDisplay] = useState("0");
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(mv, to, {
-      duration: 1.0,
-      ease: easeOut,
-      onUpdate: (v) => {
-        const rounded = Math.round(v);
-        setDisplay(rounded.toLocaleString("es-ES"));
-      },
-    });
-    return () => controls.stop();
-  }, [inView, to, mv]);
-  return (
-    <span ref={ref} className="tabular-nums">
-      {prefix}{display}{suffix}
-    </span>
   );
 }
 
@@ -2246,11 +2222,9 @@ function Index() {
         </div>
       </footer>
 
-      {/* Floating Utilities (Point 7 Fix) */}
-      <Suspense fallback={null}>
-        <WhatsAppButton language={language} />
-        <CookieBanner language={language} />
-      </Suspense>
+      {/* Floating Utilities */}
+      <WhatsAppButton language={language} />
+      <CookieBanner language={language} />
 
       {/* Service Detail Modal (Point 3 Fix) */}
       <AnimatePresence>

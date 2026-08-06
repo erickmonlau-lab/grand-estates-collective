@@ -4,7 +4,8 @@
 
 @font-face {
   font-family: 'Aachen BT';
-  src: url('/fonts/AachenBT-Regular.ttf') format('truetype');
+  src: url('/fonts/AachenBT-Regular.woff2') format('woff2'),
+       url('/fonts/AachenBT-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,7 +13,8 @@
 
 @font-face {
   font-family: 'Aachen BT';
-  src: url('/fonts/AachenBT-Bold.ttf') format('truetype');
+  src: url('/fonts/AachenBT-Bold.woff2') format('woff2'),
+       url('/fonts/AachenBT-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -20,7 +22,8 @@
 
 @font-face {
   font-family: 'AG Book Rounded';
-  src: url('/fonts/AGBookRounded-Medium.ttf') format('truetype');
+  src: url('/fonts/AGBookRounded-Medium.woff2') format('woff2'),
+       url('/fonts/AGBookRounded-Medium.ttf') format('truetype');
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -28,7 +31,8 @@
 
 @font-face {
   font-family: 'ACCELERATOR';
-  src: url('/fonts/Accelerator.ttf') format('truetype');
+  src: url('/fonts/Accelerator.woff2') format('woff2'),
+       url('/fonts/Accelerator.ttf') format('truetype');
   font-weight: 400 900;
   font-style: normal;
   font-display: swap;

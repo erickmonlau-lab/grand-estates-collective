@@ -342,7 +342,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
             <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
             <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <Counter to={4500} suffix="+" />
+              4500+
             </p>
             <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
@@ -351,7 +351,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
             <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
             <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
-              <Counter to={98} suffix="%" />
+              98%
             </p>
             <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
@@ -360,7 +360,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
             <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
             <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <Counter to={300} prefix="+" />
+              +300
             </p>
             <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>

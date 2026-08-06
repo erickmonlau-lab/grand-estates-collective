@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
-import { motion, useScroll, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, animate, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -100,7 +100,6 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
   return true;
 };
 function Index() {
-  useScroll(); // keep for potential future scroll effects
 
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {

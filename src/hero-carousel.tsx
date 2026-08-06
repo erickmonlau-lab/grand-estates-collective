@@ -10,44 +10,7 @@ interface HeroCarouselProps {
   language?: "es" | "en" | "ca";
 }
 
-// ── Animated Counter ──
-function Counter({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState('0');
 
-  useEffect(() => {
-    if (!inView) return;
-    let startTime: number;
-    const duration = 2000;
-
-    const animateCount = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const percentage = Math.min(progress / duration, 1);
-      const easeOut = 1 - Math.pow(1 - percentage, 3);
-      const currentCount = Math.floor(easeOut * to);
-      setDisplay(currentCount.toString());
-
-      if (percentage < 1) {
-        requestAnimationFrame(animateCount);
-      } else {
-        setDisplay(to.toString());
-      }
-    };
-
-    const frame = requestAnimationFrame(animateCount);
-    return () => cancelAnimationFrame(frame);
-  }, [inView, to]);
-
-  return (
-    <span ref={ref} className="tabular-nums tracking-widest inline-flex items-center justify-center gap-1 font-extrabold">
-      {prefix && <span className="mr-0.5">{prefix}</span>}
-      <span>{display}</span>
-      {suffix && <span className="ml-0.5">{suffix}</span>}
-    </span>
-  );
-}
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
@@ -357,7 +320,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
             <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
             <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
-              <Counter to={15} suffix="+" />
+              <span className="tabular-nums tracking-widest inline-flex items-center justify-center gap-1 font-extrabold">15+</span>
             </p>
             <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
           </div>

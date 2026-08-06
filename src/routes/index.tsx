@@ -572,7 +572,7 @@ function Index() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
+        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6"
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
           <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
@@ -588,16 +588,16 @@ function Index() {
             <a
               key={item.href}
               href={item.href}
-              className="relative px-4 py-2 rounded-full text-slate-100 font-extrabold hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+              className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
             >
-              <span className="relative z-10 text-slate-100 font-extrabold">{item.label}</span>
+              <span className="relative z-10 text-white font-extrabold">{item.label}</span>
               <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300 group-hover:w-1/2 opacity-0 group-hover:opacity-100" />
             </a>
           ))}
         </div>
 
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-xs font-black tracking-wider">
+          <div className="flex items-center bg-slate-800 border border-slate-700 rounded-full p-0.5 text-xs font-black tracking-wider">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
@@ -614,7 +614,7 @@ function Index() {
             href="https://wa.me/34601259424"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#25D366] text-white hover:bg-[#20ba5a] px-3.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs uppercase tracking-wider font-black transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02] shadow-[0_4px_14px_rgba(37,211,102,0.35)]"
+            className="hidden sm:inline-flex items-center gap-1.5 bg-[#075E54] text-white hover:bg-[#054c44] px-3.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs uppercase tracking-wider font-black transition-all duration-300 shadow-md hover:shadow-lg hover:scale-[1.02]"
           >
             <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-white shrink-0">
               <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />

@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import appCss from "../styles.css?url";
+import appCss from "../styles.css?inline";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -105,7 +105,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "manifest", href: "/manifest.webmanifest" },
-      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },
       { rel: "icon", href: "/favicon-48x48.png?v=2027", type: "image/png", sizes: "48x48" },
       { rel: "icon", href: "/favicon-192x192.png?v=2027", type: "image/png", sizes: "192x192" },
@@ -181,6 +180,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
+        <style dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
       <body>
         {children}

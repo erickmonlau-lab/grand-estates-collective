@@ -69,7 +69,7 @@ export default function CookieBanner({ language = "es" }: CookieBannerProps) {
             <Cookie className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-bold text-sm text-white mb-1">{t.title}</h4>
+            <h3 className="font-bold text-sm text-white mb-1">{t.title}</h3>
             <p className="text-xs text-slate-300 leading-relaxed font-medium pr-4">
               {t.text}
             </p>

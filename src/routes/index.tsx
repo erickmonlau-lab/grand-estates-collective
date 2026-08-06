@@ -588,9 +588,9 @@ function Index() {
             <a
               key={item.href}
               href={item.href}
-              className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+              className="relative px-4 py-2 rounded-full text-slate-100 font-extrabold hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
             >
-              <span className="relative z-10">{item.label}</span>
+              <span className="relative z-10 text-slate-100 font-extrabold">{item.label}</span>
               <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white rounded-full transition-all duration-300 group-hover:w-1/2 opacity-0 group-hover:opacity-100" />
             </a>
           ))}

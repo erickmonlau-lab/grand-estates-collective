@@ -17,7 +17,7 @@ export interface HomeArticle {
 export const homeArticles: HomeArticle[] = [
   {
     id: "art-1",
-    slug: "asesor-inmobiliario-santa-coloma-riera-alta-llati-el-raval",
+    slug: "que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo",
     category: { es: "Servicios Inmobiliarios", en: "Real Estate Services", ca: "Serveis Inmobiliari" },
     date: "14 Feb 2026",
     readTime: { es: "5 min de lectura", en: "5 min read", ca: "5 min de lectura" },
@@ -35,7 +35,7 @@ export const homeArticles: HomeArticle[] = [
   },
   {
     id: "art-2",
-    slug: "contrato-exclusividad-inmobiliaria-ventajas-propietarios-santa-coloma",
+    slug: "que-es-un-contrato-de-exclusividad-inmobiliaria",
     category: { es: "Guía de Venta", en: "Selling Guide", ca: "Guia de Venda" },
     date: "02 Feb 2026",
     readTime: { es: "6 min de lectura", en: "6 min read", ca: "6 min de lectura" },
@@ -53,7 +53,7 @@ export const homeArticles: HomeArticle[] = [
   },
   {
     id: "art-3",
-    slug: "perito-judicial-inmobiliario-tasaciones-oficiales-herencias-divorcios",
+    slug: "que-es-un-perito-judicial-inmobiliario",
     category: { es: "Asesoría Jurídica", en: "Legal Advisory", ca: "Assessoria Jurídica" },
     date: "28 Ene 2026",
     readTime: { es: "7 min de lectura", en: "7 min read", ca: "7 min de lectura" },
@@ -71,7 +71,7 @@ export const homeArticles: HomeArticle[] = [
   },
   {
     id: "art-4",
-    slug: "promociones-obra-nueva-vs-segunda-mano-inversion-santa-coloma",
+    slug: "descubre-todo-sobre-una-vivienda-de-obra-nueva",
     category: { es: "Inversión Inmobiliaria", en: "Real Estate Investment", ca: "Inversió Immobiliària" },
     date: "15 Ene 2026",
     readTime: { es: "5 min de lectura", en: "5 min read", ca: "5 min de lectura" },

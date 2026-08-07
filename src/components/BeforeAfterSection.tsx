@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Paintbrush, Sofa, Building, Star, BarChart3, Smile, ShieldCheck, ChevronRight } from 'lucide-react';
 import BeforeAfterSlider from './BeforeAfterSlider';
 import Reveal from './Reveal';
@@ -109,21 +108,15 @@ export default function BeforeAfterSection() {
           {/* Right Column: Slider */}
           <div className="lg:w-[60%] w-full">
             <Reveal delay={0.4}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory.id}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="w-full"
-                >
-                  <BeforeAfterSlider 
-                    beforeImage={activeCategory.before} 
-                    afterImage={activeCategory.after} 
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <div
+                key={activeCategory.id}
+                className="w-full transition-opacity duration-500"
+              >
+                <BeforeAfterSlider 
+                  beforeImage={activeCategory.before} 
+                  afterImage={activeCategory.after} 
+                />
+              </div>
             </Reveal>
           </div>
 

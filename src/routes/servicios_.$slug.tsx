@@ -107,7 +107,7 @@ const servicesData: Record<string, {
       "Reducción directa de costes en contratos de mantenimiento.",
       "Administradores colegiados con seguro de responsabilidad civil."
     ],
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=75&w=800&auto=format&fit=crop",
     asuntoOption: "Administración de Fincas"
   },
   "gestion-inmobiliaria": {
@@ -132,7 +132,7 @@ const servicesData: Record<string, {
       "Amplia base de datos de compradores e inversores cualificados.",
       "Agentes Inmobiliarios Registrados de Cataluña (AICAT)."
     ],
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=75&w=800&auto=format&fit=crop",
     asuntoOption: "Gestión Inmobiliaria"
   },
   "asesoria-juridica-fiscal": {
@@ -157,7 +157,7 @@ const servicesData: Record<string, {
       "Resolución preventiva de conflictos para evitar costes judiciales.",
       "Presupuesto cerrado sin sorpresas."
     ],
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=75&w=800&auto=format&fit=crop",
     asuntoOption: "Asesoría Jurídica"
   },
   "obras-mantenimiento": {
@@ -182,7 +182,7 @@ const servicesData: Record<string, {
       "Garantía de cumplimiento de plazos y calidades.",
       "Industriales homologados con amplia experiencia en la zona."
     ],
-    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=75&w=800&auto=format&fit=crop",
     asuntoOption: "Obras y Reformas"
   }
 };

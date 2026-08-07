@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
@@ -278,10 +278,7 @@ function ArticleDetail() {
       {/* JSON-LD now served via Route.head() for SSR — removed from JSX */}
 
       {/* FLOATING CAPSULE NAVIGATION HEADER */}
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <nav
         className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
       >
         <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
@@ -322,39 +319,34 @@ function ArticleDetail() {
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* MOBILE DRAWER MENU */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-0 z-[99] bg-[#0f172a] flex flex-col pt-28 px-6 pb-10"
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-[99] bg-[#0f172a] flex flex-col pt-28 px-6 pb-10"
+        >
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
           >
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="flex flex-col gap-6 text-xl font-bold text-white uppercase tracking-wider my-auto">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-              <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.propiedades}</a>
-              <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.servicios}</a>
-              <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.contacto}</a>
-            </div>
-            <a
-              href="/#contacto"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full bg-[#2563eb] text-white font-bold py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-lg mt-auto"
-            >
-              {t.nav.portal}
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <X className="w-6 h-6" />
+          </button>
+          <div className="flex flex-col gap-6 text-xl font-bold text-white uppercase tracking-wider my-auto">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
+            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.propiedades}</a>
+            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.servicios}</a>
+            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.contacto}</a>
+          </div>
+          <a
+            href="/#contacto"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full bg-[#2563eb] text-white font-bold py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-lg mt-auto"
+          >
+            {t.nav.portal}
+          </a>
+        </div>
+      )}
 
       {/* MAIN ARTICLE CONTENT WRAPPED IN BUBBLE CONTAINER */}
       <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">

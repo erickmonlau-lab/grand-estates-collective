@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { properties, formatLocation } from "../data/properties";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, ChevronRight, Menu, X, Home } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
@@ -207,10 +207,7 @@ function PropertyDetail() {
       {/* Head tags now served via Route.head() for SSR — removed from JSX */}
 
       {/* FLOATING CAPSULE NAVIGATION HEADER */}
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <nav
         className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
       >
         <Link to="/" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
@@ -251,39 +248,34 @@ function PropertyDetail() {
             <Menu className="w-6 h-6" />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* MOBILE DRAWER MENU */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-0 z-[99] bg-slate-950/90 backdrop-blur-xl flex flex-col pt-28 px-6 pb-10"
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-[99] bg-slate-950/90 backdrop-blur-xl flex flex-col pt-28 px-6 pb-10"
+        >
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
           >
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="flex flex-col gap-6 text-xl font-bold text-white uppercase tracking-wider my-auto">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-              <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.propiedades}</a>
-              <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.servicios}</a>
-              <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.contacto}</a>
-            </div>
-            <a
-              href="/#contacto"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full bg-[#2563eb] text-white font-bold py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-lg mt-auto"
-            >
-              {t.nav.portal}
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <X className="w-6 h-6" />
+          </button>
+          <div className="flex flex-col gap-6 text-xl font-bold text-white uppercase tracking-wider my-auto">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
+            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.propiedades}</a>
+            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.servicios}</a>
+            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.contacto}</a>
+          </div>
+          <a
+            href="/#contacto"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full bg-[#2563eb] text-white font-bold py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-lg mt-auto"
+          >
+            {t.nav.portal}
+          </a>
+        </div>
+      )}
 
       <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-6 sm:p-10 md:p-14">

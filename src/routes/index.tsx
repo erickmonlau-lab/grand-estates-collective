@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
-import { motion, useMotionValue, animate, AnimatePresence } from "framer-motion";
+
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -28,16 +28,34 @@ import { translations } from "../data/translations";
 // HELPERS
 // ---------------------------------------------------------------------------
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "-40px" }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.4, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      } ${className}`}
+      style={{ transitionDelay: `${delay}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -543,11 +561,9 @@ function Index() {
           })
         }}
       />
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      <nav
         className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6"
+        style={{ opacity: 1, transform: 'none' }}
       >
         <a href="#" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
           <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
@@ -604,42 +620,34 @@ function Index() {
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* MOBILE MENU — outside nav to avoid transform containing-block issues */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Solid Opaque Backdrop Overlay - Completely blocks underlying page content */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed left-0 right-0 top-0 bottom-0 bg-[#0f172a] z-[95] lg:hidden"
-              style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-            />
-            {/* Menu panel — fixed, anchored to top with max-height so bottom gesture zone is free */}
-            <motion.div
-              initial={{ opacity: 0, y: -10, scale: 0.99 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.99 }}
-              className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
-              style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
-            >
-              <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
-              <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
-              <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
-              <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-              
-              <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
-                <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
-                <span>WhatsApp</span>
-              </a>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {mobileMenuOpen && (
+        <>
+          {/* Solid Opaque Backdrop Overlay */}
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed left-0 right-0 top-0 bottom-0 bg-[#0f172a] z-[95] lg:hidden transition-opacity duration-300"
+            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+          />
+          {/* Menu panel */}
+          <div
+            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
+            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
+          >
+            <a href="#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
+            <a href="#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+            <a href="#nosotros" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.nosotros}</a>
+            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
+            
+            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
+              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </>
+      )}
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
@@ -1039,11 +1047,7 @@ function Index() {
 
                 return (
                   <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.5, delay: idx * 0.1, ease: easeOut }}
+                    <div
                       className="group bg-white rounded-3xl flex flex-col h-full border-2 border-slate-300 hover:border-[#2563eb] shadow-md hover:shadow-[0_20px_40px_rgba(37,99,235,0.15)] transition-all duration-300 overflow-hidden"
                     >
                       {/* Image Block */}
@@ -1128,7 +1132,7 @@ function Index() {
                           </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   </Link>
                 );
               };
@@ -1340,10 +1344,10 @@ function Index() {
                 <Paintbrush key={3} className="w-5 h-5" />
               ];
               const bgs = [
-                "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2070&auto=format&fit=crop"
+                "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=75&w=400&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=75&w=400&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=75&w=400&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=75&w=400&auto=format&fit=crop"
               ];
               return (
                 <Reveal key={i} delay={i * 0.1}>
@@ -1857,20 +1861,13 @@ function Index() {
                           <span className="text-xl font-black leading-none">+</span>
                         </div>
                       </div>
-                      <AnimatePresence>
-                        {isActive && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <p className="pt-3.5 text-[#0f172a] leading-relaxed font-bold text-sm sm:text-base border-t border-slate-300/80 mt-3.5 font-sans">
-                              {item.a}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      {isActive && (
+                        <div className="overflow-hidden transition-all duration-300">
+                          <p className="pt-3.5 text-[#0f172a] leading-relaxed font-bold text-sm sm:text-base border-t border-slate-300/80 mt-3.5 font-sans">
+                            {item.a}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </Reveal>
                 );
@@ -2226,68 +2223,63 @@ function Index() {
       <CookieBanner language={language} />
 
       {/* Service Detail Modal (Point 3 Fix) */}
-      <AnimatePresence>
-        {selectedServiceIndex !== null && (
-          <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto my-auto text-[#0f172a]"
+      {selectedServiceIndex !== null && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
+          <div
+            className="bg-white rounded-3xl p-6 md:p-10 max-w-2xl w-full shadow-2xl relative border border-slate-100 max-h-[90vh] overflow-y-auto my-auto text-[#0f172a] animate-in fade-in zoom-in-95 duration-200"
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedServiceIndex(null)}
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer z-10"
+              aria-label="Cerrar modal"
             >
+              <X className="w-5 h-5 stroke-[2.5]" />
+            </button>
+
+            <div className="w-14 h-14 rounded-2xl bg-[#2563eb]/10 text-[#2563eb] flex items-center justify-center mb-6">
+              <Building2 className="w-7 h-7" />
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-black text-[#0f172a] mb-2 font-sans">
+              {t.serviceModal.items[selectedServiceIndex]?.title}
+            </h3>
+            <p className="text-[#2563eb] text-sm sm:text-base font-extrabold mb-4 font-sans">
+              {t.serviceModal.items[selectedServiceIndex]?.tagline}
+            </p>
+            <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-6 font-bold font-sans">
+              {t.serviceModal.items[selectedServiceIndex]?.description}
+            </p>
+
+            <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200 mb-8 space-y-3">
+              {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
+                <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-extrabold text-slate-800 font-sans">
+                  <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
+                  <span>{benefit}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <a
+                href="#contacto"
+                onClick={() => setSelectedServiceIndex(null)}
+                className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm py-4 px-6 rounded-full text-center transition-all shadow-md flex items-center justify-center gap-2 font-sans uppercase tracking-wider"
+              >
+                <span>{t.serviceModal.contactBtn}</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </a>
               <button
                 type="button"
                 onClick={() => setSelectedServiceIndex(null)}
-                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer z-10"
-                aria-label="Cerrar modal"
+                className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-sm py-4 px-7 rounded-full transition-all cursor-pointer font-sans uppercase tracking-wider"
               >
-                <X className="w-5 h-5 stroke-[2.5]" />
+                {t.serviceModal.close}
               </button>
-
-              <div className="w-14 h-14 rounded-2xl bg-[#2563eb]/10 text-[#2563eb] flex items-center justify-center mb-6">
-                <Building2 className="w-7 h-7" />
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-black text-[#0f172a] mb-2 font-sans">
-                {t.serviceModal.items[selectedServiceIndex]?.title}
-              </h3>
-              <p className="text-[#2563eb] text-sm sm:text-base font-extrabold mb-4 font-sans">
-                {t.serviceModal.items[selectedServiceIndex]?.tagline}
-              </p>
-              <p className="text-slate-700 text-sm md:text-base leading-relaxed mb-6 font-bold font-sans">
-                {t.serviceModal.items[selectedServiceIndex]?.description}
-              </p>
-
-              <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200 mb-8 space-y-3">
-                {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-extrabold text-slate-800 font-sans">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
-                    <span>{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                <a
-                  href="#contacto"
-                  onClick={() => setSelectedServiceIndex(null)}
-                  className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm py-4 px-6 rounded-full text-center transition-all shadow-md flex items-center justify-center gap-2 font-sans uppercase tracking-wider"
-                >
-                  <span>{t.serviceModal.contactBtn}</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setSelectedServiceIndex(null)}
-                  className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 font-black text-sm py-4 px-7 rounded-full transition-all cursor-pointer font-sans uppercase tracking-wider"
-                >
-                  {t.serviceModal.close}
-                </button>
-              </div>
-            </motion.div>
+            </div>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
 
     </div>
   );

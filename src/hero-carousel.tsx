@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+
 import { ArrowRight, Star, Building2, Shield, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_opt_min.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp"; 

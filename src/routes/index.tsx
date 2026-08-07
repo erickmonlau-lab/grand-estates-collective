@@ -1081,7 +1081,7 @@ function Index() {
                             const type = pData.type || property.type || "Piso";
                             let badgeClass = "bg-[#2563eb] text-white";
                             if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
-                              badgeClass = "bg-[#0284c7] text-white";
+                              badgeClass = "bg-[#0369a1] text-white";
                             } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
                               badgeClass = "bg-[#4338ca] text-white";
                             } else if (type.toLowerCase().includes("local")) {
@@ -1113,19 +1113,19 @@ function Index() {
                             <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? (property.bedrooms === 1 ? "bd" : "bds") : "hab"}</span>
                           </div>
                           <div className="flex items-center gap-1.5">
-                            <svg className="w-4.5 h-4.5 text-[#0284c7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 2v4m0 0H4a2 2 0 00-2 2v3a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-2V2m-8 0h8M6 14v6m4-6v6m4-6v6" /></svg>
+                            <svg className="w-4.5 h-4.5 text-[#0369a1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 2v4m0 0H4a2 2 0 00-2 2v3a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-2V2m-8 0h8M6 14v6m4-6v6m4-6v6" /></svg>
                             <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? (property.bathrooms === 1 ? "bath" : "baths") : language === "ca" ? (property.bathrooms === 1 ? "bany" : "banys") : (property.bathrooms === 1 ? "baño" : "baños")}</span>
                           </div>
                           <div className="flex items-center gap-1.5">
                             <svg className="w-4.5 h-4.5 text-[#0369a1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
-                            <span className="font-black text-[#0284c7] bg-[#0284c7]/10 px-2.5 py-0.5 rounded-md text-xs sm:text-sm">{property.surface} m²</span>
+                            <span className="font-black text-[#0369a1] bg-[#dbeafe] px-2.5 py-0.5 rounded-md text-xs sm:text-sm">{property.surface} m²</span>
                           </div>
                         </div>
 
                         {/* Price */}
                         <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
                           <div>
-                            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
+                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
                             <div className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none font-sans">
                               {new Intl.NumberFormat('es-ES').format(property.price)}€
                             </div>

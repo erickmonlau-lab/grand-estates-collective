@@ -532,23 +532,23 @@ function ArticleDetail() {
                                               .replace(/\[⚠️ LEGAL\/TAX VERIFICATION REQUIRED:\s*/gi, "")
                                               .replace(/\]$/g, "");
                           return (
-                            <div 
-                              key={bpIdx} 
-                              className="flex items-start gap-4 sm:gap-6 bg-[#0f172a] border-l-8 border-[#2563eb] p-6 sm:p-8 md:p-9 rounded-2xl md:rounded-3xl border-y border-r border-slate-800 shadow-xl hover:shadow-2xl transition-all"
+                            <div
+                              key={bpIdx}
+                              className="bg-[#0f172a] border-l-4 sm:border-l-8 border-[#2563eb] p-5 sm:p-8 md:p-9 rounded-2xl md:rounded-3xl border-y border-r border-slate-800 shadow-xl hover:shadow-2xl transition-all"
                             >
-                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 font-black shadow-lg">
-                                <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
-                              </div>
-                              <div className="flex-1">
-                                <div className="mb-3">
-                                  <span className="inline-block px-4 py-1 rounded-full bg-white text-[#0f172a] text-xs sm:text-sm font-black uppercase tracking-wider shadow-md">
-                                    {language === "ca" ? "Verificació Legal / Fiscal Requerida" : language === "en" ? "Legal / Tax Verification Required" : "Verificación Legal / Fiscal Requerida"}
-                                  </span>
+                              {/* Top row: icon + badge */}
+                              <div className="flex items-center gap-3 mb-4">
+                                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 font-black shadow-lg">
+                                  <AlertTriangle className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
                                 </div>
-                                <p className="text-base sm:text-lg md:text-xl font-bold text-slate-100 leading-relaxed font-sans">
-                                  {highlightKeyText(cleanText, true)}
-                                </p>
+                                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-white text-[#0f172a] text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-md leading-tight text-center">
+                                  {language === "ca" ? "Verificació Legal / Fiscal" : language === "en" ? "Legal / Tax Verification" : "Verificación Legal / Fiscal"}
+                                </span>
                               </div>
+                              {/* Text below spanning full width */}
+                              <p className="text-sm sm:text-base md:text-lg font-bold text-slate-100 leading-relaxed font-sans">
+                                {highlightKeyText(cleanText, true)}
+                              </p>
                             </div>
                           );
                         }

@@ -505,7 +505,7 @@ export const translations = {
       portal: "WhatsApp"
     },
     hero: {
-      tag: "Property Management & Real Estate in Santa Coloma de Gramenet",
+      tag: "Real Estate & Property Management",
       title1: "Property Management,",
       title2: "Real Estate &",
       title3: "Legal Advice.",
@@ -534,7 +534,7 @@ export const translations = {
       heroSub: "Professional, transparent and close management for communities that work."
     },
     heroCarousel: {
-      tag: "REAL ESTATE & PROPERTY MANAGEMENT IN SANTA COLOMA DE GRAMENET",
+      tag: "REAL ESTATE & PROPERTY MANAGEMENT",
       titleMain: "Your next home,",
       titleAccent: "closer than ever.",
       subtitle: "We guide you to buy, sell or care for your property with transparency, local expertise and a team that delivers.",
@@ -1002,7 +1002,7 @@ export const translations = {
       portal: "Portal de Clients"
     },
     hero: {
-      tag: "Immobiliària i Administració a Santa Coloma de Gramenet",
+      tag: "Gestió Immobiliària i Finques",
       title1: "Administració de Finques,",
       title2: "Immobiliària i",
       title3: "Assessoria jurídica.",
@@ -1031,7 +1031,7 @@ export const translations = {
       heroSub: "Gestió professional, transparent i propera per a comunitats que funcionen."
     },
     heroCarousel: {
-      tag: "IMMOBILIÀRIA I ADMINISTRACIÓ A SANTA COLOMA DE GRAMENET",
+      tag: "GESTIÓ IMMOBILIÀRIA I FINQUES",
       titleMain: "La teva propera llar,",
       titleAccent: "més a prop.",
       subtitle: "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon.",

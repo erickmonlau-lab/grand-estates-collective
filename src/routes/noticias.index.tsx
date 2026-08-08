@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 import { useState, useEffect } from "react";
-import { Calendar, ArrowRight, Menu, X } from "lucide-react";
+import { Calendar, ArrowRight, Menu, X, MessageCircle } from "lucide-react";
 import { translations } from "../data/translations";
 
 export const Route = createFileRoute("/noticias/")({
@@ -78,6 +78,33 @@ function NoticiasCatalogComponent() {
           </button>
         </div>
       </nav>
+
+      {/* MOBILE MENU */}
+      {mobileMenuOpen && (
+        <>
+          {/* Translucent Blurred Backdrop Overlay */}
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[95] lg:hidden transition-opacity duration-300"
+            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+          />
+          {/* Menu panel */}
+          <div
+            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
+            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
+          >
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
+            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
+            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
+            
+            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
+              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </>
+      )}
 
       {/* HEADER HERO */}
       <header className="pt-28 pb-12 sm:pt-36 sm:pb-16 bg-[#0b172a] text-white relative overflow-hidden">

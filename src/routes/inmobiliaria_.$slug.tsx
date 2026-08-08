@@ -254,10 +254,10 @@ function PropertyDetail() {
       {/* MOBILE MENU */}
       {mobileMenuOpen && (
         <>
-          {/* Solid Opaque Backdrop Overlay */}
+          {/* Translucent Blurred Backdrop Overlay */}
           <div
             onClick={() => setMobileMenuOpen(false)}
-            className="fixed left-0 right-0 top-0 bottom-0 bg-[#0f172a] z-[95] lg:hidden transition-opacity duration-300"
+            className="fixed left-0 right-0 top-0 bottom-0 bg-slate-950/60 backdrop-blur-md z-[95] lg:hidden transition-opacity duration-300"
             style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
           />
           {/* Menu panel */}

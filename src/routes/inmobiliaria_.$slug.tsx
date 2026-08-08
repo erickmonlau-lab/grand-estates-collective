@@ -251,30 +251,31 @@ function PropertyDetail() {
       </nav>
 
       {/* MOBILE DRAWER MENU */}
+      {/* MOBILE MENU */}
       {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-[99] bg-slate-950/90 backdrop-blur-xl flex flex-col pt-28 px-6 pb-10"
-        >
-          <button
+        <>
+          {/* Solid Opaque Backdrop Overlay */}
+          <div
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-5 right-5 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors cursor-pointer"
+            className="fixed left-0 right-0 top-0 bottom-0 bg-[#0f172a] z-[95] lg:hidden transition-opacity duration-300"
+            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+          />
+          {/* Menu panel */}
+          <div
+            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
+            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
           >
-            <X className="w-6 h-6" />
-          </button>
-          <div className="flex flex-col gap-6 text-xl font-bold text-white uppercase tracking-wider my-auto">
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.propiedades}</a>
-            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.servicios}</a>
-            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#2563eb] transition-colors">{t.nav.contacto}</a>
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
+            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
+            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
+            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
+            
+            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
+              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
+              <span>WhatsApp</span>
+            </a>
           </div>
-          <a
-            href="/#contacto"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full bg-[#2563eb] text-white font-bold py-4 rounded-full text-center uppercase tracking-widest text-sm shadow-lg mt-auto"
-          >
-            {t.nav.portal}
-          </a>
-        </div>
+        </>
       )}
 
       <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">

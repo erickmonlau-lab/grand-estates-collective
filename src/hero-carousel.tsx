@@ -227,10 +227,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           <div className="flex flex-col justify-start h-full py-0 sm:py-0">
             {/* Eyebrow Pill Badge */}
             <div
-              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit"
+              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit max-w-full"
             >
-              <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white"></span>
-              <span>{t.heroCarousel.tag}</span>
+              <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white shrink-0"></span>
+              <span className="text-left leading-snug sm:leading-normal">{t.heroCarousel.tag}</span>
             </div>
 
             {/* Main Title H1 - INSTANT SSR/HTML PAINT WITHOUT JS OPACITY DELAY */}

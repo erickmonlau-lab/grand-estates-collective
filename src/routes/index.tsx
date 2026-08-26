@@ -14,11 +14,13 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
 import { FooterMascot } from '@/components/FooterMascot';
 import { Navbar } from '@/components/Navbar';
+import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     links: [
       { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
+      { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)" },
     ],
   }),
   component: Index,

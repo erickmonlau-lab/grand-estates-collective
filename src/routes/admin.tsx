@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Building2,
   Plus,
@@ -24,7 +24,12 @@ import {
   Image as ImageIcon,
   Copy,
   Check,
-  KeyRound
+  KeyRound,
+  Upload,
+  Camera,
+  Info,
+  Layers,
+  Sparkles
 } from "lucide-react";
 import {
   fetchProperties,
@@ -50,6 +55,44 @@ export const Route = createFileRoute("/admin")({
 
 const DEFAULT_ADMIN_PIN = "gesgrama2026";
 
+// Client-side image compression helper (optimizes photos from iPhone/Camera to ~150KB web quality)
+async function processImageFile(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let width = img.width;
+        let height = img.height;
+        const maxDimension = 1400; // Optimal 1400px width for retina screens
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL("image/jpeg", 0.85));
+        } else {
+          resolve(e.target?.result as string);
+        }
+      };
+      img.onerror = () => resolve(e.target?.result as string);
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [pinInput, setPinInput] = useState<string>("");
@@ -66,6 +109,7 @@ function AdminDashboard() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [copiedSql, setCopiedSql] = useState<boolean>(false);
   const [showSqlGuide, setShowSqlGuide] = useState<boolean>(false);
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -76,20 +120,23 @@ function AdminDashboard() {
     type: "Piso" as PropertyType,
     location: "Centro",
     city: "Santa Coloma de Gramenet",
-    price: 150000,
-    priceFormatted: "150.000 €",
+    price: 180000,
+    priceFormatted: "180.000 €",
     operation: "comprar" as "comprar" | "alquilar",
     bedrooms: 3,
     bathrooms: 1,
-    surface: 80,
+    surface: 75,
     description: "",
     description_ca: "",
     description_en: "",
     features: "Ascensor, Terraza, Calefacción, Exterior",
     image: "",
-    gallery: "",
+    gallery: [] as string[],
     status: "disponible" as "disponible" | "reservado" | "vendido" | "alquilado"
   });
+
+  const mainFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
 
   // Check auth session
   useEffect(() => {
@@ -148,7 +195,10 @@ function AdminDashboard() {
       description_en: "Superb bright and fully equipped home in an excellent location.",
       features: "Ascensor, Balcón, Calefacción, Cerca de Metro",
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
-      gallery: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80, https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=80",
+      gallery: [
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=80"
+      ],
       status: "disponible"
     });
     setIsModalOpen(true);
@@ -175,10 +225,49 @@ function AdminDashboard() {
       description_en: p.description_en || "",
       features: (p.features || []).join(", "),
       image: p.image,
-      gallery: (p.gallery || []).join(", "),
+      gallery: p.gallery || [],
       status: p.status || "disponible"
     });
     setIsModalOpen(true);
+  };
+
+  // Image Upload Handlers
+  const handleMainFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      setIsUploadingImage(true);
+      const dataUrl = await processImageFile(file);
+      setFormData((prev) => ({ ...prev, image: dataUrl }));
+    } catch (err) {
+      console.error("Error cargando imagen:", err);
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleGalleryFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    try {
+      setIsUploadingImage(true);
+      const processed = await Promise.all(files.map((f) => processImageFile(f)));
+      setFormData((prev) => ({
+        ...prev,
+        gallery: [...prev.gallery, ...processed]
+      }));
+    } catch (err) {
+      console.error("Error cargando fotos de galería:", err);
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleRemoveGalleryImage = (indexToRemove: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      gallery: prev.gallery.filter((_, idx) => idx !== indexToRemove)
+    }));
   };
 
   const handleSaveProperty = async (e: React.FormEvent) => {
@@ -190,11 +279,6 @@ function AdminDashboard() {
     const featuresList = formData.features
       .split(",")
       .map((f) => f.trim())
-      .filter(Boolean);
-
-    const galleryList = formData.gallery
-      .split(",")
-      .map((g) => g.trim())
       .filter(Boolean);
 
     const specsString = `${formData.bedrooms} hab. · ${formData.bathrooms} ${formData.bathrooms === 1 ? 'baño' : 'baños'} · ${formData.surface} m²`;
@@ -221,7 +305,7 @@ function AdminDashboard() {
         description_en: formData.description_en || formData.description,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
-        gallery: galleryList.length > 0 ? galleryList : [formData.image],
+        gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
         status: formData.status
       });
     } else {
@@ -246,7 +330,7 @@ function AdminDashboard() {
         description_en: formData.description_en || formData.description,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
-        gallery: galleryList.length > 0 ? galleryList : [formData.image],
+        gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
         status: formData.status
       });
     }
@@ -659,7 +743,7 @@ function AdminDashboard() {
                     {editingProperty ? "Editar Inmueble" : "Añadir Nuevo Inmueble"}
                   </h3>
                   <p className="text-xs text-slate-300 mt-0.5">
-                    Rellena los datos para publicar o actualizar el piso en Gesgrama.
+                    Rellena los datos y adjunta las fotos para publicar el piso en Gesgrama.
                   </p>
                 </div>
               </div>
@@ -867,33 +951,138 @@ function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Row 5: URL Imagen Principal y Galería */}
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
-                    URL de la Imagen Principal *
-                  </label>
-                  <input
-                    type="url"
-                    required
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    placeholder="https://images.unsplash.com/photo-..."
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
-                  />
+              {/* Row 5: ADJUNTAR FOTO PRINCIPAL (PORTADA) */}
+              <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-5 space-y-4">
+                
+                {/* Guidelines Box */}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3.5 flex items-start gap-3">
+                  <Info className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5" />
+                  <div className="text-xs text-slate-700 leading-relaxed">
+                    <strong className="text-[#0f172a] block font-black mb-0.5">Especificaciones recomendadas para las imágenes:</strong>
+                    <span className="font-semibold">
+                      • Formato: <strong>JPG, PNG o WEBP</strong><br />
+                      • Orientación: <strong>Horizontal (16:9 o 4:3)</strong><br />
+                      • Resolución recomendada: <strong>1200 x 800 px</strong> (Mínimo: 800 x 600 px)<br />
+                      • Peso máximo recomendado: <strong>Hasta 5 MB</strong> (la web optimiza la compresión automáticamente).
+                    </span>
+                  </div>
                 </div>
+
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-700 mb-1.5">
-                    Galería de Fotos Adicionales (URLs separadas por comas)
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.gallery}
-                    onChange={(e) => setFormData({ ...formData, gallery: e.target.value })}
-                    placeholder="https://foto1.jpg, https://foto2.jpg..."
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
-                  />
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-xs font-black uppercase text-[#0f172a]">
+                      Foto Principal (Portada del Inmueble) *
+                    </label>
+                    <span className="text-[11px] font-bold text-slate-500">Visible en catálogo y ficha</span>
+                  </div>
+
+                  {/* Upload button or Image Preview */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                    
+                    {/* Image Preview Box */}
+                    <div className="sm:col-span-4 aspect-[16/10] bg-white rounded-xl border-2 border-slate-300 overflow-hidden relative group flex items-center justify-center">
+                      {formData.image ? (
+                        <>
+                          <img src={formData.image} alt="Vista previa" className="w-full h-full object-cover" />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => mainFileInputRef.current?.click()}
+                              className="bg-white/90 hover:bg-white text-[#0f172a] text-xs font-black px-2.5 py-1.5 rounded-lg shadow-md cursor-pointer"
+                            >
+                              Cambiar
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="text-center p-3 text-slate-400">
+                          <Camera className="w-8 h-8 mx-auto mb-1 opacity-50" />
+                          <span className="text-[11px] font-bold block">Sin imagen</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* File Attachment & URL Input */}
+                    <div className="sm:col-span-8 space-y-2.5">
+                      <input
+                        type="file"
+                        ref={mainFileInputRef}
+                        onChange={handleMainFileChange}
+                        accept="image/jpeg,image/png,image/webp"
+                        className="hidden"
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => mainFileInputRef.current?.click()}
+                        className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
+                      >
+                        <Upload className="w-4 h-4" />
+                        <span>Adjuntar Foto desde el Ordenador o Móvil</span>
+                      </button>
+
+                      <div className="relative">
+                        <span className="text-[10px] font-black uppercase text-slate-500 block mb-1">O pegar enlace de foto (URL externa):</span>
+                        <input
+                          type="url"
+                          value={formData.image}
+                          onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                          placeholder="https://images.unsplash.com/photo-..."
+                          className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none"
+                        />
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
+
+                {/* Row 5.2: GALERÍA DE FOTOS ADICIONALES */}
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-xs font-black uppercase text-[#0f172a]">
+                      Galería de Fotos Adicionales (Interiores, Plano, Terraza...)
+                    </label>
+                    <span className="text-[11px] font-bold text-slate-500">{formData.gallery.length} foto(s)</span>
+                  </div>
+
+                  <input
+                    type="file"
+                    ref={galleryFileInputRef}
+                    onChange={handleGalleryFilesChange}
+                    accept="image/jpeg,image/png,image/webp"
+                    multiple
+                    className="hidden"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => galleryFileInputRef.current?.click()}
+                    className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer mb-3"
+                  >
+                    <Layers className="w-4 h-4" />
+                    <span>+ Añadir Más Fotos a la Galería (Seleccionar Varias)</span>
+                  </button>
+
+                  {/* Gallery Thumbnails Grid */}
+                  {formData.gallery.length > 0 && (
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 pt-1">
+                      {formData.gallery.map((imgUrl, idx) => (
+                        <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-slate-300 bg-white group shadow-xs">
+                          <img src={imgUrl} alt={`Galería ${idx + 1}`} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveGalleryImage(idx)}
+                            className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 shadow-md hover:bg-red-700 transition-colors cursor-pointer"
+                            title="Quitar foto"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
               </div>
 
               {/* Row 6: Descripción */}
@@ -921,9 +1110,11 @@ function AdminDashboard() {
                 </button>
                 <button
                   type="submit"
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-xl text-sm font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  disabled={isUploadingImage}
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-xl text-sm font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 flex items-center gap-2"
                 >
-                  {editingProperty ? "Guardar Cambios" : "Publicar Inmueble"}
+                  {isUploadingImage && <Sparkles className="w-4 h-4 animate-spin" />}
+                  <span>{editingProperty ? "Guardar Cambios" : "Publicar Inmueble"}</span>
                 </button>
               </div>
 

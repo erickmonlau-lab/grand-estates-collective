@@ -60,11 +60,11 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-16 sm:pt-6 lg:pt-8 pb-2 sm:pb-4">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-16 sm:pt-20 lg:pt-24 pb-3 sm:pb-6">
         
-        {/* Top/Main Hero Content Container */}
-        <div className="max-w-[285px] xs:max-w-xs sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-0 sm:py-2 mt-1 sm:mt-0">
-          <div className="flex flex-col justify-start h-full py-0 sm:py-0">
+        {/* Top/Main Hero Content Container - Vertically Centered on Desktop */}
+        <div className="max-w-[285px] xs:max-w-xs sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-0 sm:py-2 my-auto">
+          <div className="flex flex-col justify-center h-full py-0 sm:py-0">
             {/* Eyebrow Pill Badge */}
             <div
               className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit max-w-full"

@@ -1175,28 +1175,28 @@ function Index() {
                       <div className="relative z-10">
                         {/* Rating Stars & Badge */}
                         <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1.5">
                             {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-4.5 h-4.5 fill-amber-400 text-amber-400" />
+                              <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />
                             ))}
-                            <span className="text-xs font-black text-slate-700 ml-1">5/5</span>
+                            <span className="text-sm font-black text-slate-800 ml-1.5">5/5</span>
                           </div>
                         </div>
 
-                        {/* Quote Text */}
-                        <p className="text-[#0f172a] text-sm sm:text-base leading-relaxed mb-6 font-medium tracking-tight">
+                        {/* Quote Text - LETRA MÁS GRANDE Y LEGIBLE */}
+                        <p className="text-[#0f172a] text-base sm:text-lg md:text-xl leading-relaxed mb-6 font-bold tracking-tight">
                           "{item.quote}"
                         </p>
                       </div>
 
                       {/* Author Row */}
                       <div className="pt-4 border-t border-slate-100 flex items-center gap-3.5 relative z-10">
-                        <div className={`w-11 h-11 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-base flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border border-white/40`}>
+                        <div className={`w-12 h-12 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-lg flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border-2 border-white/60`}>
                           {initials[i % initials.length]}
                         </div>
                         <div className="flex flex-col">
-                          <strong className="font-black text-base sm:text-lg text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
-                          <span className="text-xs sm:text-sm text-[#0f172a] font-bold mt-0.5">
+                          <strong className="font-black text-lg sm:text-xl text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
+                          <span className="text-sm text-slate-600 font-extrabold mt-0.5">
                             {item.time}
                           </span>
                         </div>

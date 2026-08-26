@@ -1,4 +1,4 @@
-export function FooterMascot({ className = "w-full max-h-[190px] lg:max-h-[210px] object-contain drop-shadow-md" }: { className?: string }) {
+export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" className={className} fill="none">
       <defs>
@@ -9,7 +9,7 @@ export function FooterMascot({ className = "w-full max-h-[190px] lg:max-h-[210px
               transform: rotate(0deg);
             }
             25% {
-              transform: rotate(16deg);
+              transform: rotate(15deg);
             }
             50% {
               transform: rotate(-6deg);
@@ -117,7 +117,7 @@ export function FooterMascot({ className = "w-full max-h-[190px] lg:max-h-[210px
         <g id="house" transform="translate(46, 142)">
           <polygon points="-3,28 26,2 55,28" fill="#2563eb" />
           <polygon points="26,2 33,8 33,4 29,4" fill="#1e293b" />
-          <line x1="0" y1="26" x2="26" y2="4" stroke="#60a5fa" strokeWidth="1.8" strokeLinecap="round" />
+          <line x1="0" y1="28" x2="26" y2="4" stroke="#60a5fa" strokeWidth="1.8" strokeLinecap="round" />
 
           <rect x="0" y="28" width="52" height="38" rx="3" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.8" />
           <rect x="0" y="28" width="52" height="4" fill="#e2e8f0" />
@@ -140,21 +140,23 @@ export function FooterMascot({ className = "w-full max-h-[190px] lg:max-h-[210px
           <circle cx="242" cy="165" r="10" fill="#22345c" />
         </g>
 
-        {/* ── RIGHT FOREARM & HAND (100% Attached & Waving Naturally) ── */}
+        {/* ── RIGHT FOREARM & HAND (Clean Cartoon Waving Mitten/Hand) ── */}
         <g className="forearm-waving">
-          {/* Forearm from elbow (242, 165) to cuff at (272, 98) */}
+          {/* Forearm from elbow (242, 165) to wrist (276, 98) */}
           <path d="M 237 162 L 268 94 L 284 102 L 247 172 Z" fill="#22345c" />
           {/* Sleeve Cuff */}
-          <rect x="265" y="92" width="16" height="6" rx="3" fill="#182542" transform="rotate(-30 265 92)" />
+          <rect x="264" y="90" width="18" height="7" rx="3.5" fill="#182542" transform="rotate(-30 264 90)" />
 
-          {/* Waving Hand FLUSH and CONNECTED to the Cuff */}
-          <g id="hand" transform="translate(268, 70)">
-            <circle cx="12" cy="17" r="10.5" fill="#f3b18c" />
-            <ellipse cx="2" cy="20" rx="3.5" ry="6" fill="#f3b18c" transform="rotate(-30 2 20)" />
-            <rect x="5" y="4" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
-            <rect x="10" y="1" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
-            <rect x="15" y="3" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
-            <rect x="20" y="6" width="3" height="9" rx="1.5" fill="#f3b18c" />
+          {/* Clean, Elegant Cartoon Waving Hand with clean palm & thumb */}
+          <g id="cute-waving-hand" transform="translate(266, 62)">
+            {/* Palm base */}
+            <circle cx="11" cy="17" r="10" fill="#f3b18c" />
+            {/* Left thumb */}
+            <ellipse cx="2" cy="20" rx="3.5" ry="5.5" fill="#f3b18c" transform="rotate(-35 2 20)" />
+            {/* 3 clean cartoon fingers */}
+            <rect x="5" y="3" width="3.6" height="12" rx="1.8" fill="#f3b18c" />
+            <rect x="10.5" y="1" width="3.6" height="14" rx="1.8" fill="#f3b18c" />
+            <rect x="16" y="3" width="3.6" height="12" rx="1.8" fill="#f3b18c" />
           </g>
         </g>
       </g>

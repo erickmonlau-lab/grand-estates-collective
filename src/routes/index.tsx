@@ -2103,8 +2103,8 @@ function Index() {
           {/* Top Section: 4 Columns + Mascot */}
           <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
             {/* Mascot on Mobile (<768px): Centered Above Columns */}
-            <div className="w-full md:hidden flex justify-center items-center mb-6">
-              <FooterMascot className="w-full max-w-[340px] sm:max-w-[400px] h-auto object-contain drop-shadow-2xl" />
+            <div className="w-full md:hidden flex justify-center items-center mb-4">
+              <FooterMascot className="w-44 sm:w-52 h-auto object-contain drop-shadow-lg" />
             </div>
 
             {/* Text Columns (Left Block) */}
@@ -2196,9 +2196,9 @@ function Index() {
               </div>
             </div>
 
-            {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Much Larger */}
-            <div className="hidden md:flex w-full md:w-[350px] lg:w-[420px] xl:w-[480px] items-center justify-center self-center shrink-0">
-              <FooterMascot className="w-full max-h-[360px] lg:max-h-[420px] object-contain drop-shadow-2xl" />
+            {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Sweet spot scale */}
+            <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
+              <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
             </div>
           </div>
 

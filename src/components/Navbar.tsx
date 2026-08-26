@@ -155,7 +155,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]"
+              className="mt-1 text-center bg-[#075E54] hover:bg-[#054c44] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(7,94,84,0.4)]"
             >
               <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
               <span>WhatsApp</span>

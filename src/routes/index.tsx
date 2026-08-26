@@ -1255,7 +1255,7 @@ function Index() {
                     {/* Thumbnail con icono Cyan superpuesto */}
                     <div className="relative w-full sm:w-[130px] h-[100px] sm:h-[115px] rounded-xl sm:rounded-2xl overflow-hidden shrink-0">
                       <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-[#0284c7] text-white shadow-md flex items-center justify-center z-10">
+                      <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-[#0369a1] text-white shadow-md flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
                     </div>
@@ -1263,7 +1263,7 @@ function Index() {
                     {/* Texto informativo + Botón Píldora Azul Cyan */}
                     <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        <h3 className="text-xl md:text-2xl font-black text-[#0f172a] mb-2 leading-snug group-hover:text-[#0284c7] transition-colors">
+                        <h3 className="text-xl md:text-2xl font-black text-[#0f172a] mb-2 leading-snug group-hover:text-[#0369a1] transition-colors">
                           {item.title}
                         </h3>
                         <p className="text-sm sm:text-base text-[#475569] font-semibold leading-relaxed mb-4">
@@ -1277,7 +1277,7 @@ function Index() {
                             e.stopPropagation();
                             setSelectedServiceIndex(i);
                           }}
-                          className="bg-[#0284c7] hover:bg-[#0369a1] text-white font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
+                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
                         >
                           <span>{t.servicios.saberMas}</span>
                           <ArrowRight className="w-4 h-4 text-white" />
@@ -1618,7 +1618,7 @@ function Index() {
                     href="https://wa.me/34601259424" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#25D366] hover:bg-[#20ba5a] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_25px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans"
+                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(7,94,84,0.4)] hover:shadow-[0_8px_25px_rgba(7,94,84,0.55)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans"
                   >
                     <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white group-hover:scale-110 transition-transform">
                       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />

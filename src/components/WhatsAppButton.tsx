@@ -47,7 +47,7 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
         </div>
       )}
 
-      {/* WhatsApp Floating Button - Official WhatsApp Green #25D366 */}
+      {/* WhatsApp Floating Button - Official High-Contrast WhatsApp Dark Green #075E54 */}
       <a
         href="https://wa.me/34601259424?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20informaci%C3%B3n%20sobre%20sus%20servicios%20inmobiliarios."
         target="_blank"
@@ -55,10 +55,10 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         aria-label="WhatsApp Gesgrama 601 25 94 24"
-        className="relative group bg-[#25D366] hover:bg-[#20ba5a] text-white w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(37,211,102,0.5)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_30px_rgba(37,211,102,0.65)] cursor-pointer"
+        className="relative group bg-[#075E54] hover:bg-[#054c44] text-white w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-[0_8px_25px_rgba(7,94,84,0.5)] transition-all duration-300 hover:scale-110 hover:shadow-[0_12px_30px_rgba(7,94,84,0.65)] cursor-pointer"
       >
         {/* Pulse ring animation */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40 pointer-events-none"></span>
+        <span className="absolute inset-0 rounded-full bg-[#075E54] animate-ping opacity-40 pointer-events-none"></span>
         
         {/* Exact Official WhatsApp Vector (Speech bubble outline + Phone receiver) */}
         <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-white group-hover:rotate-12 transition-transform duration-300 relative z-10">

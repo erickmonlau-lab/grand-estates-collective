@@ -5,6 +5,7 @@ import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
+import { Navbar } from "@/components/Navbar";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -206,77 +207,8 @@ function PropertyDetail() {
     <div className="bg-slate-100 text-onyx font-sans min-h-screen">
       {/* Head tags now served via Route.head() for SSR — removed from JSX */}
 
-      {/* FLOATING CAPSULE NAVIGATION HEADER */}
-      <nav
-        className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900"
-      >
-        <Link to="/" className="hover:opacity-80 transition-opacity shrink-0 flex items-center gap-2 pl-1 md:pl-2">
-          <img src={logoImg} alt="Gesgrama" className="h-9 sm:h-11 md:h-12 w-auto max-w-[150px] sm:max-w-[200px] md:max-w-[220px] object-contain" />
-        </Link>
-
-        <div className="hidden lg:flex items-center gap-10 text-[13px] md:text-[14px] font-bold text-slate-700 tracking-widest uppercase">
-          <Link to="/" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-          <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.propiedades}</a>
-          <a href="/#servicios" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.servicios}</a>
-          <a href="/#contacto" className="hover:text-[#2563eb] transition-colors duration-200 py-1">{t.nav.contacto}</a>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-3 lg:gap-6 shrink-0 pr-1">
-          <div className="flex items-center bg-slate-100/90 border border-slate-200 rounded-full p-1 text-[10px] md:text-[12px] font-bold shadow-inner">
-            {(["es", "ca", "en"] as const).map((lang, idx) => (
-              <div key={lang} className="flex items-center">
-                <button
-                  onClick={() => changeLanguage(lang)}
-                  className={`px-2.5 sm:px-3 md:px-4 py-1 md:py-1.5 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
-                >
-                  {lang.toUpperCase()}
-                </button>
-                {idx < 2 && <div className="w-px h-3 bg-slate-300 mx-0.5"></div>}
-              </div>
-            ))}
-          </div>
-          <a
-            href="/#contacto"
-            className="hidden sm:inline-flex items-center gap-2 bg-[#2563eb] text-white hover:bg-[#1d4ed8] px-5 md:px-7 py-2.5 md:py-3 rounded-full text-[11px] md:text-[12px] uppercase tracking-[0.15em] font-bold transition-all duration-300 shadow-md hover:shadow-lg"
-          >
-            {t.nav.portal}
-          </a>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-full hover:bg-slate-100 text-slate-800 transition-colors cursor-pointer"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
-      </nav>
-
-      {/* MOBILE DRAWER MENU */}
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <>
-          {/* Translucent Blurred Backdrop Overlay */}
-          <div
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed left-0 right-0 top-0 bottom-0 bg-slate-950/60 backdrop-blur-md z-[95] lg:hidden transition-opacity duration-300"
-            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-          />
-          {/* Menu panel */}
-          <div
-            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
-            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
-          >
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
-            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
-            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-            
-            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
-              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
-              <span>WhatsApp</span>
-            </a>
-          </div>
-        </>
-      )}
+      {/* SHARED CANONICAL NAVY NAVBAR */}
+      <Navbar language={language} setLanguage={changeLanguage} />
 
       <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-6 sm:p-10 md:p-14">

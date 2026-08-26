@@ -112,10 +112,10 @@
       <g id="upright-greeting-hand" transform="translate(263, 106)">
         <rect x="-8" y="-18" width="16" height="18" rx="6" fill="#f3b18c" />
         <rect x="-13" y="-12" width="6" height="10" rx="3" fill="#f3b18c" transform="rotate(-30 -10 -7)" />
-        <rect x="-7.5" y="-30" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
-        <rect x="-3" y="-33" width="3.2" height="17" rx="1.6" fill="#f3b18c" />
-        <rect x="1.5" y="-32" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
-        <rect x="6" y="-28" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
+        <rect x="-7.5" y="-29" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
+        <rect x="-3" y="-32" width="3.2" height="18" rx="1.6" fill="#f3b18c" />
+        <rect x="1.5" y="-31" width="3.2" height="17" rx="1.6" fill="#f3b18c" />
+        <rect x="4.8" y="-27" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
       </g>
     </g>
   </g>

@@ -140,27 +140,27 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
           <circle cx="246" cy="172" r="10" fill="#22345c" />
         </g>
 
-        {/* ── RIGHT FOREARM & FRONT-FACING GREETING HAND (Vertical Forearm & Upright Hand) ── */}
+        {/* ── RIGHT FOREARM & FRONT-FACING GREETING HAND ── */}
         <g className="forearm-waving">
-          {/* Vertical Forearm Sleeve rising naturally straight up from elbow (246, 172) to wrist (262, 108) */}
+          {/* Vertical Forearm Sleeve rising straight up from elbow to wrist */}
           <path d="M 238 172 L 254 108 L 272 108 L 256 172 Z" fill="#22345c" />
           
-          {/* Symmetrical Horizontal Sleeve Cuff */}
+          {/* Sleeve Cuff */}
           <rect x="250" y="104" width="26" height="7" rx="3.5" fill="#182542" />
 
-          {/* Upright Front-Facing Greeting Hand facing user directly */}
+          {/* Upright Front-Facing Greeting Hand with all 4 fingers fully attached */}
           <g id="upright-greeting-hand" transform="translate(263, 106)">
             {/* Palm */}
             <rect x="-8" y="-18" width="16" height="18" rx="6" fill="#f3b18c" />
             
-            {/* Natural Left Thumb */}
+            {/* Left Thumb */}
             <rect x="-13" y="-12" width="6" height="10" rx="3" fill="#f3b18c" transform="rotate(-30 -10 -7)" />
             
-            {/* 4 Straight Vertical Greeting Fingers */}
-            <rect x="-7.5" y="-30" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
-            <rect x="-3" y="-33" width="3.2" height="17" rx="1.6" fill="#f3b18c" />
-            <rect x="1.5" y="-32" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
-            <rect x="6" y="-28" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
+            {/* 4 Clean Attached Vertical Fingers rooted deep into the palm */}
+            <rect x="-7.5" y="-29" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
+            <rect x="-3" y="-32" width="3.2" height="18" rx="1.6" fill="#f3b18c" />
+            <rect x="1.5" y="-31" width="3.2" height="17" rx="1.6" fill="#f3b18c" />
+            <rect x="4.8" y="-27" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
           </g>
         </g>
       </g>

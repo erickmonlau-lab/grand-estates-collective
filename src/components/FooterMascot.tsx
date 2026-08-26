@@ -3,19 +3,19 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" className={className} fill="none">
       <defs>
         <style>{`
-          /* Natural, smooth waving forearm from elbow pivot */
+          /* Natural, cheerful waving forearm & hand */
           @keyframes waveForearmGreeting {
             0%, 100% {
               transform: rotate(0deg);
             }
             25% {
-              transform: rotate(14deg);
+              transform: rotate(18deg);
             }
             50% {
-              transform: rotate(-8deg);
+              transform: rotate(-10deg);
             }
             75% {
-              transform: rotate(16deg);
+              transform: rotate(20deg);
             }
           }
 
@@ -140,27 +140,27 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
           <circle cx="246" cy="172" r="10" fill="#22345c" />
         </g>
 
-        {/* ── RIGHT FOREARM & CLEAN GREETING HAND (Aligned Sleeve & Natural Thumb) ── */}
+        {/* ── RIGHT FOREARM & FRONT-FACING GREETING HAND (Vertical Forearm & Upright Hand) ── */}
         <g className="forearm-waving">
-          {/* Solid straight forearm sleeve leading cleanly to wrist */}
-          <path d="M 240 170 L 272 108 L 290 117 L 254 178 Z" fill="#22345c" />
+          {/* Vertical Forearm Sleeve rising naturally straight up from elbow (246, 172) to wrist (262, 108) */}
+          <path d="M 238 172 L 254 108 L 272 108 L 256 172 Z" fill="#22345c" />
           
-          {/* Clean sleeve cuff perpendicular to the forearm axis */}
-          <rect x="267" y="106" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-30 278 109)" />
+          {/* Symmetrical Horizontal Sleeve Cuff */}
+          <rect x="250" y="104" width="26" height="7" rx="3.5" fill="#182542" />
 
-          {/* Natural Greeting Hand emerging straight out of the sleeve */}
-          <g id="natural-greeting-hand" transform="translate(278, 109) rotate(-30)">
+          {/* Upright Front-Facing Greeting Hand facing user directly */}
+          <g id="upright-greeting-hand" transform="translate(263, 106)">
             {/* Palm */}
             <rect x="-8" y="-18" width="16" height="18" rx="6" fill="#f3b18c" />
             
-            {/* Natural Thumb pointing gently upwards/inwards */}
-            <rect x="-12" y="-14" width="5.5" height="11" rx="2.75" fill="#f3b18c" transform="rotate(-35 -9 -9)" />
+            {/* Natural Left Thumb */}
+            <rect x="-13" y="-12" width="6" height="10" rx="3" fill="#f3b18c" transform="rotate(-30 -10 -7)" />
             
-            {/* 4 Clean Parallel Fingers */}
-            <rect x="-7.5" y="-28" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
-            <rect x="-3" y="-31" width="3.2" height="15" rx="1.6" fill="#f3b18c" />
-            <rect x="1.5" y="-30" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
-            <rect x="6" y="-27" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
+            {/* 4 Straight Vertical Greeting Fingers */}
+            <rect x="-7.5" y="-30" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
+            <rect x="-3" y="-33" width="3.2" height="17" rx="1.6" fill="#f3b18c" />
+            <rect x="1.5" y="-32" width="3.2" height="16" rx="1.6" fill="#f3b18c" />
+            <rect x="6" y="-28" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
           </g>
         </g>
       </g>

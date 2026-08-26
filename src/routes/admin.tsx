@@ -177,7 +177,7 @@ function AdminDashboard() {
   const handleOpenCreateModal = () => {
     setEditingProperty(null);
     setFormData({
-      name: "",
+      name: "Piso en Centro",
       name_ca: "",
       name_en: "",
       ref: "API A10750",
@@ -191,8 +191,8 @@ function AdminDashboard() {
       bathrooms: 1,
       surface: 75,
       description: "Magnífica vivienda luminosa y totalmente equipada en excelente ubicación.",
-      description_ca: "Magnífic habitatge lluminós i totalment equipat en excel·lent ubicació.",
-      description_en: "Superb bright and fully equipped home in an excellent location.",
+      description_ca: "",
+      description_en: "",
       features: "Ascensor, Balcón, Calefacción, Cerca de Metro",
       image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
       gallery: [
@@ -207,7 +207,7 @@ function AdminDashboard() {
   const handleOpenEditModal = (p: ExtendedProperty) => {
     setEditingProperty(p);
     setFormData({
-      name: p.name,
+      name: p.name || `${p.type} en ${p.location}`,
       name_ca: p.name_ca || "",
       name_en: p.name_en || "",
       ref: p.ref || "API A10750",
@@ -220,7 +220,7 @@ function AdminDashboard() {
       bedrooms: p.bedrooms,
       bathrooms: p.bathrooms,
       surface: p.surface,
-      description: p.description,
+      description: p.description || "",
       description_ca: p.description_ca || "",
       description_en: p.description_en || "",
       features: (p.features || []).join(", "),
@@ -272,6 +272,7 @@ function AdminDashboard() {
 
   const handleSaveProperty = async (e: React.FormEvent) => {
     e.preventDefault();
+    const finalName = formData.name.trim() || `${formData.type} en ${formData.location}`;
     const formattedPrice = formData.operation === "alquilar" 
       ? `${formData.price.toLocaleString("es-ES")} €/mes`
       : `${formData.price.toLocaleString("es-ES")} €`;
@@ -286,9 +287,9 @@ function AdminDashboard() {
     if (editingProperty) {
       // Update
       await updateProperty(editingProperty.id, {
-        name: formData.name,
-        name_ca: formData.name_ca || formData.name,
-        name_en: formData.name_en || formData.name,
+        name: finalName,
+        name_ca: finalName,
+        name_en: finalName,
         ref: formData.ref,
         type: formData.type,
         location: formData.location,
@@ -301,8 +302,8 @@ function AdminDashboard() {
         bathrooms: Number(formData.bathrooms),
         surface: Number(formData.surface),
         description: formData.description,
-        description_ca: formData.description_ca || formData.description,
-        description_en: formData.description_en || formData.description,
+        description_ca: formData.description,
+        description_en: formData.description,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
@@ -311,9 +312,9 @@ function AdminDashboard() {
     } else {
       // Create
       await createProperty({
-        name: formData.name,
-        name_ca: formData.name_ca || formData.name,
-        name_en: formData.name_en || formData.name,
+        name: finalName,
+        name_ca: finalName,
+        name_en: finalName,
         ref: formData.ref || "API A10750",
         type: formData.type,
         location: formData.location,
@@ -326,8 +327,8 @@ function AdminDashboard() {
         bathrooms: Number(formData.bathrooms),
         surface: Number(formData.surface),
         description: formData.description,
-        description_ca: formData.description_ca || formData.description,
-        description_en: formData.description_en || formData.description,
+        description_ca: formData.description,
+        description_en: formData.description,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
@@ -758,47 +759,18 @@ function AdminDashboard() {
             {/* Modal Form */}
             <form onSubmit={handleSaveProperty} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
               
-              {/* Row 1: Nombre en Español, Catalán e Inglés */}
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
-                    Título del Inmueble (Español) *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="ej: Ático reformado con gran terraza en Santa Rosa"
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#0f172a] focus:border-[#2563eb] outline-none"
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-[11px] font-black uppercase text-slate-600 mb-1">
-                      Título (Català)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.name_ca}
-                      onChange={(e) => setFormData({ ...formData, name_ca: e.target.value })}
-                      placeholder="ej: Àtic reformat amb terrassa a Santa Rosa"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] focus:border-[#2563eb] outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-black uppercase text-slate-600 mb-1">
-                      Título (English)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.name_en}
-                      onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
-                      placeholder="ej: Renovated penthouse with terrace in Santa Rosa"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] focus:border-[#2563eb] outline-none"
-                    />
-                  </div>
-                </div>
+              {/* Row 1: Nombre / Título Universal */}
+              <div>
+                <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  Título del Inmueble *
+                </label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder={`ej: ${formData.type} en ${formData.location}`}
+                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#0f172a] focus:border-[#2563eb] outline-none"
+                />
               </div>
 
               {/* Row 2: Tipo, Operación, Referencia y Zona */}

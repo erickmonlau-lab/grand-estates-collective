@@ -334,10 +334,27 @@ function Index() {
     const unsub = subscribeProperties((list) => {
       setLiveProperties(list);
     });
-    fetchProperties().then((data) => {
-      if (data) setLiveProperties(data);
-    });
-    return () => unsub();
+
+    const refresh = () => {
+      fetchProperties().then((data) => {
+        if (data) setLiveProperties(data);
+      });
+    };
+
+    refresh();
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", refresh);
+      window.addEventListener("focus", refresh);
+    }
+
+    return () => {
+      unsub();
+      if (typeof window !== "undefined") {
+        window.removeEventListener("storage", refresh);
+        window.removeEventListener("focus", refresh);
+      }
+    };
   }, []);
 
   const zonas = [

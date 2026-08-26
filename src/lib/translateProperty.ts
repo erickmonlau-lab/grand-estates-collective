@@ -1,5 +1,15 @@
 import type { ExtendedProperty } from "./propertyStore";
-import { formatLocation } from "@/data/properties";
+
+function formatLocationDirect(loc: string, language: string): string {
+  if (!loc) return "";
+  const normalized = loc.trim();
+  if (normalized === "Centre" || normalized === "Centro" || normalized === "Center") {
+    if (language === "ca") return "Centre";
+    if (language === "en") return "Center";
+    return "Centro";
+  }
+  return loc;
+}
 
 // Real-estate keyword dictionary for automated title and description translations
 const ES_TO_CA_RULES: [RegExp, string][] = [
@@ -124,7 +134,7 @@ export function getTranslatedProperty(
     id: property.id,
     name,
     type: typeStr,
-    location: formatLocation(property.location, language),
+    location: formatLocationDirect(property.location, language),
     description,
     features: property.features || []
   };

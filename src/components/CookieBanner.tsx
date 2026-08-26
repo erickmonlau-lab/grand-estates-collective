@@ -32,8 +32,8 @@ export default function CookieBanner({ language = "es" }: CookieBannerProps) {
   useEffect(() => {
     const accepted = localStorage.getItem("gesgrama_cookies_accepted");
     if (!accepted) {
-      // Small delay for smooth entry after load
-      const timer = setTimeout(() => setVisible(true), 1200);
+      // Smooth non-blocking delay after mobile paint
+      const timer = setTimeout(() => setVisible(true), 4000);
       return () => clearTimeout(timer);
     }
   }, []);

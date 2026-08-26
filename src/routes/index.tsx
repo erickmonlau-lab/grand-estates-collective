@@ -14,7 +14,12 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
 import { FooterMascot } from '@/components/FooterMascot';
 
-export const Route = createFileRoute("/")(  {
+export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [
+      { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
+    ],
+  }),
   component: Index,
 });
 

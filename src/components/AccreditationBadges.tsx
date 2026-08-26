@@ -6,7 +6,7 @@ export function AccreditationBadges() {
       alt: "Peritos Judiciales Inmobiliarios",
       number: "PJI 2024",
       cardBg: "bg-white",
-      imgClass: "max-h-24 sm:max-h-28 w-auto object-contain"
+      imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain"
     },
     {
       id: "apis-peritos",
@@ -14,7 +14,7 @@ export function AccreditationBadges() {
       alt: "APIS - PERITOS",
       number: "1639",
       cardBg: "bg-white",
-      imgClass: "max-h-22 sm:max-h-26 w-auto object-contain"
+      imgClass: "h-28 sm:h-34 md:h-38 w-auto object-contain"
     },
     {
       id: "api",
@@ -22,7 +22,7 @@ export function AccreditationBadges() {
       alt: "API - Col·legis i associació d'agents immobiliaris",
       number: "A10750",
       cardBg: "bg-white",
-      imgClass: "max-h-16 sm:max-h-20 w-auto object-contain"
+      imgClass: "h-22 sm:h-28 md:h-32 w-auto object-contain"
     },
     {
       id: "aicat",
@@ -30,16 +30,16 @@ export function AccreditationBadges() {
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
       cardBg: "bg-[#00487c]",
-      imgClass: "w-full h-full object-contain p-2"
+      imgClass: "w-full h-auto max-h-24 sm:max-h-30 md:max-h-34 object-contain px-2"
     }
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch justify-items-center py-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 items-stretch justify-items-center py-6">
       {badges.map((b) => (
-        <div key={b.id} className="flex flex-col items-center justify-between w-full max-w-[280px] group">
-          {/* Official Corporate Card with Native Brand Background */}
-          <div className={`w-full h-32 sm:h-38 ${b.cardBg} rounded-2xl p-3 sm:p-4 flex items-center justify-center shadow-lg border border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden`}>
+        <div key={b.id} className="flex flex-col items-center justify-between w-full max-w-[320px] group">
+          {/* Official Large Corporate Card with Native Brand Background */}
+          <div className={`w-full h-36 sm:h-44 md:h-48 ${b.cardBg} rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex items-center justify-center shadow-xl border border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden`}>
             <img
               src={b.logo}
               alt={b.alt}
@@ -49,7 +49,7 @@ export function AccreditationBadges() {
           </div>
           
           {/* Registration number below card */}
-          <span className="text-white text-sm sm:text-base font-black tracking-widest text-center mt-3 font-sans">
+          <span className="text-white text-base sm:text-lg font-black tracking-widest text-center mt-3 font-sans">
             {b.number}
           </span>
         </div>

@@ -259,7 +259,7 @@ function PropertyDetail() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <span className="bg-[#2563eb]/10 text-[#2563eb] text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full inline-block">{pData.type}</span>
-                    <span className="bg-slate-100 text-slate-700 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-200">
+                    <span className="bg-slate-100 text-[#0f172a] text-xs font-mono font-black px-3 py-1 rounded-full border border-slate-300">
                       Ref: {property.ref || "API A10750"}
                     </span>
                   </div>

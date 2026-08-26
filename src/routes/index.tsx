@@ -994,7 +994,7 @@ function Index() {
                               </span>
                             );
                           })()}
-                          <span className="text-xs font-mono font-black text-slate-600 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+                          <span className="text-xs font-mono font-black text-[#0f172a] bg-slate-100 px-3 py-1 rounded-lg border border-slate-300">
                             Ref: {property.ref || "API A10750"}
                           </span>
                         </div>

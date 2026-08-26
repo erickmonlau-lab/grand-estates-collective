@@ -27,7 +27,7 @@ export function AccreditationBadges() {
       logo: "/images/badges/logo-aicat.png",
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
-      imgClass: "h-14 sm:h-18 md:h-22 w-auto object-contain rounded-xl shadow-lg border border-white/20"
+      imgClass: "h-14 sm:h-18 md:h-22 w-auto object-contain drop-shadow-xl"
     }
   ];
 
@@ -35,7 +35,7 @@ export function AccreditationBadges() {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 items-end justify-items-center py-6">
       {badges.map((b) => (
         <div key={b.id} className="flex flex-col items-center justify-end w-full max-w-[280px] group">
-          {/* Logo container with bottom alignment for consistent optical rhythm */}
+          {/* Direct Transparent Logo - Pure graphic without any artificial boxes or borders */}
           <div className="w-full h-32 sm:h-40 md:h-44 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
             <img
               src={b.logo}

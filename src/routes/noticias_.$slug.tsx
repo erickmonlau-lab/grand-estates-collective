@@ -350,7 +350,7 @@ function ArticleDetail() {
       )}
 
       {/* MAIN ARTICLE CONTENT WRAPPED IN BUBBLE CONTAINER */}
-      <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
+      <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 overflow-hidden p-6 sm:p-10 md:p-14">
           
           {/* HEADER BACK BUTTON INSIDE CONTENT CARD */}
@@ -414,6 +414,16 @@ function ArticleDetail() {
             {content.title}
           </h1>
 
+          {/* FEATURED HERO IMAGE WITH COMPACT ACCESSIBLE HEIGHT - POSITIONED ABOVE SUMMARY */}
+          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 shadow-md border border-slate-200/80 h-[220px] sm:h-[300px] md:h-[360px] lg:h-[420px]">
+            <img
+              src={article.image}
+              alt={content.title}
+              loading="eager"
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+
           {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
           <div className="mb-8 p-5 sm:p-7 rounded-2xl md:rounded-3xl bg-blue-50/90 border-l-8 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-4 sm:gap-5">
             <div className="w-10 h-10 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
@@ -427,16 +437,6 @@ function ArticleDetail() {
                 {content.summary}
               </p>
             </div>
-          </div>
-
-          {/* FEATURED HERO IMAGE WITH COMPACT ACCESSIBLE HEIGHT */}
-          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 shadow-md border border-slate-200/80 h-[220px] sm:h-[300px] md:h-[360px] lg:h-[400px]">
-            <img
-              src={article.image}
-              alt={content.title}
-              loading="eager"
-              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-            />
           </div>
 
           {/* INTRO SUMMARY CALLOUT */}

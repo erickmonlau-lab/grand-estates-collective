@@ -29,8 +29,8 @@ export function AccreditationBadges() {
       logo: "/images/badges/logo-aicat.jpg",
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
-      cardBg: "bg-[#00487c]",
-      imgClass: "w-full h-auto max-h-24 sm:max-h-30 md:max-h-34 object-contain px-2"
+      cardBg: "bg-white",
+      imgClass: "w-full max-w-[260px] h-auto max-h-22 sm:max-h-28 md:max-h-32 object-contain rounded-xl shadow-xs"
     }
   ];
 
@@ -38,8 +38,8 @@ export function AccreditationBadges() {
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 items-stretch justify-items-center py-6">
       {badges.map((b) => (
         <div key={b.id} className="flex flex-col items-center justify-between w-full max-w-[320px] group">
-          {/* Official Large Corporate Card with Native Brand Background */}
-          <div className={`w-full h-36 sm:h-44 md:h-48 ${b.cardBg} rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex items-center justify-center shadow-xl border border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden`}>
+          {/* Official Clean White Corporate Card */}
+          <div className="w-full h-36 sm:h-44 md:h-48 bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex items-center justify-center shadow-xl border border-white/10 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl overflow-hidden">
             <img
               src={b.logo}
               alt={b.alt}

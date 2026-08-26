@@ -3,7 +3,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://www.gesgrama.es/</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,19 +11,19 @@
   <!-- Legal Pages -->
   <url>
     <loc>https://www.gesgrama.es/aviso-legal</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/politica-privacidad</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/politica-cookies</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -31,101 +31,103 @@
   <!-- Services -->
   <url>
     <loc>https://www.gesgrama.es/servicios/administracion-de-fincas</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/servicios/gestion-inmobiliaria</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/servicios/asesoria-juridica-fiscal</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/servicios/obras-mantenimiento</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Properties -->
+  <!-- Properties (Inmobiliaria Santa Coloma) -->
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-en-eixample-barcelona</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/piso-reformado-riera-alta-llati</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/atico-con-terraza-sarria</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/apartamento-exterior-singuerlin</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/local-comercial-gracia</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/atico-duplex-centro-santa-coloma</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/chalet-independiente-pedralbes</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/piso-luminoso-santa-rosa-can-mariner</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-luminoso-sant-antoni</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/piso-familiar-fondo</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/atico-duplex-en-gracia</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/local-comercial-avenida-banus</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/oficina-representativa-diagonal</loc>
-    <lastmod>2026-08-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.gesgrama.es/inmobiliaria/casa-unifamiliar-singuerlin</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
   </url>
+
+  <!-- News / Blog Index -->
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/local-comercial-sagrada-familia</loc>
-    <lastmod>2026-08-04</lastmod>
+    <loc>https://www.gesgrama.es/noticias</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog Articles -->
+  <!-- News Articles -->
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo</loc>
-    <lastmod>2025-03-09</lastmod>
+    <loc>https://www.gesgrama.es/noticias/guia-itp-2026-cataluna</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-contrato-de-exclusividad-inmobiliaria</loc>
-    <lastmod>2025-03-04</lastmod>
+    <loc>https://www.gesgrama.es/noticias/ley-vivienda-limites-alquiler-santa-coloma</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-perito-judicial-inmobiliario</loc>
-    <lastmod>2025-02-20</lastmod>
+    <loc>https://www.gesgrama.es/noticias/eficiencia-energetica-subvenciones-comunidades</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/descubre-todo-sobre-una-vivienda-de-obra-nueva</loc>
-    <lastmod>2025-01-28</lastmod>
+    <loc>https://www.gesgrama.es/noticias/como-elegir-buen-administrador-fincas</loc>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

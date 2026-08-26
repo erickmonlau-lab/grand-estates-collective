@@ -209,7 +209,7 @@
     font-family: "AG Book Rounded", system-ui, sans-serif;
   }
 
-  html, body, button, input, select, textarea, div, p, span, a, li, h3, h4, h5, h6 {
+  html, body, button, input, select, textarea, div, p, span, a, li, h3, h4, h5, h6, blockquote {
     font-family: "AG Book Rounded", system-ui, sans-serif !important;
   }
 

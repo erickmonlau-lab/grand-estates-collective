@@ -514,6 +514,33 @@ function ArticleDetail() {
                     );
                   }
 
+                  // 5. CITA DESTACADA / BLOCKQUOTE
+                  const isQuote = p.trim().startsWith('"') || p.trim().startsWith('“') || p.trim().startsWith('«') || p.trim().startsWith('>');
+                  if (isQuote) {
+                    const cleanQuote = p.replace(/^>\s*/, '');
+                    return (
+                      <blockquote
+                        key={pIdx}
+                        className="my-7 pl-6 sm:pl-8 pr-5 sm:pr-8 py-5 sm:py-6 bg-slate-50/90 border-l-4 border-[#2563eb] rounded-r-2xl text-slate-800 text-lg md:text-xl font-medium italic leading-[1.8] font-sans relative shadow-xs"
+                      >
+                        <span className="text-4xl sm:text-5xl text-[#2563eb]/30 font-serif absolute top-2 left-2 leading-none select-none">“</span>
+                        <p className="relative z-10 pl-2 sm:pl-3 not-italic text-slate-800 font-medium">
+                          {highlightKeyText(cleanQuote)}
+                        </p>
+                      </blockquote>
+                    );
+                  }
+
+                  // 6. PRIMER PÁRRAFO TRAS H2 (INTERLINEADO AUMENTADO 10-15%)
+                  const isFirstParagraphAfterH2 = sec.level === "h2" && pIdx === 0;
+                  if (isFirstParagraphAfterH2) {
+                    return (
+                      <p key={pIdx} className="text-base md:text-lg lg:text-xl leading-[1.85] sm:leading-[1.9] text-slate-800 font-normal mb-5">
+                        {highlightKeyText(p)}
+                      </p>
+                    );
+                  }
+
                   return (
                     <p key={pIdx} className="text-base md:text-lg lg:text-xl leading-relaxed text-slate-700">
                       {highlightKeyText(p)}

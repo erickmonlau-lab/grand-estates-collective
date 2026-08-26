@@ -1516,7 +1516,7 @@ function Index() {
                   *{t.valorador.disclaimer}
                 </p>
                 
-                {/* 3. Sparkline Price Trend Chart con badge en cabecera limpia sin solapar */}
+                {/* 3. Sparkline Price Trend Chart con badge en cabecera limpia y eje X de 6 meses */}
                 <div className="pt-5 border-t border-slate-100">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-extrabold text-slate-500 font-sans uppercase tracking-wider">
@@ -1526,23 +1526,48 @@ function Index() {
                       <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +4.2%
                     </span>
                   </div>
-                  <div className="w-full h-12 relative">
-                    <svg className="w-full h-full overflow-visible" viewBox="0 0 200 45" fill="none">
+                  <div className="w-full h-28 sm:h-32 relative pt-2">
+                    <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
                       <defs>
                         <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.25" />
+                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
                           <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
                         </linearGradient>
                       </defs>
-                      <path d="M 0 35 L 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 190 6 L 190 45 L 0 45 Z" fill="url(#sparklineGrad)" />
-                      <path d="M 0 30 Q 30 28 40 22 T 80 20 T 120 14 T 160 10 L 190 6" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      <circle cx="0" cy="30" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="40" cy="22" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="80" cy="20" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="120" cy="14" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="160" cy="10" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="190" cy="6" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
+                      {/* Subdued horizontal guide lines */}
+                      <line x1="0" y1="20" x2="250" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                      <line x1="0" y1="50" x2="250" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                      
+                      {/* Fill area & Trend curve */}
+                      <path d="M 15 62 C 38 62, 45 55, 62 55 C 85 55, 92 44, 109 44 C 132 44, 139 35, 156 35 C 179 35, 186 24, 203 24 C 226 24, 235 14, 250 14 L 250 80 L 15 80 Z" fill="url(#sparklineGrad)" />
+                      <path d="M 15 62 C 38 62, 45 55, 62 55 C 85 55, 92 44, 109 44 C 132 44, 139 35, 156 35 C 179 35, 186 24, 203 24 C 226 24, 235 14, 250 14" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      
+                      {/* Data Points */}
+                      <circle cx="15" cy="62" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="62" cy="55" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="109" cy="44" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="156" cy="35" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="203" cy="24" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                      <circle cx="250" cy="14" r="4" fill="#2563eb" stroke="#ffffff" strokeWidth="2.5" />
                     </svg>
+                  </div>
+                  {/* X-Axis Month Labels (Last 6 Months) */}
+                  <div className="flex justify-between items-center text-[10px] sm:text-xs font-black text-slate-400 mt-2 px-1 font-sans border-t border-slate-100/80 pt-1.5">
+                    {(() => {
+                      const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
+                      const now = new Date();
+                      const months = [];
+                      for (let i = 5; i >= 0; i--) {
+                        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                        const m = d.toLocaleDateString(locale, { month: "short" });
+                        months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
+                      }
+                      return months.map((month, mIdx) => (
+                        <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-slate-400"}>
+                          {month}
+                        </span>
+                      ));
+                    })()}
                   </div>
                 </div>
               </div>
@@ -1767,7 +1792,7 @@ function Index() {
               return (
                 <Reveal key={art.id} delay={i * 0.1}>
                   <div className="bg-white rounded-2xl p-4 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/10] overflow-hidden rounded-xl mb-3 bg-slate-100 cursor-pointer">
+                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/7] overflow-hidden rounded-xl mb-3 bg-slate-100 cursor-pointer">
                       <img
                         src={art.image}
                         alt={title}
@@ -1782,17 +1807,17 @@ function Index() {
                       <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
                         {title}
                       </Link>
-                      <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-3 flex-1 line-clamp-2">
                         {summary}
                       </p>
-                      <div className="mt-auto">
+                      <div className="mt-auto pt-2">
                         <Link
                           to="/noticias/$slug"
                           params={{ slug: art.slug }}
-                          className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-2.5 px-4 rounded-xl text-xs font-black transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans"
+                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-[#2563eb] hover:text-[#1d4ed8] group-hover:gap-2.5 transition-all font-sans cursor-pointer"
                         >
                           <span>{t.noticias.seguirLeyendo}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+                          <ArrowRight className="w-4 h-4 text-[#2563eb]" />
                         </Link>
                       </div>
                     </div>

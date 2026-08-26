@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Calendar, ArrowRight, Menu, X, MessageCircle } from "lucide-react";
 import { translations } from "../data/translations";
 
+import { Navbar } from "@/components/Navbar";
+
 export const Route = createFileRoute("/noticias/")({
   head: () => ({
     meta: [
@@ -24,7 +26,6 @@ export const Route = createFileRoute("/noticias/")({
 
 function NoticiasCatalogComponent() {
   const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("language") as "es" | "en" | "ca";
@@ -43,68 +44,8 @@ function NoticiasCatalogComponent() {
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-blue-500 selection:text-white">
-      {/* NAVBAR */}
-      <nav className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6">
-        <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={424} height={104} className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
-        </Link>
-
-        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
-          <Link to="/" className="px-4 py-2 rounded-full text-white hover:bg-[#2563eb] transition-all">Inicio</Link>
-          <a href="/#propiedades" className="px-4 py-2 rounded-full text-white hover:bg-[#2563eb] transition-all">Propiedades</a>
-          <a href="/#servicios" className="px-4 py-2 rounded-full text-white hover:bg-[#2563eb] transition-all">Servicios</a>
-          <Link to="/noticias" className="px-4 py-2 rounded-full bg-[#2563eb] text-white font-black">Noticias</Link>
-          <a href="/#contacto" className="px-4 py-2 rounded-full text-white hover:bg-[#2563eb] transition-all">Contacto</a>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-xs font-black tracking-wider">
-            {(["es", "ca", "en"] as const).map((lang) => (
-              <button
-                key={lang}
-                onClick={() => handleLanguageChange(lang)}
-                className={`px-2 sm:px-2.5 py-1 rounded-full transition-all ${language === lang ? 'bg-[#2563eb] text-white' : 'text-slate-200'}`}
-              >
-                {lang.toUpperCase()}
-              </button>
-            ))}
-          </div>
-          <button
-            className="lg:hidden p-1.5 text-white cursor-pointer"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"}
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <>
-          {/* Translucent Blurred Backdrop Overlay */}
-          <div
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[95] lg:hidden transition-opacity duration-300"
-            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-          />
-          {/* Menu panel */}
-          <div
-            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
-            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
-          >
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
-            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
-            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-            
-            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
-              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
-              <span>WhatsApp</span>
-            </a>
-          </div>
-        </>
-      )}
+      {/* SHARED CANONICAL NAVY NAVBAR */}
+      <Navbar language={language} setLanguage={handleLanguageChange} />
 
       {/* HEADER HERO */}
       <header className="pt-28 pb-12 sm:pt-36 sm:pb-16 bg-[#0b172a] text-white relative overflow-hidden">

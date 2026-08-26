@@ -6,6 +6,7 @@ import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
 import { FooterMascot } from "@/components/FooterMascot";
+import { Navbar } from "@/components/Navbar";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -133,15 +134,8 @@ function ArticleDetail() {
   if (!article) {
     return (
       <div className="bg-slate-50 text-onyx font-sans min-h-screen flex flex-col justify-between">
-        {/* NAV HEADER */}
-        <nav className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900">
-          <Link to="/" className="hover:opacity-80 transition-opacity">
-            <img src={logoImg} alt="Gesgrama Logo" className="h-9 sm:h-11 w-auto object-contain" />
-          </Link>
-          <Link to="/" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#2563eb] transition-colors">
-            <ArrowLeft className="w-4 h-4" /> {t.detail.backHome}
-          </Link>
-        </nav>
+        {/* SHARED CANONICAL NAVY NAVBAR */}
+        <Navbar language={language} setLanguage={changeLanguage} />
 
         {/* BUBBLE 404 CARD */}
         <main className="pt-32 pb-16 px-4 md:px-8 flex-1 flex items-center justify-center">
@@ -278,76 +272,8 @@ function ArticleDetail() {
     <div className="bg-slate-100 text-onyx font-sans min-h-screen">
       {/* JSON-LD now served via Route.head() for SSR — removed from JSX */}
 
-      {/* FLOATING CAPSULE NAVIGATION HEADER */}
-      <nav
-        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#757989]/95 backdrop-blur-md border border-white/30 shadow-[0_12px_40px_rgba(15,23,42,0.25)] text-white gap-3 lg:gap-6"
-      >
-        <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-7 sm:h-8 md:h-9 w-auto object-contain brightness-0 invert" />
-        </Link>
-
-        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
-          <Link to="/" className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] cursor-pointer whitespace-nowrap">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-          <a href="/#propiedades" className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] cursor-pointer whitespace-nowrap">{t.nav.propiedades}</a>
-          <a href="/#servicios" className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] cursor-pointer whitespace-nowrap">{t.nav.servicios}</a>
-          <a href="/#contacto" className="relative px-4 py-2 rounded-full text-white hover:text-white transition-all duration-300 group hover:bg-[#2563eb] cursor-pointer whitespace-nowrap">{t.nav.contacto}</a>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div className="flex items-center bg-[#5c6070] border border-white/20 rounded-full p-0.5 text-xs font-black tracking-wider">
-            {(["es", "ca", "en"] as const).map((lang, idx) => (
-              <div key={lang} className="flex items-center">
-                <button
-                  onClick={() => changeLanguage(lang)}
-                  className={`px-2 sm:px-2.5 py-1 rounded-full transition-all duration-200 ${language === lang ? 'bg-[#2563eb] text-white shadow-xs' : 'text-slate-200 hover:text-white'}`}
-                >
-                  {lang.toUpperCase()}
-                </button>
-                {idx < 2 && <div className="w-px h-3.5 bg-white/30 mx-0.5"></div>}
-              </div>
-            ))}
-          </div>
-          <a
-            href="/#contacto"
-            className="hidden sm:inline-flex items-center gap-1.5 bg-[#2563eb] text-white hover:bg-[#1d4ed8] px-3.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs uppercase tracking-wider font-black transition-all duration-300 shadow-md hover:shadow-lg"
-          >
-            {t.nav.portal}
-          </a>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer ml-1"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <>
-          {/* Translucent Blurred Backdrop Overlay */}
-          <div
-            onClick={() => setMobileMenuOpen(false)}
-            className="fixed left-0 right-0 top-0 bottom-0 bg-slate-950/60 backdrop-blur-md z-[95] lg:hidden transition-opacity duration-300"
-            style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-          />
-          {/* Menu panel */}
-          <div
-            className="fixed left-[10px] right-[10px] sm:left-[2.5%] sm:right-[2.5%] top-[72px] sm:top-[80px] bg-[#0f172a] text-white rounded-3xl p-5 shadow-2xl border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden overflow-y-auto"
-            style={{ maxHeight: 'calc(100dvh - 72px - env(safe-area-inset-bottom) - 64px)' }}
-          >
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
-            <a href="/#propiedades" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.propiedades}</a>
-            <a href="/#servicios" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.servicios}</a>
-            <a href="/#contacto" onClick={() => setMobileMenuOpen(false)} className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors">{t.nav.contacto}</a>
-            
-            <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="mt-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-md shrink-0 shadow-[0_4px_14px_rgba(37,211,102,0.4)]">
-              <MessageCircle className="w-4.5 h-4.5 shrink-0 fill-current text-white" />
-              <span>WhatsApp</span>
-            </a>
-          </div>
-        </>
-      )}
+      {/* SHARED CANONICAL NAVY NAVBAR */}
+      <Navbar language={language} setLanguage={changeLanguage} />
 
       {/* MAIN ARTICLE CONTENT WRAPPED IN BUBBLE CONTAINER */}
       <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">

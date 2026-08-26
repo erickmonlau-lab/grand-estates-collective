@@ -1,0 +1,276 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%" fill="none">
+  <!-- PALETTE DEFINITION:
+       Navy Dark:   #0f1729
+       Navy Medium: #18233d
+       Navy Light:  #22345c
+       Brand Blue:  #2f6bff
+       Highlights:  #ffffff
+  -->
+
+  <!-- ── 1. BACKGROUND DISK & ARCHITECTURAL ANCHOR ── -->
+  <g id="background-base">
+    <!-- Main Background Circle -->
+    <circle cx="300" cy="300" r="270" fill="#0f1729" />
+    <circle cx="300" cy="300" r="266" stroke="#22345c" stroke-width="4" stroke-dasharray="12 6" />
+    <circle cx="300" cy="300" r="248" fill="#18233d" />
+
+    <!-- Architectural Background Silhouette (Santa Coloma / Mediterranean city accents) -->
+    <path d="M 120 420 L 120 280 L 165 250 L 210 280 L 210 420 Z" fill="#22345c" opacity="0.4" />
+    <rect x="140" y="270" width="16" height="24" rx="2" fill="#18233d" opacity="0.6" />
+    <rect x="174" y="270" width="16" height="24" rx="2" fill="#18233d" opacity="0.6" />
+    <rect x="140" y="310" width="16" height="24" rx="2" fill="#18233d" opacity="0.6" />
+    <rect x="174" y="310" width="16" height="24" rx="2" fill="#18233d" opacity="0.6" />
+
+    <!-- Central Minimal Modern Arch -->
+    <path d="M 230 420 L 230 210 C 230 170 370 170 370 210 L 370 420 Z" fill="#22345c" opacity="0.3" />
+    <path d="M 250 420 L 250 220 C 250 190 350 190 350 220 L 350 420 Z" fill="#18233d" opacity="0.5" />
+
+    <!-- Right Side Modern Building Silhouette -->
+    <path d="M 390 420 L 390 260 L 480 260 L 480 420 Z" fill="#22345c" opacity="0.4" />
+    <rect x="410" y="280" width="22" height="14" rx="1" fill="#18233d" opacity="0.6" />
+    <rect x="445" y="280" width="22" height="14" rx="1" fill="#18233d" opacity="0.6" />
+    <rect x="410" y="310" width="22" height="14" rx="1" fill="#18233d" opacity="0.6" />
+    <rect x="445" y="310" width="22" height="14" rx="1" fill="#18233d" opacity="0.6" />
+
+    <!-- Soft Base Horizon Ground -->
+    <path d="M 60 450 Q 300 480 540 450 L 540 570 L 60 570 Z" fill="#0f1729" />
+    <path d="M 80 440 Q 300 465 520 440" stroke="#2f6bff" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+  </g>
+
+  <!-- ── 2. FIGURE 1: EL ASESOR INMOBILIARIO (Izquierda) ── -->
+  <g id="asesor-inmobiliario">
+    <!-- Shadow beneath Advisor -->
+    <ellipse cx="220" cy="455" rx="75" ry="14" fill="#0f1729" opacity="0.8" />
+
+    <!-- Legs & Trousers -->
+    <path d="M 185 410 L 175 490 L 210 490 L 218 410 Z" fill="#0f1729" />
+    <path d="M 224 410 L 230 490 L 265 490 L 255 410 Z" fill="#18233d" />
+
+    <!-- Torso / Jacket Base -->
+    <path d="M 155 310 C 155 260 280 260 285 310 L 290 425 C 290 435 150 435 150 425 Z" fill="#18233d" />
+
+    <!-- Jacket Folds, Shading & Contours (Requirement 2) -->
+    <!-- Left Shoulder & Arm -->
+    <path d="M 155 310 C 140 330 135 375 145 415 C 150 435 175 435 180 415 L 180 340 Z" fill="#0f1729" />
+    <!-- Arm Crease Highlight / Shadow -->
+    <path d="M 148 375 C 155 385 168 390 178 382" stroke="#22345c" stroke-width="3" stroke-linecap="round" />
+    <path d="M 142 345 C 148 355 158 358 165 352" stroke="#22345c" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Shirt (White Collar) & Neck -->
+    <path d="M 205 235 L 235 235 L 235 265 L 205 265 Z" fill="#ffffff" />
+    <path d="M 210 240 L 230 240 L 230 260 L 210 260 Z" fill="#e2e8f0" />
+    <polygon points="205,255 220,290 212,255" fill="#ffffff" />
+    <polygon points="235,255 220,290 228,255" fill="#ffffff" />
+
+    <!-- Brand Blue Tie -->
+    <polygon points="216,262 224,262 227,330 220,345 213,330" fill="#2f6bff" />
+    <polygon points="215,260 225,260 223,272 217,272" fill="#18233d" opacity="0.4" />
+
+    <!-- Jacket Lapels & Front Cut (Requirement 2) -->
+    <path d="M 175 295 L 210 375 L 210 430 L 165 425 Z" fill="#22345c" />
+    <path d="M 265 295 L 228 375 L 230 430 L 275 425 Z" fill="#18233d" />
+    <!-- Lapel Lines -->
+    <path d="M 185 275 L 210 365 L 175 305 Z" fill="#0f1729" />
+    <path d="M 255 275 L 230 365 L 265 305 Z" fill="#22345c" />
+
+    <!-- Pocket Square in Brand Blue -->
+    <path d="M 172 340 L 192 338 L 190 344 L 170 345 Z" fill="#0f1729" />
+    <polygon points="176,338 181,328 186,338" fill="#2f6bff" />
+
+    <!-- Advisor Right Arm (Extending naturally forward presenting the house - Requirement 3) -->
+    <path d="M 270 305 C 290 320 310 340 315 365 C 318 378 305 385 292 380 C 275 372 260 355 250 335 Z" fill="#22345c" />
+    <path d="M 275 340 C 285 352 295 360 305 362" stroke="#0f1729" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Advisor Right Hand (Supporting the house platform naturally) -->
+    <path d="M 305 362 C 315 360 328 362 335 370 C 338 374 332 380 324 380 L 298 382 Z" fill="#ffffff" />
+    <circle cx="318" cy="368" r="4" fill="#2f6bff" opacity="0.3" />
+
+    <!-- Advisor Left Hand (Gesturing politely towards client) -->
+    <path d="M 155 410 C 158 425 170 432 178 425 C 182 420 180 410 175 402 Z" fill="#ffffff" />
+
+    <!-- Advisor Neck & Head (Refined Facial Structure - Requirement 1) -->
+    <path d="M 210 215 L 230 215 L 232 250 L 208 250 Z" fill="#ffffff" />
+    <path d="M 208 235 C 215 242 225 242 232 235" stroke="#22345c" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Head / Face Contour -->
+    <path d="M 200 170 C 200 135 240 135 240 170 C 240 195 235 220 220 224 C 205 220 200 195 200 170 Z" fill="#ffffff" />
+    <path d="M 197 175 C 195 170 195 185 198 188 C 200 190 202 185 201 178" fill="#ffffff" stroke="#22345c" stroke-width="1.5" /> <!-- Ear -->
+    <path d="M 239 175 C 241 170 241 185 238 188 C 236 190 234 185 235 178" fill="#ffffff" stroke="#22345c" stroke-width="1.5" /> <!-- Ear Right -->
+
+    <!-- Refined Facial Features: Eyebrows, Eyes, Smile, Nose (Requirement 1) -->
+    <!-- Confident expressive eyebrows -->
+    <path d="M 206 168 C 210 165 215 166 218 169" stroke="#0f1729" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M 224 169 C 227 166 232 165 236 168" stroke="#0f1729" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Eyes (Clean geometric & friendly) -->
+    <circle cx="212" cy="176" r="2.8" fill="#0f1729" />
+    <circle cx="230" cy="176" r="2.8" fill="#0f1729" />
+    <circle cx="213" cy="175" r="0.9" fill="#ffffff" />
+    <circle cx="231" cy="175" r="0.9" fill="#ffffff" />
+
+    <!-- Nose & Warm Smile -->
+    <path d="M 221 176 L 220 186 L 224 187" stroke="#22345c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 213 195 C 218 202 225 202 229 195" stroke="#2f6bff" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Modern Professional Haircut (Requirement 1) -->
+    <path d="M 198 168 C 196 142 205 125 222 125 C 242 125 246 140 244 158 C 238 152 230 152 220 150 C 210 148 202 158 198 168 Z" fill="#0f1729" />
+    <path d="M 220 125 C 235 125 245 132 245 148 C 240 142 232 140 224 142 Z" fill="#22345c" />
+    <path d="M 199 162 C 202 155 208 152 215 152 C 212 156 208 158 202 165" stroke="#2f6bff" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- ── 3. HERO PROP: CASA & LLAVE FLOTANTE (Centro) ── -->
+  <g id="prop-casa-llaves">
+    <!-- Glowing Pedestal / Glow Circle -->
+    <ellipse cx="320" cy="355" rx="38" ry="10" fill="#22345c" opacity="0.6" />
+
+    <!-- Stylized Miniature Modern House -->
+    <!-- Base Walls -->
+    <polygon points="300,345 340,345 340,305 300,305" fill="#ffffff" />
+    <!-- House Side Wall (3D Depth) -->
+    <polygon points="340,345 355,335 355,298 340,305" fill="#e2e8f0" />
+
+    <!-- Brand Blue Roof -->
+    <polygon points="292,305 320,278 348,305" fill="#2f6bff" />
+    <polygon points="320,278 360,272 355,298 348,305" fill="#22345c" />
+
+    <!-- Chimney -->
+    <polygon points="334,282 342,282 342,295 334,295" fill="#0f1729" />
+
+    <!-- Door & Windows -->
+    <rect x="314" y="322" width="12" height="23" rx="2" fill="#0f1729" />
+    <rect x="304" y="312" width="8" height="8" rx="1" fill="#2f6bff" />
+    <rect x="345" y="310" width="6" height="10" rx="1" fill="#2f6bff" />
+
+    <!-- Sparkling House Heart / Star -->
+    <circle cx="320" cy="265" r="4" fill="#ffffff" />
+    <path d="M 320 257 L 320 273 M 312 265 L 328 265" stroke="#2f6bff" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Floating Keychain & Key (Being Handed to Client - Requirement 4) -->
+    <g id="key-transfer">
+      <!-- House-shaped Key Tag -->
+      <path d="M 358 342 L 366 335 L 374 342 L 374 354 L 358 354 Z" fill="#2f6bff" />
+      <circle cx="366" cy="344" r="2" fill="#ffffff" />
+      <!-- Golden / Blue Key -->
+      <path d="M 366 354 L 366 372 L 372 372 M 366 366 L 370 366" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- Dynamic Motion Arcs -->
+      <path d="M 345 330 C 360 320 375 325 385 340" stroke="#2f6bff" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round" />
+    </g>
+  </g>
+
+  <!-- ── 4. FIGURE 2: CLIENTE FELIZ RECIBIENDO LLAVES (Derecha - Requirement 4) ── -->
+  <g id="cliente-comprador">
+    <!-- Shadow beneath Client -->
+    <ellipse cx="400" cy="455" rx="65" ry="12" fill="#0f1729" opacity="0.8" />
+
+    <!-- Legs / Trousers -->
+    <path d="M 370 420 L 375 490 L 405 490 L 398 420 Z" fill="#18233d" />
+    <path d="M 406 420 L 412 490 L 440 490 L 432 420 Z" fill="#0f1729" />
+
+    <!-- Torso / Smart Casual Blazer & Top -->
+    <path d="M 360 325 C 360 275 460 275 460 325 L 450 425 C 450 435 355 435 355 425 Z" fill="#22345c" />
+    <path d="M 385 270 L 420 270 L 415 330 L 390 330 Z" fill="#2f6bff" /> <!-- Inner Blue Top -->
+    <polygon points="390,270 405,305 400,270" fill="#ffffff" />
+    <polygon points="415,270 405,305 410,270" fill="#ffffff" />
+
+    <!-- Jacket Folds / Structure -->
+    <path d="M 365 320 L 392 390 L 380 425 L 358 420 Z" fill="#18233d" />
+    <path d="M 445 320 L 420 390 L 430 425 L 452 420 Z" fill="#0f1729" />
+    <path d="M 438 355 C 445 365 450 380 446 395" stroke="#18233d" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Client Left Arm & Hand Reaching for Keys with Joy (Requirement 3 & 4) -->
+    <path d="M 365 325 C 350 345 348 365 365 378 C 372 382 382 376 385 368 C 388 358 382 342 378 335 Z" fill="#22345c" />
+    <!-- Reaching Open Palm -->
+    <path d="M 368 375 C 372 372 382 370 388 365 C 392 362 394 366 390 372 L 376 382 Z" fill="#ffffff" />
+    <circle cx="382" cy="368" r="3.5" fill="#2f6bff" opacity="0.3" />
+
+    <!-- Client Right Arm (Expressive, near heart) -->
+    <path d="M 445 325 C 455 345 450 375 435 390 C 428 395 420 388 422 380 L 432 340 Z" fill="#18233d" />
+    <path d="M 422 380 C 418 382 414 378 416 372 C 418 368 425 368 428 375 Z" fill="#ffffff" />
+
+    <!-- Client Head & Neck -->
+    <path d="M 395 245 L 415 245 L 415 275 L 395 275 Z" fill="#ffffff" />
+    <path d="M 395 258 C 402 264 410 264 415 258" stroke="#22345c" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Head / Face Contour -->
+    <path d="M 388 185 C 388 150 425 150 425 185 C 425 210 420 230 406 235 C 394 230 388 210 388 185 Z" fill="#ffffff" />
+    <path d="M 385 190 C 383 185 383 200 386 202 C 388 204 390 198 389 192" fill="#ffffff" stroke="#22345c" stroke-width="1.5" /> <!-- Ear -->
+    <path d="M 425 190 C 427 185 427 200 424 202 C 422 204 420 198 421 192" fill="#ffffff" stroke="#22345c" stroke-width="1.5" /> <!-- Ear -->
+
+    <!-- Refined Joyful Facial Features (Requirement 1 & 4) -->
+    <!-- Expressive eyebrows -->
+    <path d="M 393 182 C 397 178 402 178 405 182" stroke="#0f1729" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M 410 182 C 413 178 418 178 421 182" stroke="#0f1729" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Happy Eyes (Smiling Arcs) -->
+    <path d="M 394 190 C 397 186 402 186 404 190" stroke="#0f1729" stroke-width="2.8" stroke-linecap="round" />
+    <path d="M 411 190 C 414 186 419 186 421 190" stroke="#0f1729" stroke-width="2.8" stroke-linecap="round" />
+
+    <!-- Joyful Smile & Cheeks -->
+    <path d="M 403 190 L 402 198 L 406 199" stroke="#22345c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 396 206 C 402 216 412 216 418 206" stroke="#2f6bff" stroke-width="3" stroke-linecap="round" />
+    <circle cx="393" cy="202" r="3" fill="#2f6bff" opacity="0.15" />
+    <circle cx="421" cy="202" r="3" fill="#2f6bff" opacity="0.15" />
+
+    <!-- Stylish Hair with Volume & Flow (Requirement 1) -->
+    <path d="M 386 182 C 382 150 395 135 412 135 C 430 135 435 152 432 175 C 428 168 420 162 408 162 C 398 162 390 170 386 182 Z" fill="#0f1729" />
+    <path d="M 425 142 C 435 155 438 180 435 205 C 430 195 428 175 428 165 Z" fill="#18233d" />
+    <path d="M 386 180 C 384 195 382 215 378 225 C 382 210 386 195 388 185 Z" fill="#22345c" />
+    <path d="M 402 136 C 415 138 424 145 428 155" stroke="#2f6bff" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+
+  <!-- ── 5. ANCHORED BADGES (Requirement 5: Bien ancladas al círculo de fondo) ── -->
+  <g id="anchored-badges">
+    <!-- BADGE 1: AICAT nº 5583 (Anclada al borde inferior izquierdo con conector sólido) -->
+    <g id="badge-aicat" transform="translate(65, 360)">
+      <!-- Structural Anchor Bracket connecting to outer circle -->
+      <path d="M 25 40 L -15 65 L -5 85 L 35 60 Z" fill="#22345c" />
+      <line x1="-15" y1="65" x2="35" y2="60" stroke="#2f6bff" stroke-width="3" stroke-linecap="round" />
+
+      <!-- Main Badge Capsule -->
+      <rect x="10" y="10" width="130" height="64" rx="32" fill="#0f1729" stroke="#2f6bff" stroke-width="3.5" />
+      <circle cx="42" cy="42" r="22" fill="#2f6bff" />
+
+      <!-- AICAT Emblem Icon (Check/Shield) -->
+      <path d="M 34 42 L 40 48 L 51 37" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+
+      <!-- Badge Typography -->
+      <text x="74" y="36" fill="#ffffff" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="900" letter-spacing="1">AICAT</text>
+      <text x="74" y="52" fill="#2f6bff" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" letter-spacing="0.5">Nº 5583</text>
+    </g>
+
+    <!-- BADGE 2: +15 AÑOS / ANYS EXPERIENCIA (Anclada al borde superior derecho) -->
+    <g id="badge-experiencia" transform="translate(415, 110)">
+      <!-- Structural Anchor Bracket connecting to outer circle -->
+      <path d="M 50 70 L 85 40 L 105 55 L 70 85 Z" fill="#22345c" />
+      <line x1="85" y1="40" x2="70" y2="85" stroke="#2f6bff" stroke-width="3" stroke-linecap="round" />
+
+      <!-- Main Badge Circle with Accent Rings -->
+      <circle cx="65" cy="65" r="48" fill="#18233d" stroke="#2f6bff" stroke-width="4" />
+      <circle cx="65" cy="65" r="42" stroke="#22345c" stroke-width="2" stroke-dasharray="6 4" />
+
+      <!-- Inner Badge Graphic -->
+      <!-- Star Icon on top -->
+      <polygon points="65,28 68,36 76,36 70,41 72,49 65,44 58,49 60,41 54,36 62,36" fill="#2f6bff" />
+
+      <!-- Badge Text -->
+      <text x="65" y="68" fill="#ffffff" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="-0.5">+15</text>
+      <text x="65" y="84" fill="#2f6bff" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="1.5">AÑOS</text>
+      <text x="65" y="96" fill="#ffffff" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="8" font-weight="700" text-anchor="middle" letter-spacing="0.5">EXPERIENCIA</text>
+    </g>
+  </g>
+
+  <!-- ── 6. GEOMETRIC ACCENTS & HIGHLIGHTS ── -->
+  <g id="accents">
+    <!-- Star Sparkle 1 (Top Left) -->
+    <circle cx="150" cy="190" r="3" fill="#2f6bff" />
+    <path d="M 150 182 L 150 198 M 142 190 L 158 190" stroke="#2f6bff" stroke-width="1.5" stroke-linecap="round" />
+
+    <!-- Star Sparkle 2 (Center High) -->
+    <circle cx="300" cy="130" r="2.5" fill="#ffffff" opacity="0.8" />
+    <path d="M 300 124 L 300 136 M 294 130 L 306 130" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.8" />
+
+    <!-- Star Sparkle 3 (Bottom Right) -->
+    <circle cx="490" cy="380" r="3" fill="#2f6bff" />
+    <path d="M 490 373 L 490 387 M 483 380 L 497 380" stroke="#2f6bff" stroke-width="1.5" stroke-linecap="round" />
+  </g>
+</svg>

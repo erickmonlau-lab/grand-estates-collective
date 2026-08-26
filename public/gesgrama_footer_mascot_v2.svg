@@ -1,11 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="100%" height="100%" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" width="100%" height="100%" fill="none">
   <defs>
     <style>
-      @keyframes waveArmFull {
+      @keyframes naturalWaveElbow {
         0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(15deg); }
-        50% { transform: rotate(-6deg); }
-        75% { transform: rotate(16deg); }
+        20% { transform: rotate(14deg); }
+        40% { transform: rotate(-8deg); }
+        60% { transform: rotate(15deg); }
+        80% { transform: rotate(-4deg); }
       }
       @keyframes livelyBlink {
         0%, 90%, 100% { transform: scaleY(1); }
@@ -15,13 +16,13 @@
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-3px); }
       }
-      .waving-arm-full {
-        animation: waveArmFull 2.2s ease-in-out infinite;
-        transform-origin: 435px 180px;
+      .waving-forearm-group {
+        animation: naturalWaveElbow 2s ease-in-out infinite;
+        transform-origin: 395px 185px;
       }
       .lively-blink {
         animation: livelyBlink 4s ease-in-out infinite;
-        transform-origin: 380px 100px;
+        transform-origin: 280px 82px;
       }
       .lively-body {
         animation: subtleBreath 3.5s ease-in-out infinite;
@@ -31,97 +32,113 @@
   </defs>
 
   <!-- ── 1. BACKGROUND CIRCLE ── -->
-  <circle cx="380" cy="195" r="145" fill="#131d33" stroke="#2563eb" stroke-width="3" />
-  <circle cx="380" cy="195" r="138" fill="#16233d" />
+  <circle cx="280" cy="180" r="142" fill="#131d33" stroke="#2563eb" stroke-width="4" />
+  <circle cx="280" cy="180" r="135" fill="#16233d" />
 
   <!-- ── 2. GROUND SHADOW ── -->
-  <ellipse cx="380" cy="370" rx="115" ry="14" fill="#080d17" opacity="0.9" />
+  <ellipse cx="280" cy="355" rx="125" ry="16" fill="#080d17" opacity="0.9" />
 
-  <!-- ── 3. CHARACTER BODY ── -->
+  <!-- ── 3. CHARACTER ── -->
   <g class="lively-body">
-    <rect x="340" y="255" width="32" height="95" rx="6" fill="#0f172a" />
-    <rect x="388" y="255" width="32" height="95" rx="6" fill="#0f172a" />
+    <rect x="240" y="240" width="34" height="95" rx="6" fill="#0f172a" />
+    <rect x="286" y="240" width="34" height="95" rx="6" fill="#0f172a" />
 
-    <rect x="330" y="343" width="44" height="20" rx="10" fill="#070c18" />
-    <rect x="386" y="343" width="44" height="20" rx="10" fill="#070c18" />
+    <rect x="230" y="328" width="46" height="22" rx="11" fill="#070c18" />
+    <rect x="284" y="328" width="46" height="22" rx="11" fill="#070c18" />
 
-    <path d="M 325 180 L 275 230 C 268 237 272 247 282 247 L 296 243 L 340 195 Z" fill="#1e2c4c" />
-    <circle cx="278" cy="241" r="14" fill="#f3b18c" />
+    <!-- ── FULLY VISIBLE LEFT ARM ── -->
+    <g id="left-arm-complete">
+      <path d="M 225 145 C 205 148 175 175 165 205 L 188 215 C 196 195 215 175 235 168 Z" fill="#1c2844" />
+      <path d="M 165 205 C 160 220 170 238 190 242 L 202 225 C 190 220 185 212 188 215 Z" fill="#22345c" />
+      <rect x="180" y="228" width="16" height="7" rx="3.5" fill="#162035" transform="rotate(30 180 228)" />
+      <circle cx="198" cy="242" r="14" fill="#f3b18c" />
+      <ellipse cx="188" cy="246" rx="5" ry="3.5" fill="#f3b18c" />
+    </g>
 
-    <path d="M 315 165 C 315 165, 445 165, 445 165 C 458 165, 465 177, 465 191 L 452 273 C 452 285, 438 295, 422 295 L 338 295 C 322 295, 308 285, 308 273 L 295 191 C 295 177, 302 165, 315 165 Z" fill="#22345c" />
-    <path d="M 315 165 L 358 230 L 342 293" stroke="#182542" stroke-width="3" stroke-linecap="round" />
-    <path d="M 445 165 L 402 230 L 418 293" stroke="#182542" stroke-width="3" stroke-linecap="round" />
+    <path d="M 215 145 C 215 145, 345 145, 345 145 C 358 145, 366 158, 366 172 L 352 258 C 352 270, 338 280, 322 280 L 238 280 C 222 280, 208 270, 208 258 L 195 172 C 195 158, 202 145, 215 145 Z" fill="#22345c" />
+    <path d="M 215 145 L 258 215 L 242 278" stroke="#182542" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 345 145 L 302 215 L 318 278" stroke="#182542" stroke-width="3.5" stroke-linecap="round" />
 
-    <polygon points="358,165 380,200 402,165 380,165" fill="#ffffff" />
+    <polygon points="258,145 280,182 302,145 280,145" fill="#ffffff" />
 
-    <polygon points="375,177 385,177 387,247 380,257 373,247" fill="#2563eb" />
-    <polygon points="375,175 385,175 383,185 377,185" fill="#182542" opacity="0.35" />
+    <polygon points="275,158 285,158 287,232 280,242 273,232" fill="#2563eb" />
+    <polygon points="275,156 285,156 283,166 277,166" fill="#182542" opacity="0.35" />
 
-    <rect x="370" y="141" width="20" height="28" rx="4" fill="#f3b18c" />
+    <rect x="270" y="120" width="20" height="28" rx="4" fill="#f3b18c" />
 
-    <circle cx="380" cy="107" r="42" fill="#f3b18c" />
+    <circle cx="280" cy="85" r="44" fill="#f3b18c" />
 
-    <path d="M 338 107 C 334 73 354 55 380 55 C 406 55 426 73 422 107 C 414 93 404 83 380 83 C 356 83 346 93 338 107 Z" fill="#3b271d" />
+    <path d="M 236 85 C 232 48 252 30 280 30 C 308 30 328 48 324 85 C 316 70 304 60 280 60 C 256 60 244 70 236 85 Z" fill="#3b271d" />
 
     <g class="lively-blink">
-      <circle cx="366" cy="103" r="4" fill="#3b271d" />
-      <circle cx="368" cy="101" r="1.5" fill="#ffffff" />
-      <circle cx="394" cy="103" r="4" fill="#3b271d" />
-      <circle cx="396" cy="101" r="1.5" fill="#ffffff" />
+      <circle cx="264" cy="82" r="4.5" fill="#3b271d" />
+      <circle cx="266" cy="80" r="1.8" fill="#ffffff" />
+      <circle cx="296" cy="82" r="4.5" fill="#3b271d" />
+      <circle cx="298" cy="80" r="1.8" fill="#ffffff" />
     </g>
 
-    <path d="M 364 117 Q 380 133 396 117 Z" fill="#ffffff" stroke="#3b271d" stroke-width="2.5" stroke-linejoin="round" />
-    <path d="M 364 117 Q 380 133 396 117" stroke="#3b271d" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <path d="M 262 98 Q 280 116 298 98 Z" fill="#ffffff" stroke="#3b271d" stroke-width="2.8" stroke-linejoin="round" />
+    <path d="M 262 98 Q 280 116 298 98" stroke="#3b271d" stroke-width="2.8" fill="none" stroke-linecap="round" />
 
-    <circle cx="356" cy="115" r="5" fill="#ea7b64" opacity="0.35" />
-    <circle cx="404" cy="115" r="5" fill="#ea7b64" opacity="0.35" />
+    <circle cx="254" cy="95" r="5.5" fill="#ea7b64" opacity="0.35" />
+    <circle cx="306" cy="95" r="5.5" fill="#ea7b64" opacity="0.35" />
 
-    <!-- ── 4. PROMINENT BIG WHITE MINIATURE HOUSE ── -->
+    <!-- ── PROMINENT BIG WHITE MINIATURE HOUSE ── -->
     <g id="big-house-prop">
-      <polygon points="215,220 255,183 295,220" fill="#2563eb" />
-      <polygon points="255,183 265,193 265,187 259,187" fill="#1e293b" />
-      <line x1="220" y1="219" x2="255" y2="186" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
-      <rect x="220" y="220" width="70" height="52" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
-      <rect x="220" y="220" width="70" height="6" fill="#e2e8f0" />
-      <rect x="228" y="231" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
-      <line x1="236" y1="231" x2="236" y2="247" stroke="#ffffff" stroke-width="1.5" />
-      <line x1="228" y1="239" x2="244" y2="239" stroke="#ffffff" stroke-width="1.5" />
-      <rect x="266" y="231" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
-      <line x1="274" y1="231" x2="274" y2="247" stroke="#ffffff" stroke-width="1.5" />
-      <line x1="266" y1="239" x2="282" y2="239" stroke="#ffffff" stroke-width="1.5" />
-      <rect x="248" y="241" width="14" height="31" rx="2" fill="#0f172a" />
-      <circle cx="258" cy="257" r="1.5" fill="#fbbf24" />
+      <polygon points="105,185 147,145 189,185" fill="#2563eb" />
+      <polygon points="147,145 158,155 158,148 152,148" fill="#1e293b" />
+      <line x1="110" y1="184" x2="147" y2="148" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" />
+
+      <rect x="110" y="185" width="74" height="56" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+      <rect x="110" y="185" width="74" height="6" fill="#e2e8f0" />
+
+      <rect x="118" y="196" width="18" height="18" rx="3" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
+      <line x1="127" y1="196" x2="127" y2="214" stroke="#ffffff" stroke-width="1.5" />
+      <line x1="118" y1="205" x2="136" y2="205" stroke="#ffffff" stroke-width="1.5" />
+
+      <rect x="158" y="196" width="18" height="18" rx="3" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
+      <line x1="167" y1="196" x2="167" y2="214" stroke="#ffffff" stroke-width="1.5" />
+      <line x1="158" y1="205" x2="176" y2="205" stroke="#ffffff" stroke-width="1.5" />
+
+      <rect x="139" y="206" width="16" height="35" rx="2" fill="#0f172a" />
+      <circle cx="150" cy="224" r="1.8" fill="#fbbf24" />
+    </g>
+
+    <!-- ── RIGHT UPPER ARM ── -->
+    <g id="right-upper-arm">
+      <circle cx="345" cy="155" r="18" fill="#22345c" />
+      <path d="M 345 145 C 368 145 388 165 395 185 L 375 195 C 368 180 355 165 340 162 Z" fill="#22345c" />
+      <circle cx="395" cy="185" r="14" fill="#22345c" />
     </g>
   </g>
 
-  <!-- ── 5. RIGHT ARM & HAND ── -->
-  <g class="waving-arm-full">
-    <circle cx="435" cy="180" r="18" fill="#22345c" />
-    <path d="M 425 175 L 485 115 C 492 108 504 114 500 124 L 450 195 Z" fill="#22345c" />
-    <rect x="482" y="106" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-40 482 106)" />
+  <!-- ── 6. RIGHT FOREARM & HAND (Waving from Elbow) ── -->
+  <g class="waving-forearm-group">
+    <path d="M 386 182 L 418 102 C 422 92 434 96 430 106 L 404 190 Z" fill="#22345c" />
+    <rect x="412" y="94" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-30 412 94)" />
 
-    <g id="waving-hand-top" transform="translate(492, 75)">
-      <circle cx="14" cy="18" r="13" fill="#f3b18c" />
-      <ellipse cx="2" cy="22" rx="4.5" ry="7" fill="#f3b18c" transform="rotate(-30 2 22)" />
-      <rect x="6" y="0" width="4.5" height="14" rx="2.2" fill="#f3b18c" />
-      <rect x="12" y="-3" width="4.5" height="17" rx="2.2" fill="#f3b18c" />
-      <rect x="18" y="-1" width="4.5" height="15" rx="2.2" fill="#f3b18c" />
-      <rect x="24" y="3" width="4" height="12" rx="2" fill="#f3b18c" />
+    <g id="natural-waving-hand" transform="translate(420, 62)">
+      <circle cx="15" cy="20" r="14" fill="#f3b18c" />
+      <ellipse cx="2" cy="24" rx="5" ry="8" fill="#f3b18c" transform="rotate(-30 2 24)" />
+      <rect x="6" y="0" width="5" height="16" rx="2.5" fill="#f3b18c" />
+      <rect x="13" y="-4" width="5" height="19" rx="2.5" fill="#f3b18c" />
+      <rect x="20" y="-1" width="5" height="17" rx="2.5" fill="#f3b18c" />
+      <rect x="27" y="3" width="4.5" height="14" rx="2.2" fill="#f3b18c" />
     </g>
   </g>
 
-  <!-- ── 6. BIG READABLE PILL BADGES (OUTSIDE, ZERO OVERLAP) ── -->
-  <g id="badge-aicat" transform="translate(15, 315)">
-    <rect x="0" y="0" width="245" height="52" rx="26" fill="#2563eb" stroke="#60a5fa" stroke-width="2" />
-    <circle cx="26" cy="26" r="16" fill="#ffffff" opacity="0.25" />
-    <path d="M 19 26 L 24 31 L 33 21" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-    <text x="49" y="33" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" fontSize="15.5" font-weight="900" letter-spacing="0.2">Registro AICAT Nº 5583</text>
+  <!-- ── 7. PROMINENT BIG BADGES ── -->
+  <g id="badge-aicat" transform="translate(8, 310)">
+    <rect x="0" y="0" width="215" height="48" rx="24" fill="#2563eb" stroke="#60a5fa" stroke-width="2" />
+    <circle cx="24" cy="24" r="15" fill="#ffffff" opacity="0.25" />
+    <path d="M 17 24 L 22 29 L 31 19" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="46" y="30" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" fontSize="14" font-weight="900" letter-spacing="0.2">Registro AICAT Nº 5583</text>
   </g>
 
-  <g id="badge-exp" transform="translate(505, 20)">
-    <rect x="0" y="0" width="245" height="52" rx="26" fill="#0b1322" stroke="#2563eb" stroke-width="3" />
-    <circle cx="26" cy="26" r="15" fill="#2563eb" />
-    <polygon points="26,14 29,22 37,22 30.5,27 33,35 26,29.5 19,35 21.5,27 15,22 23,22" fill="#ffffff" transform="scale(0.85) translate(4.5, 4)" />
-    <text x="49" y="33" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" fontSize="15.5" font-weight="900" letter-spacing="0.2">+15 años de experiencia</text>
+  <g id="badge-exp" transform="translate(345, 18)">
+    <rect x="0" y="0" width="205" height="48" rx="24" fill="#0b1322" stroke="#2563eb" stroke-width="3" />
+    <circle cx="24" cy="24" r="14" fill="#2563eb" />
+    <polygon points="24,12 26.5,19 33,19 27.5,23.5 29.5,30 24,25.5 18.5,30 20.5,23.5 15,19 21.5,19" fill="#ffffff" transform="scale(0.8) translate(6, 6)" />
+    <text x="46" y="30" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" fontSize="14" font-weight="900" letter-spacing="0.2">+15 años de experiencia</text>
   </g>
 </svg>

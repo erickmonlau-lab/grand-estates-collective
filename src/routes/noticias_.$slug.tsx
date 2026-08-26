@@ -913,9 +913,9 @@ function ArticleDetail() {
             </div>
           </div>
 
-          {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
-          <div className="hidden md:flex w-full md:w-[280px] lg:w-[320px] xl:w-[360px] items-center justify-center self-center shrink-0">
-            <FooterMascot className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl" />
+          {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Much Larger */}
+          <div className="hidden md:flex w-full md:w-[350px] lg:w-[420px] xl:w-[480px] items-center justify-center self-center shrink-0">
+            <FooterMascot className="w-full max-h-[360px] lg:max-h-[420px] object-contain drop-shadow-2xl" />
           </div>
 
         </div>

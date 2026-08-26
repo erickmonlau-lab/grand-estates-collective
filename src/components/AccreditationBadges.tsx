@@ -4,7 +4,7 @@ export function AccreditationBadges() {
       id: "api",
       logo: "/images/badges/logo-api.png",
       alt: "API - Col·legis i associació d'agents immobiliaris",
-      number: "" // Already embedded inside the graphic as "Agent immobiliari / A10750"
+      number: "" // Already embedded inside the graphic in large bold font as "Agent immobiliari / A10750"
     },
     {
       id: "aicat",
@@ -28,26 +28,26 @@ export function AccreditationBadges() {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center justify-items-center py-2">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10 items-center justify-items-center py-4">
       {badges.map((b) => (
-        <div key={b.id} className="flex flex-col items-center justify-center w-full max-w-[240px] group">
-          {/* Direct Transparent Logo - NO WHITE BOX BACKGROUND */}
-          <div className="w-full h-20 sm:h-24 md:h-28 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <div key={b.id} className="flex flex-col items-center justify-center w-full max-w-[320px] group">
+          {/* Direct Transparent Logo - Prominent and Large Scale */}
+          <div className="w-full h-28 sm:h-36 md:h-44 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
             <img
               src={b.logo}
               alt={b.alt}
-              className={`max-h-full max-w-full object-contain ${b.isBanner ? 'rounded-xl shadow-md border border-white/10' : 'drop-shadow-md'}`}
+              className={`max-h-full max-w-full object-contain ${b.isBanner ? 'rounded-2xl shadow-lg border border-white/20' : 'drop-shadow-lg'}`}
               loading="lazy"
             />
           </div>
           
           {/* Registration number directly below logo */}
           {b.number ? (
-            <span className="text-white text-base sm:text-lg font-black tracking-widest text-center mt-2.5 font-sans">
+            <span className="text-white text-base sm:text-xl font-black tracking-widest text-center mt-3 font-sans">
               {b.number}
             </span>
           ) : (
-            <span className="h-6 sm:h-7 mt-2.5 block" aria-hidden="true" />
+            <span className="h-6 sm:h-8 mt-3 block" aria-hidden="true" />
           )}
         </div>
       ))}

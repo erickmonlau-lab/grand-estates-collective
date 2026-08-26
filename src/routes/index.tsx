@@ -2097,10 +2097,22 @@ function Index() {
 
       {/* ── FOOTER GSAP ── */}
       <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10" style={{ backgroundColor: '#0b1221' }}>
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-0 flex flex-col lg:flex-row gap-12 relative">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12 relative">
           
-          {/* Text Columns */}
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-8">
+          {/* Mascot on Mobile (<768px): Centered Above Columns */}
+          <div className="w-full md:hidden flex justify-center items-center mb-6">
+            <img 
+              src="/images/gesgrama_footer_mascot_v2.svg" 
+              alt="Gesgrama Asesor Inmobiliario" 
+              width={260} 
+              height={260} 
+              className="w-48 sm:w-56 h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Text Columns (Left Block) */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
             {/* Logo + tagline */}
             <div className="lg:col-span-1">
               <div className="inline-block mb-4">
@@ -2188,56 +2200,16 @@ function Index() {
             </div>
           </div>
 
-          {/* Column with Collegial Badges & Mascot Illustration */}
-          <div className="w-full lg:w-[350px] flex flex-col gap-6 pb-8">
-            {/* Mascot Illustration */}
-            <div className="w-full flex justify-center lg:justify-start">
-              <div className="w-full max-w-[240px] sm:max-w-[260px] aspect-square rounded-3xl bg-[#0f1729]/80 p-3 border border-white/10 shadow-2xl flex items-center justify-center group overflow-hidden">
-                <img 
-                  src="/images/gesgrama_footer_mascot_v2.svg" 
-                  alt="Gesgrama Asesor Inmobiliario y Acreditación AICAT" 
-                  width={260} 
-                  height={260} 
-                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans">{language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}</h3>
-              <div className="flex flex-col gap-3.5">
-                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                  <div className="w-11 h-11 rounded-lg bg-blue-600 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
-                    AICAT
-                  </div>
-                  <div>
-                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Registre d'Agents Immobiliaris" : language === "en" ? "Registry of Real Estate Agents" : "Registro de Agentes Inmobiliarios"}</strong>
-                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Inscripció AICAT Nº 5583" : language === "en" ? "AICAT Reg. No. 5583" : "Inscripción AICAT Nº 5583"}</span>
-                  </div>
-                </div>
-
-                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                  <div className="w-11 h-11 rounded-lg bg-amber-700 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
-                    API
-                  </div>
-                  <div>
-                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Col·legi de la Propietat Immobiliària" : language === "en" ? "Real Estate Association" : "Colegio de la Propiedad Inmobiliaria"}</strong>
-                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Agent Col·legiat Oficial" : language === "en" ? "Official Registered Agent" : "Agente Colegiado Oficial"}</span>
-                  </div>
-                </div>
-
-                <div className="bg-white/5 border border-white/15 p-4 rounded-xl flex items-center gap-3.5 shadow-md">
-                  <div className="w-11 h-11 rounded-lg bg-emerald-800 text-white font-black text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
-                    ADM
-                  </div>
-                  <div>
-                    <strong className="text-sm sm:text-base text-white block font-black">{language === "ca" ? "Administradors de Finques" : language === "en" ? "Property Administrators" : "Administradores de Fincas"}</strong>
-                    <span className="text-xs sm:text-sm text-slate-100 font-extrabold">{language === "ca" ? "Associació de Finques i Comunitats" : language === "en" ? "Estates & Communities Association" : "Asociación de Fincas y Comunidades"}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
+          <div className="hidden md:flex w-full md:w-[280px] lg:w-[320px] xl:w-[360px] items-center justify-center self-center shrink-0">
+            <img 
+              src="/images/gesgrama_footer_mascot_v2.svg" 
+              alt="Gesgrama Asesor Inmobiliario" 
+              width={340} 
+              height={340} 
+              className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl"
+              loading="lazy"
+            />
           </div>
 
         </div>

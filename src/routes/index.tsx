@@ -676,12 +676,12 @@ function Index() {
             {/* Dedicated full-width row for Mode Selector + Stat Badge right above Search Console */}
             <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
               {/* Search Mode Selector Tabs - Responsive 3-column equal grid on mobile to fit all screen sizes */}
-              <div className="grid grid-cols-3 sm:flex sm:items-center bg-slate-100 p-1.5 sm:p-2 rounded-2xl border-2 border-slate-200 shadow-sm w-full sm:w-auto gap-1 sm:gap-0">
+              <div className="grid grid-cols-3 sm:flex sm:items-center bg-[#E8EAF0] p-1.5 sm:p-2 rounded-2xl border border-slate-300/80 shadow-sm w-full sm:w-auto gap-1 sm:gap-1.5">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
                   className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "comprar" ? "bg-[#2563eb] text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                    searchParams.mode === "comprar" ? "bg-[#2563eb] text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
                   }`}
                 >
                   {t.hero.comprar}
@@ -690,7 +690,7 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
                   className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "alquilar" ? "bg-[#2563eb] text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                    searchParams.mode === "alquilar" ? "bg-[#2563eb] text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
                   }`}
                 >
                   {t.hero.alquilar}
@@ -699,7 +699,7 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
                   className={`px-1.5 xs:px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
-                    searchParams.mode === "favoritos" ? "bg-red-500 text-white shadow-sm" : "text-slate-700 hover:text-[#0f172a]"
+                    searchParams.mode === "favoritos" ? "bg-red-500 text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
                   }`}
                 >
                   <Heart className="w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0" />
@@ -1014,7 +1014,7 @@ function Index() {
 
             {/* Quick access chips for zones - Horizontal scrollable carousel on mobile */}
             <div className="flex items-center gap-2 mt-6 pb-6 border-b border-slate-100 overflow-x-auto no-scrollbar scroll-smooth -mx-1 px-1">
-              <span className="text-[11px] font-black text-slate-500 uppercase tracking-widest mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
+              <span className="text-[11px] font-black text-[#0f172a] uppercase tracking-widest mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
                 ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
@@ -1030,7 +1030,7 @@ function Index() {
                     className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap ${
                       isActive 
                         ? "bg-[#2563eb] text-white shadow-xs" 
-                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
                     }`}
                   >
                     {item.label}
@@ -1614,7 +1614,7 @@ function Index() {
                     "Riu Nord / Riu Sud",
                     "Oliveres - Can Serra"
                   ].map((barrio) => (
-                    <span key={barrio} className="bg-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/20 backdrop-blur-sm">
+                    <span key={barrio} className="bg-[#2A3245] text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/10 shadow-xs">
                       📍 {formatLocation(barrio, language)}
                     </span>
                   ))}

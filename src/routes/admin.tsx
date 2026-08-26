@@ -29,7 +29,8 @@ import {
   Camera,
   Info,
   Layers,
-  Sparkles
+  Sparkles,
+  ChevronDown
 } from "lucide-react";
 import {
   fetchProperties,
@@ -567,27 +568,33 @@ function AdminDashboard() {
 
           {/* Filters & New Button */}
           <div className="flex flex-wrap items-center gap-3">
-            <select
-              value={filterMode}
-              onChange={(e: any) => setFilterMode(e.target.value)}
-              className="bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer"
-            >
-              <option value="todos">Todas las Operaciones</option>
-              <option value="compra">Solo Venta</option>
-              <option value="alquilar">Solo Alquiler</option>
-            </select>
+            <div className="relative">
+              <select
+                value={filterMode}
+                onChange={(e: any) => setFilterMode(e.target.value)}
+                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer hover:border-slate-400 transition-colors"
+              >
+                <option value="todos">Todas las Operaciones</option>
+                <option value="compra">Solo Venta</option>
+                <option value="alquilar">Solo Alquiler</option>
+              </select>
+              <ChevronDown className="w-4 h-4 text-slate-600 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+            </div>
 
-            <select
-              value={filterStatus}
-              onChange={(e: any) => setFilterStatus(e.target.value)}
-              className="bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer"
-            >
-              <option value="todos">Todos los Estados</option>
-              <option value="disponible">Disponibles</option>
-              <option value="reservado">Reservados</option>
-              <option value="vendido">Vendidos</option>
-              <option value="alquilado">Alquilados</option>
-            </select>
+            <div className="relative">
+              <select
+                value={filterStatus}
+                onChange={(e: any) => setFilterStatus(e.target.value)}
+                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer hover:border-slate-400 transition-colors"
+              >
+                <option value="todos">Todos los Estados</option>
+                <option value="disponible">Disponibles</option>
+                <option value="reservado">Reservados</option>
+                <option value="vendido">Vendidos</option>
+                <option value="alquilado">Alquilados</option>
+              </select>
+              <ChevronDown className="w-4 h-4 text-slate-600 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+            </div>
 
             <button
               onClick={handleOpenCreateModal}
@@ -681,16 +688,19 @@ function AdminDashboard() {
                   <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between gap-2">
                     
                     {/* Status Dropdown Quick Changer */}
-                    <select
-                      value={p.status || "disponible"}
-                      onChange={(e) => handleQuickStatusChange(p.id, e.target.value as any)}
-                      className="text-xs font-black bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-2 text-[#0f172a] outline-none cursor-pointer"
-                    >
-                      <option value="disponible">🟢 Disponible</option>
-                      <option value="reservado">🟡 Reservado</option>
-                      <option value="vendido">🔴 Vendido</option>
-                      <option value="alquilado">🔵 Alquilado</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={p.status || "disponible"}
+                        onChange={(e) => handleQuickStatusChange(p.id, e.target.value as any)}
+                        className="appearance-none text-xs font-black bg-slate-100 border border-slate-300 rounded-lg pl-3 pr-7 py-2 text-[#0f172a] outline-none cursor-pointer hover:bg-slate-200 transition-colors"
+                      >
+                        <option value="disponible">🟢 Disponible</option>
+                        <option value="reservado">🟡 Reservado</option>
+                        <option value="vendido">🔴 Vendido</option>
+                        <option value="alquilado">🔵 Alquilado</option>
+                      </select>
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-600 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                    </div>
 
                     <div className="flex items-center gap-1.5">
                       <Link
@@ -779,32 +789,38 @@ function AdminDashboard() {
                   <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
                     Tipo de Inmueble
                   </label>
-                  <select
-                    value={formData.type}
-                    onChange={(e: any) => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
-                  >
-                    <option value="Piso">Piso</option>
-                    <option value="Ático">Ático</option>
-                    <option value="Apartamento">Apartamento</option>
-                    <option value="Local comercial">Local comercial</option>
-                    <option value="Chalet">Chalet</option>
-                    <option value="Oficina">Oficina</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.type}
+                      onChange={(e: any) => setFormData({ ...formData, type: e.target.value })}
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                    >
+                      <option value="Piso">Piso</option>
+                      <option value="Ático">Ático</option>
+                      <option value="Apartamento">Apartamento</option>
+                      <option value="Local comercial">Local comercial</option>
+                      <option value="Chalet">Chalet</option>
+                      <option value="Oficina">Oficina</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
                     Operación
                   </label>
-                  <select
-                    value={formData.operation}
-                    onChange={(e: any) => setFormData({ ...formData, operation: e.target.value })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
-                  >
-                    <option value="comprar">Venta</option>
-                    <option value="alquilar">Alquiler</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.operation}
+                      onChange={(e: any) => setFormData({ ...formData, operation: e.target.value })}
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                    >
+                      <option value="comprar">Venta</option>
+                      <option value="alquilar">Alquiler</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                  </div>
                 </div>
 
                 <div>
@@ -824,15 +840,18 @@ function AdminDashboard() {
                   <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
                     Barrio / Zona
                   </label>
-                  <select
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
-                  >
-                    {SANTA_COLOMA_ZONES.map((zone) => (
-                      <option key={zone} value={zone}>{zone}</option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                    >
+                      {SANTA_COLOMA_ZONES.map((zone) => (
+                        <option key={zone} value={zone}>{zone}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                  </div>
                 </div>
               </div>
 
@@ -897,16 +916,19 @@ function AdminDashboard() {
                   <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
                     Estado Actual
                   </label>
-                  <select
-                    value={formData.status}
-                    onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#0f172a] outline-none"
-                  >
-                    <option value="disponible">🟢 Disponible</option>
-                    <option value="reservado">🟡 Reservado</option>
-                    <option value="vendido">🔴 Vendido</option>
-                    <option value="alquilado">🔵 Alquilado</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.status}
+                      onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#0f172a] outline-none cursor-pointer"
+                    >
+                      <option value="disponible">🟢 Disponible</option>
+                      <option value="reservado">🟡 Reservado</option>
+                      <option value="vendido">🔴 Vendido</option>
+                      <option value="alquilado">🔵 Alquilado</option>
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                  </div>
                 </div>
 
                 <div className="sm:col-span-2">

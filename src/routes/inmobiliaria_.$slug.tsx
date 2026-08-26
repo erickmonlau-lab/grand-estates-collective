@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { properties, formatLocation } from "../data/properties";
 import { getLocalProperties } from "@/lib/propertyStore";
+import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, ChevronRight, Menu, X, Home } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -180,14 +181,7 @@ function PropertyDetail() {
     );
   }
 
-  const pData = (t.propertiesData as Record<string, any>)[property.id] || {
-    name: property.name,
-    type: property.type,
-    location: property.location,
-    floor: property.floor,
-    description: property.description,
-    features: property.features,
-  };
+  const pData = getTranslatedProperty(property, language, t.propertiesData);
 
   const canonicalUrl = `${SITE_DOMAIN}/inmobiliaria/${property.slug}`;
 

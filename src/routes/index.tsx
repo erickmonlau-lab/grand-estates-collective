@@ -3,6 +3,7 @@ import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
+import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush } from "lucide-react";
@@ -956,7 +957,7 @@ function Index() {
             {(() => {
               const renderPropertyCard = (property: any, idx: number) => {
                 const isFav = favorites.includes(property.id);
-                const pData = (t.propertiesData as any)?.[property.id] || property;
+                const pData = getTranslatedProperty(property, language, t.propertiesData);
 
                 return (
                   <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>

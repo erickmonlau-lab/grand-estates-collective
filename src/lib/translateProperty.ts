@@ -14,6 +14,9 @@ const ES_TO_CA_RULES: [RegExp, string][] = [
   [/\breformada\b/gi, "reformada"],
   [/\bluminoso\b/gi, "lluminós"],
   [/\bluminosa\b/gi, "lluminosa"],
+  [/\bamplio\b/gi, "ampli"],
+  [/\bamplia\b/gi, "àmplia"],
+  [/\bcon gran terraza\b/gi, "amb gran terrassa"],
   [/\bcon terraza\b/gi, "amb terrassa"],
   [/\bcon balcón\b/gi, "amb balcó"],
   [/\bcon balcon\b/gi, "amb balcó"],
@@ -21,7 +24,6 @@ const ES_TO_CA_RULES: [RegExp, string][] = [
   [/\bcon parking\b/gi, "amb pàrquing"],
   [/\bcon vistas\b/gi, "amb vistes"],
   [/\bexterior\b/gi, "exterior"],
-  [/\bobra nueva\b/gi, "obra nova"],
   [/\bobra nueva\b/gi, "obra nova"],
   [/\ben venta\b/gi, "en venda"],
   [/\ben alquiler\b/gi, "en lloguer"],
@@ -41,6 +43,9 @@ const ES_TO_EN_RULES: [RegExp, string][] = [
   [/\breformada\b/gi, "renovated"],
   [/\bluminoso\b/gi, "bright"],
   [/\bluminosa\b/gi, "bright"],
+  [/\bamplio\b/gi, "spacious"],
+  [/\bamplia\b/gi, "spacious"],
+  [/\bcon gran terraza\b/gi, "with large terrace"],
   [/\bcon terraza\b/gi, "with terrace"],
   [/\bcon balcón\b/gi, "with balcony"],
   [/\bcon balcon\b/gi, "with balcony"],
@@ -72,7 +77,7 @@ export function autoTranslateText(text: string, targetLang: "es" | "ca" | "en"):
 export function getTranslatedProperty(
   property: ExtendedProperty,
   language: "es" | "ca" | "en",
-  translationsDict?: Record<string, any>
+  _translationsDict?: Record<string, any>
 ): {
   id: string;
   name: string;
@@ -81,20 +86,6 @@ export function getTranslatedProperty(
   description: string;
   features: string[];
 } {
-  // 1. Check if it's one of the built-in dictionary properties from translations.ts
-  if (translationsDict && translationsDict[property.id]) {
-    const dictData = translationsDict[property.id];
-    return {
-      id: property.id,
-      name: dictData.name || property.name,
-      type: dictData.type || property.type,
-      location: formatLocation(dictData.location || property.location, language),
-      description: dictData.description || property.description,
-      features: dictData.features || property.features || []
-    };
-  }
-
-  // 2. Dynamic property from Admin / Database
   let name = property.name;
   let description = property.description;
 
@@ -118,10 +109,12 @@ export function getTranslatedProperty(
   if (language === "ca") {
     if (typeStr === "Piso") typeStr = "Pis";
     else if (typeStr === "Ático" || typeStr === "Atico") typeStr = "Àtic";
+    else if (typeStr === "Apartamento") typeStr = "Apartament";
     else if (typeStr === "Chalet") typeStr = "Xalet";
   } else if (language === "en") {
     if (typeStr === "Piso") typeStr = "Flat";
     else if (typeStr === "Ático" || typeStr === "Atico") typeStr = "Penthouse";
+    else if (typeStr === "Apartamento") typeStr = "Apartment";
     else if (typeStr === "Local comercial") typeStr = "Commercial premises";
     else if (typeStr === "Chalet") typeStr = "Villa";
     else if (typeStr === "Oficina") typeStr = "Office";

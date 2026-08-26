@@ -5,14 +5,12 @@ const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-async function testConnection() {
-  console.log("Connecting to Supabase...");
-  const { data, error } = await supabase.from("properties").select("*");
-  if (error) {
-    console.error("Supabase query error:", error);
-  } else {
-    console.log("SUCCESS! Table 'properties' is online. Rows count:", data.length);
+async function inspect() {
+  const { data, error } = await supabase.from("properties").select("id, name, operation, image, price");
+  if (error) console.error("Error:", error);
+  else {
+    console.log("Supabase Properties:", JSON.stringify(data, null, 2));
   }
 }
 
-testConnection();
+inspect();

@@ -1876,45 +1876,45 @@ function Index() {
                     {/* Row 1: Nombre & Teléfono */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
-                        <input type="text" placeholder={t.contacto.form.nombrePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                        <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
+                        <input type="text" placeholder={t.contacto.form.nombrePlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
                       </div>
                       <div>
-                        <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
-                        <input type="text" placeholder={t.contacto.form.telefonoPlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                        <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
+                        <input type="text" placeholder={t.contacto.form.telefonoPlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
                       </div>
                     </div>
                     
                     {/* Row 2: Correo */}
                     <div>
-                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.email.toUpperCase()}</label>
-                      <input type="email" placeholder={t.contacto.form.emailPlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-400" />
+                      <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.email.toUpperCase()}</label>
+                      <input type="email" placeholder={t.contacto.form.emailPlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
                     </div>
 
                     {/* Row 3: Tipo de Consulta */}
                     <div>
-                      <label htmlFor="contacto-asunto-select" className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
+                      <label htmlFor="contacto-asunto-select" className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
                       <div className="relative">
-                        <select id="contacto-asunto-select" aria-label="Seleccionar motivo o tipo de consulta" className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
+                        <select id="contacto-asunto-select" aria-label="Seleccionar motivo o tipo de consulta" className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
                           <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
                           <option>{t.contacto.form.asuntoOpciones.venta}</option>
                           <option>{t.contacto.form.asuntoOpciones.juridico}</option>
                           <option>{t.contacto.form.asuntoOpciones.otro}</option>
                         </select>
-                        <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <ChevronDown className="w-5 h-5 text-slate-600 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                       </div>
                     </div>
 
                     {/* Row 4: Mensaje */}
                     <div>
-                      <label className="text-slate-600 font-black uppercase tracking-wider block mb-2 text-xs sm:text-sm font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
-                      <textarea rows={3} placeholder={t.contacto.form.mensajePlaceholder} className="w-full bg-[#f8fafc] border border-slate-200 rounded-xl px-4 py-3.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors resize-none font-sans placeholder:text-slate-400" />
+                      <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
+                      <textarea rows={3} placeholder={t.contacto.form.mensajePlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors resize-none font-sans placeholder:text-slate-500" />
                     </div>
 
                     {/* Checkbox Privacidad */}
-                    <div className="flex items-center gap-2 pt-1">
-                      <input type="checkbox" id="privacy" className="w-4 h-4 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" />
-                      <label htmlFor="privacy" className="text-xs sm:text-sm text-slate-700 font-semibold cursor-pointer font-sans">{t.contacto.form.privacidad}</label>
+                    <div className="flex items-center gap-2.5 pt-1">
+                      <input type="checkbox" id="privacy" className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" />
+                      <label htmlFor="privacy" className="text-sm sm:text-base text-[#0f172a] font-bold cursor-pointer font-sans">{t.contacto.form.privacidad}</label>
                     </div>
 
                     {/* Submit Button */}

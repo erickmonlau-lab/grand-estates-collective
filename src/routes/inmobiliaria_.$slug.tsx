@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { properties, formatLocation } from "../data/properties";
+import { getLocalProperties } from "@/lib/propertyStore";
 
 import { ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, ChevronRight, Menu, X, Home } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -89,7 +90,16 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
 
 function PropertyDetail() {
   const { slug } = Route.useParams();
-  const property = properties.find((p) => p.slug === slug);
+  const [property, setProperty] = useState(() => {
+    const list = getLocalProperties();
+    return list.find((p) => p.slug === slug) || properties.find((p) => p.slug === slug);
+  });
+
+  useEffect(() => {
+    const list = getLocalProperties();
+    const found = list.find((p) => p.slug === slug) || properties.find((p) => p.slug === slug);
+    if (found) setProperty(found);
+  }, [slug]);
   const [language, setLanguage] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("language");

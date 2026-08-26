@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
+import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush } from "lucide-react";
@@ -326,6 +327,18 @@ function Index() {
     trending: <TrendingUp className="w-6 h-6" />
   };
 
+  const [liveProperties, setLiveProperties] = useState<ExtendedProperty[]>(() => getLocalProperties());
+
+  useEffect(() => {
+    const unsub = subscribeProperties((list) => {
+      setLiveProperties(list);
+    });
+    fetchProperties().then((data) => {
+      if (data) setLiveProperties(data);
+    });
+    return () => unsub();
+  }, []);
+
   const zonas = [
     "Santa Rosa - Can Mariner",
     "Fondo",
@@ -338,16 +351,17 @@ function Index() {
   const tipos = ["Piso", "Apartamento", "Ático", "Local comercial", "Chalet", "Oficina"];
 
   // Filter and sort properties
-  const filteredProperties = properties
+  const filteredProperties = liveProperties
     .filter(p => {
       if (searchParams.mode === "favoritos") {
         return favorites.includes(p.id);
       }
-      return p.operation === searchParams.mode;
+      const pOp = p.operation || "comprar";
+      return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
     })
     .filter(p => {
       if (searchParams.mode === "favoritos") return true;
-      return (searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona)) &&
+      return (searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona))) &&
              (searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo) &&
              isPriceValid(searchParams.precio, p.price) &&
              (searchParams.habitaciones === 'Cualquier número' || !searchParams.habitaciones || p.bedrooms >= parseInt(searchParams.habitaciones.replace("+", ""), 10));
@@ -363,18 +377,18 @@ function Index() {
 
   if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
     isFallback = true;
-    let similarProperties = properties
-      .filter(p => searchParams.zona === 'Cualquier zona' ? true : p.location.includes(searchParams.zona))
-      .filter(p => p.operation === searchParams.mode);
+    let similarProperties = liveProperties
+      .filter(p => searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona)))
+      .filter(p => (p.operation || "comprar") === searchParams.mode);
 
     if (similarProperties.length === 0) {
-      similarProperties = properties
+      similarProperties = liveProperties
         .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
-        .filter(p => p.operation === searchParams.mode);
+        .filter(p => (p.operation || "comprar") === searchParams.mode);
     }
 
     if (similarProperties.length === 0) {
-      similarProperties = properties.filter(p => p.operation === searchParams.mode);
+      similarProperties = liveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
     }
     displayProperties = similarProperties.slice(0, 3);
   }
@@ -2120,6 +2134,8 @@ function Index() {
               <Link to="/politica-privacidad" className="hover:text-blue-200">{language === "ca" ? "Privacitat" : language === "en" ? "Privacy" : "Privacidad"}</Link>
               <span>·</span>
               <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
+              <span>·</span>
+              <Link to="/admin" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
             </div>
           </div>
         </div>

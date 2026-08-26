@@ -13,6 +13,7 @@ import { Route as PoliticaPrivacidadRouteImport } from './routes/politica-privac
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
@@ -37,6 +38,11 @@ const BlogRoute = BlogRouteImport.update({
 const AvisoLegalRoute = AvisoLegalRouteImport.update({
   id: '/aviso-legal',
   path: '/aviso-legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,6 +73,7 @@ const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/aviso-legal': typeof AvisoLegalRoute
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/aviso-legal'
     | '/blog'
     | '/politica-cookies'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/aviso-legal'
     | '/blog'
     | '/politica-cookies'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/aviso-legal'
     | '/blog'
     | '/politica-cookies'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   AvisoLegalRoute: typeof AvisoLegalRoute
   BlogRoute: typeof BlogRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/aviso-legal'
       fullPath: '/aviso-legal'
       preLoaderRoute: typeof AvisoLegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   AvisoLegalRoute: AvisoLegalRoute,
   BlogRoute: BlogRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,

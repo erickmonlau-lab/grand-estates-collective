@@ -1,21 +1,21 @@
 export function FooterMascot({ className = "w-full max-h-[320px] lg:max-h-[360px] object-contain drop-shadow-2xl" }: { className?: string }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" className={className} fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" className={className} fill="none">
       <defs>
         <style>{`
-          /* Full arm waving from shoulder joint - 100% connected & lively */
+          /* Full arm waving from shoulder pivot - completely clear of badges */
           @keyframes waveArmFull {
             0%, 100% {
               transform: rotate(0deg);
             }
             25% {
-              transform: rotate(16deg);
+              transform: rotate(15deg);
             }
             50% {
               transform: rotate(-6deg);
             }
             75% {
-              transform: rotate(18deg);
+              transform: rotate(16deg);
             }
           }
 
@@ -29,7 +29,7 @@ export function FooterMascot({ className = "w-full max-h-[320px] lg:max-h-[360px
             }
           }
 
-          /* Subtle lively breathing body */
+          /* Subtle breathing */
           @keyframes subtleBreath {
             0%, 100% {
               transform: translateY(0px);
@@ -41,12 +41,12 @@ export function FooterMascot({ className = "w-full max-h-[320px] lg:max-h-[360px
 
           .waving-arm-full {
             animation: waveArmFull 2.2s ease-in-out infinite;
-            transform-origin: 355px 175px;
+            transform-origin: 435px 180px;
           }
 
           .lively-blink {
             animation: livelyBlink 4s ease-in-out infinite;
-            transform-origin: 300px 98px;
+            transform-origin: 380px 100px;
           }
 
           .lively-body {
@@ -56,113 +56,106 @@ export function FooterMascot({ className = "w-full max-h-[320px] lg:max-h-[360px
         `}</style>
       </defs>
 
-      {/* ── 1. BACKGROUND CIRCLE WITH GLOW ACCENT ── */}
-      <circle cx="300" cy="190" r="145" fill="#131d33" stroke="#2563eb" strokeWidth="3" />
-      <circle cx="300" cy="190" r="138" fill="#16233d" />
+      {/* ── 1. BACKGROUND CIRCLE (Centered at X=380) ── */}
+      <circle cx="380" cy="195" r="145" fill="#131d33" stroke="#2563eb" strokeWidth="3" />
+      <circle cx="380" cy="195" r="138" fill="#16233d" />
 
       {/* ── 2. GROUND SHADOW (Firmly Grounded) ── */}
-      <ellipse cx="300" cy="365" rx="110" ry="14" fill="#080d17" opacity="0.9" />
+      <ellipse cx="380" cy="370" rx="115" ry="14" fill="#080d17" opacity="0.9" />
 
-      {/* ── 3. CHARACTER BODY (Centered, Scaled Up, Lively) ── */}
+      {/* ── 3. CHARACTER BODY (Centered at X=380, Scaled Up) ── */}
       <g className="lively-body">
         {/* Legs */}
-        <rect x="260" y="250" width="32" height="95" rx="6" fill="#0f172a" />
-        <rect x="308" y="250" width="32" height="95" rx="6" fill="#0f172a" />
+        <rect x="340" y="255" width="32" height="95" rx="6" fill="#0f172a" />
+        <rect x="388" y="255" width="32" height="95" rx="6" fill="#0f172a" />
 
         {/* Shoes */}
-        <rect x="250" y="338" width="44" height="20" rx="10" fill="#070c18" />
-        <rect x="306" y="338" width="44" height="20" rx="10" fill="#070c18" />
+        <rect x="330" y="343" width="44" height="20" rx="10" fill="#070c18" />
+        <rect x="386" y="343" width="44" height="20" rx="10" fill="#070c18" />
 
-        {/* Left Arm (Thick, confident, holding the big house) */}
-        <path d="M 245 175 L 195 225 C 188 232 192 242 202 242 L 216 238 L 260 190 Z" fill="#1e2c4c" />
-        <circle cx="198" cy="236" r="14" fill="#f3b18c" />
+        {/* Left Arm holding the house */}
+        <path d="M 325 180 L 275 230 C 268 237 272 247 282 247 L 296 243 L 340 195 Z" fill="#1e2c4c" />
+        <circle cx="278" cy="241" r="14" fill="#f3b18c" />
 
         {/* Suit Jacket Torso */}
-        <path d="M 235 160 C 235 160, 365 160, 365 160 C 378 160, 385 172, 385 186 L 372 268 C 372 280, 358 290, 342 290 L 258 290 C 242 290, 228 280, 228 268 L 215 186 C 215 172, 222 160, 235 160 Z" fill="#22345c" />
+        <path d="M 315 165 C 315 165, 445 165, 445 165 C 458 165, 465 177, 465 191 L 452 273 C 452 285, 438 295, 422 295 L 338 295 C 322 295, 308 285, 308 273 L 295 191 C 295 177, 302 165, 315 165 Z" fill="#22345c" />
         
         {/* Lapel details */}
-        <path d="M 235 160 L 278 225 L 262 288" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
-        <path d="M 365 160 L 322 225 L 338 288" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
+        <path d="M 315 165 L 358 230 L 342 293" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
+        <path d="M 445 165 L 402 230 L 418 293" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
 
-        {/* Crisp White Shirt Collar */}
-        <polygon points="278,160 300,195 322,160 300,160" fill="#ffffff" />
+        {/* White Shirt Collar */}
+        <polygon points="358,165 380,200 402,165 380,165" fill="#ffffff" />
 
-        {/* Vibrant Royal Blue Brand Tie */}
-        <polygon points="295,172 305,172 307,242 300,252 293,242" fill="#2563eb" />
-        <polygon points="295,170 305,170 303,180 297,180" fill="#182542" opacity="0.35" />
+        {/* Blue Brand Tie */}
+        <polygon points="375,177 385,177 387,247 380,257 373,247" fill="#2563eb" />
+        <polygon points="375,175 385,175 383,185 377,185" fill="#182542" opacity="0.35" />
 
         {/* Neck */}
-        <rect x="290" y="136" width="20" height="28" rx="4" fill="#f3b18c" />
+        <rect x="370" y="141" width="20" height="28" rx="4" fill="#f3b18c" />
 
-        {/* Big Cheerful Head */}
-        <circle cx="300" cy="102" r="42" fill="#f3b18c" />
+        {/* Head */}
+        <circle cx="380" cy="107" r="42" fill="#f3b18c" />
 
-        {/* Modern Warm Brown Haircut */}
-        <path d="M 258 102 C 254 68 274 50 300 50 C 326 50 346 68 342 102 C 334 88 324 78 300 78 C 276 78 266 88 258 102 Z" fill="#3b271d" />
+        {/* Hair */}
+        <path d="M 338 107 C 334 73 354 55 380 55 C 406 55 426 73 422 107 C 414 93 404 83 380 83 C 356 83 346 93 338 107 Z" fill="#3b271d" />
 
-        {/* Eyes (Lively with Catchlight & Blink) */}
+        {/* Eyes (Blinking) */}
         <g className="lively-blink">
-          <circle cx="286" cy="98" r="4" fill="#3b271d" />
-          <circle cx="288" cy="96" r="1.5" fill="#ffffff" />
+          <circle cx="366" cy="103" r="4" fill="#3b271d" />
+          <circle cx="368" cy="101" r="1.5" fill="#ffffff" />
           
-          <circle cx="314" cy="98" r="4" fill="#3b271d" />
-          <circle cx="316" cy="96" r="1.5" fill="#ffffff" />
+          <circle cx="394" cy="103" r="4" fill="#3b271d" />
+          <circle cx="396" cy="101" r="1.5" fill="#ffffff" />
         </g>
 
         {/* Big Happy Smile with Teeth */}
-        <path d="M 284 112 Q 300 128 316 112 Z" fill="#ffffff" stroke="#3b271d" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M 284 112 Q 300 128 316 112" stroke="#3b271d" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+        <path d="M 364 117 Q 380 133 396 117 Z" fill="#ffffff" stroke="#3b271d" strokeWidth="2.5" strokeLinejoin="round" />
+        <path d="M 364 117 Q 380 133 396 117" stroke="#3b271d" strokeWidth="2.5" fill="none" strokeLinecap="round" />
 
-        {/* Cute Rosy Blush Cheeks */}
-        <circle cx="276" cy="110" r="5" fill="#ea7b64" opacity="0.35" />
-        <circle cx="324" cy="110" r="5" fill="#ea7b64" opacity="0.35" />
+        {/* Rosy Blush Cheeks */}
+        <circle cx="356" cy="115" r="5" fill="#ea7b64" opacity="0.35" />
+        <circle cx="404" cy="115" r="5" fill="#ea7b64" opacity="0.35" />
 
-        {/* ── 4. PROMINENT BIG WHITE MINIATURE HOUSE (High Contrast, Bold & Clear) ── */}
+        {/* ── 4. PROMINENT BIG WHITE MINIATURE HOUSE ── */}
         <g id="big-house-prop">
           {/* Vibrant Blue Gabled Roof */}
-          <polygon points="135,215 175,178 215,215" fill="#2563eb" />
-          <polygon points="175,178 185,188 185,182 179,182" fill="#1e293b" />
-          {/* Roof Ridge Highlight */}
-          <line x1="140" y1="214" x2="175" y2="181" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
+          <polygon points="215,220 255,183 295,220" fill="#2563eb" />
+          <polygon points="255,183 265,193 265,187 259,187" fill="#1e293b" />
+          <line x1="220" y1="219" x2="255" y2="186" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
 
-          {/* Solid White House Facade with Subtle Shading */}
-          <rect x="140" y="215" width="70" height="52" rx="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="2" />
-          
-          {/* Overhang Shadow */}
-          <rect x="140" y="215" width="70" height="6" fill="#e2e8f0" />
+          {/* Solid White House Facade */}
+          <rect x="220" y="220" width="70" height="52" rx="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="2" />
+          <rect x="220" y="220" width="70" height="6" fill="#e2e8f0" />
 
           {/* Two Sky Blue Windows */}
-          <rect x="148" y="226" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
-          <line x1="156" y1="226" x2="156" y2="242" stroke="#ffffff" strokeWidth="1.5" />
-          <line x1="148" y1="234" x2="164" y2="234" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="228" y="231" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+          <line x1="236" y1="231" x2="236" y2="247" stroke="#ffffff" strokeWidth="1.5" />
+          <line x1="228" y1="239" x2="244" y2="239" stroke="#ffffff" strokeWidth="1.5" />
 
-          <rect x="186" y="226" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
-          <line x1="194" y1="226" x2="194" y2="242" stroke="#ffffff" strokeWidth="1.5" />
-          <line x1="186" y1="234" x2="202" y2="234" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="266" y="231" width="16" height="16" rx="2.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+          <line x1="274" y1="231" x2="274" y2="247" stroke="#ffffff" strokeWidth="1.5" />
+          <line x1="266" y1="239" x2="282" y2="239" stroke="#ffffff" strokeWidth="1.5" />
 
           {/* Dark Navy Entrance Door with Golden Brass Knob */}
-          <rect x="168" y="236" width="14" height="31" rx="2" fill="#0f172a" />
-          <circle cx="178" cy="252" r="1.5" fill="#fbbf24" />
+          <rect x="248" y="241" width="14" height="31" rx="2" fill="#0f172a" />
+          <circle cx="258" cy="257" r="1.5" fill="#fbbf24" />
         </g>
       </g>
 
-      {/* ── 5. RIGHT ARM & HAND (Full Waving from Shoulder Pivot - NEVER Disconnects!) ── */}
+      {/* ── 5. RIGHT ARM & HAND (Waving naturally, totally clear of badges) ── */}
       <g className="waving-arm-full">
-        {/* Seamless Rounded Shoulder Joint Cap */}
-        <circle cx="355" cy="175" r="18" fill="#22345c" />
+        {/* Rounded Shoulder Joint */}
+        <circle cx="435" cy="180" r="18" fill="#22345c" />
         
-        {/* Full Raised Arm Sleeve */}
-        <path d="M 345 170 L 415 105 C 422 98 434 104 430 114 L 370 190 Z" fill="#22345c" />
-        {/* Sleeve Cuff */}
-        <rect x="412" y="96" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-40 412 96)" />
+        {/* Raised Arm Sleeve */}
+        <path d="M 425 175 L 485 115 C 492 108 504 114 500 124 L 450 195 Z" fill="#22345c" />
+        <rect x="482" y="106" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-40 482 106)" />
 
-        {/* Large Friendly Waving Hand with 4 Fingers */}
-        <g id="waving-hand-top" transform="translate(422, 65)">
-          {/* Palm */}
+        {/* Waving Hand */}
+        <g id="waving-hand-top" transform="translate(492, 75)">
           <circle cx="14" cy="18" r="13" fill="#f3b18c" />
-          {/* Thumb */}
           <ellipse cx="2" cy="22" rx="4.5" ry="7" fill="#f3b18c" transform="rotate(-30 2 22)" />
-          {/* 4 Greeting Fingers */}
           <rect x="6" y="0" width="4.5" height="14" rx="2.2" fill="#f3b18c" />
           <rect x="12" y="-3" width="4.5" height="17" rx="2.2" fill="#f3b18c" />
           <rect x="18" y="-1" width="4.5" height="15" rx="2.2" fill="#f3b18c" />
@@ -170,24 +163,24 @@ export function FooterMascot({ className = "w-full max-h-[320px] lg:max-h-[360px
         </g>
       </g>
 
-      {/* ── 6. PILL BADGES (Bold, High-Contrast, Zero Overlap) ── */}
+      {/* ── 6. BIG, HIGH-CONTRAST, READABLE PILL BADGES (OUTSIDE, ZERO OVERLAP) ── */}
 
-      {/* Badge 1: Bottom Left (AICAT) */}
-      <g id="badge-aicat" transform="translate(10, 305)">
-        <rect x="0" y="0" width="190" height="44" rx="22" fill="#2563eb" stroke="#60a5fa" strokeWidth="1.5" />
-        <circle cx="22" cy="22" r="14" fill="#ffffff" opacity="0.25" />
-        <path d="M 16 22 L 20 26 L 28 18" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="40" y="27" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="800" letterSpacing="0.3">
+      {/* Badge 1: Bottom Left (AICAT) - Big & Super Readable */}
+      <g id="badge-aicat" transform="translate(15, 315)">
+        <rect x="0" y="0" width="245" height="52" rx="26" fill="#2563eb" stroke="#60a5fa" strokeWidth="2" filter="drop-shadow(0 6px 14px rgba(37,99,235,0.4))" />
+        <circle cx="26" cy="26" r="16" fill="#ffffff" opacity="0.25" />
+        <path d="M 19 26 L 24 31 L 33 21" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="49" y="33" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="15.5" fontWeight="900" letterSpacing="0.2">
           Registro AICAT Nº 5583
         </text>
       </g>
 
-      {/* Badge 2: Top Right (+15 Años) */}
-      <g id="badge-exp" transform="translate(390, 25)">
-        <rect x="0" y="0" width="196" height="44" rx="22" fill="#0f172a" stroke="#2563eb" strokeWidth="2.5" />
-        <circle cx="23" cy="22" r="13" fill="#2563eb" />
-        <polygon points="23,12 25.5,19 32,19 26.5,23.5 28.5,30 23,25.5 17.5,30 19.5,23.5 14,19 20.5,19" fill="#ffffff" transform="scale(0.8) translate(5.8, 5.5)" />
-        <text x="45" y="27" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="800" letterSpacing="0.2">
+      {/* Badge 2: Top Right (+15 Años) - Big & Positioned to the right of hand */}
+      <g id="badge-exp" transform="translate(505, 20)">
+        <rect x="0" y="0" width="245" height="52" rx="26" fill="#0b1322" stroke="#2563eb" strokeWidth="3" filter="drop-shadow(0 6px 16px rgba(0,0,0,0.6))" />
+        <circle cx="26" cy="26" r="15" fill="#2563eb" />
+        <polygon points="26,14 29,22 37,22 30.5,27 33,35 26,29.5 19,35 21.5,27 15,22 23,22" fill="#ffffff" transform="scale(0.85) translate(4.5, 4)" />
+        <text x="49" y="33" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="15.5" fontWeight="900" letterSpacing="0.2">
           +15 años de experiencia
         </text>
       </g>

@@ -1013,8 +1013,8 @@ function Index() {
             </div>
 
             {/* Quick access chips for zones - Horizontal scrollable carousel on mobile */}
-            <div className="flex items-center gap-2 mt-6 pb-6 border-b border-slate-100 overflow-x-auto no-scrollbar scroll-smooth -mx-1 px-1">
-              <span className="text-[11px] font-black text-[#0f172a] uppercase tracking-widest mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
+            <div className="flex items-center gap-2.5 mt-6 pb-6 border-b border-slate-100 overflow-x-auto no-scrollbar scroll-smooth -mx-1 px-1">
+              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider mr-2 shrink-0 font-sans">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
                 ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
@@ -1027,7 +1027,7 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap ${
+                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap ${
                       isActive 
                         ? "bg-[#2563eb] text-white shadow-xs" 
                         : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
@@ -1125,8 +1125,8 @@ function Index() {
                         {/* Price */}
                         <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
                           <div>
-                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
-                            <div className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none font-sans">
+                            <div className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
+                            <div className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans">
                               {new Intl.NumberFormat('es-ES').format(property.price)}€
                             </div>
                           </div>
@@ -1293,12 +1293,12 @@ function Index() {
 
                       {/* Author Row */}
                       <div className="pt-4 border-t border-slate-100 flex items-center gap-3.5 relative z-10">
-                        <div className={`w-10 h-10 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-sm flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border border-white/40`}>
+                        <div className={`w-11 h-11 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-base flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border border-white/40`}>
                           {initials[i % initials.length]}
                         </div>
                         <div className="flex flex-col">
-                          <strong className="font-extrabold text-base sm:text-lg text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
-                          <span className="text-xs text-slate-500 font-medium">
+                          <strong className="font-black text-base sm:text-lg text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
+                          <span className="text-xs sm:text-sm text-[#0f172a] font-bold mt-0.5">
                             {item.time}
                           </span>
                         </div>
@@ -1509,20 +1509,20 @@ function Index() {
                 </div>
 
                 {/* 2. Rango estimado de mercado en una sola línea limpia */}
-                <p className="text-sm font-bold text-slate-500 mb-2 font-sans">
-                  {t.valorador.rangoEstimado}: <span className="font-extrabold text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
+                <p className="text-base sm:text-lg font-black text-[#0f172a] mb-2 font-sans">
+                  {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                 </p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mb-6 font-sans">
+                <p className="text-sm sm:text-base font-extrabold text-[#0f172a] mb-6 font-sans">
                   *{t.valorador.disclaimer}
                 </p>
                 
                 {/* 3. Sparkline Price Trend Chart con badge en cabecera limpia y eje X de 6 meses */}
                 <div className="pt-5 border-t border-slate-100">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-extrabold text-slate-500 font-sans uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm sm:text-base font-black text-[#0f172a] font-sans uppercase tracking-wider">
                       {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                     </span>
-                    <span className="bg-emerald-800 text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-sm font-sans">
+                    <span className="bg-emerald-800 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1 shadow-sm font-sans">
                       <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +4.2%
                     </span>
                   </div>
@@ -1552,7 +1552,7 @@ function Index() {
                     </svg>
                   </div>
                   {/* X-Axis Month Labels (Last 6 Months) */}
-                  <div className="flex justify-between items-center text-[10px] sm:text-xs font-black text-slate-400 mt-2 px-1 font-sans border-t border-slate-100/80 pt-1.5">
+                  <div className="flex justify-between items-center text-xs sm:text-sm font-black text-[#0f172a] mt-2 px-1 font-sans border-t border-slate-100/80 pt-2">
                     {(() => {
                       const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
                       const now = new Date();
@@ -1563,7 +1563,7 @@ function Index() {
                         months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
                       }
                       return months.map((month, mIdx) => (
-                        <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-slate-400"}>
+                        <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-[#0f172a]"}>
                           {month}
                         </span>
                       ));
@@ -1603,7 +1603,7 @@ function Index() {
                 <p className="text-white text-lg sm:text-xl md:text-2xl max-w-lg mb-4 font-extrabold leading-relaxed font-sans">
                   {language === "ca" ? "Equip propi amb atenció personalitzada a tots els barris de Santa Coloma de Gramenet." : language === "en" ? "Our own team with personalized service in all neighborhoods of Santa Coloma de Gramenet." : "Equipo propio con atención personalizada en todos los barrios de Santa Coloma de Gramenet."}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-8 max-w-lg">
+                <div className="flex flex-wrap gap-2.5 mb-8 max-w-lg">
                   {[
                     "Centro",
                     "Singuerlín",
@@ -1614,7 +1614,7 @@ function Index() {
                     "Riu Nord / Riu Sud",
                     "Oliveres - Can Serra"
                   ].map((barrio) => (
-                    <span key={barrio} className="bg-[#2A3245] text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/10 shadow-xs">
+                    <span key={barrio} className="bg-[#2A3245] text-white text-xs sm:text-sm font-black px-4 py-2 rounded-full border border-white/10 shadow-sm hover:bg-[#343e55] transition-colors">
                       📍 {formatLocation(barrio, language)}
                     </span>
                   ))}

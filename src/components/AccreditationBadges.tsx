@@ -1,42 +1,41 @@
 export function AccreditationBadges() {
-  // Ordered progressively from largest / most prominent to compact for harmonious visual balance
   const badges = [
     {
       id: "pji",
-      logo: "/images/badges/logo-pji-escudo.png",
+      logo: "/images/badges/logo-pji-escudo.jpg",
       alt: "Peritos Judiciales Inmobiliarios",
       number: "PJI 2024",
-      imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain drop-shadow-xl"
+      imgClass: "max-h-20 sm:max-h-24 w-auto object-contain"
     },
     {
       id: "apis-peritos",
-      logo: "/images/badges/logo-apis-peritos.png",
+      logo: "/images/badges/logo-apis-peritos.jpg",
       alt: "APIS - PERITOS",
       number: "1639",
-      imgClass: "h-26 sm:h-32 md:h-36 w-auto object-contain drop-shadow-xl"
+      imgClass: "max-h-20 sm:max-h-24 w-auto object-contain"
     },
     {
       id: "api",
-      logo: "/images/badges/logo-api.png",
+      logo: "/images/badges/logo-api.jpg",
       alt: "API - Col·legis i associació d'agents immobiliaris",
       number: "A10750",
-      imgClass: "h-20 sm:h-26 md:h-30 w-auto object-contain drop-shadow-xl"
+      imgClass: "max-h-16 sm:max-h-20 w-auto object-contain"
     },
     {
       id: "aicat",
-      logo: "/images/badges/logo-aicat.png",
+      logo: "/images/badges/logo-aicat.jpg",
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
-      imgClass: "h-14 sm:h-18 md:h-22 w-auto object-contain drop-shadow-xl"
+      imgClass: "max-h-14 sm:max-h-18 w-auto object-contain"
     }
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 items-end justify-items-center py-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch justify-items-center py-6">
       {badges.map((b) => (
-        <div key={b.id} className="flex flex-col items-center justify-end w-full max-w-[280px] group">
-          {/* Direct Transparent Logo - Pure graphic without any artificial boxes or borders */}
-          <div className="w-full h-32 sm:h-40 md:h-44 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        <div key={b.id} className="flex flex-col items-center justify-between w-full max-w-[260px] group">
+          {/* Official Clean Corporate White Card */}
+          <div className="w-full h-28 sm:h-36 bg-white rounded-2xl p-4 sm:p-5 flex items-center justify-center shadow-lg border border-slate-100 transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl">
             <img
               src={b.logo}
               alt={b.alt}
@@ -45,8 +44,8 @@ export function AccreditationBadges() {
             />
           </div>
           
-          {/* Registration number directly below each logo in a consistent row */}
-          <span className="text-white text-base sm:text-xl font-black tracking-widest text-center mt-3 font-sans">
+          {/* Registration number below card */}
+          <span className="text-white text-sm sm:text-base font-black tracking-widest text-center mt-3 font-sans">
             {b.number}
           </span>
         </div>

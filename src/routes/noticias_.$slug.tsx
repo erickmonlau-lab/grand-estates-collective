@@ -926,6 +926,46 @@ function ArticleDetail() {
 
         </div>
 
+        {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 3 Columnas) */}
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-10">
+          <div className="border-t border-white/10 pt-8">
+            <h4 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
+              {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-white/5 border border-white/15 p-3 rounded-2xl flex items-center gap-3 shadow-md hover:bg-white/10 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-blue-600 text-white font-black text-xs sm:text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                  AICAT
+                </div>
+                <div className="min-w-0">
+                  <strong className="text-xs sm:text-sm text-white block font-black truncate">{language === "ca" ? "Registre d'Agents Immobiliaris" : language === "en" ? "Registry of Real Estate Agents" : "Registro de Agentes Inmobiliarios"}</strong>
+                  <span className="text-[11px] sm:text-xs text-slate-300 font-extrabold block truncate">{language === "ca" ? "Inscripció AICAT Nº 5583" : language === "en" ? "AICAT Reg. No. 5583" : "Inscripción AICAT Nº 5583"}</span>
+                </div>
+              </div>
+
+              <div className="bg-white/5 border border-white/15 p-3 rounded-2xl flex items-center gap-3 shadow-md hover:bg-white/10 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-amber-700 text-white font-black text-xs sm:text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                  API
+                </div>
+                <div className="min-w-0">
+                  <strong className="text-xs sm:text-sm text-white block font-black truncate">{language === "ca" ? "Col·legi de la Propietat Immobiliària" : language === "en" ? "Real Estate Association" : "Colegio de la Propiedad Inmobiliaria"}</strong>
+                  <span className="text-[11px] sm:text-xs text-slate-300 font-extrabold block truncate">{language === "ca" ? "Agent Col·legiat Oficial" : language === "en" ? "Official Registered Agent" : "Agente Colegiado Oficial"}</span>
+                </div>
+              </div>
+
+              <div className="bg-white/5 border border-white/15 p-3 rounded-2xl flex items-center gap-3 shadow-md hover:bg-white/10 transition-colors sm:col-span-2 md:col-span-1">
+                <div className="w-10 h-10 rounded-xl bg-emerald-800 text-white font-black text-xs sm:text-sm flex items-center justify-center border border-white/30 shrink-0 shadow-xs">
+                  ADM
+                </div>
+                <div className="min-w-0">
+                  <strong className="text-xs sm:text-sm text-white block font-black truncate">{language === "ca" ? "Administradors de Finques" : language === "en" ? "Property Administrators" : "Administradores de Fincas"}</strong>
+                  <span className="text-[11px] sm:text-xs text-slate-300 font-extrabold block truncate">{language === "ca" ? "Associació de Finques i Comunitats" : language === "en" ? "Estates & Communities Association" : "Asociación de Fincas y Comunidades"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom bar */}
         <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">

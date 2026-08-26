@@ -1,0 +1,145 @@
+export function FooterMascot({ className = "w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" className={className} fill="none">
+      <defs>
+        <style>{`
+          @keyframes mascotFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+          }
+          @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(0.9); opacity: 0.45; }
+          }
+          @keyframes houseBob {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(-1.5deg); }
+          }
+          @keyframes eyeBlink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+          }
+          @keyframes badgeLeftFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+          }
+          @keyframes badgeRightFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(4px); }
+          }
+
+          .animated-mascot {
+            animation: mascotFloat 4s ease-in-out infinite;
+            transform-origin: center bottom;
+          }
+          .animated-shadow {
+            animation: shadowScale 4s ease-in-out infinite;
+            transform-origin: 250px 338px;
+          }
+          .animated-house {
+            animation: houseBob 3.5s ease-in-out infinite;
+            transform-origin: 172px 210px;
+          }
+          .animated-eyes {
+            animation: eyeBlink 4.5s ease-in-out infinite;
+            transform-origin: 250px 113px;
+          }
+          .animated-badge-left {
+            animation: badgeLeftFloat 4.2s ease-in-out infinite;
+          }
+          .animated-badge-right {
+            animation: badgeRightFloat 4.8s ease-in-out infinite;
+          }
+        `}</style>
+        <filter id="pillShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#000000" floodOpacity="0.3" />
+        </filter>
+        <filter id="bluePillShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#2f6bff" floodOpacity="0.4" />
+        </filter>
+      </defs>
+
+      {/* Ground Shadow */}
+      <ellipse className="animated-shadow" cx="250" cy="338" rx="72" ry="9" fill="#717d96" opacity="0.7" />
+
+      {/* Background Circle */}
+      <circle cx="250" cy="175" r="118" fill="#1b253b" />
+
+      {/* Mascot Character */}
+      <g className="animated-mascot">
+        {/* Legs */}
+        <rect x="220" y="248" width="22" height="62" rx="3" fill="#141c2e" />
+        <rect x="258" y="248" width="22" height="62" rx="3" fill="#141c2e" />
+
+        {/* Shoes */}
+        <rect x="217" y="302" width="28" height="15" rx="7.5" fill="#0d1322" />
+        <rect x="255" y="302" width="28" height="15" rx="7.5" fill="#0d1322" />
+
+        {/* Left Arm holding the house */}
+        <path d="M 210 168 L 180 206 C 176 211 180 218 186 218 L 194 214 L 222 178 Z" fill="#253860" />
+        <circle cx="184" cy="214" r="9" fill="#e5a882" />
+
+        {/* Right Arm */}
+        <path d="M 290 168 L 312 216 C 314 221 310 227 304 227 L 296 223 L 278 178 Z" fill="#253860" />
+        <circle cx="310" cy="226" r="9" fill="#e5a882" />
+
+        {/* Body / Suit Jacket */}
+        <path d="M 205 160 C 205 160, 295 160, 295 160 C 304 160, 308 168, 308 178 L 300 242 C 300 252, 290 260, 280 260 L 220 260 C 210 260, 200 252, 200 242 L 192 178 C 192 168, 196 160, 205 160 Z" fill="#253860" />
+
+        {/* White Shirt Collar */}
+        <polygon points="235,160 250,184 265,160 250,160" fill="#ffffff" />
+
+        {/* Blue Tie */}
+        <polygon points="247,167 253,167 254,218 250,225 246,218" fill="#2f6bff" />
+        <polygon points="247,165 253,165 252,172 248,172" fill="#1b253b" opacity="0.3" />
+
+        {/* Neck */}
+        <rect x="242" y="145" width="16" height="20" rx="2" fill="#e5a882" />
+
+        {/* Head & Face */}
+        <circle cx="250" cy="116" r="32" fill="#e5a882" />
+
+        {/* Hair */}
+        <path d="M 219 116 C 216 90 230 76 250 76 C 270 76 284 90 281 116 C 276 104 268 96 250 96 C 232 96 224 104 219 116 Z" fill="#3d2c22" />
+
+        {/* Eyes (Blinking) */}
+        <g className="animated-eyes">
+          <circle cx="239" cy="113" r="3" fill="#3d2c22" />
+          <circle cx="261" cy="113" r="3" fill="#3d2c22" />
+        </g>
+
+        {/* Smile */}
+        <path d="M 237 125 Q 250 134 263 125" stroke="#3d2c22" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+
+        {/* Blush Cheeks */}
+        <circle cx="233" cy="122" r="3.5" fill="#d97757" opacity="0.25" />
+        <circle cx="267" cy="122" r="3.5" fill="#d97757" opacity="0.25" />
+
+        {/* House Prop */}
+        <g className="animated-house">
+          <polygon points="144,204 168,180 192,204" fill="#2f6bff" />
+          <polygon points="168,180 174,186 174,182 170,182" fill="#1b253b" />
+          <rect x="148" y="204" width="40" height="30" fill="#151e30" stroke="#2f6bff" strokeWidth="2" rx="1" />
+          <rect x="162" y="216" width="12" height="18" rx="2" fill="#0d1322" />
+          <circle cx="170" cy="225" r="1" fill="#2f6bff" />
+        </g>
+      </g>
+
+      {/* Badge 1: AICAT */}
+      <g className="animated-badge-left">
+        <rect x="36" y="284" width="170" height="42" rx="21" fill="#2f6bff" filter="url(#bluePillShadow)" />
+        <text x="121" y="310" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="bold" textAnchor="middle">
+          Registro AICAT Nº 5583
+        </text>
+      </g>
+
+      {/* Badge 2: +15 Años */}
+      <g className="animated-badge-right">
+        <rect x="315" y="46" width="186" height="42" rx="21" fill="#0e172a" stroke="#2f6bff" strokeWidth="2.5" filter="url(#pillShadow)" />
+        <text x="408" y="72" fill="#ffffff" fontFamily="system-ui, -apple-system, sans-serif" fontSize="13" fontWeight="bold" textAnchor="middle">
+          +15 años de experiencia
+        </text>
+      </g>
+    </svg>
+  );
+}

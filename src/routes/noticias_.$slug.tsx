@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
+import { FooterMascot } from "@/components/FooterMascot";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -914,14 +915,7 @@ function ArticleDetail() {
 
           {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
           <div className="hidden md:flex w-full md:w-[280px] lg:w-[320px] xl:w-[360px] items-center justify-center self-center shrink-0">
-            <img 
-              src="/images/gesgrama_footer_mascot_v2.svg" 
-              alt="Gesgrama Asesor Inmobiliario" 
-              width={340} 
-              height={340} 
-              className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl"
-              loading="lazy"
-            />
+            <FooterMascot className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl" />
           </div>
 
         </div>

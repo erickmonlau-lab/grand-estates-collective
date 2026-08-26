@@ -1,107 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" width="100%" height="100%" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 370" width="100%" height="100%">
   <defs>
     <style>
-      /* Smooth Floating & Breathing Animations */
       @keyframes mascotFloat {
-        0%, 100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-7px);
-        }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-7px); }
       }
-
       @keyframes shadowScale {
-        0%, 100% {
-          transform: scale(1);
-          opacity: 0.7;
-        }
-        50% {
-          transform: scale(0.92);
-          opacity: 0.5;
-        }
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(0.9); opacity: 0.45; }
       }
-
       @keyframes houseBob {
-        0%, 100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-4px) rotate(-1.5deg);
-        }
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-4px) rotate(-1.5deg); }
       }
-
       @keyframes eyeBlink {
-        0%, 92%, 100% {
-          transform: scaleY(1);
-        }
-        95% {
-          transform: scaleY(0.1);
-        }
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.1); }
       }
-
       @keyframes badgeLeftFloat {
-        0%, 100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-4px);
-        }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-4px); }
       }
-
       @keyframes badgeRightFloat {
-        0%, 100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(4px);
-        }
-      }
-
-      @keyframes starSparkle {
-        0%, 100% {
-          transform: scale(1) rotate(0deg);
-          opacity: 0.9;
-        }
-        50% {
-          transform: scale(1.3) rotate(45deg);
-          opacity: 1;
-        }
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(4px); }
       }
 
       .animated-mascot {
         animation: mascotFloat 4s ease-in-out infinite;
         transform-origin: center bottom;
       }
-
       .animated-shadow {
         animation: shadowScale 4s ease-in-out infinite;
         transform-origin: 250px 338px;
       }
-
       .animated-house {
         animation: houseBob 3.5s ease-in-out infinite;
         transform-origin: 172px 210px;
       }
-
       .animated-eyes {
         animation: eyeBlink 4.5s ease-in-out infinite;
-        transform-origin: 250px 116px;
+        transform-origin: 250px 113px;
       }
-
       .animated-badge-left {
         animation: badgeLeftFloat 4.2s ease-in-out infinite;
       }
-
       .animated-badge-right {
         animation: badgeRightFloat 4.8s ease-in-out infinite;
       }
-
-      .animated-star {
-        animation: starSparkle 2.5s ease-in-out infinite;
-        transform-origin: 250px 75px;
-      }
     </style>
+    <filter id="pillShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+    <filter id="bluePillShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2f6bff" flood-opacity="0.4" />
+    </filter>
   </defs>
 
   <!-- ── 1. GROUND SHADOW ── -->
@@ -164,7 +117,7 @@
     <g class="animated-house">
       <!-- Blue Roof -->
       <polygon points="144,204 168,180 192,204" fill="#2f6bff" />
-      <polygon points="168,180 174,186 174,182 170,182" fill="#1b253b" /> <!-- subtle chimney accent -->
+      <polygon points="168,180 174,186 174,182 170,182" fill="#1b253b" />
 
       <!-- Dark Navy House Body with Blue Outline -->
       <rect x="148" y="204" width="40" height="30" fill="#151e30" stroke="#2f6bff" stroke-width="2" rx="1" />
@@ -179,17 +132,13 @@
 
   <!-- BADGE 1 (Bottom Left): Registro AICAT Nº 5583 -->
   <g class="animated-badge-left">
-    <rect x="36" y="284" width="170" height="42" rx="21" fill="#2f6bff" filter="drop-shadow(0 4px 10px rgba(47,107,255,0.3))" />
-    <text x="121" y="310" fill="#ffffff" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="0.3">
-      Registro AICAT Nº 5583
-    </text>
+    <rect x="36" y="284" width="170" height="42" rx="21" fill="#2f6bff" filter="url(#bluePillShadow)" />
+    <text x="121" y="310" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Registro AICAT Nº 5583</text>
   </g>
 
   <!-- BADGE 2 (Top Right): +15 años de experiencia -->
   <g class="animated-badge-right">
-    <rect x="315" y="46" width="186" height="42" rx="21" fill="#0e172a" stroke="#2f6bff" stroke-width="2.5" filter="drop-shadow(0 4px 12px rgba(14,23,42,0.5))" />
-    <text x="408" y="72" fill="#ffffff" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="0.2">
-      +15 años de experiencia
-    </text>
+    <rect x="315" y="46" width="186" height="42" rx="21" fill="#0e172a" stroke="#2f6bff" stroke-width="2.5" filter="url(#pillShadow)" />
+    <text x="408" y="72" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">+15 años de experiencia</text>
   </g>
 </svg>

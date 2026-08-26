@@ -12,6 +12,7 @@ import gallery1 from "@/assets/gallery-1.webp";
 
 import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
+import { FooterMascot } from '@/components/FooterMascot';
 
 export const Route = createFileRoute("/")(  {
   component: Index,
@@ -2103,14 +2104,7 @@ function Index() {
           <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
             {/* Mascot on Mobile (<768px): Centered Above Columns */}
             <div className="w-full md:hidden flex justify-center items-center mb-4">
-              <img 
-                src="/images/gesgrama_footer_mascot_v2.svg" 
-                alt="Gesgrama Asesor Inmobiliario" 
-                width={240} 
-                height={240} 
-                className="w-44 sm:w-52 h-auto object-contain"
-                loading="lazy"
-              />
+              <FooterMascot className="w-48 sm:w-56 h-auto object-contain drop-shadow-2xl" />
             </div>
 
             {/* Text Columns (Left Block) */}
@@ -2204,14 +2198,7 @@ function Index() {
 
             {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
             <div className="hidden md:flex w-full md:w-[280px] lg:w-[320px] xl:w-[360px] items-center justify-center self-center shrink-0">
-              <img 
-                src="/images/gesgrama_footer_mascot_v2.svg" 
-                alt="Gesgrama Asesor Inmobiliario" 
-                width={340} 
-                height={340} 
-                className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl"
-                loading="lazy"
-              />
+              <FooterMascot className="w-full max-h-[300px] lg:max-h-[340px] object-contain drop-shadow-2xl" />
             </div>
           </div>
 

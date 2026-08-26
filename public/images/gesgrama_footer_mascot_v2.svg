@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 340" width="100%" height="100%" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" width="100%" height="100%" fill="none">
   <defs>
     <style>
       @keyframes waveForearm {
         0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(18deg); }
+        25% { transform: rotate(16deg); }
         50% { transform: rotate(-6deg); }
-        75% { transform: rotate(20deg); }
+        75% { transform: rotate(18deg); }
       }
       @keyframes naturalBlink {
         0%, 90%, 100% { transform: scaleY(1); }
@@ -13,109 +13,109 @@
       }
       .forearm-waving {
         animation: waveForearm 2s ease-in-out infinite;
-        transform-origin: 260px 175px;
+        transform-origin: 242px 165px;
       }
       .eyes-blinking {
         animation: naturalBlink 4s ease-in-out infinite;
-        transform-origin: 190px 88px;
+        transform-origin: 180px 84px;
       }
     </style>
   </defs>
 
   <!-- ── 1. SUELO GRIS FUERTE ── -->
-  <ellipse cx="190" cy="315" rx="110" ry="12" fill="#475569" opacity="0.95" />
-  <ellipse cx="190" cy="315" rx="90" ry="9" fill="#334155" />
+  <ellipse cx="180" cy="298" rx="105" ry="11" fill="#475569" opacity="0.95" />
+  <ellipse cx="180" cy="298" rx="85" ry="8" fill="#334155" />
 
   <!-- ── 2. BACKGROUND CIRCLE ── -->
-  <circle cx="190" cy="165" r="115" fill="#131d33" stroke="#2563eb" stroke-width="3" />
-  <circle cx="190" cy="165" r="109" fill="#16233d" />
+  <circle cx="180" cy="155" r="108" fill="#131d33" stroke="#2563eb" stroke-width="3" />
+  <circle cx="180" cy="155" r="102" fill="#16233d" />
 
   <!-- ── 3. CHARACTER BODY ── -->
   <g id="character">
-    <rect x="162" y="220" width="24" height="75" rx="4" fill="#0f172a" />
-    <rect x="194" y="220" width="24" height="75" rx="4" fill="#0f172a" />
+    <rect x="154" y="208" width="22" height="70" rx="4" fill="#0f172a" />
+    <rect x="184" y="208" width="22" height="70" rx="4" fill="#0f172a" />
 
-    <rect x="154" y="288" width="34" height="16" rx="8" fill="#070c18" />
-    <rect x="192" y="288" width="34" height="16" rx="8" fill="#070c18" />
+    <rect x="146" y="272" width="32" height="15" rx="7.5" fill="#070c18" />
+    <rect x="182" y="272" width="32" height="15" rx="7.5" fill="#070c18" />
 
-    <path d="M 135 138 C 135 138, 245 138, 245 138 C 255 138, 262 146, 262 158 L 252 232 C 252 240, 242 248, 230 248 L 150 248 C 138 248, 128 240, 128 232 L 118 158 C 118 146, 125 138, 135 138 Z" fill="#22345c" />
+    <path d="M 128 130 C 128 130, 232 130, 232 130 C 242 130, 248 138, 248 148 L 238 218 C 238 226, 228 234, 218 234 L 142 234 C 132 234, 122 226, 122 218 L 112 148 C 112 138, 118 130, 128 130 Z" fill="#22345c" />
     
-    <circle cx="130" cy="148" r="16" fill="#22345c" />
-    <circle cx="250" cy="148" r="16" fill="#22345c" />
+    <circle cx="124" cy="140" r="15" fill="#22345c" />
+    <circle cx="236" cy="140" r="15" fill="#22345c" />
 
-    <path d="M 135 138 L 172 196 L 160 244" stroke="#182542" stroke-width="2.5" stroke-linecap="round" />
-    <path d="M 245 138 L 208 196 L 220 244" stroke="#182542" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M 128 130 L 164 185 L 152 230" stroke="#182542" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M 232 130 L 196 185 L 208 230" stroke="#182542" stroke-width="2.5" stroke-linecap="round" />
 
-    <polygon points="172,138 190,168 208,138 190,138" fill="#ffffff" />
-    <polygon points="186,146 194,146 196,206 190,214 184,206" fill="#2563eb" />
+    <polygon points="164,130 180,158 196,130 180,130" fill="#ffffff" />
+    <polygon points="176,138 184,138 186,195 180,202 174,195" fill="#2563eb" />
 
-    <rect x="183" y="118" width="14" height="22" rx="3" fill="#f3b18c" />
-    <circle cx="190" cy="88" r="34" fill="#f3b18c" />
+    <rect x="173" y="112" width="14" height="20" rx="3" fill="#f3b18c" />
+    <circle cx="180" cy="84" r="32" fill="#f3b18c" />
 
-    <path d="M 156 88 C 152 58 168 44 190 44 C 212 44 228 58 224 88 C 218 76 208 66 190 66 C 172 66 162 76 156 88 Z" fill="#3b271d" />
+    <path d="M 148 84 C 144 55 160 42 180 42 C 200 42 216 55 212 84 C 206 72 196 62 180 62 C 164 62 154 72 148 84 Z" fill="#3b271d" />
 
     <g class="eyes-blinking">
-      <circle cx="178" cy="85" r="3.5" fill="#3b271d" />
-      <circle cx="180" cy="83.5" r="1.3" fill="#ffffff" />
-      <circle cx="202" cy="85" r="3.5" fill="#3b271d" />
-      <circle cx="204" cy="83.5" r="1.3" fill="#ffffff" />
+      <circle cx="168" cy="81" r="3.2" fill="#3b271d" />
+      <circle cx="170" cy="79.5" r="1.2" fill="#ffffff" />
+      <circle cx="192" cy="81" r="3.2" fill="#3b271d" />
+      <circle cx="194" cy="79.5" r="1.2" fill="#ffffff" />
     </g>
 
-    <path d="M 176 97 Q 190 110 204 97 Z" fill="#ffffff" stroke="#3b271d" stroke-width="2.2" stroke-linejoin="round" />
-    <path d="M 176 97 Q 190 110 204 97" stroke="#3b271d" stroke-width="2.2" fill="none" stroke-linecap="round" />
+    <path d="M 167 92 Q 180 104 193 92 Z" fill="#ffffff" stroke="#3b271d" stroke-width="2" stroke-linejoin="round" />
+    <path d="M 167 92 Q 180 104 193 92" stroke="#3b271d" stroke-width="2" fill="none" stroke-linecap="round" />
 
-    <circle cx="170" cy="95" r="4.5" fill="#ea7b64" opacity="0.35" />
-    <circle cx="210" cy="95" r="4.5" fill="#ea7b64" opacity="0.35" />
+    <circle cx="161" cy="90" r="4" fill="#ea7b64" opacity="0.35" />
+    <circle cx="199" cy="90" r="4" fill="#ea7b64" opacity="0.35" />
 
     <!-- ── LEFT ARM ── -->
     <g id="left-arm">
-      <path d="M 130 148 L 100 195 L 118 205 L 144 158 Z" fill="#22345c" />
-      <path d="M 100 195 L 82 205 L 88 220 L 118 205 Z" fill="#22345c" />
-      <rect x="76" y="202" width="14" height="6" rx="3" fill="#182542" transform="rotate(30 76 202)" />
+      <path d="M 124 140 L 95 184 L 112 194 L 138 149 Z" fill="#22345c" />
+      <path d="M 95 184 L 78 194 L 84 208 L 112 194 Z" fill="#22345c" />
+      <rect x="73" y="190" width="13" height="5.5" rx="2.7" fill="#182542" transform="rotate(30 73 190)" />
 
-      <ellipse cx="80" cy="214" rx="14" ry="7" fill="#f3b18c" />
-      <ellipse cx="52" cy="204" rx="4.5" ry="7" fill="#f3b18c" transform="rotate(-15 52 204)" />
+      <ellipse cx="76" cy="202" rx="13" ry="6.5" fill="#f3b18c" />
+      <ellipse cx="49" cy="192" rx="4" ry="6.5" fill="#f3b18c" transform="rotate(-15 49 192)" />
     </g>
 
     <!-- ── SOLID WHITE MINIATURE HOUSE ── -->
-    <g id="house" transform="translate(48, 150)">
-      <polygon points="-4,30 28,2 60,30" fill="#2563eb" />
-      <polygon points="28,2 36,8 36,4 32,4" fill="#1e293b" />
-      <line x1="0" y1="28" x2="28" y2="4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+    <g id="house" transform="translate(46, 142)">
+      <polygon points="-3,28 26,2 55,28" fill="#2563eb" />
+      <polygon points="26,2 33,8 33,4 29,4" fill="#1e293b" />
+      <line x1="0" y1="26" x2="26" y2="4" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" />
 
-      <rect x="0" y="30" width="56" height="42" rx="3.5" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
-      <rect x="0" y="30" width="56" height="4.5" fill="#e2e8f0" />
+      <rect x="0" y="28" width="52" height="38" rx="3" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8" />
+      <rect x="0" y="28" width="52" height="4" fill="#e2e8f0" />
 
-      <rect x="7" y="37" width="13" height="13" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1.2" />
-      <line x1="13.5" y1="37" x2="13.5" y2="50" stroke="#ffffff" strokeWidth="1.2" />
-      <line x1="7" y1="43.5" x2="20" y2="43.5" stroke="#ffffff" strokeWidth="1.2" />
+      <rect x="6" y="34" width="12" height="12" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1" />
+      <line x1="12" y1="34" x2="12" y2="46" stroke="#ffffff" stroke-width="1" />
+      <line x1="6" y1="40" x2="18" y2="40" stroke="#ffffff" stroke-width="1" />
 
-      <rect x="36" y="37" width="13" height="13" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1.2" />
-      <line x1="42.5" y1="37" x2="42.5" y2="50" stroke="#ffffff" strokeWidth="1.2" />
-      <line x1="36" y1="43.5" x2="49" y2="43.5" stroke="#ffffff" strokeWidth="1.2" />
+      <rect x="34" y="34" width="12" height="12" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1" />
+      <line x1="40" y1="34" x2="40" y2="46" stroke="#ffffff" stroke-width="1" />
+      <line x1="34" y1="40" x2="46" y2="40" stroke="#ffffff" stroke-width="1" />
 
-      <rect x="22" y="45" width="12" height="27" rx="1.5" fill="#0f172a" />
-      <circle cx="31" cy="58" r="1.2" fill="#fbbf24" />
+      <rect x="20" y="41" width="11" height="25" rx="1.5" fill="#0f172a" />
+      <circle cx="28.5" cy="53" r="1" fill="#fbbf24" />
     </g>
 
     <!-- ── RIGHT UPPER ARM ── -->
     <g id="right-upper-arm">
-      <path d="M 250 148 L 268 175 L 250 185 L 236 156 Z" fill="#22345c" />
-      <circle cx="260" cy="178" r="11" fill="#22345c" />
+      <path d="M 236 140 L 250 165 L 234 174 L 222 148 Z" fill="#22345c" />
+      <circle cx="242" cy="165" r="10" fill="#22345c" />
     </g>
 
     <!-- ── RIGHT FOREARM & HAND ── -->
     <g className="forearm-waving">
-      <path d="M 254 174 L 292 102 L 308 110 L 268 184 Z" fill="#22345c" />
-      <rect x="290" y="100" width="16" height="6" rx="3" fill="#182542" transform="rotate(-30 290 100)" />
+      <path d="M 237 162 L 268 94 L 284 102 L 247 172 Z" fill="#22345c" />
+      <rect x="265" y="92" width="16" height="6" rx="3" fill="#182542" transform="rotate(-30 265 92)" />
 
-      <g id="hand" transform="translate(295, 75)">
-        <circle cx="12" cy="16" r="11" fill="#f3b18c" />
-        <ellipse cx="2" cy="19" rx="3.5" ry="6" fill="#f3b18c" transform="rotate(-30 2 19)" />
-        <rect x="5" y="2" width="3.5" height="12" rx="1.8" fill="#f3b18c" />
-        <rect x="10" y="-1" width="3.5" height="15" rx="1.8" fill="#f3b18c" />
-        <rect x="15" y="1" width="3.5" height="13" rx="1.8" fill="#f3b18c" />
-        <rect x="20" y="4" width="3.2" height="10" rx="1.6" fill="#f3b18c" />
+      <g id="hand" transform="translate(268, 70)">
+        <circle cx="12" cy="17" r="10.5" fill="#f3b18c" />
+        <ellipse cx="2" cy="20" rx="3.5" ry="6" fill="#f3b18c" transform="rotate(-30 2 20)" />
+        <rect x="5" y="4" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
+        <rect x="10" y="1" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
+        <rect x="15" y="3" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
+        <rect x="20" y="6" width="3" height="9" rx="1.5" fill="#f3b18c" />
       </g>
     </g>
   </g>

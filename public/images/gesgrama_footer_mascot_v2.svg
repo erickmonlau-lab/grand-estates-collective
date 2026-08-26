@@ -3,16 +3,16 @@
     <style>
       @keyframes waveForearmGreeting {
         0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(16deg); }
-        50% { transform: rotate(-10deg); }
-        75% { transform: rotate(18deg); }
+        25% { transform: rotate(14deg); }
+        50% { transform: rotate(-8deg); }
+        75% { transform: rotate(16deg); }
       }
       @keyframes naturalBlink {
         0%, 90%, 100% { transform: scaleY(1); }
         95% { transform: scaleY(0.1); }
       }
       .forearm-waving {
-        animation: waveForearmGreeting 1.8s ease-in-out infinite;
+        animation: waveForearmGreeting 2s ease-in-out infinite;
         transform-origin: 246px 172px;
       }
       .eyes-blinking {
@@ -104,18 +104,18 @@
       <circle cx="246" cy="172" r="10" fill="#22345c" />
     </g>
 
-    <!-- ── RIGHT FOREARM & FRONT-FACING GREETING HAND ── -->
+    <!-- ── RIGHT FOREARM & CLEAN GREETING HAND ── -->
     <g className="forearm-waving">
-      <path d="M 240 170 L 262 110 L 278 116 L 252 178 Z" fill="#22345c" />
-      <rect x="258" y="108" width="22" height="6.5" rx="3.2" fill="#182542" transform="rotate(-15 258 108)" />
+      <path d="M 240 170 L 272 108 L 290 117 L 254 178 Z" fill="#22345c" />
+      <rect x="267" y="106" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-30 278 109)" />
 
-      <g id="front-facing-hand" transform="translate(268, 76)">
-        <circle cx="11" cy="22" r="10" fill="#f3b18c" />
-        <ellipse cx="1" cy="25" rx="3.5" ry="5.5" fill="#f3b18c" transform="rotate(-30 1 25)" />
-        <rect x="4" y="6" width="3.4" height="15" rx="1.7" fill="#f3b18c" />
-        <rect x="9" y="3" width="3.4" height="18" rx="1.7" fill="#f3b18c" />
-        <rect x="14" y="5" width="3.4" height="16" rx="1.7" fill="#f3b18c" />
-        <rect x="19" y="9" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
+      <g id="natural-greeting-hand" transform="translate(278, 109) rotate(-30)">
+        <rect x="-8" y="-18" width="16" height="18" rx="6" fill="#f3b18c" />
+        <rect x="-12" y="-14" width="5.5" height="11" rx="2.75" fill="#f3b18c" transform="rotate(-35 -9 -9)" />
+        <rect x="-7.5" y="-28" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
+        <rect x="-3" y="-31" width="3.2" height="15" rx="1.6" fill="#f3b18c" />
+        <rect x="1.5" y="-30" width="3.2" height="14" rx="1.6" fill="#f3b18c" />
+        <rect x="6" y="-27" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
       </g>
     </g>
   </g>

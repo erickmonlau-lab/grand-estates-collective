@@ -29,9 +29,10 @@ export const legalTranslations = {
       s5_title: "5. Acreditaciones Profesionales",
       s5_text: "Gesgrama cuenta con la adscripción y cumplimiento de las regulaciones sectoriales de:",
       acreditaciones: [
+        "Colegio Oficial de Agentes de la Propiedad Inmobiliaria (API) — Colegiado nº A10750.",
         "Registre d'Agents Immobiliaris de Catalunya (AICAT) — Inscripción nº 5583.",
-        "Colegio de Agentes de la Propiedad Inmobiliaria (API).",
-        "Asociación de Administradores Judiciales de Fincas."
+        "Peritos Judiciales Inmobiliarios — Acreditación Oficial PJI 2024.",
+        "Asociación de Peritos Judiciales Inmobiliarios (APIS - PERITOS) — Asociado nº 1639."
       ]
     },
     politicaPrivacidad: {
@@ -110,9 +111,10 @@ export const legalTranslations = {
       s5_title: "5. Acreditacions Professionals",
       s5_text: "Gesgrama compta amb l'adscripció i compliment de les regulacions sectorials de:",
       acreditaciones: [
+        "Col·legi Oficial d'Agents de la Propietat Immobiliària (API) — Col·legiat núm. A10750.",
         "Registre d'Agents Immobiliaris de Catalunya (AICAT) — Inscripció núm. 5583.",
-        "Col·legi d'Agents de la Propietat Immobiliària (API).",
-        "Associació d'Administradors Judicials de Finques."
+        "Perits Judicials Immobiliaris — Acreditació Oficial PJI 2024.",
+        "Associació de Perits Judicials Immobiliaris (APIS - PERITOS) — Associat núm. 1639."
       ]
     },
     politicaPrivacidad: {
@@ -191,9 +193,10 @@ export const legalTranslations = {
       s5_title: "5. Professional Accreditations",
       s5_text: "Gesgrama holds membership and compliance with sectoral regulations of:",
       acreditaciones: [
-        "Registry of Real Estate Agents of Catalonia (AICAT) — Registration nº 5583.",
-        "Official Association of Real Estate Agents (API).",
-        "Association of Judicial Property Administrators."
+        "Official Association of Real Estate Agents (API) — Member No. A10750.",
+        "Registry of Real Estate Agents of Catalonia (AICAT) — Registration No. 5583.",
+        "Judicial Real Estate Experts — Official Certification PJI 2024.",
+        "Association of Judicial Real Estate Experts (APIS - PERITOS) — Member No. 1639."
       ]
     },
     politicaPrivacidad: {

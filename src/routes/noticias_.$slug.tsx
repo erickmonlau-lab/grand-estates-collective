@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
 import { FooterMascot } from "@/components/FooterMascot";
 import { Navbar } from "@/components/Navbar";
+import { AccreditationBadges } from "@/components/AccreditationBadges";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -846,43 +847,13 @@ function ArticleDetail() {
 
         </div>
 
-        {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 3 Columnas) */}
+        {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 4 Columnas Oficiales) */}
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-10">
           <div className="border-t border-white/10 pt-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
               {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-5">
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-blue-400 transition-colors">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  AICAT
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Registre d'Agents Immobiliaris" : language === "en" ? "Registry of Real Estate Agents" : "Registro de Agentes Inmobiliarios"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Inscripció AICAT Nº 5583" : language === "en" ? "AICAT Reg. No. 5583" : "Inscripción AICAT Nº 5583"}</span>
-                </div>
-              </div>
-
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-amber-400 transition-colors">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-700 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  API
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Col·legi de la Propietat Immobiliària" : language === "en" ? "Real Estate Association" : "Colegio de la Propiedad Inmobiliaria"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Agent Col·legiat Oficial" : language === "en" ? "Official Registered Agent" : "Agente Colegiado Oficial"}</span>
-                </div>
-              </div>
-
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-emerald-400 transition-colors sm:col-span-2 md:col-span-1">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-emerald-800 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  ADM
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Administradors de Finques" : language === "en" ? "Property Administrators" : "Administradores de Fincas"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Associació de Finques i Comunitats" : language === "en" ? "Estates & Communities Association" : "Asociación de Fincas y Comunidades"}</span>
-                </div>
-              </div>
-            </div>
+            <AccreditationBadges language={language} />
           </div>
         </div>
 

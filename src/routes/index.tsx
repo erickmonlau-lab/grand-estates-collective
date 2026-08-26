@@ -14,6 +14,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
 import { FooterMascot } from '@/components/FooterMascot';
 import { Navbar } from '@/components/Navbar';
+import { AccreditationBadges } from '@/components/AccreditationBadges';
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 
 export const Route = createFileRoute("/")({
@@ -1265,10 +1266,10 @@ function Index() {
                     {/* Texto informativo + Botón Píldora Azul Cyan */}
                     <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        <h3 className="text-xl md:text-2xl font-black text-[#0f172a] mb-2 leading-snug group-hover:text-[#0369a1] transition-colors">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] mb-2.5 leading-snug group-hover:text-[#0369a1] transition-colors">
                           {item.title}
                         </h3>
-                        <p className="text-sm sm:text-base text-[#475569] font-semibold leading-relaxed mb-4">
+                        <p className="text-base sm:text-lg text-slate-700 font-bold leading-relaxed mb-5">
                           {item.desc}
                         </p>
                       </div>
@@ -1279,10 +1280,10 @@ function Index() {
                             e.stopPropagation();
                             setSelectedServiceIndex(i);
                           }}
-                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-extrabold text-sm px-5 py-2.5 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
+                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-sm sm:text-base px-6 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2.5 w-fit font-sans"
                         >
                           <span>{t.servicios.saberMas}</span>
-                          <ArrowRight className="w-4 h-4 text-white" />
+                          <ArrowRight className="w-4.5 h-4.5 text-white" />
                         </button>
                       </div>
                     </div>
@@ -1303,7 +1304,7 @@ function Index() {
             {/* LEFT COLUMN: Form */}
             <div className="lg:col-span-7 flex flex-col justify-center">
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-[11px] sm:text-sm font-black tracking-wider sm:tracking-widest uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-md font-sans">
+                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-xs sm:text-sm font-black tracking-wider sm:tracking-widest uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-md font-sans">
                   <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
                   <span>{t.valorador.tag}</span>
                 </span>
@@ -1316,7 +1317,7 @@ function Index() {
                 </span>
               </h2>
 
-              <p className="text-slate-600 text-base sm:text-xl md:text-2xl max-w-[580px] mb-6 sm:mb-8 leading-relaxed font-extrabold font-sans">
+              <p className="text-slate-700 text-base sm:text-xl md:text-2xl max-w-[580px] mb-6 sm:mb-8 leading-relaxed font-extrabold font-sans">
                 {t.valorador.subtitle}
               </p>
 
@@ -1325,32 +1326,32 @@ function Index() {
                   {/* Inputs Row */}
                   <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
                     {/* Select Zona */}
-                    <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 flex items-center justify-between shadow-xs">
+                    <div className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-2xl px-5 py-4 flex items-center justify-between shadow-xs">
                       <div className="flex items-center gap-3 w-full">
-                        <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                        <MapPin className="w-5 h-5 text-[#2563eb] shrink-0" />
                         <select
                           id="valuator-zona-select"
                           aria-label="Seleccionar zona de la propiedad"
                           value={valuatorData.zona}
                           onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm font-bold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                          className="w-full bg-transparent border-0 p-0 text-base font-bold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
                         >
                           <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
                           {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
                         </select>
                       </div>
-                      <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                      <ChevronDown className="w-5 h-5 text-slate-500 shrink-0" />
                     </div>
 
                     {/* Input Superficie (Ruler Icon) */}
-                    <div className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 flex items-center gap-3 shadow-xs">
-                      <Ruler className="w-4 h-4 text-[#2563eb] shrink-0" />
+                    <div className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xs">
+                      <Ruler className="w-5 h-5 text-[#2563eb] shrink-0" />
                       <input
                         type="text"
                         placeholder={language === "ca" ? "Superfície aprox. (m²)" : language === "en" ? "Approx. surface (m²)" : "Superficie aprox. (m²)"}
                         value={valuatorData.metros}
                         onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                        className="w-full bg-transparent border-0 p-0 text-sm font-bold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
+                        className="w-full bg-transparent border-0 p-0 text-base font-bold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
                       />
                     </div>
                   </div>
@@ -1360,21 +1361,21 @@ function Index() {
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-4 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 mb-4 font-sans disabled:opacity-75"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-lg py-4.5 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 mb-4 font-sans disabled:opacity-75"
                   >
-                    <Home className="w-4 h-4 text-white" />
+                    <Home className="w-5 h-5 text-white" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
+                    <ArrowRight className="w-5 h-5 text-white" />
                   </button>
 
                   {/* Trust Badges - Horizontal row centered under button */}
-                  <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-2 sm:gap-4 mt-3 w-full">
-                    <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-md text-[11px] xs:text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 stroke-[3] shrink-0" />
+                  <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-2.5 sm:gap-4 mt-3 w-full">
+                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-base font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
                       <span>{t.valorador.sinCompromiso}</span>
                     </span>
-                    <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-md text-[11px] xs:text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
+                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-base font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400 shrink-0" />
                       <span>{t.valorador.resultadoInmediato}</span>
                     </span>
                   </div>
@@ -1512,32 +1513,32 @@ function Index() {
                     "Riu Nord / Riu Sud",
                     "Oliveres - Can Serra"
                   ].map((barrio) => (
-                    <span key={barrio} className="bg-[#2A3245] text-white text-xs sm:text-sm font-black px-4 py-2 rounded-full border border-white/10 shadow-sm hover:bg-[#343e55] transition-colors">
+                    <span key={barrio} className="bg-[#2A3245] text-white text-sm sm:text-base font-black px-4.5 py-2.5 rounded-full border border-white/10 shadow-sm hover:bg-[#343e55] transition-colors">
                       📍 {formatLocation(barrio, language)}
                     </span>
                   ))}
                 </div>
               </Reveal>
 
-              {/* Help Bubble Card */}
+              {/* Help Bubble Card - LETRAS MÁS GRANDES */}
               <Reveal delay={0.1} className="w-full">
-                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl text-[#0f172a]">
+                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl text-[#0f172a]">
                   <div className="flex items-center gap-4 w-full sm:w-auto">
-                    <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
-                      <MessageCircle className="w-6 h-6" />
+                    <div className="w-14 h-14 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
+                      <MessageCircle className="w-7 h-7" />
                     </div>
                     <div>
-                      <h3 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans">
+                      <h3 className="text-lg sm:text-xl font-black text-[#0f172a] leading-tight font-sans">
                         {language === "ca" ? "Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
                       </h3>
-                      <p className="text-slate-600 text-sm sm:text-base font-bold leading-tight mt-1 font-sans">
+                      <p className="text-slate-700 text-base sm:text-lg font-extrabold leading-snug mt-1 font-sans">
                         {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
                       </p>
                     </div>
                   </div>
-                  <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-7 py-4 rounded-full transition-all shadow-md flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap">
+                  <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base px-8 py-4 rounded-full transition-all shadow-md flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap">
                     <span>{t.hero.contacto}</span>
-                    <ArrowRight className="w-4.5 h-4.5 text-white" />
+                    <ArrowRight className="w-5 h-5 text-white" />
                   </a>
                 </div>
               </Reveal>
@@ -1561,13 +1562,13 @@ function Index() {
                 {/* Floating Card Bottom Right */}
                 <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 bg-[#0b172a] text-white rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 z-30 pointer-events-auto max-w-full">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-10 h-10 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
-                      <MapPin className="w-5 h-5" />
+                    <div className="w-11 h-11 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <MapPin className="w-5.5 h-5.5" />
                     </div>
                     <div>
                       <h3 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
-                      <p className="text-white text-sm sm:text-base font-extrabold font-sans">Av. dels Banús, 49</p>
-                      <p className="text-slate-200 text-xs sm:text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
+                      <p className="text-white text-base sm:text-lg font-black font-sans">Av. dels Banús, 49</p>
+                      <p className="text-slate-200 text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                     </div>
                   </div>
                 </div>
@@ -1662,7 +1663,7 @@ function Index() {
         </div>
       </section>
 
-      {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      {/* ── ÚLTIMAS NOTICIAS (BLOG) - LETRAS MÁS GRANDES Y LEGIBLES ── */}
       <section id="blog" className="pt-6 pb-14 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
         <div className="max-w-[1300px] mx-auto">
           <Reveal>
@@ -1682,15 +1683,15 @@ function Index() {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {articles.slice(0, 4).map((art, i) => {
               const title = art.title[language];
               const summary = art.summary[language];
               const date = art.date;
               return (
                 <Reveal key={art.id} delay={i * 0.1}>
-                  <div className="bg-white rounded-2xl p-4 flex flex-col h-full border border-slate-200/80 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/7] overflow-hidden rounded-xl mb-3 bg-slate-100 cursor-pointer">
+                  <div className="bg-white rounded-2xl sm:rounded-3xl p-5 flex flex-col h-full border-2 border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/8] overflow-hidden rounded-xl mb-3.5 bg-slate-100 cursor-pointer">
                       <img
                         src={art.image}
                         alt={title}
@@ -1699,23 +1700,23 @@ function Index() {
                       />
                     </Link>
                     <div className="flex flex-col flex-1">
-                      <div className="flex items-center gap-2 text-xs font-bold mb-2">
-                        <span className="text-slate-500 font-semibold">{date}</span>
+                      <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
+                        <span className="text-slate-500 font-extrabold">{date}</span>
                       </div>
-                      <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-sm sm:text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
+                      <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
                         {title}
                       </Link>
-                      <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed mb-3 flex-1 line-clamp-2">
+                      <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
                         {summary}
                       </p>
-                      <div className="mt-auto pt-2">
+                      <div className="mt-auto pt-3 border-t border-slate-100">
                         <Link
                           to="/noticias/$slug"
                           params={{ slug: art.slug }}
-                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-[#2563eb] hover:text-[#1d4ed8] group-hover:gap-2.5 transition-all font-sans cursor-pointer"
+                          className="inline-flex items-center gap-2 text-sm sm:text-base font-black text-[#2563eb] hover:text-[#1d4ed8] group-hover:gap-3 transition-all font-sans cursor-pointer"
                         >
                           <span>{t.noticias.seguirLeyendo}</span>
-                          <ArrowRight className="w-4 h-4 text-[#2563eb]" />
+                          <ArrowRight className="w-4.5 h-4.5 text-[#2563eb]" />
                         </Link>
                       </div>
                     </div>
@@ -1729,17 +1730,17 @@ function Index() {
             <div className="text-center mt-8 sm:mt-12 mb-2 sm:mb-4">
               <Link
                 to="/noticias"
-                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer font-sans"
+                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-9 py-4.5 rounded-full text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer font-sans"
               >
                 <span>{t.noticias.verTodasBtn}</span>
-                <ArrowRight className="w-4 h-4 text-white" />
+                <ArrowRight className="w-5 h-5 text-white" />
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── FAQ (COMPACT LAYOUT WITH TIGHT PADDING) ── */}
+      {/* ── FAQ (COMPACT LAYOUT WITH BIGGER LEGIBLE TEXT) ── */}
       <section 
         id="faq" 
         className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8"
@@ -1768,25 +1769,25 @@ function Index() {
               </div>
             </Reveal>
 
-            {/* Accordion Cards - Compact Gap */}
-            <div className="w-full flex flex-col gap-3 mb-7">
+            {/* Accordion Cards - Compact Gap with Larger Legible Text */}
+            <div className="w-full flex flex-col gap-3.5 mb-8">
               {t.faq.items.map((item, i) => {
                 const isActive = activeFaq === i;
                 return (
                   <Reveal key={i} delay={i * 0.08}>
                     <div 
                       onClick={() => setActiveFaq(isActive ? null : i)}
-                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-4 sm:p-5 shadow-xs transition-all duration-300 hover:border-slate-400 group"
+                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-slate-400 group"
                     >
                       <div className="flex justify-between items-center gap-4">
-                        <h3 className="font-extrabold text-[#0f172a] text-base sm:text-lg pr-2 font-sans leading-snug">{item.q}</h3>
-                        <div className={`w-8.5 h-8.5 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white rotate-45' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}>
-                          <span className="text-xl font-black leading-none">+</span>
+                        <h3 className="font-black text-[#0f172a] text-lg sm:text-xl md:text-2xl pr-2 font-sans leading-snug">{item.q}</h3>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white rotate-45' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}>
+                          <span className="text-2xl font-black leading-none">+</span>
                         </div>
                       </div>
                       {isActive && (
                         <div className="overflow-hidden transition-all duration-300">
-                          <p className="pt-3.5 text-[#0f172a] leading-relaxed font-bold text-sm sm:text-base border-t border-slate-300/80 mt-3.5 font-sans">
+                          <p className="pt-4 text-[#0f172a] leading-relaxed font-bold text-base sm:text-lg md:text-xl border-t-2 border-slate-300/80 mt-4 font-sans">
                             {item.a}
                           </p>
                         </div>
@@ -1801,10 +1802,10 @@ function Index() {
             <div className="text-center">
               <a 
                 href="#contacto" 
-                className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
+                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
               >
                 <span>{t.faq.askDoubt}</span>
-                <ArrowRight className="w-4 h-4 text-white" />
+                <ArrowRight className="w-5 h-5 text-white" />
               </a>
             </div>
           </div>
@@ -2099,42 +2100,12 @@ function Index() {
             </div>
           </div>
 
-          {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 3 Columnas) */}
+          {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 4 Columnas Oficiales) */}
           <div className="border-t border-white/10 pt-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
               {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-5">
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-blue-400 transition-colors">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-600 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  AICAT
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Registre d'Agents Immobiliaris" : language === "en" ? "Registry of Real Estate Agents" : "Registro de Agentes Inmobiliarios"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Inscripció AICAT Nº 5583" : language === "en" ? "AICAT Reg. No. 5583" : "Inscripción AICAT Nº 5583"}</span>
-                </div>
-              </div>
-
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-amber-400 transition-colors">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-700 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  API
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Col·legi de la Propietat Immobiliària" : language === "en" ? "Real Estate Association" : "Colegio de la Propiedad Inmobiliaria"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Agent Col·legiat Oficial" : language === "en" ? "Official Registered Agent" : "Agente Colegiado Oficial"}</span>
-                </div>
-              </div>
-
-              <div className="bg-[#1e293b] border-2 border-slate-600 p-3.5 sm:p-4 rounded-2xl flex items-center gap-3.5 shadow-lg hover:border-emerald-400 transition-colors sm:col-span-2 md:col-span-1">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-emerald-800 text-white font-black text-sm sm:text-base flex items-center justify-center border border-white/30 shrink-0 shadow-md">
-                  ADM
-                </div>
-                <div className="min-w-0">
-                  <strong className="text-sm sm:text-base text-white block font-black leading-snug">{language === "ca" ? "Administradors de Finques" : language === "en" ? "Property Administrators" : "Administradores de Fincas"}</strong>
-                  <span className="text-xs sm:text-sm text-slate-200 font-bold block mt-0.5">{language === "ca" ? "Associació de Finques i Comunitats" : language === "en" ? "Estates & Communities Association" : "Asociación de Fincas y Comunidades"}</span>
-                </div>
-              </div>
-            </div>
+            <AccreditationBadges language={language} />
           </div>
 
         </div>

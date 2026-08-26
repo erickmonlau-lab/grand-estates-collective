@@ -140,23 +140,26 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
           <circle cx="242" cy="165" r="10" fill="#22345c" />
         </g>
 
-        {/* ── RIGHT FOREARM & HAND (Clean Cartoon Waving Mitten/Hand) ── */}
+        {/* ── RIGHT FOREARM & HAND (100% Attached & Naturally Oriented Waving Hand) ── */}
         <g className="forearm-waving">
-          {/* Forearm from elbow (242, 165) to wrist (276, 98) */}
+          {/* Forearm angled from elbow (242, 165) up to wrist (276, 98) */}
           <path d="M 237 162 L 268 94 L 284 102 L 247 172 Z" fill="#22345c" />
-          {/* Sleeve Cuff */}
-          <rect x="264" y="90" width="18" height="7" rx="3.5" fill="#182542" transform="rotate(-30 264 90)" />
+          
+          {/* Hand positioned directly along the arm's angle (-30deg) */}
+          <g id="clean-waving-hand" transform="translate(276, 98) rotate(-28)">
+            {/* Hand extends straight out from wrist: wrist at (0, 0) */}
+            {/* Palm */}
+            <rect x="-8" y="-18" width="16" height="18" rx="7" fill="#f3b18c" />
+            {/* Thumb on inner side */}
+            <rect x="-13" y="-12" width="7" height="10" rx="3.5" fill="#f3b18c" transform="rotate(-30 -10 -7)" />
+            {/* 4 Clean greeting fingers pointing straight up along arm direction */}
+            <rect x="-7" y="-28" width="3.5" height="13" rx="1.75" fill="#f3b18c" />
+            <rect x="-3" y="-31" width="3.5" height="16" rx="1.75" fill="#f3b18c" />
+            <rect x="1" y="-30" width="3.5" height="15" rx="1.75" fill="#f3b18c" />
+            <rect x="5" y="-26" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
 
-          {/* Clean, Elegant Cartoon Waving Hand with clean palm & thumb */}
-          <g id="cute-waving-hand" transform="translate(266, 62)">
-            {/* Palm base */}
-            <circle cx="11" cy="17" r="10" fill="#f3b18c" />
-            {/* Left thumb */}
-            <ellipse cx="2" cy="20" rx="3.5" ry="5.5" fill="#f3b18c" transform="rotate(-35 2 20)" />
-            {/* 3 clean cartoon fingers */}
-            <rect x="5" y="3" width="3.6" height="12" rx="1.8" fill="#f3b18c" />
-            <rect x="10.5" y="1" width="3.6" height="14" rx="1.8" fill="#f3b18c" />
-            <rect x="16" y="3" width="3.6" height="12" rx="1.8" fill="#f3b18c" />
+            {/* Sleeve Cuff cleanly overlapping wrist */}
+            <rect x="-10" y="-3" width="20" height="7" rx="3.5" fill="#182542" />
           </g>
         </g>
       </g>

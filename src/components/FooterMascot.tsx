@@ -3,16 +3,16 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" className={className} fill="none">
       <defs>
         <style>{`
-          /* Natural, smooth waving forearm from elbow pivot */
-          @keyframes waveForearm {
+          /* Natural, cheerful forearm wave */
+          @keyframes waveForearmGreeting {
             0%, 100% {
               transform: rotate(0deg);
             }
             25% {
-              transform: rotate(15deg);
+              transform: rotate(16deg);
             }
             50% {
-              transform: rotate(-6deg);
+              transform: rotate(-10deg);
             }
             75% {
               transform: rotate(18deg);
@@ -30,8 +30,8 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
           }
 
           .forearm-waving {
-            animation: waveForearm 2s ease-in-out infinite;
-            transform-origin: 242px 165px;
+            animation: waveForearmGreeting 1.8s ease-in-out infinite;
+            transform-origin: 246px 172px;
           }
 
           .eyes-blinking {
@@ -49,7 +49,7 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
       <circle cx="180" cy="155" r="108" fill="#131d33" stroke="#2563eb" strokeWidth="3" />
       <circle cx="180" cy="155" r="102" fill="#16233d" />
 
-      {/* ── 3. CHARACTER (Perfect Symmetrical Body, Shoulders & Arms) ── */}
+      {/* ── 3. CHARACTER (Symmetrical Body, Shoulders & Natural Pose) ── */}
       <g id="character">
         {/* Legs */}
         <rect x="154" y="208" width="22" height="70" rx="4" fill="#0f172a" />
@@ -117,7 +117,7 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
         <g id="house" transform="translate(46, 142)">
           <polygon points="-3,28 26,2 55,28" fill="#2563eb" />
           <polygon points="26,2 33,8 33,4 29,4" fill="#1e293b" />
-          <line x1="0" y1="28" x2="26" y2="4" stroke="#60a5fa" strokeWidth="1.8" strokeLinecap="round" />
+          <line x1="0" y1="26" x2="26" y2="4" stroke="#60a5fa" strokeWidth="1.8" strokeLinecap="round" />
 
           <rect x="0" y="28" width="52" height="38" rx="3" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.8" />
           <rect x="0" y="28" width="52" height="4" fill="#e2e8f0" />
@@ -134,32 +134,30 @@ export function FooterMascot({ className = "w-full max-h-[225px] lg:max-h-[250px
           <circle cx="28.5" cy="53" r="1" fill="#fbbf24" />
         </g>
 
-        {/* ── RIGHT UPPER ARM (Identical symmetrical thickness) ── */}
+        {/* ── RIGHT UPPER ARM (Shoulder 236, 140 to elbow 246, 172) ── */}
         <g id="right-upper-arm">
-          <path d="M 236 140 L 250 165 L 234 174 L 222 148 Z" fill="#22345c" />
-          <circle cx="242" cy="165" r="10" fill="#22345c" />
+          <path d="M 236 140 L 254 168 L 238 178 L 222 148 Z" fill="#22345c" />
+          <circle cx="246" cy="172" r="10" fill="#22345c" />
         </g>
 
-        {/* ── RIGHT FOREARM & HAND (100% Attached & Naturally Oriented Waving Hand) ── */}
+        {/* ── RIGHT FOREARM & FRONT-FACING GREETING HAND ── */}
         <g className="forearm-waving">
-          {/* Forearm angled from elbow (242, 165) up to wrist (276, 98) */}
-          <path d="M 237 162 L 268 94 L 284 102 L 247 172 Z" fill="#22345c" />
-          
-          {/* Hand positioned directly along the arm's angle (-30deg) */}
-          <g id="clean-waving-hand" transform="translate(276, 98) rotate(-28)">
-            {/* Hand extends straight out from wrist: wrist at (0, 0) */}
-            {/* Palm */}
-            <rect x="-8" y="-18" width="16" height="18" rx="7" fill="#f3b18c" />
-            {/* Thumb on inner side */}
-            <rect x="-13" y="-12" width="7" height="10" rx="3.5" fill="#f3b18c" transform="rotate(-30 -10 -7)" />
-            {/* 4 Clean greeting fingers pointing straight up along arm direction */}
-            <rect x="-7" y="-28" width="3.5" height="13" rx="1.75" fill="#f3b18c" />
-            <rect x="-3" y="-31" width="3.5" height="16" rx="1.75" fill="#f3b18c" />
-            <rect x="1" y="-30" width="3.5" height="15" rx="1.75" fill="#f3b18c" />
-            <rect x="5" y="-26" width="3.2" height="11" rx="1.6" fill="#f3b18c" />
+          {/* Forearm bent comfortably upwards from elbow (246, 172) to wrist (270, 115) */}
+          <path d="M 240 170 L 262 110 L 278 116 L 252 178 Z" fill="#22345c" />
+          {/* Horizontal sleeve cuff */}
+          <rect x="258" y="108" width="22" height="6.5" rx="3.2" fill="#182542" transform="rotate(-15 258 108)" />
 
-            {/* Sleeve Cuff cleanly overlapping wrist */}
-            <rect x="-10" y="-3" width="20" height="7" rx="3.5" fill="#182542" />
+          {/* Front-facing Natural Open Hand Greeting USER Directly */}
+          <g id="front-facing-hand" transform="translate(268, 76)">
+            {/* Palm facing the viewer */}
+            <circle cx="11" cy="22" r="10" fill="#f3b18c" />
+            {/* Left thumb pointing naturally inwards */}
+            <ellipse cx="1" cy="25" rx="3.5" ry="5.5" fill="#f3b18c" transform="rotate(-30 1 25)" />
+            {/* 4 Straight vertical fingers facing the viewer directly */}
+            <rect x="4" y="6" width="3.4" height="15" rx="1.7" fill="#f3b18c" />
+            <rect x="9" y="3" width="3.4" height="18" rx="1.7" fill="#f3b18c" />
+            <rect x="14" y="5" width="3.4" height="16" rx="1.7" fill="#f3b18c" />
+            <rect x="19" y="9" width="3.2" height="12" rx="1.6" fill="#f3b18c" />
           </g>
         </g>
       </g>

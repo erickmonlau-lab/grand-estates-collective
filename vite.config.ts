@@ -20,6 +20,21 @@ export default defineConfig({
     build: {
       target: 'esnext',
       cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules/lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('node_modules/@radix-ui')) {
+              return 'vendor-ui';
+            }
+            if (id.includes('node_modules/zod') || id.includes('node_modules/react-hook-form')) {
+              return 'vendor-forms';
+            }
+          },
+        },
+      },
     },
   },
 });

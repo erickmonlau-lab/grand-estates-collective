@@ -1,6 +1,6 @@
-export function FooterMascot({ className = "w-full max-h-[380px] lg:max-h-[440px] object-contain drop-shadow-2xl" }: { className?: string }) {
+export function FooterMascot({ className = "w-full max-h-[330px] lg:max-h-[370px] object-contain drop-shadow-2xl" }: { className?: string }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 380" className={className} fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 390" className={className} fill="none">
       <defs>
         <style>{`
           /* Natural fluid forearm waving animation from elbow */
@@ -35,18 +35,18 @@ export function FooterMascot({ className = "w-full max-h-[380px] lg:max-h-[440px
               transform: translateY(0px);
             }
             50% {
-              transform: translateY(-3px);
+              transform: translateY(-2.5px);
             }
           }
 
           .waving-arm-forearm {
             animation: waveForearm 2.2s ease-in-out infinite;
-            transform-origin: 335px 200px;
+            transform-origin: 345px 208px;
           }
 
           .blinking-eyes {
             animation: naturalBlink 4s ease-in-out infinite;
-            transform-origin: 220px 95px;
+            transform-origin: 230px 105px;
           }
 
           .lively-body {
@@ -56,116 +56,117 @@ export function FooterMascot({ className = "w-full max-h-[380px] lg:max-h-[440px
         `}</style>
       </defs>
 
-      {/* ── 1. GROUND SHADOW (Grounded Base) ── */}
-      <ellipse cx="220" cy="355" rx="130" ry="16" fill="#070c18" opacity="0.9" />
+      {/* ── 1. SUELO GRIS FUERTE (Solid Dark Slate Grey Shadow Base) ── */}
+      <ellipse cx="230" cy="358" rx="145" ry="17" fill="#475569" opacity="0.95" />
+      <ellipse cx="230" cy="358" rx="125" ry="13" fill="#334155" />
 
-      {/* ── 2. BACKGROUND CIRCLE (Fills the frame with prominent blue accent) ── */}
-      <circle cx="220" cy="185" r="148" fill="#131d33" stroke="#2563eb" strokeWidth="4.5" />
-      <circle cx="220" cy="185" r="140" fill="#16233d" />
+      {/* ── 2. BACKGROUND CIRCLE ── */}
+      <circle cx="230" cy="190" r="142" fill="#131d33" stroke="#2563eb" strokeWidth="4" />
+      <circle cx="230" cy="190" r="134" fill="#16233d" />
 
-      {/* ── 3. CHARACTER (Massive, Clean, 100% Focused on Mascot & House) ── */}
+      {/* ── 3. CHARACTER BODY (Slightly reduced in size for perfect balance) ── */}
       <g className="lively-body">
-        {/* Legs firmly on the ground */}
-        <rect x="180" y="245" width="34" height="95" rx="6" fill="#0f172a" />
-        <rect x="226" y="245" width="34" height="95" rx="6" fill="#0f172a" />
+        {/* Legs firmly on the grey ground */}
+        <rect x="194" y="250" width="30" height="92" rx="5" fill="#0f172a" />
+        <rect x="236" y="250" width="30" height="92" rx="5" fill="#0f172a" />
 
-        {/* Shoes */}
-        <rect x="170" y="332" width="48" height="22" rx="11" fill="#070c18" />
-        <rect x="222" y="332" width="48" height="22" rx="11" fill="#070c18" />
+        {/* Shoes on dark grey floor */}
+        <rect x="184" y="334" width="44" height="20" rx="10" fill="#070c18" />
+        <rect x="232" y="334" width="44" height="20" rx="10" fill="#070c18" />
 
         {/* ── LEFT ARM (Natural sleeve extending to open palm holding the house) ── */}
-        <path d="M 160 160 C 125 170 95 200 80 235 L 110 248 C 120 225 140 200 170 190 Z" fill="#1c2844" />
-        <rect x="76" y="230" width="20" height="8" rx="4" fill="#162035" transform="rotate(25 76 230)" />
+        <path d="M 175 168 C 145 178 118 205 105 238 L 132 250 C 142 228 160 205 188 195 Z" fill="#1c2844" />
+        <rect x="100" y="234" width="18" height="7" rx="3.5" fill="#162035" transform="rotate(25 100 234)" />
 
         {/* Clean Open Palm supporting the house base */}
-        <ellipse cx="80" cy="246" rx="22" ry="10" fill="#f3b18c" />
-        <ellipse cx="38" cy="235" rx="7" ry="11" fill="#f3b18c" transform="rotate(-15 38 235)" />
+        <ellipse cx="106" cy="250" rx="20" ry="9" fill="#f3b18c" />
+        <ellipse cx="68" cy="240" rx="6" ry="10" fill="#f3b18c" transform="rotate(-15 68 240)" />
 
-        {/* ── PROMINENT BIG WHITE MINIATURE HOUSE ── */}
-        <g id="house" transform="translate(35, 165)">
-          {/* Blue Gabled Roof with Chimney */}
-          <polygon points="-6,42 42,2 90,42" fill="#2563eb" />
-          <polygon points="42,2 54,14 54,7 48,7" fill="#1e293b" />
-          <line x1="0" y1="40" x2="42" y2="5" stroke="#60a5fa" strokeWidth="2.5" strokeLinecap="round" />
+        {/* ── SOLID WHITE MINIATURE HOUSE ── */}
+        <g id="house" transform="translate(64, 175)">
+          {/* Blue Gabled Roof */}
+          <polygon points="-5,38 36,2 77,38" fill="#2563eb" />
+          <polygon points="36,2 47,12 47,6 42,6" fill="#1e293b" />
+          <line x1="0" y1="36" x2="36" y2="4" stroke="#60a5fa" strokeWidth="2.5" strokeLinecap="round" />
 
           {/* White House Facade */}
-          <rect x="0" y="42" width="84" height="60" rx="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="2" />
-          <rect x="0" y="42" width="84" height="7" fill="#e2e8f0" />
+          <rect x="0" y="38" width="72" height="54" rx="4" fill="#ffffff" stroke="#cbd5e1" strokeWidth="2" />
+          <rect x="0" y="38" width="72" height="6" fill="#e2e8f0" />
 
           {/* Windows */}
-          <rect x="10" y="52" width="20" height="20" rx="3.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
-          <line x1="20" y1="52" x2="20" y2="72" stroke="#ffffff" strokeWidth="1.5" />
-          <line x1="10" y1="62" x2="30" y2="62" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="9" y="47" width="17" height="17" rx="3" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+          <line x1="17.5" y1="47" x2="17.5" y2="64" stroke="#ffffff" strokeWidth="1.5" />
+          <line x1="9" y1="55.5" x2="26" y2="55.5" stroke="#ffffff" strokeWidth="1.5" />
 
-          <rect x="54" y="52" width="20" height="20" rx="3.5" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
-          <line x1="64" y1="52" x2="64" y2="72" stroke="#ffffff" strokeWidth="1.5" />
-          <line x1="54" y1="62" x2="74" y2="62" stroke="#ffffff" strokeWidth="1.5" />
+          <rect x="46" y="47" width="17" height="17" rx="3" fill="#38bdf8" stroke="#0284c7" strokeWidth="1.5" />
+          <line x1="54.5" y1="47" x2="54.5" y2="64" stroke="#ffffff" strokeWidth="1.5" />
+          <line x1="46" y1="55.5" x2="63" y2="55.5" stroke="#ffffff" strokeWidth="1.5" />
 
-          {/* Door with Brass Knob */}
-          <rect x="33" y="63" width="18" height="39" rx="2.5" fill="#0f172a" />
-          <circle cx="46" cy="83" r="1.8" fill="#fbbf24" />
+          {/* Door with Knob */}
+          <rect x="28" y="57" width="16" height="35" rx="2" fill="#0f172a" />
+          <circle cx="39" cy="74" r="1.5" fill="#fbbf24" />
         </g>
 
         {/* Suit Jacket Body */}
-        <path d="M 150 152 C 150 152, 290 152, 290 152 C 304 152, 312 165, 312 180 L 298 268 C 298 280, 284 290, 268 290 L 172 290 C 156 290, 142 280, 142 268 L 128 180 C 128 165, 136 152, 150 152 Z" fill="#22345c" />
+        <path d="M 165 160 C 165 160, 295 160, 295 160 C 308 160, 315 172, 315 185 L 302 265 C 302 276, 288 285, 274 285 L 186 285 C 172 285, 158 276, 158 265 L 145 185 C 145 172, 152 160, 165 160 Z" fill="#22345c" />
         
-        {/* Lapel details */}
-        <path d="M 150 152 L 196 225 L 180 285" stroke="#182542" strokeWidth="3.5" strokeLinecap="round" />
-        <path d="M 290 152 L 244 225 L 260 285" stroke="#182542" strokeWidth="3.5" strokeLinecap="round" />
+        {/* Lapels */}
+        <path d="M 165 160 L 208 228 L 194 280" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
+        <path d="M 295 160 L 252 228 L 266 280" stroke="#182542" strokeWidth="3" strokeLinecap="round" />
 
-        {/* Crisp White Shirt Collar */}
-        <polygon points="196,152 220,190 244,152 220,152" fill="#ffffff" />
+        {/* White Shirt Collar */}
+        <polygon points="208,160 230,195 252,160 230,160" fill="#ffffff" />
 
-        {/* Vibrant Royal Blue Tie */}
-        <polygon points="214,164 226,164 228,238 220,248 212,238" fill="#2563eb" />
+        {/* Blue Brand Tie */}
+        <polygon points="225,170 235,170 237,238 230,246 223,238" fill="#2563eb" />
 
         {/* Neck */}
-        <rect x="210" y="125" width="20" height="28" rx="4" fill="#f3b18c" />
+        <rect x="221" y="135" width="18" height="26" rx="4" fill="#f3b18c" />
 
-        {/* BIG CHEERFUL HEAD */}
-        <circle cx="220" cy="90" r="46" fill="#f3b18c" />
+        {/* Head */}
+        <circle cx="230" cy="102" r="42" fill="#f3b18c" />
 
         {/* Hair Cut */}
-        <path d="M 174 90 C 170 50 192 32 220 32 C 248 32 270 50 266 90 C 258 74 244 64 220 64 C 196 64 182 74 174 90 Z" fill="#3b271d" />
+        <path d="M 188 102 C 184 66 204 50 230 50 C 256 50 276 66 272 102 C 264 88 252 78 230 78 C 208 78 196 88 188 102 Z" fill="#3b271d" />
 
-        {/* Eyes (Blinking with Catchlight) */}
+        {/* Eyes (Blinking) */}
         <g className="blinking-eyes">
-          <circle cx="204" cy="86" r="5" fill="#3b271d" />
-          <circle cx="206" cy="84" r="2" fill="#ffffff" />
+          <circle cx="216" cy="98" r="4.5" fill="#3b271d" />
+          <circle cx="218" cy="96" r="1.8" fill="#ffffff" />
           
-          <circle cx="236" cy="86" r="5" fill="#3b271d" />
-          <circle cx="238" cy="84" r="2" fill="#ffffff" />
+          <circle cx="244" cy="98" r="4.5" fill="#3b271d" />
+          <circle cx="246" cy="96" r="1.8" fill="#ffffff" />
         </g>
 
-        {/* Big Happy Smile with Teeth */}
-        <path d="M 202 102 Q 220 122 238 102 Z" fill="#ffffff" stroke="#3b271d" strokeWidth="3" strokeLinejoin="round" />
-        <path d="M 202 102 Q 220 122 238 102" stroke="#3b271d" strokeWidth="3" fill="none" strokeLinecap="round" />
+        {/* Friendly Smile */}
+        <path d="M 214 112 Q 230 130 246 112 Z" fill="#ffffff" stroke="#3b271d" strokeWidth="2.8" strokeLinejoin="round" />
+        <path d="M 214 112 Q 230 130 246 112" stroke="#3b271d" strokeWidth="2.8" fill="none" strokeLinecap="round" />
 
         {/* Rosy Blush Cheeks */}
-        <circle cx="194" cy="100" r="6" fill="#ea7b64" opacity="0.35" />
-        <circle cx="246" cy="100" r="6" fill="#ea7b64" opacity="0.35" />
+        <circle cx="206" cy="110" r="5.5" fill="#ea7b64" opacity="0.35" />
+        <circle cx="254" cy="110" r="5.5" fill="#ea7b64" opacity="0.35" />
 
         {/* ── RIGHT UPPER ARM ── */}
         <g id="right-upper-arm">
-          <circle cx="290" cy="162" r="20" fill="#22345c" />
-          <path d="M 290 152 C 314 152 332 175 338 198 L 316 210 C 310 192 298 175 282 170 Z" fill="#22345c" />
-          <circle cx="335" cy="200" r="16" fill="#22345c" />
+          <circle cx="295" cy="170" r="18" fill="#22345c" />
+          <path d="M 295 160 C 316 160 334 182 340 205 L 320 216 C 314 198 302 182 288 178 Z" fill="#22345c" />
+          <circle cx="338" cy="208" r="15" fill="#22345c" />
         </g>
       </g>
 
-      {/* ── 4. RIGHT FOREARM & HAND (Fluid natural waving hello) ── */}
-      <g className="waving-arm-forearm">
-        <path d="M 326 196 L 362 105 C 366 94 380 98 376 110 L 348 206 Z" fill="#22345c" />
-        <rect x="358" y="96" width="24" height="8" rx="4" fill="#182542" transform="rotate(-25 358 96)" />
+      {/* ── 4. RIGHT FOREARM & HAND (Waving naturally) ── */}
+      <g className="waving-forearm-forearm">
+        <path d="M 330 204 L 366 118 C 370 108 382 112 378 122 L 350 214 Z" fill="#22345c" />
+        <rect x="360" y="110" width="22" height="7" rx="3.5" fill="#182542" transform="rotate(-25 360 110)" />
 
-        {/* Big Natural Open Hand with Greeting Fingers */}
-        <g id="hand-wave" transform="translate(362, 60)">
-          <circle cx="16" cy="22" r="15" fill="#f3b18c" />
-          <ellipse cx="2" cy="26" rx="5.5" ry="9" fill="#f3b18c" transform="rotate(-30 2 26)" />
-          <rect x="7" y="0" width="5.5" height="18" rx="2.8" fill="#f3b18c" />
-          <rect x="14" y="-4" width="5.5" height="21" rx="2.8" fill="#f3b18c" />
-          <rect x="21" y="-1" width="5.5" height="19" rx="2.8" fill="#f3b18c" />
-          <rect x="28" y="3" width="5" height="15" rx="2.5" fill="#f3b18c" />
+        {/* Hand */}
+        <g id="hand-wave" transform="translate(364, 76)">
+          <circle cx="15" cy="20" r="14" fill="#f3b18c" />
+          <ellipse cx="2" cy="24" rx="5" ry="8" fill="#f3b18c" transform="rotate(-30 2 24)" />
+          <rect x="6" y="0" width="5" height="16" rx="2.5" fill="#f3b18c" />
+          <rect x="13" y="-4" width="5" height="19" rx="2.5" fill="#f3b18c" />
+          <rect x="20" y="-1" width="5" height="17" rx="2.5" fill="#f3b18c" />
+          <rect x="27" y="3" width="4.5" height="14" rx="2.2" fill="#f3b18c" />
         </g>
       </g>
     </svg>

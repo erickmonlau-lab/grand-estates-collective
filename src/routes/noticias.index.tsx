@@ -122,7 +122,7 @@ function NoticiasCatalogComponent() {
       <footer className="bg-[#0b1221] text-white py-12 border-t border-white/10">
         <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama" width={424} height={104} className="h-10 w-auto brightness-0 invert" />
-          <p className="text-slate-400 text-sm font-medium font-sans">© {new Date().getFullYear()} Gesgrama Inmobiliaria. Todos los derechos reservados. · Sitio web por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+          <p className="text-slate-400 text-sm font-medium font-sans">© {new Date().getFullYear()} Gesgrama Inmobiliaria. Todos los derechos reservados. · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
           <div className="flex gap-6 text-sm text-slate-300 font-bold font-sans">
             <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
             <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>

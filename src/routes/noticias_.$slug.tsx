@@ -860,7 +860,7 @@ function ArticleDetail() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-sm sm:text-base text-white font-extrabold">© {new Date().getFullYear()} Gesgrama. {t.footer.rights} · Sitio web por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+            <p className="text-sm sm:text-base text-white font-extrabold">© {new Date().getFullYear()} Gesgrama. {t.footer.rights} · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
             <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
               <Link to="/aviso-legal" className="hover:text-blue-200">{t.footer.legalNotice}</Link>
               <span>·</span>

@@ -436,7 +436,7 @@ function PropertyDetail() {
       {/* FOOTER */}
       <footer className="bg-[#0b1221] text-white py-12 px-6 md:px-12 border-t border-slate-800 text-center text-xs text-slate-400">
         <div className="max-w-[1300px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <p>© {new Date().getFullYear()} Gesgrama. {t.footer.rights} · Sitio web por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+          <p>© {new Date().getFullYear()} Gesgrama. {t.footer.rights} · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
           <div className="flex items-center gap-6">
             <Link to="/" className="hover:text-white transition-colors">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</Link>
             <a href="/#propiedades" className="hover:text-white transition-colors">{t.nav.propiedades}</a>

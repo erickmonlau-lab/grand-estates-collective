@@ -1139,7 +1139,7 @@ function Index() {
                           {/* Floating Status & Type Pills */}
                           <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
                             <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
-                              <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-emerald-400'} animate-pulse shrink-0`}></span>
+                              <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                               <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                             </span>
                             <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
@@ -1161,7 +1161,7 @@ function Index() {
                             className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
                               isFav 
                                 ? 'bg-red-500 text-white shadow-red-500/30' 
-                                : 'bg-white/95 text-slate-700 hover:text-red-500 hover:bg-white'
+                                : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
                             }`}
                           >
                             <Heart className="w-5 h-5 fill-current" />
@@ -1209,8 +1209,8 @@ function Index() {
 
                             {/* Floor / Feature Highlight badge - Highly Visual Badge */}
                             <div className="mt-2.5">
-                              <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-900 border border-emerald-200/90 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-bold shadow-xs max-w-full">
-                                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 ring-4 ring-emerald-100" />
+                              <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1d4ed8] border border-blue-200 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-bold shadow-xs max-w-full">
+                                <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
                                 <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
                               </div>
                             </div>
@@ -1372,7 +1372,7 @@ function Index() {
                     </svg>
                   </span>
                 </h2>
-                <div className="mt-3 inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-slate-200/90 rounded-full px-4 py-1.5 shadow-sm">
+                <div className="mt-3 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 shadow-sm">
                   <GoogleIcon className="w-4 h-4 shrink-0" />
                   <div className="flex items-center gap-0.5 text-amber-400">
                     {[...Array(5)].map((_, s) => (
@@ -1400,9 +1400,9 @@ function Index() {
                   {
                     category: language === 'ca' ? "Gestió de lloguer" : language === 'en' ? "Rental management" : "Gestión de alquiler",
                     Icon: Key,
-                    accentBorder: "from-emerald-500 to-teal-400",
-                    categoryBadge: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
-                    avatarBg: "bg-gradient-to-br from-emerald-600 to-teal-700",
+                    accentBorder: "from-[#2563eb] to-[#38bdf8]",
+                    categoryBadge: "bg-blue-50 text-[#2563eb] border-blue-200/80",
+                    avatarBg: "bg-gradient-to-br from-[#1d4ed8] to-[#0b214a]",
                   },
                   {
                     category: language === 'ca' ? "Comunitat de veïns" : language === 'en' ? "HOA & Building" : "Comunidad de propietarios",
@@ -1464,7 +1464,7 @@ function Index() {
                         <div className="flex items-center gap-3">
                           <div className={`w-11 h-11 rounded-full ${meta.avatarBg} text-white font-black text-base flex items-center justify-center shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-100 relative`}>
                             {initials[i % initials.length]}
-                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center">
+                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
                               <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
                             </div>
                           </div>
@@ -1478,8 +1478,8 @@ function Index() {
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-full shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2563eb] bg-blue-50 border border-blue-200/70 px-2 py-0.5 rounded-full shrink-0">
+                          <CheckCircle2 className="w-3 h-3 text-[#2563eb]" />
                           <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>
                       </div>
@@ -1670,7 +1670,7 @@ function Index() {
                   {/* Trust Badges - Horizontal row centered under button */}
                   <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-2.5 sm:gap-4 mt-3 w-full">
                     <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-base font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 stroke-[3] shrink-0" />
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#60a5fa] stroke-[3] shrink-0" />
                       <span>{t.valorador.sinCompromiso}</span>
                     </span>
                     <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md text-xs sm:text-base font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
@@ -1740,7 +1740,7 @@ function Index() {
                     <span className="text-sm sm:text-base font-black text-[#0f172a] font-sans uppercase tracking-wider">
                       {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                     </span>
-                    <span className="bg-emerald-800 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1 shadow-sm font-sans">
+                    <span className="bg-[#1e3a6e] text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-black flex items-center gap-1 shadow-sm font-sans">
                       <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +4.2%
                     </span>
                   </div>
@@ -1811,8 +1811,8 @@ function Index() {
                   </div>
                   <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
                     <span>{language === "ca" ? "Santa Coloma interanual:" : language === "en" ? "Santa Coloma annual:" : "Santa Coloma interanual:"}</span>
-                    <span className="text-emerald-700 font-bold flex items-center gap-0.5">
-                      <TrendingUp className="w-3 h-3 text-emerald-600" /> +4.2%
+                    <span className="text-[#2563eb] font-bold flex items-center gap-0.5">
+                      <TrendingUp className="w-3 h-3 text-[#2563eb]" /> +4.2%
                     </span>
                   </div>
                 </div>
@@ -2485,7 +2485,7 @@ function Index() {
                       type="submit"
                       disabled={isSubmittingContact}
                       className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
-                        isSubmittedSuccess ? "bg-emerald-600 hover:bg-emerald-700" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
+                        isSubmittedSuccess ? "bg-[#0b214a] hover:bg-[#0f172a]" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
                       }`}
                     >
                       {isSubmittingContact ? (
@@ -2783,7 +2783,7 @@ function Index() {
             <div className="bg-[#f8fafc] rounded-2xl p-5 border border-slate-200 mb-8 space-y-3">
               {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
                 <div key={idx} className="flex items-start gap-3 text-xs md:text-sm font-extrabold text-slate-800 font-sans">
-                  <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
+                  <Check className="w-4 h-4 text-[#2563eb] shrink-0 mt-0.5 stroke-[3]" />
                   <span>{benefit}</span>
                 </div>
               ))}

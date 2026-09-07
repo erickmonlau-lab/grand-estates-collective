@@ -144,7 +144,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="w-full sm:w-auto bg-white/95 hover:bg-white text-[#0f172a] border border-slate-200/90 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href="#propiedades" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
@@ -155,8 +155,8 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               transition={{ duration: 0.55, delay: 0.45, ease: expo }}
               className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm md:text-[15px] font-extrabold text-[#0f172a]"
             >
-              <span className="w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 border border-emerald-300">
-                <Check className="w-3.5 h-3.5 text-emerald-700 stroke-[3]" />
+              <span className="w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 border border-blue-300">
+                <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
               </span>
               <span className="font-extrabold font-sans text-slate-800" style={{ textShadow: "0 0 10px rgba(255,255,255,0.95)" }}>
                 {t.heroCarousel.trustBadge}

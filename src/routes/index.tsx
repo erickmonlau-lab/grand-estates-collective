@@ -662,7 +662,7 @@ function Index() {
           {/* FILTERS */}
           {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
           <div className="mt-8 mb-4">
-            <div className="bg-white border-2 border-slate-200 rounded-[20px] shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-4 lg:p-3 flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-4 relative z-40">
+            <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 lg:p-3 flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-4 relative z-40">
               
               {/* Field 1: Tipo de Inmueble */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
@@ -964,10 +964,10 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap shadow-2xs ${
+                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap shadow-xs ${
                       isActive 
-                        ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25" 
-                        : "bg-white text-slate-800 border-2 border-slate-200 hover:border-[#2563eb] hover:text-[#2563eb] hover:bg-blue-50/50"
+                        ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
+                        : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
                     }`}
                   >
                     {item.label}

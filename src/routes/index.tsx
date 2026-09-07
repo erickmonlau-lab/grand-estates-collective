@@ -1073,17 +1073,17 @@ function Index() {
                         {/* Price & Action Button */}
                         <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
                           <div>
-                            <span className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest leading-none block mb-1 font-sans">
+                            <span className="text-xs font-black text-slate-900 uppercase tracking-wider leading-none block mb-1.5 font-sans">
                               {t.properties.priceLabel || "PRECIO"}
                             </span>
-                            <span className="text-2xl sm:text-[26px] font-black text-[#2563eb] leading-none font-sans tracking-tight">
+                            <span className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans tracking-tight">
                               {new Intl.NumberFormat('es-ES').format(property.price)}€
                             </span>
                           </div>
 
-                          <div className="inline-flex items-center gap-1.5 bg-[#0f172a] group-hover:bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md">
+                          <div className="inline-flex items-center gap-1.5 bg-slate-900 group-hover:bg-[#2563eb] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-4.5 py-3 rounded-xl transition-all duration-300 shadow-md group-hover:shadow-lg border border-slate-800">
                             <span>Ver ficha</span>
-                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                           </div>
                         </div>
                       </div>
@@ -1422,7 +1422,7 @@ function Index() {
                           onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
                           className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
                         />
-                        <span className="text-xs sm:text-sm font-black text-[#2563eb] bg-blue-50 border border-blue-200/60 px-2.5 py-1 rounded-lg shrink-0">
+                        <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border-2 border-slate-900 px-3 py-1 rounded-lg shrink-0 shadow-2xs">
                           m²
                         </span>
                       </div>
@@ -1586,8 +1586,9 @@ function Index() {
                     "Riu Nord / Riu Sud",
                     "Oliveres - Can Serra"
                   ].map((barrio) => (
-                    <span key={barrio} className="bg-[#2A3245] text-white text-sm sm:text-base font-black px-4.5 py-2.5 rounded-full border border-white/10 shadow-sm hover:bg-[#343e55] transition-colors">
-                      📍 {formatLocation(barrio, language)}
+                    <span key={barrio} className="bg-white text-slate-950 text-xs sm:text-sm font-black px-4 py-2 rounded-full border-2 border-slate-300 shadow-sm hover:border-white hover:bg-blue-50 transition-all flex items-center gap-1.5 cursor-default">
+                      <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                      <span>{formatLocation(barrio, language)}</span>
                     </span>
                   ))}
                 </div>

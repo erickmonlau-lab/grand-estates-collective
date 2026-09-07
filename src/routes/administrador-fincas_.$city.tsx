@@ -16,7 +16,14 @@ import {
   Calculator,
   ShieldCheck,
   Mail,
-  Check
+  Check,
+  Star,
+  Home,
+  Key,
+  TrendingUp,
+  Shield,
+  Calendar,
+  Users
 } from "lucide-react";
 import { SANTA_COLOMA_BARRIOS, type NeighborhoodDetail } from "@/data/geoLocations";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
@@ -252,8 +259,8 @@ function SantaColomaBarrioPage() {
                   : data.heroHeadline}
               </h1>
 
-              {/* Subtitle with enhanced visibility and solid contrast */}
-              <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 sm:p-5 max-w-2xl shadow-md">
+              {/* Subtitle with enhanced visibility and 100% solid background (NO TRANSPARENCY) */}
+              <div className="bg-[#1e293b] border-2 border-slate-700 rounded-2xl p-4 sm:p-5 max-w-2xl shadow-xl">
                 <p className="text-base sm:text-lg text-white font-semibold leading-relaxed">
                   {isGlobal
                     ? "Sede central en Av. dels Banús, 49. Más de 15 años gestionando comunidades en los 14 barrios de Santa Coloma con total transparencia contable, auditoría gratis de gastos y peritos judiciales colegiados."
@@ -261,7 +268,7 @@ function SantaColomaBarrioPage() {
                 </p>
               </div>
 
-              {/* Bullet points of trust */}
+              {/* Bullet points of trust - 100% solid backgrounds */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
                   "Sede física en Santa Coloma (Av. dels Banús, 49)",
@@ -269,7 +276,7 @@ function SantaColomaBarrioPage() {
                   "Cero comisiones ocultas en obras y proveedores",
                   "Peritos judiciales inmobiliarios colegiados"
                 ].map((point, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-sm sm:text-base text-slate-100 font-bold bg-slate-900/80 border border-slate-800 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                  <div key={idx} className="flex items-center gap-2.5 text-sm sm:text-base text-slate-100 font-bold bg-[#0f172a] border border-slate-700 rounded-xl px-3.5 py-2.5 shadow-md">
                     <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0" />
                     <span>{point}</span>
                   </div>
@@ -455,6 +462,301 @@ function SantaColomaBarrioPage() {
                     <span>Año de gestión: {data.testimonial.year}</span>
                     <span className="text-emerald-400 font-bold">Comunidad de Santa Coloma Verificada</span>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECCIÓN 1: SERVICIOS INTEGRALES Y VALOR DIFERENCIAL EN EL BARRIO ── */}
+        <section className="py-14 sm:py-18 px-4 sm:px-6 lg:px-12 bg-[#e2e8f0] text-slate-900">
+          <div className="max-w-[1360px] mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
+                <Building2 className="w-3.5 h-3.5 text-[#38bdf8]" />
+                <span>Servicios de Administración en {data.name}</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] tracking-tight">
+                Gestión Integral y Defensa de la Comunidad
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 mt-2 font-bold max-w-2xl mx-auto">
+                Soluciones específicas para las fincas de {data.name}: auditoría sin coste, asesoramiento legal de cabecera y conservación técnica.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                {
+                  icon: <Scale className="w-5 h-5 text-white" />,
+                  bg: "bg-[#2563eb]",
+                  title: "Auditoría Contable y Reclamación de Morosidad",
+                  desc: `Revisamos hasta el último céntimo de la comunidad en ${data.name}. Negociamos acuerdos fraccionados con morosos y activamos el procedimiento judicial monitorio con nuestros propios abogados sin costes adicionales.`
+                },
+                {
+                  icon: <ShieldCheck className="w-5 h-5 text-white" />,
+                  bg: "bg-[#0369a1]",
+                  title: "ITE, Rehabilitación y Subvenciones Oficiales",
+                  desc: `Supervisión de la Inspección Técnica de Edificios, tramitación de subvenciones de accesibilidad (bajadas de ascensor a cota cero) y proyectos Next Generation ante el Ayuntamiento de Santa Coloma.`
+                },
+                {
+                  icon: <TrendingUp className="w-5 h-5 text-white" />,
+                  bg: "bg-[#1e3a8a]",
+                  title: "Optimización de Contratos y Ahorro Directo",
+                  desc: `Revisamos y licitamos los contratos de ascensor, seguro de la finca y limpieza comunitaria en ${data.name}. Reducimos de media entre un 15% y un 30% del gasto ordinario anual.`
+                },
+                {
+                  icon: <Clock className="w-5 h-5 text-white" />,
+                  bg: "bg-[#0f172a]",
+                  title: "Respuesta a Averías Urgentes en Minutos",
+                  desc: `Ante fugas de agua, apagones o bloqueos de ascensor en ${data.name}, nuestro equipo e industriales de confianza acuden en menos de 15 minutos para cortar el siniestro y tramitar el parte con el seguro.`
+                },
+                {
+                  icon: <Award className="w-5 h-5 text-white" />,
+                  bg: "bg-[#0284c7]",
+                  title: "Juntas Ágiles y Cuentas Claras 24/7",
+                  desc: `Convocatorias bien organizadas, actas enviadas en 48 horas y balances bancarios transparentes. Los vecinos tienen acceso digital continuo a facturas y justificantes bancarios sin letra pequeña.`
+                },
+                {
+                  icon: <Shield className="w-5 h-5 text-white" />,
+                  bg: "bg-[#334155]",
+                  title: "Colegiación Oficial y Seguros de Garantía",
+                  desc: `Administradores colegiados en el CAFBL y agentes de la propiedad inmobiliaria (API). Tu comunidad está protegida con póliza de caución y de responsabilidad civil profesional.`
+                }
+              ].map((serv, sIdx) => (
+                <div 
+                  key={sIdx}
+                  className="bg-white rounded-2xl p-6 border-2 border-slate-200 shadow-md hover:shadow-xl hover:border-[#2563eb] transition-all duration-300 flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className={`w-11 h-11 rounded-xl ${serv.bg} flex items-center justify-center mb-4 shadow-sm group-hover:scale-105 transition-transform`}>
+                      {serv.icon}
+                    </div>
+                    <h3 className="text-lg font-black text-slate-900 mb-2 leading-snug group-hover:text-[#2563eb] transition-colors">
+                      {serv.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                      {serv.desc}
+                    </p>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-2 text-xs font-black text-[#2563eb]">
+                    <span>Servicio garantizado por Gesgrama</span>
+                    <Check className="w-3.5 h-3.5 text-[#2563eb]" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECCIÓN 2: OPINIONES Y RESEÑAS VERIFICADAS DE VECINOS ── */}
+        <section className="py-14 sm:py-18 px-4 sm:px-6 lg:px-12 bg-white text-slate-900 border-y border-slate-200">
+          <div className="max-w-[1360px] mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
+                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                <span>Testimonios Verificados en Santa Coloma</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] tracking-tight">
+                La Tranquilidad de +300 Comunidades Gestionadas
+              </h2>
+              <div className="mt-3 inline-flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-full px-4 py-1.5 shadow-2xs">
+                <div className="flex items-center gap-1 text-amber-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-xs sm:text-sm font-bold text-slate-700">
+                  4.9 / 5 estrellas en reseñas reales de propietarios
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  author: "Carmen R.",
+                  category: "Presidenta de Escalera",
+                  barrio: `Comunidad en ${data.name}`,
+                  time: "Hace 2 meses",
+                  initial: "C",
+                  quote: `Llevábamos años con un administrador que no atendía urgencias ni explicaba las cuentas. El cambio a Gesgrama fue impecable: resolvieron la ITE con subvención y nos bajaron la cuota negociando el seguro.`
+                },
+                {
+                  author: "Antonio M.",
+                  category: "Vocal de Finca",
+                  barrio: "Santa Coloma de Gramenet",
+                  time: "Hace 4 meses",
+                  initial: "A",
+                  quote: `Teníamos una deuda de más de 6.000€ en el portal por dos vecinos que no pagaban. En menos de seis meses Gesgrama pactó la recuperación íntegra sin llegar a juicio. Trato 100% profesional y transparente.`
+                },
+                {
+                  author: "Marta & Jordi P.",
+                  category: "Propietarios",
+                  barrio: "Santa Coloma Centro / Banús",
+                  time: "Hace 1 mes",
+                  initial: "M",
+                  quote: `Cualquier avería o siniestro se comunica por WhatsApp y el operario se presenta enseguida. Además, las actas se reciben de forma inmediata y cada factura se puede auditar con todo detalle.`
+                }
+              ].map((rev, rIdx) => (
+                <div 
+                  key={rIdx}
+                  className="bg-[#f8fafc] rounded-2xl p-6 border-2 border-slate-200 shadow-md flex flex-col justify-between relative overflow-hidden"
+                >
+                  <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <div className="flex items-center gap-1 text-amber-400">
+                        {[...Array(5)].map((_, s) => (
+                          <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+                      <span className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-[11px] font-bold text-slate-600 shadow-2xs">
+                        Google Verificada
+                      </span>
+                    </div>
+
+                    <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-medium mb-6 italic">
+                      "{rev.quote}"
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-200/80 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0b214a] text-white font-black text-sm flex items-center justify-center shadow-xs">
+                        {rev.initial}
+                      </div>
+                      <div>
+                        <strong className="block font-black text-sm text-slate-900 leading-tight">
+                          {rev.author}
+                        </strong>
+                        <span className="text-[11px] text-slate-500 font-bold">
+                          {rev.category} · {rev.barrio}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs">
+                      <CheckCircle2 className="w-3 h-3 text-white" />
+                      <span>Verificado</span>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── SECCIÓN 3: LOS 4 PILARES Y CIFRAS DE CONFIANZA DE GESGRAMA ── */}
+        <section className="py-14 sm:py-18 px-4 sm:px-6 lg:px-12 bg-[#0b172a] text-white">
+          <div className="max-w-[1360px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                  <span>¿Por qué elegir Gesgrama en {data.name}?</span>
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white leading-tight tracking-tight">
+                  Proximidad real, sin centralitas lejanas ni costes ocultos
+                </h2>
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
+                  A diferencia de grandes gestorías que administran desde despachos remotos en Barcelona, nosotros estamos a pocos minutos de tu portal, en la Av. dels Banús, 49. Conocemos personalmente la normativa urbanística y las características de las fincas de Santa Coloma.
+                </p>
+
+                <div className="space-y-3 pt-2">
+                  {[
+                    {
+                      title: "Cero comisiones ocultas en mantenimientos",
+                      desc: "No cobramos comisiones ni porcentajes a los proveedores. Trabajamos con tarifas pactadas transparentes que benefician directamente al bolsillo de la comunidad."
+                    },
+                    {
+                      title: "Asistencia presencial continua",
+                      desc: "Supervisamos las obras en persona, acudimos a las inspecciones técnicas y nos personamos ante cualquier conflicto vecinal urgente."
+                    },
+                    {
+                      title: "Asesoría Jurídica y Peritaje Propio",
+                      desc: "Disponemos de abogado colegiado y perito judicial inmobiliario en plantilla para defender a la finca ante constructoras, seguros o impagos."
+                    }
+                  ].map((pil, pIdx) => (
+                    <div key={pIdx} className="flex items-start gap-3 p-4 bg-[#1e293b] border border-slate-700 rounded-xl shadow-md">
+                      <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="block text-white text-sm sm:text-base font-black mb-1">
+                          {pil.title}
+                        </strong>
+                        <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                          {pil.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tarjetas de Estadísticas y Cifras Clave */}
+              <div className="lg:col-span-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-[#1e293b] border-2 border-slate-700 p-6 rounded-2xl text-center shadow-lg">
+                    <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
+                      +15 años
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-[#38bdf8] uppercase tracking-wider">
+                      De experiencia local
+                    </p>
+                    <p className="text-xs text-slate-300 mt-2 font-medium">
+                      Especialistas en Santa Coloma de Gramenet desde nuestros orígenes.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#1e293b] border-2 border-slate-700 p-6 rounded-2xl text-center shadow-lg">
+                    <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
+                      +300
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-[#38bdf8] uppercase tracking-wider">
+                      Comunidades activas
+                    </p>
+                    <p className="text-xs text-slate-300 mt-2 font-medium">
+                      Cientos de fincas confían en nuestra administración contable.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#1e293b] border-2 border-slate-700 p-6 rounded-2xl text-center shadow-lg">
+                    <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
+                      Nº 5583
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-[#38bdf8] uppercase tracking-wider">
+                      Colegiados Oficiales
+                    </p>
+                    <p className="text-xs text-slate-300 mt-2 font-medium">
+                      Registro AICAT y Colegio de Administradores de Fincas.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#1e293b] border-2 border-slate-700 p-6 rounded-2xl text-center shadow-lg">
+                    <p className="text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">
+                      15 min
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-[#38bdf8] uppercase tracking-wider">
+                      Respuesta ante urgencias
+                    </p>
+                    <p className="text-xs text-slate-300 mt-2 font-medium">
+                      Atención inmediata a siniestros de fontanería, luz o ascensor.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 bg-[#2563eb] p-6 rounded-2xl text-white text-center shadow-xl">
+                  <h3 className="text-lg sm:text-xl font-black mb-2">
+                    ¿Quieres saber cuánto ahorraría tu comunidad en {data.name}?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-blue-100 font-medium mb-4">
+                    Solicita un estudio comparativo sin ningún compromiso ni permanencia.
+                  </p>
+                  <a
+                    href="#calculadora-presupuesto"
+                    className="inline-flex items-center gap-2 bg-white text-[#2563eb] hover:bg-slate-100 px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-md hover:scale-105 cursor-pointer"
+                  >
+                    <span>Pedir Comparativa Gratuita</span>
+                    <ArrowRight className="w-4 h-4 text-[#2563eb]" />
+                  </a>
                 </div>
               </div>
             </div>

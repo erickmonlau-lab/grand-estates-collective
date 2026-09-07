@@ -25,6 +25,8 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
       { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)" },
+      { rel: "preconnect", href: "https://maps.googleapis.com" },
+      { rel: "preconnect", href: "https://maps.gstatic.com" },
     ],
   }),
   component: Index,
@@ -162,6 +164,7 @@ function Index() {
   }>({});
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
   const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
@@ -1730,35 +1733,50 @@ function Index() {
             </div>
 
             {/* RIGHT CONTENT: MAP WITH PROMINENT BLUE BORDER */}
-            <div className="w-full lg:w-1/2 relative h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border-4 border-[#2563eb] bg-slate-100 shadow-xl group">
-              <Reveal delay={0.2} className="w-full h-full">
-                <iframe
-                  title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1sen!2ses!4v1700000000000!5m2!1sen!2ses"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0 w-full h-full object-cover pointer-events-auto"
-                ></iframe>
+            <div className="w-full lg:w-1/2 relative h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border-4 border-[#2563eb] bg-[#e8ecf1] shadow-xl group">
+              {/* Skeleton placeholder so user never sees a blank white canvas or abrupt pop-in */}
+              <div 
+                className={`absolute inset-0 bg-[#e8ecf1] flex flex-col items-center justify-center transition-opacity duration-700 z-10 pointer-events-none ${
+                  mapLoaded ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <div className="w-14 h-14 rounded-full bg-[#2563eb]/15 flex items-center justify-center mb-3 animate-pulse">
+                  <MapPin className="w-7 h-7 text-[#2563eb]" />
+                </div>
+                <span className="text-xs font-black text-slate-600 font-sans tracking-wide">
+                  {language === "ca" ? "Carregant mapa de la seu..." : language === "en" ? "Loading headquarters map..." : "Cargando mapa de la sede..."}
+                </span>
+              </div>
 
-                {/* Floating Card Bottom Right */}
-                <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 bg-[#0b172a] text-white rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 z-30 pointer-events-auto max-w-full">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-11 h-11 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
-                      <MapPin className="w-5.5 h-5.5" />
-                    </div>
-                    <div>
-                      <h3 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
-                      <p className="text-white text-base sm:text-lg font-black font-sans">Av. dels Banús, 49</p>
-                      <p className="text-slate-200 text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
-                    </div>
+              {/* Iframe loads eagerly so it's ready before user scrolls down, and fades in gracefully once loaded */}
+              <iframe
+                title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1s${language}!2ses!4v1700000000000!5m2!1s${language}!2ses`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="eager"
+                onLoad={() => setMapLoaded(true)}
+                referrerPolicy="no-referrer-when-downgrade"
+                className={`absolute inset-0 w-full h-full object-cover pointer-events-auto transition-opacity duration-700 ease-out ${
+                  mapLoaded ? "opacity-100" : "opacity-0"
+                }`}
+              ></iframe>
+
+              {/* Floating Card Bottom Right */}
+              <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 bg-[#0b172a] text-white rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 z-30 pointer-events-auto max-w-full">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <MapPin className="w-5.5 h-5.5" />
+                  </div>
+                  <div>
+                    <h3 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
+                    <p className="text-white text-base sm:text-lg font-black font-sans">Av. dels Banús, 49</p>
+                    <p className="text-slate-200 text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                   </div>
                 </div>
-
-              </Reveal>
+              </div>
             </div>
 
           </div>

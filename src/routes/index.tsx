@@ -949,31 +949,33 @@ function Index() {
               </button>
             </div>
 
-            {/* Quick access chips for zones - Compact and perfectly fitted */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-5 pb-5 border-b border-slate-100">
-              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
-              {[
-                { label: t.properties.allZones, value: "Cualquier zona" },
-                ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
-              ].map(item => {
-                const isActive = searchParams.zona === item.value;
-                return (
-                  <button
-                    key={item.value}
-                    onClick={() => {
-                      setConsoleFilters(prev => ({ ...prev, zona: item.value }));
-                      setSearchParams(prev => ({ ...prev, zona: item.value }));
-                    }}
-                    className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 shadow-2xs ${
-                      isActive 
-                        ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
-                        : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                );
-              })}
+            {/* Quick access chips for zones - Balanced 4x2 Grid (8 buttons: 4 top, 4 bottom) */}
+            <div className="mt-5 pb-5 border-b border-slate-100 flex flex-col xl:flex-row xl:items-center gap-3">
+              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans">{t.properties.popularZones}:</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 flex-1">
+                {[
+                  { label: t.properties.allZones, value: "Cualquier zona" },
+                  ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
+                ].map(item => {
+                  const isActive = searchParams.zona === item.value;
+                  return (
+                    <button
+                      key={item.value}
+                      onClick={() => {
+                        setConsoleFilters(prev => ({ ...prev, zona: item.value }));
+                        setSearchParams(prev => ({ ...prev, zona: item.value }));
+                      }}
+                      className={`w-full px-3 py-2 rounded-full text-xs font-black transition-all duration-200 cursor-pointer font-sans text-center truncate shadow-2xs ${
+                        isActive 
+                          ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
+                          : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}

@@ -79,8 +79,8 @@ export default function HeroCarousel({
             <source media="(max-width: 640px)" srcSet={heroBgMobile} />
             <motion.img
               src={heroBgDesktop}
-              alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[right_top]"
+              alt="Pareja feliz en su nuevo hogar con Gesgrama"
+              className="w-full h-full object-cover object-[center_top] sm:object-[center_12%]"
               loading="eager"
               fetchPriority="high"
               width={2560}

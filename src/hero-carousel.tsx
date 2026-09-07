@@ -130,7 +130,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[620px]"
+              className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[620px] text-pretty"
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
               {customSubtitle || t.heroCarousel.subtitle}

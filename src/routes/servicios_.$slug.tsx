@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Building2, TrendingUp, Shield, Paintbrush, Check, MessageCircle, ArrowLeft, ArrowRight } from "lucide-react";
-import logoImg from "@/assets/logo.webp";
+import { Building2, TrendingUp, Shield, Paintbrush, Check, MessageCircle, ArrowLeft, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
+import { FooterMascot } from "@/components/FooterMascot";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { AccreditationBadges } from "@/components/AccreditationBadges";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -225,45 +228,26 @@ function ServiceDetail() {
   const IconComp = service.icon;
 
   return (
-    <div className="min-[#0f172a] bg-[#f8fafc] text-onyx min-h-screen font-sans">
-      {/* Top Header / Nav */}
-      <header className="bg-[#757989] text-white py-4 px-6 md:px-12 border-b border-white/20 shadow-md">
-        <div className="max-w-[1300px] mx-auto flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 bg-white p-2 rounded-xl">
-            <img src={logoImg} alt="Gesgrama" className="h-9 w-auto" />
-          </Link>
-
-          <div className="flex items-center gap-4">
-            <Link to="/" className="text-sm font-bold text-white hover:text-blue-200 flex items-center gap-1.5 transition-colors">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Volver a la inicio</span>
-            </Link>
-            <a
-              href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#contacto`}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-extrabold uppercase px-5 py-2.5 rounded-full shadow-sm transition-all"
-            >
-              Contactar
-            </a>
-          </div>
-        </div>
-      </header>
+    <div className="bg-[#f8fafc] text-[#0f172a] min-h-screen font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
+      {/* ── NAVBAR CORPORATIVO OFICIAL ── */}
+      <Navbar language={language} setLanguage={setLanguage} />
 
       {/* Main Container */}
-      <main className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 py-10">
+      <main className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-6">
-          <Link to="/" className="hover:text-[#005c99]">Inicio</Link>
+          <Link to="/" className="hover:text-[#2563eb]">Inicio</Link>
           <span>/</span>
-          <span className="text-[#005c99]">Servicios</span>
+          <span className="text-[#2563eb]">Servicios</span>
           <span>/</span>
-          <span className="text-slate-800">{service.titleKey}</span>
+          <span className="text-slate-900 font-extrabold">{service.titleKey}</span>
         </div>
 
         {/* Hero Banner for Service */}
-        <div className="bg-[#0f172a] rounded-3xl p-6 sm:p-10 md:p-14 text-white shadow-2xl overflow-hidden relative mb-12 border border-sky-500/20">
+        <div className="bg-[#0f172a] rounded-3xl p-6 sm:p-10 md:p-14 text-white shadow-2xl overflow-hidden relative mb-12 border border-slate-800">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-2 bg-[#0284c7]/20 text-[#38bdf8] border border-[#38bdf8]/30 text-xs font-bold uppercase px-4 py-2 rounded-full mb-4">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black uppercase px-4 py-2 rounded-full mb-4 shadow-sm">
                 <IconComp className="w-4 h-4" />
                 Servicio Especializado
               </span>
@@ -283,7 +267,7 @@ function ServiceDetail() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#contacto`}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-7 rounded-full shadow-lg transition-all flex items-center gap-2"
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-7 rounded-full shadow-lg transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>Solicitar este servicio</span>
                   <ArrowRight className="w-4 h-4" />
@@ -292,9 +276,11 @@ function ServiceDetail() {
                   href="https://wa.me/34601259424"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm py-3.5 px-6 rounded-full shadow-md transition-all flex items-center gap-2"
+                  className="bg-[#075E54] hover:bg-[#054c44] text-white font-extrabold text-sm py-3.5 px-6 rounded-full shadow-lg transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white shrink-0">
+                    <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                  </svg>
                   <span>Consulta por WhatsApp</span>
                 </a>
               </div>
@@ -316,7 +302,7 @@ function ServiceDetail() {
               <ul className="space-y-4">
                 {service.details.map((detail, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-slate-700 font-medium text-sm sm:text-base">
-                    <Check className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5 stroke-[3]" />
+                    <Check className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5 stroke-[3]" />
                     <span>{detail}</span>
                   </li>
                 ))}
@@ -325,12 +311,12 @@ function ServiceDetail() {
           </div>
 
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-[#f0f7ff] border border-blue-200 rounded-3xl p-6 md:p-8 shadow-sm">
-              <h3 className="text-xl font-extrabold text-[#005c99] mb-4">Ventajas de elegir a Gesgrama</h3>
+            <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+              <h3 className="text-xl font-extrabold text-[#0b214a] mb-4">Ventajas de elegir a Gesgrama</h3>
               <ul className="space-y-3">
                 {service.benefits.map((b, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-slate-800 font-bold text-xs sm:text-sm">
-                    <div className="w-2 h-2 rounded-full bg-[#005c99] shrink-0 mt-1.5" />
+                    <div className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0 mt-1.5" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -338,12 +324,12 @@ function ServiceDetail() {
             </div>
 
             {/* Direct Contact Card */}
-            <div className="bg-[#757989] text-white rounded-3xl p-6 md:p-8 shadow-md">
+            <div className="bg-[#0f172a] text-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-800">
               <h3 className="text-lg font-bold mb-2">¿Necesitas asesoramiento inmediato?</h3>
-              <p className="text-xs text-slate-200 mb-6">Atendemos consultas presenciales en nuestra oficina de Santa Coloma de Gramenet o por teléfono y WhatsApp.</p>
+              <p className="text-xs text-slate-300 mb-6 font-medium">Atendemos consultas presenciales en nuestra oficina de Santa Coloma de Gramenet o por teléfono y WhatsApp.</p>
               <a
                 href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#contacto`}
-                className="w-full bg-white text-[#0f172a] font-extrabold text-sm py-3.5 px-6 rounded-full text-center block hover:bg-slate-100 transition-colors shadow-sm"
+                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-6 rounded-full text-center block transition-colors shadow-sm cursor-pointer"
               >
                 Solicitar presupuesto sin compromiso
               </a>
@@ -351,6 +337,130 @@ function ServiceDetail() {
           </div>
         </div>
       </main>
+
+      {/* ── FOOTER CORPORATIVO COMPLETO CON MASCOTA ── */}
+      <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col gap-10 relative">
+          <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
+            <div className="w-full md:hidden flex justify-center items-center mb-4">
+              <FooterMascot className="w-44 sm:w-52 h-auto object-contain drop-shadow-lg" />
+            </div>
+
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
+              <div className="lg:col-span-1">
+                <div className="inline-block mb-4">
+                  <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama" width={212} height={52} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
+                </div>
+                <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
+                  Administración de fincas e intermediación inmobiliaria en Santa Coloma de Gramenet con más de 15 años de experiencia.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Navegación</h3>
+                <ul className="space-y-3.5">
+                  {[
+                    { label: "Propiedades", href: "/#propiedades" },
+                    { label: "Servicios", href: "/#servicios" },
+                    { label: "Nosotros", href: "/#nosotros" },
+                    { label: "Contacto", href: "/#contacto" },
+                  ].map(link => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Contacto Directo</h3>
+                <ul className="space-y-4 text-base text-slate-300 font-bold">
+                  <li className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
+                    <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
+                  </li>
+                  <li>
+                    <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
+                      <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
+                      Oficina: 93 468 56 56
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
+                        <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                      </svg>
+                      WhatsApp: 601 25 94 24
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:info@gesgrama.com" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
+                      <Mail className="w-5 h-5 text-[#2563eb] shrink-0" />
+                      info@gesgrama.com
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Legal</h3>
+                <ul className="space-y-3.5">
+                  <li>
+                    <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Aviso Legal
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Política de Privacidad
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Política de Cookies
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
+              <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-8">
+            <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
+              ACREDITACIONES PROFESIONALES OFICIALES
+            </h3>
+            <AccreditationBadges language={language} />
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 bg-[#060c18]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. Todos los derechos reservados. · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+            <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
+              <Link to="/aviso-legal" className="hover:text-blue-200">Aviso Legal</Link>
+              <span>·</span>
+              <Link to="/politica-privacidad" className="hover:text-blue-200">Privacidad</Link>
+              <span>·</span>
+              <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
+              <span>·</span>
+              <Link to="/admin" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Floating Utilities */}
+      <WhatsAppButton language={language} />
     </div>
   );
 }

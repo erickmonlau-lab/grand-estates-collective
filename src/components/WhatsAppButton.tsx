@@ -11,7 +11,7 @@ const tooltips = {
   ca: "Necessites ajuda? Xat amb nosaltres"
 };
 
-export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
+export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -88,3 +88,4 @@ export default function WhatsAppButton({ language = "es" }: WhatsAppButtonProps)
     </div>
   );
 }
+export default WhatsAppButton;

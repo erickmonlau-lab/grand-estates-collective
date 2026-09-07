@@ -678,176 +678,224 @@ function SantaColomaBarrioPage() {
       <Navbar language={language} setLanguage={handleLanguageChange} />
 
       <main>
-        {/* ── HERO SECTION ENFOCADO EN EL BARRIO DE SANTA COLOMA (DISEÑO CORPORATIVO GESGRAMA) ── */}
-        <section className="relative bg-[#0f172a] text-white pt-28 sm:pt-36 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-12 overflow-hidden border-b border-slate-800">
-          <div className="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-            {/* Left Content */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Badges bar - 100% SOLID BACKGROUNDS (NO TRANSPARENCY) */}
-              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-                <span className="inline-flex items-center gap-1.5 bg-[#1e3a8a] text-white border border-blue-400/40 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-sm">
-                  <MapPin className="w-3.5 h-3.5 text-[#38bdf8] shrink-0" />
+        {/* ── HERO SECTION IDÉNTICO AL DISEÑO DE LA PÁGINA PRINCIPAL (ADAPTADO AL BARRIO) ── */}
+        <section className="relative text-slate-900 pt-28 sm:pt-36 pb-12 sm:pb-16 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 border-b border-slate-200">
+          <div className="max-w-[1360px] mx-auto w-full relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Column: Identical hierarchy to homepage hero */}
+              <div className="lg:col-span-7 space-y-5 text-left">
+                {/* Blue pill badge identical to Home */}
+                <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit">
+                  <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
                   <span>{t.barrioTag} {data.name} · Santa Coloma</span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-white text-slate-900 px-3.5 py-1.5 rounded-full text-xs font-black shadow-sm">
-                  <Clock className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-                  <span>{t.atencionEn}{data.emergencyResponseMinutes} {t.minutos}</span>
-                </span>
-                <span className="inline-flex items-center gap-1.5 bg-[#1e293b] text-slate-100 border border-slate-700 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm">
-                  <span>{t.cp} {data.postalCode} · {data.district}</span>
-                </span>
-              </div>
+                </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight font-sans">
-                {localizedHeadline}
-              </h1>
+                {/* Main Headline identical to Home typography */}
+                <h1 className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[3.8rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight font-heading">
+                  {localizedHeadline.split(" en ")[0] || localizedHeadline}<br />
+                  <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                    {localizedHeadline.includes(" en ") ? `en ${localizedHeadline.split(" en ")[1]}` : data.name}
+                  </span>
+                </h1>
 
-              {/* Subtitle with 100% solid background (NO TRANSPARENCY) */}
-              <div className="bg-[#1e293b] border-2 border-slate-700 rounded-2xl p-4 sm:p-5 max-w-2xl shadow-xl">
-                <p className="text-base sm:text-lg text-white font-semibold leading-relaxed">
+                {/* Subtitle with high contrast and readability */}
+                <p className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.15rem] font-bold leading-relaxed font-sans max-w-[620px]">
                   {localizedSubtitle}
                 </p>
+
+                {/* Trust points card with 100% solid white cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  {t.trustPoints.map((point, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-bold bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                      <CheckCircle2 className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Buttons matching Home Page buttons */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+                  <a 
+                    href="#calculadora-presupuesto"
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2.5 group cursor-pointer"
+                  >
+                    <Calculator className="w-4.5 h-4.5 shrink-0" />
+                    <span>{t.ctaStudy}</span>
+                    <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
+                  </a>
+
+                  <a 
+                    href={`https://wa.me/34601259424?text=${encodeURIComponent(
+                      language === 'ca'
+                        ? `Hola Gesgrama, sol·licito informació per a una comunitat al barri de ${data.name} (Santa Coloma)`
+                        : language === 'en'
+                          ? `Hello Gesgrama, I'd like info regarding community management in ${data.name} (Santa Coloma)`
+                          : `Hola Gesgrama, solicito estudio para comunidad en el barrio de ${data.name} (Santa Coloma)`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md flex items-center justify-center gap-2.5 cursor-pointer"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
+                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                    </svg>
+                    <span>{t.ctaWhatsapp}</span>
+                  </a>
+                </div>
+
+                {/* Trust badge with check */}
+                <div className="flex items-center gap-2.5 pt-1">
+                  <span className="w-5 h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
+                  </span>
+                  <span className="font-extrabold font-sans text-slate-800 text-[13.5px] sm:text-[14px]">
+                    {t.atencionEn} ~{data.emergencyResponseMinutes} {t.minutos} · CP {data.postalCode} ({data.district})
+                  </span>
+                </div>
               </div>
 
-              {/* Bullet points of trust - 100% solid backgrounds */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                {t.trustPoints.map((point, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-100 font-bold bg-[#0f172a] border border-slate-700 rounded-xl px-3.5 py-2.5 shadow-md">
-                    <CheckCircle2 className="w-4.5 h-4.5 text-[#38bdf8] shrink-0" />
-                    <span>{point}</span>
+              {/* Right Column: Calculator Card */}
+              <div id="calculadora-presupuesto" className="lg:col-span-5">
+                <div className="bg-white rounded-[26px] p-6 sm:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.08)] border border-slate-200 text-slate-900">
+                  <div className="mb-4 text-left">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block mb-1 font-sans">
+                      {t.formBadge}
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-black text-[#0b214a] font-sans leading-snug">
+                      {t.formTitle} {data.name}?
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium leading-relaxed">
+                      {t.formSub}
+                    </p>
                   </div>
-                ))}
-              </div>
 
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-3.5 pt-3">
-                <a 
-                  href="#calculadora-presupuesto"
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm uppercase tracking-wider py-3.5 px-6 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group cursor-pointer font-sans"
-                >
-                  <Calculator className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span>{t.ctaStudy}</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+                  <form 
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const form = e.currentTarget;
+                      const fd = new FormData(form);
+                      const email = fd.get("email");
+                      const phone = fd.get("phone");
+                      const vecinos = fd.get("vecinos");
+                      const street = fd.get("street") || data.name;
+                      const message = `Hola Gesgrama, solicito presupuesto para mi comunidad en Santa Coloma (Barrio ${data.name}, calle ${street}). Vecinos: ${vecinos}, Tel: ${phone}, Email: ${email}`;
+                      window.open(`https://wa.me/34601259424?text=${encodeURIComponent(message)}`, "_blank");
+                    }} 
+                    className="space-y-3.5 text-left"
+                  >
+                    <div>
+                      <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
+                        {t.vecinosLabel}
+                      </label>
+                      <input 
+                        type="number" 
+                        name="vecinos"
+                        min="2" 
+                        max="300" 
+                        defaultValue="12" 
+                        required 
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
+                      />
+                    </div>
 
-                <a 
-                  href={`https://wa.me/34601259424?text=${encodeURIComponent(
-                    language === 'ca'
-                      ? `Hola Gesgrama, sol·licito informació per a una comunitat al barri de ${data.name} (Santa Coloma)`
-                      : language === 'en'
-                        ? `Hello Gesgrama, I'd like info regarding community management in ${data.name} (Santa Coloma)`
-                        : `Hola Gesgrama, solicito estudio para comunidad en el barrio de ${data.name} (Santa Coloma)`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs sm:text-sm uppercase tracking-wider py-3.5 px-5 rounded-full shadow-md transition-all flex items-center gap-2 cursor-pointer font-sans"
-                >
-                  <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
-                    <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                  </svg>
-                  <span>WhatsApp 601 25 94 24</span>
-                </a>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
+                          {t.phoneLabel}
+                        </label>
+                        <input 
+                          type="tel" 
+                          name="phone"
+                          placeholder="600 000 000" 
+                          required 
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
+                          {t.emailLabel}
+                        </label>
+                        <input 
+                          type="email" 
+                          name="email"
+                          placeholder="tu@email.com" 
+                          required 
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
+                        {t.streetLabel} {data.name}
+                      </label>
+                      <input 
+                        type="text" 
+                        name="street"
+                        placeholder={`Ej. ${data.testimonial.street}`} 
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
+                      />
+                    </div>
+
+                    <button 
+                      type="submit"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 px-5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer font-sans"
+                    >
+                      <span>{t.submitBtn}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    {/* Clarified, 100% solid disclaimer pill */}
+                    <div className="bg-slate-100 border border-slate-200 rounded-xl p-2.5 text-center shadow-2xs">
+                      <p className="text-xs sm:text-[13px] font-extrabold text-slate-800 leading-snug font-sans">
+                        {t.disclaimer}
+                      </p>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
 
-            {/* Right Card: Quick Request Form (Canonical White Card Design) */}
-            <div id="calculadora-presupuesto" className="lg:col-span-5">
-              <div className="bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border-2 border-slate-200 text-slate-900">
-                <div className="mb-4 text-left">
-                  <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block mb-1 font-sans">
-                    {t.formBadge}
-                  </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-sans leading-snug">
-                    {t.formTitle} {data.name}?
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-1 font-medium leading-relaxed">
-                    {t.formSub}
-                  </p>
-                </div>
+            {/* 4 Stats Grid identical to Home Hero Carousel */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 pt-6 border-t border-slate-200/80">
+              <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 rounded-2xl bg-[#0f172a] text-white shadow-sm border border-slate-800">
+                <Users className="w-5 h-5 text-[#38bdf8] mb-1.5" />
+                <p className="text-2xl sm:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
+                  +4.500
+                </p>
+                <p className="text-xs sm:text-[13px] font-bold text-slate-300 leading-tight font-sans">
+                  {t.stats.communitiesLabel}
+                </p>
+              </div>
 
-                <form 
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const form = e.currentTarget;
-                    const fd = new FormData(form);
-                    const email = fd.get("email");
-                    const phone = fd.get("phone");
-                    const vecinos = fd.get("vecinos");
-                    const street = fd.get("street") || data.name;
-                    const message = `Hola Gesgrama, solicito presupuesto para mi comunidad en Santa Coloma (Barrio ${data.name}, calle ${street}). Vecinos: ${vecinos}, Tel: ${phone}, Email: ${email}`;
-                    window.open(`https://wa.me/34601259424?text=${encodeURIComponent(message)}`, "_blank");
-                  }} 
-                  className="space-y-3.5 text-left"
-                >
-                  <div>
-                    <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
-                      {t.vecinosLabel}
-                    </label>
-                    <input 
-                      type="number" 
-                      name="vecinos"
-                      min="2" 
-                      max="300" 
-                      defaultValue="12" 
-                      required 
-                      className="w-full px-3.5 py-2.5 rounded-xl border-2 border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
-                    />
-                  </div>
+              <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-sm">
+                <ShieldCheck className="w-5 h-5 text-[#2563eb] mb-1.5" />
+                <p className="text-2xl sm:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+                  ~{data.emergencyResponseMinutes} min
+                </p>
+                <p className="text-xs sm:text-[13px] font-bold text-slate-600 leading-tight font-sans">
+                  {t.stats.urgencyLabel}
+                </p>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
-                        {t.phoneLabel}
-                      </label>
-                      <input 
-                        type="tel" 
-                        name="phone"
-                        placeholder="600 000 000" 
-                        required 
-                        className="w-full px-3.5 py-2.5 rounded-xl border-2 border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
-                        {t.emailLabel}
-                      </label>
-                      <input 
-                        type="email" 
-                        name="email"
-                        placeholder="tu@email.com" 
-                        required 
-                        className="w-full px-3.5 py-2.5 rounded-xl border-2 border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
-                      />
-                    </div>
-                  </div>
+              <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 rounded-2xl bg-[#0f172a] text-white shadow-sm border border-slate-800">
+                <Building2 className="w-5 h-5 text-[#38bdf8] mb-1.5" />
+                <p className="text-2xl sm:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
+                  +300
+                </p>
+                <p className="text-xs sm:text-[13px] font-bold text-slate-300 leading-tight font-sans">
+                  {t.stats.communities}
+                </p>
+              </div>
 
-                  <div>
-                    <label className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
-                      {t.streetLabel} {data.name}
-                    </label>
-                    <input 
-                      type="text" 
-                      name="street"
-                      placeholder={`Ej. ${data.testimonial.street}`} 
-                      className="w-full px-3.5 py-2.5 rounded-xl border-2 border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold bg-white text-slate-900"
-                    />
-                  </div>
-
-                  <button 
-                    type="submit"
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3.5 px-5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer font-sans"
-                  >
-                    <span>{t.submitBtn}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-
-                  {/* Clarified, 100% solid disclaimer pill */}
-                  <div className="bg-slate-100 border border-slate-200 rounded-xl p-2.5 text-center shadow-2xs">
-                    <p className="text-xs sm:text-[13px] font-extrabold text-slate-800 leading-snug font-sans">
-                      {t.disclaimer}
-                    </p>
-                  </div>
-                </form>
+              <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-sm">
+                <Award className="w-5 h-5 text-[#2563eb] mb-1.5" />
+                <p className="text-2xl sm:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+                  15+
+                </p>
+                <p className="text-xs sm:text-[13px] font-bold text-slate-600 leading-tight font-sans">
+                  {t.stats.yearsLabel}
+                </p>
               </div>
             </div>
           </div>

@@ -508,18 +508,18 @@ function SantaColomaBarrioPage() {
           </div>
         </section>
 
-        {/* ── RED COMPLETA DE LOS 14 BARRIOS DE SANTA COLOMA ── */}
+        {/* ── COBERTURA EN SANTA COLOMA ── */}
         <section className="py-16 px-4 sm:px-6 lg:px-12 bg-slate-900 text-white">
           <div className="max-w-[1400px] mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-10">
               <span className="text-xs font-black uppercase tracking-wider text-[#38bdf8] block mb-2">
-                Presencia en Toda la Ciudad
+                Presencia Local
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white">
-                Administración de Fincas en Todos los Barrios de Santa Coloma
+                Cobertura en Santa Coloma de Gramenet
               </h2>
               <p className="text-sm sm:text-base text-slate-400 mt-2 font-medium">
-                Cobertura directa desde nuestra sede en Av. dels Banús, 49 a cada una de las 14 zonas oficiales de la ciudad:
+                Atención presencial e inmediata en todas las zonas oficiales de la ciudad:
               </p>
             </div>
 
@@ -533,12 +533,12 @@ function SantaColomaBarrioPage() {
                     params={{ city: b.slug }}
                     className={`p-3.5 rounded-2xl text-center flex flex-col items-center justify-center transition-all ${
                       isCurrent 
-                        ? "bg-[#2563eb] text-white font-black shadow-lg ring-2 ring-white/20" 
-                        : "bg-white/5 hover:bg-white/15 text-slate-200 font-bold border border-white/10"
+                        ? "bg-[#2563eb] text-white font-black shadow-lg ring-4 ring-blue-400/30 scale-105" 
+                        : "bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] font-extrabold shadow-md hover:shadow-lg hover:-translate-y-0.5"
                     }`}
                   >
                     <span className="text-sm block">{b.name}</span>
-                    <span className="text-[10px] text-slate-400 mt-0.5">{b.postalCode}</span>
+                    <span className={`text-[10px] mt-0.5 font-bold ${isCurrent ? "text-blue-100" : "text-slate-500"}`}>CP {b.postalCode}</span>
                   </Link>
                 );
               })}

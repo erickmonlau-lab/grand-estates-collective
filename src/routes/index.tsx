@@ -2132,10 +2132,10 @@ function Index() {
             </div>
           </div>
 
-          {/* Cobertura en Todos los Barrios de Santa Coloma de Gramenet (SEO Local 100% Santa Coloma) */}
+          {/* Cobertura en Santa Coloma de Gramenet */}
           <div className="border-t border-white/10 pt-8 pb-2">
             <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
-              {language === "ca" ? "ADMINISTRACIÓ DE FINQUES ALS 14 BARRIS DE SANTA COLOMA DE GRAMENET" : language === "en" ? "PROPERTY MANAGEMENT IN ALL 14 DISTRICTS OF SANTA COLOMA DE GRAMENET" : "ADMINISTRACIÓN DE FINCAS EN LOS 14 BARRIOS DE SANTA COLOMA DE GRAMENET"}
+              {language === "ca" ? "COBERTURA A SANTA COLOMA DE GRAMENET" : language === "en" ? "COVERAGE IN SANTA COLOMA DE GRAMENET" : "COBERTURA EN SANTA COLOMA DE GRAMENET"}
             </h3>
             <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 justify-center md:justify-start">
               {[
@@ -2153,14 +2153,15 @@ function Index() {
                 { name: "Les Oliveres", slug: "les-oliveres" },
                 { name: "La Guinardera", slug: "la-guinardera" },
                 { name: "Cementiri Vell", slug: "cementiri-vell" }
-              ].map(barrio => (
+              ].map(zone => (
                 <Link
-                  key={barrio.slug}
+                  key={zone.slug}
                   to="/administrador-fincas/$city"
-                  params={{ city: barrio.slug }}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#2563eb] text-slate-300 hover:text-white text-xs font-bold transition-colors border border-white/10"
+                  params={{ city: zone.slug }}
+                  className="px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] text-xs sm:text-sm font-extrabold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
                 >
-                  {barrio.name}
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb]" />
+                  <span>{zone.name}</span>
                 </Link>
               ))}
             </div>

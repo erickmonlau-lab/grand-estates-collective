@@ -483,21 +483,21 @@ function SantaColomaBarrioPage() {
               : `Barrio ${data.name} · Santa Coloma`
           }
           customHeadline={
-            <>
+            <span className="block text-[28px] xs:text-[32px] sm:text-4xl md:text-[2.6rem] lg:text-[3.1rem] xl:text-[3.5rem] leading-[1.08] tracking-tight">
               {language === "ca"
                 ? "Administració de Finques,"
                 : language === "en"
                 ? "Property Management,"
                 : "Administración de Fincas,"}
               <br />
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+              <span className="text-[#2563eb] inline-block mt-1">
                 {language === "ca"
                   ? `a ${data.name} · Santa Coloma`
                   : language === "en"
                   ? `in ${data.name} · Santa Coloma`
                   : `en ${data.name} · Santa Coloma`}
               </span>
-            </>
+            </span>
           }
           customSubtitle={
             language === "ca"

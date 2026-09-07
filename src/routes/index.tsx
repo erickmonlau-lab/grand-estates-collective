@@ -28,6 +28,35 @@ export const Route = createFileRoute("/")({
       { rel: "preconnect", href: "https://maps.googleapis.com" },
       { rel: "preconnect", href: "https://maps.gstatic.com" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Valoración Inmobiliaria Online en Santa Coloma de Gramenet",
+          "serviceType": "Tasación y valoración inmobiliaria",
+          "provider": {
+            "@type": "RealEstateAgent",
+            "name": "Gesgrama",
+            "url": "https://www.gesgrama.es",
+            "telephone": "+34934685656",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Av. dels Banús, 49",
+              "addressLocality": "Santa Coloma de Gramenet",
+              "postalCode": "08923",
+              "addressCountry": "ES"
+            }
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Santa Coloma de Gramenet"
+          },
+          "description": "Herramienta inteligente de estimación del precio de mercado m² para pisos y comunidades en todos los barrios de Santa Coloma de Gramenet."
+        })
+      }
+    ],
   }),
   component: Index,
 });
@@ -277,13 +306,29 @@ function Index() {
 
   // Valuator real calculation state
   const ZONE_PRICE_PER_M2: Record<string, number> = {
-    "Riera Alta - Llatí": 1850,
-    "Singuerlín": 1720,
     "Centre": 2350,
+    "Centro": 2350,
     "Santa Rosa - Can Mariner": 1910,
+    "Singuerlín": 1720,
     "Fondo": 1680,
     "El Raval": 1790,
-    "Riu": 1950
+    "Riera Alta - Llatí": 1850,
+    "Riu": 1950,
+    "Riu Nord / Riu Sud": 1950,
+    "Oliveres - Can Serra": 1720
+  };
+
+  const ZONE_TO_SLUG: Record<string, string> = {
+    "Centre": "centre",
+    "Centro": "centre",
+    "Santa Rosa - Can Mariner": "santa-rosa",
+    "Singuerlín": "singuerlin",
+    "Fondo": "fondo",
+    "El Raval": "el-raval",
+    "Riera Alta - Llatí": "riera-alta",
+    "Riu": "riu-nord",
+    "Riu Nord / Riu Sud": "riu-nord",
+    "Oliveres - Can Serra": "oliveres"
   };
 
   const [valuatorData, setValuatorData] = useState({
@@ -1133,10 +1178,12 @@ function Index() {
                         {/* Content Block */}
                         <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            {/* Location with Pin */}
-                            <div className="flex items-center gap-1.5 mb-2 text-xs sm:text-[13px] font-extrabold text-slate-500 font-sans">
-                              <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                              <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
+                            {/* Location with Pin - Highly Visual Pill */}
+                            <div className="mb-2.5">
+                              <span className="inline-flex items-center gap-1.5 bg-blue-50 text-[#1d4ed8] border border-blue-200/90 px-3 py-1 rounded-full text-xs sm:text-[13px] font-bold tracking-tight shadow-xs">
+                                <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
+                              </span>
                             </div>
 
                             {/* Main Title */}
@@ -1160,10 +1207,12 @@ function Index() {
                               </div>
                             </div>
 
-                            {/* Floor / Verification Guarantee badge */}
-                            <div className="flex items-center gap-1.5 text-[11.5px] font-extrabold text-slate-500 font-sans mt-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
-                              <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                            {/* Floor / Feature Highlight badge - Highly Visual Badge */}
+                            <div className="mt-2.5">
+                              <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-900 border border-emerald-200/90 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-bold shadow-xs max-w-full">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 ring-4 ring-emerald-100" />
+                                <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                              </div>
                             </div>
                           </div>
 
@@ -1749,6 +1798,65 @@ function Index() {
                     })()}
                   </div>
                 </div>
+
+                {/* Hyper-local Price Benchmark for SEO & Local Trust */}
+                <div className="mt-4 bg-[#f8fafc] border border-slate-200/90 rounded-2xl p-3 text-left">
+                  <div className="flex items-center justify-between text-xs sm:text-[13px]">
+                    <span className="font-bold text-slate-600">
+                      {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
+                    </span>
+                    <span className="font-black text-[#0b214a]">
+                      {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-500 mt-1 font-medium">
+                    <span>{language === "ca" ? "Santa Coloma interanual:" : language === "en" ? "Santa Coloma annual:" : "Santa Coloma interanual:"}</span>
+                    <span className="text-emerald-700 font-bold flex items-center gap-0.5">
+                      <TrendingUp className="w-3 h-3 text-emerald-600" /> +4.2%
+                    </span>
+                  </div>
+                </div>
+
+                {/* SEO/GEO Internal Link to Neighborhood Landing Page */}
+                <div className="mt-3">
+                  <Link
+                    to="/administrador-fincas_/$city"
+                    params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
+                    className="w-full inline-flex items-center justify-between text-xs sm:text-[12.5px] font-bold text-[#2563eb] hover:text-[#1d4ed8] bg-blue-50/70 hover:bg-blue-100/70 border border-blue-200/70 py-2.5 px-3.5 rounded-xl transition-all group"
+                  >
+                    <div className="flex items-center gap-1.5 truncate">
+                      <Building2 className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                      <span className="truncate">
+                        {language === "ca" 
+                          ? `Guia i finques a ${formatLocation(calculatedResult.zoneName, language)}`
+                          : language === "en"
+                          ? `HOA & market guide in ${formatLocation(calculatedResult.zoneName, language)}`
+                          : `Guía y fincas en ${formatLocation(calculatedResult.zoneName, language)}`}
+                      </span>
+                    </div>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                  </Link>
+                </div>
+
+                {/* High-Converting GEO WhatsApp CTA */}
+                <a
+                  href={`https://wa.me/34689438012?text=${encodeURIComponent(
+                    language === "ca"
+                      ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${valuatorData.metros || 85} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
+                      : language === "en"
+                      ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${valuatorData.metros || 85} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
+                      : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${valuatorData.metros || 85} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full mt-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-[13px] py-3 px-3 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                  <MessageCircle className="w-4 h-4 fill-white text-emerald-600 shrink-0" />
+                  <span>
+                    {language === "ca" ? "Demanar valoració presencial" : language === "en" ? "Request in-person appraisal" : "Solicitar valoración presencial"}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                </a>
               </div>
             </div>
 

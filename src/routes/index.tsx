@@ -7,7 +7,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2 } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
@@ -42,6 +42,29 @@ import { translations } from "../data/translations";
 // ---------------------------------------------------------------------------
 // HELPERS
 // ---------------------------------------------------------------------------
+function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <path
+        fill="#4285F4"
+        d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+      />
+    </svg>
+  );
+}
+
 function PriceCounter({ value, duration = 1200 }: { value: number; duration?: number }) {
   const [displayValue, setDisplayValue] = useState(value);
   const prevRef = useRef(value);
@@ -1280,18 +1303,18 @@ function Index() {
       {/* ── TESTIMONIOS / NOSOTROS ── */}
       <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14 scroll-mt-24 md:scroll-mt-28">
         <div id="testimonios" className="-top-28 relative block invisible" />
-        <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-2xl border-2 border-slate-400/90 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
+        <div className="bg-[#f8fafc] rounded-[28px] md:rounded-[36px] shadow-2xl border border-slate-300/80 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none z-0" />
           <div className="relative z-10">
             {/* Header */}
             <Reveal>
-              <div className="mb-10 text-center">
-                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-sm font-black tracking-widest uppercase px-5 py-2 rounded-2xl shadow-md border border-white/10 mb-4">
+              <div className="mb-8 md:mb-12 text-center">
+                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-4 sm:px-5 py-2 rounded-2xl shadow-md border border-white/10 mb-3.5">
                   <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                   <span>{t.testimonios.tag}</span>
                 </span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-[#0f172a] tracking-tight mb-3 font-sans">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-[#0f172a] tracking-tight mb-3 font-sans">
                   {t.testimonios.title1}{" "}
                   <span className="relative inline-block text-[#2563eb] pb-2">
                     {t.testimonios.title2}
@@ -1300,53 +1323,118 @@ function Index() {
                     </svg>
                   </span>
                 </h2>
+                <div className="mt-3 inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-slate-200/90 rounded-full px-4 py-1.5 shadow-sm">
+                  <GoogleIcon className="w-4 h-4 shrink-0" />
+                  <div className="flex items-center gap-0.5 text-amber-400">
+                    {[...Array(5)].map((_, s) => (
+                      <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-slate-800">
+                    4.9 / 5 <span className="text-slate-500 font-medium">• {language === 'ca' ? 'Ressenyes a Google' : language === 'en' ? 'Google Reviews' : 'Reseñas en Google'}</span>
+                  </span>
+                </div>
               </div>
             </Reveal>
 
             {/* 3 Real Google Reviews Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
               {t.testimonios.items.map((item, i) => {
-                const avatarBgs = ["bg-indigo-600", "bg-amber-700", "bg-[#2563eb]"];
-                const topBorders = ["border-t-4 border-[#0b214a]", "border-t-4 border-[#2563eb]", "border-t-4 border-[#0b214a]"];
+                const cardMeta = [
+                  {
+                    category: language === 'ca' ? "Compra d'habitatge" : language === 'en' ? "Home purchase" : "Compra de vivienda",
+                    Icon: Home,
+                    accentBorder: "from-[#2563eb] to-[#38bdf8]",
+                    categoryBadge: "bg-blue-50 text-[#2563eb] border-blue-200/80",
+                    avatarBg: "bg-gradient-to-br from-[#2563eb] to-[#1d4ed8]",
+                  },
+                  {
+                    category: language === 'ca' ? "Gestió de lloguer" : language === 'en' ? "Rental management" : "Gestión de alquiler",
+                    Icon: Key,
+                    accentBorder: "from-emerald-500 to-teal-400",
+                    categoryBadge: "bg-emerald-50 text-emerald-700 border-emerald-200/80",
+                    avatarBg: "bg-gradient-to-br from-emerald-600 to-teal-700",
+                  },
+                  {
+                    category: language === 'ca' ? "Comunitat de veïns" : language === 'en' ? "HOA & Building" : "Comunidad de propietarios",
+                    Icon: Building2,
+                    accentBorder: "from-[#0b214a] to-[#2563eb]",
+                    categoryBadge: "bg-indigo-50 text-[#0b214a] border-indigo-200/80",
+                    avatarBg: "bg-gradient-to-br from-[#0b214a] to-[#1e293b]",
+                  }
+                ];
+                const meta = cardMeta[i % cardMeta.length];
                 const initials = ["F", "A", "C"];
+
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className={`bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border border-slate-200 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden ${topBorders[i % topBorders.length]}`}>
+                    <div className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_35px_-10px_rgba(15,23,42,0.12)] hover:border-[#2563eb]/40 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
                       
-                      {/* Watermark Quote Icon */}
-                      <div className="absolute top-3 right-4 text-[#757989] opacity-30 select-none pointer-events-none text-6xl font-serif font-black leading-none">
-                        “
+                      {/* Top Accent Gradient Bar */}
+                      <div className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${meta.accentBorder}`} />
+
+                      {/* Subtle Watermark Quote */}
+                      <div className="absolute top-4 right-4 text-slate-100 group-hover:text-blue-50/70 transition-colors pointer-events-none select-none">
+                        <Quote className="w-12 h-12 -scale-x-100 opacity-60" />
                       </div>
 
                       <div className="relative z-10">
-                        {/* Rating Stars & Badge */}
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-1.5">
-                            {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                            ))}
-                            <span className="text-sm font-black text-slate-800 ml-1.5">5/5</span>
+                        {/* Top Meta: Service Pill + Google Verified Pill */}
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border shadow-xs ${meta.categoryBadge}`}>
+                            <meta.Icon className="w-3.5 h-3.5" />
+                            <span>{meta.category}</span>
+                          </span>
+
+                          <div className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-full text-[11px] font-semibold text-slate-600 shadow-xs">
+                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                            <span className="hidden xs:inline">{language === 'ca' ? 'Google' : 'Google'}</span>
                           </div>
                         </div>
 
-                        {/* Quote Text - LETRA MÁS GRANDE Y LEGIBLE */}
-                        <p className="text-[#0f172a] text-base sm:text-lg md:text-xl leading-relaxed mb-6 font-bold tracking-tight">
-                          "{item.quote}"
+                        {/* 5 Stars Rating + Score */}
+                        <div className="flex items-center gap-2 mb-3.5">
+                          <div className="flex items-center gap-0.5 text-amber-400">
+                            {[...Array(5)].map((_, s) => (
+                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                          <span className="text-xs font-black text-slate-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">
+                            5.0
+                          </span>
+                        </div>
+
+                        {/* Quote Text */}
+                        <p className="text-slate-700 text-[14.5px] sm:text-[15.5px] leading-relaxed font-normal mb-6">
+                          “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-4 border-t border-slate-100 flex items-center gap-3.5 relative z-10">
-                        <div className={`w-12 h-12 rounded-full ${avatarBgs[i % avatarBgs.length]} text-white font-black text-lg flex items-center justify-center shrink-0 shadow-md uppercase tracking-wider border-2 border-white/60`}>
-                          {initials[i % initials.length]}
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-11 h-11 rounded-full ${meta.avatarBg} text-white font-black text-base flex items-center justify-center shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-100 relative`}>
+                            {initials[i % initials.length]}
+                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center">
+                              <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
+                            </div>
+                          </div>
+                          <div className="flex flex-col">
+                            <strong className="font-bold text-[15px] sm:text-base text-[#0f172a] tracking-tight leading-snug">
+                              {item.author}
+                            </strong>
+                            <span className="text-xs text-slate-500 font-medium">
+                              {item.time}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex flex-col">
-                          <strong className="font-black text-lg sm:text-xl text-[#0f172a] tracking-tight leading-tight">{item.author}</strong>
-                          <span className="text-sm text-slate-600 font-extrabold mt-0.5">
-                            {item.time}
-                          </span>
-                        </div>
+
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-full shrink-0">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
+                        </span>
                       </div>
+
                     </div>
                   </Reveal>
                 );

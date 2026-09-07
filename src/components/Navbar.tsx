@@ -116,7 +116,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
           </a>
           <button
             type="button"
-            className="xl:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer ml-1"
+            className="lg:hidden p-1.5 text-white hover:text-blue-200 cursor-pointer ml-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú de navegación"}
           >

@@ -662,7 +662,7 @@ function Index() {
           {/* FILTERS */}
           {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
           <div className="mt-8 mb-4">
-            <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 lg:p-3 flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-4 relative z-40">
+            <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 xl:p-3 flex flex-col xl:flex-row items-stretch xl:items-center gap-3 xl:gap-4 relative z-40">
               
               {/* Field 1: Tipo de Inmueble */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
@@ -732,10 +732,10 @@ function Index() {
               </div>
 
               {/* Divider */}
-              <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
+              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
 
               {/* Field 2: Zona */}
-              <div className="hidden lg:block flex-1 relative" onClick={(e) => e.stopPropagation()}>
+              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
                 <button 
                   onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
@@ -796,7 +796,7 @@ function Index() {
               </div>
 
               {/* Divider */}
-              <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
+              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
 
               {/* Field 3: Habitaciones */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
@@ -865,7 +865,7 @@ function Index() {
               </div>
 
               {/* Divider */}
-              <div className="hidden lg:block w-px h-10 bg-slate-200 shrink-0"></div>
+              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
 
               {/* Field 4: Precio Máximo */}
               <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>

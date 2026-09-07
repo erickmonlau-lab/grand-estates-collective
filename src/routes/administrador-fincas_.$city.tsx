@@ -483,28 +483,28 @@ function SantaColomaBarrioPage() {
               : `Barrio ${data.name} · Santa Coloma`
           }
           customHeadline={
-            <span className="block text-[26px] xs:text-[30px] sm:text-4xl md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] leading-[1.08] tracking-tight">
+            <>
               {language === "ca"
                 ? "Administració de Finques,"
                 : language === "en"
                 ? "Property Management,"
                 : "Administración de Fincas,"}
               <br />
-              <span className="text-[#2563eb] inline-block mt-1">
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
                 {language === "ca"
                   ? `a ${data.name} · Santa Coloma`
                   : language === "en"
                   ? `in ${data.name} · Santa Coloma`
                   : `en ${data.name} · Santa Coloma`}
               </span>
-            </span>
+            </>
           }
           customSubtitle={
             language === "ca"
-              ? `Gestió experta per a comunitats al barri de ${data.name}: seu a Av. dels Banús 49, auditoria gratuïta, urgències en ~${data.emergencyResponseMinutes} minuts i total transparència.`
+              ? `Gestió experta per a comunitats al barri de ${data.name}: seu central a Av. dels Banús 49, auditoria gratuïta de despeses, resolució d'avaries en ~${data.emergencyResponseMinutes} minuts i màxima transparència comptable.`
               : language === "en"
-              ? `Expert property administration for communities in ${data.name}: local office at Av. dels Banús 49, free cost audit, emergency response in ~${data.emergencyResponseMinutes} minutes, and total transparency.`
-              : `Gestión experta para comunidades en el barrio de ${data.name}: sede en Av. dels Banús 49, auditoría gratis, averías en ~${data.emergencyResponseMinutes} minutos y máxima transparencia.`
+              ? `Expert property administration for communities in ${data.name}: local headquarters at Av. dels Banús 49, free cost audit, emergency response in ~${data.emergencyResponseMinutes} minutes, and transparent bookkeeping.`
+              : `Gestión experta para comunidades en el barrio de ${data.name}: sede central en Av. dels Banús 49, auditoría gratis de gastos, resolución de averías en ~${data.emergencyResponseMinutes} minutos y máxima transparencia contable.`
           }
           customTrustBadge={
             language === "ca"

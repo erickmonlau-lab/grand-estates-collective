@@ -18,6 +18,7 @@ import CookieBanner from '@/components/CookieBanner';
 import { FooterMascot } from '@/components/FooterMascot';
 import { Navbar } from '@/components/Navbar';
 import { AccreditationBadges } from '@/components/AccreditationBadges';
+import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 
 export const Route = createFileRoute("/")({
@@ -711,6 +712,9 @@ function Index() {
       <main id="main-content">
         {/* ── HERO ── */}
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
+
+        {/* ── CONTINUOUS AUTHORITY MARQUEE ── */}
+        <MarqueeRibbon language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-6 md:py-10 border-t border-slate-200/80 scroll-mt-24 md:scroll-mt-28">
@@ -1630,7 +1634,7 @@ function Index() {
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
+                    className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
                   >
                     <Home className="w-4 h-4 text-white" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>

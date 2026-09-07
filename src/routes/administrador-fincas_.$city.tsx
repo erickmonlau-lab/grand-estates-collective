@@ -33,6 +33,7 @@ import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroCarousel from "@/hero-carousel";
+import MarqueeRibbon from "@/components/MarqueeRibbon";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
@@ -516,6 +517,9 @@ function SantaColomaBarrioPage() {
           customValuationHref="#valuator-form"
         />
 
+        {/* ── CONTINUOUS AUTHORITY MARQUEE ── */}
+        <MarqueeRibbon language={language} />
+
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
         <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-24 md:scroll-mt-28">
           <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
@@ -735,7 +739,7 @@ function SantaColomaBarrioPage() {
                   {displayProperties.map((prop) => {
                     const isFav = favorites.includes(prop.id);
                     return (
-                      <div key={prop.id} className="group bg-white rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md hover:shadow-xl hover:border-[#2563eb] transition-all duration-300 flex flex-col justify-between">
+                      <div key={prop.id} className="card-lift group bg-white rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md hover:border-[#2563eb] flex flex-col justify-between">
                         <div>
                           <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                             <img
@@ -851,7 +855,7 @@ function SantaColomaBarrioPage() {
                 const initials = ["C", "A", "M"];
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div className="card-lift group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] relative overflow-hidden">
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
                       <div className="relative z-10 flex-1 flex flex-col">
                         <div className="flex items-center justify-between gap-2 mb-4 h-7">
@@ -938,7 +942,7 @@ function SantaColomaBarrioPage() {
                   <Reveal key={i} delay={i * 0.1}>
                     <div 
                       onClick={() => setSelectedServiceIndex(i)}
-                      className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                      className="card-lift group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                     >
                       <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
                         <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -1053,7 +1057,7 @@ function SantaColomaBarrioPage() {
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
+                    className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
                   >
                     <Home className="w-4 h-4 text-white" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>

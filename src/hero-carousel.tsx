@@ -117,7 +117,7 @@ export default function HeroCarousel({
               transition={{ duration: 0.55, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
+              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
                 <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
                 <span className="text-left leading-none">{customTag || t.heroCarousel.tag}</span>
               </div>
@@ -154,12 +154,12 @@ export default function HeroCarousel({
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3.5 sm:mb-4.5"
             >
-              <a href={customValuationHref || "#valuator-form"} className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Home className="w-4.5 h-4.5 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Building2 className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>

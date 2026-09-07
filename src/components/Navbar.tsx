@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { translations } from "@/data/translations";
-import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer-motion";
 
 interface NavbarProps {
   language: "es" | "ca" | "en";
@@ -12,26 +11,6 @@ interface NavbarProps {
 export function Navbar({ language, setLanguage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language] || translations.es;
-  
-  // -- ANIMATION LOGIC: Hide on scroll down, show on scroll up --
-  const { scrollY } = useScroll();
-  const [hidden, setHidden] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    
-    // Check if scrolled past threshold to shrink nav slightly
-    if (latest > 50 && !isScrolled) setIsScrolled(true);
-    if (latest <= 50 && isScrolled) setIsScrolled(false);
-
-    if (latest > previous && latest > 150) {
-      setHidden(true); // scrolling down
-    } else {
-      setHidden(false); // scrolling up
-    }
-  });
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (typeof window !== "undefined") {
@@ -56,16 +35,9 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
 
   return (
     <>
-      <motion.nav
-        variants={{
-          visible: { y: 0, opacity: 1, scale: 1 },
-          hidden: { y: "-150%", opacity: 0, scale: 0.95 }
-        }}
-        animate={prefersReducedMotion ? "visible" : (hidden ? "hidden" : "visible")}
-        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6 transition-all duration-300 ${
-          isScrolled ? "top-2 sm:top-2 py-1.5 sm:py-2 md:py-2" : "top-2.5 sm:top-3.5 py-2 sm:py-2.5 md:py-3"
-        }`}
+      <nav
+        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6"
+        style={{ opacity: 1, transform: 'none' }}
       >
         <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
           <img
@@ -151,7 +123,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             {mobileMenuOpen ? <X className="w-5 h-5 stroke-[2.5]" /> : <Menu className="w-5 h-5 stroke-[2.5]" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* MOBILE MENU */}
       {mobileMenuOpen && (

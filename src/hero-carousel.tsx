@@ -72,23 +72,7 @@ export default function HeroCarousel({
       className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-4 sm:pb-6 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <svg className="absolute -left-10 top-0 h-full w-auto text-slate-300/30 opacity-40 hidden md:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
-          <path d="M 20 50 L 20 750 M 20 50 L 180 50 L 180 750" />
-          <path d="M 40 90 L 80 90 L 80 140 L 40 140 Z M 100 90 L 140 90 L 140 140 L 100 140 Z" />
-          <path d="M 40 170 L 80 170 L 80 220 L 40 220 Z M 100 170 L 140 170 L 140 220 L 100 220 Z" />
-          <path d="M 40 250 L 80 250 L 80 300 L 40 300 Z M 100 250 L 140 250 L 140 300 L 100 300 Z" />
-          <path d="M 40 330 L 80 330 L 80 380 L 40 380 Z M 100 330 L 140 330 L 140 380 L 100 380 Z" />
-          <path d="M 40 410 L 80 410 L 80 460 L 40 460 Z M 100 410 L 140 410 L 140 460 L 100 460 Z" />
-          <circle cx="100" cy="600" r="40" />
-          <path d="M 100 560 L 100 640 M 60 600 L 140 600" />
-        </svg>
-        <svg className="absolute -right-10 top-0 h-full w-auto text-slate-300/30 opacity-40 hidden lg:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
-          <path d="M 120 50 L 120 750 M 120 50 L 280 50 L 280 750" />
-          <path d="M 140 90 L 180 90 L 180 140 L 140 140 Z M 200 90 L 240 90 L 240 140 L 200 140 Z" />
-          <path d="M 140 170 L 180 170 L 180 220 L 140 220 Z M 200 170 L 240 170 L 240 220 L 200 220 Z" />
-          <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
-        </svg>
-        <div className="absolute right-0 top-0 w-full lg:w-[58%] xl:w-[55%] h-full bg-[#E5DDD5]">
+        <div className="absolute right-0 top-0 w-full h-full">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobile} />
             <motion.img
@@ -103,7 +87,7 @@ export default function HeroCarousel({
               transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
             />
           </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-35% md:via-45% to-transparent lg:via-[#F8FAFC]/45 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 via-30% md:via-45% to-transparent lg:via-[#F8FAFC]/60 lg:to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent sm:hidden pointer-events-none" />
         </div>
       </div>

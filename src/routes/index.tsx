@@ -1705,18 +1705,18 @@ function Index() {
                 </div>
 
                 {/* Stats Grid - Fondo gris y letra en blanco impecable */}
-                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3.5 pt-6 border-t border-slate-200/80">
-                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">Nº 5583</p>
-                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Registre Oficial AICAT" : language === "en" ? "Official AICAT Registry" : "Registro Oficial AICAT"}</p>
+                <div className="hidden sm:grid grid-cols-3 gap-3 sm:gap-4 pt-6 border-t border-slate-200/80">
+                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">Nº 5583</p>
+                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Registre Oficial AICAT" : language === "en" ? "Official AICAT Registry" : "Registro Oficial AICAT"}</p>
                   </div>
-                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                   </div>
-                  <div className="bg-[#757989] border border-white/20 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center shadow-md transition-all hover:bg-[#646877] hover:scale-105">
-                    <p className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-1 font-sans tracking-tight">100%</p>
-                    <p className="text-xs sm:text-sm font-extrabold text-white leading-snug font-sans tracking-wide">{language === "ca" ? "Col·legiats API / ADM" : language === "en" ? "Registered API / ADM" : "Colegiados API / ADM"}</p>
+                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
+                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">100%</p>
+                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Col·legiats API / ADM" : language === "en" ? "Registered API / ADM" : "Colegiados API / ADM"}</p>
                   </div>
                 </div>
               </Reveal>

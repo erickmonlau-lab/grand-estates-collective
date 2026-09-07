@@ -78,19 +78,19 @@ export default function HeroCarousel({
             <source media="(max-width: 640px)" srcSet={heroBgMobile} />
             <motion.img
               src={heroBgDesktop}
-              alt="Familia disfrutando su hogar gestionado por Gesgrama"
-              className="w-full h-full object-cover object-[78%_center] sm:object-[82%_center] md:object-[86%_center] lg:object-[90%_center] xl:object-[92%_center]"
+              alt="Pareja feliz en su nuevo hogar con Gesgrama"
+              className="w-full h-full object-cover object-[92%_15%] sm:object-[94%_18%] md:object-[96%_20%] lg:object-[98%_22%]"
               loading="eager"
               fetchPriority="high"
               width={2560}
               height={1440}
-              animate={{ scale: [1, 1.03, 1] }}
+              animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          {/* Subtle elegant gradient wash ensuring hero content has prime contrast and focus */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-35% md:via-48% to-transparent lg:via-[#F8FAFC]/65 lg:to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/85 to-transparent sm:hidden pointer-events-none" />
+          {/* Pure clean background on the left so typography shines crisp & 100% legible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] via-35% md:via-45% lg:via-[#F8FAFC]/90 lg:via-52% to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent pointer-events-none" />
         </div>
       </div>
 

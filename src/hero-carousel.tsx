@@ -154,14 +154,52 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.45, ease: expo }}
-              className="flex items-center gap-2.5 sm:gap-3 text-sm sm:text-base font-extrabold text-[#0f172a]"
+              className="flex items-center gap-3 text-sm sm:text-base font-extrabold text-[#0f172a]"
             >
-              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white stroke-[3.5]" />
-              </span>
-              <span className="font-extrabold font-sans text-slate-900 text-[13.5px] sm:text-[15px]" style={{ textShadow: "0 0 10px rgba(255,255,255,0.95)" }}>
-                {customTrustBadge || t.heroCarousel.trustBadge}
-              </span>
+              {/* Overlapping customer avatars stack */}
+              <div className="flex items-center -space-x-2.5 shrink-0">
+                <img
+                  src="/images/avatar-1.webp"
+                  alt="Cliente Gesgrama"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
+                  loading="lazy"
+                  width={32}
+                  height={32}
+                />
+                <img
+                  src="/images/avatar-2.webp"
+                  alt="Cliente Gesgrama"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
+                  loading="lazy"
+                  width={32}
+                  height={32}
+                />
+                <img
+                  src="/images/avatar-3.webp"
+                  alt="Cliente Gesgrama"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
+                  loading="lazy"
+                  width={32}
+                  height={32}
+                />
+                <img
+                  src="/images/avatar-4.webp"
+                  alt="Cliente Gesgrama"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
+                  loading="lazy"
+                  width={32}
+                  height={32}
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                  <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
+                </span>
+                <span className="font-extrabold font-sans text-slate-900 text-[13.5px] sm:text-[15px]" style={{ textShadow: "0 0 10px rgba(255,255,255,0.95)" }}>
+                  {customTrustBadge || t.heroCarousel.trustBadge}
+                </span>
+              </div>
             </motion.div>
           </div>
         </div>

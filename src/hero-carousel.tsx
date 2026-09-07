@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
-import heroBgDesktop from "@/assets/family_barcelona_1080p.webp";
+import heroBgDesktop from "@/assets/family_barcelona_master_2k.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 import { translations } from './data/translations';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
@@ -79,16 +79,16 @@ export default function HeroCarousel({
             <motion.img
               src={heroBgDesktop}
               alt="Familia disfrutando su hogar gestionado por Gesgrama"
-              className="w-full h-full object-cover object-[52%_center] sm:object-[58%_center] md:object-[64%_center] lg:object-right"
+              className="w-full h-full object-cover object-[54%_24%] sm:object-[62%_28%] md:object-[78%_32%] lg:object-[88%_35%] xl:object-[92%_38%]"
               loading="eager"
               fetchPriority="high"
-              width={1920}
-              height={1080}
-              animate={{ scale: [1, 1.08, 1] }}
+              width={2560}
+              height={1440}
+              animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
             />
           </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 via-30% md:via-45% to-transparent lg:via-[#F8FAFC]/60 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 via-28% md:via-42% to-transparent lg:via-[#F8FAFC]/50 lg:to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent sm:hidden pointer-events-none" />
         </div>
       </div>

@@ -1055,16 +1055,16 @@ function Index() {
 
                           {/* Features Micro-Boxes */}
                           <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
-                            <div className="bg-white border-2 border-slate-200 shadow-2xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
                               <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                               <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                             </div>
-                            <div className="bg-white border-2 border-slate-200 shadow-2xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
                               <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                               <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                             </div>
-                            <div className="bg-blue-600 text-white shadow-xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm">
-                              <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                              <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                               <span>{property.surface} m²</span>
                             </div>
                           </div>

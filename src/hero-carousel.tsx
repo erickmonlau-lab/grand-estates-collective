@@ -73,13 +73,14 @@ export default function HeroCarousel({
       className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute right-0 top-0 w-full h-full">
+        {/* Strictly right-anchored image block: fills only right half on desktop */}
+        <div className="absolute right-0 top-0 w-full sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobile} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[right_top] sm:object-[95%_top] md:object-[right_top]"
+              className="w-full h-full object-cover object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -88,9 +89,9 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          {/* Pure clean background on the left so typography shines crisp & 100% legible */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] via-35% md:via-45% lg:via-[#F8FAFC]/90 lg:via-52% to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent pointer-events-none" />
+          {/* Subtle gradient feathering only on the left edge of the right image */}
+          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
       </div>
 

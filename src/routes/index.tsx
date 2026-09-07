@@ -1178,9 +1178,9 @@ function Index() {
                         {/* Content Block */}
                         <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            {/* Location with Pin - Highly Visual Pill */}
+                            {/* Location with Pin - Solid White Pill (No Transparency) */}
                             <div className="mb-2.5">
-                              <span className="inline-flex items-center gap-1.5 bg-blue-50 text-[#1d4ed8] border border-blue-200/90 px-3 py-1 rounded-full text-xs sm:text-[13px] font-bold tracking-tight shadow-xs">
+                              <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
                                 <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
                                 <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
                               </span>
@@ -1207,9 +1207,9 @@ function Index() {
                               </div>
                             </div>
 
-                            {/* Floor / Feature Highlight badge - Highly Visual Badge */}
+                            {/* Floor / Feature Highlight badge - Solid White Pill (No Transparency) */}
                             <div className="mt-2.5">
-                              <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1d4ed8] border border-blue-200 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-bold shadow-xs max-w-full">
+                              <div className="inline-flex items-center gap-2 bg-white text-[#0b214a] border border-slate-300 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-extrabold shadow-2xs max-w-full">
                                 <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
                                 <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
                               </div>

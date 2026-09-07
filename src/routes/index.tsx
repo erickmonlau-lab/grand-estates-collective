@@ -1359,7 +1359,7 @@ function Index() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
                     {/* Select Zona */}
                     <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
-                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
                         {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
                       </label>
                       <div className="flex items-center justify-between gap-2">
@@ -1382,7 +1382,7 @@ function Index() {
 
                     {/* Input Superficie (m²) */}
                     <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
-                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
                         {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                       </label>
                       <div className="flex items-center gap-2.5">

@@ -1698,9 +1698,9 @@ function Index() {
                   />
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-700 mb-3 font-semibold bg-slate-100 py-2 px-3 rounded-lg border border-slate-200">
-                  <span className="text-[#2563eb] font-bold text-xs">*</span>
-                  <span>{t.valorador.disclaimer}</span>
+                <div className="flex items-center justify-center gap-2 text-xs sm:text-[13px] text-slate-800 mb-3.5 font-bold bg-white py-2.5 px-3.5 rounded-xl border border-slate-300 shadow-2xs">
+                  <span className="text-[#2563eb] font-extrabold text-sm">*</span>
+                  <span className="text-slate-800">{t.valorador.disclaimer}</span>
                 </div>
                 
                 {/* 3. Sparkline Price Trend Chart */}

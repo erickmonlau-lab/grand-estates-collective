@@ -12,7 +12,7 @@ interface HeroCarouselProps {
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-// Self-contained: fires count-up on mount after 400ms. No external props needed.
+// Self-contained: fires count-up on mount after 400ms. Always animates.
 function StatCounter({
   target,
   prefix = "",
@@ -24,20 +24,17 @@ function StatCounter({
   suffix?: string;
   duration?: number;
 }) {
-  const reduceMotion = useReducedMotion();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (reduceMotion) {
-      setCount(target);
-      return;
-    }
+    // 400ms delay gives SSR hydration time to settle before starting RAF
     const delay = setTimeout(() => {
       let startTime: number | null = null;
       let raf: number;
       const step = (ts: number) => {
         if (!startTime) startTime = ts;
         const progress = Math.min((ts - startTime) / duration, 1);
+        // Cubic ease-out
         const ease = 1 - Math.pow(1 - progress, 3);
         setCount(Math.round(ease * target));
         if (progress < 1) raf = requestAnimationFrame(step);
@@ -47,7 +44,7 @@ function StatCounter({
     }, 400);
     return () => clearTimeout(delay);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // runs once on mount
 
   const display = target >= 1000 ? new Intl.NumberFormat('es-ES').format(count) : count;
   return <span>{prefix}{display}{suffix}</span>;

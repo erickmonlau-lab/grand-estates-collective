@@ -9,44 +9,38 @@ interface MarqueeRibbonProps {
 
 const RIBBON_ITEMS = {
   es: [
-    { text: "+300 COMUNIDADES", icon: Building2 },
-    { text: "DISET", icon: null },
-    { text: "DIVERSPLAS", icon: null },
-    { text: "4.9/5 GOOGLE REVIEWS", icon: Star },
-    { text: "GESGRAMA", icon: null },
-    { text: "COL·LEGI CAFBL", icon: Award },
-    { text: "AICAT Nº 5583", icon: ShieldCheck },
-    { text: "ATENCIÓN ~15 MIN", icon: Clock },
-    { text: "AUDITORÍA GRATUITA", icon: FileCheck }
+    { text: "COL·LEGI D'ADMINISTRADORS DE FINQUES (CAFBL)", icon: Award },
+    { text: "REGISTRE D'AGENTS IMMOBILIARIS (AICAT Nº 5583)", icon: ShieldCheck },
+    { text: "4.9/5 EN GOOGLE REVIEWS (+300 RESEÑAS)", icon: Star },
+    { text: "+300 COMUNIDADES DE PROPIETARIOS GESTIONADAS", icon: Building2 },
+    { text: "ATENCIÓN URGENTE EN ~15 MINUTOS", icon: Clock },
+    { text: "AUDITORÍA CONTABLE Y CONTROL DE GASTOS GRATUITO", icon: FileCheck },
+    { text: "+15 AÑOS DE EXPERIENCIA EN SANTA COLOMA Y BARCELONA", icon: Award }
   ],
   ca: [
-    { text: "+300 COMUNITATS", icon: Building2 },
-    { text: "DISET", icon: null },
-    { text: "DIVERSPLAS", icon: null },
-    { text: "4.9/5 GOOGLE REVIEWS", icon: Star },
-    { text: "GESGRAMA", icon: null },
-    { text: "COL·LEGI CAFBL", icon: Award },
-    { text: "AICAT Nº 5583", icon: ShieldCheck },
-    { text: "ATENCIÓ ~15 MIN", icon: Clock },
-    { text: "AUDITORIA GRATUÏTA", icon: FileCheck }
+    { text: "COL·LEGI D'ADMINISTRADORS DE FINQUES (CAFBL)", icon: Award },
+    { text: "REGISTRE D'AGENTS IMMOBILIARIS (AICAT Nº 5583)", icon: ShieldCheck },
+    { text: "4.9/5 A GOOGLE REVIEWS (+300 RESSENYES)", icon: Star },
+    { text: "+300 COMUNITATS DE PROPIETARIS GESTIONADES", icon: Building2 },
+    { text: "ATENCIÓ URGENT EN ~15 MINUTS", icon: Clock },
+    { text: "AUDITORIA COMPTABLE I CONTROL DE DESPESES GRATUÏT", icon: FileCheck },
+    { text: "+15 ANYS D'EXPERIÈNCIA A SANTA COLOMA I BARCELONA", icon: Award }
   ],
   en: [
-    { text: "+300 COMMUNITIES", icon: Building2 },
-    { text: "DISET", icon: null },
-    { text: "DIVERSPLAS", icon: null },
-    { text: "4.9/5 GOOGLE REVIEWS", icon: Star },
-    { text: "GESGRAMA", icon: null },
-    { text: "CHARTERED CAFBL", icon: Award },
-    { text: "AICAT REG. 5583", icon: ShieldCheck },
-    { text: "RESPONSE ~15 MIN", icon: Clock },
-    { text: "FREE AUDIT", icon: FileCheck }
+    { text: "CHARTERED PROPERTY MANAGERS ASSOCIATION (CAFBL)", icon: Award },
+    { text: "OFFICIAL CATALONIA REAL ESTATE REGISTER (AICAT 5583)", icon: ShieldCheck },
+    { text: "4.9/5 ON GOOGLE REVIEWS (+300 REVIEWS)", icon: Star },
+    { text: "+300 MANAGED COMMUNITIES OF PROPERTY OWNERS", icon: Building2 },
+    { text: "EMERGENCY CALLOUT IN ~15 MINUTES", icon: Clock },
+    { text: "FREE ACCOUNTING AUDIT & EXPENSE OPTIMIZATION", icon: FileCheck },
+    { text: "+15 YEARS OF LOCAL EXPERIENCE IN SANTA COLOMA & BARCELONA", icon: Award }
   ]
 };
 
 const BADGE_LABEL = {
-  es: "CONFÍAN EN NOSOTROS",
-  ca: "CONFIDEN EN NOSALTRES",
-  en: "TRUSTED BY"
+  es: "GARANTÍAS Y ACREDITACIONES",
+  ca: "GARANTIES I ACREDITACIONS",
+  en: "GUARANTEES & ACCREDITATIONS"
 };
 
 export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbonProps) {

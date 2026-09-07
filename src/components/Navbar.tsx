@@ -92,7 +92,13 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
               <div key={lang} className="flex items-center">
                 <button
                   type="button"
-                  onClick={() => setLanguage(lang)}
+                  onClick={() => {
+                    setLanguage(lang);
+                    if (typeof window !== "undefined") {
+                      localStorage.setItem("language", lang);
+                      window.dispatchEvent(new Event("languagechange"));
+                    }
+                  }}
                   className={`px-2 sm:px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
                     language === lang ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-200 hover:text-white"
                   }`}

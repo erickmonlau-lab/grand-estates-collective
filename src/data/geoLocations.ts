@@ -62,6 +62,14 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cuál es el tiempo de respuesta ante una avería en el Centre?",
         answer: "Nuestra oficina está a escasos minutos: ante una fuga de agua, corte de luz o bloqueo de ascensor, un operario o técnico de Gesgrama se persona en menos de 10-15 minutos."
+      },
+      {
+        question: "¿Cómo tramitáis las subvenciones de rehabilitación de fachadas en fincas clásicas del Centre?",
+        answer: "Gestionamos el expediente integral ante el Consorci de l'Habitatge y el Ayuntamiento de Santa Coloma, coordinando proyecto técnico colegiado, licencias de ocupación de vía pública y andamios sin molestias para los propietarios."
+      },
+      {
+        question: "¿Qué control y acceso tienen los vecinos a las cuentas bancarias de la comunidad?",
+        answer: "Transparencia absoluta: entregamos balances periódicos claros donde cada céntimo está justificado con su factura original y extracto bancario digital accesible 24/7 sin comisiones opacas ni letra pequeña."
       }
     ]
   },
@@ -99,6 +107,14 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo ayudáis a cobrar las cuotas a vecinos que no pagan en Santa Rosa?",
         answer: "Iniciamos reclamación fehaciente inmediata, mediamos planes de pago aplazados y, si no hay voluntad de pago, activamos el procedimiento monitorio judicial con nuestro equipo de asesoría jurídica propio sin sobrecoste de honorarios."
+      },
+      {
+        question: "¿Qué ocurre si nuestra finca en Santa Rosa aún no ha superado la ITE obligatoria?",
+        answer: "Coordinamos la visita del arquitecto colegiado, solicitamos prórroga legal ante el Ayuntamiento para evitar sanciones y calendarizamos las obras prioritarias de patios de luces o balcones con presupuestos comparativos contrastados."
+      },
+      {
+        question: "¿Cómo cambiamos de administrador si el actual no rinde cuentas en Santa Rosa?",
+        answer: "Os asesoramos para convocar una Junta Extraordinaria con orden del día legal. En cuanto se aprueba por mayoría simple, nosotros nos personamos en 48h para recoger toda la documentación, claves y cuentas sin fricciones."
       }
     ]
   },
@@ -131,6 +147,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo se hace el traspaso si cambiamos de administrador en Can Mariner?",
         answer: "Nosotros nos encargamos de todo: enviamos la comunicación oficial al administrador saliente, recogemos los libros de actas, contratos y cuentas bancarias, y realizamos una auditoría inicial sin coste alguno."
+      },
+      {
+        question: "¿Qué ahorro medio conseguís al revisar contratos de luz y seguro en Can Mariner?",
+        answer: "En fincas de Can Mariner solemos detectar pólizas desfasadas con coberturas duplicadas o potencias eléctricas mal dimensionadas, logrando reducir entre 400€ y 800€ anuales directos en el presupuesto ordinario."
+      },
+      {
+        question: "¿Cómo se abordan las humedades y filtraciones de las cubiertas en Can Mariner?",
+        answer: "Realizamos peritaje con empresas impermeabilizadoras homologadas de Santa Coloma, emitimos tres presupuestos ciegos comparativos y gestionamos el siniestro con la compañía aseguradora comunitaria para cubrir el coste indemnizable."
+      },
+      {
+        question: "¿Se realizan visitas periódicas de control al edificio?",
+        answer: "Sí, revisamos presencialmente el estado del vestíbulo, iluminación comunitaria, cuartos de contadores y limpieza mensual para certificar la calidad de los proveedores contratados."
       }
     ]
   },
@@ -164,6 +192,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Qué hacéis si en una comunidad del Fondo hay impagos generalizados?",
         answer: "Auditamos la deuda de cada vivienda, enviamos requerimientos con valor probatorio legal, ofrecemos facilidades de fraccionamiento a familias con dificultad real y demandamos judicialmente a los morosos recalcitrantes con nuestro propio abogado colegiado."
+      },
+      {
+        question: "¿Cómo gestionáis la mediación vecinal y convivencia en fincas de alta rotación?",
+        answer: "Disponemos de protocolos de convivencia claros, información comunitaria explicativa en varios idiomas y mediación directa vecinal presencial para resolver ruidos, basuras en zonas comunes y uso de rellanos."
+      },
+      {
+        question: "¿Qué solución aplicáis a las averías recurrentes de bajantes e instalaciones viejas en Fondo?",
+        answer: "Trabajamos con lampistas y fontaneros homologados con servicio de desatasco urgente 24h. Negociamos tarifas fijas anuales que abaratan el coste por intervención frente a avisos particulares de urgencia."
+      },
+      {
+        question: "¿Por qué elegir Gesgrama para una comunidad en el barrio de Fondo?",
+        answer: "Porque estamos físicamente al lado en Av. dels Banús, 49. Conocemos las particularidades urbanísticas de cada calle del barrio y no somos una agencia impersonal en Barcelona: estamos a pie de calle."
       }
     ]
   },
@@ -197,6 +237,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Disponéis de arquitectos técnicos propios para fincas con humedades en Singuerlín?",
         answer: "Sí, en Gesgrama contamos con la titulación oficial de Perito Judicial Inmobiliario colegiado, lo que nos permite diagnosticar el origen exacto de las filtraciones y defender a la comunidad ante aseguradoras o constructoras."
+      },
+      {
+        question: "¿Cómo se resuelven las deficiencias de presión de agua y grupos de bombeo en Singuerlín?",
+        answer: "Por la orografía y desniveles de Singuerlín, muchos edificios requieren grupos de presión y aljibes. Contratamos empresas de mantenimiento preventivo para evitar cortes de suministro a plantas altas."
+      },
+      {
+        question: "¿Qué subvenciones existen para rehabilitación energética en fincas de Singuerlín?",
+        answer: "Tramitamos las ayudas de los fondos Next Generation y convocatorias autonómicas de eficiencia térmica en envolventes y fachadas, consiguiendo hasta un 60-80% de subvención a fondo perdido para la comunidad."
+      },
+      {
+        question: "¿Tenéis atención presencial si el presidente necesita firmar documentos o aclarar dudas?",
+        answer: "Totalmente. Singuerlín cuenta con atención inmediata de nuestro equipo colegiado y desplazamientos continuos a las fincas administradas."
       }
     ]
   },
@@ -229,6 +281,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo supervisáis las obras de la comunidad en Riera Alta?",
         answer: "No cobramos comisiones de industriales. Solicitamos siempre 3 presupuestos ciegos de empresas contrastadas, supervisamos la ejecución y no liberamos el pago final hasta que la obra está formalmente recibida a satisfacción de la junta."
+      },
+      {
+        question: "¿Cómo se solucionan las humedades por capilaridad en plantas bajas de Riera Alta?",
+        answer: "Diagnosticamos el origen exacto del nivel freático o filtración con técnicos especialistas, aplicando tratamientos definitivos de inyección de resinas o drenajes perimetrales avalados con garantía."
+      },
+      {
+        question: "¿Qué criterio se sigue para la elección de empresas de limpieza y conservación en Riera Alta?",
+        answer: "Presentamos siempre 3 presupuestos de empresas locales verificadas, con contratos que exigen fichajes y auditorías de servicio periódicas por parte de nuestro despacho."
+      },
+      {
+        question: "¿Cuánto cobra Gesgrama por administrar una finca en Riera Alta?",
+        answer: "Nuestros honorarios son transparentes, sin costes sorpresa por emisión de certificados ordinarios o fotocopias. Ofrecemos cotización cerrada adaptada al número de entidades."
       }
     ]
   },
@@ -261,6 +325,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Hay costes ocultos o comisiones por tramitar siniestros del seguro en el Llatí?",
         answer: "Cero. Nuestra tarifa de administración es cerrada: incluye tramitación integral de partes al seguro de la finca sin comisión alguna por siniestro."
+      },
+      {
+        question: "¿Cómo se coordina el mantenimiento de zonas comunitarias y patios en el Llatí?",
+        answer: "Establecemos un calendario preventivo de conservación de sumideros, impermeabilización de azoteas comunitarias y revisión de claraboyas para prevenir goteras estacionales."
+      },
+      {
+        question: "¿Cómo afrontamos la instalación de ascensor si la escalera es muy estrecha en el Llatí?",
+        answer: "Estudiamos con arquitectos soluciones por patio interior de luces o modificación del ojo de la escalera, aprovechando ayudas públicas para garantizar la viabilidad técnica y económica."
+      },
+      {
+        question: "¿Cómo se tramita una avería urgente fuera de horario de oficina en el Llatí?",
+        answer: "Disponemos de un teléfono y canal de emergencias activo las 24 horas y los 365 días del año con derivación inmediata a industriales homologados de Santa Coloma."
       }
     ]
   },
@@ -293,6 +369,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo combatís los problemas de humedad en fincas de El Raval?",
         answer: "Analizamos si el origen es condensación, capilaridad o filtración del nivel freático, redactando dictamen pericial e implementando soluciones definitivas con aislamiento de solera y ventilación mecánica."
+      },
+      {
+        question: "¿Cómo combatimos la morosidad persistente en comunidades del Raval?",
+        answer: "Aplicamos el protocolo judicial exprés: certificación fehaciente de deuda en Junta, burofax con acuse de recibo y ejecución monitoria judicial sin adelanto de costas abusivas."
+      },
+      {
+        question: "¿Qué trámites realizáis ante ruidos o molestias vecinales en el Raval?",
+        answer: "Intervenimos mediante requerimiento formal firmado por la presidencia bajo el amparo del artículo 7.2 de la LPH, coordinando mediación directa con los propietarios y la Policía Local."
+      },
+      {
+        question: "¿Podemos consultar las facturas y saldos de la comunidad por internet?",
+        answer: "Sí, disponéis de portal digital y liquidaciones trimestrales detalladas donde se reflejan ingresos, gastos y saldos bancarios conciliados céntimo a céntimo."
       }
     ]
   },
@@ -325,6 +413,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Tienen los vecinos acceso a las facturas y extractos bancarios de Riu Nord?",
         answer: "Sí, a través de nuestra plataforma online y app móvil exclusiva, accesible 24 horas al día, 365 días al año."
+      },
+      {
+        question: "¿Qué mantenimiento preventivo necesitan los garajes y pasajes en Riu Nord?",
+        answer: "Inspecciones periódicas de ventilación forzada, detección de monóxido de carbono, extintores reglamentarios y mantenimiento de puertas motorizadas con marcado CE."
+      },
+      {
+        question: "¿Cómo se resuelven las filtraciones producidas por bajantes pluviales en Riu Nord?",
+        answer: "Acudimos en menos de una hora para contener siniestros activos y tramitamos la sustitución con cargo a la póliza del seguro comunitario o causante directo."
+      },
+      {
+        question: "¿Qué mayoría hace falta para cambiar a Gesgrama en una comunidad de Riu Nord?",
+        answer: "Solo mayoría simple de los propietarios presentes y representados en Junta convocada. Nosotros nos encargamos de redactar el punto del día y tramitar el traspaso completo."
       }
     ]
   },
@@ -357,6 +457,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Gestionáis también mancomunidades de garajes en Riu Sud?",
         answer: "Sí, administramos garajes independientes y mancomunados, gestionando vados, revisiones de extintores, bombas de achique y emisión de mandos a distancia."
+      },
+      {
+        question: "¿Cómo se optimizan los gastos de fincas con amplios portales en Riu Sud?",
+        answer: "Revisamos contratos de limpieza por horas efectivas y sustitución de luminarias tradicionales por detectores microondas con LED, bajando el consumo eléctrico hasta un 45%."
+      },
+      {
+        question: "¿Cómo se actúa ante ocupaciones ilegales o usurpación de zonas comunes?",
+        answer: "Acción preventiva y legal contundente: blindaje de accesos, cámaras de seguridad homologadas conforme a la AEPD y personación legal inmediata ante los juzgados."
+      },
+      {
+        question: "¿Presentáis los impuestos obligatorios de la comunidad en Riu Sud?",
+        answer: "Sí, cumplimentamos y presentamos todas las obligaciones tributarias (modelo 347, retenciones IRPF) en plazo legal, evitando recargos y sanciones a los propietarios."
       }
     ]
   },
@@ -389,6 +501,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo auditáis los contratos de ascensores en Can Franquesa?",
         answer: "Revisamos las cláusulas de permanencia, excluimos conceptos abusivos y negociamos precios corporativos con las principales empresas mantenedoras aprovechando nuestro volumen de comunidades."
+      },
+      {
+        question: "¿Cómo se gestiona el mantenimiento de las grandes torres y grupos de presión en Can Franquesa?",
+        answer: "Supervisión especializada de grupos de bombeo de agua sanitaria, pararrayos, sistemas de ventilación de emergencia y doble línea de ascensores de alta velocidad."
+      },
+      {
+        question: "¿Cómo se tramita la ITE y rehabilitación de fachadas en altura en Can Franquesa?",
+        answer: "Gestionamos proyectos técnicos con andamios colgantes o trabajos verticales homologados, tramitando subvenciones públicas que alivian el coste para las familias del bloque."
+      },
+      {
+        question: "¿Cómo contactar con Gesgrama en caso de avería durante el fin de semana?",
+        answer: "A través de nuestra línea directa de emergencias 24/7 que moviliza a los técnicos homologados de guardia de manera inmediata sin esperas."
       }
     ]
   },
@@ -421,6 +545,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Qué ocurre con las ITEs en comunidades de Les Oliveres?",
         answer: "Coordinamos la inspección técnica obligatoria con arquitectos técnicos especializados, tramitamos el Certificado de Aptitud ante la Generalitat y gestionamos las obras necesarias si hay deficiencias."
+      },
+      {
+        question: "¿Qué tratamiento damos a las filtraciones provocadas por el desnivel del terreno?",
+        answer: "Inspección de muros de contención perimetrales, canalizaciones de aguas pluviales y reparación de juntas de dilatación para asegurar la estabilidad del inmueble."
+      },
+      {
+        question: "¿Cómo se estructuran los pagos de derramas para obras grandes en Les Oliveres?",
+        answer: "Planes fraccionados a medida y negociación de financiación bancaria comunitaria sin necesidad de avales personales de los vecinos."
+      },
+      {
+        question: "¿Qué experiencia tiene Gesgrama en comunidades de Les Oliveres?",
+        answer: "Más de 30 años en Santa Coloma de Gramenet administrando fincas en todas las zonas de la ciudad, conociendo a la perfección sus singularidades urbanas."
       }
     ]
   },
@@ -453,6 +589,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Cómo se gestiona el fondo de reserva de la comunidad?",
         answer: "Conforme a la ley catalana de propiedad horizontal, mantenemos el fondo de reserva legal (mínimo el 5% del presupuesto ordinario) en cuenta bancaria separada y remunerada a nombre exclusivo de la comunidad."
+      },
+      {
+        question: "¿Cómo se gestiona la convivencia entre viviendas y naves o locales en La Guinardera?",
+        answer: "Delimitación rigurosa de cuotas de participación, control de pesos y ruidos en accesos rodados y vigilancia de horarios de carga y descarga conforme a ordenanzas locales."
+      },
+      {
+        question: "¿Qué mantenimiento preventivo se aplica a bajantes y canalones expuestos?",
+        answer: "Limpieza de arquetas y bajantes dos veces al año (especialmente en otoño y primavera) para evitar desbordamientos e inundaciones de portales o sótanos."
+      },
+      {
+        question: "¿Cómo fiscaliza Gesgrama a las empresas de mantenimiento contratadas?",
+        answer: "Revisión presencial de partes de trabajo y retención de pagos de liquidación hasta comprobar que la avería u obra ha quedado 100% resuelta."
       }
     ]
   },
@@ -485,6 +633,18 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       {
         question: "¿Con cuánta antelación se entregan las cuentas antes de la junta ordinaria?",
         answer: "Enviamos la convocatoria formal con el estado de cuentas detallado, facturas desglosadas y presupuesto del nuevo ejercicio al menos 15 días antes de la reunión para que todos los vecinos puedan revisarlo con calma."
+      },
+      {
+        question: "¿Cómo se gestiona el cambio de ascensor en fincas consolidadas de Cementiri Vell?",
+        answer: "Elaboración de pliego técnico de condiciones, solicitud de presupuestos a las principales marcas y dirección de obra hasta la legalización en el Departament d'Indústria."
+      },
+      {
+        question: "¿Qué tratamiento damos a las plagas o salubridad en patios y alcantarillado?",
+        answer: "Convenios directos con empresas de desinfección y desratización autorizadas de Santa Coloma para intervenciones de choque y revisiones preventivas anuales."
+      },
+      {
+        question: "¿Cómo resolvemos disputas vecinales sin llegar a los tribunales?",
+        answer: "Mediación vecinal activa en nuestro despacho de Av. dels Banús o en la propia finca, basándonos en la normativa vigente y el sentido común comunitario."
       }
     ]
   }

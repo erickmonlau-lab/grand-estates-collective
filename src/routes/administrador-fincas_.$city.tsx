@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { 
   Building2, 
@@ -8,6 +9,7 @@ import {
   MessageCircle, 
   CheckCircle2, 
   ChevronDown, 
+  HelpCircle,
   Award, 
   Scale, 
   ArrowRight,
@@ -192,10 +194,19 @@ function SantaColomaBarrioPage() {
   const [language, setLanguage] = useState<"es" | "en" | "ca">("es");
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("language") as "es" | "en" | "ca";
-    if (savedLang && ["es", "en", "ca"].includes(savedLang)) {
-      setLanguage(savedLang);
-    }
+    const syncLang = () => {
+      const savedLang = localStorage.getItem("language") as "es" | "en" | "ca";
+      if (savedLang && ["es", "en", "ca"].includes(savedLang)) {
+        setLanguage(savedLang);
+      }
+    };
+    syncLang();
+    window.addEventListener("languagechange", syncLang);
+    window.addEventListener("storage", syncLang);
+    return () => {
+      window.removeEventListener("languagechange", syncLang);
+      window.removeEventListener("storage", syncLang);
+    };
   }, []);
 
   const handleLanguageChange = (lang: "es" | "en" | "ca") => {
@@ -450,46 +461,86 @@ function SantaColomaBarrioPage() {
           </div>
         </section>
 
-        {/* ── FAQS DEL BARRIO ── */}
-        <section className="py-16 px-4 sm:px-6 lg:px-12 bg-white">
-          <div className="max-w-[900px] mx-auto">
-            <div className="text-center mb-12">
-              <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block mb-2">
-                Preguntas Frecuentes
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900">
-                Dudas Comunes en el barrio de {data.name}
-              </h2>
-              <p className="text-sm text-slate-600 mt-2 font-medium">
-                Respuestas directas sobre honorarios, traspaso de administración y averías.
-              </p>
-            </div>
+        {/* ── FAQS DEL BARRIO (DISEÑO CORPORATIVO GESGRAMA) ── */}
+        <section 
+          id="faq" 
+          className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-12 md:py-16 scroll-mt-24 md:scroll-mt-28"
+        >
+          <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-6 sm:p-8 md:p-10 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+            <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
+              <div className="text-center mb-8 flex flex-col items-center">
+                {/* White Badge with Icon next to Text */}
+                <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-3 font-sans">
+                  <HelpCircle className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                  <span>Preguntas Frecuentes · {data.name}</span>
+                </span>
 
-            <div className="space-y-4">
-              {data.faqs.map((faq, idx) => {
-                const isOpen = activeFaq === idx;
-                return (
-                  <div 
-                    key={idx}
-                    className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden transition-colors"
-                  >
-                    <button 
-                      type="button"
-                      onClick={() => setActiveFaq(isOpen ? null : idx)}
-                      aria-expanded={isOpen}
-                      className="w-full text-left p-5 sm:p-6 font-black text-slate-900 text-base sm:text-lg flex items-center justify-between gap-4 hover:text-[#2563eb] transition-colors"
+                {/* Title */}
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white tracking-tight font-sans mb-3 text-center">
+                  <span className="bg-[#2563eb] text-white px-3 py-1 rounded-xl inline-block shadow-md">
+                    Dudas Comunes
+                  </span>{" "}
+                  en comunidades de {data.name}
+                </h2>
+
+                <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans text-center">
+                  Respuestas claras de nuestros administradores colegiados sobre normativa, costes, obras y gestión vecinal específica en {data.name}.
+                </p>
+              </div>
+
+              {/* Accordion Cards */}
+              <div className="w-full flex flex-col gap-3 mb-8">
+                {data.faqs.map((faq, idx) => {
+                  const isActive = activeFaq === idx;
+                  return (
+                    <div 
+                      key={idx}
+                      onClick={() => setActiveFaq(isActive ? null : idx)}
+                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-xl p-4 sm:p-5 shadow-xs transition-colors duration-200 hover:border-slate-400 group"
                     >
-                      <span>{faq.question}</span>
-                      <ChevronDown className={`w-5 h-5 text-slate-500 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-[#2563eb]" : ""}`} />
-                    </button>
-                    {isOpen && (
-                      <div className="px-5 pb-6 sm:px-6 text-sm sm:text-base text-slate-700 leading-relaxed font-medium border-t border-slate-200/60 pt-4 bg-white">
-                        {faq.answer}
+                      <div className="flex justify-between items-center gap-4">
+                        <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg pr-2 font-sans leading-snug">
+                          {faq.question}
+                        </h3>
+                        <motion.div 
+                          animate={{ rotate: isActive ? 45 : 0 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 shadow-xs ${isActive ? 'bg-[#1d4ed8] text-white' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}
+                        >
+                          <span className="text-xl font-black leading-none select-none">+</span>
+                        </motion.div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.div 
+                            key={`faq-barrio-${idx}`}
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: "easeOut" }}
+                            className="overflow-hidden"
+                          >
+                            <p className="pt-3 text-[#0f172a] leading-relaxed font-bold text-xs sm:text-sm md:text-base border-t border-slate-300/80 mt-3 font-sans">
+                              {faq.answer}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Eye-Catching Blue CTA Button */}
+              <div className="text-center">
+                <a 
+                  href="#calculadora-presupuesto" 
+                  className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
+                >
+                  <span>Pedir Presupuesto o Consultar Duda</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </a>
+              </div>
             </div>
           </div>
         </section>

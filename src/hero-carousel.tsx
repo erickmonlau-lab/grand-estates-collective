@@ -8,6 +8,11 @@ import { translations } from './data/translations';
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
   language?: "es" | "en" | "ca";
+  customTag?: string;
+  customHeadline?: React.ReactNode;
+  customSubtitle?: string;
+  customTrustBadge?: string;
+  customValuationHref?: string;
 }
 
 const expo = [0.16, 1, 0.3, 1] as const;
@@ -50,7 +55,14 @@ function StatCounter({
   return <span>{prefix}{display}{suffix}</span>;
 }
 
-export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
+export default function HeroCarousel({
+  language = 'es',
+  customTag,
+  customHeadline,
+  customSubtitle,
+  customTrustBadge,
+  customValuationHref,
+}: HeroCarouselProps) {
   const t = translations[language];
   const shouldReduceMotion = useReducedMotion();
 
@@ -107,7 +119,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             >
               <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
-                <span className="text-left leading-none">{t.heroCarousel.tag}</span>
+                <span className="text-left leading-none">{customTag || t.heroCarousel.tag}</span>
               </div>
             </motion.div>
             <motion.h1
@@ -116,10 +128,16 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
               className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-2.5 sm:mb-3.5 font-heading"
             >
-              {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
-                {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
-              </span>
+              {customHeadline ? (
+                customHeadline
+              ) : (
+                <>
+                  {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
+                  <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                    {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
+                  </span>
+                </>
+              )}
             </motion.h1>
             <motion.p
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
@@ -128,7 +146,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[620px]"
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
-              {t.heroCarousel.subtitle}
+              {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
@@ -136,7 +154,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3.5 sm:mb-4.5"
             >
-              <a href="#valuator-form" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href={customValuationHref || "#valuator-form"} className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Home className="w-4.5 h-4.5 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
@@ -156,7 +174,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
                 <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white stroke-[3.5]" />
               </span>
               <span className="font-extrabold font-sans text-slate-900 text-[13.5px] sm:text-[15px]" style={{ textShadow: "0 0 10px rgba(255,255,255,0.95)" }}>
-                {t.heroCarousel.trustBadge}
+                {customTrustBadge || t.heroCarousel.trustBadge}
               </span>
             </motion.div>
           </div>

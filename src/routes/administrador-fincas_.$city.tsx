@@ -30,6 +30,7 @@ import { AccreditationBadges } from "@/components/AccreditationBadges";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import HeroCarousel from "@/hero-carousel";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -678,79 +679,45 @@ function SantaColomaBarrioPage() {
       <Navbar language={language} setLanguage={handleLanguageChange} />
 
       <main>
-        {/* ── HERO SECTION IDÉNTICO AL DISEÑO DE LA PÁGINA PRINCIPAL (ADAPTADO AL BARRIO) ── */}
-        <section className="relative text-slate-900 pt-28 sm:pt-36 pb-12 sm:pb-16 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 border-b border-slate-200">
-          <div className="max-w-[1360px] mx-auto w-full relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              {/* Left Column: Identical hierarchy to homepage hero */}
-              <div className="lg:col-span-7 space-y-5 text-left">
-                {/* Blue pill badge identical to Home */}
-                <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit">
-                  <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
-                  <span>{t.barrioTag} {data.name} · Santa Coloma</span>
-                </div>
+        {/* ── HERO CANÓNICO CON FAMILIA Y FOTOGRAFÍA OFICIAL (ADAPTADO AL BARRIO) ── */}
+        <HeroCarousel
+          language={language}
+          customTag={`${t.barrioTag} ${data.name} · Santa Coloma`}
+          customHeadline={
+            <>
+              {localizedHeadline.split(" en ")[0] || localizedHeadline}<br />
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                {localizedHeadline.includes(" en ") ? `en ${localizedHeadline.split(" en ")[1]}` : data.name}
+              </span>
+            </>
+          }
+          customSubtitle={localizedSubtitle}
+          customTrustBadge={`${t.atencionEn} ~${data.emergencyResponseMinutes} ${t.minutos} · CP ${data.postalCode} (${data.district})`}
+          customValuationHref="#calculadora-presupuesto"
+        />
 
-                {/* Main Headline identical to Home typography */}
-                <h1 className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[3.8rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight font-heading">
-                  {localizedHeadline.split(" en ")[0] || localizedHeadline}<br />
-                  <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
-                    {localizedHeadline.includes(" en ") ? `en ${localizedHeadline.split(" en ")[1]}` : data.name}
-                  </span>
-                </h1>
-
-                {/* Subtitle with high contrast and readability */}
-                <p className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.15rem] font-bold leading-relaxed font-sans max-w-[620px]">
-                  {localizedSubtitle}
+        {/* ── SECCIÓN CALCULADORA DE AHORRO Y PRESUPUESTO IN SITU ── */}
+        <section id="calculadora-presupuesto" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-12 bg-white border-b border-slate-200">
+          <div className="max-w-[1360px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block font-sans">
+                  {t.formBadge}
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] font-sans leading-tight">
+                  {t.formTitle} {data.name}?
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed font-sans max-w-xl">
+                  {t.formSub}
                 </p>
 
-                {/* Trust points card with 100% solid white cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                   {t.trustPoints.map((point, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-bold bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 shadow-2xs">
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-800 font-bold bg-[#f8fafc] border border-slate-200 rounded-xl px-3.5 py-2.5 shadow-2xs">
                       <CheckCircle2 className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
                       <span>{point}</span>
                     </div>
                   ))}
-                </div>
-
-                {/* Action Buttons matching Home Page buttons */}
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                  <a 
-                    href="#calculadora-presupuesto"
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2.5 group cursor-pointer"
-                  >
-                    <Calculator className="w-4.5 h-4.5 shrink-0" />
-                    <span>{t.ctaStudy}</span>
-                    <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
-                  </a>
-
-                  <a 
-                    href={`https://wa.me/34601259424?text=${encodeURIComponent(
-                      language === 'ca'
-                        ? `Hola Gesgrama, sol·licito informació per a una comunitat al barri de ${data.name} (Santa Coloma)`
-                        : language === 'en'
-                          ? `Hello Gesgrama, I'd like info regarding community management in ${data.name} (Santa Coloma)`
-                          : `Hola Gesgrama, solicito estudio para comunidad en el barrio de ${data.name} (Santa Coloma)`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-md flex items-center justify-center gap-2.5 cursor-pointer"
-                  >
-                    <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
-                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                    </svg>
-                    <span>{t.ctaWhatsapp}</span>
-                  </a>
-                </div>
-
-                {/* Trust badge with check */}
-                <div className="flex items-center gap-2.5 pt-1">
-                  <span className="w-5 h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
-                  </span>
-                  <span className="font-extrabold font-sans text-slate-800 text-[13.5px] sm:text-[14px]">
-                    {t.atencionEn} ~{data.emergencyResponseMinutes} {t.minutos} · CP {data.postalCode} ({data.district})
-                  </span>
                 </div>
               </div>
 

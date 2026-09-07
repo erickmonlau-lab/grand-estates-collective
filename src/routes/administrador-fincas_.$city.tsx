@@ -837,9 +837,9 @@ function SantaColomaBarrioPage() {
                     {t.testimonios.title2}
                   </span>
                 </h2>
-                <div className="mt-2 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3.5 py-1 shadow-xs">
-                  <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
-                  <span className="text-xs font-bold text-slate-700">
+                <div className="mt-3.5 sm:mt-4 inline-flex items-center gap-2.5 bg-white border border-slate-200/90 rounded-full px-5 py-2 shadow-sm hover:shadow-md transition-shadow">
+                  <GoogleIcon className="w-5 h-5 shrink-0" />
+                  <span className="text-sm sm:text-base font-extrabold text-slate-800 tracking-tight">
                     {language === "ca" ? "Ressenyes verificades a Google" : language === "en" ? "Verified Google Reviews" : "Reseñas verificadas en Google"}
                   </span>
                 </div>

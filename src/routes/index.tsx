@@ -6,7 +6,8 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2 } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2 } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
@@ -39,11 +40,47 @@ import { translations } from "../data/translations";
 // ---------------------------------------------------------------------------
 // HELPERS
 // ---------------------------------------------------------------------------
-function Reveal({ children, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+function PriceCounter({ value, duration = 1200 }: { value: number; duration?: number }) {
+  const [displayValue, setDisplayValue] = useState(value);
+  const prevRef = useRef(value);
+
+  useEffect(() => {
+    const start = prevRef.current;
+    const end = value;
+    prevRef.current = value;
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(Math.round(start + (end - start) * easeProgress));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [value, duration]);
+
+  return <span>{new Intl.NumberFormat('es-ES').format(displayValue)}</span>;
+}
+
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const shouldReduceMotion = useReducedMotion();
   return (
-    <div className={className}>
+    <motion.div
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.5, delay, ease: easeOut }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -106,6 +143,25 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
   return true;
 };
 function Index() {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Contact form UX state
+  const [contactForm, setContactForm] = useState({
+    nombre: "",
+    telefono: "",
+    email: "",
+    asunto: "Gestión de Comunidades",
+    mensaje: "",
+    privacidad: false
+  });
+  const [contactErrors, setContactErrors] = useState<{
+    nombre?: string;
+    telefono?: string;
+    email?: string;
+    privacidad?: string;
+  }>({});
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
 
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
@@ -983,112 +1039,125 @@ function Index() {
                 const pData = getTranslatedProperty(property, language, t.propertiesData);
 
                 return (
-                  <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id} className="block h-full">
-                    <div
-                      className="group bg-white rounded-3xl flex flex-col h-full border border-slate-200 hover:border-[#2563eb] shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
-                    >
-                      {/* Image Block */}
-                      <div className="relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden bg-slate-100">
-                        <img 
-                          src={property.image} 
-                          alt={pData.name} 
-                          loading="lazy" 
-                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                        
-                        {/* Heart Favorite Button */}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            toggleFavorite(property.id);
-                          }}
-                          aria-label="Guardar en favoritos"
-                          className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md z-20 ${
-                            isFav 
-                              ? 'bg-red-500 text-white scale-110 shadow-red-500/30' 
-                              : 'bg-white/95 text-slate-700 hover:text-red-500 hover:scale-110'
-                          }`}
-                        >
-                          <Heart className="w-5 h-5 fill-current" />
-                        </button>
-                      </div>
-
-                      {/* Content Block */}
-                      <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
-                        <div>
-                          {/* Badge + Ref */}
-                          <div className="mb-3 flex items-center justify-between gap-2">
-                            {(() => {
-                              const type = pData.type || property.type || "Piso";
-                              let badgeClass = "bg-[#2563eb] text-white";
-                              if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
-                                badgeClass = "bg-[#0369a1] text-white";
-                              } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
-                                badgeClass = "bg-[#4338ca] text-white";
-                              } else if (type.toLowerCase().includes("local")) {
-                                badgeClass = "bg-slate-700 text-white";
-                              } else if (type.includes("Oficina") || type.includes("Office")) {
-                                badgeClass = "bg-[#d97706] text-white";
-                              }
-                              return (
-                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-2xs ${badgeClass}`}>
-                                  {type}
-                                </span>
-                              );
-                            })()}
-                            <span className="text-xs font-mono font-black text-white bg-slate-900 px-3 py-1 rounded-md shadow-xs border border-slate-700">
-                              Ref: {property.ref || "PJ2024"}
-                            </span>
-                          </div>
-
-                          <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-2">
-                            {pData.name}
-                          </h3>
+                  <motion.div
+                    key={property.id}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.5, delay: (idx % 6) * 0.09, ease: easeOut }}
+                    className="h-full"
+                  >
+                    <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
+                      <motion.div
+                        whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -4 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="group bg-white rounded-3xl flex flex-col h-full border border-slate-200 hover:border-[#2563eb] shadow-sm hover:shadow-2xl overflow-hidden cursor-pointer"
+                      >
+                        {/* Image Block */}
+                        <div className="relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden bg-slate-100">
+                          <img 
+                            src={property.image} 
+                            alt={pData.name} 
+                            loading="lazy" 
+                            className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-108" 
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                           
-                          <p className="text-xs sm:text-sm font-extrabold text-slate-600 flex items-center gap-1.5 mb-4 font-sans">
-                            <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
-                            <span>{formatLocation(pData.location || property.location, language)}</span>
-                          </p>
-
-                          {/* Features Micro-Boxes */}
-                          <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
-                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
-                              <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                              <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
-                            </div>
-                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
-                              <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                              <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
-                            </div>
-                            <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
-                              <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                              <span>{property.surface} m²</span>
-                            </div>
-                          </div>
+                          {/* Heart Favorite Button with micro-bounce */}
+                          <motion.button
+                            type="button"
+                            whileTap={{ scale: 1.25 }}
+                            transition={{ type: "spring", stiffness: 450, damping: 17 }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleFavorite(property.id);
+                            }}
+                            aria-label="Guardar en favoritos"
+                            className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                              isFav 
+                                ? 'bg-red-500 text-white shadow-red-500/30' 
+                                : 'bg-white/95 text-slate-700 hover:text-red-500'
+                            }`}
+                          >
+                            <Heart className="w-5 h-5 fill-current" />
+                          </motion.button>
                         </div>
 
-                        {/* Price & Action Button */}
-                        <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                        {/* Content Block */}
+                        <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            <span className="text-xs font-black text-slate-900 uppercase tracking-wider leading-none block mb-1.5 font-sans">
-                              {t.properties.priceLabel || "PRECIO"}
-                            </span>
-                            <span className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans tracking-tight">
-                              {new Intl.NumberFormat('es-ES').format(property.price)}€
-                            </span>
+                            {/* Badge + Ref */}
+                            <div className="mb-3 flex items-center justify-between gap-2">
+                              {(() => {
+                                const type = pData.type || property.type || "Piso";
+                                let badgeClass = "bg-[#2563eb] text-white";
+                                if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
+                                  badgeClass = "bg-[#0369a1] text-white";
+                                } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
+                                  badgeClass = "bg-[#4338ca] text-white";
+                                } else if (type.toLowerCase().includes("local")) {
+                                  badgeClass = "bg-slate-700 text-white";
+                                } else if (type.includes("Oficina") || type.includes("Office")) {
+                                  badgeClass = "bg-[#d97706] text-white";
+                                }
+                                return (
+                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-2xs ${badgeClass}`}>
+                                    {type}
+                                  </span>
+                                );
+                              })()}
+                              <span className="text-xs font-mono font-black text-white bg-slate-900 px-3 py-1 rounded-md shadow-xs border border-slate-700">
+                                Ref: {property.ref || "PJ2024"}
+                              </span>
+                            </div>
+
+                            <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-2">
+                              {pData.name}
+                            </h3>
+                            
+                            <p className="text-xs sm:text-sm font-extrabold text-slate-600 flex items-center gap-1.5 mb-4 font-sans">
+                              <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                              <span>{formatLocation(pData.location || property.location, language)}</span>
+                            </p>
+
+                            {/* Features Micro-Boxes */}
+                            <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
+                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                                <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
+                              </div>
+                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                                <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
+                              </div>
+                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                                <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                <span>{property.surface} m²</span>
+                              </div>
+                            </div>
                           </div>
 
-                          <div className="inline-flex items-center gap-1.5 bg-slate-900 group-hover:bg-[#2563eb] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-4.5 py-3 rounded-xl transition-all duration-300 shadow-md group-hover:shadow-lg border border-slate-800">
-                            <span>Ver ficha</span>
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                          {/* Price & Action Button */}
+                          <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                            <div>
+                              <span className="text-xs font-black text-slate-900 uppercase tracking-wider leading-none block mb-1.5 font-sans">
+                                {t.properties.priceLabel || "PRECIO"}
+                              </span>
+                              <span className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans tracking-tight">
+                                {new Intl.NumberFormat('es-ES').format(property.price)}€
+                              </span>
+                            </div>
+
+                            <div className="inline-flex items-center gap-1.5 bg-slate-900 group-hover:bg-[#2563eb] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-4.5 py-3 rounded-xl transition-all duration-300 shadow-md group-hover:shadow-lg border border-slate-800">
+                              <span>Ver ficha</span>
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </Link>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
                 );
               };
 
@@ -1147,10 +1216,19 @@ function Index() {
                     </div>
                   )}
 
-                  {/* PROPERTY CARDS GRID (INSIDE CARD BUBBLE) */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
-                    {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                  </div>
+                  {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={searchParams.mode}
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
+                    >
+                      {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                    </motion.div>
+                  </AnimatePresence>
 
                   {/* LOAD MORE BUTTON (INSIDE CARD BUBBLE) */}
                   <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100">
@@ -1460,14 +1538,22 @@ function Index() {
             <div className="lg:col-span-5 flex items-center justify-center lg:justify-end">
               <div className="bg-white text-[#0f172a] rounded-3xl p-6 sm:p-8 shadow-2xl w-full max-w-[380px] border-2 border-[#2563eb] relative overflow-hidden text-center">
                 
-                {/* Spinner / Skeleton Loading Overlay */}
-                {isCalculatingValuation && (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6 animate-in fade-in duration-200">
-                    <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
-                    <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
-                    <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
-                  </div>
-                )}
+                {/* Spinner / Skeleton Loading Overlay with AnimatePresence */}
+                <AnimatePresence>
+                  {isCalculatingValuation && (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6"
+                    >
+                      <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
+                      <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
+                      <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* 1. "VALOR ESTIMADO" pill badge */}
                 <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-widest mb-4 shadow-md font-sans">
@@ -1475,15 +1561,27 @@ function Index() {
                   <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
                 </div>
                 
-                {/* Main Estimated Value */}
+                {/* Main Estimated Value with animated Count-Up */}
                 <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-3 leading-none tracking-tight font-sans">
-                  {new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} <span className="text-[#2563eb] font-bold">€</span>
+                  <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-bold">€</span>
                 </div>
 
                 {/* 2. Rango estimado de mercado en una sola línea limpia */}
                 <p className="text-base sm:text-lg font-black text-[#0f172a] mb-2 font-sans">
                   {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                 </p>
+
+                {/* Animated Range Progress Bar */}
+                <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden mb-3 border border-slate-200/80">
+                  <motion.div
+                    key={`range-bar-${calculatedResult.estimatedValue}`}
+                    initial={shouldReduceMotion ? false : { width: "0%" }}
+                    animate={{ width: "70%" }}
+                    transition={{ duration: 1.2, ease: easeOut }}
+                    className="h-full bg-gradient-to-r from-blue-400 to-[#2563eb] rounded-full"
+                  />
+                </div>
+
                 <p className="text-sm sm:text-base font-extrabold text-[#0f172a] mb-6 font-sans">
                   *{t.valorador.disclaimer}
                 </p>
@@ -1512,7 +1610,17 @@ function Index() {
                       
                       {/* Fill area & Trend curve */}
                       <path d="M 15 62 C 38 62, 45 55, 62 55 C 85 55, 92 44, 109 44 C 132 44, 139 35, 156 35 C 179 35, 186 24, 203 24 C 226 24, 235 14, 250 14 L 250 80 L 15 80 Z" fill="url(#sparklineGrad)" />
-                      <path d="M 15 62 C 38 62, 45 55, 62 55 C 85 55, 92 44, 109 44 C 132 44, 139 35, 156 35 C 179 35, 186 24, 203 24 C 226 24, 235 14, 250 14" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <motion.path 
+                        key={`trend-line-${calculatedResult.estimatedValue}`}
+                        d="M 15 62 C 38 62, 45 55, 62 55 C 85 55, 92 44, 109 44 C 132 44, 139 35, 156 35 C 179 35, 186 24, 203 24 C 226 24, 235 14, 250 14" 
+                        stroke="#2563eb" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        initial={shouldReduceMotion ? false : { pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 1, ease: "easeInOut" }}
+                      />
                       
                       {/* Data Points */}
                       <circle cx="15" cy="62" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
@@ -1854,21 +1962,34 @@ function Index() {
                   <Reveal key={i} delay={i * 0.08}>
                     <div 
                       onClick={() => setActiveFaq(isActive ? null : i)}
-                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-5 sm:p-6 shadow-xs transition-all duration-300 hover:border-slate-400 group"
+                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-5 sm:p-6 shadow-xs transition-colors duration-200 hover:border-slate-400 group"
                     >
                       <div className="flex justify-between items-center gap-4">
                         <h3 className="font-black text-[#0f172a] text-lg sm:text-xl md:text-2xl pr-2 font-sans leading-snug">{item.q}</h3>
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white rotate-45' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}>
-                          <span className="text-2xl font-black leading-none">+</span>
-                        </div>
+                        <motion.div 
+                          animate={{ rotate: isActive ? 45 : 0 }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}
+                        >
+                          <span className="text-2xl font-black leading-none select-none">+</span>
+                        </motion.div>
                       </div>
-                      {isActive && (
-                        <div className="overflow-hidden transition-all duration-300">
-                          <p className="pt-4 text-[#0f172a] leading-relaxed font-bold text-base sm:text-lg md:text-xl border-t-2 border-slate-300/80 mt-4 font-sans">
-                            {item.a}
-                          </p>
-                        </div>
-                      )}
+                      <AnimatePresence initial={false}>
+                        {isActive && (
+                          <motion.div 
+                            key={`faq-ans-${i}`}
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.28, ease: "easeOut" }}
+                            className="overflow-hidden"
+                          >
+                            <p className="pt-4 text-[#0f172a] leading-relaxed font-bold text-base sm:text-lg md:text-xl border-t-2 border-slate-300/80 mt-4 font-sans">
+                              {item.a}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </Reveal>
                 );
@@ -1949,30 +2070,143 @@ function Index() {
                 <div className="bg-white border-2 border-[#757989] p-6 sm:p-8 md:p-10 rounded-3xl shadow-sm">
                   <h3 className="font-black text-2xl sm:text-3xl text-[#0f172a] mb-6 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
                   
-                  <form key={language} className="space-y-4">
+                  <form 
+                    key={language} 
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const errors: typeof contactErrors = {};
+                      if (!contactForm.nombre.trim()) {
+                        errors.nombre = language === "ca" ? "El nom és obligatori" : language === "en" ? "Name is required" : "El nombre es obligatorio";
+                      }
+                      if (!contactForm.telefono.trim()) {
+                        errors.telefono = language === "ca" ? "El telèfon és obligatori" : language === "en" ? "Phone is required" : "El teléfono es obligatorio";
+                      }
+                      if (!contactForm.email.trim()) {
+                        errors.email = language === "ca" ? "L'email és obligatori" : language === "en" ? "Email is required" : "El email es obligatorio";
+                      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
+                        errors.email = language === "ca" ? "Format d'email invàlid" : language === "en" ? "Invalid email format" : "Formato de correo no válido";
+                      }
+                      if (!contactForm.privacidad) {
+                        errors.privacidad = language === "ca" ? "Has d'acceptar la política de privacitat" : language === "en" ? "You must accept privacy policy" : "Debes aceptar la política de privacidad";
+                      }
+
+                      setContactErrors(errors);
+                      if (Object.keys(errors).length > 0) return;
+
+                      setIsSubmittingContact(true);
+                      setTimeout(() => {
+                        setIsSubmittingContact(false);
+                        setIsSubmittedSuccess(true);
+                        setContactForm({
+                          nombre: "",
+                          telefono: "",
+                          email: "",
+                          asunto: "Gestión de Comunidades",
+                          mensaje: "",
+                          privacidad: false
+                        });
+                        setTimeout(() => {
+                          setIsSubmittedSuccess(false);
+                        }, 3000);
+                      }, 1000);
+                    }} 
+                    className="space-y-4"
+                  >
                     {/* Row 1: Nombre & Teléfono */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
-                        <input type="text" placeholder={t.contacto.form.nombrePlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
+                        <input 
+                          type="text" 
+                          placeholder={t.contacto.form.nombrePlaceholder} 
+                          value={contactForm.nombre}
+                          onChange={e => {
+                            setContactForm(f => ({ ...f, nombre: e.target.value }));
+                            if (contactErrors.nombre) setContactErrors(err => ({ ...err, nombre: undefined }));
+                          }}
+                          className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-500`} 
+                        />
+                        <AnimatePresence>
+                          {contactErrors.nombre && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -6 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-xs text-red-600 font-black mt-1 font-sans"
+                            >
+                              {contactErrors.nombre}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
                       </div>
                       <div>
                         <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
-                        <input type="text" placeholder={t.contacto.form.telefonoPlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
+                        <input 
+                          type="text" 
+                          placeholder={t.contacto.form.telefonoPlaceholder} 
+                          value={contactForm.telefono}
+                          onChange={e => {
+                            setContactForm(f => ({ ...f, telefono: e.target.value }));
+                            if (contactErrors.telefono) setContactErrors(err => ({ ...err, telefono: undefined }));
+                          }}
+                          className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-500`} 
+                        />
+                        <AnimatePresence>
+                          {contactErrors.telefono && (
+                            <motion.p
+                              initial={{ opacity: 0, y: -6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -6 }}
+                              transition={{ duration: 0.2 }}
+                              className="text-xs text-red-600 font-black mt-1 font-sans"
+                            >
+                              {contactErrors.telefono}
+                            </motion.p>
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
                     
                     {/* Row 2: Correo */}
                     <div>
                       <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.email.toUpperCase()}</label>
-                      <input type="email" placeholder={t.contacto.form.emailPlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors font-sans placeholder:text-slate-500" />
+                      <input 
+                        type="email" 
+                        placeholder={t.contacto.form.emailPlaceholder} 
+                        value={contactForm.email}
+                        onChange={e => {
+                          setContactForm(f => ({ ...f, email: e.target.value }));
+                          if (contactErrors.email) setContactErrors(err => ({ ...err, email: undefined }));
+                        }}
+                        className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-500`} 
+                      />
+                      <AnimatePresence>
+                        {contactErrors.email && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="text-xs text-red-600 font-black mt-1 font-sans"
+                          >
+                            {contactErrors.email}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* Row 3: Tipo de Consulta */}
                     <div>
                       <label htmlFor="contacto-asunto-select" className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
                       <div className="relative">
-                        <select id="contacto-asunto-select" aria-label="Seleccionar motivo o tipo de consulta" className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors appearance-none pr-9 cursor-pointer truncate font-sans">
+                        <select 
+                          id="contacto-asunto-select" 
+                          aria-label="Seleccionar motivo o tipo de consulta" 
+                          value={contactForm.asunto}
+                          onChange={e => setContactForm(f => ({ ...f, asunto: e.target.value }))}
+                          className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out appearance-none pr-9 cursor-pointer truncate font-sans"
+                        >
                           <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
                           <option>{t.contacto.form.asuntoOpciones.venta}</option>
                           <option>{t.contacto.form.asuntoOpciones.juridico}</option>
@@ -1985,22 +2219,74 @@ function Index() {
                     {/* Row 4: Mensaje */}
                     <div>
                       <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-2 text-sm sm:text-base font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
-                      <textarea rows={3} placeholder={t.contacto.form.mensajePlaceholder} className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] outline-none transition-colors resize-none font-sans placeholder:text-slate-500" />
+                      <textarea 
+                        rows={3} 
+                        placeholder={t.contacto.form.mensajePlaceholder} 
+                        value={contactForm.mensaje}
+                        onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
+                        className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3.5 text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-4 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out resize-none font-sans placeholder:text-slate-500" 
+                      />
                     </div>
 
                     {/* Checkbox Privacidad */}
-                    <div className="flex items-center gap-2.5 pt-1">
-                      <input type="checkbox" id="privacy" className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" />
-                      <label htmlFor="privacy" className="text-sm sm:text-base text-[#0f172a] font-bold cursor-pointer font-sans">{t.contacto.form.privacidad}</label>
+                    <div>
+                      <div className="flex items-center gap-2.5 pt-1">
+                        <input 
+                          type="checkbox" 
+                          id="privacy" 
+                          checked={contactForm.privacidad}
+                          onChange={e => {
+                            setContactForm(f => ({ ...f, privacidad: e.target.checked }));
+                            if (contactErrors.privacidad) setContactErrors(err => ({ ...err, privacidad: undefined }));
+                          }}
+                          className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
+                        />
+                        <label htmlFor="privacy" className="text-sm sm:text-base text-[#0f172a] font-bold cursor-pointer font-sans select-none">{t.contacto.form.privacidad}</label>
+                      </div>
+                      <AnimatePresence>
+                        {contactErrors.privacidad && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.2 }}
+                            className="text-xs text-red-600 font-black mt-1 font-sans"
+                          >
+                            {contactErrors.privacidad}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
 
-                    {/* Submit Button */}
+                    {/* Submit Button with Loading & Success micro-animation */}
                     <button
-                      type="button"
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans"
+                      type="submit"
+                      disabled={isSubmittingContact}
+                      className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
+                        isSubmittedSuccess ? "bg-emerald-600 hover:bg-emerald-700" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
+                      }`}
                     >
-                      <span>{t.contacto.form.botonEnviar}</span>
-                      <ArrowRight className="w-4 h-4 text-white" />
+                      {isSubmittingContact ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span>{language === "ca" ? "Enviant..." : language === "en" ? "Sending..." : "Enviando..."}</span>
+                        </>
+                      ) : isSubmittedSuccess ? (
+                        <motion.div 
+                          initial={{ scale: 0.7, opacity: 0 }}
+                          animate={{ scale: [0.7, 1.2, 1], opacity: 1 }}
+                          transition={{ duration: 0.4, ease: easeOut }}
+                          className="flex items-center gap-2"
+                        >
+                          <Check className="w-5 h-5 stroke-[3] text-white" />
+                          <span>{language === "ca" ? "Missatge enviat!" : language === "en" ? "Message sent!" : "¡Mensaje enviado!"}</span>
+                        </motion.div>
+                      ) : (
+                        <>
+                          <span>{t.contacto.form.botonEnviar}</span>
+                          <ArrowRight className="w-4 h-4 text-white" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>

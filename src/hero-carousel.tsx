@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Star, Building2, Shield, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_opt_min.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp"; 
@@ -10,20 +10,69 @@ interface HeroCarouselProps {
   language?: "es" | "en" | "ca";
 }
 
-
-
 const expo = [0.16, 1, 0.3, 1] as const;
+
+function StatCounter({
+  target,
+  prefix = "",
+  suffix = "",
+  duration = 1200,
+  shouldAnimate = true
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+  shouldAnimate?: boolean;
+}) {
+  const [count, setCount] = useState(shouldAnimate ? 0 : target);
+
+  useEffect(() => {
+    if (!shouldAnimate) {
+      setCount(target);
+      return;
+    }
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Cubic ease-out: 1 - Math.pow(1 - progress, 3)
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(easeProgress * target));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [target, duration, shouldAnimate]);
+
+  return (
+    <span>
+      {prefix}
+      {target >= 1000 ? new Intl.NumberFormat('es-ES').format(count) : count}
+      {suffix}
+    </span>
+  );
+}
 
 export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
+  const shouldReduceMotion = useReducedMotion();
+  const statsRef = useRef<HTMLDivElement>(null);
+  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
 
   return (
-    <section id="hero" className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-24 lg:pt-26 pb-4 sm:pb-6 flex flex-col justify-between overflow-hidden select-none bg-[#F3F4F6] px-4 md:px-8 xl:px-12">
+    <section id="hero" className="relative text-slate-900 min-h-svh sm:min-h-screen pt-20 sm:pt-28 lg:pt-32 pb-6 sm:pb-8 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12">
       
-      {/* ── Hero Family Photo Background (Full Section Backdrop with White Overlay) ── */}
+      {/* ── Hero Family Photo Background (Clean Backdrop with Ultra-Soft Subtle Transitions) ── */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Left Architectural Building Sketch */}
-        <svg className="absolute -left-10 top-0 h-full w-auto text-slate-300/40 opacity-50 hidden md:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute -left-10 top-0 h-full w-auto text-slate-300/30 opacity-40 hidden md:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M 20 50 L 20 750 M 20 50 L 180 50 L 180 750" />
           <path d="M 40 90 L 80 90 L 80 140 L 40 140 Z M 100 90 L 140 90 L 140 140 L 100 140 Z" />
           <path d="M 40 170 L 80 170 L 80 220 L 40 220 Z M 100 170 L 140 170 L 140 220 L 100 220 Z" />
@@ -35,136 +84,166 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </svg>
 
         {/* Right Architectural Building Sketch */}
-        <svg className="absolute -right-10 top-0 h-full w-auto text-slate-300/40 opacity-50 hidden lg:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
+        <svg className="absolute -right-10 top-0 h-full w-auto text-slate-300/30 opacity-40 hidden lg:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
           <path d="M 120 50 L 120 750 M 120 50 L 280 50 L 280 750" />
           <path d="M 140 90 L 180 90 L 180 140 L 140 140 Z M 200 90 L 240 90 L 240 140 L 200 140 Z" />
           <path d="M 140 170 L 180 170 L 180 220 L 140 220 Z M 200 170 L 240 170 L 240 220 L 200 220 Z" />
           <path d="M 140 250 L 180 250 L 180 300 L 140 300 Z M 200 250 L 240 250 L 240 300 L 200 300 Z" />
         </svg>
 
-        <div className="absolute right-0 top-0 w-full lg:w-[60%] h-full bg-[#E5DDD5]">
+        {/* Photography Right Frame with Balanced Soft Fade & Ken Burns effect */}
+        <div className="absolute right-0 top-0 w-full lg:w-[58%] xl:w-[55%] h-full bg-[#E5DDD5]">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobile} />
-            <img 
+            <motion.img 
               src={heroBgDesktop} 
               alt="Familia disfrutando su hogar gestionado por Gesgrama" 
-              className="w-full h-full object-cover object-[52%_center] sm:object-[58%_center] md:object-right"
+              className="w-full h-full object-cover object-[52%_center] sm:object-[58%_center] md:object-[64%_center] lg:object-right"
               loading="eager"
               fetchPriority="high"
               width={1920}
               height={1080}
+              animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.08, 1] }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 28, repeat: Infinity, ease: "linear" }}
             />
           </picture>
-          {/* Soft White Gradient Overlay (Horizontal): Smooth transition from text to photo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F3F4F6] via-[#F3F4F6]/80 via-40% to-transparent lg:via-[#F3F4F6]/50 lg:to-transparent" />
-          {/* Subtle bottom gradient on mobile so content blends cleanly into cards */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F3F4F6] to-transparent sm:hidden pointer-events-none" />
+          {/* Refined Gradient Overlay: Smooth, non-abrupt transition from left text to photo */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-35% md:via-45% to-transparent lg:via-[#F8FAFC]/45 lg:to-transparent" />
+          {/* Soft bottom blend on mobile to prevent harsh contrast against stat cards */}
+          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent sm:hidden pointer-events-none" />
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-20 sm:pt-22 lg:pt-26 pb-3 sm:pb-6">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-6 lg:pt-8 pb-3 sm:pb-5">
         
-        {/* Top/Main Hero Content Container - Vertically Centered on Desktop */}
-        <div className="max-w-[340px] xs:max-w-sm sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-1 sm:py-2 my-auto">
-          <div className="flex flex-col justify-center h-full py-0 sm:py-0">
-            {/* Eyebrow Pill Badge */}
-            <div
-              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-2xl mb-2 sm:mb-4 shadow-md font-sans w-fit max-w-full"
+        {/* Top/Main Hero Content Container - Balanced Proportion & Clean Spacing */}
+        <div className="max-w-[340px] xs:max-w-sm sm:max-w-xl lg:max-w-2xl xl:max-w-[640px] text-left py-2 sm:py-4 my-auto">
+          <div className="flex flex-col justify-center h-full">
+            
+            {/* Eyebrow Pill Badge - Refined Padding, Typography & Subtle Shadow */}
+            <motion.div 
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05, ease: expo }}
+              className="mb-3 sm:mb-4.5"
             >
-              <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white shrink-0"></span>
-              <span className="text-left leading-snug sm:leading-normal">{t.heroCarousel.tag}</span>
-            </div>
+              <div
+                className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10.5px] sm:text-xs font-black uppercase tracking-[0.12em] px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full"
+              >
+                <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-white shrink-0 animate-pulse"></span>
+                <span className="text-left leading-none">{t.heroCarousel.tag}</span>
+              </div>
+            </motion.div>
 
-            {/* Main Title H1 - INSTANT SSR/HTML PAINT WITHOUT JS OPACITY DELAY */}
-            <h1 className="text-[32px] xs:text-[36px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.08] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading">
+            {/* Main Title H1 - Exact Gesgrama Fonts, Preserved Blue Accent, Staggered entrance */}
+            <motion.h1 
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.15, ease: expo }}
+              className="text-[32px] xs:text-[38px] sm:text-5xl md:text-[3.5rem] lg:text-[4.25rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-3.5 sm:mb-5 font-heading"
+            >
               {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
-              <span className="text-[#2563eb]">
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
                 {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
               </span>
-            </h1>
+            </motion.h1>
 
-            {/* Subtitle (LCP Element) - INSTANT HTML RENDER WITHOUT HYDRATION BLOCK */}
-            <p
-              className="text-[#0f172a] text-sm sm:text-xl md:text-2xl mb-3.5 sm:mb-8 font-extrabold leading-snug sm:leading-relaxed font-sans max-w-xl"
-              style={{ textShadow: "0 0 16px rgba(255, 255, 255, 0.98), 0 1px 6px rgba(255, 255, 255, 0.95)" }}
+            {/* Subtitle - Controlled Reading Width, Natural Soft Contrast */}
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.25, ease: expo }}
+              className="text-[#1e293b] text-[13.5px] sm:text-lg md:text-xl mb-5 sm:mb-7 font-bold leading-relaxed font-sans max-w-[540px]"
+              style={{ textShadow: "0 0 16px rgba(255, 255, 255, 0.95), 0 1px 4px rgba(255, 255, 255, 0.9)" }}
             >
               {t.heroCarousel.subtitle}
-            </p>
+            </motion.p>
 
-            {/* CTA Buttons */}
-            <div
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-4 w-full sm:w-fit mb-3 sm:mb-6"
+            {/* CTA Buttons - Staggered entrance */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.35, ease: expo }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-4 sm:mb-6"
             >
-              {/* Button 1: Solid Blue Pill */}
+              {/* Button 1: Solid Primary Blue Pill */}
               <a
                 href="#valuator-form"
-                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-md flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0"
               >
-                <Home className="w-4 h-4 text-white" />
+                <Home className="w-4 h-4 text-white shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
-                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
 
-              {/* Button 2: Solid White Pill */}
+              {/* Button 2: Crisp White Secondary Pill */}
               <a
                 href="#propiedades"
-                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-sm flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-white/95 hover:bg-white text-[#0f172a] border border-slate-200/90 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0"
               >
-                <Building2 className="w-4 h-4 text-[#2563eb]" />
+                <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
-            </div>
+            </motion.div>
 
-            {/* Trust Proof */}
-            <div
-              className="flex items-center gap-2 sm:gap-3.5 text-xs sm:text-lg md:text-xl font-extrabold text-[#0f172a]"
+            {/* Trust Proof - Staggered entrance */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.45, ease: expo }}
+              className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm md:text-[15px] font-extrabold text-[#0f172a]"
             >
-              <Check className="w-4 h-4 sm:w-6 sm:h-6 text-emerald-600 stroke-[3] shrink-0" />
-              <span className="font-extrabold font-sans" style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.98)" }}>
+              <span className="w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 border border-emerald-300">
+                <Check className="w-3.5 h-3.5 text-emerald-700 stroke-[3]" />
+              </span>
+              <span className="font-extrabold font-sans text-slate-800" style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.95)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Integrated Stat Cards Row (Lifted up closer to trust badge) */}
+        {/* Integrated Stat Cards Row - Count-up with useInView & cubic easing */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-2 sm:mt-6 lg:mt-8 mb-1"
+          ref={statsRef}
+          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5 relative z-20 mt-3 sm:mt-6 lg:mt-7 mb-1"
         >
-          {/* Card 1 (4500+): Fondo carbón oscuro / texto blanco */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+          {/* Card 1 (4.500+): Fondo Navy Estructural con sutil borde de profundidad */}
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              4500+
+            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
+              <StatCounter target={4500} suffix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
             </p>
-            <p className="text-[11px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[10.5px] sm:text-xs font-bold text-slate-300 leading-snug font-body">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
 
-          {/* Card 2 (98%): Fondo blanco sólido / texto carbón oscuro */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
-            <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
-              98%
+          {/* Card 2 (98%): Fondo blanco sólido / borde sutil / sombra difusa */}
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
+            <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563eb] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+              <StatCounter target={98} suffix="%" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
             </p>
-            <p className="text-[11px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[10.5px] sm:text-xs font-bold text-slate-600 leading-snug font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
 
-          {/* Card 3 (+300): Fondo carbón oscuro / texto blanco */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+          {/* Card 3 (+300): Fondo Navy Estructural con sutil borde de profundidad */}
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              +300
+            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
+              <StatCounter target={300} prefix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
             </p>
-            <p className="text-[11px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[10.5px] sm:text-xs font-bold text-slate-300 leading-snug font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
 
-          {/* Card 4 (15+): Fondo blanco sólido / texto carbón oscuro */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
-            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
-              <span className="tabular-nums tracking-widest inline-flex items-center justify-center gap-1 font-extrabold">15+</span>
+          {/* Card 4 (15+): Fondo blanco sólido / borde sutil / sombra difusa */}
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
+            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563eb] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+              <span className="tabular-nums inline-flex items-center justify-center gap-0.5 font-black">
+                <StatCounter target={15} suffix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
+              </span>
             </p>
-            <p className="text-[11px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[10.5px] sm:text-xs font-bold text-slate-600 leading-snug font-body">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </div>
 

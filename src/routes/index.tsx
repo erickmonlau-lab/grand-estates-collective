@@ -1789,7 +1789,7 @@ function Index() {
                 {/* Bottom CTA Row: Two solid-background buttons */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2.5">
                   <Link
-                    to="/administrador-fincas_/$city"
+                    to="/administrador-fincas/$city"
                     params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
                     className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-extrabold text-[#0b214a] hover:text-[#2563eb] bg-white hover:bg-slate-100 border border-slate-300 py-2.5 px-3 rounded-xl transition-all shadow-2xs group"
                   >

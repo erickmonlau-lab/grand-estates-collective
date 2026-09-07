@@ -17,21 +17,27 @@ function StatCounter({
   prefix = "",
   suffix = "",
   duration = 1200,
-  shouldAnimate = true
+  shouldAnimate = false,
+  reduceMotion = false
 }: {
   target: number;
   prefix?: string;
   suffix?: string;
   duration?: number;
   shouldAnimate?: boolean;
+  reduceMotion?: boolean;
 }) {
-  const [count, setCount] = useState(shouldAnimate ? 0 : target);
+  const [count, setCount] = useState(reduceMotion ? target : 0);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (!shouldAnimate) {
+    if (reduceMotion) {
       setCount(target);
       return;
     }
+    if (!shouldAnimate || hasAnimated.current) return;
+    hasAnimated.current = true;
+
     let startTime: number | null = null;
     let animationFrameId: number;
 
@@ -49,7 +55,7 @@ function StatCounter({
 
     animationFrameId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [target, duration, shouldAnimate]);
+  }, [target, duration, shouldAnimate, reduceMotion]);
 
   return (
     <span>
@@ -64,7 +70,24 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   const t = translations[language];
   const shouldReduceMotion = useReducedMotion();
   const statsRef = useRef<HTMLDivElement>(null);
-  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const isStatsInView = useInView(statsRef, { once: true, amount: 0.2 });
+  const [isStatsVisible, setIsStatsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isStatsInView) {
+      setIsStatsVisible(true);
+      return;
+    }
+    // Check initial visibility via getBoundingClientRect() immediately on mount
+    if (statsRef.current) {
+      const rect = statsRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        setIsStatsVisible(true);
+      }
+    }
+  }, [isStatsInView]);
+
+  const shouldTriggerStats = isStatsInView || isStatsVisible;
 
   return (
     <section id="hero" className="relative text-slate-900 min-h-svh sm:min-h-screen pt-20 sm:pt-28 lg:pt-32 pb-6 sm:pb-8 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12">
@@ -209,41 +232,41 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5 relative z-20 mt-3 sm:mt-6 lg:mt-7 mb-1"
         >
           {/* Card 1 (4.500+): Fondo Navy Estructural con sutil borde de profundidad */}
-          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
-              <StatCounter target={4500} suffix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
+            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 sm:mb-1.5 text-white">
+              <StatCounter target={4500} suffix="+" duration={1200} shouldAnimate={shouldTriggerStats && !shouldReduceMotion} reduceMotion={shouldReduceMotion} />
             </p>
-            <p className="text-[10.5px] sm:text-xs font-bold text-slate-300 leading-snug font-body">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-medium text-slate-400 leading-snug font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
 
           {/* Card 2 (98%): Fondo blanco sólido / borde sutil / sombra difusa */}
-          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
             <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563eb] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
-              <StatCounter target={98} suffix="%" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
+            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 sm:mb-1.5 text-[#0b214a]">
+              <StatCounter target={98} suffix="%" duration={1200} shouldAnimate={shouldTriggerStats && !shouldReduceMotion} reduceMotion={shouldReduceMotion} />
             </p>
-            <p className="text-[10.5px] sm:text-xs font-bold text-slate-600 leading-snug font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-medium text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
 
           {/* Card 3 (+300): Fondo Navy Estructural con sutil borde de profundidad */}
-          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_20px_rgba(15,23,42,0.12)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-white">
-              <StatCounter target={300} prefix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
+            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 sm:mb-1.5 text-white">
+              <StatCounter target={300} prefix="+" duration={1200} shouldAnimate={shouldTriggerStats && !shouldReduceMotion} reduceMotion={shouldReduceMotion} />
             </p>
-            <p className="text-[10.5px] sm:text-xs font-bold text-slate-300 leading-snug font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-medium text-slate-400 leading-snug font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
 
           {/* Card 4 (15+): Fondo blanco sólido / borde sutil / sombra difusa */}
-          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white text-slate-800 border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] transition-all duration-200 hover:-translate-y-0.5">
             <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563eb] mb-1 sm:mb-1.5" />
-            <p className="text-xl sm:text-2xl lg:text-3xl font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
-              <span className="tabular-nums inline-flex items-center justify-center gap-0.5 font-black">
-                <StatCounter target={15} suffix="+" duration={1200} shouldAnimate={isStatsInView && !shouldReduceMotion} />
+            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 sm:mb-1.5 text-[#0b214a]">
+              <span className="tabular-nums inline-flex items-center justify-center gap-0.5 font-bold">
+                <StatCounter target={15} suffix="+" duration={1200} shouldAnimate={shouldTriggerStats && !shouldReduceMotion} reduceMotion={shouldReduceMotion} />
               </span>
             </p>
-            <p className="text-[10.5px] sm:text-xs font-bold text-slate-600 leading-snug font-body">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-medium text-slate-500 leading-snug font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </div>
 

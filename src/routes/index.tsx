@@ -1355,36 +1355,52 @@ function Index() {
 
               <div className="w-full max-w-xl">
                 <div className="w-full">
-                  {/* Inputs Row */}
-                  <div className="flex flex-col sm:flex-row gap-3.5 mb-4">
+                  {/* Inputs Row with crystal clear visual labels & m² suffix */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
                     {/* Select Zona */}
-                    <div className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-2xl px-5 py-4 flex items-center justify-between shadow-xs">
-                      <div className="flex items-center gap-3 w-full">
-                        <MapPin className="w-5 h-5 text-[#2563eb] shrink-0" />
-                        <select
-                          id="valuator-zona-select"
-                          aria-label="Seleccionar zona de la propiedad"
-                          value={valuatorData.zona}
-                          onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-base font-bold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
-                        >
-                          <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
-                          {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
-                        </select>
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
+                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                        {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
+                      </label>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2.5 w-full">
+                          <MapPin className="w-5 h-5 text-[#2563eb] shrink-0" />
+                          <select
+                            id="valuator-zona-select"
+                            aria-label="Seleccionar zona de la propiedad"
+                            value={valuatorData.zona}
+                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                          >
+                            <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
+                            {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
+                          </select>
+                        </div>
+                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                       </div>
-                      <ChevronDown className="w-5 h-5 text-slate-500 shrink-0" />
                     </div>
 
-                    {/* Input Superficie (Ruler Icon) */}
-                    <div className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-2xl px-5 py-4 flex items-center gap-3 shadow-xs">
-                      <Ruler className="w-5 h-5 text-[#2563eb] shrink-0" />
-                      <input
-                        type="text"
-                        placeholder={language === "ca" ? "Superfície aprox. (m²)" : language === "en" ? "Approx. surface (m²)" : "Superficie aprox. (m²)"}
-                        value={valuatorData.metros}
-                        onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                        className="w-full bg-transparent border-0 p-0 text-base font-bold text-[#0f172a] focus:ring-0 outline-none placeholder:text-slate-400 font-sans"
-                      />
+                    {/* Input Superficie (m²) */}
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
+                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                        {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
+                      </label>
+                      <div className="flex items-center gap-2.5">
+                        <Ruler className="w-5 h-5 text-[#2563eb] shrink-0" />
+                        <input
+                          id="valuator-metros-input"
+                          type="number"
+                          min="20"
+                          max="600"
+                          placeholder="85"
+                          value={valuatorData.metros}
+                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
+                        />
+                        <span className="text-xs sm:text-sm font-black text-[#2563eb] bg-blue-50 border border-blue-200/60 px-2.5 py-1 rounded-lg shrink-0">
+                          m²
+                        </span>
+                      </div>
                     </div>
                   </div>
                   

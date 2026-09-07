@@ -79,17 +79,18 @@ export default function HeroCarousel({
             <motion.img
               src={heroBgDesktop}
               alt="Familia disfrutando su hogar gestionado por Gesgrama"
-              className="w-full h-full object-cover object-[70%_18%] sm:object-[76%_20%] md:object-[82%_24%] lg:object-[88%_26%] xl:object-[92%_28%]"
+              className="w-full h-full object-cover object-[78%_center] sm:object-[82%_center] md:object-[86%_center] lg:object-[90%_center] xl:object-[92%_center]"
               loading="eager"
               fetchPriority="high"
               width={2560}
               height={1440}
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 via-28% md:via-42% to-transparent lg:via-[#F8FAFC]/50 lg:to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent sm:hidden pointer-events-none" />
+          {/* Subtle elegant gradient wash ensuring hero content has prime contrast and focus */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-35% md:via-48% to-transparent lg:via-[#F8FAFC]/65 lg:to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F8FAFC] via-[#F8FAFC]/85 to-transparent sm:hidden pointer-events-none" />
         </div>
       </div>
 

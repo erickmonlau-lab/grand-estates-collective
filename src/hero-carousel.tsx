@@ -48,7 +48,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             <img 
               src={heroBgDesktop} 
               alt="Familia disfrutando su hogar gestionado por Gesgrama" 
-              className="w-full h-full object-cover object-[58%_center] md:object-right"
+              className="w-full h-full object-cover object-[52%_center] sm:object-[58%_center] md:object-right"
               loading="eager"
               fetchPriority="high"
               width={1920}
@@ -56,25 +56,27 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
             />
           </picture>
           {/* Soft White Gradient Overlay (Horizontal): Smooth transition from text to photo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F3F4F6] via-[#F3F4F6]/75 via-45% to-transparent lg:via-[#F3F4F6]/50 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F3F4F6] via-[#F3F4F6]/80 via-40% to-transparent lg:via-[#F3F4F6]/50 lg:to-transparent" />
+          {/* Subtle bottom gradient on mobile so content blends cleanly into cards */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F3F4F6] to-transparent sm:hidden pointer-events-none" />
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-16 sm:pt-20 lg:pt-24 pb-3 sm:pb-6">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-20 sm:pt-22 lg:pt-26 pb-3 sm:pb-6">
         
         {/* Top/Main Hero Content Container - Vertically Centered on Desktop */}
-        <div className="max-w-[285px] xs:max-w-xs sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-0 sm:py-2 my-auto">
+        <div className="max-w-[340px] xs:max-w-sm sm:max-w-xl lg:max-w-2xl xl:max-w-3xl text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full py-0 sm:py-0">
             {/* Eyebrow Pill Badge */}
             <div
-              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl sm:rounded-2xl mb-2.5 sm:mb-5 shadow-md font-sans w-fit max-w-full"
+              className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[11px] sm:text-sm font-extrabold uppercase tracking-wider sm:tracking-widest px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-2xl mb-2 sm:mb-4 shadow-md font-sans w-fit max-w-full"
             >
               <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-white shrink-0"></span>
               <span className="text-left leading-snug sm:leading-normal">{t.heroCarousel.tag}</span>
             </div>
 
             {/* Main Title H1 - INSTANT SSR/HTML PAINT WITHOUT JS OPACITY DELAY */}
-            <h1 className="text-[26px] xs:text-[28px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.1] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading">
+            <h1 className="text-[32px] xs:text-[36px] sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#0b214a] leading-[1.08] sm:leading-[1.05] tracking-tight mb-2.5 sm:mb-5 font-heading">
               {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
               <span className="text-[#2563eb]">
                 {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
@@ -83,7 +85,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
 
             {/* Subtitle (LCP Element) - INSTANT HTML RENDER WITHOUT HYDRATION BLOCK */}
             <p
-              className="text-[#0f172a] text-sm sm:text-xl md:text-2xl mb-3.5 sm:mb-8 font-extrabold leading-snug sm:leading-relaxed font-sans"
+              className="text-[#0f172a] text-sm sm:text-xl md:text-2xl mb-3.5 sm:mb-8 font-extrabold leading-snug sm:leading-relaxed font-sans max-w-xl"
               style={{ textShadow: "0 0 16px rgba(255, 255, 255, 0.98), 0 1px 6px rgba(255, 255, 255, 0.95)" }}
             >
               {t.heroCarousel.subtitle}
@@ -96,7 +98,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               {/* Button 1: Solid Blue Pill */}
               <a
                 href="#valuator-form"
-                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-md flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-md flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
               >
                 <Home className="w-4 h-4 text-white" />
                 <span>{t.heroCarousel.btnValuation}</span>
@@ -106,7 +108,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               {/* Button 2: Solid White Pill */}
               <a
                 href="#propiedades"
-                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-8 py-2.5 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-sm flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
+                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-xs sm:text-base transition-all shadow-sm flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0"
               >
                 <Building2 className="w-4 h-4 text-[#2563eb]" />
                 <span>{t.heroCarousel.btnProperties}</span>
@@ -115,9 +117,9 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
 
             {/* Trust Proof */}
             <div
-              className="flex items-center gap-2.5 sm:gap-3.5 text-xs sm:text-lg md:text-xl font-extrabold text-[#0f172a]"
+              className="flex items-center gap-2 sm:gap-3.5 text-xs sm:text-lg md:text-xl font-extrabold text-[#0f172a]"
             >
-              <Check className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-emerald-600 stroke-[3] shrink-0" />
+              <Check className="w-4 h-4 sm:w-6 sm:h-6 text-emerald-600 stroke-[3] shrink-0" />
               <span className="font-extrabold font-sans" style={{ textShadow: "0 0 12px rgba(255, 255, 255, 0.98)" }}>
                 {t.heroCarousel.trustBadge}
               </span>
@@ -127,42 +129,42 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
 
         {/* Integrated Stat Cards Row (Lifted up closer to trust badge) */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-0 sm:mt-8 lg:mt-10 mb-1"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative z-20 mt-2 sm:mt-6 lg:mt-8 mb-1"
         >
           {/* Card 1 (4500+): Fondo carbón oscuro / texto blanco */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
-            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
-            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               4500+
             </p>
-            <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[11px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
 
           {/* Card 2 (98%): Fondo blanco sólido / texto carbón oscuro */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
-            <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
-            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
+            <ThumbsUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
               98%
             </p>
-            <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[11px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
 
           {/* Card 3 (+300): Fondo carbón oscuro / texto blanco */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
-            <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
-            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-[#374353]/95 sm:bg-[#374353] text-white shadow-md backdrop-blur-xs transition-all duration-200">
+            <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               +300
             </p>
-            <p className="text-[10px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[11px] sm:text-base font-semibold text-slate-200 leading-tight font-body">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
 
           {/* Card 4 (15+): Fondo blanco sólido / texto carbón oscuro */}
-          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
-            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-2" />
-            <p className="text-lg sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
+          <div className="flex flex-col items-center justify-center text-center px-2.5 py-2.5 sm:px-4 sm:py-4.5 rounded-xl sm:rounded-2xl bg-white/95 sm:bg-white text-slate-800 border border-slate-200 shadow-md backdrop-blur-xs transition-all duration-200">
+            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#3B6FE0] mb-1 sm:mb-1.5" />
+            <p className="text-xl sm:text-3xl lg:text-4xl font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-slate-800">
               <span className="tabular-nums tracking-widest inline-flex items-center justify-center gap-1 font-extrabold">15+</span>
             </p>
-            <p className="text-[10px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[11px] sm:text-base font-semibold text-slate-600 leading-tight font-body">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </div>
 

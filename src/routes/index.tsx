@@ -2123,53 +2123,53 @@ function Index() {
         </div>
       </section>
 
-      {/* ── FAQ (COMPACT LAYOUT WITH BIGGER LEGIBLE TEXT) ── */}
+      {/* ── FAQ (COMPACT LAYOUT WITH BALANCED TEXT) ── */}
       <section 
         id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8 scroll-mt-24 md:scroll-mt-28"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-24 md:scroll-mt-28"
       >
-        <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
-          <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
+        <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+          <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
             <Reveal>
-              <div className="text-center mb-8 flex flex-col items-center">
+              <div className="text-center mb-6 flex flex-col items-center">
                 {/* White Badge with Icon next to Text */}
-                <span className="inline-flex items-center gap-2.5 bg-white text-[#0f172a] text-xs sm:text-sm font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md border border-slate-200 mb-5 font-sans">
-                  <HelpCircle className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
+                <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-3 font-sans">
+                  <HelpCircle className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
                   <span>{t.faq.tag}</span>
                 </span>
 
                 {/* Title */}
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight text-white tracking-tight font-sans mb-3">
-                  <span className="bg-[#2563eb] text-white px-3.5 py-1 rounded-2xl inline-block shadow-md">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white tracking-tight font-sans mb-2">
+                  <span className="bg-[#2563eb] text-white px-3 py-1 rounded-xl inline-block shadow-md">
                     {t.faq.title1}
                   </span>{" "}
                   {t.faq.title2}
                 </h2>
 
-                <p className="text-white text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-3">
+                <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-1.5">
                   {t.faq.subtitle}
                 </p>
               </div>
             </Reveal>
 
-            {/* Accordion Cards - Compact Gap with Larger Legible Text */}
-            <div className="w-full flex flex-col gap-3.5 mb-8">
+            {/* Accordion Cards - ~80% compact padding and sizing */}
+            <div className="w-full flex flex-col gap-2.5 mb-6">
               {t.faq.items.map((item, i) => {
                 const isActive = activeFaq === i;
                 return (
                   <Reveal key={i} delay={i * 0.08}>
                     <div 
                       onClick={() => setActiveFaq(isActive ? null : i)}
-                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-2xl p-5 sm:p-6 shadow-xs transition-colors duration-200 hover:border-slate-400 group"
+                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-xl p-3.5 sm:p-4 shadow-xs transition-colors duration-200 hover:border-slate-400 group"
                     >
-                      <div className="flex justify-between items-center gap-4">
-                        <h3 className="font-black text-[#0f172a] text-lg sm:text-xl md:text-2xl pr-2 font-sans leading-snug">{item.q}</h3>
+                      <div className="flex justify-between items-center gap-3">
+                        <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg pr-2 font-sans leading-snug">{item.q}</h3>
                         <motion.div 
                           animate={{ rotate: isActive ? 45 : 0 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 shadow-sm ${isActive ? 'bg-[#1d4ed8] text-white' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 shadow-xs ${isActive ? 'bg-[#1d4ed8] text-white' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}
                         >
-                          <span className="text-2xl font-black leading-none select-none">+</span>
+                          <span className="text-xl font-black leading-none select-none">+</span>
                         </motion.div>
                       </div>
                       <AnimatePresence initial={false}>
@@ -2182,7 +2182,7 @@ function Index() {
                             transition={{ duration: 0.28, ease: "easeOut" }}
                             className="overflow-hidden"
                           >
-                            <p className="pt-4 text-[#0f172a] leading-relaxed font-bold text-base sm:text-lg md:text-xl border-t-2 border-slate-300/80 mt-4 font-sans">
+                            <p className="pt-3 text-[#0f172a] leading-relaxed font-bold text-xs sm:text-sm md:text-base border-t border-slate-300/80 mt-3 font-sans">
                               {item.a}
                             </p>
                           </motion.div>
@@ -2198,10 +2198,10 @@ function Index() {
             <div className="text-center">
               <a 
                 href="#contacto" 
-                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
+                className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
               >
                 <span>{t.faq.askDoubt}</span>
-                <ArrowRight className="w-5 h-5 text-white" />
+                <ArrowRight className="w-4 h-4 text-white" />
               </a>
             </div>
           </div>

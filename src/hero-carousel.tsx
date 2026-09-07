@@ -57,7 +57,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
   return (
     <section
       id="hero"
-      className="relative text-slate-900 min-h-svh sm:min-h-screen pt-20 sm:pt-28 lg:pt-32 pb-6 sm:pb-8 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
+      className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-4 sm:pb-6 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <svg className="absolute -left-10 top-0 h-full w-auto text-slate-300/30 opacity-40 hidden md:block" viewBox="0 0 300 800" fill="none" stroke="currentColor" strokeWidth="1">
@@ -96,16 +96,16 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-4 sm:pt-6 lg:pt-8 pb-3 sm:pb-5">
-        <div className="max-w-[340px] xs:max-w-sm sm:max-w-xl lg:max-w-2xl xl:max-w-[640px] text-left py-2 sm:py-4 my-auto">
+      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
+        <div className="max-w-[340px] xs:max-w-sm sm:max-w-xl lg:max-w-2xl xl:max-w-[640px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: expo }}
-              className="mb-3 sm:mb-4.5"
+              className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10.5px] sm:text-xs font-black uppercase tracking-[0.12em] px-3.5 sm:px-4.5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
+              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10.5px] sm:text-xs font-black uppercase tracking-[0.12em] px-3 sm:px-4 py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
                 <span className="text-left leading-none">{t.heroCarousel.tag}</span>
               </div>
@@ -114,7 +114,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
-              className="text-[32px] xs:text-[38px] sm:text-5xl md:text-[3.5rem] lg:text-[4.25rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-3.5 sm:mb-5 font-heading"
+              className="text-[30px] xs:text-[34px] sm:text-4xl md:text-[3.15rem] lg:text-[3.75rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-2.5 sm:mb-3.5 font-heading"
             >
               {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
               <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
@@ -125,7 +125,7 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[13.5px] sm:text-lg md:text-xl mb-5 sm:mb-7 font-bold leading-relaxed font-sans max-w-[540px]"
+              className="text-[#1e293b] text-[13px] sm:text-base md:text-lg mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[540px]"
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
               {t.heroCarousel.subtitle}
@@ -134,14 +134,14 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-4 sm:mb-6"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-fit mb-3 sm:mb-4"
             >
-              <a href="#valuator-form" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href="#valuator-form" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.32)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Home className="w-4 h-4 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
+              <a href="#propiedades" className="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-200 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all duration-200 shadow-[0_2px_10px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_18px_rgba(15,23,42,0.1)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
@@ -150,10 +150,10 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.45, ease: expo }}
-              className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm md:text-[15px] font-extrabold text-[#0f172a]"
+              className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm font-extrabold text-[#0f172a]"
             >
-              <span className="w-5 h-5 sm:w-5.5 sm:h-5.5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 border border-blue-300">
-                <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
+              <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 border border-blue-300">
+                <Check className="w-3 h-3 text-[#2563eb] stroke-[3]" />
               </span>
               <span className="font-extrabold font-sans text-slate-800" style={{ textShadow: "0 0 10px rgba(255,255,255,0.95)" }}>
                 {t.heroCarousel.trustBadge}
@@ -166,35 +166,35 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 relative z-20 mt-4 sm:mt-6 lg:mt-8 mb-1"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 relative z-20 mt-2 sm:mt-3 lg:mt-4 mb-0"
         >
-          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
-            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2 sm:mb-2.5" />
-            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-white">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+            <Users className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#6C96F7] mb-1.5 sm:mb-2" />
+            <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-black leading-none font-sans tracking-tight mb-1 text-white">
               <StatCounter target={4500} suffix="+" />
             </p>
-            <p className="text-[14px] sm:text-[15px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
-            <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2 sm:mb-2.5" />
-            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-[#0b214a]">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+            <ThumbsUp className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#2563eb] mb-1.5 sm:mb-2" />
+            <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
               <StatCounter target={98} suffix="%" />
             </p>
-            <p className="text-[14px] sm:text-[15px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
-            <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2 sm:mb-2.5" />
-            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-white">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+            <Building2 className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#6C96F7] mb-1.5 sm:mb-2" />
+            <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-black leading-none font-sans tracking-tight mb-1 text-white">
               <StatCounter target={300} prefix="+" />
             </p>
-            <p className="text-[14px] sm:text-[15px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
-            <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2 sm:mb-2.5" />
-            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-[#0b214a]">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3 sm:px-4 sm:py-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+            <Award className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#2563eb] mb-1.5 sm:mb-2" />
+            <p className="text-[28px] sm:text-[34px] lg:text-[38px] font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
               <StatCounter target={15} suffix="+" />
             </p>
-            <p className="text-[14px] sm:text-[15px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[12px] sm:text-[13px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </motion.div>
       </div>

@@ -1706,9 +1706,10 @@ function Index() {
                   />
                 </div>
 
-                <p className="text-[11px] sm:text-xs font-bold text-slate-500 mb-3 font-sans">
-                  *{t.valorador.disclaimer}
-                </p>
+                <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-600 mb-3 font-medium bg-slate-100/90 py-1.5 px-2.5 rounded-lg border border-slate-200">
+                  <span className="text-[#2563eb] font-bold text-xs">*</span>
+                  <span>{t.valorador.disclaimer}</span>
+                </div>
                 
                 {/* 3. Sparkline Price Trend Chart */}
                 <div className="pt-3 border-t border-slate-100">
@@ -1780,25 +1781,25 @@ function Index() {
                 </div>
 
                 {/* Hyper-local Price Benchmark */}
-                <div className="mt-2.5 bg-[#f8fafc] border border-slate-200/90 rounded-xl p-2 text-left">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-600">
+                <div className="mt-2.5 bg-white border border-slate-300 rounded-xl p-2.5 text-left shadow-2xs">
+                  <div className="flex items-center justify-between text-xs sm:text-[13px]">
+                    <span className="font-extrabold text-black">
                       {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
                     </span>
-                    <span className="font-black text-[#0b214a]">
+                    <span className="font-black text-black">
                       {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
                     </span>
                   </div>
                 </div>
 
-                {/* Bottom CTA Row: Two compact buttons */}
+                {/* Bottom CTA Row: Two solid-background buttons */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2.5">
                   <Link
                     to="/administrador-fincas_/$city"
                     params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
-                    className="w-full inline-flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-bold text-[#2563eb] hover:text-[#1d4ed8] bg-blue-50/80 hover:bg-blue-100 border border-blue-200 py-2 px-2.5 rounded-xl transition-all group"
+                    className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-extrabold text-[#0b214a] hover:text-[#2563eb] bg-white hover:bg-slate-100 border border-slate-300 py-2.5 px-3 rounded-xl transition-all shadow-2xs group"
                   >
-                    <Building2 className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                    <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
                     <span className="truncate">
                       {language === "ca" 
                         ? `Guia a ${formatLocation(calculatedResult.zoneName, language)}`
@@ -1818,9 +1819,9 @@ function Index() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-[11px] sm:text-xs py-2 px-2.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5 group cursor-pointer"
+                    className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs py-2.5 px-3 rounded-xl transition-all shadow-2xs flex items-center justify-center gap-1.5 group cursor-pointer"
                   >
-                    <MessageCircle className="w-3.5 h-3.5 fill-white text-[#075E54] shrink-0" />
+                    <MessageCircle className="w-4 h-4 fill-white text-[#075E54] shrink-0" />
                     <span>WhatsApp</span>
                   </a>
                 </div>

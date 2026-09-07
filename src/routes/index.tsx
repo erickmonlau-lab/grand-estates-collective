@@ -1367,20 +1367,15 @@ function Index() {
                   {t.testimonios.title1}{" "}
                   <span className="relative inline-block text-[#2563eb] pb-2">
                     {t.testimonios.title2}
-                    <svg className="absolute -bottom-1 left-0 w-full h-3 text-[#38bdf8]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
+                    <svg className="absolute -bottom-1 left-0 w-full h-3 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
                       <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                     </svg>
                   </span>
                 </h2>
                 <div className="mt-3 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 shadow-sm">
                   <GoogleIcon className="w-4 h-4 shrink-0" />
-                  <div className="flex items-center gap-0.5 text-amber-400">
-                    {[...Array(5)].map((_, s) => (
-                      <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-slate-800">
-                    4.9 / 5 <span className="text-slate-500 font-medium">• {language === 'ca' ? 'Ressenyes a Google' : language === 'en' ? 'Google Reviews' : 'Reseñas en Google'}</span>
+                  <span className="text-xs font-bold text-slate-700">
+                    {language === 'ca' ? 'Ressenyes verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas verificadas en Google'}
                   </span>
                 </div>
               </div>
@@ -1393,22 +1388,22 @@ function Index() {
                   {
                     category: language === 'ca' ? "Compra d'habitatge" : language === 'en' ? "Home purchase" : "Compra de vivienda",
                     Icon: Home,
-                    accentBorder: "from-[#2563eb] to-[#38bdf8]",
-                    categoryBadge: "bg-blue-50 text-[#2563eb] border-blue-200/80",
+                    accentBorder: "from-[#2563eb] to-[#1d4ed8]",
+                    categoryBadge: "bg-[#2563eb] text-white border-[#1d4ed8]",
                     avatarBg: "bg-gradient-to-br from-[#2563eb] to-[#1d4ed8]",
                   },
                   {
                     category: language === 'ca' ? "Gestió de lloguer" : language === 'en' ? "Rental management" : "Gestión de alquiler",
                     Icon: Key,
-                    accentBorder: "from-[#2563eb] to-[#38bdf8]",
-                    categoryBadge: "bg-blue-50 text-[#2563eb] border-blue-200/80",
+                    accentBorder: "from-[#1d4ed8] to-[#0b214a]",
+                    categoryBadge: "bg-[#1d4ed8] text-white border-[#1d4ed8]",
                     avatarBg: "bg-gradient-to-br from-[#1d4ed8] to-[#0b214a]",
                   },
                   {
                     category: language === 'ca' ? "Comunitat de veïns" : language === 'en' ? "HOA & Building" : "Comunidad de propietarios",
                     Icon: Building2,
-                    accentBorder: "from-[#0b214a] to-[#2563eb]",
-                    categoryBadge: "bg-indigo-50 text-[#0b214a] border-indigo-200/80",
+                    accentBorder: "from-[#0b214a] to-[#1d4ed8]",
+                    categoryBadge: "bg-[#0b214a] text-white border-[#0b214a]",
                     avatarBg: "bg-gradient-to-br from-[#0b214a] to-[#1e293b]",
                   }
                 ];
@@ -1478,8 +1473,8 @@ function Index() {
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2563eb] bg-blue-50 border border-blue-200/70 px-2 py-0.5 rounded-full shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-[#2563eb]" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-[#2563eb] border border-[#1d4ed8] px-2 py-0.5 rounded-full shrink-0">
+                          <CheckCircle2 className="w-3 h-3 text-white" />
                           <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>
                       </div>

@@ -99,8 +99,8 @@ export default function HeroCarousel({
               fetchPriority="high"
               width={1920}
               height={1080}
-              animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.08, 1] }}
-              transition={shouldReduceMotion ? { duration: 0 } : { duration: 28, repeat: Infinity, ease: "linear" }}
+              animate={{ scale: [1, 1.08, 1] }}
+              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
             />
           </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-35% md:via-45% to-transparent lg:via-[#F8FAFC]/45 lg:to-transparent" />
@@ -112,7 +112,7 @@ export default function HeroCarousel({
         <div className="max-w-[360px] xs:max-w-md sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
@@ -123,7 +123,7 @@ export default function HeroCarousel({
               </div>
             </motion.div>
             <motion.h1
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
               className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-2.5 sm:mb-3.5 font-heading"
@@ -140,7 +140,7 @@ export default function HeroCarousel({
               )}
             </motion.h1>
             <motion.p
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
               className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[620px]"
@@ -149,7 +149,7 @@ export default function HeroCarousel({
               {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3.5 sm:mb-4.5"
@@ -165,7 +165,7 @@ export default function HeroCarousel({
               </a>
             </motion.div>
             <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.45, ease: expo }}
               className="flex items-center gap-2.5 sm:gap-3 text-sm sm:text-base font-extrabold text-[#0f172a]"
@@ -181,7 +181,7 @@ export default function HeroCarousel({
         </div>
 
         <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
           className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 relative z-20 mt-2 sm:mt-3 lg:mt-4 mb-0"

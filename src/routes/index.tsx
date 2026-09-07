@@ -1040,6 +1040,8 @@ function Index() {
               const renderPropertyCard = (property: any, idx: number) => {
                 const isFav = favorites.includes(property.id);
                 const pData = getTranslatedProperty(property, language, t.propertiesData);
+                const isRent = (property.operation || "").toLowerCase() === "alquilar" || property.price < 5000;
+                const type = pData.type || property.type || "Piso";
 
                 return (
                   <motion.div
@@ -1052,20 +1054,31 @@ function Index() {
                   >
                     <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
                       <motion.div
-                        whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -4 }}
+                        whileHover={shouldReduceMotion ? undefined : { y: -6 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="group bg-white rounded-3xl flex flex-col h-full border border-slate-200 hover:border-[#2563eb] shadow-sm hover:shadow-2xl overflow-hidden cursor-pointer"
+                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer"
                       >
-                        {/* Image Block */}
-                        <div className="relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden bg-slate-100">
+                        {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
+                        <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
                           <img 
                             src={property.image} 
                             alt={pData.name} 
                             loading="lazy" 
-                            className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-108" 
+                            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                           
+                          {/* Floating Status & Type Pills */}
+                          <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
+                            <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
+                              <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-emerald-400'} animate-pulse shrink-0`}></span>
+                              <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
+                            </span>
+                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                              {type}
+                            </span>
+                          </div>
+
                           {/* Heart Favorite Button with micro-bounce */}
                           <motion.button
                             type="button"
@@ -1077,83 +1090,78 @@ function Index() {
                               toggleFavorite(property.id);
                             }}
                             aria-label="Guardar en favoritos"
-                            className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                            className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
                               isFav 
                                 ? 'bg-red-500 text-white shadow-red-500/30' 
-                                : 'bg-white/95 text-slate-700 hover:text-red-500'
+                                : 'bg-white/95 text-slate-700 hover:text-red-500 hover:bg-white'
                             }`}
                           >
                             <Heart className="w-5 h-5 fill-current" />
                           </motion.button>
+
+                          {/* Bottom-left Ref Badge directly over the image */}
+                          <div className="absolute bottom-3 left-3.5 z-20">
+                            <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                              Ref: {property.ref || "PJ2024"}
+                            </span>
+                          </div>
                         </div>
 
                         {/* Content Block */}
                         <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            {/* Badge + Ref */}
-                            <div className="mb-3 flex items-center justify-between gap-2">
-                              {(() => {
-                                const type = pData.type || property.type || "Piso";
-                                let badgeClass = "bg-[#2563eb] text-white";
-                                if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
-                                  badgeClass = "bg-[#0369a1] text-white";
-                                } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
-                                  badgeClass = "bg-[#4338ca] text-white";
-                                } else if (type.toLowerCase().includes("local")) {
-                                  badgeClass = "bg-slate-700 text-white";
-                                } else if (type.includes("Oficina") || type.includes("Office")) {
-                                  badgeClass = "bg-[#d97706] text-white";
-                                }
-                                return (
-                                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-2xs ${badgeClass}`}>
-                                    {type}
-                                  </span>
-                                );
-                              })()}
-                              <span className="text-xs font-mono font-black text-white bg-slate-900 px-3 py-1 rounded-md shadow-xs border border-slate-700">
-                                Ref: {property.ref || "PJ2024"}
-                              </span>
+                            {/* Location with Pin */}
+                            <div className="flex items-center gap-1.5 mb-2 text-xs sm:text-[13px] font-extrabold text-slate-500 font-sans">
+                              <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                              <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
                             </div>
 
-                            <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-2">
+                            {/* Main Title */}
+                            <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
                               {pData.name}
                             </h3>
-                            
-                            <p className="text-xs sm:text-sm font-extrabold text-slate-600 flex items-center gap-1.5 mb-4 font-sans">
-                              <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
-                              <span>{formatLocation(pData.location || property.location, language)}</span>
-                            </p>
 
                             {/* Features Micro-Boxes */}
-                            <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
-                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                            <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
+                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
                                 <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                                 <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                               </div>
-                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
                                 <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                                 <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                               </div>
-                              <div className="bg-slate-100/90 border border-slate-200/80 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
                                 <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                                 <span>{property.surface} m²</span>
                               </div>
                             </div>
+
+                            {/* Floor / Verification Guarantee badge */}
+                            <div className="flex items-center gap-1.5 text-[11.5px] font-extrabold text-slate-500 font-sans mt-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                              <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                            </div>
                           </div>
 
                           {/* Price & Action Button */}
-                          <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
                             <div>
-                              <span className="text-xs font-black text-slate-900 uppercase tracking-wider leading-none block mb-1.5 font-sans">
-                                {t.properties.priceLabel || "PRECIO"}
+                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none block mb-1 font-sans">
+                                {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                               </span>
-                              <span className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans tracking-tight">
-                                {new Intl.NumberFormat('es-ES').format(property.price)}€
-                              </span>
+                              <div className="flex items-baseline">
+                                <span className="text-2xl sm:text-[26px] font-black text-[#0b214a] leading-none font-sans tracking-tight">
+                                  {new Intl.NumberFormat('es-ES').format(property.price)}€
+                                </span>
+                                {isRent && (
+                                  <span className="text-xs font-bold text-slate-500 font-sans ml-1">/mes</span>
+                                )}
+                              </div>
                             </div>
 
-                            <div className="inline-flex items-center gap-1.5 bg-slate-900 group-hover:bg-[#2563eb] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-4.5 py-3 rounded-xl transition-all duration-300 shadow-md group-hover:shadow-lg border border-slate-800">
-                              <span>Ver ficha</span>
+                            <div className="inline-flex items-center gap-2 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                              <span>{t.properties.verDetalles || "Ver ficha"}</span>
                               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                             </div>
                           </div>

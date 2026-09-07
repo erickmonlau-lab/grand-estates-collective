@@ -1098,9 +1098,12 @@ function SantaColomaBarrioPage() {
                     />
                   </div>
 
-                  <div className="flex items-center justify-center gap-2 text-xs sm:text-[13px] text-slate-800 mb-3.5 font-bold bg-white py-2.5 px-3.5 rounded-xl border border-slate-300 shadow-2xs">
+                  <div 
+                    className="flex items-center justify-center gap-2 text-xs sm:text-[13px] text-slate-800 mb-3.5 font-bold py-2.5 px-3.5 rounded-xl border border-slate-300 shadow-2xs"
+                    style={{ backgroundColor: "#ffffff" }}
+                  >
                     <span className="text-[#2563eb] font-extrabold text-sm">*</span>
-                    <span className="text-slate-800">{t.valorador.disclaimer}</span>
+                    <span className="text-slate-800 font-semibold">{t.valorador.disclaimer}</span>
                   </div>
 
                   <div className="pt-3 border-t border-slate-100">

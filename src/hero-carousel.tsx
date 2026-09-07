@@ -70,7 +70,7 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="relative text-slate-900 pt-16 sm:pt-20 lg:pt-22 pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
+      className="relative text-slate-900 h-svh sm:h-screen min-h-[640px] max-h-[1080px] pt-16 sm:pt-20 lg:pt-22 pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Strictly right-anchored image block: fills only right half on desktop */}
@@ -96,7 +96,7 @@ export default function HeroCarousel({
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 pb-1">
-        <div className="max-w-[360px] xs:max-w-md sm:max-w-2xl lg:max-w-3xl xl:max-w-[700px] text-left py-0.5 my-1 sm:my-2">
+        <div className="max-w-[360px] xs:max-w-md sm:max-w-2xl lg:max-w-3xl xl:max-w-[700px] text-left py-0.5 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 22 }}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award } from "lucide-react";
-import heroBgDesktop from "@/assets/family_barcelona_opt_min.webp";
+import heroBgDesktop from "@/assets/family_barcelona_1080p.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 import { translations } from './data/translations';
 import MarqueeRibbon from '@/components/MarqueeRibbon';

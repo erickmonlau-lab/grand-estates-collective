@@ -695,12 +695,6 @@ function Index() {
                   }
                 }
               ]
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "reviewCount": "312",
-              "bestRating": "5"
             }
           })
         }}

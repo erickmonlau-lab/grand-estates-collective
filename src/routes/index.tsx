@@ -713,20 +713,20 @@ function Index() {
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-8 md:py-16 border-t border-slate-200/80 scroll-mt-24 md:scroll-mt-28">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-md border border-slate-200/80 p-5 sm:p-8 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
+      <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-6 md:py-10 border-t border-slate-200/80 scroll-mt-24 md:scroll-mt-28">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
           <Reveal>
-            <div className="mb-6">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md mb-4 font-sans">
-                <Home className="w-4 h-4 text-white" />
+            <div className="mb-4">
+              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
+                <Home className="w-3.5 h-3.5 text-white" />
                 <span>{t.properties.tag}</span>
               </span>
               
-              <h2 key={language} className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] leading-tight tracking-tight mb-3 font-sans w-full">
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
                 {t.properties.title1} <span className="text-[#2563eb]">{t.properties.title2}</span>
               </h2>
               
-              <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl leading-relaxed font-extrabold font-sans max-w-4xl text-balance">
+              <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
                 {t.properties.subtitle}
               </p>
             </div>
@@ -1470,29 +1470,29 @@ function Index() {
       </section>
 
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8 scroll-mt-24 md:scroll-mt-28">
-        <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-sky-500/20 p-5 sm:p-7 md:p-9 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
-          <div className="text-center mb-6 sm:mb-8">
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-24 md:scroll-mt-28">
+        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
+          <div className="text-center mb-4 sm:mb-6">
             <Reveal>
-              <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl mb-3 shadow-md border border-slate-200 font-sans">
+              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
                 <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
                 <span>{t.servicios.tag}</span>
               </span>
             </Reveal>
             <Reveal>
-              <h2 key={language} className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-white mb-2 tracking-tight font-sans">
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
                 {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-white text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-3">
+              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
           </div>
 
           {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
             {t.servicios.items.map((item, i) => {
               const icons = [
                 <Building2 key={0} className="w-5 h-5" />,
@@ -1510,13 +1510,13 @@ function Index() {
                 <Reveal key={i} delay={i * 0.1}>
                   <div 
                     onClick={() => setSelectedServiceIndex(i)}
-                    className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-4 md:p-5 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-4 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                   >
                     
                     {/* Thumbnail con icono Cyan superpuesto */}
-                    <div className="relative w-full sm:w-[130px] h-[100px] sm:h-[115px] rounded-xl sm:rounded-2xl overflow-hidden shrink-0">
+                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
                       <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute top-2 left-2 w-8 h-8 rounded-full bg-[#0369a1] text-white shadow-md flex items-center justify-center z-10">
+                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
                         {icons[i]}
                       </div>
                     </div>
@@ -1524,10 +1524,10 @@ function Index() {
                     {/* Texto informativo + Botón Píldora Azul Cyan */}
                     <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-[#0f172a] mb-2.5 leading-snug group-hover:text-[#0369a1] transition-colors">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
                           {item.title}
                         </h3>
-                        <p className="text-base sm:text-lg text-slate-700 font-bold leading-relaxed mb-5">
+                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
                           {item.desc}
                         </p>
                       </div>
@@ -1538,10 +1538,10 @@ function Index() {
                             e.stopPropagation();
                             setSelectedServiceIndex(i);
                           }}
-                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-sm sm:text-base px-6 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center gap-2.5 w-fit font-sans"
+                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
                         >
                           <span>{t.servicios.saberMas}</span>
-                          <ArrowRight className="w-4.5 h-4.5 text-white" />
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
                         </button>
                       </div>
                     </div>
@@ -1555,65 +1555,65 @@ function Index() {
       </section>
 
       {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-3 sm:py-6 md:py-10 scroll-mt-24 md:scroll-mt-28">
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-3 sm:py-5 md:py-7 scroll-mt-24 md:scroll-mt-28">
         <div id="valorador" className="-top-28 relative block invisible" />
-        <div className="bg-white rounded-[24px] sm:rounded-[36px] shadow-2xl border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-3 sm:mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center relative z-10">
+        <div className="bg-white rounded-[22px] sm:rounded-[28px] shadow-xl border border-slate-200/80 p-4 sm:p-6 md:p-9 mx-3 sm:mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-[#0f172a]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center relative z-10">
             
             {/* LEFT COLUMN: Form */}
             <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-xs sm:text-sm font-black tracking-wider sm:tracking-widest uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-md font-sans">
-                  <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3 sm:px-3.5 py-1.5 rounded-xl shadow-xs font-sans">
+                  <Star className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400 fill-amber-400 shrink-0" />
                   <span>{t.valorador.tag}</span>
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black mb-3 sm:mb-4 leading-[1.15] sm:leading-[1.1] tracking-tight font-sans text-[#0f172a] flex flex-wrap items-center gap-x-3 gap-y-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-2 sm:mb-3 leading-[1.15] tracking-tight font-sans text-[#0f172a] flex flex-wrap items-center gap-x-2.5 gap-y-1">
                 <span>{t.valorador.title}</span>
-                <span className="bg-[#2563eb] text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-2xl shadow-sm whitespace-nowrap">
+                <span className="bg-[#2563eb] text-white px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-xl shadow-2xs whitespace-nowrap">
                   {t.valorador.titleAccent}
                 </span>
               </h2>
 
-              <p className="text-slate-700 text-base sm:text-xl md:text-2xl max-w-[580px] mb-6 sm:mb-8 leading-relaxed font-extrabold font-sans">
+              <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-[500px] mb-4 sm:mb-5 leading-snug font-bold font-sans">
                 {t.valorador.subtitle}
               </p>
 
-              <div className="w-full max-w-xl">
+              <div className="w-full max-w-lg">
                 <div className="w-full">
                   {/* Inputs Row with crystal clear visual labels & m² suffix */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
                     {/* Select Zona */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
-                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-2.5 sm:p-3 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-zona-select" className="block text-[10px] font-black uppercase tracking-wider text-black mb-0.5 font-sans">
                         {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
                       </label>
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 w-full">
-                          <MapPin className="w-5 h-5 text-[#2563eb] shrink-0" />
+                        <div className="flex items-center gap-2 w-full">
+                          <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
                           <select
                             id="valuator-zona-select"
                             aria-label="Seleccionar zona de la propiedad"
                             value={valuatorData.zona}
                             onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                            className="w-full bg-transparent border-0 p-0 text-xs sm:text-sm font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
                           >
                             <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
                             {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
                           </select>
                         </div>
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                        <ChevronDown className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       </div>
                     </div>
 
                     {/* Input Superficie (m²) */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-2xl p-3 sm:p-3.5 shadow-sm transition-all text-left">
-                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-2.5 sm:p-3 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-metros-input" className="block text-[10px] font-black uppercase tracking-wider text-black mb-0.5 font-sans">
                         {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                       </label>
-                      <div className="flex items-center gap-2.5">
-                        <Ruler className="w-5 h-5 text-[#2563eb] shrink-0" />
+                      <div className="flex items-center gap-2">
+                        <Ruler className="w-4 h-4 text-[#2563eb] shrink-0" />
                         <input
                           id="valuator-metros-input"
                           type="number"
@@ -1622,9 +1622,9 @@ function Index() {
                           placeholder="85"
                           value={valuatorData.metros}
                           onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
+                          className="w-full bg-transparent border-0 p-0 text-xs sm:text-sm font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
                         />
-                        <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border-2 border-slate-900 px-3 py-1 rounded-lg shrink-0 shadow-2xs">
+                        <span className="text-[10px] sm:text-xs font-black text-slate-900 bg-white border border-slate-900 px-2 py-0.5 rounded-md shrink-0">
                           m²
                         </span>
                       </div>
@@ -1636,11 +1636,11 @@ function Index() {
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-lg py-4.5 rounded-2xl transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 mb-4 font-sans disabled:opacity-75"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3 font-sans disabled:opacity-75"
                   >
-                    <Home className="w-5 h-5 text-white" />
+                    <Home className="w-4 h-4 text-white" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
-                    <ArrowRight className="w-5 h-5 text-white" />
+                    <ArrowRight className="w-4 h-4 text-white" />
                   </button>
 
                   {/* Trust Badges - Horizontal row centered under button */}
@@ -1841,32 +1841,32 @@ function Index() {
       </section>
 
       {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
-      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-24 md:scroll-mt-28">
-        <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-6 sm:p-10 md:p-12 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
+      <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-24 md:scroll-mt-28">
+        <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
             
             {/* LEFT CONTENT */}
             <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
               <Reveal>
-                <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 border border-slate-200">
-                  <MapPin className="w-4 h-4 text-[#2563eb]" />
+                <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 border border-slate-200">
+                  <MapPin className="w-3.5 h-3.5 text-[#2563eb]" />
                   <span>{language === "ca" ? "ÀREA DE COBERTURA" : language === "en" ? "COVERAGE AREA" : "ÁREA DE COBERTURA"}</span>
                 </span>
                 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight text-white mb-6 font-sans flex flex-col items-start gap-1">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-3 font-sans flex flex-col items-start gap-1">
                   <span>{language === "ca" ? "Experts a" : language === "en" ? "Experts in" : "Expertos en"}</span>
-                  <span className="inline-block bg-[#2563eb] text-white px-4.5 py-1.5 rounded-2xl shadow-lg mt-1 whitespace-nowrap">
+                  <span className="inline-block bg-[#2563eb] text-white px-3.5 py-1 rounded-xl shadow-md mt-0.5 whitespace-nowrap">
                     Santa Coloma de
                   </span>
-                  <span className="inline-block bg-[#2563eb] text-white px-4.5 py-1.5 rounded-2xl shadow-lg whitespace-nowrap">
+                  <span className="inline-block bg-[#2563eb] text-white px-3.5 py-1 rounded-xl shadow-md whitespace-nowrap">
                     Gramenet
                   </span>
                 </h2>
                 
-                <p className="text-white text-lg sm:text-xl md:text-2xl max-w-lg mb-4 font-extrabold leading-relaxed font-sans">
+                <p className="text-slate-100 text-sm sm:text-base md:text-lg max-w-lg mb-3 font-bold leading-snug font-sans">
                   {language === "ca" ? "Equip propi amb atenció personalitzada a tots els barris de Santa Coloma de Gramenet." : language === "en" ? "Our own team with personalized service in all neighborhoods of Santa Coloma de Gramenet." : "Equipo propio con atención personalizada en todos los barrios de Santa Coloma de Gramenet."}
                 </p>
-                <div className="flex flex-wrap gap-2.5 mb-8 max-w-lg">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 max-w-lg">
                   {[
                     "Centro",
                     "Singuerlín",
@@ -1877,58 +1877,58 @@ function Index() {
                     "Riu Nord / Riu Sud",
                     "Oliveres - Can Serra"
                   ].map((barrio) => (
-                    <span key={barrio} className="bg-white text-slate-950 text-xs sm:text-sm font-black px-4 py-2 rounded-full border-2 border-slate-300 shadow-sm hover:border-white hover:bg-blue-50 transition-all flex items-center gap-1.5 cursor-default">
-                      <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                    <span key={barrio} className="bg-white text-slate-950 text-[11px] sm:text-xs font-black px-2.5 sm:px-3 py-1 rounded-full border border-slate-300 shadow-2xs hover:border-white hover:bg-blue-50 transition-all flex items-center gap-1 cursor-default">
+                      <MapPin className="w-3 h-3 text-[#2563eb] shrink-0" />
                       <span>{formatLocation(barrio, language)}</span>
                     </span>
                   ))}
                 </div>
               </Reveal>
 
-              {/* Help Bubble Card - Premium, Spacious, Perfectly Balanced */}
+              {/* Help Bubble Card - Compact 80% */}
               <Reveal delay={0.1} className="w-full">
-                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6 shadow-xl text-[#0f172a]">
-                  <div className="flex items-center gap-4.5 sm:gap-5 flex-1">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
-                      <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
+                <div className="bg-white border-2 border-[#2563eb] rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3.5 sm:gap-4 shadow-lg text-[#0f172a]">
+                  <div className="flex items-center gap-3 sm:gap-3.5 flex-1">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-xs">
+                      <MessageCircle className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2.2]" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl font-black text-[#0f172a] leading-tight font-sans tracking-tight">
+                      <h3 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans tracking-tight">
                         {language === "ca" ? "¿Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
                       </h3>
-                      <p className="text-slate-600 text-sm sm:text-base font-extrabold leading-relaxed mt-1 font-sans">
+                      <p className="text-slate-600 text-xs sm:text-sm font-bold leading-tight mt-0.5 font-sans">
                         {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
                       </p>
                     </div>
                   </div>
                   <a 
                     href="#contacto" 
-                    className="w-full md:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base px-7 py-3.5 sm:py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap group hover:scale-[1.02]"
+                    className="w-full md:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm px-5 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-xs hover:shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer font-sans whitespace-nowrap group hover:scale-[1.02]"
                   >
                     <span>{t.hero.contacto}</span>
-                    <ArrowRight className="w-4.5 h-4.5 text-white group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                   </a>
                 </div>
               </Reveal>
             </div>
 
             {/* RIGHT CONTENT: MAP WITH PROMINENT BLUE BORDER */}
-            <div className="w-full lg:w-1/2 relative h-[340px] sm:h-[400px] md:h-[460px] rounded-3xl overflow-hidden border-4 border-[#2563eb] bg-[#e8ecf1] shadow-xl group">
-              {/* Skeleton placeholder so user never sees a blank white canvas or abrupt pop-in */}
+            <div className="w-full lg:w-1/2 relative h-[280px] sm:h-[330px] md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden border-[3px] border-[#2563eb] bg-[#e8ecf1] shadow-lg group">
+              {/* Skeleton placeholder */}
               <div 
                 className={`absolute inset-0 bg-[#e8ecf1] flex flex-col items-center justify-center transition-opacity duration-700 z-10 pointer-events-none ${
                   mapLoaded ? "opacity-0" : "opacity-100"
                 }`}
               >
-                <div className="w-14 h-14 rounded-full bg-[#2563eb]/15 flex items-center justify-center mb-3 animate-pulse">
-                  <MapPin className="w-7 h-7 text-[#2563eb]" />
+                <div className="w-10 h-10 rounded-full bg-[#2563eb]/15 flex items-center justify-center mb-2 animate-pulse">
+                  <MapPin className="w-5 h-5 text-[#2563eb]" />
                 </div>
-                <span className="text-xs font-black text-slate-600 font-sans tracking-wide">
+                <span className="text-[11px] font-black text-slate-600 font-sans tracking-wide">
                   {language === "ca" ? "Carregant mapa de la seu..." : language === "en" ? "Loading headquarters map..." : "Cargando mapa de la sede..."}
                 </span>
               </div>
 
-              {/* Iframe loads eagerly so it's ready before user scrolls down, and fades in gracefully once loaded */}
+              {/* Iframe */}
               <iframe
                 title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
                 src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1s${language}!2ses!4v1700000000000!5m2!1s${language}!2ses`}
@@ -1945,15 +1945,15 @@ function Index() {
               ></iframe>
 
               {/* Floating Card Bottom Right */}
-              <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 bg-[#0b172a] text-white rounded-2xl p-4 sm:p-5 shadow-xl border border-white/20 z-30 pointer-events-auto max-w-full">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
-                    <MapPin className="w-5.5 h-5.5" />
+              <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:bottom-4 bg-[#0b172a] text-white rounded-xl p-3 sm:p-3.5 shadow-lg border border-white/20 z-30 pointer-events-auto max-w-full">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-black text-white text-xs sm:text-sm uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
-                    <p className="text-white text-base sm:text-lg font-black font-sans">Av. dels Banús, 49</p>
-                    <p className="text-slate-200 text-sm font-bold font-sans">08923 Santa Coloma de Gramenet</p>
+                    <h3 className="font-black text-white text-[10px] sm:text-xs uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
+                    <p className="text-white text-xs sm:text-sm font-black font-sans leading-tight">Av. dels Banús, 49</p>
+                    <p className="text-slate-300 text-[11px] sm:text-xs font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                   </div>
                 </div>
               </div>
@@ -1964,19 +1964,19 @@ function Index() {
       </section>
 
       {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
-      <section className="py-10 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-8 md:p-14 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-10 lg:gap-14">
+      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
             
             {/* Left Content */}
             <div className="w-full lg:w-1/2 flex flex-col justify-center">
               <Reveal>
-                <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 w-fit">
-                  <Building2 className="w-4 h-4" />
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
+                  <Building2 className="w-3.5 h-3.5" />
                   <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
                 </span>
                 
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.08] tracking-tight text-[#0f172a] mb-5 font-sans">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
                   {language === "ca" ? (
                     <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
                   ) : language === "en" ? (
@@ -1986,7 +1986,7 @@ function Index() {
                   )}
                 </h2>
                 
-                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-xl mb-8 font-extrabold leading-snug font-sans text-balance">
+                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
                   {language === "ca" 
                     ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
                     : language === "en" 
@@ -1994,45 +1994,45 @@ function Index() {
                     : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
-                  <a href="#contacto" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_25px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans">
-                    <Phone className="w-4.5 h-4.5 text-white" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                  <a href="#contacto" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans">
+                    <Phone className="w-4 h-4 text-white" />
                     <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
-                    <ArrowRight className="w-4.5 h-4.5 text-white group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                   </a>
                   <a 
                     href="https://wa.me/34601259424" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-8 py-4 rounded-full font-black text-sm sm:text-base transition-all shadow-[0_6px_20px_rgba(7,94,84,0.4)] hover:shadow-[0_8px_25px_rgba(7,94,84,0.55)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 group w-full sm:w-auto cursor-pointer font-sans"
+                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
                   >
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white group-hover:scale-110 transition-transform">
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
                       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
                     </svg>
                     <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
                   </a>
                 </div>
 
-                {/* Stats Grid - Fondo gris y letra en blanco impecable */}
-                <div className="hidden sm:grid grid-cols-3 gap-3 sm:gap-4 pt-6 border-t border-slate-200/80">
-                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">Nº 5583</p>
-                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Registre Oficial AICAT" : language === "en" ? "Official AICAT Registry" : "Registro Oficial AICAT"}</p>
+                {/* Stats Grid */}
+                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
                   </div>
-                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                   </div>
-                  <div className="bg-[#586174] border-2 border-white/30 rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center shadow-lg transition-all hover:bg-[#475061] hover:scale-105">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-1.5 font-sans tracking-tight">100%</p>
-                    <p className="text-sm sm:text-base md:text-lg font-black text-white leading-tight font-sans tracking-wide">{language === "ca" ? "Col·legiats API / ADM" : language === "en" ? "Registered API / ADM" : "Colegiados API / ADM"}</p>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
                   </div>
                 </div>
               </Reveal>
             </div>
 
-            {/* Right Image (Left in desktop) - Borde negro nítido */}
-            <div className="w-full lg:w-1/2 h-[280px] sm:h-[320px] md:h-[420px] relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-2 border-[#0f172a]">
+            {/* Right Image (Left in desktop) */}
+            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
               <Reveal delay={0.2} className="w-full h-full">
                 <img 
                   src={gesgramaOffice} 
@@ -2046,27 +2046,27 @@ function Index() {
         </div>
       </section>
 
-      {/* ── ÚLTIMAS NOTICIAS (BLOG) - LETRAS MÁS GRANDES Y LEGIBLES ── */}
-      <section id="blog" className="pt-6 pb-14 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 bg-[#e2e8f0] text-onyx">
-        <div className="max-w-[1300px] mx-auto">
+      {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      <section id="blog" className="pt-4 pb-8 sm:pb-12 md:pb-14 px-4 sm:px-6 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="max-w-[1150px] mx-auto">
           <Reveal>
-            <div className="mb-6 sm:mb-8 text-center">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-4 py-1.5 rounded-2xl shadow-md mb-3">
+            <div className="mb-4 sm:mb-6 text-center">
+              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-xl shadow-xs mb-2">
                 <Calendar className="w-3.5 h-3.5 text-white" />
                 <span>{t.noticias.tag}</span>
               </span>
               
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] mb-2 font-sans tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-1.5 font-sans tracking-tight">
                 {t.noticias.title1} <span className="text-[#2563eb]">{t.noticias.title2}</span>
               </h2>
               
-              <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto font-extrabold leading-relaxed font-sans mt-2">
+              <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-snug font-sans mt-1">
                 {t.noticias.subtitle}
               </p>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
             {articles.slice(0, 4).map((art, i) => {
               const title = art.title[language];
               const summary = art.summary[language];
@@ -2209,28 +2209,28 @@ function Index() {
       </section>
 
       {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="contacto" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-24 md:scroll-mt-28">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-6 sm:p-10 md:p-14 mx-auto max-w-[1300px] relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-24 md:scroll-mt-28">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
             {/* LEFT COLUMN: Title & Image Overlay Card */}
             <div className="lg:col-span-5 flex flex-col justify-center">
               <Reveal>
-                <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black tracking-widest uppercase px-4 py-2 rounded-2xl shadow-md mb-6 w-fit">
+                <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
                   {t.contacto.badge}
                 </span>
                 
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] leading-[1.08] tracking-tight mb-4 font-sans">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2.5 font-sans">
                   {t.contacto.title1}<br />
                   <span className="text-[#2563eb] italic font-serif">{t.contacto.title2}</span>
                 </h2>
                 
-                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl mb-8 font-extrabold leading-relaxed font-sans">
+                <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-4 font-bold leading-snug font-sans">
                   {t.contacto.subtitle}
                 </p>
 
                 {/* Storefront Image Card with Central Office Overlay */}
-                <div className="relative rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 aspect-[16/10] group">
+                <div className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/80 aspect-[16/10] group">
                   <img 
                     src={gesgramaOffice} 
                     alt="Gesgrama oficina principal en Santa Coloma" 
@@ -2239,21 +2239,21 @@ function Index() {
                   />
                   
                   {/* Floating Office Badge */}
-                  <div className="absolute bottom-3 left-3 right-3 sm:left-4 sm:right-auto bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-slate-100 max-w-[300px] z-20">
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0 mt-0.5">
-                        <MapPin className="w-4.5 h-4.5" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:left-3 sm:right-auto bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-lg border border-slate-100 max-w-[260px] z-20">
+                    <div className="flex items-start gap-2.5">
+                      <div className="w-7 h-7 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0 mt-0.5">
+                        <MapPin className="w-3.5 h-3.5" />
                       </div>
                       <div>
-                        <div className="font-black text-xs sm:text-sm text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
-                        <div className="text-sm sm:text-base text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
+                        <div className="font-black text-[10px] sm:text-xs text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
+                        <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
                           Av. dels Banús, 49
                         </div>
-                        <div className="text-xs sm:text-sm text-slate-600 font-extrabold font-sans">
+                        <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
                           08923 Santa Coloma de Gramenet
                         </div>
-                        <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#2563eb] font-black text-sm sm:text-base mt-1.5 font-sans">
-                          <Phone className="w-4 h-4 text-[#2563eb]" /> 93 468 56 56
+                        <a href="tel:+34934685656" className="inline-flex items-center gap-1 text-[#2563eb] font-black text-xs sm:text-sm mt-1 font-sans">
+                          <Phone className="w-3 h-3 text-[#2563eb]" /> 93 468 56 56
                         </a>
                       </div>
                     </div>
@@ -2496,43 +2496,43 @@ function Index() {
       </section>
 
       {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
-      <section id="final-cta" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-2xl border border-slate-200/80 p-6 sm:p-10 md:p-12 pb-6 md:pb-10 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
+      <section id="final-cta" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
             
             {/* Left Content (Title, Subtitle & Buttons) */}
-            <div className="w-full lg:w-7/12 text-left py-0 lg:py-2">
+            <div className="w-full lg:w-7/12 text-left py-0 lg:py-1">
               <Reveal>
-                <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white text-xs font-black tracking-widest uppercase px-5 py-2.5 rounded-2xl shadow-md mb-5">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-[11px] font-black tracking-wider uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
+                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>{t.finalCta.tag}</span>
                 </span>
                 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#0f172a] mb-4 leading-tight tracking-tight font-sans">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-2.5 leading-tight tracking-tight font-sans">
                   {t.finalCta.title1}{" "}
-                  <span className="inline-block bg-[#2563eb] text-white px-4 py-1.5 rounded-2xl shadow-sm">
+                  <span className="inline-block bg-[#2563eb] text-white px-3 py-1 rounded-xl shadow-xs">
                     {t.finalCta.title2}
                   </span>
                   ?
                 </h2>
                 
-                <p className="text-[#0f172a] text-lg sm:text-xl md:text-2xl max-w-xl mb-6 font-extrabold leading-relaxed font-sans text-balance">
+                <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
                   {t.finalCta.subtitle}
                 </p>
                 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 max-w-xl mb-2 sm:mb-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 max-w-lg mb-2 sm:mb-4">
                   <a
                     href="#valuator-form"
-                    className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                    className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer font-sans"
                   >
-                    <Home className="w-4.5 h-4.5 text-white shrink-0" />
+                    <Home className="w-4 h-4 text-white shrink-0" />
                     <span className="whitespace-nowrap">{t.finalCta.btnValuate}</span>
                   </a>
                   <a
                     href="#contacto"
-                    className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(15,23,42,0.3)] hover:shadow-[0_15px_30px_rgba(15,23,42,0.45)] hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer font-sans"
+                    className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer font-sans"
                   >
-                    <Phone className="w-4.5 h-4.5 text-white shrink-0" />
+                    <Phone className="w-4 h-4 text-white shrink-0" />
                     <span className="whitespace-nowrap">{t.finalCta.btnContact}</span>
                   </a>
                 </div>

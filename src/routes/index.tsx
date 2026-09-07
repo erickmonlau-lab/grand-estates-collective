@@ -6,7 +6,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2 } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
@@ -977,13 +977,19 @@ function Index() {
                 const pData = getTranslatedProperty(property, language, t.propertiesData);
 
                 return (
-                  <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id}>
+                  <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} key={property.id} className="block h-full">
                     <div
-                      className="group bg-white rounded-3xl flex flex-col h-full border-2 border-slate-300 hover:border-[#2563eb] shadow-md hover:shadow-[0_20px_40px_rgba(37,99,235,0.15)] transition-all duration-300 overflow-hidden"
+                      className="group bg-white rounded-3xl flex flex-col h-full border border-slate-200 hover:border-[#2563eb] shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
                     >
                       {/* Image Block */}
-                      <div className="relative h-[170px] sm:h-[220px] md:h-[250px] w-full overflow-hidden bg-slate-100">
-                        <img src={property.image} alt={pData.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" />
+                      <div className="relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden bg-slate-100">
+                        <img 
+                          src={property.image} 
+                          alt={pData.name} 
+                          loading="lazy" 
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                         
                         {/* Heart Favorite Button */}
                         <button
@@ -997,7 +1003,7 @@ function Index() {
                           className={`absolute top-4 right-4 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md z-20 ${
                             isFav 
                               ? 'bg-red-500 text-white scale-110 shadow-red-500/30' 
-                              : 'bg-white/90 text-slate-700 hover:text-red-500 hover:scale-110'
+                              : 'bg-white/95 text-slate-700 hover:text-red-500 hover:scale-110'
                           }`}
                         >
                           <Heart className="w-5 h-5 fill-current" />
@@ -1005,61 +1011,73 @@ function Index() {
                       </div>
 
                       {/* Content Block */}
-                      <div className="p-5 sm:p-6 flex flex-col flex-1">
-                        {/* Badge + Ref */}
-                        <div className="mb-3 flex items-center justify-between gap-2">
-                          {(() => {
-                            const type = pData.type || property.type || "Piso";
-                            let badgeClass = "bg-[#2563eb] text-white";
-                            if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
-                              badgeClass = "bg-[#0369a1] text-white";
-                            } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
-                              badgeClass = "bg-[#4338ca] text-white";
-                            } else if (type.toLowerCase().includes("local")) {
-                              badgeClass = "bg-slate-700 text-white";
-                            } else if (type.includes("Oficina") || type.includes("Office")) {
-                              badgeClass = "bg-[#d97706] text-white";
-                            }
-                            return (
-                              <span className={`inline-flex items-center px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-xs ${badgeClass}`}>
-                                {type}
-                              </span>
-                            );
-                          })()}
-                          <span className="text-xs font-mono font-black text-[#0f172a] bg-slate-100 px-3 py-1 rounded-lg border border-slate-300">
-                            Ref: {property.ref || "API A10750"}
-                          </span>
-                        </div>
-
-                        <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#2563eb] transition-colors font-sans text-balance">{pData.name}</h3>
-                        <p className="text-sm font-extrabold text-slate-500 flex items-center gap-1.5 mb-4 font-sans">
-                          <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
-                          {formatLocation(pData.location || property.location, language)}
-                        </p>
-
-                        {/* Features Row */}
-                        <div className="mb-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm font-extrabold text-slate-700 font-sans">
-                          <div className="flex items-center gap-1.5">
-                            <svg className="w-4.5 h-4.5 text-[#2563eb]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-                            <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? (property.bedrooms === 1 ? "bd" : "bds") : "hab"}</span>
+                      <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                        <div>
+                          {/* Badge + Ref */}
+                          <div className="mb-3 flex items-center justify-between gap-2">
+                            {(() => {
+                              const type = pData.type || property.type || "Piso";
+                              let badgeClass = "bg-[#2563eb] text-white";
+                              if (type.includes("Ático") || type.includes("Penthouse") || type.includes("Àtic")) {
+                                badgeClass = "bg-[#0369a1] text-white";
+                              } else if (type.includes("Chalet") || type.includes("Villa") || type.includes("Xalet")) {
+                                badgeClass = "bg-[#4338ca] text-white";
+                              } else if (type.toLowerCase().includes("local")) {
+                                badgeClass = "bg-slate-700 text-white";
+                              } else if (type.includes("Oficina") || type.includes("Office")) {
+                                badgeClass = "bg-[#d97706] text-white";
+                              }
+                              return (
+                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider font-sans shadow-2xs ${badgeClass}`}>
+                                  {type}
+                                </span>
+                              );
+                            })()}
+                            <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+                              Ref: {property.ref || "PJ2024"}
+                            </span>
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <svg className="w-4.5 h-4.5 text-[#0369a1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 2v4m0 0H4a2 2 0 00-2 2v3a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-2V2m-8 0h8M6 14v6m4-6v6m4-6v6" /></svg>
-                            <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? (property.bathrooms === 1 ? "bath" : "baths") : language === "ca" ? (property.bathrooms === 1 ? "bany" : "banys") : (property.bathrooms === 1 ? "baño" : "baños")}</span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <svg className="w-4.5 h-4.5 text-[#0369a1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
-                            <span className="font-black text-[#0369a1] bg-[#dbeafe] px-2.5 py-0.5 rounded-md text-xs sm:text-sm">{property.surface} m²</span>
-                          </div>
-                        </div>
 
-                        {/* Price */}
-                        <div className="pt-3 border-t border-slate-100 flex items-center justify-between mt-auto">
-                          <div>
-                            <div className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.priceLabel || "PRECIO"}</div>
-                            <div className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none font-sans">
-                              {new Intl.NumberFormat('es-ES').format(property.price)}€
+                          <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-2">
+                            {pData.name}
+                          </h3>
+                          
+                          <p className="text-xs sm:text-sm font-extrabold text-slate-600 flex items-center gap-1.5 mb-4 font-sans">
+                            <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                            <span>{formatLocation(pData.location || property.location, language)}</span>
+                          </p>
+
+                          {/* Features Micro-Boxes */}
+                          <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
+                            <div className="bg-slate-50 border border-slate-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-800 font-extrabold text-xs sm:text-sm">
+                              <Home className="w-4 h-4 text-[#2563eb] shrink-0" />
+                              <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                             </div>
+                            <div className="bg-slate-50 border border-slate-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-800 font-extrabold text-xs sm:text-sm">
+                              <Bath className="w-4 h-4 text-[#2563eb] shrink-0" />
+                              <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
+                            </div>
+                            <div className="bg-blue-50/80 border border-blue-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#2563eb] font-black text-xs sm:text-sm">
+                              <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                              <span>{property.surface} m²</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Price & Action Button */}
+                        <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between mt-auto">
+                          <div>
+                            <span className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-widest leading-none block mb-1 font-sans">
+                              {t.properties.priceLabel || "PRECIO"}
+                            </span>
+                            <span className="text-2xl sm:text-[26px] font-black text-[#2563eb] leading-none font-sans tracking-tight">
+                              {new Intl.NumberFormat('es-ES').format(property.price)}€
+                            </span>
+                          </div>
+
+                          <div className="inline-flex items-center gap-1.5 bg-[#0f172a] group-hover:bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md">
+                            <span>Ver ficha</span>
+                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                           </div>
                         </div>
                       </div>

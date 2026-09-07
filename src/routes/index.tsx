@@ -586,7 +586,7 @@ function Index() {
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-8 md:py-16 border-t border-slate-200/80">
+      <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-8 md:py-16 border-t border-slate-200/80 scroll-mt-24 md:scroll-mt-28">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-md border border-slate-200/80 p-5 sm:p-8 md:p-12 mx-4 md:mx-auto max-w-[1300px] relative z-10">
           <Reveal>
             <div className="mb-6">
@@ -1182,9 +1182,9 @@ function Index() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS ── */}
-      <div id="nosotros"></div>
-      <section id="testimonios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14">
+      {/* ── TESTIMONIOS / NOSOTROS ── */}
+      <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14 scroll-mt-24 md:scroll-mt-28">
+        <div id="testimonios" className="-top-28 relative block invisible" />
         <div className="bg-[#f1f5f9] rounded-[28px] md:rounded-[36px] shadow-2xl border-2 border-slate-400/90 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none z-0" />
@@ -1262,7 +1262,7 @@ function Index() {
       </section>
 
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8">
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8 scroll-mt-24 md:scroll-mt-28">
         <div className="bg-[#0f172a] rounded-[28px] md:rounded-[36px] shadow-xl border border-sky-500/20 p-5 sm:p-7 md:p-9 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white">
           <div className="text-center mb-6 sm:mb-8">
             <Reveal>
@@ -1347,7 +1347,8 @@ function Index() {
       </section>
 
       {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-3 sm:py-6 md:py-10">
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-3 sm:py-6 md:py-10 scroll-mt-24 md:scroll-mt-28">
+        <div id="valorador" className="-top-28 relative block invisible" />
         <div className="bg-white rounded-[24px] sm:rounded-[36px] shadow-2xl border border-slate-200/80 p-5 sm:p-8 md:p-14 mx-3 sm:mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center relative z-10">
             
@@ -1543,7 +1544,7 @@ function Index() {
       </section>
 
       {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
-      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-white">
+      <section id="cobertura" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-24 md:scroll-mt-28">
         <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-6 sm:p-10 md:p-12 mx-auto max-w-[1300px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center">
             
@@ -1809,7 +1810,7 @@ function Index() {
       {/* ── FAQ (COMPACT LAYOUT WITH BIGGER LEGIBLE TEXT) ── */}
       <section 
         id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-8 scroll-mt-24 md:scroll-mt-28"
       >
         <div className="bg-[#0b172a] rounded-[28px] md:rounded-[36px] shadow-2xl border border-white/10 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-white flex flex-col items-center">
           <div className="max-w-3xl mx-auto flex flex-col items-center w-full">
@@ -1879,7 +1880,7 @@ function Index() {
       </section>
 
       {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="contacto" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+      <section id="contacto" className="py-6 md:py-14 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-24 md:scroll-mt-28">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-sm border border-slate-200/80 p-6 sm:p-10 md:p-14 mx-auto max-w-[1300px] relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             

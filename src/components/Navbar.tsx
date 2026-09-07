@@ -12,6 +12,27 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language] || translations.es;
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    if (typeof window !== "undefined") {
+      const isHomePage = window.location.pathname === "/" || window.location.pathname === "";
+      if (isHomePage) {
+        e.preventDefault();
+        setMobileMenuOpen(false);
+        const el = document.getElementById(targetId);
+        if (el) {
+          const navOffset = window.innerWidth < 768 ? 90 : 110;
+          const elementPosition = el.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+          window.scrollTo({
+            top: Math.max(0, offsetPosition),
+            behavior: "smooth"
+          });
+          window.history.pushState(null, "", `#${targetId}`);
+        }
+      }
+    }
+  };
+
   return (
     <>
       <nav
@@ -37,24 +58,28 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
           </Link>
           <a
             href="/#propiedades"
+            onClick={(e) => handleNavClick(e, "propiedades")}
             className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.propiedades}</span>
           </a>
           <a
             href="/#servicios"
+            onClick={(e) => handleNavClick(e, "servicios")}
             className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.servicios}</span>
           </a>
           <a
             href="/#nosotros"
+            onClick={(e) => handleNavClick(e, "nosotros")}
             className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.nosotros}</span>
           </a>
           <a
             href="/#contacto"
+            onClick={(e) => handleNavClick(e, "contacto")}
             className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.contacto}</span>
@@ -123,28 +148,28 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
             </Link>
             <a
               href="/#propiedades"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "propiedades")}
               className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors"
             >
               {t.nav.propiedades}
             </a>
             <a
               href="/#servicios"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "servicios")}
               className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors"
             >
               {t.nav.servicios}
             </a>
             <a
               href="/#nosotros"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "nosotros")}
               className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors"
             >
               {t.nav.nosotros}
             </a>
             <a
               href="/#contacto"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "contacto")}
               className="text-base font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/80 py-2.5 px-4 rounded-xl transition-colors"
             >
               {t.nav.contacto}

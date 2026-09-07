@@ -1388,23 +1388,14 @@ function Index() {
                   {
                     category: language === 'ca' ? "Compra d'habitatge" : language === 'en' ? "Home purchase" : "Compra de vivienda",
                     Icon: Home,
-                    accentBorder: "from-[#2563eb] to-[#1d4ed8]",
-                    categoryBadge: "bg-[#2563eb] text-white border-[#1d4ed8]",
-                    avatarBg: "bg-gradient-to-br from-[#2563eb] to-[#1d4ed8]",
                   },
                   {
                     category: language === 'ca' ? "Gestió de lloguer" : language === 'en' ? "Rental management" : "Gestión de alquiler",
                     Icon: Key,
-                    accentBorder: "from-[#1d4ed8] to-[#0b214a]",
-                    categoryBadge: "bg-[#1d4ed8] text-white border-[#1d4ed8]",
-                    avatarBg: "bg-gradient-to-br from-[#1d4ed8] to-[#0b214a]",
                   },
                   {
                     category: language === 'ca' ? "Comunitat de veïns" : language === 'en' ? "HOA & Building" : "Comunidad de propietarios",
                     Icon: Building2,
-                    accentBorder: "from-[#0b214a] to-[#1d4ed8]",
-                    categoryBadge: "bg-[#0b214a] text-white border-[#0b214a]",
-                    avatarBg: "bg-gradient-to-br from-[#0b214a] to-[#1e293b]",
                   }
                 ];
                 const meta = cardMeta[i % cardMeta.length];
@@ -1412,44 +1403,44 @@ function Index() {
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_35px_-10px_rgba(15,23,42,0.12)] hover:border-[#2563eb]/40 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_35px_-10px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
                       
-                      {/* Top Accent Gradient Bar */}
-                      <div className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${meta.accentBorder}`} />
+                      {/* Top Accent Solid Bar - Uniform brand blue */}
+                      <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
 
                       {/* Subtle Watermark Quote */}
-                      <div className="absolute top-4 right-4 text-slate-100 group-hover:text-blue-50/70 transition-colors pointer-events-none select-none">
-                        <Quote className="w-12 h-12 -scale-x-100 opacity-60" />
+                      <div className="absolute top-5 right-5 text-slate-100 group-hover:text-blue-50 transition-colors pointer-events-none select-none">
+                        <Quote className="w-10 h-10 -scale-x-100 opacity-80" />
                       </div>
 
                       <div className="relative z-10">
-                        {/* Top Meta: Service Pill + Google Verified Pill */}
+                        {/* Top Meta: Service Pill + Google Logo */}
                         <div className="flex items-center justify-between gap-2 mb-4">
-                          <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border shadow-xs ${meta.categoryBadge}`}>
-                            <meta.Icon className="w-3.5 h-3.5" />
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#0b214a] text-white shadow-xs">
+                            <meta.Icon className="w-3.5 h-3.5 text-[#60a5fa]" />
                             <span>{meta.category}</span>
                           </span>
 
-                          <div className="inline-flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-full text-[11px] font-semibold text-slate-600 shadow-xs">
+                          <div className="inline-flex items-center gap-1.5 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold text-slate-700">
                             <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
-                            <span className="hidden xs:inline">{language === 'ca' ? 'Google' : 'Google'}</span>
+                            <span>Google</span>
                           </div>
                         </div>
 
-                        {/* 5 Stars Rating + Score */}
-                        <div className="flex items-center gap-2 mb-3.5">
+                        {/* 5 Stars Rating + Score 5.0 (High Contrast Solid Pill) */}
+                        <div className="flex items-center gap-2.5 mb-4">
                           <div className="flex items-center gap-0.5 text-amber-400">
                             {[...Array(5)].map((_, s) => (
                               <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
                             ))}
                           </div>
-                          <span className="text-xs font-black text-slate-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">
-                            5.0
+                          <span className="text-xs font-black text-amber-900 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-md shadow-xs">
+                            5.0 / 5.0
                           </span>
                         </div>
 
                         {/* Quote Text */}
-                        <p className="text-slate-700 text-[14.5px] sm:text-[15.5px] leading-relaxed font-normal mb-6">
+                        <p className="text-slate-700 text-[14.5px] sm:text-[15px] leading-relaxed font-medium mb-6">
                           “{item.quote}”
                         </p>
                       </div>
@@ -1457,7 +1448,7 @@ function Index() {
                       {/* Author Row */}
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
                         <div className="flex items-center gap-3">
-                          <div className={`w-11 h-11 rounded-full ${meta.avatarBg} text-white font-black text-base flex items-center justify-center shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-100 relative`}>
+                          <div className="w-11 h-11 rounded-full bg-[#0b214a] text-white font-black text-base flex items-center justify-center shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-200 relative">
                             {initials[i % initials.length]}
                             <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
                               <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
@@ -1473,7 +1464,7 @@ function Index() {
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-[#2563eb] border border-[#1d4ed8] px-2 py-0.5 rounded-full shrink-0">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
                           <CheckCircle2 className="w-3 h-3 text-white" />
                           <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>

@@ -1202,9 +1202,9 @@ function Index() {
                             </div>
 
                             {/* Floor / Feature Highlight badge - Solid White Pill (No Transparency) */}
-                            <div className="mt-2.5">
-                              <div className="inline-flex items-center gap-2 bg-white text-[#0b214a] border border-slate-300 px-3 py-1.5 rounded-xl text-xs sm:text-[13px] font-extrabold shadow-2xs max-w-full">
-                                <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
+                            <div className="mt-3">
+                              <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
                                 <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
                               </div>
                             </div>
@@ -1416,8 +1416,8 @@ function Index() {
                           </div>
 
                           {/* Google Badge */}
-                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-full text-xs font-bold text-slate-700 shadow-2xs shrink-0">
-                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                          <div className="inline-flex items-center gap-1.5 bg-white border-2 border-slate-200 px-3 py-1 rounded-full text-xs font-black text-slate-800 shadow-2xs shrink-0">
+                            <GoogleIcon className="w-4 h-4 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>

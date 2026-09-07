@@ -860,8 +860,8 @@ function SantaColomaBarrioPage() {
                               <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
                             ))}
                           </div>
-                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-full text-xs font-bold text-slate-700 shadow-2xs shrink-0">
-                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                          <div className="inline-flex items-center gap-1.5 bg-white border-2 border-slate-200 px-3 py-1 rounded-full text-xs font-black text-slate-800 shadow-2xs shrink-0">
+                            <GoogleIcon className="w-4 h-4 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>

@@ -1403,40 +1403,35 @@ function Index() {
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-5.5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_28px_-8px_rgba(15,23,42,0.1)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_28px_-8px_rgba(15,23,42,0.1)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                       
                       {/* Top Accent Solid Bar */}
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
-                      <div className="relative z-10">
-                        {/* Top Meta: Service Pill + Google Logo */}
-                        <div className="flex items-center justify-between gap-2 mb-3">
-                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[#0b214a]">
-                            <meta.Icon className="w-3.5 h-3.5 text-[#2563eb]" />
-                            <span>{meta.category}</span>
-                          </span>
+                      <div className="relative z-10 flex-1 flex flex-col">
+                        {/* Top Row: 5 Stars Left Aligned & Google Badge Right Aligned */}
+                        <div className="flex items-center justify-between gap-2 mb-4 h-7">
+                          {/* 5 Stars Rating Perfectly Aligned */}
+                          <div className="flex items-center gap-1 text-amber-400">
+                            {[...Array(5)].map((_, s) => (
+                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                            ))}
+                          </div>
 
-                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-xs font-bold text-slate-700 shadow-xs">
+                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-full text-xs font-bold text-slate-700 shadow-2xs shrink-0">
                             <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>
 
-                        {/* 5 Stars Rating Clean (No redundant score pill) */}
-                        <div className="flex items-center gap-1 mb-3 text-amber-400">
-                          {[...Array(5)].map((_, s) => (
-                            <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                          ))}
-                        </div>
-
                         {/* Quote Text */}
-                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
+                        <p className="text-slate-700 text-[14px] sm:text-[14.5px] leading-relaxed font-normal mb-5 flex-1">
                           “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
                         <div className="flex items-center gap-2.5">
                           <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
                             {initials[i % initials.length]}
@@ -1454,12 +1449,11 @@ function Index() {
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1 text-[10.5px] font-bold text-white bg-[#2563eb] px-2 py-0.5 rounded-full shadow-xs shrink-0">
-                          <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+                        <span className="inline-flex items-center gap-1 text-[10.5px] font-bold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
+                          <CheckCircle2 className="w-3 h-3 text-white" />
                           <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>
                       </div>
-
                     </div>
                   </Reveal>
                 );

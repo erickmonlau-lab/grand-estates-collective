@@ -2153,7 +2153,7 @@ function Index() {
             <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
               {language === "ca" ? "COBERTURA A SANTA COLOMA DE GRAMENET" : language === "en" ? "COVERAGE IN SANTA COLOMA DE GRAMENET" : "COBERTURA EN SANTA COLOMA DE GRAMENET"}
             </h3>
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 justify-center md:justify-start">
+            <div className="grid grid-cols-2 md:grid-cols-7 gap-2 sm:gap-2.5">
               {[
                 { name: "Centre", slug: "centre" },
                 { name: "Santa Rosa", slug: "santa-rosa" },
@@ -2174,10 +2174,10 @@ function Index() {
                   key={zone.slug}
                   to="/administrador-fincas/$city"
                   params={{ city: zone.slug }}
-                  className="px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] text-xs sm:text-sm font-extrabold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                  className="px-2.5 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] text-xs sm:text-xs xl:text-sm font-extrabold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5 text-center whitespace-nowrap"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb]" />
-                  <span>{zone.name}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
+                  <span className="truncate">{zone.name}</span>
                 </Link>
               ))}
             </div>

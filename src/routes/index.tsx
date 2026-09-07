@@ -1405,42 +1405,32 @@ function Index() {
                   <Reveal key={item.author} delay={i * 0.1}>
                     <div className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_35px_-10px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
                       
-                      {/* Top Accent Solid Bar - Uniform brand blue */}
-                      <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
-
-                      {/* Subtle Watermark Quote */}
-                      <div className="absolute top-5 right-5 text-slate-100 group-hover:text-blue-50 transition-colors pointer-events-none select-none">
-                        <Quote className="w-10 h-10 -scale-x-100 opacity-80" />
-                      </div>
+                      {/* Top Accent Solid Bar */}
+                      <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
                       <div className="relative z-10">
                         {/* Top Meta: Service Pill + Google Logo */}
                         <div className="flex items-center justify-between gap-2 mb-4">
-                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-[#0b214a] text-white shadow-xs">
-                            <meta.Icon className="w-3.5 h-3.5 text-[#60a5fa]" />
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-[#0b214a]">
+                            <meta.Icon className="w-4 h-4 text-[#2563eb]" />
                             <span>{meta.category}</span>
                           </span>
 
-                          <div className="inline-flex items-center gap-1.5 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-bold text-slate-700">
-                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-3 py-1 rounded-full text-xs font-bold text-slate-700 shadow-xs">
+                            <GoogleIcon className="w-4 h-4 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>
 
-                        {/* 5 Stars Rating + Score 5.0 (High Contrast Solid Pill) */}
-                        <div className="flex items-center gap-2.5 mb-4">
-                          <div className="flex items-center gap-0.5 text-amber-400">
-                            {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                            ))}
-                          </div>
-                          <span className="text-xs font-black text-amber-900 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-md shadow-xs">
-                            5.0 / 5.0
-                          </span>
+                        {/* 5 Stars Rating Clean (No redundant score pill) */}
+                        <div className="flex items-center gap-1 mb-4 text-amber-400">
+                          {[...Array(5)].map((_, s) => (
+                            <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                          ))}
                         </div>
 
                         {/* Quote Text */}
-                        <p className="text-slate-700 text-[14.5px] sm:text-[15px] leading-relaxed font-medium mb-6">
+                        <p className="text-slate-700 text-[14.5px] sm:text-[15px] leading-relaxed font-normal mb-6">
                           “{item.quote}”
                         </p>
                       </div>

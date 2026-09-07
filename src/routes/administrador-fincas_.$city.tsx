@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { 
   Building2, 
-  ShieldCheck, 
   Clock, 
   MapPin, 
   Phone, 
@@ -13,19 +12,27 @@ import {
   Scale, 
   ArrowRight,
   Calculator,
-  FileText
+  ShieldCheck
 } from "lucide-react";
-import { GEO_LOCATIONS, type GeoLocationData } from "@/data/geoLocations";
+import { SANTA_COLOMA_BARRIOS, type NeighborhoodDetail } from "@/data/geoLocations";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
 export const Route = createFileRoute("/administrador-fincas_/$city")({
   head: ({ params }) => {
-    const citySlug = (params.city as string) || "santa-coloma-de-gramenet";
-    const data: GeoLocationData = GEO_LOCATIONS[citySlug] || GEO_LOCATIONS["santa-coloma-de-gramenet"];
-    const canonicalUrl = `${SITE_DOMAIN}/administrador-fincas/${data.slug}`;
+    const rawSlug = (params.city as string) || "centre";
+    const isGlobal = rawSlug === "santa-coloma-de-gramenet";
+    const data: NeighborhoodDetail = SANTA_COLOMA_BARRIOS[rawSlug] || SANTA_COLOMA_BARRIOS["centre"];
+    const canonicalUrl = `${SITE_DOMAIN}/administrador-fincas/${isGlobal ? "santa-coloma-de-gramenet" : data.slug}`;
     const ogImage = "https://www.gesgrama.es/og-image.png";
+
+    const title = isGlobal
+      ? "Administrador de Fincas en Santa Coloma de Gramenet · Gesgrama"
+      : data.metaTitle;
+    const description = isGlobal
+      ? "Administración de comunidades en todos los barrios de Santa Coloma de Gramenet. Sede en Av. dels Banús, 49. Auditoría contable y respuesta urgente en 15 min."
+      : data.metaDescription;
 
     // JSON-LD Schemas (ProfessionalService + FAQPage + BreadcrumbList)
     const jsonLdGraph = {
@@ -34,19 +41,19 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
         {
           "@type": "ProfessionalService",
           "@id": `${canonicalUrl}#service`,
-          "name": `Gesgrama — Administrador de Fincas en ${data.cityName}`,
-          "alternateName": "Gesgrama Administració de Finques",
+          "name": `Gesgrama — Administrador de Fincas en ${data.name}, Santa Coloma de Gramenet`,
+          "alternateName": "Gesgrama Administració de Finques Santa Coloma",
           "url": canonicalUrl,
           "telephone": "+34934685656",
           "email": "info@gesgrama.com",
-          "priceRange": data.priceRange,
+          "priceRange": "€€",
           "image": ogImage,
           "logo": "https://www.gesgrama.es/logo.png",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Av. dels Banús, 49",
             "addressLocality": "Santa Coloma de Gramenet",
-            "postalCode": "08923",
+            "postalCode": data.postalCode,
             "addressRegion": "Barcelona",
             "addressCountry": "ES"
           },
@@ -57,57 +64,37 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
           },
           "areaServed": [
             {
-              "@type": "City",
-              "name": data.cityName
-            },
-            ...data.neighborhoods.map(n => ({
               "@type": "AdministrativeArea",
-              "name": `${n.name}, ${data.cityName}`
-            }))
-          ],
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
-              "opens": "09:00",
-              "closes": "14:00"
+              "name": `Barrio de ${data.name}, Santa Coloma de Gramenet`
             },
             {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
-              "opens": "16:00",
-              "closes": "19:00"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": "Friday",
-              "opens": "09:00",
-              "closes": "14:00"
+              "@type": "City",
+              "name": "Santa Coloma de Gramenet"
             }
           ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Servicios de Administración de Fincas",
+            "name": "Servicios de Administración de Fincas en Santa Coloma",
             "itemListElement": [
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": `Administración integral de comunidades en ${data.cityName}`
+                  "name": `Administración integral de comunidades en ${data.name}`
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Auditoría de cuentas y reducción de morosidad"
+                  "name": "Auditoría contable y reducción de morosidad vecinal"
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Tramitación de ITE y subvenciones de rehabilitación NextGen"
+                  "name": "Tramitación de ITE y subvenciones de accesibilidad NextGen"
                 }
               }
             ]
@@ -144,13 +131,13 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Administración de Fincas",
-              "item": `${SITE_DOMAIN}/servicios/administracion-de-fincas`
+              "name": "Santa Coloma de Gramenet",
+              "item": `${SITE_DOMAIN}/administrador-fincas/santa-coloma-de-gramenet`
             },
             {
               "@type": "ListItem",
               "position": 4,
-              "name": data.cityName,
+              "name": data.name,
               "item": canonicalUrl
             }
           ]
@@ -160,21 +147,21 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
 
     return {
       meta: [
-        { title: data.metaTitle },
-        { name: "description", content: data.metaDescription },
+        { title },
+        { name: "description", content: description },
         { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
-        { property: "og:title", content: data.metaTitle },
-        { property: "og:description", content: data.metaDescription },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: canonicalUrl },
         { property: "og:image", content: ogImage },
-        { property: "og:image:width", content: "1200" },
-        { property: "og:image:height", content: "630" },
+        { property: "og:width", content: "1200" },
+        { property: "og:height", content: "630" },
         { property: "og:locale", content: "es_ES" },
         { property: "og:site_name", content: "Gesgrama" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: data.metaTitle },
-        { name: "twitter:description", content: data.metaDescription },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
         { name: "twitter:image", content: ogImage }
       ],
       links: [
@@ -188,18 +175,22 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
       ]
     };
   },
-  component: GeoLocalPage
+  component: SantaColomaBarrioPage
 });
 
-function GeoLocalPage() {
+function SantaColomaBarrioPage() {
   const { city } = Route.useParams();
-  const data = GEO_LOCATIONS[city] || GEO_LOCATIONS["santa-coloma-de-gramenet"];
+  const rawSlug = city || "centre";
+  const isGlobal = rawSlug === "santa-coloma-de-gramenet";
+  const data: NeighborhoodDetail = SANTA_COLOMA_BARRIOS[rawSlug] || SANTA_COLOMA_BARRIOS["centre"];
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const otherCities = Object.values(GEO_LOCATIONS).filter(c => c.slug !== data.slug);
+
+  const allBarrios = Object.values(SANTA_COLOMA_BARRIOS);
+  const otherBarrios = allBarrios.filter(b => b.slug !== data.slug);
 
   return (
     <div className="bg-white text-slate-900 font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
-      {/* ── HEADER / TOP NAV ── */}
+      {/* ── HEADER DE NAVEGACIÓN ── */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
@@ -220,7 +211,6 @@ function GeoLocalPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Phone CTA */}
             <a 
               href="tel:+34934685656" 
               aria-label="Llamar por teléfono a Gesgrama"
@@ -230,12 +220,11 @@ function GeoLocalPage() {
               <span>93 468 56 56</span>
             </a>
 
-            {/* WhatsApp CTA with AAA contrast (Emerald #166534) */}
             <a 
-              href={`https://wa.me/34601259424?text=Hola,%20me%20gustar%C3%ADa%20informaci%C3%B3n%20sobre%20administraci%C3%B3n%20de%20fincas%20en%20${encodeURIComponent(data.cityName)}`}
+              href={`https://wa.me/34601259424?text=Hola,%20solicito%20informaci%C3%B3n%20para%20una%20comunidad%20en%20el%20barrio%20de%20${encodeURIComponent(data.name)}%20(Santa%20Coloma)`}
               target="_blank" 
               rel="noopener noreferrer"
-              aria-label="Consultar por WhatsApp con respuesta inmediata"
+              aria-label="Contactar por WhatsApp"
               className="inline-flex items-center gap-2 bg-[#166534] hover:bg-[#14532d] text-white text-xs sm:text-sm font-black px-4 sm:px-5 py-2.5 rounded-full shadow-md transition-all"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
@@ -246,9 +235,8 @@ function GeoLocalPage() {
       </header>
 
       <main>
-        {/* ── HERO SECTION GEOLOCALIZADO ── */}
+        {/* ── HERO SECTION ENFOCADO EN EL BARRIO DE SANTA COLOMA ── */}
         <section className="relative bg-gradient-to-b from-slate-900 via-[#0b1329] to-slate-950 text-white pt-14 pb-20 px-4 sm:px-6 lg:px-12 overflow-hidden">
-          {/* Subtle background glow */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] pointer-events-none" />
           
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center relative z-10">
@@ -258,29 +246,33 @@ function GeoLocalPage() {
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb]/20 text-[#60a5fa] border border-[#2563eb]/40 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider">
                   <MapPin className="w-3.5 h-3.5" />
-                  {data.cityName}
+                  Barrio {data.name} · Santa Coloma de Gramenet
                 </span>
                 <span className="inline-flex items-center gap-1.5 bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold">
                   <Clock className="w-3.5 h-3.5 text-emerald-400" />
-                  Atención presencial en ~{data.emergencyResponseTimeMinutes} min
+                  Atención presencial en ~{data.emergencyResponseMinutes} min
                 </span>
                 <span className="inline-flex items-center gap-1.5 bg-white/10 text-slate-200 px-3 py-1.5 rounded-full text-xs font-semibold">
-                  {data.postalCodes.join(", ")}
+                  CP {data.postalCode} · {data.district}
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-black text-white leading-tight tracking-tight">
-                {data.heroHeadline}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
+                {isGlobal 
+                  ? "Administración de Fincas y Comunidades en Santa Coloma de Gramenet"
+                  : data.heroHeadline}
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 font-medium leading-relaxed max-w-2xl">
-                {data.heroSubtitle}
+                {isGlobal
+                  ? "Sede central en Av. dels Banús, 49. Más de 15 años gestionando comunidades en los 14 barrios de Santa Coloma con total transparencia contable, auditoría gratis de gastos y peritos judiciales colegiados."
+                  : data.heroSubtitle}
               </p>
 
               {/* Bullet points of trust */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
-                  `+${data.satisfiedCommunitiesCount} comunidades gestionadas`,
+                  "Sede física en Santa Coloma (Av. dels Banús, 49)",
                   "Auditoría contable y revisión de contratos gratis",
                   "Cero comisiones ocultas en obras y proveedores",
                   "Peritos judiciales inmobiliarios colegiados"
@@ -295,16 +287,16 @@ function GeoLocalPage() {
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <a 
-                  href={`#calculadora-presupuesto`}
+                  href="#calculadora-presupuesto"
                   className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm sm:text-base py-4 px-8 rounded-full shadow-xl hover:shadow-2xl transition-all flex items-center gap-2 group"
                 >
                   <Calculator className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span>Pedir Presupuesto Gratis</span>
+                  <span>Pedir Estudio Económico Gratis</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
 
                 <a 
-                  href={`https://wa.me/34601259424?text=Hola,%20solicito%20estudio%20para%20comunidad%20en%20${encodeURIComponent(data.cityName)}`}
+                  href={`https://wa.me/34601259424?text=Hola,%20solicito%20estudio%20para%20comunidad%20en%20el%20barrio%20de%20${encodeURIComponent(data.name)}%20(Santa%20Coloma)`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#166534] hover:bg-[#14532d] text-white font-extrabold text-sm sm:text-base py-4 px-6 rounded-full shadow-lg transition-all flex items-center gap-2"
@@ -323,10 +315,10 @@ function GeoLocalPage() {
                     Estudio Económico Gratuito
                   </span>
                   <h2 className="text-xl sm:text-2xl font-black text-slate-900">
-                    ¿Cuánto puede ahorrar tu comunidad en {data.cityName}?
+                    ¿Cuánto puede ahorrar tu comunidad en {data.name}?
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                    Enviamos una comparativa de costes detallada en menos de 24 horas laborables.
+                    Enviamos una comparativa detallada de cuotas y suministros en menos de 24 horas.
                   </p>
                 </div>
 
@@ -338,7 +330,8 @@ function GeoLocalPage() {
                     const email = fd.get("email");
                     const phone = fd.get("phone");
                     const vecinos = fd.get("vecinos");
-                    const message = `Hola Gesgrama, solicito presupuesto para mi comunidad en ${data.cityName}. Vecinos: ${vecinos}, Tel: ${phone}, Email: ${email}`;
+                    const street = fd.get("street") || data.name;
+                    const message = `Hola Gesgrama, solicito presupuesto para mi comunidad en Santa Coloma (Barrio ${data.name}, calle ${street}). Vecinos: ${vecinos}, Tel: ${phone}, Email: ${email}`;
                     window.open(`https://wa.me/34601259424?text=${encodeURIComponent(message)}`, "_blank");
                   }} 
                   className="space-y-4 text-left"
@@ -387,12 +380,12 @@ function GeoLocalPage() {
 
                   <div>
                     <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-700 mb-1">
-                      Dirección aproximada o Barrio en {data.cityName}
+                      Calle de la Finca en {data.name}
                     </label>
                     <input 
                       type="text" 
-                      name="address"
-                      placeholder={`Ej. ${data.neighborhoods[0]?.name || "Calle Mayor"}`} 
+                      name="street"
+                      placeholder={`Ej. ${data.testimonial.street}`} 
                       className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none text-sm font-semibold"
                     />
                   </div>
@@ -406,7 +399,7 @@ function GeoLocalPage() {
                   </button>
 
                   <p className="text-[11px] text-slate-500 text-center">
-                    🔒 Sin permanencia · Sin coste de traspaso · Datos protegidos por RGPD.
+                    🔒 Sin permanencia · Sin coste de traspaso · Sede en Santa Coloma de Gramenet.
                   </p>
                 </form>
               </div>
@@ -414,135 +407,75 @@ function GeoLocalPage() {
           </div>
         </section>
 
-        {/* ── BARRIOS Y REALIDAD LOCAL DE LA CIUDAD ── */}
+        {/* ── DETALLES ESPECÍFICOS DEL BARRIO ── */}
         <section className="py-16 px-4 sm:px-6 lg:px-12 bg-slate-50 border-b border-slate-200">
           <div className="max-w-[1400px] mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block mb-2">
-                Conocimiento Local Exhaustivo
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900">
-                Experiencia en los Barrios y Fincas de {data.cityName}
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 mt-3 font-medium">
-                Cada zona urbana tiene problemáticas constructivas y comunitarias distintas. Adaptamos el plan de conservación a la antigüedad y tipología de cada escalera.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.neighborhoods.map((n, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-slate-200 hover:shadow-md transition-shadow flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-3 mb-3">
-                      <h3 className="text-lg font-black text-slate-900">{n.name}</h3>
-                      <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md">
-                        CP {n.postalCode}
-                      </span>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-slate-600 font-medium mb-4 leading-relaxed">
-                      {n.buildingTypology}
-                    </p>
-
-                    <div className="space-y-2 mb-4">
-                      <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 block">
-                        Problemáticas habituales resueltas:
-                      </span>
-                      {n.commonIssues.map((issue, i) => (
-                        <div key={i} className="flex items-start gap-2 text-xs text-slate-700 font-semibold">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#2563eb] shrink-0 mt-0.5" />
-                          <span>{issue}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <a 
-                    href="#calculadora-presupuesto"
-                    className="mt-4 inline-flex items-center gap-1.5 text-xs font-black text-[#2563eb] hover:text-[#1d4ed8] uppercase tracking-wider pt-3 border-t border-slate-100"
-                  >
-                    <span>Pedir presupuesto para {n.name}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── NORMATIVAS Y SUBVENCIONES LOCALES ── */}
-        <section className="py-16 px-4 sm:px-6 lg:px-12 bg-white">
-          <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6 space-y-5">
-              <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block">
-                Asesoría Legal e ITE en {data.cityName}
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-tight">
-                Protección Legal y Acceso a Subvenciones para tu Finca
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
-                Nuestra condición de peritos judiciales colegiados permite a las comunidades de {data.cityName} navegar con seguridad entre normativas municipales y convocatorias de rehabilitación.
-              </p>
-
-              <div className="space-y-4 pt-2">
-                <div className="p-4 rounded-2xl bg-blue-50 border border-blue-100">
-                  <h3 className="text-sm font-black text-blue-900 mb-1">🏛️ Fiscalidad y Plusvalía Municipal</h3>
-                  <p className="text-xs sm:text-sm text-blue-800">{data.localRegulations.plusvaliaInfo}</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
-                  <h3 className="text-sm font-black text-emerald-900 mb-1">💶 Fondos Europeos y Rehabilitación</h3>
-                  <p className="text-xs sm:text-sm text-emerald-800">{data.localRegulations.subsidiesInfo}</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100">
-                  <h3 className="text-sm font-black text-amber-900 mb-1">📋 Inspección Técnica de Edificios (ITE)</h3>
-                  <p className="text-xs sm:text-sm text-amber-800">{data.localRegulations.iteStatus}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial card */}
-            <div className="lg:col-span-6">
-              <div className="bg-gradient-to-br from-slate-900 to-[#0b1221] text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center font-black text-lg text-white">
-                    {data.testimonial.author[0]}
-                  </div>
-                  <div>
-                    <h3 className="text-base sm:text-lg font-black">{data.testimonial.author}</h3>
-                    <p className="text-xs text-slate-400 font-medium">
-                      {data.testimonial.role} · Barrio {data.testimonial.neighborhood} ({data.cityName})
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-base sm:text-lg text-slate-200 italic leading-relaxed mb-6 font-serif">
-                  "{data.testimonial.quote}"
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-6 space-y-5">
+                <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block">
+                  Tipología y Problemáticas en {data.name}
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-tight">
+                  Especialistas en la Realidad Constructiva de {data.name}
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+                  {data.buildingTypology}
                 </p>
 
-                <div className="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-white/10 font-sans">
-                  <span>Año de gestión: {data.testimonial.year}</span>
-                  <span className="text-emerald-400 font-bold">Comunidad Verificada</span>
+                <div className="space-y-3 pt-2">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-slate-500">
+                    Intervenciones habituales que gestionamos en este barrio:
+                  </h3>
+                  {data.commonIssues.map((issue, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3.5 bg-white rounded-xl border border-slate-200 text-sm font-semibold text-slate-800 shadow-2xs">
+                      <CheckCircle2 className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5" />
+                      <span>{issue}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Testimonial de este barrio */}
+              <div className="lg:col-span-6">
+                <div className="bg-gradient-to-br from-slate-900 to-[#0b1221] text-white p-8 sm:p-10 rounded-3xl shadow-xl relative overflow-hidden">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-full bg-[#2563eb] flex items-center justify-center font-black text-lg text-white">
+                      {data.testimonial.author[0]}
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-black">{data.testimonial.author}</h3>
+                      <p className="text-xs text-slate-400 font-medium">
+                        {data.testimonial.role} · {data.testimonial.street} (Barrio {data.name})
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-base sm:text-lg text-slate-200 italic leading-relaxed mb-6 font-serif">
+                    "{data.testimonial.quote}"
+                  </p>
+
+                  <div className="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-white/10 font-sans">
+                    <span>Año de gestión: {data.testimonial.year}</span>
+                    <span className="text-emerald-400 font-bold">Comunidad de Santa Coloma Verificada</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── FAQS GEOLOCALIZADAS (RICH SNIPPETS GOOGLE) ── */}
-        <section className="py-16 px-4 sm:px-6 lg:px-12 bg-slate-50 border-t border-slate-200">
+        {/* ── FAQS DEL BARRIO ── */}
+        <section className="py-16 px-4 sm:px-6 lg:px-12 bg-white">
           <div className="max-w-[900px] mx-auto">
             <div className="text-center mb-12">
               <span className="text-xs font-black uppercase tracking-wider text-[#2563eb] block mb-2">
                 Preguntas Frecuentes
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900">
-                Dudas Habituales en {data.cityName}
+                Dudas Comunes en el barrio de {data.name}
               </h2>
               <p className="text-sm text-slate-600 mt-2 font-medium">
-                Respuestas directas sobre honorarios, traspaso de cuentas y funcionamiento del servicio.
+                Respuestas directas sobre honorarios, traspaso de administración y averías.
               </p>
             </div>
 
@@ -552,7 +485,7 @@ function GeoLocalPage() {
                 return (
                   <div 
                     key={idx}
-                    className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden transition-colors"
+                    className="bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden transition-colors"
                   >
                     <button 
                       type="button"
@@ -564,7 +497,7 @@ function GeoLocalPage() {
                       <ChevronDown className={`w-5 h-5 text-slate-500 shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180 text-[#2563eb]" : ""}`} />
                     </button>
                     {isOpen && (
-                      <div className="px-5 pb-6 sm:px-6 text-sm sm:text-base text-slate-700 leading-relaxed font-medium border-t border-slate-100 pt-4">
+                      <div className="px-5 pb-6 sm:px-6 text-sm sm:text-base text-slate-700 leading-relaxed font-medium border-t border-slate-200/60 pt-4 bg-white">
                         {faq.answer}
                       </div>
                     )}
@@ -575,23 +508,40 @@ function GeoLocalPage() {
           </div>
         </section>
 
-        {/* ── CIUDADES VECINAS (ENLAZADO INTERNO GEO-LOCAL) ── */}
-        <section className="py-12 px-4 sm:px-6 lg:px-12 bg-white border-t border-slate-200">
+        {/* ── RED COMPLETA DE LOS 14 BARRIOS DE SANTA COLOMA ── */}
+        <section className="py-16 px-4 sm:px-6 lg:px-12 bg-slate-900 text-white">
           <div className="max-w-[1400px] mx-auto">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 mb-4 text-center">
-              Administración de Fincas en Otras Localidades del Área Metropolitana:
-            </h3>
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-              {otherCities.map((other) => (
-                <Link
-                  key={other.slug}
-                  to="/administrador-fincas/$city"
-                  params={{ city: other.slug }}
-                  className="px-4 py-2 rounded-full bg-slate-100 hover:bg-[#2563eb] text-slate-700 hover:text-white text-xs sm:text-sm font-bold transition-all shadow-2xs"
-                >
-                  Administrador en {other.cityName}
-                </Link>
-              ))}
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <span className="text-xs font-black uppercase tracking-wider text-[#38bdf8] block mb-2">
+                Presencia en Toda la Ciudad
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white">
+                Administración de Fincas en Todos los Barrios de Santa Coloma
+              </h2>
+              <p className="text-sm sm:text-base text-slate-400 mt-2 font-medium">
+                Cobertura directa desde nuestra sede en Av. dels Banús, 49 a cada una de las 14 zonas oficiales de la ciudad:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+              {allBarrios.map((b) => {
+                const isCurrent = b.slug === data.slug;
+                return (
+                  <Link
+                    key={b.slug}
+                    to="/administrador-fincas/$city"
+                    params={{ city: b.slug }}
+                    className={`p-3.5 rounded-2xl text-center flex flex-col items-center justify-center transition-all ${
+                      isCurrent 
+                        ? "bg-[#2563eb] text-white font-black shadow-lg ring-2 ring-white/20" 
+                        : "bg-white/5 hover:bg-white/15 text-slate-200 font-bold border border-white/10"
+                    }`}
+                  >
+                    <span className="text-sm block">{b.name}</span>
+                    <span className="text-[10px] text-slate-400 mt-0.5">{b.postalCode}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -600,7 +550,6 @@ function GeoLocalPage() {
       {/* ── FOOTER CORPORATIVO CON ACREDITACIONES ── */}
       <footer className="bg-[#0b1221] text-white pt-16 pb-12 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col gap-10">
-          {/* Acreditaciones Oficiales */}
           <div className="border-b border-white/10 pb-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
               ACREDITACIONES PROFESIONALES OFICIALES
@@ -608,7 +557,6 @@ function GeoLocalPage() {
             <AccreditationBadges />
           </div>
 
-          {/* Bottom Bar */}
           <div className="flex flex-col sm:flex-row justify-between items-center text-center gap-4 text-sm sm:text-base text-white font-extrabold">
             <p>© 2026 Gesgrama. Todos los derechos reservados. · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
             <div className="flex gap-4">

@@ -2132,29 +2132,35 @@ function Index() {
             </div>
           </div>
 
-          {/* Cobertura Local de Administración de Fincas (SEO GEO Internal Linking) */}
+          {/* Cobertura en Todos los Barrios de Santa Coloma de Gramenet (SEO Local 100% Santa Coloma) */}
           <div className="border-t border-white/10 pt-8 pb-2">
             <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
-              {language === "ca" ? "COBERTURA LOCAL I ADMINISTRACIÓ DE FINQUES" : language === "en" ? "LOCAL COVERAGE & PROPERTY MANAGEMENT" : "COBERTURA LOCAL Y ADMINISTRACIÓN DE FINCAS"}
+              {language === "ca" ? "ADMINISTRACIÓ DE FINQUES ALS 14 BARRIS DE SANTA COLOMA DE GRAMENET" : language === "en" ? "PROPERTY MANAGEMENT IN ALL 14 DISTRICTS OF SANTA COLOMA DE GRAMENET" : "ADMINISTRACIÓN DE FINCAS EN LOS 14 BARRIOS DE SANTA COLOMA DE GRAMENET"}
             </h3>
             <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 justify-center md:justify-start">
               {[
-                { name: "Santa Coloma de Gramenet", slug: "santa-coloma-de-gramenet" },
-                { name: "Badalona", slug: "badalona" },
-                { name: "Sant Adrià de Besòs", slug: "sant-adria-de-besos" },
-                { name: "Barcelona (Sant Andreu / Nou Barris)", slug: "barcelona" },
-                { name: "Montcada i Reixac", slug: "montcada-i-reixac" },
-                { name: "Tiana", slug: "tiana" },
-                { name: "Montgat", slug: "montgat" },
-                { name: "Ripollet", slug: "ripollet" }
-              ].map(city => (
+                { name: "Centre", slug: "centre" },
+                { name: "Santa Rosa", slug: "santa-rosa" },
+                { name: "Can Mariner", slug: "can-mariner" },
+                { name: "Fondo", slug: "fondo" },
+                { name: "Singuerlín", slug: "singuerlin" },
+                { name: "Riera Alta", slug: "riera-alta" },
+                { name: "Llatí", slug: "llati" },
+                { name: "El Raval", slug: "el-raval" },
+                { name: "Riu Nord", slug: "riu-nord" },
+                { name: "Riu Sud", slug: "riu-sud" },
+                { name: "Can Franquesa", slug: "can-franquesa" },
+                { name: "Les Oliveres", slug: "les-oliveres" },
+                { name: "La Guinardera", slug: "la-guinardera" },
+                { name: "Cementiri Vell", slug: "cementiri-vell" }
+              ].map(barrio => (
                 <Link
-                  key={city.slug}
+                  key={barrio.slug}
                   to="/administrador-fincas/$city"
-                  params={{ city: city.slug }}
+                  params={{ city: barrio.slug }}
                   className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#2563eb] text-slate-300 hover:text-white text-xs font-bold transition-colors border border-white/10"
                 >
-                  Administrador en {city.name}
+                  {barrio.name}
                 </Link>
               ))}
             </div>

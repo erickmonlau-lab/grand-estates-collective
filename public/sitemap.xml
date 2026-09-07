@@ -54,54 +54,98 @@
     <priority>0.90</priority>
   </url>
 
-  <!-- GEO Local Landing Pages (Área Metropolitana & Barcelonès Nord) -->
+  <!-- Santa Coloma de Gramenet Global GEO Hub -->
   <url>
     <loc>https://www.gesgrama.es/administrador-fincas/santa-coloma-de-gramenet</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
+
+  <!-- 14 BARRIS OFICIALS DE SANTA COLOMA DE GRAMENET -->
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/badalona</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/centre</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/sant-adria-de-besos</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/santa-rosa</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/barcelona</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/can-mariner</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/montcada-i-reixac</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/fondo</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/tiana</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/singuerlin</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/montgat</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/riera-alta</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/ripollet</loc>
+    <loc>https://www.gesgrama.es/administrador-fincas/llati</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/el-raval</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/riu-nord</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/riu-sud</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/can-franquesa</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/les-oliveres</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/la-guinardera</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/administrador-fincas/cementiri-vell</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
   </url>
 
   <!-- Properties (Inmobiliaria Santa Coloma) -->

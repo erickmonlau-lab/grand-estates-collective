@@ -1,573 +1,491 @@
-export interface NeighborhoodContext {
+export interface NeighborhoodDetail {
+  slug: string;
   name: string;
+  district: string;
   postalCode: string;
   buildingTypology: string;
   commonIssues: string[];
-}
-
-export interface LocalFaq {
-  question: string;
-  answer: string;
-}
-
-export interface GeoLocationData {
-  slug: string;
-  cityName: string;
-  officialName: string;
-  province: string;
-  comarca: string;
-  postalCodes: string[];
-  geo: {
-    latitude: number;
-    longitude: number;
-  };
-  officeDistanceKm: number;
-  emergencyResponseTimeMinutes: number;
   metaTitle: string;
   metaDescription: string;
   heroHeadline: string;
   heroSubtitle: string;
-  neighborhoods: NeighborhoodContext[];
-  localRegulations: {
-    plusvaliaInfo: string;
-    subsidiesInfo: string;
-    iteStatus: string;
+  geo: {
+    latitude: number;
+    longitude: number;
   };
-  faqs: LocalFaq[];
-  satisfiedCommunitiesCount: number;
-  managedUnitsCount: number;
+  emergencyResponseMinutes: number;
   testimonial: {
     author: string;
     role: string;
-    neighborhood: string;
+    street: string;
     quote: string;
     year: number;
   };
-  priceRange: string;
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
 }
 
-export const GEO_LOCATIONS: Record<string, GeoLocationData> = {
-  "santa-coloma-de-gramenet": {
-    slug: "santa-coloma-de-gramenet",
-    cityName: "Santa Coloma de Gramenet",
-    officialName: "Santa Coloma de Gramenet",
-    province: "Barcelona",
-    comarca: "Barcelonès",
-    postalCodes: ["08921", "08922", "08923", "08924"],
-    geo: {
-      latitude: 41.4516,
-      longitude: 2.2081
-    },
-    officeDistanceKm: 0,
-    emergencyResponseTimeMinutes: 20,
-    metaTitle: "Administrador de Fincas en Santa Coloma · Gesgrama",
-    metaDescription: "Gestión experta de comunidades en Santa Coloma de Gramenet. Auditoría gratis de cuentas, resolución de incidencias en 20 min y control de morosidad.",
-    heroHeadline: "Administración de Fincas y Comunidades en Santa Coloma de Gramenet",
-    heroSubtitle: "Sede central en Av. dels Banús, 49. Más de 15 años gestionando comunidades con transparencia contable total, atención de urgencias en 20 minutos y peritos judiciales colegiados.",
-    neighborhoods: [
-      {
-        name: "Centre",
-        postalCode: "08921",
-        buildingTypology: "Fincas residenciales consolidadas y plurifamiliares con locales comerciales.",
-        commonIssues: ["Rehabilitación de balcones antiguos", "Modernización de ascensores", "Gestión de coeficientes con locales"]
-      },
-      {
-        name: "Singuerlín",
-        postalCode: "08924",
-        buildingTypology: "Edificaciones en pendiente, torres plurifamiliares y complejos con garajes.",
-        commonIssues: ["Humedades por filtración y contención", "Muros perimetrales", "Eficiencia energética en cubiertas"]
-      },
-      {
-        name: "Santa Rosa - Can Mariner",
-        postalCode: "08923",
-        buildingTypology: "Alta densidad residencial construida entre 1960 y 1980.",
-        commonIssues: ["Bajar ascensores a cota cero", "Inspección Técnica de Edificios (ITE)", "Optimización de morosidad"]
-      },
-      {
-        name: "Fondo",
-        postalCode: "08922",
-        buildingTypology: "Bloques de gran rotación residencial y convivencia multicultural.",
-        commonIssues: ["Resolución de impagos de cuotas", "Sustitución urgente de bajantes", "Mediación vecinal y actas claras"]
-      },
-      {
-        name: "Riera Alta - Llatí",
-        postalCode: "08921",
-        buildingTypology: "Comunidades medianas y viviendas con reformas recientes.",
-        commonIssues: ["Renovación de acometidas comunitarias", "Mantenimiento preventivo de cubiertas"]
-      },
-      {
-        name: "El Raval",
-        postalCode: "08923",
-        buildingTypology: "Edificios tradicionales plurifamiliares cercanos al río Besòs.",
-        commonIssues: ["Aislamiento de fachadas", "Subvenciones comunitarias Next Generation"]
-      }
+// 14 BARRIS OFICIALS DE SANTA COLOMA DE GRAMENET (100% EXCLUSIVO SANTA COLOMA)
+export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
+  "centre": {
+    slug: "centre",
+    name: "Centre",
+    district: "Districte 1",
+    postalCode: "08921",
+    buildingTypology: "Fincas clásicas y modernistas, edificios plurifamiliares consolidados con locales comerciales en planta baja y viviendas señoriales.",
+    commonIssues: [
+      "Rehabilitación y mantenimiento de balcones antiguos",
+      "Modernización de ascensores antiguos adaptados a normativa",
+      "Gestión de coeficientes de participación con locales de hostelería y comercio",
+      "Control de ruidos y normativa de terrazas"
     ],
-    localRegulations: {
-      plusvaliaInfo: "Bonificación de hasta el 95% en la plusvalía municipal del Ajuntament de Santa Coloma para transmisiones mortis causa de vivienda habitual.",
-      subsidiesInfo: "Gestión activa de ayudas del Consorci Metropolità de l'Habitatge para rehabilitación energética y eliminación de barreras arquitectónicas.",
-      iteStatus: "Campaña municipal activa para fincas construidas antes de 1975 obligadas a presentar el Certificado de Aptitud ITE."
+    metaTitle: "Administrador de Fincas en el Centre de Santa Coloma · Gesgrama",
+    metaDescription: "Administración de comunidades en el Centre de Santa Coloma de Gramenet. Auditoría contable, conservación de fincas clásicas y mediación vecinal.",
+    heroHeadline: "Administrador de Fincas en el Centre de Santa Coloma de Gramenet",
+    heroSubtitle: "Gestión experta para comunidades en el núcleo histórico y comercial de Santa Coloma: Plaça de la Vila, Rambla de Sant Sebastià y calles peatonales. Máxima transparencia contable y atención presencial inmediata.",
+    geo: { latitude: 41.4516, longitude: 2.2081 },
+    emergencyResponseMinutes: 10,
+    testimonial: {
+      author: "Josep Maria Vidal",
+      role: "Presidente de Comunidad",
+      street: "Rambla Sant Sebastià",
+      quote: "Llevamos más de 30 años en esta finca. Gesgrama solucionó el conflicto con los locales de la planta baja por los gastos de portal y rehabilitamos la fachada con una subvención que gestionaron ellos al 100%.",
+      year: 2025
     },
     faqs: [
       {
-        question: "¿Cómo tramitamos el cambio de administrador en Santa Coloma de Gramenet?",
-        answer: "En Gesgrama nos encargamos del 100% de la transición sin coste alguno para la comunidad: redactamos la convocatoria de junta conforme a la LPH, solicitamos toda la documentación contable y técnica al administrador saliente y realizamos una auditoría inicial de las cuentas."
+        question: "¿Cómo se gestionan los gastos de portal y ascensor con los locales del Centre?",
+        answer: "Aplicamos estrictamente la Ley de Propiedad Horizontal y los estatutos de la finca, clarificando qué gastos corresponden por coeficiente general y cuáles están exentos según el título constitutivo, evitando litigios entre comerciantes y vecinos."
       },
       {
-        question: "¿Cuál es el tiempo de respuesta ante una urgencia comunitaria?",
-        answer: "Al tener nuestra sede principal en la Av. dels Banús 49 de Santa Coloma, nuestro equipo técnico o un operario homologado se presenta en la finca en menos de 20 minutos ante escapes de agua, averías de cerrajería o paradas de ascensor."
-      },
-      {
-        question: "¿Cómo lográis reducir la morosidad en las comunidades de vecinos?",
-        answer: "Aplicamos un protocolo estricto y conciliador: comunicación amistosa a los 15 días del impago, plan de pagos fraccionados si existe dificultad real y, en caso necesario, reclamación judicial monitoria con nuestro equipo de asesoría jurídica propio sin sobrecoste de honorarios."
-      },
-      {
-        question: "¿Qué ahorro medio consigue una comunidad con Gesgrama?",
-        answer: "Al renegociar contratos colectivos de luz comunitaria, mantenimiento de ascensor, seguro multirriesgo y limpieza, logramos reducir los gastos ordinarios entre un 15% y un 28% durante el primer año de gestión."
+        question: "¿Cuál es el tiempo de respuesta ante una avería en el Centre?",
+        answer: "Nuestra oficina está a escasos minutos: ante una fuga de agua, corte de luz o bloqueo de ascensor, un operario o técnico de Gesgrama se persona en menos de 10-15 minutos."
       }
+    ]
+  },
+
+  "santa-rosa": {
+    slug: "santa-rosa",
+    name: "Santa Rosa",
+    district: "Districte 5",
+    postalCode: "08923",
+    buildingTypology: "Fincas de gran densidad residencial construidas entre 1960 y 1975, muchas de ellas originariamente sin ascensor.",
+    commonIssues: [
+      "Instalación y bajada de ascensores a cota cero eliminando barreras arquitectónicas",
+      "Inspección Técnica de Edificios (ITE) obligatoria y deficiencias en patios de luces",
+      "Control exhaustivo de impagos y morosidad comunitaria",
+      "Renovación de bajantes comunitarias de fecales"
     ],
-    satisfiedCommunitiesCount: 320,
-    managedUnitsCount: 4850,
+    metaTitle: "Administrador de Fincas en Santa Rosa (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de comunidades en Santa Rosa, Santa Coloma. Especialistas en instalación de ascensor a cota cero, ITE y reducción de morosidad.",
+    heroHeadline: "Administración de Comunidades en Santa Rosa (Santa Coloma)",
+    heroSubtitle: "A escasos metros de nuestra sede en Av. dels Banús, 49. Especialistas en fincas de Santa Rosa: instalación de ascensores a cota cero, tramitación de ITEs y rescate de comunidades con alta morosidad.",
+    geo: { latitude: 41.4445, longitude: 2.2136 },
+    emergencyResponseMinutes: 5,
     testimonial: {
       author: "M. Carmen Rodríguez",
-      role: "Presidenta de Comunidad",
-      neighborhood: "Santa Rosa",
-      quote: "Llevábamos años con un administrador que no atendía urgencias y teníamos 6.000€ de morosidad. Con Gesgrama recuperamos la deuda en 4 meses y conseguimos la subvención para instalar el ascensor a cota cero.",
-      year: 2025
-    },
-    priceRange: "€€"
-  },
-
-  "badalona": {
-    slug: "badalona",
-    cityName: "Badalona",
-    officialName: "Badalona",
-    province: "Barcelona",
-    comarca: "Barcelonès Nord",
-    postalCodes: ["08911", "08912", "08913", "08914", "08915", "08917", "08918"],
-    geo: {
-      latitude: 41.4469,
-      longitude: 2.2450
-    },
-    officeDistanceKm: 3.5,
-    emergencyResponseTimeMinutes: 30,
-    metaTitle: "Administrador de Fincas en Badalona · Gesgrama",
-    metaDescription: "Administración profesional de comunidades en Badalona. Atención rápida en Llefià, La Salut, Centre y Bufalà. Reducción de gastos y control de morosidad.",
-    heroHeadline: "Administración Profesional de Fincas y Comunidades en Badalona",
-    heroSubtitle: "Cobertura completa en todos los distritos de Badalona: Llefià, La Salut, Centre, Bufalà y Morera. Gestión transparente, auditoría de contratos y respuesta presencial en 30 minutos.",
-    neighborhoods: [
-      {
-        name: "Llefià (Sant Antoni, Baix i Alt)",
-        postalCode: "08913",
-        buildingTypology: "Grandes bloques de viviendas con escaleras múltiples y fincas de alta densidad.",
-        commonIssues: ["Control de presupuestos de mantenimiento", "Reparación de filtraciones en terrados", "Instalación de videointerfonos"]
-      },
-      {
-        name: "La Salut",
-        postalCode: "08914",
-        buildingTypology: "Fincas de los años 70 que requieren mejoras de accesibilidad.",
-        commonIssues: ["ITE pendiente con deficiencias leves en fachadas", "Negociación con vecinos morosos"]
-      },
-      {
-        name: "Centre / Progrés",
-        postalCode: "08911",
-        buildingTypology: "Edificios modernistas protegidos, fincas señoriales y promociones recientes.",
-        commonIssues: ["Mantenimiento preventivo contra corrosión marina", "Gestión de vados y garajes comunitarios"]
-      },
-      {
-        name: "Bufalà",
-        postalCode: "08915",
-        buildingTypology: "Conjuntos residenciales con zonas ajardinadas y aparcamientos subterráneos.",
-        commonIssues: ["Mantenimiento de puertas de garaje y bombeo", "Gestión de contratos de jardinería y piscinas"]
-      },
-      {
-        name: "La Morera / Pomar",
-        postalCode: "08915",
-        buildingTypology: "Comunidades amplias con zonas comunitarias.",
-        commonIssues: ["Reparto de gastos de calefacción central", "Eficiencia energética"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Aplicación de la normativa fiscal del Ajuntament de Badalona y tramitación de bonificaciones por transmisiones hereditarias.",
-      subsidiesInfo: "Coordinación con los planes de regeneración urbana del Barcelonès Nord para aislamiento de fachadas SATE.",
-      iteStatus: "Obligación de ITE para edificios plurifamiliares con más de 45 años de antigüedad en el término municipal de Badalona."
-    },
-    faqs: [
-      {
-        question: "¿Prestan servicio presencial directo a comunidades de Badalona?",
-        answer: "Sí, nuestra sede está situada a escasos minutos de Llefià y La Salut. Acudimos presencialmente a todas las juntas ordinarias y extraordinarias, y realizamos inspecciones visuales periódicas de la finca cada trimestre."
-      },
-      {
-        question: "¿Cómo controláis los costes de los proveedores en Badalona?",
-        answer: "Auditamos los contratos vigentes de limpieza, mantenimiento de ascensor y seguros. Solicitamos siempre 3 presupuestos ciegos de empresas locales verificadas y la comunidad decide democráticamente en junta."
-      },
-      {
-        question: "¿Disponen los vecinos de acceso online a las cuentas?",
-        answer: "Absolutamente. Todos los propietarios disponen de acceso 24/7 al portal digital y app para consultar recibos, liquidaciones bancarias, actas de juntas y el estado de cualquier incidencia en tiempo real."
-      },
-      {
-        question: "¿Tenéis servicio para comunidades con problemas graves de morosidad en Badalona?",
-        answer: "Sí, contamos con un departamento jurídico propio colegiado en derecho inmobiliario que tramita los procedimientos judiciales con la máxima celeridad sin que la comunidad tenga que adelantar fondos a despachos externos."
-      }
-    ],
-    satisfiedCommunitiesCount: 165,
-    managedUnitsCount: 2350,
-    testimonial: {
-      author: "Jordi Puigdomènech",
-      role: "Vicepresidente de Escalera",
-      neighborhood: "Llefià",
-      quote: "Nuestro anterior administrador tardaba semanas en responder. Cambiamos a Gesgrama y la diferencia es abismal: cuentas transparentes cada mes y resolvieron un siniestro grave de bajantes en menos de 24 horas.",
-      year: 2025
-    },
-    priceRange: "€€"
-  },
-
-  "sant-adria-de-besos": {
-    slug: "sant-adria-de-besos",
-    cityName: "Sant Adrià de Besòs",
-    officialName: "Sant Adrià de Besòs",
-    province: "Barcelona",
-    comarca: "Barcelonès",
-    postalCodes: ["08930"],
-    geo: {
-      latitude: 41.4304,
-      longitude: 2.2189
-    },
-    officeDistanceKm: 2.8,
-    emergencyResponseTimeMinutes: 25,
-    metaTitle: "Administrador de Fincas en Sant Adrià de Besòs · Gesgrama",
-    metaDescription: "Administración de comunidades en Sant Adrià de Besòs. Gestión en Sant Joan Baptista, La Catalana y Besòs. Control de gastos y atención 24h.",
-    heroHeadline: "Administración de Fincas y Comunidades en Sant Adrià de Besòs",
-    heroSubtitle: "Cercanía inmediata desde Santa Coloma. Gestión profesional para comunidades en Sant Joan Baptista, La Catalana, Besòs y La Mina con máxima transparencia y resolución ágil.",
-    neighborhoods: [
-      {
-        name: "Sant Joan Baptista",
-        postalCode: "08930",
-        buildingTypology: "Núcleo histórico y edificios residenciales familiares consolidados.",
-        commonIssues: ["Instalación de rampas salvaescaleras", "Renovación de bajantes y tejados"]
-      },
-      {
-        name: "La Catalana",
-        postalCode: "08930",
-        buildingTypology: "Nuevas promociones con zonas comunitarias, placas solares y aparcamientos.",
-        commonIssues: ["Reclamación de vicios ocultos a promotoras", "Mantenimiento de aerotermia comunitaria"]
-      },
-      {
-        name: "Besòs / Trajana",
-        postalCode: "08930",
-        buildingTypology: "Fincas de tipología obrera tradicional de media y alta densidad.",
-        commonIssues: ["Gestión rigurosa de cuotas", "Tramitación de subvenciones de rehabilitación"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Bonificaciones del Ajuntament de Sant Adrià de Besòs en transmisiones de vivienda habitual entre familiares de primer grado.",
-      subsidiesInfo: "Planes metropolitanos del Consorci del Besòs para eficiencia térmica y acústica en edificios próximos a rondas.",
-      iteStatus: "Seguimiento riguroso de las ITEs en fincas con más de cuatro décadas de antigüedad."
-    },
-    faqs: [
-      {
-        question: "¿Por qué elegir a Gesgrama para una comunidad en Sant Adrià?",
-        answer: "Por nuestra cercanía física inmediata (a 5 minutos reales de Sant Adrià), nuestro doble perfil de administradores colegiados y peritos judiciales inmobiliarios, y nuestra política de cero comisiones ocultas."
-      },
-      {
-        question: "¿Qué ocurre con las comunidades de nueva construcción en La Catalana?",
-        answer: "Asesoramos en la constitución de la primera comunidad de propietarios, recepción del edificio, revisión de zonas comunes y reclamación fehaciente de cualquier defecto constructivo a la promotora antes de que expire la garantía legal."
-      },
-      {
-        question: "¿Podemos celebrar las juntas de vecinos de forma telemática o híbrida?",
-        answer: "Sí, facilitamos juntas presenciales o mediante videoconferencia oficial con sistema de votación telemática legalmente validado para facilitar la asistencia de todos los propietarios."
-      }
-    ],
-    satisfiedCommunitiesCount: 88,
-    managedUnitsCount: 1280,
-    testimonial: {
-      author: "David Soler",
-      role: "Presidente de Comunidad",
-      neighborhood: "Sant Joan Baptista",
-      quote: "Excelente gestión. Nos auditaron el seguro de la finca y ahorramos 800€ al año con mejores coberturas. Las actas están siempre listas al día siguiente de la junta.",
-      year: 2026
-    },
-    priceRange: "€€"
-  },
-
-  "barcelona": {
-    slug: "barcelona",
-    cityName: "Barcelona (Sant Andreu / Nou Barris)",
-    officialName: "Barcelona",
-    province: "Barcelona",
-    comarca: "Barcelonès",
-    postalCodes: ["08030", "08031", "08033", "08042"],
-    geo: {
-      latitude: 41.4357,
-      longitude: 2.1912
-    },
-    officeDistanceKm: 4.2,
-    emergencyResponseTimeMinutes: 30,
-    metaTitle: "Administrador de Fincas en Barcelona (Sant Andreu / Nou Barris)",
-    metaDescription: "Gestión de comunidades en Barcelona: Sant Andreu, Nou Barris y Horta. Expertos en ITE, fincas sin ascensor, morosidad y auditoría contable.",
-    heroHeadline: "Administración de Fincas en Barcelona: Sant Andreu, Nou Barris y Sagrera",
-    heroSubtitle: "Atención directa en los distritos de Sant Andreu, Nou Barris, Horta y La Sagrera. Más de 15 años resolviendo problemas en fincas de Barcelona con cercanía, agilidad y transparencia contable.",
-    neighborhoods: [
-      {
-        name: "Sant Andreu de Palomar",
-        postalCode: "08030",
-        buildingTypology: "Fincas centenarias entre medianeras y edificios plurifamiliares con locales comerciales.",
-        commonIssues: ["Refuerzo estructural de techos y vigas", "Supresión de barreras arquitectónicas", "Gestión de ITEs complejas"]
-      },
-      {
-        name: "Nou Barris (Prosperitat, Roquetes, Verdum)",
-        postalCode: "08042",
-        buildingTypology: "Fincas de gran altura construidas con celeridad en las décadas de los 50 y 60.",
-        commonIssues: ["Revisión de aluminosis", "Instalación de ascensores exteriores o por patio de luces", "Planes de pago contra morosidad"]
-      },
-      {
-        name: "La Sagrera",
-        postalCode: "08027",
-        buildingTypology: "Combinación de fincas clásicas y complejos residenciales modernos junto a la estación.",
-        commonIssues: ["Impacto acústico de obras ferroviarias", "Mantenimiento preventivo de garajes comunitarios"]
-      },
-      {
-        name: "Horta - Guinardó",
-        postalCode: "08031",
-        buildingTypology: "Edificios en pendientes pronunciadas y comunidades pequeñas.",
-        commonIssues: ["Impermeabilización de muros contra el terreno", "Reparación de terrazas comunitarias de uso privativo"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Aplicación de las ordenanzas del Ajuntament de Barcelona con exenciones en casos de dación en pago y bonificación del 95% en herencias de vivienda habitual.",
-      subsidiesInfo: "Gestión directa con el Consorci de l'Habitatge de Barcelona para subvenciones a la instalación de ascensores e ITEs con calificación deficiente.",
-      iteStatus: "Inspecciones técnicas obligatorias para todo el parque de viviendas de Barcelona previo a 1975."
-    },
-    faqs: [
-      {
-        question: "¿Por qué contratar a Gesgrama para fincas en Sant Andreu o Nou Barris?",
-        answer: "Porque ofrecemos una atención mucho más cercana y personalizada que los macrodespachos del Eixample, con visitas presenciales regulares, línea directa con el administrador colegiado y tarifas muy competitivas."
-      },
-      {
-        question: "¿Cómo gestionáis las obras para instalar ascensor en edificios antiguos de Nou Barris?",
-        answer: "Nuestro equipo de arquitectos técnicos y peritos realiza el estudio de viabilidad (por patio de luces o fachada), solicita las licencias ante el distrito de Barcelona y tramita las subvenciones municipales de accesibilidad."
-      },
-      {
-        question: "¿Qué garantías ofrecemos ante impagos de cuotas en Barcelona?",
-        answer: "Reclamación fehaciente inmediata y demanda monitoria judicial con abogado propio, recuperando las cantidades adeudadas junto con las costas e intereses devengados."
-      }
-    ],
-    satisfiedCommunitiesCount: 110,
-    managedUnitsCount: 1950,
-    testimonial: {
-      author: "Laura Benítez",
-      role: "Vocal de Junta",
-      neighborhood: "Sant Andreu",
-      quote: "Estábamos atrapados en un conflicto por una obra de ascensor que el antiguo administrador no sabía tramitar. Gesgrama desatascó los permisos en el distrito y consiguió el acuerdo de todos los vecinos.",
-      year: 2025
-    },
-    priceRange: "€€"
-  },
-
-  "montcada-i-reixac": {
-    slug: "montcada-i-reixac",
-    cityName: "Montcada i Reixac",
-    officialName: "Montcada i Reixac",
-    province: "Barcelona",
-    comarca: "Vallès Occidental",
-    postalCodes: ["08110"],
-    geo: {
-      latitude: 41.4883,
-      longitude: 2.1873
-    },
-    officeDistanceKm: 5.1,
-    emergencyResponseTimeMinutes: 30,
-    metaTitle: "Administrador de Fincas en Montcada i Reixac · Gesgrama",
-    metaDescription: "Gestión de comunidades en Montcada i Reixac: Can Sant Joan, Terra Nostra y Centre. Auditoría de costes, ITE y solución a problemas de morosidad.",
-    heroHeadline: "Administración de Fincas y Comunidades en Montcada i Reixac",
-    heroSubtitle: "Servicio ágil y cercano en Montcada Centro, Can Sant Joan, Terra Nostra y Mas Rampinyo. Auditoría integral de suministros y resolución eficaz de incidencias comunitarias.",
-    neighborhoods: [
-      {
-        name: "Montcada Centre",
-        postalCode: "08110",
-        buildingTypology: "Fincas plurifamiliares con comercios en planta baja y viviendas familiares.",
-        commonIssues: ["Renovación de bajantes comunitarias", "ITE de edificios de más de 45 años"]
-      },
-      {
-        name: "Can Sant Joan",
-        postalCode: "08110",
-        buildingTypology: "Edificios de origen obrero y comunidades de tamaño medio.",
-        commonIssues: ["Control de morosidad y regularización de recibos", "Mejora de accesibilidad"]
-      },
-      {
-        name: "Mas Rampinyo",
-        postalCode: "08110",
-        buildingTypology: "Edificaciones más recientes con zonas de aparcamiento y trasteros.",
-        commonIssues: ["Mantenimiento preventivo de garajes y ventilación forzada"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Gestión tributaria municipal ante el Ajuntament de Montcada i Reixac para compraventas y sucesiones.",
-      subsidiesInfo: "Acceso a subvenciones del Vallès Occidental para rehabilitación energética de envolventes.",
-      iteStatus: "Control y seguimiento del libro del edificio y revisiones periódicas obligatorias."
-    },
-    faqs: [
-      {
-        question: "¿Cómo gestionáis las incidencias urgentes en Montcada i Reixac?",
-        answer: "Por proximidad por la C-17 y la B-20, nuestro tiempo de llegada ante emergencias comprobadas es inferior a 30 minutos, coordinando directamente con industriales locales homologados."
-      },
-      {
-        question: "¿Qué documentación necesita la comunidad para cambiar de administrador?",
-        answer: "Únicamente la aprobación en junta por mayoría simple de los presentes. Gesgrama se encarga de solicitar el libro de actas, contratos de suministros y saldos bancarios al gestor saliente."
-      }
-    ],
-    satisfiedCommunitiesCount: 45,
-    managedUnitsCount: 720,
-    testimonial: {
-      author: "Antoni Morales",
-      role: "Presidente de Comunidad",
-      neighborhood: "Montcada Centre",
-      quote: "Muy contentos con el cambio. El anterior administrador nunca venía por aquí; Gesgrama visita la finca periódicamente y las cuentas están siempre claras al céntimo.",
-      year: 2026
-    },
-    priceRange: "€€"
-  },
-
-  "tiana": {
-    slug: "tiana",
-    cityName: "Tiana",
-    officialName: "Tiana",
-    province: "Barcelona",
-    comarca: "Maresme",
-    postalCodes: ["08391"],
-    geo: {
-      latitude: 41.4831,
-      longitude: 2.2694
-    },
-    officeDistanceKm: 7.2,
-    emergencyResponseTimeMinutes: 35,
-    metaTitle: "Administrador de Fincas en Tiana · Gesgrama",
-    metaDescription: "Administración de comunidades y complejos residenciales en Tiana. Control de zonas ajardinadas, piscinas y máxima transparencia en cuentas.",
-    heroHeadline: "Administración de Fincas y Complejos Residenciales en Tiana",
-    heroSubtitle: "Especialistas en comunidades residenciales, urbanizaciones con piscina, garajes y zonas verdes en Tiana y comarca del Maresme.",
-    neighborhoods: [
-      {
-        name: "Tiana Centre / Creu de Terme",
-        postalCode: "08391",
-        buildingTypology: "Fincas unifamiliares adosadas y pequeños complejos plurifamiliares con zonas comunitarias.",
-        commonIssues: ["Mantenimiento de piscinas y depuración", "Conservación de pavimentos exteriores y jardinería"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Ordenanzas fiscales del Ajuntament de Tiana para plusvalías y transmisiones patrimoniales.",
-      subsidiesInfo: "Líneas de ayuda para autoconsumo fotovoltaico en comunidades de propietarios.",
-      iteStatus: "Certificación ITE según la normativa de la Generalitat de Catalunya."
-    },
-    faqs: [
-      {
-        question: "¿Tenéis experiencia en urbanizaciones con piscina comunitaria y jardines?",
-        answer: "Sí, gestionamos complejos residenciales con exigentes requisitos de mantenimiento técnico de piscinas, fitosanitarios de jardinería y optimización de iluminación LED perimetral."
-      }
-    ],
-    satisfiedCommunitiesCount: 28,
-    managedUnitsCount: 410,
-    testimonial: {
-      author: "Elisabet Valls",
-      role: "Presidenta de Mancomunidad",
-      neighborhood: "Tiana",
-      quote: "Consiguieron renegociar el contrato de jardinería y mantenimiento de la piscina reduciendo un 20% la cuota mensual sin perder un ápice de calidad.",
-      year: 2025
-    },
-    priceRange: "€€"
-  },
-
-  "montgat": {
-    slug: "montgat",
-    cityName: "Montgat",
-    officialName: "Montgat",
-    province: "Barcelona",
-    comarca: "Maresme",
-    postalCodes: ["08390"],
-    geo: {
-      latitude: 41.4678,
-      longitude: 2.2797
-    },
-    officeDistanceKm: 6.5,
-    emergencyResponseTimeMinutes: 30,
-    metaTitle: "Administrador de Fincas en Montgat · Gesgrama",
-    metaDescription: "Gestión de comunidades y fincas en Montgat (Maresme). Protección contra ambiente marino, ITE, auditoría contable y resolución de incidencias.",
-    heroHeadline: "Administración de Comunidades de Propietarios en Montgat",
-    heroSubtitle: "Protección técnica y patrimonial para fincas costeras en Montgat. Tratamiento preventivo frente al salitre, mantenimiento de fachadas y gestión contable rigurosa.",
-    neighborhoods: [
-      {
-        name: "Montgat Platja / Les Mallorquines",
-        postalCode: "08390",
-        buildingTypology: "Bloques residenciales con vistas al mar y complejos plurifamiliares.",
-        commonIssues: ["Corrosión de carpinterías y armaduras por salinidad marina", "Filtraciones en cubiertas"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Normativa fiscal del Ajuntament de Montgat en transmisiones patrimoniales.",
-      subsidiesInfo: "Ayudas para la rehabilitación integral de envolventes de edificios residenciales en el Maresme.",
-      iteStatus: "Inspecciones de conservación estructural en ambientes de alta humedad marina."
-    },
-    faqs: [
-      {
-        question: "¿Cómo afecta el ambiente costero a las comunidades de Montgat y cómo lo tratáis?",
-        answer: "El salitre acelera la oxidación del hormigón y las barandillas. Como peritos judiciales inmobiliarios colegiados, auditamos los planes de mantenimiento preventivo para evitar costosas derramas futuras por desprendimientos."
-      }
-    ],
-    satisfiedCommunitiesCount: 34,
-    managedUnitsCount: 520,
-    testimonial: {
-      author: "Marc Sala",
-      role: "Presidente de Comunidad",
-      neighborhood: "Les Mallorquines",
-      quote: "Excelente gestión en la rehabilitación de nuestra fachada marina. Consiguieron una subvención del 40% y coordinaron a los industriales sin problemas para los vecinos.",
-      year: 2025
-    },
-    priceRange: "€€"
-  },
-
-  "ripollet": {
-    slug: "ripollet",
-    cityName: "Ripollet",
-    officialName: "Ripollet",
-    province: "Barcelona",
-    comarca: "Vallès Occidental",
-    postalCodes: ["08291"],
-    geo: {
-      latitude: 41.4967,
-      longitude: 2.1558
-    },
-    officeDistanceKm: 7.8,
-    emergencyResponseTimeMinutes: 35,
-    metaTitle: "Administrador de Fincas en Ripollet · Gesgrama",
-    metaDescription: "Administración de fincas y comunidades en Ripollet. Control de morosidad, optimización de suministros y atención rápida a emergencias.",
-    heroHeadline: "Administración de Fincas y Comunidades en Ripollet",
-    heroSubtitle: "Gestión clara y eficiente para comunidades de propietarios en Ripollet. Reducción de costes de suministros comunitarios y asesoramiento legal sin comisiones ocultas.",
-    neighborhoods: [
-      {
-        name: "Ripollet Centre / Can Mas",
-        postalCode: "08291",
-        buildingTypology: "Comunidades plurifamiliares de media densidad con garajes en sótano.",
-        commonIssues: ["Mantenimiento de bombas de achique y fosos de ascensor", "Morosidad en cuotas ordinarias"]
-      }
-    ],
-    localRegulations: {
-      plusvaliaInfo: "Bonificaciones del Ajuntament de Ripollet para herencias familiares directas.",
-      subsidiesInfo: "Subvenciones para instalación de placas solares comunitarias en el Vallès Occidental.",
-      iteStatus: "Inspección técnica periódica obligatoria conforme a los plazos autonómicos."
-    },
-    faqs: [
-      {
-        question: "¿Qué incluye la cuota mensual de administración de Gesgrama?",
-        answer: "Incluye contabilidad completa con conciliación bancaria mensual, emisión y cobro de recibos, tramitación de siniestros con el seguro sin coste extra, 1 junta ordinaria anual con acta oficial y visitas de control periódico a la finca."
-      }
-    ],
-    satisfiedCommunitiesCount: 31,
-    managedUnitsCount: 460,
-    testimonial: {
-      author: "Sonia Giménez",
       role: "Presidenta de Escalera",
-      neighborhood: "Can Mas",
-      quote: "Llevamos dos años con Gesgrama y todo funciona como un reloj suizo. Se acabaron las discusiones en las juntas porque las cuentas están totalmente detalladas y transparentes.",
+      street: "Carrer de Santa Rosa",
+      quote: "Teníamos 7.000€ de morosidad y no podíamos afrontar la ITE. Gesgrama recuperó el dinero con acuerdos de pago y conseguimos la ayuda municipal para poner el ascensor a pie de calle.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Qué mayoría se necesita en Santa Rosa para instalar ascensor a cota cero?",
+        answer: "Conforme al artículo 10.1.b de la LPH, la instalación de ascensor o rampa de accesibilidad es obligatoria cuando la solicite un propietario mayor de 70 años o con discapacidad, si el importe anual no excede de doce mensualidades ordinarias descontadas las subvenciones."
+      },
+      {
+        question: "¿Cómo ayudáis a cobrar las cuotas a vecinos que no pagan en Santa Rosa?",
+        answer: "Iniciamos reclamación fehaciente inmediata, mediamos planes de pago aplazados y, si no hay voluntad de pago, activamos el procedimiento monitorio judicial con nuestro equipo de asesoría jurídica propio sin sobrecoste de honorarios."
+      }
+    ]
+  },
+
+  "can-mariner": {
+    slug: "can-mariner",
+    name: "Can Mariner",
+    district: "Districte 5",
+    postalCode: "08923",
+    buildingTypology: "Edificios residenciales de media y alta densidad alrededor de la histórica masía de Can Mariner.",
+    commonIssues: [
+      "Mantenimiento de cubiertas y filtraciones de lluvia",
+      "Modernización de cuadros eléctricos comunitarios",
+      "Optimización de tarifas de luz comunitaria y seguro de incendios"
+    ],
+    metaTitle: "Administrador de Fincas en Can Mariner (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de fincas en Can Mariner, Santa Coloma de Gramenet. Auditoría de costes comunitarios, resolución de incidencias en minutos y cercanía total.",
+    heroHeadline: "Administrador de Fincas en Can Mariner (Santa Coloma)",
+    heroSubtitle: "Servicio ultra-cercano y presencial para las comunidades de Can Mariner. Control riguroso de cada euro de la comunidad y respuesta técnica en menos de 10 minutos.",
+    geo: { latitude: 41.4472, longitude: 2.2114 },
+    emergencyResponseMinutes: 8,
+    testimonial: {
+      author: "Francesc Llopis",
+      role: "Presidente",
+      street: "Carrer Milà i Fontanals",
+      quote: "Desde que Gesgrama lleva la finca, las cuentas se entienden a la primera. Renegociaron el contrato de la luz de la escalera y el seguro y nos ahorramos más de 600€ al año.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Cómo se hace el traspaso si cambiamos de administrador en Can Mariner?",
+        answer: "Nosotros nos encargamos de todo: enviamos la comunicación oficial al administrador saliente, recogemos los libros de actas, contratos y cuentas bancarias, y realizamos una auditoría inicial sin coste alguno."
+      }
+    ]
+  },
+
+  "fondo": {
+    slug: "fondo",
+    name: "Fondo",
+    district: "Districte 6",
+    postalCode: "08922",
+    buildingTypology: "Edificaciones plurifamiliares con gran rotación de inquilinos, locales comerciales densos y comunidades de vecinos heterogéneas.",
+    commonIssues: [
+      "Gestión de la convivencia y regularización urgente de cuotas comunitarias",
+      "Reparación urgente de bajantes generales y atascos de fecales",
+      "Instalación de cerraduras de seguridad en portales",
+      "Actas claras bilingües y canales ágiles de WhatsApp"
+    ],
+    metaTitle: "Administrador de Fincas en Fondo (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de comunidades en Fondo, Santa Coloma de Gramenet. Cobro de morosidad, resolución urgente de averías y mediación vecinal eficaz.",
+    heroHeadline: "Administración de Fincas y Comunidades en el Fondo (Santa Coloma)",
+    heroSubtitle: "Especialistas en la gestión de comunidades complejas en el barrio de Fondo. Cobro riguroso de cuotas, control de accesos al portal y resolución de averías en menos de 20 minutos.",
+    geo: { latitude: 41.4485, longitude: 2.2185 },
+    emergencyResponseMinutes: 12,
+    testimonial: {
+      author: "Manuel Santos",
+      role: "Presidente de Comunidad",
+      street: "Carrer Mossèn Camil Rosell",
+      quote: "Nadie quería ser presidente en nuestra escalera porque nadie pagaba y el portal estaba destrozado. Gesgrama puso orden, instaló puerta blindada y hoy la escalera está limpia y al día de pagos.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Qué hacéis si en una comunidad del Fondo hay impagos generalizados?",
+        answer: "Auditamos la deuda de cada vivienda, enviamos requerimientos con valor probatorio legal, ofrecemos facilidades de fraccionamiento a familias con dificultad real y demandamos judicialmente a los morosos recalcitrantes con nuestro propio abogado colegiado."
+      }
+    ]
+  },
+
+  "singuerlin": {
+    slug: "singuerlin",
+    name: "Singuerlín",
+    district: "Districte 3",
+    postalCode: "08924",
+    buildingTypology: "Edificios en desnivel pronunciado, torres aisladas, viviendas con terrazas y garajes comunitarios.",
+    commonIssues: [
+      "Humedades por filtración y contención de tierras en laderas",
+      "Mantenimiento de muros perimetrales y canalizaciones de aguas pluviales",
+      "Eficiencia energética en cubiertas expuestas al viento",
+      "Mantenimiento de puertas automáticas de garaje"
+    ],
+    metaTitle: "Administrador de Fincas en Singuerlín (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de comunidades y edificios en Singuerlín, Santa Coloma. Expertos en filtraciones de laderas, garajes, ITE y control contable transparente.",
+    heroHeadline: "Administración de Fincas y Comunidades en Singuerlín (Santa Coloma)",
+    heroSubtitle: "Gestión técnica adaptada a la orografía de Singuerlín: resolución de humedades por contención de tierras, mantenimiento de garajes colectivos y control estricto de presupuestos de obra.",
+    geo: { latitude: 41.4589, longitude: 2.2118 },
+    emergencyResponseMinutes: 15,
+    testimonial: {
+      author: "Rosa Maria Torres",
+      role: "Presidenta de Escalera",
+      street: "Avinguda de Catalunya",
+      quote: "Teníamos filtraciones en el muro del garaje que ningún técnico solucionaba. El perito de Gesgrama vino en persona, redactó el informe pericial y la constructora se hizo cargo de la reparación.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Disponéis de arquitectos técnicos propios para fincas con humedades en Singuerlín?",
+        answer: "Sí, en Gesgrama contamos con la titulación oficial de Perito Judicial Inmobiliario colegiado, lo que nos permite diagnosticar el origen exacto de las filtraciones y defender a la comunidad ante aseguradoras o constructoras."
+      }
+    ]
+  },
+
+  "riera-alta": {
+    slug: "riera-alta",
+    name: "Riera Alta",
+    district: "Districte 2",
+    postalCode: "08921",
+    buildingTypology: "Fincas de altura media con viviendas amplias y locales en planta baja.",
+    commonIssues: [
+      "Renovación de acometidas comunitarias de agua",
+      "Inspección de cubiertas comunitarias y terrazas privativas",
+      "Aislamiento térmico y subvenciones NextGen"
+    ],
+    metaTitle: "Administrador de Fincas en Riera Alta (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de fincas en Riera Alta, Santa Coloma de Gramenet. Transparencia en cuentas, control de proveedores y atención de urgencias en 15 min.",
+    heroHeadline: "Administrador de Fincas en Riera Alta (Santa Coloma)",
+    heroSubtitle: "Atención directa y cercana en el barrio de Riera Alta. Auditoría gratuita de gastos comunitarios, respuesta inmediata a siniestros de agua y total transparencia bancaria.",
+    geo: { latitude: 41.4542, longitude: 2.2045 },
+    emergencyResponseMinutes: 12,
+    testimonial: {
+      author: "Albert Gómez",
+      role: "Vocal de Comunidad",
+      street: "Carrer Riera Alta",
+      quote: "Excelente comunicación. Cualquier avería se reporta por WhatsApp y la atienden el mismo día. Las juntas son ágiles y las actas llegan a casa al día siguiente.",
       year: 2026
     },
-    priceRange: "€€"
+    faqs: [
+      {
+        question: "¿Cómo supervisáis las obras de la comunidad en Riera Alta?",
+        answer: "No cobramos comisiones de industriales. Solicitamos siempre 3 presupuestos ciegos de empresas contrastadas, supervisamos la ejecución y no liberamos el pago final hasta que la obra está formalmente recibida a satisfacción de la junta."
+      }
+    ]
+  },
+
+  "llati": {
+    slug: "llati",
+    name: "Llatí",
+    district: "Districte 2",
+    postalCode: "08921",
+    buildingTypology: "Comunidades residenciales tranquilas, bloques de vecinos de 3 a 5 plantas con reformas recientes.",
+    commonIssues: [
+      "Pintura y mantenimiento preventivo de patios de luces",
+      "Sustitución de bajantes de fibrocemento / plomo",
+      "Instalación de iluminación LED con detector de presencia para ahorro de luz"
+    ],
+    metaTitle: "Administrador de Fincas en el Llatí (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de comunidades en el barrio del Llatí, Santa Coloma de Gramenet. Ahorro en suministros, ITE de edificios y atención telefónica directa.",
+    heroHeadline: "Administración de Comunidades de Propietarios en el Llatí",
+    heroSubtitle: "Tranquilidad y orden contable para las escaleras del barrio del Llatí. Traspaso gratuito de administración, revisión de contratos y trato familiar.",
+    geo: { latitude: 41.4528, longitude: 2.2012 },
+    emergencyResponseMinutes: 12,
+    testimonial: {
+      author: "Montserrat Esteve",
+      role: "Presidenta de Escalera",
+      street: "Carrer del Llatí",
+      quote: "Cambiamos a Gesgrama porque el anterior administrador cobraba por cada fotocopia y certificado. Con ellos la tarifa es fija, clara y el trato es inmejorable.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Hay costes ocultos o comisiones por tramitar siniestros del seguro en el Llatí?",
+        answer: "Cero. Nuestra tarifa de administración es cerrada: incluye tramitación integral de partes al seguro de la finca sin comisión alguna por siniestro."
+      }
+    ]
+  },
+
+  "el-raval": {
+    slug: "el-raval",
+    name: "El Raval",
+    district: "Districte 4",
+    postalCode: "08923",
+    buildingTypology: "Fincas tradicionales y bloques de viviendas cerca del parque fluvial del Besòs.",
+    commonIssues: [
+      "Tratamiento de humedades por proximidad freática al río Besòs",
+      "Rehabilitación de fachadas posteriores",
+      "Gestión de certificados de aptitud ITE"
+    ],
+    metaTitle: "Administrador de Fincas en El Raval (Santa Coloma) · Gesgrama",
+    metaDescription: "Administrador colegiado en El Raval de Santa Coloma. Protección de edificios cerca del Besòs, ITE, asesoría jurídica y cuentas claras.",
+    heroHeadline: "Administración de Fincas en El Raval (Santa Coloma de Gramenet)",
+    heroSubtitle: "Especialistas en la conservación y gestión de edificios en El Raval de Santa Coloma. Cuentas claras, control de humedad freática y asesoramiento técnico permanente.",
+    geo: { latitude: 41.4429, longitude: 2.2064 },
+    emergencyResponseMinutes: 10,
+    testimonial: {
+      author: "Carlos Méndez",
+      role: "Presidente",
+      street: "Carrer Montcada",
+      quote: "Gestionaron el cambio de acometida general y el saneamiento del patio de luces sin derramas imprevistas, financiando la obra con los fondos propios de la comunidad.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Cómo combatís los problemas de humedad en fincas de El Raval?",
+        answer: "Analizamos si el origen es condensación, capilaridad o filtración del nivel freático, redactando dictamen pericial e implementando soluciones definitivas con aislamiento de solera y ventilación mecánica."
+      }
+    ]
+  },
+
+  "riu-nord": {
+    slug: "riu-nord",
+    name: "Riu Nord",
+    district: "Districte 4",
+    postalCode: "08921",
+    buildingTypology: "Grandes bloques de viviendas con espacios comunitarios, cercanos al río Besòs y paseo fluvial.",
+    commonIssues: [
+      "Mantenimiento de zonas ajardinadas y pasajes comunes",
+      "Control de derramas para impermeabilización de cubiertas",
+      "Optimización de costes energéticos"
+    ],
+    metaTitle: "Administrador de Fincas en Riu Nord (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de comunidades en Riu Nord, Santa Coloma de Gramenet. Auditoría energética, mantenimiento de zonas comunes y gestión transparente.",
+    heroHeadline: "Administrador de Fincas en Riu Nord (Santa Coloma de Gramenet)",
+    heroSubtitle: "Gestión profesional y transparente para las comunidades del Riu Nord. Optimización de contratos colectivos, mantenimiento de zonas comunes y app 24/7 para propietarios.",
+    geo: { latitude: 41.4482, longitude: 2.2031 },
+    emergencyResponseMinutes: 10,
+    testimonial: {
+      author: "Elena Navarro",
+      role: "Presidenta de Comunidad",
+      street: "Passeig Llorenç Serra",
+      quote: "Con Gesgrama cada vecino puede ver las facturas en la aplicación móvil antes de que se paguen. La transparencia es total y se acabaron las sospechas en las juntas.",
+      year: 2026
+    },
+    faqs: [
+      {
+        question: "¿Tienen los vecinos acceso a las facturas y extractos bancarios de Riu Nord?",
+        answer: "Sí, a través de nuestra plataforma online y app móvil exclusiva, accesible 24 horas al día, 365 días al año."
+      }
+    ]
+  },
+
+  "riu-sud": {
+    slug: "riu-sud",
+    name: "Riu Sud",
+    district: "Districte 4",
+    postalCode: "08923",
+    buildingTypology: "Bloques plurifamiliares con portales múltiples y aparcamientos subterráneos en la zona sur del paseo fluvial.",
+    commonIssues: [
+      "Mantenimiento de colectores de pluviales y vados de garaje",
+      "Seguridad en portales y telefonillos comunitarios",
+      "Inspección periódica de ITE"
+    ],
+    metaTitle: "Administrador de Fincas en Riu Sud (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de comunidades en Riu Sud, Santa Coloma. Especialistas en garajes comunitarios, ITE y control riguroso de morosidad.",
+    heroHeadline: "Administración de Fincas y Comunidades en Riu Sud (Santa Coloma)",
+    heroSubtitle: "Servicio ágil y resolutivo para las comunidades de Riu Sud. Gestión experta de garajes comunitarios, mantenimiento de colectores y asesoramiento legal sin intermediarios.",
+    geo: { latitude: 41.4402, longitude: 2.2089 },
+    emergencyResponseMinutes: 10,
+    testimonial: {
+      author: "Javier Moreno",
+      role: "Presidente de Mancomunidad",
+      street: "Carrer de les Balmes",
+      quote: "Llevamos dos años con Gesgrama gestionando nuestro bloque y el garaje de 45 plazas. Muy eficientes con el mantenimiento de la puerta automática y la limpieza.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Gestionáis también mancomunidades de garajes en Riu Sud?",
+        answer: "Sí, administramos garajes independientes y mancomunados, gestionando vados, revisiones de extintores, bombas de achique y emisión de mandos a distancia."
+      }
+    ]
+  },
+
+  "can-franquesa": {
+    slug: "can-franquesa",
+    name: "Can Franquesa",
+    district: "Districte 3",
+    postalCode: "08924",
+    buildingTypology: "Grandes bloques en altura ubicados en la parte alta de la ciudad, con vistas panorámicas y accesos en rampa.",
+    commonIssues: [
+      "Mantenimiento de ascensores de largo recorrido y maquinaria",
+      "Impermeabilización de cubiertas expuestas a inclemencias",
+      "Gestión de ayudas para aislamiento de fachadas SATE"
+    ],
+    metaTitle: "Administrador de Fincas en Can Franquesa (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de grandes bloques en Can Franquesa, Santa Coloma de Gramenet. Mantenimiento de ascensores, fachadas, subvenciones NextGen y morosidad.",
+    heroHeadline: "Administración de Comunidades en Can Franquesa (Santa Coloma)",
+    heroSubtitle: "Gestión especializada para los grandes bloques de Can Franquesa. Control riguroso de contratos de mantenimiento de ascensores, fachadas y planes de ahorro en calefacción y luz.",
+    geo: { latitude: 41.4651, longitude: 2.2152 },
+    emergencyResponseMinutes: 15,
+    testimonial: {
+      author: "Antonio Ramos",
+      role: "Presidente de Bloque",
+      street: "Carrer de Còrdova",
+      quote: "En un bloque de 40 vecinos los problemas se multiplican si el gestor no está encima. Con Gesgrama tenemos respuesta inmediata y logramos rebajar la factura del ascensor un 25%.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Cómo auditáis los contratos de ascensores en Can Franquesa?",
+        answer: "Revisamos las cláusulas de permanencia, excluimos conceptos abusivos y negociamos precios corporativos con las principales empresas mantenedoras aprovechando nuestro volumen de comunidades."
+      }
+    ]
+  },
+
+  "les-oliveres": {
+    slug: "les-oliveres",
+    name: "Les Oliveres",
+    district: "Districte 3",
+    postalCode: "08924",
+    buildingTypology: "Complejos residenciales plurifamiliares con espacios peatonales y áreas comunitarias en la ladera de la Serralada de Marina.",
+    commonIssues: [
+      "Conservación de elementos estructurales y escalinatas exteriores",
+      "Gestión de canalizaciones de pluviales en pendiente",
+      "Control de presupuestos comunitarios de pintura y portería"
+    ],
+    metaTitle: "Administrador de Fincas en Les Oliveres (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de fincas en Les Oliveres, Santa Coloma. Especialistas en conservación de zonas comunes, pluviales, ITE y contabilidad transparente.",
+    heroHeadline: "Administrador de Fincas en Les Oliveres (Santa Coloma de Gramenet)",
+    heroSubtitle: "Cuidado patrimonial y gestión transparente para las comunidades de Les Oliveres. Conservación preventiva de estructuras, tramitación de ITEs y solución a la morosidad.",
+    geo: { latitude: 41.4632, longitude: 2.2084 },
+    emergencyResponseMinutes: 15,
+    testimonial: {
+      author: "Nuria Martí",
+      role: "Presidenta de Escalera",
+      street: "Carrer de les Oliveres",
+      quote: "Gran rigor y profesionalidad. Tuvimos un problema con la bajante principal que afectaba a varios vecinos y lo gestionaron en pocas horas con el seguro.",
+      year: 2026
+    },
+    faqs: [
+      {
+        question: "¿Qué ocurre con las ITEs en comunidades de Les Oliveres?",
+        answer: "Coordinamos la inspección técnica obligatoria con arquitectos técnicos especializados, tramitamos el Certificado de Aptitud ante la Generalitat y gestionamos las obras necesarias si hay deficiencias."
+      }
+    ]
+  },
+
+  "la-guinardera": {
+    slug: "la-guinardera",
+    name: "La Guinardera",
+    district: "Districte 3",
+    postalCode: "08924",
+    buildingTypology: "Zona residencial mixta con fincas plurifamiliares y proximidad a equipamientos deportivos y naturales.",
+    commonIssues: [
+      "Mantenimiento de instalaciones de gas y electricidad comunitaria",
+      "Revisión de cubiertas y aislamiento acústico",
+      "Control de gastos ordinarios y fondo de reserva"
+    ],
+    metaTitle: "Administrador de Fincas en La Guinardera (Santa Coloma) · Gesgrama",
+    metaDescription: "Administración de comunidades en La Guinardera, Santa Coloma de Gramenet. Cuentas claras, mantenimiento ágil y atención de averías en 15 min.",
+    heroHeadline: "Administración de Comunidades en La Guinardera (Santa Coloma)",
+    heroSubtitle: "Gestión clara, eficiente y cercana para las fincas de La Guinardera. Mantenimiento preventivo, optimización de cuotas y asesoramiento jurídico inmobiliario.",
+    geo: { latitude: 41.4598, longitude: 2.2041 },
+    emergencyResponseMinutes: 15,
+    testimonial: {
+      author: "Daniel Castro",
+      role: "Presidente de Comunidad",
+      street: "Carrer de la Guinardera",
+      quote: "Muy satisfechos con el trato de Gesgrama. Son puntuales, explican las cuentas con total claridad y no hay sorpresas a fin de año.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Cómo se gestiona el fondo de reserva de la comunidad?",
+        answer: "Conforme a la ley catalana de propiedad horizontal, mantenemos el fondo de reserva legal (mínimo el 5% del presupuesto ordinario) en cuenta bancaria separada y remunerada a nombre exclusivo de la comunidad."
+      }
+    ]
+  },
+
+  "cementiri-vell": {
+    slug: "cementiri-vell",
+    name: "Cementiri Vell",
+    district: "Districte 1",
+    postalCode: "08921",
+    buildingTypology: "Edificaciones residenciales consolidadas en el entorno tradicional de Santa Coloma.",
+    commonIssues: [
+      "Rehabilitación de cornisas y elementos de fachada",
+      "Adecuación de portales a normativa de accesibilidad",
+      "Auditoría de suministros de agua y luz de escalera"
+    ],
+    metaTitle: "Administrador de Fincas en Cementiri Vell (Santa Coloma) · Gesgrama",
+    metaDescription: "Gestión de fincas en el Cementiri Vell, Santa Coloma de Gramenet. Auditoría de gastos, mantenimiento de fachadas y atención inmediata.",
+    heroHeadline: "Administrador de Fincas en Cementiri Vell (Santa Coloma)",
+    heroSubtitle: "Administración profesional y cercana para las comunidades del barrio de Cementiri Vell. Máxima transparencia contable, respuesta rápida y peritaje judicial propio.",
+    geo: { latitude: 41.4504, longitude: 2.2058 },
+    emergencyResponseMinutes: 10,
+    testimonial: {
+      author: "Pilar Sánchez",
+      role: "Presidenta de Escalera",
+      street: "Carrer Sant Jeroni",
+      quote: "Nos cambiamos a Gesgrama cansados de presupuestos inflados. En el primer trimestre nos bajaron la cuota de la comunidad 15€ por vecino negociando con el seguro y el ascensor.",
+      year: 2025
+    },
+    faqs: [
+      {
+        question: "¿Con cuánta antelación se entregan las cuentas antes de la junta ordinaria?",
+        answer: "Enviamos la convocatoria formal con el estado de cuentas detallado, facturas desglosadas y presupuesto del nuevo ejercicio al menos 15 días antes de la reunión para que todos los vecinos puedan revisarlo con calma."
+      }
+    ]
   }
 };

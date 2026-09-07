@@ -19,6 +19,7 @@ import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
 import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
+import { Route as AdministradorFincasCityRouteImport } from './routes/administrador-fincas_.$city'
 
 const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
   id: '/politica-privacidad',
@@ -70,6 +71,11 @@ const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
   path: '/inmobiliaria/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdministradorFincasCityRoute = AdministradorFincasCityRouteImport.update({
+  id: '/administrador-fincas_/$city',
+  path: '/administrador-fincas/$city',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/administrador-fincas/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/administrador-fincas/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/administrador-fincas_/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria_/$slug': typeof InmobiliariaSlugRoute
   '/noticias_/$slug': typeof NoticiasSlugRoute
   '/servicios_/$slug': typeof ServiciosSlugRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/administrador-fincas/$city'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/administrador-fincas/$city'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/administrador-fincas_/$city'
     | '/inmobiliaria_/$slug'
     | '/noticias_/$slug'
     | '/servicios_/$slug'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaPrivacidadRoute: typeof PoliticaPrivacidadRoute
+  AdministradorFincasCityRoute: typeof AdministradorFincasCityRoute
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InmobiliariaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/administrador-fincas_/$city': {
+      id: '/administrador-fincas_/$city'
+      path: '/administrador-fincas/$city'
+      fullPath: '/administrador-fincas/$city'
+      preLoaderRoute: typeof AdministradorFincasCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaPrivacidadRoute: PoliticaPrivacidadRoute,
+  AdministradorFincasCityRoute: AdministradorFincasCityRoute,
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,

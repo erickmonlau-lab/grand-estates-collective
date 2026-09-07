@@ -2132,6 +2132,34 @@ function Index() {
             </div>
           </div>
 
+          {/* Cobertura Local de Administración de Fincas (SEO GEO Internal Linking) */}
+          <div className="border-t border-white/10 pt-8 pb-2">
+            <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
+              {language === "ca" ? "COBERTURA LOCAL I ADMINISTRACIÓ DE FINQUES" : language === "en" ? "LOCAL COVERAGE & PROPERTY MANAGEMENT" : "COBERTURA LOCAL Y ADMINISTRACIÓN DE FINCAS"}
+            </h3>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 justify-center md:justify-start">
+              {[
+                { name: "Santa Coloma de Gramenet", slug: "santa-coloma-de-gramenet" },
+                { name: "Badalona", slug: "badalona" },
+                { name: "Sant Adrià de Besòs", slug: "sant-adria-de-besos" },
+                { name: "Barcelona (Sant Andreu / Nou Barris)", slug: "barcelona" },
+                { name: "Montcada i Reixac", slug: "montcada-i-reixac" },
+                { name: "Tiana", slug: "tiana" },
+                { name: "Montgat", slug: "montgat" },
+                { name: "Ripollet", slug: "ripollet" }
+              ].map(city => (
+                <Link
+                  key={city.slug}
+                  to="/administrador-fincas/$city"
+                  params={{ city: city.slug }}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-[#2563eb] text-slate-300 hover:text-white text-xs font-bold transition-colors border border-white/10"
+                >
+                  Administrador en {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 4 Columnas Oficiales) */}
           <div className="border-t border-white/10 pt-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">

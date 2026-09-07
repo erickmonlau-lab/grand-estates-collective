@@ -607,12 +607,14 @@ function Index() {
             {/* Dedicated full-width row for Mode Selector + Stat Badge right above Search Console */}
             <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
               {/* Search Mode Selector Tabs - Responsive 3-column equal grid on mobile to fit all screen sizes */}
-              <div className="grid grid-cols-3 sm:flex sm:items-center bg-[#E8EAF0] p-1.5 sm:p-2 rounded-2xl border border-slate-300/80 shadow-sm w-full sm:w-auto gap-1 sm:gap-1.5">
+              <div className="grid grid-cols-3 sm:flex sm:items-center bg-slate-200/90 p-1.5 sm:p-2 rounded-2xl border-2 border-slate-300 shadow-sm w-full sm:w-auto gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
-                  className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "comprar" ? "bg-[#2563eb] text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
+                  className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
+                    searchParams.mode === "comprar" 
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
                   }`}
                 >
                   {t.hero.comprar}
@@ -620,8 +622,10 @@ function Index() {
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
-                  className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "alquilar" ? "bg-[#2563eb] text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
+                  className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
+                    searchParams.mode === "alquilar" 
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
                   }`}
                 >
                   {t.hero.alquilar}
@@ -629,11 +633,13 @@ function Index() {
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
-                  className={`px-1.5 xs:px-2 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
-                    searchParams.mode === "favoritos" ? "bg-red-500 text-white shadow-sm" : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
+                  className={`px-1.5 xs:px-2 sm:px-5 py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap shadow-xs ${
+                    searchParams.mode === "favoritos" 
+                      ? "bg-red-600 text-white shadow-md ring-2 ring-red-500/20" 
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
                   }`}
                 >
-                  <Heart className="w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0" />
+                  <Heart className={`w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
                   <span>Fav ({favorites.length})</span>
                 </button>
               </div>
@@ -958,10 +964,10 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap ${
+                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap shadow-2xs ${
                       isActive 
-                        ? "bg-[#2563eb] text-white shadow-xs" 
-                        : "bg-[#E8EAF0] text-[#1A1F2E] hover:bg-[#d8dbe4]"
+                        ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25" 
+                        : "bg-white text-slate-800 border-2 border-slate-200 hover:border-[#2563eb] hover:text-[#2563eb] hover:bg-blue-50/50"
                     }`}
                   >
                     {item.label}
@@ -1033,7 +1039,7 @@ function Index() {
                                 </span>
                               );
                             })()}
-                            <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+                            <span className="text-xs font-mono font-black text-white bg-slate-900 px-3 py-1 rounded-md shadow-xs border border-slate-700">
                               Ref: {property.ref || "PJ2024"}
                             </span>
                           </div>
@@ -1049,16 +1055,16 @@ function Index() {
 
                           {/* Features Micro-Boxes */}
                           <div className="mb-4 pt-3.5 pb-1 border-t border-slate-100 grid grid-cols-3 gap-2">
-                            <div className="bg-slate-50 border border-slate-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-800 font-extrabold text-xs sm:text-sm">
-                              <Home className="w-4 h-4 text-[#2563eb] shrink-0" />
+                            <div className="bg-white border-2 border-slate-200 shadow-2xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                              <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                               <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                             </div>
-                            <div className="bg-slate-50 border border-slate-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-800 font-extrabold text-xs sm:text-sm">
-                              <Bath className="w-4 h-4 text-[#2563eb] shrink-0" />
+                            <div className="bg-white border-2 border-slate-200 shadow-2xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-slate-900 font-black text-xs sm:text-sm">
+                              <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                               <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                             </div>
-                            <div className="bg-blue-50/80 border border-blue-100 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#2563eb] font-black text-xs sm:text-sm">
-                              <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                            <div className="bg-blue-600 text-white shadow-xs rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm">
+                              <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                               <span>{property.surface} m²</span>
                             </div>
                           </div>
@@ -1100,13 +1106,13 @@ function Index() {
                     </div>
 
                     <div className="flex items-center gap-3 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
-                      <span className="text-slate-500 font-extrabold uppercase tracking-wider text-xs font-sans">{t.properties.sortBy}:</span>
+                      <span className="text-slate-600 font-black uppercase tracking-wider text-xs font-sans">{t.properties.sortBy}:</span>
                       <button 
                         onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                        className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-xl px-4 py-2 font-black text-[#0f172a] hover:bg-slate-200 transition-colors shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
+                        className="flex items-center gap-2 bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2 font-black text-[#0f172a] hover:text-[#2563eb] transition-all shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
                       >
                         {sortOption === "precio_asc" ? "Precio: Menor a Mayor" : sortOption === "precio_desc" ? "Precio: Mayor a Menor" : t.properties.mostRecent} 
-                        <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                        <ChevronDown className="w-4 h-4 text-slate-700 shrink-0" />
                       </button>
 
                       {openDropdown === "ordenar" && (

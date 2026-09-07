@@ -1350,30 +1350,30 @@ function Index() {
       </section>
 
       {/* ── TESTIMONIOS / NOSOTROS ── */}
-      <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-6 md:py-14 scroll-mt-24 md:scroll-mt-28">
+      <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-5 md:py-10 scroll-mt-24 md:scroll-mt-28">
         <div id="testimonios" className="-top-28 relative block invisible" />
-        <div className="bg-[#f8fafc] rounded-[28px] md:rounded-[36px] shadow-2xl border border-slate-300/80 p-6 sm:p-10 md:p-14 mx-4 md:mx-auto max-w-[1300px] relative z-10 overflow-hidden text-[#0f172a]">
+        <div className="bg-[#f8fafc] rounded-[24px] md:rounded-[30px] shadow-xl border border-slate-300/80 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-60 pointer-events-none z-0" />
           <div className="relative z-10">
             {/* Header */}
             <Reveal>
-              <div className="mb-8 md:mb-12 text-center">
-                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs sm:text-sm font-black tracking-widest uppercase px-4 sm:px-5 py-2 rounded-2xl shadow-md border border-white/10 mb-3.5">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              <div className="mb-6 md:mb-8 text-center">
+                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-white/10 mb-2.5">
+                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>{t.testimonios.tag}</span>
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-[#0f172a] tracking-tight mb-3 font-sans">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-2 font-sans">
                   {t.testimonios.title1}{" "}
-                  <span className="relative inline-block text-[#2563eb] pb-2">
+                  <span className="relative inline-block text-[#2563eb] pb-1.5">
                     {t.testimonios.title2}
-                    <svg className="absolute -bottom-1 left-0 w-full h-3 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
+                    <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
                       <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                     </svg>
                   </span>
                 </h2>
-                <div className="mt-3 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-1.5 shadow-sm">
-                  <GoogleIcon className="w-4 h-4 shrink-0" />
+                <div className="mt-2 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3.5 py-1 shadow-xs">
+                  <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
                   <span className="text-xs font-bold text-slate-700">
                     {language === 'ca' ? 'Ressenyes verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas verificadas en Google'}
                   </span>
@@ -1382,7 +1382,7 @@ function Index() {
             </Reveal>
 
             {/* 3 Real Google Reviews Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
               {t.testimonios.items.map((item, i) => {
                 const cardMeta = [
                   {
@@ -1403,59 +1403,59 @@ function Index() {
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_35px_-10px_rgba(15,23,42,0.12)] hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-5.5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_28px_-8px_rgba(15,23,42,0.1)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
                       
                       {/* Top Accent Solid Bar */}
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
                       <div className="relative z-10">
                         {/* Top Meta: Service Pill + Google Logo */}
-                        <div className="flex items-center justify-between gap-2 mb-4">
-                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-[#0b214a]">
-                            <meta.Icon className="w-4 h-4 text-[#2563eb]" />
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[#0b214a]">
+                            <meta.Icon className="w-3.5 h-3.5 text-[#2563eb]" />
                             <span>{meta.category}</span>
                           </span>
 
-                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-3 py-1 rounded-full text-xs font-bold text-slate-700 shadow-xs">
-                            <GoogleIcon className="w-4 h-4 shrink-0" />
+                          <div className="inline-flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-xs font-bold text-slate-700 shadow-xs">
+                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>
 
                         {/* 5 Stars Rating Clean (No redundant score pill) */}
-                        <div className="flex items-center gap-1 mb-4 text-amber-400">
+                        <div className="flex items-center gap-1 mb-3 text-amber-400">
                           {[...Array(5)].map((_, s) => (
-                            <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                            <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                           ))}
                         </div>
 
                         {/* Quote Text */}
-                        <p className="text-slate-700 text-[14.5px] sm:text-[15px] leading-relaxed font-normal mb-6">
+                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4">
                           “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
-                        <div className="flex items-center gap-3">
-                          <div className="w-11 h-11 rounded-full bg-[#0b214a] text-white font-black text-base flex items-center justify-center shrink-0 shadow-sm border-2 border-white ring-2 ring-slate-200 relative">
+                      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
                             {initials[i % initials.length]}
-                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
-                              <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
+                            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
+                              <Check className="w-2 h-2 text-white stroke-[3.5]" />
                             </div>
                           </div>
                           <div className="flex flex-col">
-                            <strong className="font-bold text-[15px] sm:text-base text-[#0f172a] tracking-tight leading-snug">
+                            <strong className="font-bold text-sm text-[#0f172a] tracking-tight leading-tight">
                               {item.author}
                             </strong>
-                            <span className="text-xs text-slate-500 font-medium">
+                            <span className="text-[11px] text-slate-500 font-medium">
                               {item.time}
                             </span>
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-white" />
+                        <span className="inline-flex items-center gap-1 text-[10.5px] font-bold text-white bg-[#2563eb] px-2 py-0.5 rounded-full shadow-xs shrink-0">
+                          <CheckCircle2 className="w-2.5 h-2.5 text-white" />
                           <span className="hidden sm:inline">{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>
                       </div>

@@ -709,11 +709,8 @@ function Index() {
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
-        {/* ── HERO ── */}
+        {/* ── HERO CON CINTA DE MOVIMIENTO INTEGRADA ── */}
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
-
-        {/* ── CONTINUOUS AUTHORITY MARQUEE ── */}
-        <MarqueeRibbon language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-onyx py-6 md:py-10 border-t border-slate-200/80 scroll-mt-24 md:scroll-mt-28">

@@ -4,6 +4,7 @@ import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award } from "luci
 import heroBgDesktop from "@/assets/family_barcelona_opt_min.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 import { translations } from './data/translations';
+import MarqueeRibbon from '@/components/MarqueeRibbon';
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -69,7 +70,7 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-4 sm:pb-6 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
+      className="relative text-slate-900 min-h-svh sm:min-h-screen pt-16 sm:pt-20 lg:pt-24 pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12"
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute right-0 top-0 w-full h-full">
@@ -199,6 +200,11 @@ export default function HeroCarousel({
             <p className="text-[13.5px] sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </motion.div>
+      </div>
+
+      {/* ── CONTINUOUS AUTHORITY MARQUEE INTEGRATED AS HERO BASE ── */}
+      <div className="w-full relative z-20 mt-4 sm:mt-6">
+        <MarqueeRibbon language={language} className="-mx-4 md:-mx-8 xl:-mx-12" />
       </div>
     </section>
   );

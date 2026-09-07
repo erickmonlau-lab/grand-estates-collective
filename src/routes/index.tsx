@@ -1594,25 +1594,28 @@ function Index() {
                 </div>
               </Reveal>
 
-              {/* Help Bubble Card - LETRAS MÁS GRANDES */}
+              {/* Help Bubble Card - Premium, Spacious, Perfectly Balanced */}
               <Reveal delay={0.1} className="w-full">
-                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl text-[#0f172a]">
-                  <div className="flex items-center gap-4 w-full sm:w-auto">
-                    <div className="w-14 h-14 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
-                      <MessageCircle className="w-7 h-7" />
+                <div className="bg-white border-2 border-[#2563eb] rounded-3xl p-6 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6 shadow-xl text-[#0f172a]">
+                  <div className="flex items-center gap-4.5 sm:gap-5 flex-1">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-md">
+                      <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
                     </div>
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-black text-[#0f172a] leading-tight font-sans">
-                        {language === "ca" ? "Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
+                    <div className="flex-1">
+                      <h3 className="text-xl sm:text-2xl font-black text-[#0f172a] leading-tight font-sans tracking-tight">
+                        {language === "ca" ? "¿Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
                       </h3>
-                      <p className="text-slate-700 text-base sm:text-lg font-extrabold leading-snug mt-1 font-sans">
+                      <p className="text-slate-600 text-sm sm:text-base font-extrabold leading-relaxed mt-1 font-sans">
                         {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
                       </p>
                     </div>
                   </div>
-                  <a href="#contacto" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base px-8 py-4 rounded-full transition-all shadow-md flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap">
+                  <a 
+                    href="#contacto" 
+                    className="w-full md:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base px-7 py-3.5 sm:py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 shrink-0 cursor-pointer font-sans whitespace-nowrap group hover:scale-[1.02]"
+                  >
                     <span>{t.hero.contacto}</span>
-                    <ArrowRight className="w-5 h-5 text-white" />
+                    <ArrowRight className="w-4.5 h-4.5 text-white group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                   </a>
                 </div>
               </Reveal>

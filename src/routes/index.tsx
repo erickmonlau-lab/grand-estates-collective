@@ -949,9 +949,9 @@ function Index() {
               </button>
             </div>
 
-            {/* Quick access chips for zones - Horizontal scrollable carousel on mobile */}
-            <div className="flex items-center gap-2.5 mt-6 pb-6 border-b border-slate-100 overflow-x-auto no-scrollbar scroll-smooth -mx-1 px-1">
-              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider mr-2 shrink-0 font-sans">{t.properties.popularZones}:</span>
+            {/* Quick access chips for zones - Fully wrapped and visible without scrolling */}
+            <div className="flex flex-wrap items-center gap-2.5 mt-6 pb-6 border-b border-slate-100">
+              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider mr-1 shrink-0 font-sans">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
                 ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
@@ -964,7 +964,7 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`px-4 py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 whitespace-nowrap shadow-xs ${
+                    className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer font-sans shrink-0 shadow-xs ${
                       isActive 
                         ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
                         : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"

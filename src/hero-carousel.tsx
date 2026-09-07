@@ -12,10 +12,7 @@ interface HeroCarouselProps {
 
 const expo = [0.16, 1, 0.3, 1] as const;
 
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-
-// Self-contained: fires count-up when in view
+// Self-contained: fires count-up on mount after 400ms. Always animates.
 function StatCounter({
   target,
   prefix = "",
@@ -28,33 +25,29 @@ function StatCounter({
   duration?: number;
 }) {
   const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      setCount(target);
-      return;
-    }
-    
-    if (isInView) {
+    // 400ms delay gives SSR hydration time to settle before starting RAF
+    const delay = setTimeout(() => {
       let startTime: number | null = null;
       let raf: number;
       const step = (ts: number) => {
         if (!startTime) startTime = ts;
         const progress = Math.min((ts - startTime) / duration, 1);
+        // Cubic ease-out
         const ease = 1 - Math.pow(1 - progress, 3);
         setCount(Math.round(ease * target));
         if (progress < 1) raf = requestAnimationFrame(step);
       };
       raf = requestAnimationFrame(step);
       return () => cancelAnimationFrame(raf);
-    }
-  }, [isInView, target, duration, shouldReduceMotion]);
+    }, 400);
+    return () => clearTimeout(delay);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // runs once on mount
 
   const display = target >= 1000 ? new Intl.NumberFormat('es-ES').format(count) : count;
-  return <span ref={ref}>{prefix}{display}{suffix}</span>;
+  return <span>{prefix}{display}{suffix}</span>;
 }
 
 export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
@@ -118,35 +111,20 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
               </div>
             </motion.div>
             <motion.h1
-              initial={shouldReduceMotion ? false : { clipPath: "inset(100% 0 0 0)", y: 15 }}
-              animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: expo }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.15, ease: expo }}
               className="text-[32px] xs:text-[38px] sm:text-5xl md:text-[3.5rem] lg:text-[4.25rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-3.5 sm:mb-5 font-heading"
             >
               {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1 relative">
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
                 {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
-                {!shouldReduceMotion && (
-                  <svg
-                    viewBox="0 0 300 24"
-                    className="absolute -bottom-3 left-0 w-full h-[18px] sm:h-[24px] pointer-events-none stroke-[#2563eb] stroke-[3px] sm:stroke-[4px] fill-transparent overflow-visible"
-                    preserveAspectRatio="none"
-                  >
-                    <motion.path
-                      d="M5,15 Q150,0 295,15"
-                      strokeLinecap="round"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-                    />
-                  </svg>
-                )}
               </span>
             </motion.h1>
             <motion.p
-              initial={shouldReduceMotion ? false : { clipPath: "inset(100% 0 0 0)", opacity: 0, y: 10 }}
-              animate={{ clipPath: "inset(-20% 0 0 0)", opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25, ease: expo }}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.25, ease: expo }}
               className="text-[#1e293b] text-[13.5px] sm:text-lg md:text-xl mb-5 sm:mb-7 font-bold leading-relaxed font-sans max-w-[540px]"
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
@@ -185,47 +163,39 @@ export default function HeroCarousel({ language = 'es' }: HeroCarouselProps) {
         </div>
 
         <motion.div
-          initial={shouldReduceMotion ? false : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-            }
-          }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.55, ease: expo }}
           className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 relative z-20 mt-4 sm:mt-6 lg:mt-8 mb-1"
-          style={{ perspective: "1000px" }}
         >
-          <motion.div variants={{ hidden: { opacity: 0, rotateY: 90 }, visible: { opacity: 1, rotateY: 0 } }} transition={{ duration: 0.6, ease: expo }} className="flex flex-col items-center justify-center text-center px-3 py-4 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2" />
-            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 text-white">
+          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2 sm:mb-2.5" />
+            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-white">
               <StatCounter target={4500} suffix="+" />
             </p>
-            <p className="text-[12px] sm:text-[13px] font-semibold text-slate-300 leading-tight font-sans uppercase tracking-wider">{t.heroCarousel.stats.clientesLabel}</p>
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, rotateY: 90 }, visible: { opacity: 1, rotateY: 0 } }} transition={{ duration: 0.6, ease: expo }} className="flex flex-col items-center justify-center text-center px-3 py-4 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-            <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2" />
-            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+            <p className="text-[14px] sm:text-[15px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
+          </div>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+            <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2 sm:mb-2.5" />
+            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-[#0b214a]">
               <StatCounter target={98} suffix="%" />
             </p>
-            <p className="text-[12px] sm:text-[13px] font-semibold text-slate-500 leading-tight font-sans uppercase tracking-wider">{t.heroCarousel.stats.satisfaccionLabel}</p>
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, rotateY: 90 }, visible: { opacity: 1, rotateY: 0 } }} transition={{ duration: 0.6, ease: expo }} className="flex flex-col items-center justify-center text-center px-3 py-4 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-            <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2" />
-            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 text-white">
+            <p className="text-[14px] sm:text-[15px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
+          </div>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+            <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#6C96F7] mb-2 sm:mb-2.5" />
+            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-white">
               <StatCounter target={300} prefix="+" />
             </p>
-            <p className="text-[12px] sm:text-[13px] font-semibold text-slate-300 leading-tight font-sans uppercase tracking-wider">{t.heroCarousel.stats.comunidadesLabel}</p>
-          </motion.div>
-          <motion.div variants={{ hidden: { opacity: 0, rotateY: 90 }, visible: { opacity: 1, rotateY: 0 } }} transition={{ duration: 0.6, ease: expo }} className="flex flex-col items-center justify-center text-center px-3 py-4 sm:px-4 sm:py-5 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-            <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2" />
-            <p className="text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
+            <p className="text-[14px] sm:text-[15px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
+          </div>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-5 sm:px-5 sm:py-6 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+            <Award className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] mb-2 sm:mb-2.5" />
+            <p className="text-[38px] sm:text-[44px] lg:text-[50px] font-black leading-none font-sans tracking-tight mb-2 text-[#0b214a]">
               <StatCounter target={15} suffix="+" />
             </p>
-            <p className="text-[12px] sm:text-[13px] font-semibold text-slate-500 leading-tight font-sans uppercase tracking-wider">{t.heroCarousel.stats.anosLabel}</p>
-          </motion.div>
+            <p className="text-[14px] sm:text-[15px] font-bold text-slate-600 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
+          </div>
         </motion.div>
       </div>
     </section>

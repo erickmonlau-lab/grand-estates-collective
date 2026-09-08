@@ -471,49 +471,10 @@ function SantaColomaBarrioPage() {
       <Navbar language={language} setLanguage={handleLanguageChange} />
 
       <main id="main-content">
-        {/* ── HERO CANÓNICO CON FOTOGRAFÍA OFICIAL Y TITULAR EQUILIBRADO ── */}
+        {/* ── HERO CANÓNICO IDÉNTICO A LA PÁGINA PRINCIPAL ── */}
         <HeroCarousel
           language={language}
           onPerformSearch={handleHeroSearch}
-          customTag={
-            language === "ca"
-              ? `Barri ${data.name} · Santa Coloma`
-              : language === "en"
-              ? `Neighborhood ${data.name} · Santa Coloma`
-              : `Barrio ${data.name} · Santa Coloma`
-          }
-          customHeadline={
-            <>
-              {language === "ca"
-                ? "Administració de Finques,"
-                : language === "en"
-                ? "Property Management,"
-                : "Administración de Fincas,"}
-              <br />
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
-                {language === "ca"
-                  ? `a ${data.name} · Santa Coloma`
-                  : language === "en"
-                  ? `in ${data.name} · Santa Coloma`
-                  : `en ${data.name} · Santa Coloma`}
-              </span>
-            </>
-          }
-          customSubtitle={
-            language === "ca"
-              ? `Gestió experta per a comunitats al barri de ${data.name}: seu central a Av. dels Banús 49, auditoria gratuïta de despeses, resolució d'avaries en ~${data.emergencyResponseMinutes} minuts i màxima transparència comptable.`
-              : language === "en"
-              ? `Expert property administration for communities in ${data.name}: local headquarters at Av. dels Banús 49, free cost audit, emergency response in ~${data.emergencyResponseMinutes} minutes, and transparent bookkeeping.`
-              : `Gestión experta para comunidades en el barrio de ${data.name}: sede central en Av. dels Banús 49, auditoría gratis de gastos, resolución de averías en ~${data.emergencyResponseMinutes} minutos y máxima transparencia contable.`
-          }
-          customTrustBadge={
-            language === "ca"
-              ? `Atenció en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode} (${data.district})`
-              : language === "en"
-              ? `Response in ~${data.emergencyResponseMinutes} min · ZIP ${data.postalCode} (${data.district})`
-              : `Atención en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode} (${data.district})`
-          }
-          customValuationHref="#valuator-form"
         />
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}

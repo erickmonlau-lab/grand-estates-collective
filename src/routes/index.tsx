@@ -1219,17 +1219,17 @@ function Index() {
                           </div>
 
                           {/* Price & Action Button */}
-                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2">
                             <div>
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none block mb-1 font-sans">
+                              <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#2563eb]/10 text-[#2563eb] mb-1.5 font-sans">
                                 {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                               </span>
                               <div className="flex items-baseline">
-                                <span className="text-2xl sm:text-[26px] font-black text-[#0b214a] leading-none font-sans tracking-tight">
-                                  {new Intl.NumberFormat('es-ES').format(property.price)}€
+                                <span className="text-2xl sm:text-3xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
+                                  {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5">€</span>
                                 </span>
                                 {isRent && (
-                                  <span className="text-xs font-bold text-slate-500 font-sans ml-1">/mes</span>
+                                  <span className="text-xs font-black text-slate-500 font-sans ml-1">/mes</span>
                                 )}
                               </div>
                             </div>

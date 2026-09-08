@@ -1195,16 +1195,16 @@ function Index() {
 
                             {/* Features Micro-Boxes */}
                             <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
-                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                 <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                               </div>
-                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                 <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                               </div>
-                              <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                <Maximize2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                 <span>{property.surface} m²</span>
                               </div>
                             </div>

@@ -865,16 +865,16 @@ function SantaColomaBarrioPage() {
                                 </h3>
 
                                 <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
-                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                    <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                    <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                     <span>{prop.bedrooms > 0 ? prop.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
                                   </div>
-                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                    <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                    <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                     <span>{prop.bathrooms > 0 ? prop.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                                   </div>
-                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
-                                    <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                    <Ruler className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                     <span>{prop.surface} m²</span>
                                   </div>
                                 </div>

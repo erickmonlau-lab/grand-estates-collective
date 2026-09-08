@@ -145,6 +145,19 @@ const ZONE_PRICE_PER_M2: Record<string, number> = {
   "Oliveres - Can Serra": 1720
 };
 
+const ZONE_TO_SLUG: Record<string, string> = {
+  "Centre": "centre",
+  "Centro": "centre",
+  "Santa Rosa - Can Mariner": "santa-rosa",
+  "Singuerlín": "singuerlin",
+  "Fondo": "fondo",
+  "El Raval": "el-raval",
+  "Riera Alta - Llatí": "riera-alta",
+  "Riu": "riu-nord",
+  "Riu Nord / Riu Sud": "riu-nord",
+  "Oliveres - Can Serra": "oliveres"
+};
+
 export const Route = createFileRoute("/administrador-fincas_/$city")({
   head: ({ params }) => {
     const rawSlug = (params.city as string) || "centre";
@@ -1070,8 +1083,11 @@ function SantaColomaBarrioPage() {
 
         {/* ── 4. VALORADOR DE INMUEBLES CANÓNICO CON PRESELECCIÓN DEL BARRIO ── */}
         <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-24 md:scroll-mt-28">
-          <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
+          <div id="valorador" className="-top-28 relative block invisible" />
+          <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+              
+              {/* LEFT COLUMN: Form */}
               <div className="lg:col-span-7 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-3 sm:mb-4">
                   <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-xs font-black tracking-wider uppercase px-3.5 py-1.5 rounded-xl shadow-xs font-sans">
@@ -1092,93 +1108,124 @@ function SantaColomaBarrioPage() {
                 </p>
 
                 <div className="w-full max-w-xl">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                        {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
-                      </label>
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 w-full">
-                          <MapPin className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                          <select
-                            id="valuator-zona-select"
-                            aria-label="Seleccionar zona de la propiedad"
-                            value={valuatorData.zona}
-                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
-                          >
-                            {zonas.filter(z => z !== "Cualquier zona").map(z => (
-                              <option key={z} value={z}>{formatLocation(z, language)}</option>
-                            ))}
-                          </select>
+                  <div className="w-full">
+                    {/* Inputs Row with crystal clear visual labels & m² suffix */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                      {/* Select Zona */}
+                      <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                        <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
+                          {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
+                        </label>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2.5 w-full">
+                            <MapPin className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
+                            <select
+                              id="valuator-zona-select"
+                              aria-label="Seleccionar zona de la propiedad"
+                              value={valuatorData.zona}
+                              onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                              className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                            >
+                              <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
+                              {zonas.map(z => (
+                                <option key={z} value={z}>{formatLocation(z, language)}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                         </div>
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                      </div>
+
+                      {/* Input Superficie (m²) */}
+                      <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                        <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
+                          {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
+                        </label>
+                        <div className="flex items-center gap-2.5">
+                          <Ruler className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
+                          <input
+                            id="valuator-metros-input"
+                            type="number"
+                            min="20"
+                            max="600"
+                            placeholder="85"
+                            value={valuatorData.metros}
+                            onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
+                          />
+                          <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border border-slate-900 px-2.5 py-0.5 rounded-md shrink-0">
+                            m²
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                        {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
-                      </label>
-                      <div className="flex items-center gap-2.5">
-                        <Ruler className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                        <input
-                          id="valuator-metros-input"
-                          type="number"
-                          min="20"
-                          max="600"
-                          placeholder="85"
-                          value={valuatorData.metros}
-                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
-                        />
-                        <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border border-slate-900 px-2.5 py-0.5 rounded-md shrink-0">
-                          m²
-                        </span>
-                      </div>
+                    {/* Submit Button */}
+                    <button
+                      type="button"
+                      onClick={handleCalculateValuation}
+                      disabled={isCalculatingValuation}
+                      className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
+                    >
+                      <Home className="w-4 h-4 text-white" />
+                      <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
+                      <ArrowRight className="w-4 h-4 text-white" />
+                    </button>
+
+                    {/* Trust Badges - Horizontal row centered under button */}
+                    <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-3 sm:gap-4 mt-2 w-full">
+                      <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                        <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#60a5fa] stroke-[3] shrink-0" />
+                        <span>{t.valorador.sinCompromiso}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
+                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
+                        <span>{t.valorador.resultadoInmediato}</span>
+                      </span>
                     </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleCalculateValuation}
-                    disabled={isCalculatingValuation}
-                    className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
-                  >
-                    <Home className="w-4 h-4 text-white" />
-                    <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </button>
-
-                  <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-3 sm:gap-4 mt-2 w-full">
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700 shrink-0">
-                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#60a5fa] stroke-[3] shrink-0" />
-                      <span>{t.valorador.sinCompromiso}</span>
-                    </span>
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700 shrink-0">
-                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
-                      <span>{t.valorador.resultadoInmediato}</span>
-                    </span>
                   </div>
                 </div>
               </div>
 
+              {/* RIGHT COLUMN: White Floating Result Card with Permanent Blue Border */}
               <div className="lg:col-span-5 flex items-center justify-center lg:justify-end w-full">
                 <div className="bg-white text-[#0f172a] rounded-3xl p-5 sm:p-7 shadow-xl w-full max-w-[460px] border-2 border-[#2563eb] relative overflow-hidden text-center">
+                  
+                  {/* Spinner / Skeleton Loading Overlay with AnimatePresence */}
+                  <AnimatePresence>
+                    {isCalculatingValuation && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6"
+                      >
+                        <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
+                        <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
+                        <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* 1. "VALOR ESTIMADO" pill badge */}
                   <div className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white px-3.5 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider mb-2.5 shadow-sm font-sans">
                     <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
                     <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
                   </div>
 
+                  {/* Main Estimated Value with animated Count-Up */}
                   <div className="text-3xl sm:text-4xl font-black text-[#0f172a] mb-1.5 leading-none tracking-tight font-sans">
                     <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-bold">€</span>
                   </div>
 
+                  {/* 2. Rango estimado de mercado en una sola línea limpia */}
                   <p className="text-xs sm:text-sm font-black text-[#0f172a] mb-1.5 font-sans">
                     {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                   </p>
 
-                  <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-2 border border-slate-200">
+                  {/* Animated Range Progress Bar */}
+                  <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-2 border border-slate-200/80">
                     <motion.div
                       key={`range-bar-${calculatedResult.estimatedValue}`}
                       initial={shouldReduceMotion ? false : { width: "0%" }}
@@ -1196,6 +1243,7 @@ function SantaColomaBarrioPage() {
                     <span className="text-slate-800 font-semibold">{t.valorador.disclaimer}</span>
                   </div>
 
+                  {/* 3. Sparkline Price Trend Chart */}
                   <div className="pt-3 border-t border-slate-100">
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
@@ -1205,38 +1253,113 @@ function SantaColomaBarrioPage() {
                         <TrendingUp className="w-3 h-3 text-white stroke-[3]" /> +4.2%
                       </span>
                     </div>
-
-                    <div className="mt-2.5 bg-white border border-slate-300 rounded-xl p-2.5 text-left shadow-2xs">
-                      <div className="flex items-center justify-between text-xs sm:text-[13px]">
-                        <span className="font-extrabold text-black">
-                          {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
-                        </span>
-                        <span className="font-black text-black">
-                          {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
-                        </span>
-                      </div>
+                    <div className="w-full h-16 sm:h-20 relative pt-1">
+                      <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
+                        <defs>
+                          <linearGradient id="sparklineGradCity" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                          </linearGradient>
+                        </defs>
+                        {/* Subdued horizontal guide lines */}
+                        <line x1="0" y1="20" x2="250" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                        <line x1="0" y1="50" x2="250" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                        
+                        {/* Fill area & Trend curve */}
+                        <path
+                          d="M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14 L 250,80 L 15,80 Z"
+                          fill="url(#sparklineGradCity)"
+                        />
+                        <motion.path
+                          key={`trend-line-${calculatedResult.estimatedValue}`}
+                          d="M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14" 
+                          fill="none" 
+                          stroke="#2563eb" 
+                          strokeWidth="2.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          initial={shouldReduceMotion ? false : { pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 1, ease: "easeInOut" }}
+                        />
+                        
+                        {/* Data Points */}
+                        <circle cx="15" cy="62" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                        <circle cx="62" cy="55" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                        <circle cx="109" cy="44" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                        <circle cx="156" cy="35" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                        <circle cx="203" cy="24" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
+                        <circle cx="250" cy="14" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
+                      </svg>
                     </div>
-
-                    <div className="mt-3">
-                      <a
-                        href={`https://wa.me/34689438012?text=${encodeURIComponent(
-                          language === "ca"
-                            ? `Hola Gesgrama, voldria una valoració oficial per al meu immoble al barri de ${data.name} (~${valuatorData.metros} m²).`
-                            : language === "en"
-                            ? `Hello Gesgrama, I would like an official appraisal for my property in ${data.name} (~${valuatorData.metros} sq m).`
-                            : `Hola Gesgrama, me gustaría una valoración oficial para mi inmueble en el barrio de ${data.name} (~${valuatorData.metros} m²).`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs py-3 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer font-sans"
-                      >
-                        <MessageCircle className="w-4 h-4 fill-white text-[#075E54] shrink-0" />
-                        <span>{language === "ca" ? "Demanar valoració per WhatsApp" : language === "en" ? "Request appraisal via WhatsApp" : "Solicitar valoración por WhatsApp"}</span>
-                      </a>
+                    {/* X-Axis Month Labels */}
+                    <div className="flex justify-between items-center text-[10px] sm:text-xs font-black text-[#0f172a] mt-1 px-1 font-sans border-t border-slate-100/80 pt-1">
+                      {(() => {
+                        const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
+                        const now = new Date();
+                        const months = [];
+                        for (let i = 5; i >= 0; i--) {
+                          const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                          const m = d.toLocaleDateString(locale, { month: "short" });
+                          months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
+                        }
+                        return months.map((month, mIdx) => (
+                          <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-[#0f172a]"}>
+                            {month}
+                          </span>
+                        ));
+                      })()}
                     </div>
+                  </div>
+
+                  {/* Hyper-local Price Benchmark */}
+                  <div className="mt-2.5 bg-white border border-slate-300 rounded-xl p-2.5 text-left shadow-2xs">
+                    <div className="flex items-center justify-between text-xs sm:text-[13px]">
+                      <span className="font-extrabold text-black">
+                        {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
+                      </span>
+                      <span className="font-black text-black">
+                        {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Bottom CTA Row: Two solid-background buttons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2.5">
+                    <Link
+                      to="/administrador-fincas/$city"
+                      params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
+                      className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-extrabold text-[#0b214a] hover:text-[#2563eb] bg-white hover:bg-slate-100 border border-slate-300 py-2.5 px-3 rounded-xl transition-all shadow-2xs group"
+                    >
+                      <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                      <span className="truncate">
+                        {language === "ca" 
+                          ? `Guia a ${formatLocation(calculatedResult.zoneName, language)}`
+                          : language === "en"
+                          ? `Guide in ${formatLocation(calculatedResult.zoneName, language)}`
+                          : `Guía en ${formatLocation(calculatedResult.zoneName, language)}`}
+                      </span>
+                    </Link>
+
+                    <a
+                      href={`https://wa.me/34689438012?text=${encodeURIComponent(
+                        language === "ca"
+                          ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${valuatorData.metros || 85} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
+                          : language === "en"
+                          ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${valuatorData.metros || 85} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
+                          : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${valuatorData.metros || 85} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs py-2.5 px-3 rounded-xl transition-all shadow-2xs flex items-center justify-center gap-1.5 group cursor-pointer"
+                    >
+                      <MessageCircle className="w-4 h-4 fill-white text-[#075E54] shrink-0" />
+                      <span>WhatsApp</span>
+                    </a>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>

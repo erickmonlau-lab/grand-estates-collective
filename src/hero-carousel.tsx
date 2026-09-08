@@ -106,7 +106,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: expo }}
-              className={customHeadline ? "mb-1.5 sm:mb-2" : "mb-2 sm:mb-3"}
+              className="mb-2 sm:mb-3"
             >
               <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-[13px] font-black uppercase tracking-[0.12em] px-4 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
                 <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
@@ -117,11 +117,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
-              className={`${
-                customHeadline
-                  ? "text-[22px] xs:text-[25px] sm:text-[1.85rem] md:text-[2.15rem] lg:text-[2.4rem] leading-[1.05] sm:leading-[1.03] mb-1.5 sm:mb-2"
-                  : "text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.08] sm:leading-[1.04] mb-2.5 sm:mb-3.5"
-              } font-black text-[#0b214a] tracking-tight font-heading`}
+              className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.08] sm:leading-[1.04] mb-2.5 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading"
             >
               {customHeadline ? (
                 customHeadline
@@ -138,11 +134,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
-              className={`text-[#1e293b] ${
-                customHeadline
-                  ? "text-[12.5px] sm:text-[14px] md:text-[0.92rem] mb-2 sm:mb-2.5"
-                  : "text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5"
-              } font-bold leading-relaxed font-sans max-w-[600px]`}
+              className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[600px]"
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
               {customSubtitle || t.heroCarousel.subtitle}
@@ -151,9 +143,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
-              className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit ${
-                customHeadline ? "mb-2 sm:mb-2.5" : "mb-3.5 sm:mb-4.5"
-              }`}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3.5 sm:mb-4.5"
             >
               <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Home className="w-4.5 h-4.5 shrink-0" />
@@ -223,25 +213,23 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className={`grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 relative z-20 ${
-            customHeadline ? "mt-1.5 sm:mt-2.5 lg:mt-3" : "mt-2 sm:mt-3 lg:mt-4"
-          } mb-0`}
+          className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 lg:gap-4 relative z-20 mt-2 sm:mt-3 lg:mt-4 mb-0"
         >
-          <div className={`flex flex-col items-center justify-center text-center px-3 ${customHeadline ? "py-2.5 sm:py-3.5" : "py-3.5 sm:py-4.5"} sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5`}>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1.5 sm:mb-2" />
             <p className="text-[32px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-1 text-white">
               <StatCounter target={4500} suffix="+" />
             </p>
             <p className="text-[13.5px] sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
-          <div className={`flex flex-col items-center justify-center text-center px-3 ${customHeadline ? "py-2.5 sm:py-3.5" : "py-3.5 sm:py-4.5"} sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5`}>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1.5 sm:mb-2" />
             <p className="text-[32px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-1 text-[#0b214a]">
               <StatCounter target={98} suffix="%" />
             </p>
             <p className="text-[13.5px] sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
-          <div className={`flex flex-col items-center justify-center text-center px-3 ${customHeadline ? "py-2.5 sm:py-3.5" : "py-3.5 sm:py-4.5"} sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5`}>
+          <div className="flex flex-col items-center justify-center text-center px-3 py-3.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1.5 sm:mb-2" />
             <p className="text-[32px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-1 text-white">
               <StatCounter target={300} prefix="+" />

@@ -506,13 +506,6 @@ function SantaColomaBarrioPage() {
               ? `Professional community management in ${data.name} with local expertise, transparency, and fast response.`
               : `Cuidamos de tu comunidad en ${data.name} con criterio local, máxima transparencia y un equipo que responde.`
           }
-          customTrustBadge={
-            language === "ca"
-              ? `Atenció en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode}`
-              : language === "en"
-              ? `Response in ~${data.emergencyResponseMinutes} min · ZIP ${data.postalCode}`
-              : `Atención en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode}`
-          }
           customValuationHref="#valuator-form"
         />
 

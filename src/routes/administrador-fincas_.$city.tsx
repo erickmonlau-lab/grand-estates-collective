@@ -1266,64 +1266,63 @@ function SantaColomaBarrioPage() {
                   </AnimatePresence>
 
                   {/* 1. "VALOR ESTIMADO" pill badge */}
-                  <div className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white px-3.5 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider mb-2.5 shadow-sm font-sans">
-                    <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
+                  <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider mb-3 shadow-md font-sans">
+                    <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0 animate-pulse" />
                     <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
                   </div>
 
                   {/* Main Estimated Value with animated Count-Up */}
-                  <div className="text-3xl sm:text-4xl font-black text-[#0f172a] mb-1.5 leading-none tracking-tight font-sans">
-                    <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-bold">€</span>
+                  <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-2 leading-none tracking-tight font-sans">
+                    <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-black">€</span>
                   </div>
 
-                  {/* 2. Rango estimado de mercado en una sola línea limpia */}
-                  <p className="text-xs sm:text-sm font-black text-[#0f172a] mb-1.5 font-sans">
-                    {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a]">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
-                  </p>
+                  {/* 2. Rango estimado de mercado en una caja estilizada */}
+                  <div className="bg-slate-100/90 border border-slate-200 rounded-xl py-2 px-3 mb-2.5">
+                    <p className="text-xs sm:text-sm font-extrabold text-slate-700 font-sans">
+                      {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a] text-sm sm:text-base">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
+                    </p>
+                  </div>
 
                   {/* Animated Range Progress Bar */}
-                  <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-2 border border-slate-200/80">
+                  <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden mb-3 border border-slate-300">
                     <motion.div
                       key={`range-bar-${calculatedResult.estimatedValue}`}
                       initial={shouldReduceMotion ? false : { width: "0%" }}
                       animate={{ width: "70%" }}
                       transition={{ duration: 1.2, ease: easeOut }}
-                      className="h-full bg-gradient-to-r from-blue-400 to-[#2563eb] rounded-full"
+                      className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
                     />
                   </div>
 
-                  <div 
-                    className="flex items-center justify-center gap-2 text-xs sm:text-[13px] text-slate-800 mb-3.5 font-bold py-2.5 px-3.5 rounded-xl border border-slate-300 shadow-2xs"
-                    style={{ backgroundColor: "#ffffff" }}
-                  >
-                    <span className="text-[#2563eb] font-extrabold text-sm">*</span>
+                  <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-700 mb-4 font-bold py-2 px-3 rounded-xl bg-blue-50/70 border border-blue-200/80">
+                    <span className="text-[#2563eb] font-black text-base leading-none">*</span>
                     <span className="text-slate-800 font-semibold">{t.valorador.disclaimer}</span>
                   </div>
 
-                  {/* 3. Sparkline Price Trend Chart */}
-                  <div className="pt-3 border-t border-slate-100">
-                    <div className="flex items-center justify-between mb-1.5">
+                  {/* 3. Sparkline Price Trend Chart Container */}
+                  <div className="pt-3.5 pb-2 px-3.5 bg-slate-50 rounded-2xl border border-slate-200 mb-3">
+                    <div className="flex items-center justify-between mb-2">
                       <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
                         {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                       </span>
-                      <span className="bg-[#1e3a6e] text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-2xs font-sans">
-                        <TrendingUp className="w-3 h-3 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
+                      <span className="bg-[#2563eb] text-white px-3 py-1 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-sm font-sans">
+                        <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="w-full h-16 sm:h-20 relative pt-1">
+                    <div className="w-full h-20 sm:h-24 relative pt-1">
                       {(() => {
                         const spark = getSparklineData(calculatedResult.monthlyPrices);
                         return (
                           <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
                             <defs>
                               <linearGradient id="sparklineGradCity" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
-                                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                                <stop offset="0%" stopColor="#2563eb" stopOpacity="0.35" />
+                                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.02" />
                               </linearGradient>
                             </defs>
                             {/* Subdued horizontal guide lines */}
-                            <line x1="0" y1="20" x2="250" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
-                            <line x1="0" y1="50" x2="250" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                            <line x1="0" y1="20" x2="250" y2="20" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
+                            <line x1="0" y1="50" x2="250" y2="50" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
                             
                             {/* Fill area & Trend curve */}
                             <path
@@ -1335,7 +1334,7 @@ function SantaColomaBarrioPage() {
                               d={spark.linePath} 
                               fill="none" 
                               stroke="#2563eb" 
-                              strokeWidth="2.5" 
+                              strokeWidth="3" 
                               strokeLinecap="round" 
                               strokeLinejoin="round" 
                               initial={shouldReduceMotion ? false : { pathLength: 0 }}
@@ -1349,10 +1348,10 @@ function SantaColomaBarrioPage() {
                                 key={pIdx}
                                 cx={pt.cx}
                                 cy={pt.cy}
-                                r={pIdx === spark.points.length - 1 ? 3.5 : 2.5}
+                                r={pIdx === spark.points.length - 1 ? 4.5 : 3}
                                 fill={pIdx === spark.points.length - 1 ? "#2563eb" : "#ffffff"}
                                 stroke={pIdx === spark.points.length - 1 ? "#ffffff" : "#2563eb"}
-                                strokeWidth="2"
+                                strokeWidth="2.5"
                               />
                             ))}
                           </svg>
@@ -1360,7 +1359,7 @@ function SantaColomaBarrioPage() {
                       })()}
                     </div>
                     {/* X-Axis Month Labels */}
-                    <div className="flex justify-between items-center text-[10px] sm:text-xs font-black text-[#0f172a] mt-1 px-1 font-sans border-t border-slate-100/80 pt-1">
+                    <div className="flex justify-between items-center text-xs sm:text-[13px] font-black text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
                       {(() => {
                         const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
                         const now = new Date();
@@ -1371,7 +1370,7 @@ function SantaColomaBarrioPage() {
                           months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
                         }
                         return months.map((month, mIdx) => (
-                          <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-[#0f172a]"}>
+                          <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-slate-700"}>
                             {month}
                           </span>
                         ));
@@ -1380,25 +1379,25 @@ function SantaColomaBarrioPage() {
                   </div>
 
                   {/* Hyper-local Price Benchmark */}
-                  <div className="mt-2.5 bg-white border border-slate-300 rounded-xl p-2.5 text-left shadow-2xs">
-                    <div className="flex items-center justify-between text-xs sm:text-[13px]">
-                      <span className="font-extrabold text-black">
+                  <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3">
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
+                      <span className="font-extrabold text-slate-200">
                         {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
                       </span>
-                      <span className="font-black text-black">
+                      <span className="font-black text-[#60a5fa] text-sm sm:text-base">
                         {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
                       </span>
                     </div>
                   </div>
 
                   {/* Bottom CTA Row: Two solid-background buttons */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <Link
                       to="/administrador-fincas/$city"
                       params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
-                      className="w-full inline-flex items-center justify-center gap-1.5 text-xs font-extrabold text-[#0b214a] hover:text-[#2563eb] bg-white hover:bg-slate-100 border border-slate-300 py-2.5 px-3 rounded-xl transition-all shadow-2xs group"
+                      className="w-full inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-black text-[#0b214a] hover:text-[#2563eb] bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 py-3 px-3.5 rounded-xl transition-all shadow-xs group"
                     >
-                      <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                      <Building2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                       <span className="truncate">
                         {language === "ca" 
                           ? `Guia a ${formatLocation(calculatedResult.zoneName, language)}`
@@ -1418,7 +1417,7 @@ function SantaColomaBarrioPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs py-2.5 px-3 rounded-xl transition-all shadow-2xs flex items-center justify-center gap-1.5 group cursor-pointer"
+                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs sm:text-sm py-3 px-3.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 group cursor-pointer"
                     >
                       <WhatsAppBrandIcon className="w-4 h-4 fill-white shrink-0" />
                       <span>WhatsApp</span>

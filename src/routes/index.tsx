@@ -1272,14 +1272,14 @@ function Index() {
                           </div>
 
                           {/* Price & Action Button */}
-                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-                            <div>
-                              <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#2563eb]/10 text-[#2563eb] mb-1.5 font-sans">
+                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between gap-4">
+                            <div className="flex flex-col min-w-0 pr-2">
+                              <span className="inline-block self-start text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-[#2563eb] text-white mb-1.5 font-sans shadow-2xs">
                                 {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                               </span>
-                              <div className="flex items-baseline">
+                              <div className="flex items-baseline whitespace-nowrap">
                                 <span className="text-2xl sm:text-3xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
-                                  {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5">€</span>
+                                  {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
                                 </span>
                                 {isRent && (
                                   <span className="text-xs font-black text-slate-500 font-sans ml-1">/mes</span>
@@ -1287,8 +1287,8 @@ function Index() {
                               </div>
                             </div>
 
-                            <div className="inline-flex items-center gap-2 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
-                              <span>{t.properties.verDetalles || "Ver ficha"}</span>
+                            <div className="shrink-0 inline-flex items-center gap-2 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-3 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                              <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
                               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                             </div>
                           </div>

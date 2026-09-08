@@ -9,8 +9,8 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       logo: "/images/badges/logo-pji-escudo.jpg",
       alt: "Peritos Judiciales Inmobiliarios",
       number: "PJI 2024",
-      url: "https://peritosjudicialesinmobiliarios.com/",
-      title: "Asociación de Peritos Judiciales Inmobiliarios",
+      url: "https://www.apejuc.cat/",
+      title: "Associació de Perits Judicials Immobiliaris (APEJUC)",
       imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain"
     },
     {
@@ -18,8 +18,8 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       logo: "/images/badges/logo-apis-peritos.jpg",
       alt: "APIS - PERITOS",
       number: "1639",
-      url: "https://www.apiscatalunya.com/",
-      title: "APIS - Peritos Judiciales Inmobiliarios",
+      url: "https://consejocoapis.org/",
+      title: "Consejo General de los Colegios Oficiales de Agentes de la Propiedad Inmobiliaria",
       imgClass: "h-28 sm:h-34 md:h-38 w-auto object-contain"
     },
     {
@@ -28,7 +28,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       alt: "API - Col·legis i associació d'agents immobiliaris",
       number: "A10750",
       url: "https://www.apicatalunya.com/",
-      title: "Col·legi Oficial d'Agents de la Propietat Immobiliària (API)",
+      title: "Col·legi Oficial d'Agents de la Propietat Immobiliària (API Catalunya)",
       imgClass: "h-22 sm:h-28 md:h-32 w-auto object-contain"
     },
     {
@@ -36,8 +36,8 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       logo: "/images/badges/logo-aicat.jpg",
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
-      url: "https://habitatge.gencat.cat/ca/ambits/agencies-immobiliaries-aicat/",
-      title: "Registre d'Agents Immobiliaris de Catalunya (Generalitat de Catalunya)",
+      url: "https://habitatge.gencat.cat/ca/inici/",
+      title: "Registre d'Agents Immobiliaris de Catalunya — Agència de l'Habitatge de Catalunya (Generalitat)",
       imgClass: "w-full max-w-[260px] h-auto max-h-22 sm:max-h-28 md:max-h-32 object-contain rounded-xl shadow-xs contrast-105"
     }
   ];

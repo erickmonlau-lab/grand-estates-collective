@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import { SANTA_COLOMA_BARRIOS, type NeighborhoodDetail } from "@/data/geoLocations";
 import { properties, formatLocation } from "@/data/properties";
+import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
+import { getTranslatedProperty } from "@/lib/translateProperty";
 import { homeArticles as articles } from "@/data/homeArticles";
 import { translations } from "@/data/translations";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
@@ -438,8 +440,38 @@ function SantaColomaBarrioPage() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Real-time dynamic property store synchronized with admin panel
+  const [liveProperties, setLiveProperties] = useState<ExtendedProperty[]>(() => getLocalProperties());
+
+  useEffect(() => {
+    const unsub = subscribeProperties((list) => {
+      setLiveProperties(list);
+    });
+
+    const refresh = () => {
+      fetchProperties().then((data) => {
+        if (data) setLiveProperties(data);
+      });
+    };
+
+    refresh();
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", refresh);
+      window.addEventListener("focus", refresh);
+    }
+
+    return () => {
+      unsub();
+      if (typeof window !== "undefined") {
+        window.removeEventListener("storage", refresh);
+        window.removeEventListener("focus", refresh);
+      }
+    };
+  }, []);
+
   // Filtered properties
-  const filteredProperties = properties.filter(prop => {
+  const filteredProperties = liveProperties.filter(prop => {
     if (searchParams.mode === "favoritos") {
       return favorites.includes(prop.id);
     }
@@ -740,74 +772,124 @@ function SantaColomaBarrioPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
-                  {displayProperties.map((prop) => {
+                  {displayProperties.map((prop, idx) => {
                     const isFav = favorites.includes(prop.id);
+                    const pData = getTranslatedProperty(prop, language, t.propertiesData);
+                    const isRent = (prop.operation || "").toLowerCase() === "alquilar" || prop.price < 5000;
+                    const type = pData.type || prop.type || "Piso";
+
                     return (
-                      <div key={prop.id} className="card-lift group bg-white rounded-3xl overflow-hidden border-2 border-slate-200 shadow-md hover:border-[#2563eb] flex flex-col justify-between">
-                        <div>
-                          <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                            <img
-                              src={prop.image}
-                              alt={prop.title}
-                              loading="lazy"
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute top-3 left-3 flex items-center gap-2">
-                              <span className="bg-[#2563eb] text-white text-xs font-black px-3 py-1 rounded-full shadow-md">
-                                {prop.operation === "alquilar" ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}
-                              </span>
+                      <div key={prop.id} className="h-full">
+                        <Link to="/inmobiliaria/$slug" params={{ slug: prop.slug || prop.id }} className="block h-full">
+                          <div className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer">
+                            {/* Image Block */}
+                            <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
+                              <img
+                                src={prop.image}
+                                alt={pData.name || prop.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
+
+                              {/* Floating Status & Type Pills */}
+                              <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
+                                <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
+                                  <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
+                                  <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
+                                </span>
+                                <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                                  {type}
+                                </span>
+                              </div>
+
+                              {/* Heart Favorite Button */}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  toggleFavorite(prop.id);
+                                }}
+                                aria-label="Guardar en favoritos"
+                                className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                                  isFav
+                                    ? 'bg-red-500 text-white shadow-red-500/30'
+                                    : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
+                                }`}
+                              >
+                                <Heart className="w-5 h-5 fill-current" />
+                              </button>
+
+                              {/* Bottom-left Ref Badge */}
+                              <div className="absolute bottom-3 left-3.5 z-20">
+                                <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                                  Ref: {prop.ref || "PJ2024"}
+                                </span>
+                              </div>
                             </div>
-                            <button
-                              type="button"
-                              onClick={() => toggleFavorite(prop.id)}
-                              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-slate-800 flex items-center justify-center shadow-md hover:scale-110 transition-transform cursor-pointer"
-                              aria-label="Guardar en favoritos"
-                            >
-                              <Heart className={`w-4 h-4 ${isFav ? "fill-red-500 text-red-500" : "text-slate-700"}`} />
-                            </button>
+
+                            {/* Content Block */}
+                            <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                              <div>
+                                <div className="mb-2.5">
+                                  <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
+                                    <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                    <span className="truncate">{formatLocation(pData.location || prop.location, language)}</span>
+                                  </span>
+                                </div>
+
+                                <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
+                                  {pData.name || prop.title}
+                                </h3>
+
+                                <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
+                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
+                                    <Home className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                    <span>{prop.bedrooms > 0 ? prop.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
+                                  </div>
+                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
+                                    <Bath className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                    <span>{prop.bathrooms > 0 ? prop.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
+                                  </div>
+                                  <div className="bg-[#f8fafc] border border-slate-200/90 rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 text-[#0f172a] font-black text-xs sm:text-sm">
+                                    <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                    <span>{prop.surface} m²</span>
+                                  </div>
+                                </div>
+
+                                <div className="mt-3">
+                                  <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
+                                    <span className="truncate">{prop.floor || (prop.features && prop.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Price & Action Button */}
+                              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none block mb-1 font-sans">
+                                    {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
+                                  </span>
+                                  <div className="flex items-baseline">
+                                    <span className="text-2xl sm:text-[26px] font-black text-[#0b214a] leading-none font-sans tracking-tight">
+                                      {new Intl.NumberFormat('es-ES').format(prop.price)}€
+                                    </span>
+                                    {isRent && (
+                                      <span className="text-xs font-bold text-slate-500 font-sans ml-1">/mes</span>
+                                    )}
+                                  </div>
+                                </div>
+
+                                <div className="inline-flex items-center gap-2 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                                  <span>{t.properties.verDetalles || "Ver ficha"}</span>
+                                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                                </div>
+                              </div>
+                            </div>
                           </div>
-
-                          <div className="p-5">
-                            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold mb-1.5">
-                              <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-                              <span>{formatLocation(prop.location, language)}</span>
-                            </div>
-
-                            <h3 className="font-black text-slate-900 text-lg sm:text-xl leading-snug group-hover:text-[#2563eb] transition-colors line-clamp-1 mb-3">
-                              {prop.title}
-                            </h3>
-
-                            <div className="grid grid-cols-3 gap-2 py-2.5 border-y border-slate-100 text-xs font-bold text-slate-700">
-                              <div className="flex items-center gap-1">
-                                <Ruler className="w-3.5 h-3.5 text-[#2563eb]" />
-                                <span>{prop.surface} m²</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
-                                <span>{prop.bedrooms} {language === "en" ? "beds" : language === "ca" ? "hab" : "hab"}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Bath className="w-3.5 h-3.5 text-[#2563eb]" />
-                                <span>{prop.bathrooms || 1} {language === "en" ? "bath" : language === "ca" ? "banys" : "baños"}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-50 mt-2">
-                          <span className="text-2xl font-black text-[#0f172a]">
-                            {new Intl.NumberFormat("es-ES").format(prop.price)} €
-                            {prop.operation === "alquilar" && <span className="text-xs font-bold text-slate-500">/mes</span>}
-                          </span>
-                          <Link
-                            to="/inmobiliaria/$slug"
-                            params={{ slug: prop.slug || prop.id }}
-                            className="inline-flex items-center gap-1.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all shadow-sm"
-                          >
-                            <span>{t.properties.verDetalles}</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </Link>
-                        </div>
+                        </Link>
                       </div>
                     );
                   })}

@@ -113,7 +113,11 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
-              className="text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] font-black text-[#0b214a] leading-[1.08] sm:leading-[1.04] tracking-tight mb-2.5 sm:mb-3.5 font-heading"
+              className={`${
+                customHeadline
+                  ? "text-[28px] xs:text-[32px] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] sm:leading-[1.06] mb-2 sm:mb-2.5"
+                  : "text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.08] sm:leading-[1.04] mb-2.5 sm:mb-3.5"
+              } font-black text-[#0b214a] tracking-tight font-heading`}
             >
               {customHeadline ? (
                 customHeadline
@@ -130,7 +134,11 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[620px]"
+              className={`text-[#1e293b] ${
+                customHeadline
+                  ? "text-[14px] sm:text-[16px] md:text-[1.05rem] mb-2.5 sm:mb-3.5"
+                  : "text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5"
+              } font-bold leading-relaxed font-sans max-w-[620px]`}
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
             >
               {customSubtitle || t.heroCarousel.subtitle}

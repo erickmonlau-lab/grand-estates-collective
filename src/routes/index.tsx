@@ -312,19 +312,23 @@ function Index() {
     });
   };
 
-  // Valuator real calculation state
-  const ZONE_PRICE_PER_M2: Record<string, number> = {
-    "Centre": 2350,
-    "Centro": 2350,
-    "Santa Rosa - Can Mariner": 1910,
-    "Singuerlín": 1720,
-    "Fondo": 1680,
-    "El Raval": 1790,
-    "Riera Alta - Llatí": 1850,
-    "Riu": 1950,
-    "Riu Nord / Riu Sud": 1950,
-    "Oliveres - Can Serra": 1720
+  // Valuator real calculation state & market stats
+  const ZONE_MARKET_STATS: Record<string, { pricePerM2: number; trendPct: number; monthlyPrices: number[] }> = {
+    "Centre": { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] },
+    "Centro": { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] },
+    "Santa Rosa - Can Mariner": { pricePerM2: 1910, trendPct: 5.1, monthlyPrices: [1815, 1835, 1855, 1875, 1890, 1910] },
+    "Singuerlín": { pricePerM2: 1720, trendPct: 3.4, monthlyPrices: [1660, 1675, 1685, 1700, 1710, 1720] },
+    "Fondo": { pricePerM2: 1680, trendPct: 5.8, monthlyPrices: [1585, 1605, 1625, 1645, 1660, 1680] },
+    "El Raval": { pricePerM2: 1790, trendPct: 4.2, monthlyPrices: [1715, 1730, 1745, 1760, 1775, 1790] },
+    "Riera Alta - Llatí": { pricePerM2: 1850, trendPct: 3.9, monthlyPrices: [1780, 1795, 1810, 1825, 1835, 1850] },
+    "Riu": { pricePerM2: 1950, trendPct: 4.5, monthlyPrices: [1865, 1880, 1900, 1915, 1935, 1950] },
+    "Riu Nord / Riu Sud": { pricePerM2: 1950, trendPct: 4.5, monthlyPrices: [1865, 1880, 1900, 1915, 1935, 1950] },
+    "Oliveres - Can Serra": { pricePerM2: 1720, trendPct: 3.2, monthlyPrices: [1665, 1680, 1690, 1700, 1710, 1720] }
   };
+
+  const ZONE_PRICE_PER_M2: Record<string, number> = Object.fromEntries(
+    Object.entries(ZONE_MARKET_STATS).map(([k, v]) => [k, v.pricePerM2])
+  );
 
   const ZONE_TO_SLUG: Record<string, string> = {
     "Centre": "centre",
@@ -339,6 +343,45 @@ function Index() {
     "Oliveres - Can Serra": "oliveres"
   };
 
+  const getSparklineData = (prices: number[], width = 250, height = 80, paddingY = 16, paddingX = 15) => {
+    if (!prices || prices.length < 2) {
+      return {
+        linePath: "M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14",
+        areaPath: "M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14 L 250,80 L 15,80 Z",
+        points: [
+          { cx: 15, cy: 62 }, { cx: 62, cy: 55 }, { cx: 109, cy: 44 },
+          { cx: 156, cy: 35 }, { cx: 203, cy: 24 }, { cx: 250, cy: 14 }
+        ]
+      };
+    }
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    const range = max - min || 1;
+    const innerHeight = height - paddingY * 2;
+    const innerWidth = width - paddingX * 2;
+    const stepX = innerWidth / (prices.length - 1);
+
+    const points = prices.map((val, idx) => {
+      const cx = Math.round(paddingX + idx * stepX);
+      const cy = Math.round(height - paddingY - ((val - min) / range) * innerHeight);
+      return { cx, cy };
+    });
+
+    let linePath = `M ${points[0].cx},${points[0].cy}`;
+    for (let i = 1; i < points.length; i++) {
+      const prev = points[i - 1];
+      const curr = points[i];
+      const midX = (prev.cx + curr.cx) / 2;
+      linePath += ` Q ${midX},${prev.cy} ${curr.cx},${curr.cy}`;
+    }
+
+    const last = points[points.length - 1];
+    const first = points[0];
+    const areaPath = `${linePath} L ${last.cx},${height} L ${first.cx},${height} Z`;
+
+    return { linePath, areaPath, points };
+  };
+
   const [valuatorData, setValuatorData] = useState({
     zona: "Centre",
     metros: "85"
@@ -349,18 +392,26 @@ function Index() {
     rangeMin: number;
     rangeMax: number;
     zoneName: string;
-  }>({
-    estimatedValue: 588000,
-    rangeMin: 547000,
-    rangeMax: 629000,
-    zoneName: "Centre"
+    trendPct: number;
+    monthlyPrices: number[];
+  }>(() => {
+    const defaultStats = ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
+    const exact = 85 * defaultStats.pricePerM2;
+    return {
+      estimatedValue: exact,
+      rangeMin: Math.round(exact * 0.93),
+      rangeMax: Math.round(exact * 1.07),
+      zoneName: "Centre",
+      trendPct: defaultStats.trendPct,
+      monthlyPrices: defaultStats.monthlyPrices
+    };
   });
 
   const handleCalculateValuation = () => {
     setIsCalculatingValuation(true);
     const m2 = parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85;
-    const pricePerM2 = ZONE_PRICE_PER_M2[valuatorData.zona] || 2150;
-    const exactValue = Math.round(m2 * pricePerM2);
+    const stats = ZONE_MARKET_STATS[valuatorData.zona] || ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
+    const exactValue = Math.round(m2 * stats.pricePerM2);
     const minVal = Math.round(exactValue * 0.93);
     const maxVal = Math.round(exactValue * 1.07);
 
@@ -369,7 +420,9 @@ function Index() {
         estimatedValue: exactValue,
         rangeMin: minVal,
         rangeMax: maxVal,
-        zoneName: valuatorData.zona || "Zona seleccionada"
+        zoneName: valuatorData.zona || "Zona seleccionada",
+        trendPct: stats.trendPct,
+        monthlyPrices: stats.monthlyPrices
       });
       setIsCalculatingValuation(false);
     }, 1200);
@@ -1721,47 +1774,57 @@ function Index() {
                       {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                     </span>
                     <span className="bg-[#1e3a6e] text-white px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1 shadow-2xs font-sans">
-                      <TrendingUp className="w-3 h-3 text-white stroke-[3]" /> +4.2%
+                      <TrendingUp className="w-3 h-3 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
                     </span>
                   </div>
                   <div className="w-full h-16 sm:h-20 relative pt-1">
-                    <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
-                      <defs>
-                        <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
-                        </linearGradient>
-                      </defs>
-                      {/* Subdued horizontal guide lines */}
-                      <line x1="0" y1="20" x2="250" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
-                      <line x1="0" y1="50" x2="250" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
-                      
-                      {/* Fill area & Trend curve */}
-                      <path
-                        d="M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14 L 250,80 L 15,80 Z"
-                        fill="url(#sparklineGrad)"
-                      />
-                      <motion.path
-                        key={`trend-line-${calculatedResult.estimatedValue}`}
-                        d="M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14" 
-                        fill="none" 
-                        stroke="#2563eb" 
-                        strokeWidth="2.5" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        initial={shouldReduceMotion ? false : { pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 1, ease: "easeInOut" }}
-                      />
-                      
-                      {/* Data Points */}
-                      <circle cx="15" cy="62" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="62" cy="55" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="109" cy="44" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="156" cy="35" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="203" cy="24" r="2.5" fill="#ffffff" stroke="#2563eb" strokeWidth="2" />
-                      <circle cx="250" cy="14" r="3.5" fill="#2563eb" stroke="#ffffff" strokeWidth="2" />
-                    </svg>
+                    {(() => {
+                      const spark = getSparklineData(calculatedResult.monthlyPrices);
+                      return (
+                        <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
+                          <defs>
+                            <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
+                              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                            </linearGradient>
+                          </defs>
+                          {/* Subdued horizontal guide lines */}
+                          <line x1="0" y1="20" x2="250" y2="20" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                          <line x1="0" y1="50" x2="250" y2="50" stroke="#f1f5f9" strokeWidth="1" strokeDasharray="3 3" />
+                          
+                          {/* Fill area & Trend curve */}
+                          <path
+                            d={spark.areaPath}
+                            fill="url(#sparklineGrad)"
+                          />
+                          <motion.path
+                            key={`trend-line-${calculatedResult.estimatedValue}-${calculatedResult.zoneName}`}
+                            d={spark.linePath} 
+                            fill="none" 
+                            stroke="#2563eb" 
+                            strokeWidth="2.5" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            initial={shouldReduceMotion ? false : { pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 1, ease: "easeInOut" }}
+                          />
+                          
+                          {/* Data Points */}
+                          {spark.points.map((pt, pIdx) => (
+                            <circle
+                              key={pIdx}
+                              cx={pt.cx}
+                              cy={pt.cy}
+                              r={pIdx === spark.points.length - 1 ? 3.5 : 2.5}
+                              fill={pIdx === spark.points.length - 1 ? "#2563eb" : "#ffffff"}
+                              stroke={pIdx === spark.points.length - 1 ? "#ffffff" : "#2563eb"}
+                              strokeWidth="2"
+                            />
+                          ))}
+                        </svg>
+                      );
+                    })()}
                   </div>
                   {/* X-Axis Month Labels */}
                   <div className="flex justify-between items-center text-[10px] sm:text-xs font-black text-[#0f172a] mt-1 px-1 font-sans border-t border-slate-100/80 pt-1">

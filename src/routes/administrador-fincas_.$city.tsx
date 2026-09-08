@@ -471,10 +471,49 @@ function SantaColomaBarrioPage() {
       <Navbar language={language} setLanguage={handleLanguageChange} />
 
       <main id="main-content">
-        {/* ── HERO CANÓNICO IDÉNTICO A LA PÁGINA PRINCIPAL ── */}
+        {/* ── HERO CANÓNICO CON FOTOGRAFÍA OFICIAL Y TITULAR EQUILIBRADO ── */}
         <HeroCarousel
           language={language}
           onPerformSearch={handleHeroSearch}
+          customTag={
+            language === "ca"
+              ? `Barri ${data.name} · Santa Coloma`
+              : language === "en"
+              ? `Neighborhood ${data.name} · Santa Coloma`
+              : `Barrio ${data.name} · Santa Coloma`
+          }
+          customHeadline={
+            <>
+              {language === "ca"
+                ? "Administració de Finques,"
+                : language === "en"
+                ? "Property Management,"
+                : "Administración de Fincas,"}
+              <br />
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                {language === "ca"
+                  ? `a ${data.name} · Santa Coloma`
+                  : language === "en"
+                  ? `in ${data.name} · Santa Coloma`
+                  : `en ${data.name} · Santa Coloma`}
+              </span>
+            </>
+          }
+          customSubtitle={
+            language === "ca"
+              ? `Gestió experta a ${data.name}: auditoria de despeses, urgències en ~${data.emergencyResponseMinutes} minuts i màxima transparència.`
+              : language === "en"
+              ? `Expert management in ${data.name}: expense audit, ~${data.emergencyResponseMinutes} min response, and full transparency.`
+              : `Gestión experta en ${data.name}: auditoría de gastos, urgencias en ~${data.emergencyResponseMinutes} min y máxima transparencia.`
+          }
+          customTrustBadge={
+            language === "ca"
+              ? `Atenció en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode}`
+              : language === "en"
+              ? `Response in ~${data.emergencyResponseMinutes} min · ZIP ${data.postalCode}`
+              : `Atención en ~${data.emergencyResponseMinutes} min · CP ${data.postalCode}`
+          }
+          customValuationHref="#valuator-form"
         />
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}

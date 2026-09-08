@@ -1514,18 +1514,19 @@ function SantaColomaBarrioPage() {
                     </a>
                   </div>
 
-                  <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200">
-                    <div className="bg-slate-100 border border-slate-200 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-2xs">
-                      <p className="text-lg sm:text-xl font-black text-slate-900 mb-0.5 font-sans">Nº 5583</p>
-                      <p className="text-xs font-bold text-slate-600 leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
+                  {/* Stats Grid */}
+                  <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
+                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
+                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
                     </div>
-                    <div className="bg-slate-100 border border-slate-200 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-2xs">
-                      <p className="text-lg sm:text-xl font-black text-slate-900 mb-0.5 font-sans">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                      <p className="text-xs font-bold text-slate-600 leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                     </div>
-                    <div className="bg-slate-100 border border-slate-200 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-2xs">
-                      <p className="text-lg sm:text-xl font-black text-slate-900 mb-0.5 font-sans">100%</p>
-                      <p className="text-xs font-bold text-slate-600 leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
+                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
+                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
                     </div>
                   </div>
                 </Reveal>

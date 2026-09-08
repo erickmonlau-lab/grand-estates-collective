@@ -1412,7 +1412,7 @@ function SantaColomaBarrioPage() {
                               : "bg-white text-slate-900 border-slate-300 hover:bg-blue-50"
                           }`}
                         >
-                          <MapPin className="w-3 h-3 text-[#2563eb] shrink-0" />
+                          <MapPin className={`w-3 h-3 shrink-0 ${isCurrent ? "text-white" : "text-[#2563eb]"}`} />
                           <span>{b.name}</span>
                         </Link>
                       );

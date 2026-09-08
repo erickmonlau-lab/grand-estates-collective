@@ -9,8 +9,8 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       logo: "/images/badges/logo-pji-escudo.jpg",
       alt: "Peritos Judiciales Inmobiliarios",
       number: "PJI 2024",
-      url: "https://www.apejuc.cat/",
-      title: "Associació de Perits Judicials Immobiliaris (APEJUC)",
+      url: "https://www.aspejure.com/",
+      title: "Asociación de Peritos Judiciales de España (PJI)",
       imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain"
     },
     {
@@ -19,7 +19,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       alt: "APIS - PERITOS",
       number: "1639",
       url: "https://consejocoapis.org/",
-      title: "Consejo General de los Colegios Oficiales de Agentes de la Propiedad Inmobiliaria",
+      title: "Colegio Oficial y Consejo General de Agentes de la Propiedad Inmobiliaria y Peritos (APIS)",
       imgClass: "h-28 sm:h-34 md:h-38 w-auto object-contain"
     },
     {

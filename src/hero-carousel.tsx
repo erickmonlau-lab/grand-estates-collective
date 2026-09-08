@@ -115,7 +115,7 @@ export default function HeroCarousel({
               transition={{ duration: 0.55, delay: 0.15, ease: expo }}
               className={`${
                 customHeadline
-                  ? "text-[28px] xs:text-[32px] sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] sm:leading-[1.06] mb-2 sm:mb-2.5"
+                  ? "text-[26px] xs:text-[30px] sm:text-[2.2rem] md:text-[2.5rem] lg:text-[2.85rem] leading-[1.08] sm:leading-[1.05] mb-2 sm:mb-2.5"
                   : "text-[32px] xs:text-[36px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.08] sm:leading-[1.04] mb-2.5 sm:mb-3.5"
               } font-black text-[#0b214a] tracking-tight font-heading`}
             >
@@ -136,7 +136,7 @@ export default function HeroCarousel({
               transition={{ duration: 0.55, delay: 0.25, ease: expo }}
               className={`text-[#1e293b] ${
                 customHeadline
-                  ? "text-[14px] sm:text-[16px] md:text-[1.05rem] mb-2.5 sm:mb-3.5"
+                  ? "text-[13.5px] sm:text-[15px] md:text-[1rem] mb-2.5 sm:mb-3"
                   : "text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5"
               } font-bold leading-relaxed font-sans max-w-[620px]`}
               style={{ textShadow: "0 0 16px rgba(255,255,255,0.95), 0 1px 4px rgba(255,255,255,0.9)" }}
@@ -147,7 +147,9 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3.5 sm:mb-4.5"
+              className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-fit ${
+                customHeadline ? "mb-2.5 sm:mb-3" : "mb-3.5 sm:mb-4.5"
+              }`}
             >
               <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full font-extrabold text-sm sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2.5 group cursor-pointer shrink-0">
                 <Home className="w-4.5 h-4.5 shrink-0" />

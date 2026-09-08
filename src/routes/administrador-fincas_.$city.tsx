@@ -501,10 +501,10 @@ function SantaColomaBarrioPage() {
           }
           customSubtitle={
             language === "ca"
-              ? `Gestió experta a ${data.name}: auditoria de despeses, urgències en ~${data.emergencyResponseMinutes} minuts i màxima transparència.`
+              ? `Cuidem de la teva comunitat a ${data.name} amb criteris locals, transparència i resolució immediata.`
               : language === "en"
-              ? `Expert management in ${data.name}: expense audit, ~${data.emergencyResponseMinutes} min response, and full transparency.`
-              : `Gestión experta en ${data.name}: auditoría de gastos, urgencias en ~${data.emergencyResponseMinutes} min y máxima transparencia.`
+              ? `Professional community management in ${data.name} with local expertise, transparency, and fast response.`
+              : `Cuidamos de tu comunidad en ${data.name} con criterio local, máxima transparencia y un equipo que responde.`
           }
           customTrustBadge={
             language === "ca"

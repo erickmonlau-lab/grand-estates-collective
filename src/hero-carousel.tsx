@@ -72,8 +72,8 @@ export default function HeroCarousel({
       id="hero"
       className={`relative text-slate-900 min-h-[100vh] sm:min-h-screen ${
         customHeadline
-          ? "pt-24 sm:pt-28 lg:pt-32"
-          : "pt-24 sm:pt-28 lg:pt-32"
+          ? "pt-20 xs:pt-22 sm:pt-28 lg:pt-32"
+          : "pt-20 xs:pt-22 sm:pt-28 lg:pt-32"
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -97,9 +97,9 @@ export default function HeroCarousel({
           {/* Feathering: left edge */}
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: top edge down to the heads — mobile only */}
-          <div className="sm:hidden absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#F8FAFC] from-[30%] via-[#F8FAFC]/80 via-[65%] to-transparent pointer-events-none" />
-          {/* Feathering: balanced bottom fade on mobile (h-44) */}
-          <div className="absolute inset-x-0 -bottom-1 h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/75 to-transparent pointer-events-none" />
+          <div className="sm:hidden absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#F8FAFC] from-[15%] via-[#F8FAFC]/70 to-transparent pointer-events-none" />
+          {/* Feathering: balanced bottom fade on mobile */}
+          <div className="absolute inset-x-0 -bottom-1 h-40 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/65 to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop covering entire buttons and text area */}
@@ -246,42 +246,42 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 mt-3 sm:mt-4 mb-0"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 mt-1.5 sm:mt-4 mb-0"
         >
           {/* Mobile: fade the right column into the background */}
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
-            <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
+            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <StatCounter target={4500} suffix="+" />
             </p>
-            <p className="text-[11px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
+            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <ThumbsUp className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
-            <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
+            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
               <StatCounter target={98} suffix="%" />
             </p>
-            <p className="text-[11px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
+            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
-            <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
+            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <StatCounter target={300} prefix="+" />
             </p>
-            <p className="text-[11px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
+            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <Award className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
-            <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
+            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
               <StatCounter target={15} suffix="+" />
             </p>
-            <p className="text-[11px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
+            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
         </motion.div>
       </div>
 
       {/* ── CONTINUOUS AUTHORITY MARQUEE INTEGRATED AS HERO BASE ── */}
-      <div className={`w-full relative z-20 ${customHeadline ? "mt-2 sm:mt-3" : "mt-3 sm:mt-5"}`}>
+      <div className={`w-full relative z-20 ${customHeadline ? "mt-1 sm:mt-3" : "mt-1 sm:mt-5"}`}>
         <MarqueeRibbon language={language} className="-mx-4 md:-mx-8 xl:-mx-12" />
       </div>
     </section>

@@ -47,6 +47,9 @@ export const ALL_LOCATIONS = [...SANTA_COLOMA_ZONES];
 export function formatLocation(loc: string, language: string): string {
   if (!loc) return "";
   const normalized = loc.trim();
+  if (normalized.startsWith("Santa Rosa")) {
+    return "Santa Rosa";
+  }
   if (normalized === "Centre" || normalized === "Centro" || normalized === "Center") {
     if (language === "ca") return "Centre";
     if (language === "en") return "Center";

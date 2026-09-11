@@ -1131,8 +1131,8 @@ function Index() {
               </button>
             </div>
 
-            {/* Quick access chips for zones - Single unified line on desktop, clean wrap on mobile */}
-            <div className="mt-5 pb-5 border-b border-slate-100 flex flex-wrap lg:flex-nowrap items-center gap-1.5 sm:gap-2">
+            {/* Quick access chips for zones - Single unified line on desktop, clean horizontal scroll/wrap */}
+            <div className="mt-5 pb-5 border-b border-slate-100 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1">
               <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
@@ -1146,7 +1146,7 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`flex-1 min-w-[70px] sm:min-w-fit px-2 sm:px-2.5 xl:px-3 py-1.5 rounded-full text-[11px] sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
+                    className={`shrink-0 px-3.5 sm:px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
                       isActive 
                         ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
                         : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"

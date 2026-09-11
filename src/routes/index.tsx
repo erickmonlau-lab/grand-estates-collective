@@ -1152,7 +1152,7 @@ function Index() {
                       <motion.div
                         whileHover={shouldReduceMotion ? undefined : { y: -6 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer"
+                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] transition-all duration-300 overflow-hidden cursor-pointer"
                       >
                         {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
                         <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
@@ -1385,9 +1385,12 @@ function Index() {
                           <span>{t.properties.verTodas}</span>
                           <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                         </button>
-                        <p className="text-[11px] font-bold text-slate-400 font-sans tracking-tight">
-                          {t.properties.showingAll} ({filteredProperties.length})
-                        </p>
+                        <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
+                          <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                          <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
+                            {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
+                          </p>
+                        </div>
                       </div>
                     )}
                   </div>

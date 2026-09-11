@@ -116,9 +116,9 @@ export default function HeroCarousel({
               transition={{ duration: 0.5, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[9.5px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.06em] sm:tracking-[0.12em] px-2.5 xs:px-3 sm:px-5 py-1 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[7.5px] xs:text-[9.5px] sm:text-[12.5px] font-black uppercase tracking-[0.04em] sm:tracking-[0.1em] px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
-                <span className="text-left leading-tight whitespace-nowrap">{customTag || t.heroCarousel.tag}</span>
+                <span className="text-left leading-tight line-clamp-1">{customTag || t.heroCarousel.tag}</span>
               </div>
             </motion.div>
 

@@ -891,19 +891,19 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-800 hover:bg-slate-100/80"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2.5">
                             {isActive ? (
-                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                             ) : (
-                              <span className="w-3.5 h-3.5 shrink-0" />
+                              <span className="w-4 h-4 shrink-0" />
                             )}
-                            <span>{opt.label}</span>
+                            <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
                           </div>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-500 text-white min-w-[20px] text-center shadow-xs">
                             {count}
                           </span>
                         </button>
@@ -955,19 +955,19 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-800 hover:bg-slate-100/80"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2.5">
                             {isActive ? (
-                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                             ) : (
-                              <span className="w-3.5 h-3.5 shrink-0" />
+                              <span className="w-4 h-4 shrink-0" />
                             )}
-                            <span>{opt.label}</span>
+                            <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
                           </div>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-500 text-white min-w-[20px] text-center shadow-xs">
                             {count}
                           </span>
                         </button>
@@ -1024,19 +1024,19 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-800 hover:bg-slate-100/80"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2.5">
                             {isActive ? (
-                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                             ) : (
-                              <span className="w-3.5 h-3.5 shrink-0" />
+                              <span className="w-4 h-4 shrink-0" />
                             )}
-                            <span>{opt.label}</span>
+                            <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
                           </div>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-500 text-white min-w-[20px] text-center shadow-xs">
                             {count}
                           </span>
                         </button>
@@ -1088,19 +1088,19 @@ function Index() {
                             setConsoleFilters(prev => ({ ...prev, precio: opt }));
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal ${
+                            isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-800 hover:bg-slate-100/80"
                           }`}
                         >
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2.5">
                             {isActive ? (
-                              <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                             ) : (
-                              <span className="w-3.5 h-3.5 shrink-0" />
+                              <span className="w-4 h-4 shrink-0" />
                             )}
-                            <span>{opt}</span>
+                            <span className="font-medium text-[13.5px] leading-snug">{opt}</span>
                           </div>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-500 text-white min-w-[20px] text-center shadow-xs">
                             {count}
                           </span>
                         </button>
@@ -1308,12 +1308,12 @@ function Index() {
                                 setSortOption(opt.value);
                                 setOpenDropdown(null);
                               }}
-                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                                sortOption === opt.value ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal ${
+                                sortOption === opt.value ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-800 hover:bg-slate-100/80"
                               }`}
                             >
-                              <span>{opt.label}</span>
-                              {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />}
+                              <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
+                              {sortOption === opt.value && <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />}
                             </button>
                           ))}
                         </div>

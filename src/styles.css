@@ -43,6 +43,9 @@
 .font-accelerator {
   font-family: 'ACCELERATOR', sans-serif;
 }
+.font-ui-clean {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
 
 @custom-variant dark (&:is(.dark *));
 

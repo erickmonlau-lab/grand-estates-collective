@@ -70,10 +70,10 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className={`relative text-slate-900 min-h-[620px] sm:min-h-[700px] h-auto sm:h-screen ${
+      className={`relative text-slate-900 min-h-[100svh] h-[100svh] sm:h-screen ${
         customHeadline
-          ? "pt-20 sm:pt-28 lg:pt-32"
-          : "pt-20 sm:pt-28 lg:pt-32"
+          ? "pt-18 sm:pt-28 lg:pt-32"
+          : "pt-18 sm:pt-28 lg:pt-32"
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 contain-paint`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -146,7 +146,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[12.5px] xs:text-[13.5px] sm:text-lg md:text-[1.25rem] mb-3 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
+              className="text-[#1e293b] text-[12px] xs:text-[13px] sm:text-lg md:text-[1.25rem] mb-2 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
             >
               {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
@@ -155,14 +155,14 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-3.5 sm:mb-4.5"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4.5"
             >
-              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10.5px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
+              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
                 <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10.5px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
+              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
                 <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
@@ -172,7 +172,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45, ease: expo }}
-              className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-extrabold text-[#0f172a] mt-1 sm:mt-0"
+              className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-extrabold text-[#0f172a] mt-0.5 sm:mt-0"
             >
               {/* Overlapping customer avatars stack */}
               <div className="flex items-center -space-x-2 shrink-0">

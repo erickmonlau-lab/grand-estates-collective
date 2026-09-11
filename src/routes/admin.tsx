@@ -43,6 +43,7 @@ import {
 } from "@/lib/propertyStore";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { SANTA_COLOMA_ZONES, type PropertyType } from "@/data/properties";
+import { autoTranslateText } from "@/lib/translateProperty";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -138,6 +139,7 @@ function AdminDashboard() {
     status: "disponible" as "disponible" | "reservado" | "vendido" | "alquilado"
   });
 
+  const [showTranslations, setShowTranslations] = useState(false);
   const mainFileInputRef = useRef<HTMLInputElement>(null);
   const galleryFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -311,12 +313,18 @@ function AdminDashboard() {
 
     const specsString = `${formData.bedrooms} hab. · ${formData.bathrooms} ${formData.bathrooms === 1 ? 'baño' : 'baños'} · ${formData.surface} m²`;
 
+    // High quality auto-translations for Catalan & English
+    const finalNameCa = formData.name_ca.trim() || autoTranslateText(finalName, "ca");
+    const finalNameEn = formData.name_en.trim() || autoTranslateText(finalName, "en");
+    const finalDescCa = formData.description_ca.trim() || autoTranslateText(formData.description, "ca");
+    const finalDescEn = formData.description_en.trim() || autoTranslateText(formData.description, "en");
+
     if (editingProperty) {
       // Update
       await updateProperty(editingProperty.id, {
         name: finalName,
-        name_ca: finalName,
-        name_en: finalName,
+        name_ca: finalNameCa,
+        name_en: finalNameEn,
         ref: formData.ref,
         type: formData.type,
         location: formData.location,
@@ -330,8 +338,8 @@ function AdminDashboard() {
         surface: Number(formData.surface),
         floor: formData.floor.trim() || undefined,
         description: formData.description,
-        description_ca: formData.description,
-        description_en: formData.description,
+        description_ca: finalDescCa,
+        description_en: finalDescEn,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
@@ -342,8 +350,8 @@ function AdminDashboard() {
       // Create
       await createProperty({
         name: finalName,
-        name_ca: finalName,
-        name_en: finalName,
+        name_ca: finalNameCa,
+        name_en: finalNameEn,
         ref: formData.ref || "API A10750",
         type: formData.type,
         location: formData.location,
@@ -357,8 +365,8 @@ function AdminDashboard() {
         surface: Number(formData.surface),
         floor: formData.floor.trim() || undefined,
         description: formData.description,
-        description_ca: formData.description,
-        description_en: formData.description,
+        description_ca: finalDescCa,
+        description_en: finalDescEn,
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
@@ -1157,7 +1165,7 @@ function AdminDashboard() {
               {/* Row 6: Descripción */}
               <div>
                 <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                  Descripción Detallada
+                  Descripción Detallada (Español) *
                 </label>
                 <textarea
                   rows={4}
@@ -1166,6 +1174,112 @@ function AdminDashboard() {
                   placeholder="Escribe los detalles de la vivienda, distribución, estado, orientación..."
                   className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#000000] placeholder:text-slate-500 outline-none resize-none focus:border-[#2563eb]"
                 />
+              </div>
+
+              {/* Row 7: TRADUCCIONES AUTOMÁTICAS (CATALÁN / INGLÉS) */}
+              <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-4 sm:p-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-[#2563eb]" />
+                      <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]">
+                        Traducciones Automáticas (Catalán e Inglés)
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-600 font-medium mt-0.5">
+                      Al guardar, el sistema traduce automáticamente. Puedes desplegar para revisar o personalizar los textos.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const finalName = formData.name.trim() || `${formData.type} en ${formData.location}`;
+                        setFormData({
+                          ...formData,
+                          name_ca: autoTranslateText(finalName, "ca"),
+                          name_en: autoTranslateText(finalName, "en"),
+                          description_ca: autoTranslateText(formData.description, "ca"),
+                          description_en: autoTranslateText(formData.description, "en")
+                        });
+                        setShowTranslations(true);
+                      }}
+                      className="bg-blue-100 hover:bg-blue-200 text-[#2563eb] text-xs font-black px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Auto-traducir ahora</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowTranslations(!showTranslations)}
+                      className="text-xs font-bold text-slate-600 hover:text-slate-900 px-2 py-1 cursor-pointer"
+                    >
+                      {showTranslations ? "Ocultar ▲" : "Ver / Editar ▼"}
+                    </button>
+                  </div>
+                </div>
+
+                {showTranslations && (
+                  <div className="pt-4 border-t border-slate-200 space-y-4 animate-in fade-in duration-200">
+                    {/* Catalan translation */}
+                    <div className="bg-white border border-slate-300 rounded-xl p-3.5">
+                      <span className="inline-block px-2 py-0.5 rounded bg-red-100 text-red-700 text-[10px] font-black uppercase tracking-wider mb-2">
+                        Català
+                      </span>
+                      <div className="space-y-2">
+                        <div>
+                          <label className="block text-[11px] font-black text-slate-700 mb-1">Títol en Català:</label>
+                          <input
+                            type="text"
+                            value={formData.name_ca}
+                            onChange={(e) => setFormData({ ...formData, name_ca: e.target.value })}
+                            placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "ca")}
+                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-black text-slate-700 mb-1">Descripció en Català:</label>
+                          <textarea
+                            rows={3}
+                            value={formData.description_ca}
+                            onChange={(e) => setFormData({ ...formData, description_ca: e.target.value })}
+                            placeholder={autoTranslateText(formData.description, "ca")}
+                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-medium text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* English translation */}
+                    <div className="bg-white border border-slate-300 rounded-xl p-3.5">
+                      <span className="inline-block px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-wider mb-2">
+                        English
+                      </span>
+                      <div className="space-y-2">
+                        <div>
+                          <label className="block text-[11px] font-black text-slate-700 mb-1">Title in English:</label>
+                          <input
+                            type="text"
+                            value={formData.name_en}
+                            onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
+                            placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "en")}
+                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-black text-slate-700 mb-1">Description in English:</label>
+                          <textarea
+                            rows={3}
+                            value={formData.description_en}
+                            onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
+                            placeholder={autoTranslateText(formData.description, "en")}
+                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-medium text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons */}

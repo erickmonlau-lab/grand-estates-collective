@@ -1239,7 +1239,7 @@ function Index() {
                             <div className="mt-3">
                               <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
                                 <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
-                                <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                                <span className="truncate">{pData.floor || (pData.features && pData.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
                               </div>
                             </div>
                           </div>

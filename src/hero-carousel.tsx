@@ -77,8 +77,8 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: anchored firmly to the right half/side */}
-        <div className="absolute right-0 top-0 w-[140%] -right-[20%] sm:right-0 sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full">
+        {/* On desktop: right half (w-[50%]). On mobile: positioned on the right half (w-[75%]) so the couple is completely on the right side */}
+        <div className="absolute right-0 top-0 w-[78%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
@@ -98,14 +98,14 @@ export default function HeroCarousel({
           <div className="hidden sm:block absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="hidden sm:block absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
           
-          {/* Mobile horizontal gradient: subtle protection on the left where text sits, right side fully clear */}
-          <div className="sm:hidden absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/75 via-45% to-transparent pointer-events-none" />
+          {/* Mobile gradient: smoothly feathers out the left edge of the photo into the background */}
+          <div className="sm:hidden absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="sm:hidden absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* On mobile: keep text width to ~62% so the couple on the right is completely free and unobstructed */}
+        {/* On mobile: keep text width to ~60% so the couple on the right is completely free and unobstructed */}
         <div className="max-w-[62%] xs:max-w-[60%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div

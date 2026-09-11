@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { properties, formatLocation } from "../data/properties";
-import { findPropertyBySlugOrId, getLocalProperties, fetchProperties, type ExtendedProperty } from "@/lib/propertyStore";
+import { findPropertyBySlugOrId, getLocalProperties, fetchProperties, subscribeProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { 
@@ -106,12 +106,26 @@ function PropertyDetail() {
     return findPropertyBySlugOrId(slug);
   });
   
-  const [isLoading, setIsLoading] = useState(!property);
+  // Start with loading true if property is not found synchronously yet
+  const [isLoading, setIsLoading] = useState<boolean>(() => !findPropertyBySlugOrId(slug));
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  // Re-check and fetch from remote if needed
+  // Subscribe to property store changes (Supabase fetch or local storage updates)
   useEffect(() => {
+    const unsub = subscribeProperties(() => {
+      const found = findPropertyBySlugOrId(slug);
+      if (found) {
+        setProperty(found);
+        setIsLoading(false);
+      }
+    });
+    return () => unsub();
+  }, [slug]);
+
+  // Robust fetch & fallback check
+  useEffect(() => {
+    let isMounted = true;
     const existing = findPropertyBySlugOrId(slug);
     if (existing) {
       setProperty(existing);
@@ -119,16 +133,29 @@ function PropertyDetail() {
       return;
     }
 
-    // Try fetching if it wasn't found in memory yet
-    fetchProperties().then(() => {
-      const found = findPropertyBySlugOrId(slug);
-      if (found) {
-        setProperty(found);
-      }
-      setIsLoading(false);
-    }).catch(() => {
-      setIsLoading(false);
-    });
+    // Keep loading indicator active while querying Supabase / store
+    setIsLoading(true);
+
+    fetchProperties()
+      .then(() => {
+        if (!isMounted) return;
+        const found = findPropertyBySlugOrId(slug);
+        if (found) {
+          setProperty(found);
+        }
+      })
+      .catch((err) => {
+        console.warn("fetchProperties error:", err);
+      })
+      .finally(() => {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
   const [language, setLanguage] = useState<"es" | "en" | "ca">(() => {

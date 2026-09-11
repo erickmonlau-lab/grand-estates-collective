@@ -40,15 +40,60 @@ export function getLocalProperties(): ExtendedProperty[] {
 
 // Find property by slug, id, or reference
 export function findPropertyBySlugOrId(slugOrId: string): ExtendedProperty | undefined {
+  if (!slugOrId) return undefined;
+  
+  let raw = slugOrId.trim();
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    // ignore malformed uri component
+  }
+
+  const strip = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+
+  const normRaw = strip(raw);
+  const normDecoded = strip(decoded);
+
   const list = getLocalProperties();
-  const normalized = (slugOrId || "").trim().toLowerCase();
-  return (
-    list.find(p => p.slug === slugOrId || p.slug.toLowerCase() === normalized) ||
-    list.find(p => p.id === slugOrId || p.id.toLowerCase() === normalized) ||
-    list.find(p => p.ref && p.ref.toLowerCase() === normalized) ||
-    defaultProperties.find(p => p.slug === slugOrId || p.slug.toLowerCase() === normalized) ||
-    defaultProperties.find(p => p.id === slugOrId || p.id.toLowerCase() === normalized)
-  );
+  const allCandidates = [...list, ...(defaultProperties as ExtendedProperty[])];
+
+  // 1. Direct exact matches
+  for (const p of allCandidates) {
+    if (p.slug === raw || p.slug === decoded) return p;
+    if (p.id === raw || p.id === decoded) return p;
+  }
+
+  // 2. Normalized slug or ID matches (accents / case insensitive)
+  for (const p of allCandidates) {
+    const pSlug = strip(p.slug || "");
+    const pId = strip(p.id || "");
+    if (pSlug && (pSlug === normRaw || pSlug === normDecoded)) return p;
+    if (pId && (pId === normRaw || pId === normDecoded)) return p;
+  }
+
+  // 3. Match reference code (e.g. "API A10750")
+  for (const p of allCandidates) {
+    if (p.ref) {
+      const pRef = strip(p.ref);
+      if (pRef === normRaw || pRef === normDecoded) return p;
+    }
+  }
+
+  // 4. Loose slug match (hyphen-separated words match)
+  for (const p of allCandidates) {
+    const pSlug = strip(p.slug || "");
+    if (pSlug && (normDecoded.includes(pSlug) || pSlug.includes(normDecoded))) {
+      return p;
+    }
+  }
+
+  return undefined;
 }
 
 // Save to LocalStorage

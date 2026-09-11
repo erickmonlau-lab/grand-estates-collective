@@ -397,21 +397,55 @@ function ArticleDetail() {
 
                   if (isMethodCard) {
                     const colonIndex = p.indexOf(":");
-                    const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex) : p.substring(0, 30);
-                    const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1) : p;
+                    const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex).trim() : p.substring(0, 30).trim();
+                    const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1).trim() : p.trim();
 
-                    const isFirstMethod = titlePart.toLowerCase().includes("objetivo") || titlePart.toLowerCase().includes("objectiu") || titlePart.toLowerCase().includes("objective") || titlePart.includes("1.");
+                    // Determine context-appropriate badge label
+                    const lowerTitle = titlePart.toLowerCase();
+                    const lowerHeading = (sec.heading || "").toLowerCase();
+                    let badgeLabel = "";
+
+                    if (lowerTitle.includes("garantía") || lowerTitle.includes("garantia") || lowerTitle.includes("warranty") || lowerHeading.includes("garantía") || lowerHeading.includes("garantia")) {
+                      if (lowerTitle.includes("un año") || lowerTitle.includes("un any") || lowerTitle.includes("1-year") || lowerTitle.includes("1 año")) {
+                        badgeLabel = language === "ca" ? "Garantia 1 Any" : language === "en" ? "1-Year Warranty" : "Garantía 1 Año";
+                      } else if (lowerTitle.includes("tres") || lowerTitle.includes("3-year") || lowerTitle.includes("3 años") || lowerTitle.includes("3 anys")) {
+                        badgeLabel = language === "ca" ? "Garantia 3 Anys" : language === "en" ? "3-Year Warranty" : "Garantía 3 Años";
+                      } else if (lowerTitle.includes("decenal") || lowerTitle.includes("10-year") || lowerTitle.includes("10 años") || lowerTitle.includes("10 anys")) {
+                        badgeLabel = language === "ca" ? "Garantia 10 Anys" : language === "en" ? "10-Year Warranty" : "Garantía 10 Años (Decenal)";
+                      } else {
+                        badgeLabel = language === "ca" ? "Garantia Legal" : language === "en" ? "Legal Warranty" : "Garantía Legal";
+                      }
+                    } else if (lowerTitle.includes("método") || lowerTitle.includes("mètode") || lowerTitle.includes("method")) {
+                      if (lowerTitle.includes("objetivo") || lowerTitle.includes("objectiu") || lowerTitle.includes("objective")) {
+                        badgeLabel = language === "ca" ? "Mètode 1" : language === "en" ? "Method 1" : "Método 1";
+                      } else if (lowerTitle.includes("real")) {
+                        badgeLabel = language === "ca" ? "Mètode 2" : language === "en" ? "Method 2" : "Método 2";
+                      } else if (lowerTitle.includes("comparación") || lowerTitle.includes("comparació") || lowerTitle.includes("comparison")) {
+                        badgeLabel = language === "ca" ? "Mètode Comparatiu" : language === "en" ? "Comparative Method" : "Método Comparativo";
+                      } else if (lowerTitle.includes("coste") || lowerTitle.includes("cost")) {
+                        badgeLabel = language === "ca" ? "Mètode de Cost" : language === "en" ? "Cost Method" : "Método de Coste";
+                      } else if (lowerTitle.includes("capitalización") || lowerTitle.includes("capitalització") || lowerTitle.includes("capitalization")) {
+                        badgeLabel = language === "ca" ? "Rendibilitat" : language === "en" ? "Yield Method" : "Capitalización";
+                      } else {
+                        badgeLabel = language === "ca" ? "Metodologia" : language === "en" ? "Methodology" : "Metodología";
+                      }
+                    } else if (/^\d+\./.test(titlePart)) {
+                      const num = titlePart.match(/^(\d+)\./)?.[1] || "";
+                      badgeLabel = language === "ca" ? `Fase ${num}` : language === "en" ? `Step ${num}` : `Paso ${num}`;
+                    } else {
+                      badgeLabel = language === "ca" ? "Punt Clau" : language === "en" ? "Key Point" : "Punto Clave";
+                    }
                     
                     return (
                       <div 
                         key={pIdx} 
-                        className="my-6 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-slate-50 border-l-8 border-[#2563eb] border-y border-r border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative"
+                        className="my-6 p-5 sm:p-7 md:p-8 rounded-2xl md:rounded-3xl bg-slate-50 border-l-8 border-[#2563eb] border-y border-r border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative"
                       >
-                        <div className="flex items-center gap-3 mb-3">
-                          <span className="px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider shadow-xs font-sans">
-                            {isFirstMethod ? "Opción 1 / Método A" : "Opción 2 / Método B"}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3.5 mb-3">
+                          <span className="self-start inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-xs font-sans whitespace-nowrap shrink-0">
+                            {badgeLabel}
                           </span>
-                          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-sans">
+                          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-sans leading-snug">
                             {titlePart}
                           </h3>
                         </div>

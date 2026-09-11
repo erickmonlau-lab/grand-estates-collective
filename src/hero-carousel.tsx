@@ -70,10 +70,10 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className={`relative text-slate-900 min-h-[100svh] h-[100svh] sm:h-screen ${
+      className={`relative text-slate-900 min-h-[100svh] ${
         customHeadline
-          ? "pt-18 sm:pt-28 lg:pt-32"
-          : "pt-18 sm:pt-28 lg:pt-32"
+          ? "pt-18 sm:pt-20 lg:pt-24 h-auto lg:h-screen lg:min-h-[700px]"
+          : "pt-18 sm:pt-24 lg:pt-28 h-[100svh] sm:h-screen"
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 contain-paint`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -108,13 +108,13 @@ export default function HeroCarousel({
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
         {/* Mobile text container: comfortable width, clean readability */}
-        <div className="max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        <div className={`max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl ${customHeadline ? "xl:max-w-[780px]" : "xl:max-w-[720px]"} text-left py-1 sm:py-2 my-auto`}>
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.05, ease: expo }}
-              className="mb-2 sm:mb-3"
+              className="mb-1.5 sm:mb-2.5"
             >
               <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[7.5px] xs:text-[9.5px] sm:text-[12.5px] font-black uppercase tracking-[0.04em] sm:tracking-[0.1em] px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
@@ -126,7 +126,11 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease: expo }}
-              className="text-[23px] xs:text-[26px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.1] sm:leading-[1.04] mb-2 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading"
+              className={`text-[23px] xs:text-[26px] ${
+                customHeadline
+                  ? "sm:text-4xl md:text-[2.85rem] lg:text-[3.35rem] leading-[1.08] sm:leading-[1.06]"
+                  : "sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.1] sm:leading-[1.04]"
+              } mb-2 sm:mb-3 font-black text-[#0b214a] tracking-tight font-heading`}
             >
               {customHeadline ? (
                 customHeadline
@@ -146,7 +150,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[12px] xs:text-[13px] sm:text-lg md:text-[1.25rem] mb-2 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
+              className="text-[#1e293b] text-[12px] xs:text-[13px] sm:text-base md:text-[1.15rem] mb-2 sm:mb-4 font-bold leading-snug sm:leading-relaxed font-sans"
             >
               {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
@@ -155,27 +159,26 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4.5"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4"
             >
               <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
-                <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
-                <span>{t.heroCarousel.btnValuation}</span>
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
+                <Calculator className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
+                <span className="whitespace-nowrap">{t.heroCarousel.ctaValuation || t.heroCarousel.btnValuation}</span>
               </a>
-              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
-                <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
-                <span>{t.heroCarousel.btnProperties}</span>
+              <a href="#contacto" className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-extrabold text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-sm">
+                <Phone className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] stroke-[2.5]" />
+                <span className="whitespace-nowrap">{t.heroCarousel.ctaContact || t.heroCarousel.btnProperties}</span>
               </a>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45, ease: expo }}
-              className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-extrabold text-[#0f172a] mt-0.5 sm:mt-0"
+              className="flex items-center gap-2 sm:gap-3 pt-0.5"
             >
               {/* Overlapping customer avatars stack */}
-              <div className="flex items-center -space-x-2 shrink-0">
+              <div className="flex -space-x-1.5 sm:-space-x-2 shrink-0">
                 <img
                   src="/images/avatar-1.webp"
                   alt="Cliente Gesgrama"
@@ -214,26 +217,26 @@ export default function HeroCarousel({
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                   <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
                 </span>
-                <span className="font-extrabold font-sans text-slate-950 text-[11px] xs:text-xs sm:text-[15px] leading-snug">
+                <span className="font-extrabold font-sans text-slate-950 text-[11px] xs:text-xs sm:text-[14px] lg:text-[15px] leading-snug">
                   {customTrustBadge ? (
                     customTrustBadge
                   ) : language === 'ca' ? (
                     <>
-                      <span className="block whitespace-nowrap text-slate-950">Més de 4.500</span>
-                      <span className="block whitespace-nowrap text-slate-950">clients ja confien</span>
-                      <span className="block whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">Més de 4.500 </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">clients ja confien </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
                     </>
                   ) : language === 'en' ? (
                     <>
-                      <span className="block whitespace-nowrap text-slate-950">Over 4,500 clients</span>
-                      <span className="block whitespace-nowrap text-slate-950">already trust</span>
-                      <span className="block whitespace-nowrap text-slate-950 font-black">Gesgrama</span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">Over 4,500 clients </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">already trust </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">Gesgrama</span>
                     </>
                   ) : (
                     <>
-                      <span className="block whitespace-nowrap text-slate-950">Más de 4.500</span>
-                      <span className="block whitespace-nowrap text-slate-950">clientes ya confían</span>
-                      <span className="block whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">Más de 4.500 </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950">clientes ya confían </span>
+                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
                     </>
                   )}
                 </span>
@@ -246,31 +249,31 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-10 xs:-mt-8 sm:-mt-6 md:-mt-8 mb-4 sm:mb-5"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-10 xs:-mt-8 sm:-mt-6 md:-mt-8 mb-3 sm:mb-4"
         >
           {/* Mobile: fade the right column into the background */}
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <StatCounter target={4500} suffix="+" />
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <ThumbsUp className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
               <StatCounter target={98} suffix="%" />
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
               <StatCounter target={300} prefix="+" />
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
+          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <Award className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
               <StatCounter target={15} suffix="+" />
@@ -281,7 +284,7 @@ export default function HeroCarousel({
       </div>
 
       {/* ── CONTINUOUS AUTHORITY MARQUEE INTEGRATED AS HERO BASE ── */}
-      <div className={`w-full relative z-20 ${customHeadline ? "mt-1 sm:mt-3" : "mt-1 sm:mt-5"}`}>
+      <div className={`w-full relative z-20 ${customHeadline ? "mt-0 sm:mt-1" : "mt-0 sm:mt-2"}`}>
         <MarqueeRibbon language={language} className="-mx-4 md:-mx-8 xl:-mx-12" />
       </div>
     </section>

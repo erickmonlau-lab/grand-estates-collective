@@ -349,11 +349,62 @@ function PropertyDetail() {
 
   const t = translations[language];
 
-  const handleCopyShare = () => {
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
+  const handleCopyShare = async () => {
+    const url = typeof window !== "undefined" ? window.location.href : `${SITE_DOMAIN}/inmobiliaria/${slug}`;
+    const shareTitle = property ? `${property.name} — Gesgrama` : "Gesgrama Inmobiliaria";
+    const shareText = property 
+      ? `Echa un vistazo a este inmueble en Gesgrama: ${property.name} (${property.priceFormatted})`
+      : "Inmuebles en Gesgrama Santa Coloma";
+
+    // 1. Try native Web Share API (mobile devices, tablets, modern desktop browsers)
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: url,
+        });
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        return;
+      } catch (err: any) {
+        // User aborted share sheet or unsupported format; if aborted, do nothing; otherwise fallback to clipboard
+        if (err?.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
+    // 2. Clipboard API fallback
+    let copied = false;
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    // 3. Document execCommand fallback for older contexts / iframe limitations
+    if (!copied && typeof document !== "undefined") {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = url;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (copied) {
       setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2200);
+      setTimeout(() => setCopiedLink(false), 2500);
     }
   };
 
@@ -533,6 +584,17 @@ function PropertyDetail() {
             </div>
 
             <div className="flex items-center gap-2">
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${property?.name ? `${property.name} — ` : ''}${typeof window !== "undefined" ? window.location.href : `${SITE_DOMAIN}/inmobiliaria/${slug}`}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 py-2 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
+                title="Compartir por WhatsApp"
+              >
+                <WhatsAppIcon className="w-3.5 h-3.5 fill-white shrink-0" />
+                <span className="hidden md:inline">WhatsApp</span>
+              </a>
+
               <button
                 type="button"
                 onClick={handleCopyShare}

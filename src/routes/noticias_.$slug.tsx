@@ -1,13 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 
-import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle, Share2, Check } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { translations } from "../data/translations";
 import { FooterMascot } from "@/components/FooterMascot";
 import { Navbar } from "@/components/Navbar";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
+
+function WhatsAppIcon({ className = "w-4 h-4 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+    </svg>
+  );
+}
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -172,6 +180,64 @@ function ArticleDetail() {
   const content = article[language];
   const canonicalUrl = `${SITE_DOMAIN}/noticias/${article.slug}`;
 
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const handleCopyShare = async () => {
+    const url = typeof window !== "undefined" ? window.location.href : canonicalUrl;
+    const shareTitle = `${content.title} — Gesgrama`;
+    const shareText = content.summary || content.title;
+
+    // 1. Web Share API
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: url,
+        });
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        return;
+      } catch (err: any) {
+        if (err?.name === "AbortError") {
+          return;
+        }
+      }
+    }
+
+    // 2. Clipboard API
+    let copied = false;
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    // 3. Document execCommand fallback
+    if (!copied && typeof document !== "undefined") {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = url;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (copied) {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2500);
+    }
+  };
+
   // Structured Data (JSON-LD) for Article
   const jsonLd = {
     "@context": "https://schema.org",
@@ -280,15 +346,37 @@ function ArticleDetail() {
       <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 overflow-hidden p-6 sm:p-10 md:p-14">
           
-          {/* HEADER BACK BUTTON INSIDE CONTENT CARD */}
-          <div className="mb-6 flex items-center justify-between border-b border-slate-100 pb-4">
+          {/* HEADER BACK BUTTON & SHARE ACTIONS INSIDE CONTENT CARD */}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
             <Link 
               to="/" 
               className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 py-2.5 rounded-full shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <ArrowLeft className="w-4 h-4 text-white" /> {t.detail.back}
             </Link>
-            <span className="text-xs font-black text-[#2563eb] uppercase tracking-widest">Blog Gesgrama</span>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 py-2 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
+                title="Compartir por WhatsApp"
+              >
+                <WhatsAppIcon className="w-3.5 h-3.5 fill-white shrink-0" />
+                <span className="hidden sm:inline">WhatsApp</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleCopyShare}
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-4 sm:px-5 py-2 rounded-full border border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
+                title={t.detail.shareTitle}
+              >
+                {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
+                <span>{copiedLink ? t.detail.linkCopied : t.detail.share}</span>
+              </button>
+            </div>
           </div>
 
           {/* BREADCRUMB - FULL UNTRUNCATED WITHOUT UNDERLINE */}
@@ -573,8 +661,8 @@ function ArticleDetail() {
           </div>
 
           {/* SHARE & AUTHOR FOOTER - ENLARGED FOR HIGH VISUAL PROMINENCE */}
-          <div className="mt-16 pt-10 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-6 bg-[#f8fafc] p-6 sm:p-8 rounded-3xl border shadow-xs">
-            <div className="flex items-center gap-5">
+          <div className="mt-16 pt-10 border-t border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-6 bg-[#f8fafc] p-6 sm:p-8 rounded-3xl border shadow-xs">
+            <div className="flex items-center gap-5 w-full md:w-auto">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0f172a] border-4 border-[#2563eb] p-3 flex items-center justify-center shadow-lg shrink-0">
                 <img 
                   src="/images/logo-gesgrama-text-horizontal.png" 
@@ -588,13 +676,36 @@ function ArticleDetail() {
               </div>
             </div>
 
-            <a
-              href="/#contacto"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-sm sm:text-base font-black uppercase tracking-wider px-8 py-4 rounded-2xl sm:rounded-full transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.35)] hover:shadow-[0_12px_25px_rgba(37,99,235,0.5)] hover:scale-[1.02]"
-            >
-              <span>{language === "ca" ? "Consultar amb un assessor" : language === "en" ? "Consult an advisor" : "Consultar con un asesor"}</span>
-              <ChevronRight className="w-5 h-5" />
-            </a>
+            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#22c55e] hover:bg-[#16a34a] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-5 py-3.5 rounded-full transition-all shadow-md hover:scale-102 cursor-pointer"
+                title="Compartir por WhatsApp"
+              >
+                <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+                <span>WhatsApp</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={handleCopyShare}
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-5 py-3.5 rounded-full border border-blue-900 transition-all shadow-md hover:scale-102 cursor-pointer"
+                title={t.detail.shareTitle}
+              >
+                {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
+                <span>{copiedLink ? t.detail.linkCopied : t.detail.share}</span>
+              </button>
+
+              <a
+                href="/#contacto"
+                className="inline-flex items-center justify-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-6 sm:px-7 py-3.5 rounded-full transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:scale-102"
+              >
+                <span>{language === "ca" ? "Consultar" : language === "en" ? "Consult" : "Consultar"}</span>
+                <ChevronRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
 

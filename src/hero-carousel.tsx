@@ -157,14 +157,14 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full sm:w-fit mb-3 sm:mb-4.5"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full max-w-[210px] xs:max-w-[230px] sm:max-w-none mb-3.5 sm:mb-4.5"
             >
-              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
+              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 xs:py-2 sm:py-3.5 rounded-full font-black text-[11px] xs:text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
                 <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
+              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 xs:py-2 sm:py-3.5 rounded-full font-black text-[11px] xs:text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
                 <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>
@@ -174,7 +174,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45, ease: expo }}
-              className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-base font-extrabold text-[#0f172a]"
+              className="flex items-center gap-2 sm:gap-3 text-xs sm:text-base font-extrabold text-[#0f172a] mt-1 sm:mt-0"
             >
               {/* Overlapping customer avatars stack */}
               <div className="flex items-center -space-x-2 shrink-0">
@@ -216,7 +216,7 @@ export default function HeroCarousel({
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                   <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
                 </span>
-                <span className="font-extrabold font-sans text-slate-900 text-xs sm:text-[15px] leading-tight">
+                <span className="font-extrabold font-sans text-slate-900 text-[11px] xs:text-xs sm:text-[15px] leading-tight">
                   {customTrustBadge || t.heroCarousel.trustBadge}
                 </span>
               </div>

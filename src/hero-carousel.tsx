@@ -77,14 +77,14 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Strictly right-anchored image block on desktop, positioned background on mobile */}
+        {/* On desktop: right half. On mobile: full width with photo anchored to the right (78% center) so the couple is fully visible on the right side */}
         <div className="absolute right-0 top-0 w-full sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full">
           <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgMobile} />
+            <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[right_top] sm:object-[right_top]"
+              className="w-full h-full object-cover object-[78%_top] sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -93,17 +93,20 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
+          
           {/* Subtle gradient feathering on desktop */}
           <div className="hidden sm:block absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="hidden sm:block absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
           
-          {/* Mobile high-legibility frosted overlay: ensures copy and buttons are 100% sharp against the photo */}
-          <div className="sm:hidden absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/95 via-[#F8FAFC]/85 to-[#F8FAFC]/95 backdrop-blur-[1.5px] pointer-events-none" />
+          {/* Mobile horizontal gradient: 100% solid/frosted on the LEFT where the text sits, but completely crystal-clear on the RIGHT so the couple is crisp and visible */}
+          <div className="sm:hidden absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 via-55% to-transparent pointer-events-none" />
+          <div className="sm:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        <div className="max-w-full sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* On mobile: keep text width bounded to ~68%-75% so the couple on the right is never blocked */}
+        <div className="max-w-[72%] xs:max-w-[70%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -111,8 +114,8 @@ export default function HeroCarousel({
               transition={{ duration: 0.5, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[10.5px] xs:text-[11.5px] sm:text-[13px] font-black uppercase tracking-[0.1em] sm:tracking-[0.12em] px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
-                <span className="w-2 h-2 rounded-full bg-white shrink-0 animate-pulse" />
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[10px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.08em] sm:tracking-[0.12em] px-3 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
                 <span className="text-left leading-none">{customTag || t.heroCarousel.tag}</span>
               </div>
             </motion.div>
@@ -121,7 +124,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease: expo }}
-              className="text-[28px] xs:text-[32px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.12] sm:leading-[1.04] mb-2 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading max-w-xl"
+              className="text-[25px] xs:text-[28px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.12] sm:leading-[1.04] mb-2 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading"
             >
               {customHeadline ? (
                 customHeadline
@@ -139,7 +142,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-sm xs:text-[15px] sm:text-lg md:text-[1.25rem] mb-3.5 sm:mb-5 font-bold leading-relaxed font-sans max-w-[580px]"
+              className="text-[#1e293b] text-[13px] xs:text-[14px] sm:text-lg md:text-[1.25rem] mb-3 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
             >
               {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
@@ -148,16 +151,16 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 xs:gap-2.5 sm:gap-3.5 w-full sm:w-fit mb-3 sm:mb-4.5"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full sm:w-fit mb-3 sm:mb-4.5"
             >
-              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-black text-xs sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0 shadow-md">
-                <Home className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0" />
-                <span>{t.heroCarousel.btnValuation}</span>
-                <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
+              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
+                <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
+                <span className="truncate">{t.heroCarousel.btnValuation}</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-black text-xs sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-2 group cursor-pointer shrink-0 shadow-xs">
-                <Building2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
-                <span>{t.heroCarousel.btnProperties}</span>
+              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
+                <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
+                <span className="truncate">{t.heroCarousel.btnProperties}</span>
               </a>
             </motion.div>
 

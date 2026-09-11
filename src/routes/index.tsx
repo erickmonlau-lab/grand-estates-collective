@@ -1131,9 +1131,9 @@ function Index() {
               </button>
             </div>
 
-            {/* Quick access chips for zones - Single unified line on desktop, clean horizontal scroll/wrap */}
-            <div className="mt-5 pb-5 border-b border-slate-100 flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1">
-              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1">{t.properties.popularZones}:</span>
+            {/* Quick access chips for zones - All visible at a glance (no scroll needed) */}
+            <div className="mt-5 pb-5 border-b border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
+              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1 w-full sm:w-auto mb-1 sm:mb-0">{t.properties.popularZones}:</span>
               {[
                 { label: t.properties.allZones, value: "Cualquier zona" },
                 ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
@@ -1146,7 +1146,7 @@ function Index() {
                       setConsoleFilters(prev => ({ ...prev, zona: item.value }));
                       setSearchParams(prev => ({ ...prev, zona: item.value }));
                     }}
-                    className={`shrink-0 px-3.5 sm:px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
+                    className={`px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
                       isActive 
                         ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
                         : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"

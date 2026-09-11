@@ -246,7 +246,7 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-2 xs:-mt-1 sm:mt-4 mb-2.5 sm:mb-2"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-5 xs:-mt-4 sm:-mt-1 md:-mt-3 mb-2.5 sm:mb-2"
         >
           {/* Mobile: fade the right column into the background */}
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">

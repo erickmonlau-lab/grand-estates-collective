@@ -346,14 +346,14 @@ function PropertyDetail() {
   );
 
   const statusLabel = property.status === "reservado" 
-    ? "Reservado" 
+    ? t.detail.statusReserved 
     : property.status === "vendido" 
-    ? "Vendido" 
+    ? t.detail.statusSold 
     : property.status === "alquilado" 
-    ? "Alquilado" 
+    ? t.detail.statusRented 
     : property.operation === "alquilar" 
-    ? "En Alquiler" 
-    : "En Venta";
+    ? t.detail.statusRent 
+    : t.detail.statusSale;
 
   const statusColor = property.status === "reservado"
     ? "bg-amber-500 text-white"
@@ -383,7 +383,7 @@ function PropertyDetail() {
               <div className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-400">
                 <span>/</span>
                 <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors font-extrabold text-slate-700">
-                  {property.operation === "alquilar" ? "Alquiler" : "Venta"}
+                  {property.operation === "alquilar" ? t.detail.forRent : t.detail.forSale}
                 </a>
                 <span>/</span>
                 <span className="text-[#0f172a] font-black truncate max-w-[200px]">{property.ref || property.id.toUpperCase()}</span>
@@ -395,10 +395,10 @@ function PropertyDetail() {
                 type="button"
                 onClick={handleCopyShare}
                 className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-5 py-2.5 rounded-full border-2 border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
-                title="Compartir enlace de esta propiedad"
+                title={t.detail.shareTitle}
               >
                 {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
-                <span>{copiedLink ? "¡Enlace copiado!" : "Compartir"}</span>
+                <span>{copiedLink ? t.detail.linkCopied : t.detail.share}</span>
               </button>
             </div>
           </div>
@@ -406,10 +406,10 @@ function PropertyDetail() {
           {/* BREADCRUMB */}
           <nav aria-label="Breadcrumb" className="mb-6 flex items-center flex-wrap gap-2 text-xs font-bold text-slate-500">
             <Link to="/" className="hover:text-[#2563eb] transition-colors text-slate-700">
-              {language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio"}
+              {t.detail.home}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors text-slate-700">Inmobiliaria</a>
+            <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors text-slate-700">{t.detail.realEstate}</a>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             <span className="text-slate-500 font-bold">Santa Coloma de Gramenet</span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -423,7 +423,7 @@ function PropertyDetail() {
             <div className="relative rounded-3xl overflow-hidden shadow-xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[520px]">
               <img 
                 src={galleryImages[activeImageIdx] || galleryImages[0]} 
-                alt={`${pData.name} - Foto ${activeImageIdx + 1}`} 
+                alt={`${pData.name} - ${activeImageIdx + 1}`} 
                 loading="eager" 
                 fetchPriority="high" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 select-none" 
@@ -449,7 +449,7 @@ function PropertyDetail() {
                   <button
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
-                    aria-label="Foto anterior"
+                    aria-label={t.detail.photoPrev}
                     className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
                     <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
@@ -458,7 +458,7 @@ function PropertyDetail() {
                   <button
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
-                    aria-label="Foto siguiente"
+                    aria-label={t.detail.photoNext}
                     className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
                     <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
@@ -470,7 +470,7 @@ function PropertyDetail() {
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-bold z-10">
                 <div className="flex items-center gap-2 bg-[#0b214a] px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
                   <Eye className="w-3.5 h-3.5 text-blue-400" />
-                  <span className="font-mono font-black">Foto {activeImageIdx + 1} de {galleryImages.length}</span>
+                  <span className="font-mono font-black">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
                 </div>
                 {hasValidVideo && (
                   <a
@@ -478,7 +478,7 @@ function PropertyDetail() {
                     className="flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 py-1.5 rounded-full border border-blue-400/40 shadow-md transition-colors"
                   >
                     <Play className="w-3.5 h-3.5 fill-white" />
-                    <span>Ver Vídeo Tour</span>
+                    <span>{t.detail.videoTour}</span>
                   </a>
                 )}
               </div>
@@ -498,7 +498,7 @@ function PropertyDetail() {
                         : "border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
                     }`}
                   >
-                    <img src={img} alt={`Miniatura ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`${pData.name} - ${idx + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -525,7 +525,7 @@ function PropertyDetail() {
 
                 <div className="sm:text-right shrink-0 bg-blue-50 border-2 border-blue-200 p-4 rounded-2xl shadow-xs">
                   <span className="text-[11px] uppercase tracking-widest text-[#000000] font-black block mb-1">
-                    Precio Inmueble
+                    {t.detail.priceTitle}
                   </span>
                   <div className="text-3xl sm:text-4xl font-black text-[#2563eb] tracking-tight font-sans">
                     {property.priceFormatted}
@@ -540,8 +540,8 @@ function PropertyDetail() {
                     <Bed className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Dormitorios</span>
-                    <span className="text-xl font-black text-white">{property.bedrooms} hab.</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.bedrooms}</span>
+                    <span className="text-xl font-black text-white">{property.bedrooms} {t.detail.roomShort}</span>
                   </div>
                 </div>
 
@@ -550,8 +550,8 @@ function PropertyDetail() {
                     <Bath className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Baños</span>
-                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? "baño" : "baños"}</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.bathrooms}</span>
+                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
                   </div>
                 </div>
 
@@ -560,7 +560,7 @@ function PropertyDetail() {
                     <Maximize className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Superficie</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.surface}</span>
                     <span className="text-xl font-black text-white">{property.surface} m²</span>
                   </div>
                 </div>
@@ -570,7 +570,7 @@ function PropertyDetail() {
                     <Building2 className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Planta / Tipo</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.floor}</span>
                     <span className="text-base font-black text-white truncate block max-w-[100px]">{pData.floor || pData.type}</span>
                   </div>
                 </div>
@@ -593,7 +593,7 @@ function PropertyDetail() {
               <div className="mb-12">
                 <h2 className="text-2xl font-black text-[#000000] mb-5 flex items-center gap-2.5">
                   <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
-                  {t.detail.features} e Instalaciones
+                  {t.detail.features} {t.detail.featuresSubtitle}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {pData.features.map((feat: string, idx: number) => (
@@ -618,14 +618,14 @@ function PropertyDetail() {
                       <Play className="w-5 h-5 fill-white" />
                     </span>
                     <div>
-                      <h3 className="text-xl font-black tracking-tight">Recorrido en Vídeo de la Propiedad</h3>
-                      <p className="text-slate-400 text-xs sm:text-sm">Explora este inmueble en detalle antes de tu visita presencial.</p>
+                      <h3 className="text-xl font-black tracking-tight">{t.detail.videoTitle}</h3>
+                      <p className="text-slate-400 text-xs sm:text-sm">{t.detail.videoSubtitle}</p>
                     </div>
                   </div>
                   <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-slate-800 mt-5">
                     <iframe
                       src={property.videoUrl}
-                      title={`Recorrido en vídeo - ${pData.name}`}
+                      title={`${t.detail.videoTitle} - ${pData.name}`}
                       className="w-full h-full border-0"
                       loading="lazy"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -643,10 +643,10 @@ function PropertyDetail() {
                 </div>
                 <div>
                   <h4 className="text-base font-black text-white mb-1">
-                    Garantía Inmobiliaria Gesgrama
+                    {t.detail.guaranteeTitle}
                   </h4>
                   <p className="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed">
-                    Inmueble revisado jurídica y registralmente por Agentes de la Propiedad Inmobiliaria (AICAT 7.892 y CAFBL 8.423). Sin sorpresas ni costes ocultos.
+                    {t.detail.guaranteeDesc}
                   </p>
                 </div>
               </div>
@@ -661,7 +661,7 @@ function PropertyDetail() {
                 {/* Header card info */}
                 <div className="relative z-10 mb-6">
                   <span className="text-[11px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-3.5 py-1.5 rounded-full inline-block mb-3 shadow-sm border border-blue-400">
-                    Atención Inmediata
+                    {t.detail.immediateAttention}
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
                     {t.detail.interested}
@@ -674,11 +674,11 @@ function PropertyDetail() {
                 {/* Property quick summary in card - HIGH CONTRAST PURE BLACK */}
                 <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 border-2 border-blue-400 mb-6 shadow-md">
                   <div className="flex items-center justify-between text-xs font-black text-[#000000] mb-2">
-                    <span className="uppercase tracking-wider">Referencia:</span>
+                    <span className="uppercase tracking-wider">{t.detail.ref}</span>
                     <span className="font-mono text-[#000000] font-black bg-slate-100 px-2.5 py-1 rounded-md border border-slate-300 text-xs">{property.ref || property.id.toUpperCase()}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs font-black text-[#000000]">
-                    <span className="uppercase tracking-wider">Precio:</span>
+                    <span className="uppercase tracking-wider">{t.detail.price}</span>
                     <span className="text-2xl text-[#2563eb] font-black tracking-tight">{property.priceFormatted}</span>
                   </div>
                 </div>
@@ -692,7 +692,7 @@ function PropertyDetail() {
                     className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
-                    <span>Contactar por WhatsApp</span>
+                    <span>{t.detail.whatsappBtn}</span>
                   </a>
 
                   <a 
@@ -700,7 +700,7 @@ function PropertyDetail() {
                     className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
                     <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
-                    <span>Llamar a Oficina: 93 468 56 56</span>
+                    <span>{t.detail.callBtn}</span>
                   </a>
 
                   <a 
@@ -708,16 +708,16 @@ function PropertyDetail() {
                     className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
-                    <span>Pedir Cita Online</span>
+                    <span>{t.detail.bookBtn}</span>
                   </a>
                 </div>
 
                 {/* OFFICE ADDRESS & SCHEDULE */}
                 <div className="relative z-10 pt-5 border-t border-blue-800 text-center text-xs text-blue-200 space-y-1 font-medium">
-                  <p className="font-bold text-white">Oficina Gesgrama:</p>
+                  <p className="font-bold text-white">{t.detail.officeLabel}</p>
                   <p>Rambla de Sant Sebastià, 48</p>
                   <p>Santa Coloma de Gramenet</p>
-                  <p className="text-[11px] text-[#38bdf8] font-black pt-1">Lunes a Viernes · 9:30 - 13:30 / 16:30 - 20:00</p>
+                  <p className="text-[11px] text-[#38bdf8] font-black pt-1">{t.detail.schedule}</p>
                 </div>
 
               </div>
@@ -735,21 +735,13 @@ function PropertyDetail() {
             <div className="relative z-10 max-w-2xl mx-auto">
               <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm mb-3">
                 <Mail className="w-3.5 h-3.5 text-white" />
-                <span>{language === "ca" ? "Contactar amb un Assessor" : language === "en" ? "Contact an Advisor" : "Contactar con un Asesor"}</span>
+                <span>{t.detail.inquiryBadge}</span>
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight font-sans mb-3">
-                {language === "ca" 
-                  ? "¿T'interessa aquest immoble? T'assessorem" 
-                  : language === "en" 
-                  ? "Interested in this property? We guide you" 
-                  : "¿Te interesa este inmueble? Te asesoramos"}
+                {t.detail.inquiryTitle}
               </h2>
               <p className="text-blue-100 text-sm sm:text-base font-medium">
-                {language === "ca"
-                  ? `Deixa'ns les teves dades per concertar una visita per a ${pData.name} (Ref: ${property.ref || property.id}).`
-                  : language === "en"
-                  ? `Leave your details to schedule a visit for ${pData.name} (Ref: ${property.ref || property.id}).`
-                  : `Déjanos tus datos para concertar una visita o solicitar más información sobre ${pData.name} (Ref: ${property.ref || property.id}).`}
+                {t.detail.inquiryDesc.replace("{name}", pData.name).replace("{ref}", property.ref || property.id)}
               </p>
             </div>
           </div>
@@ -759,11 +751,11 @@ function PropertyDetail() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
-                    {language === "ca" ? "NOM COMPLET *" : language === "en" ? "FULL NAME *" : "NOMBRE COMPLETO *"}
+                    {t.detail.nameField}
                   </label>
                   <input 
                     type="text" 
-                    placeholder={language === "ca" ? "El teu nom..." : language === "en" ? "Your name..." : "Tu nombre..."} 
+                    placeholder={t.detail.namePlaceholder} 
                     value={contactForm.nombre}
                     onChange={e => {
                       setContactForm(f => ({ ...f, nombre: e.target.value }));
@@ -778,11 +770,11 @@ function PropertyDetail() {
 
                 <div>
                   <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
-                    {language === "ca" ? "TELÈFON *" : language === "en" ? "PHONE NUMBER *" : "TELÉFONO *"}
+                    {t.detail.phoneField}
                   </label>
                   <input 
                     type="tel" 
-                    placeholder={language === "ca" ? "El teu telèfon (ex. 600 000 000)" : language === "en" ? "Your phone number" : "Tu teléfono (ej. 600 000 000)"} 
+                    placeholder={t.detail.phonePlaceholder} 
                     value={contactForm.telefono}
                     onChange={e => {
                       setContactForm(f => ({ ...f, telefono: e.target.value }));
@@ -798,11 +790,11 @@ function PropertyDetail() {
 
               <div>
                 <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
-                  {language === "ca" ? "CORREU ELECTRÒNIC *" : language === "en" ? "EMAIL ADDRESS *" : "CORREO ELECTRÓNICO *"}
+                  {t.detail.emailField}
                 </label>
                 <input 
                   type="email" 
-                  placeholder={language === "ca" ? "el.teu.email@exemple.com" : language === "en" ? "your.email@example.com" : "tu.correo@ejemplo.com"} 
+                  placeholder={t.detail.emailPlaceholder} 
                   value={contactForm.email}
                   onChange={e => {
                     setContactForm(f => ({ ...f, email: e.target.value }));
@@ -817,11 +809,11 @@ function PropertyDetail() {
 
               <div>
                 <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
-                  {language === "ca" ? "MISSATGE O PREGUNTA (OPCIONAL)" : language === "en" ? "MESSAGE OR QUESTION (OPTIONAL)" : "MENSAJE O PREGUNTA (OPCIONAL)"}
+                  {t.detail.messageField}
                 </label>
                 <textarea 
                   rows={3} 
-                  placeholder={language === "ca" ? `Hola, voldria rebre més informació o fer una visita a l'immoble ${pData.name}...` : language === "en" ? `Hello, I would like more information or to visit ${pData.name}...` : `Hola, me gustaría recibir más información o concertar una visita para ${pData.name}...`} 
+                  placeholder={t.detail.messagePlaceholder.replace("{name}", pData.name)} 
                   value={contactForm.mensaje}
                   onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
                   className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all resize-none font-sans placeholder:text-slate-400" 
@@ -841,11 +833,7 @@ function PropertyDetail() {
                     className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
                   />
                   <label htmlFor="property-privacy" className="text-xs sm:text-sm text-[#0f172a] font-bold cursor-pointer font-sans select-none">
-                    {language === "ca" 
-                      ? "He llegit i accepto la política de privacitat i el tractament de les meves dades." 
-                      : language === "en" 
-                      ? "I have read and accept the privacy policy and data processing." 
-                      : "He leído y acepto la política de privacidad y el tratamiento de mis datos."}
+                    {t.detail.privacyCheckbox}
                   </label>
                 </div>
                 {contactErrors.privacidad && (
@@ -863,16 +851,16 @@ function PropertyDetail() {
                 {isSubmittingContact ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>{language === "ca" ? "Enviant sol·licitud..." : language === "en" ? "Sending inquiry..." : "Enviando solicitud..."}</span>
+                    <span>{t.detail.sendingInquiry}</span>
                   </>
                 ) : isSubmittedSuccess ? (
                   <div className="flex items-center gap-2">
                     <Check className="w-5 h-5 stroke-[3] text-white" />
-                    <span>{language === "ca" ? "Sol·licitud enviada amb èxit!" : language === "en" ? "Inquiry sent successfully!" : "¡Solicitud enviada con éxito!"}</span>
+                    <span>{t.detail.successInquiry}</span>
                   </div>
                 ) : (
                   <>
-                    <span>{language === "ca" ? "Sol·licitar Informació / Concertar Visita" : language === "en" ? "Request Information / Book Visit" : "Solicitar Información / Concertar Visita"}</span>
+                    <span>{t.detail.sendInquiry}</span>
                     <ArrowRight className="w-4 h-4 text-white" />
                   </>
                 )}
@@ -886,15 +874,11 @@ function PropertyDetail() {
           <div className="flex items-center gap-3 mb-2">
             <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
             <h3 className="text-xl md:text-2xl font-black text-slate-900 font-sans">
-              {language === 'ca' ? 'Descobreix més immobles a Barcelona' : language === 'en' ? 'Discover More Properties in Barcelona' : 'Descubre más inmuebles en Barcelona'}
+              {t.detail.exploreMoreTitle}
             </h3>
           </div>
           <p className="text-slate-600 text-sm md:text-base font-bold mb-6 pl-5">
-            {language === 'ca' 
-              ? 'Explora el nostre catàleg complet de pisos o sol·licita una tasació personalitzada.' 
-              : language === 'en'
-              ? 'Explore our full property catalog or request a personalized valuation.'
-              : 'Explora nuestro catálogo completo de pisos o solicita una tasación personalizada sin compromiso.'}
+            {t.detail.exploreMoreSubtitle}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -907,9 +891,9 @@ function PropertyDetail() {
               </div>
               <div>
                 <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
-                  Catálogo Inmobiliario
+                  {t.detail.catalogCardTitle}
                 </p>
-                <p className="text-xs text-blue-200 font-bold">Ver todos los inmuebles</p>
+                <p className="text-xs text-blue-200 font-bold">{t.detail.catalogCardSubtitle}</p>
               </div>
             </a>
 
@@ -922,9 +906,9 @@ function PropertyDetail() {
               </div>
               <div>
                 <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
-                  Valorar mi Propiedad
+                  {t.detail.valuatorCardTitle}
                 </p>
-                <p className="text-xs text-blue-200 font-bold">Tasación profesional gratuita</p>
+                <p className="text-xs text-blue-200 font-bold">{t.detail.valuatorCardSubtitle}</p>
               </div>
             </a>
 
@@ -937,9 +921,9 @@ function PropertyDetail() {
               </div>
               <div>
                 <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-100 transition-colors">
-                  Contactar con Asesor
+                  {t.detail.advisorCardTitle}
                 </p>
-                <p className="text-xs text-blue-100 font-bold">Atención personalizada</p>
+                <p className="text-xs text-blue-100 font-bold">{t.detail.advisorCardSubtitle}</p>
               </div>
             </a>
           </div>
@@ -1100,7 +1084,7 @@ function PropertyDetail() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · <span className="inline-block whitespace-nowrap">Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="underline hover:text-blue-300">Kovia</a></span></p>
             <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
               <Link to="/aviso-legal" className="hover:text-blue-200">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
               <span>·</span>

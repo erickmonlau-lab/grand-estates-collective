@@ -84,6 +84,47 @@ export function autoTranslateText(text: string, targetLang: "es" | "ca" | "en"):
   return result;
 }
 
+const FEATURE_MAP: Record<string, { ca: string; en: string }> = {
+  "Ascensor": { ca: "Ascensor", en: "Elevator" },
+  "Finca con ascensor": { ca: "Finca amb ascensor", en: "Building with elevator" },
+  "Balcón": { ca: "Balcó", en: "Balcony" },
+  "Balcon": { ca: "Balcó", en: "Balcony" },
+  "Terraza": { ca: "Terrassa", en: "Terrace" },
+  "Gran terraza": { ca: "Gran terrassa", en: "Large terrace" },
+  "Terraza privada": { ca: "Terrassa privada", en: "Private terrace" },
+  "Parking": { ca: "Pàrquing", en: "Parking" },
+  "Garaje": { ca: "Garatge", en: "Garage" },
+  "Piscina": { ca: "Piscina", en: "Swimming pool" },
+  "Piscina comunitaria": { ca: "Piscina comunitària", en: "Community pool" },
+  "Calefacción": { ca: "Calefacció", en: "Heating" },
+  "Calefaccion": { ca: "Calefacció", en: "Heating" },
+  "Aire acondicionado": { ca: "Aire condicionat", en: "Air conditioning" },
+  "Trastero": { ca: "Traster", en: "Storage room" },
+  "Exterior": { ca: "Exterior", en: "Exterior" },
+  "Luminoso": { ca: "Lluminós", en: "Bright" },
+  "Muy luminoso": { ca: "Molt lluminós", en: "Very bright" },
+  "Reformado": { ca: "Reformat", en: "Renovated" },
+  "A reformar": { ca: "Per reformar", en: "To renovate" },
+  "Amueblado": { ca: "Moblat", en: "Furnished" },
+  "Cocina equipada": { ca: "Cuina equipada", en: "Equipped kitchen" },
+  "Vistas despejadas": { ca: "Vistes clares", en: "Open views" },
+  "Cerca de metro": { ca: "A prop de metro", en: "Near subway" },
+  "Zona céntrica": { ca: "Zona cèntrica", en: "Downtown area" },
+  "Armarios empotrados": { ca: "Armaris encastats", en: "Built-in wardrobes" },
+  "Suelo de parquet": { ca: "Terra de parquet", en: "Parquet floor" },
+  "Carpintería de aluminio": { ca: "Fusteria d'alumini", en: "Aluminum carpentry" },
+  "Puerta blindada": { ca: "Porta blindada", en: "Reinforced door" },
+};
+
+export function translateFeature(feat: string, language: "es" | "ca" | "en"): string {
+  if (!feat || language === "es") return feat;
+  const match = FEATURE_MAP[feat.trim()];
+  if (match) {
+    return language === "ca" ? match.ca : match.en;
+  }
+  return autoTranslateText(feat, language);
+}
+
 export function getTranslatedProperty(
   property: ExtendedProperty,
   language: "es" | "ca" | "en",
@@ -130,12 +171,15 @@ export function getTranslatedProperty(
     else if (typeStr === "Oficina") typeStr = "Office";
   }
 
+  const rawFeatures = property.features || [];
+  const translatedFeatures = rawFeatures.map(feat => translateFeature(feat, language));
+
   return {
     id: property.id,
     name,
     type: typeStr,
     location: formatLocationDirect(property.location, language),
     description,
-    features: property.features || []
+    features: translatedFeatures
   };
 }

@@ -1602,7 +1602,7 @@ function Index() {
       </section>
 
       {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-24 md:scroll-mt-28">
+      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-32 md:scroll-mt-36">
         <div id="valorador" className="-top-28 relative block invisible" />
         <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
@@ -2787,7 +2787,7 @@ function Index() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · <span className="inline-block whitespace-nowrap">Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="underline hover:text-blue-300">Kovia</a></span></p>
             <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
               <Link to="/aviso-legal" className="hover:text-blue-200">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
               <span>·</span>

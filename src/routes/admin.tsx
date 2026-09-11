@@ -281,6 +281,22 @@ function AdminDashboard() {
     }));
   };
 
+  const handleSetAsCover = (index: number) => {
+    setFormData((prev) => {
+      const selectedImg = prev.gallery[index];
+      if (!selectedImg) return prev;
+      const currentCover = prev.image;
+      const newGallery = [...prev.gallery];
+      // Swap or replace
+      newGallery[index] = currentCover;
+      return {
+        ...prev,
+        image: selectedImg,
+        gallery: newGallery.filter(Boolean)
+      };
+    });
+  };
+
   const handleSaveProperty = async (e: React.FormEvent) => {
     e.preventDefault();
     const finalName = formData.name.trim() || `${formData.type} en ${formData.location}`;
@@ -1086,18 +1102,30 @@ function AdminDashboard() {
 
                   {/* Gallery Thumbnails Grid */}
                   {formData.gallery.length > 0 && (
-                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 pt-1">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 pt-1">
                       {formData.gallery.map((imgUrl, idx) => (
                         <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-slate-300 bg-white group shadow-xs">
                           <img src={imgUrl} alt={`Galería ${idx + 1}`} className="w-full h-full object-cover" />
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveGalleryImage(idx)}
-                            className="absolute top-1 right-1 bg-red-600 text-white rounded-full p-1 shadow-md hover:bg-red-700 transition-colors cursor-pointer"
-                            title="Quitar foto"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1.5">
+                            <div className="flex justify-end">
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveGalleryImage(idx)}
+                                className="bg-red-600 hover:bg-red-700 text-white rounded-full p-1 shadow-md transition-colors cursor-pointer"
+                                title="Quitar foto de la galería"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleSetAsCover(idx)}
+                              className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-[10px] font-black uppercase tracking-wider py-1 px-1 rounded-md shadow-md transition-colors cursor-pointer text-center"
+                              title="Convertir en foto principal de portada"
+                            >
+                              Hacer Portada
+                            </button>
+                          </div>
                         </div>
                       ))}
                     </div>

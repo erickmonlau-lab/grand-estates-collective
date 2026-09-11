@@ -127,6 +127,7 @@ function AdminDashboard() {
     bedrooms: 3,
     bathrooms: 1,
     surface: 75,
+    floor: "Planta 3ª",
     description: "",
     description_ca: "",
     description_en: "",
@@ -148,21 +149,25 @@ function AdminDashboard() {
     }
   }, []);
 
-  // Subscribe to real-time property updates
+  // Sync / Subscribe properties
   useEffect(() => {
-    if (!isAuthenticated) return;
-    const unsub = subscribeProperties((list) => {
-      setProperties(list);
-    });
-    fetchProperties().then((data) => {
-      if (data) setProperties(data);
-    });
-    return () => unsub();
-  }, [isAuthenticated]);
+    let unsubscribe: (() => void) | undefined;
+    async function load() {
+      const data = await fetchProperties();
+      setProperties(data);
+      unsubscribe = subscribeProperties((updated) => {
+        setProperties(updated);
+      });
+    }
+    load();
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput.trim() === DEFAULT_ADMIN_PIN || pinInput.trim() === "admin") {
+    if (pinInput.trim() === DEFAULT_ADMIN_PIN) {
       setIsAuthenticated(true);
       sessionStorage.setItem("gesgrama_admin_auth", "true");
       setAuthError("");
@@ -192,6 +197,7 @@ function AdminDashboard() {
       bedrooms: 3,
       bathrooms: 1,
       surface: 75,
+      floor: "Planta 3ª",
       description: "Magnífica vivienda luminosa y totalmente equipada en excelente ubicación.",
       description_ca: "",
       description_en: "",
@@ -223,6 +229,7 @@ function AdminDashboard() {
       bedrooms: p.bedrooms,
       bathrooms: p.bathrooms,
       surface: p.surface,
+      floor: p.floor || "",
       description: p.description || "",
       description_ca: p.description_ca || "",
       description_en: p.description_en || "",
@@ -305,6 +312,7 @@ function AdminDashboard() {
         bedrooms: Number(formData.bedrooms),
         bathrooms: Number(formData.bathrooms),
         surface: Number(formData.surface),
+        floor: formData.floor.trim() || undefined,
         description: formData.description,
         description_ca: formData.description,
         description_en: formData.description,
@@ -331,6 +339,7 @@ function AdminDashboard() {
         bedrooms: Number(formData.bedrooms),
         bathrooms: Number(formData.bathrooms),
         surface: Number(formData.surface),
+        floor: formData.floor.trim() || undefined,
         description: formData.description,
         description_ca: formData.description,
         description_en: formData.description,
@@ -538,21 +547,21 @@ function AdminDashboard() {
 
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-xs">
-            <span className="text-xs font-black uppercase text-slate-500">Total Inmuebles</span>
-            <div className="text-3xl font-black text-[#0f172a] mt-1">{totalCount}</div>
+          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-sm">
+            <span className="text-xs font-black uppercase text-[#000000] tracking-wider">Total Inmuebles</span>
+            <div className="text-3xl font-black text-[#000000] mt-1 font-sans">{totalCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-xs">
-            <span className="text-xs font-black uppercase text-blue-600">En Venta</span>
-            <div className="text-3xl font-black text-blue-600 mt-1">{ventaCount}</div>
+          <div className="bg-white p-5 rounded-2xl border-2 border-blue-200 shadow-sm">
+            <span className="text-xs font-black uppercase text-blue-700 tracking-wider">En Venta</span>
+            <div className="text-3xl font-black text-[#2563eb] mt-1 font-sans">{ventaCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-xs">
-            <span className="text-xs font-black uppercase text-emerald-600">En Alquiler</span>
-            <div className="text-3xl font-black text-emerald-600 mt-1">{alquilerCount}</div>
+          <div className="bg-white p-5 rounded-2xl border-2 border-emerald-200 shadow-sm">
+            <span className="text-xs font-black uppercase text-emerald-800 tracking-wider">En Alquiler</span>
+            <div className="text-3xl font-black text-emerald-700 mt-1 font-sans">{alquilerCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-xs">
-            <span className="text-xs font-black uppercase text-amber-600">Reservados</span>
-            <div className="text-3xl font-black text-amber-600 mt-1">{reservadoCount}</div>
+          <div className="bg-white p-5 rounded-2xl border-2 border-amber-200 shadow-sm">
+            <span className="text-xs font-black uppercase text-amber-800 tracking-wider">Reservados</span>
+            <div className="text-3xl font-black text-amber-600 mt-1 font-sans">{reservadoCount}</div>
           </div>
         </div>
 
@@ -561,13 +570,13 @@ function AdminDashboard() {
           
           {/* Search Box */}
           <div className="relative flex-1">
-            <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-5 h-5 text-[#2563eb] absolute left-3.5 top-1/2 -translate-y-1/2 stroke-[2.5]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar por título, referencia (ej: A10750), barrio..."
-              className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-11 pr-4 py-3 text-sm font-bold text-[#0f172a] focus:border-[#2563eb] outline-none transition-colors"
+              className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-11 pr-4 py-3 text-sm font-black text-[#000000] placeholder:text-slate-500 focus:border-[#2563eb] outline-none transition-colors"
             />
           </div>
 
@@ -577,20 +586,20 @@ function AdminDashboard() {
               <select
                 value={filterMode}
                 onChange={(e: any) => setFilterMode(e.target.value)}
-                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer hover:border-slate-400 transition-colors"
+                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#000000] outline-none cursor-pointer hover:border-slate-400 transition-colors"
               >
                 <option value="todos">Todas las Operaciones</option>
                 <option value="compra">Solo Venta</option>
                 <option value="alquilar">Solo Alquiler</option>
               </select>
-              <ChevronDown className="w-4 h-4 text-slate-600 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+              <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
             </div>
 
             <div className="relative">
               <select
                 value={filterStatus}
                 onChange={(e: any) => setFilterStatus(e.target.value)}
-                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#0f172a] outline-none cursor-pointer hover:border-slate-400 transition-colors"
+                className="appearance-none bg-slate-50 border-2 border-slate-300 rounded-xl pl-4 pr-10 py-3 text-xs sm:text-sm font-black text-[#000000] outline-none cursor-pointer hover:border-slate-400 transition-colors"
               >
                 <option value="todos">Todos los Estados</option>
                 <option value="disponible">Disponibles</option>
@@ -598,14 +607,14 @@ function AdminDashboard() {
                 <option value="vendido">Vendidos</option>
                 <option value="alquilado">Alquilados</option>
               </select>
-              <ChevronDown className="w-4 h-4 text-slate-600 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+              <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
             </div>
 
             <button
               onClick={handleOpenCreateModal}
               className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-5 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md hover:shadow-lg cursor-pointer"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="w-5 h-5 stroke-[2.5]" />
               <span>Añadir Inmueble</span>
             </button>
           </div>
@@ -615,13 +624,13 @@ function AdminDashboard() {
         {filteredProperties.length === 0 ? (
           <div className="bg-white rounded-2xl border-2 border-dashed border-slate-300 p-12 text-center">
             <Building2 className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <h3 className="text-lg font-black text-[#0f172a]">No se encontraron propiedades</h3>
-            <p className="text-sm font-bold text-slate-500 mt-1">Prueba a cambiar los filtros o añade un nuevo inmueble.</p>
+            <h3 className="text-lg font-black text-[#000000]">No se encontraron propiedades</h3>
+            <p className="text-sm font-bold text-slate-600 mt-1">Prueba a cambiar los filtros o añade un nuevo inmueble.</p>
             <button
               onClick={handleOpenCreateModal}
               className="mt-4 bg-[#2563eb] text-white text-xs font-black px-4 py-2.5 rounded-xl inline-flex items-center gap-2 cursor-pointer"
             >
-              <Plus className="w-4 h-4" /> Añadir Inmueble
+              <Plus className="w-4 h-4 stroke-[2.5]" /> Añadir Inmueble
             </button>
           </div>
         ) : (
@@ -640,10 +649,10 @@ function AdminDashboard() {
                     loading="lazy"
                   />
                   <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="bg-[#0b1221]/90 backdrop-blur-xs text-white text-xs font-black uppercase px-3 py-1 rounded-lg">
+                    <span className="bg-[#0b214a] text-white text-xs font-black uppercase px-3 py-1 rounded-lg shadow-sm">
                       {p.type}
                     </span>
-                    <span className={`text-xs font-black uppercase px-3 py-1 rounded-lg ${
+                    <span className={`text-xs font-black uppercase px-3 py-1 rounded-lg shadow-sm ${
                       p.operation === "alquilar" ? "bg-emerald-600 text-white" : "bg-[#2563eb] text-white"
                     }`}>
                       {p.operation === "alquilar" ? "Alquiler" : "Venta"}
@@ -651,7 +660,7 @@ function AdminDashboard() {
                   </div>
 
                   {/* Ref Badge */}
-                  <div className="absolute top-3 right-3 bg-white text-[#0f172a] text-xs font-mono font-black px-2.5 py-1 rounded-md border border-slate-300 shadow-xs">
+                  <div className="absolute top-3 right-3 bg-white text-[#000000] text-xs font-mono font-black px-2.5 py-1 rounded-md border-2 border-slate-300 shadow-sm">
                     Ref: {p.ref || "API A10750"}
                   </div>
 
@@ -666,21 +675,21 @@ function AdminDashboard() {
                 {/* Card Content */}
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-lg font-black text-[#0f172a] line-clamp-1 mb-1 font-sans">{p.name}</h3>
-                    <p className="text-xs font-bold text-slate-500 flex items-center gap-1 mb-3">
-                      <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
+                    <h3 className="text-lg font-black text-[#000000] line-clamp-1 mb-1 font-sans">{p.name}</h3>
+                    <p className="text-xs font-bold text-slate-700 flex items-center gap-1 mb-3">
+                      <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
                       <span>{p.location}, {p.city || "Santa Coloma"}</span>
                     </p>
 
-                    <div className="flex items-center justify-between text-xs font-bold text-slate-700 py-2.5 border-y border-slate-100 mb-3">
+                    <div className="flex items-center justify-between text-xs font-black text-[#000000] py-2.5 border-y-2 border-slate-200 mb-3">
                       <span className="flex items-center gap-1">
-                        <Bed className="w-4 h-4 text-[#2563eb]" /> {p.bedrooms} hab.
+                        <Bed className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.bedrooms} hab.
                       </span>
                       <span className="flex items-center gap-1">
-                        <Bath className="w-4 h-4 text-[#2563eb]" /> {p.bathrooms} {p.bathrooms === 1 ? 'baño' : 'baños'}
+                        <Bath className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.bathrooms} {p.bathrooms === 1 ? 'baño' : 'baños'}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Maximize2 className="w-4 h-4 text-[#2563eb]" /> {p.surface} m²
+                        <Maximize2 className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.surface} m²
                       </span>
                     </div>
 
@@ -690,21 +699,21 @@ function AdminDashboard() {
                   </div>
 
                   {/* Actions Row */}
-                  <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between gap-2">
+                  <div className="mt-5 pt-4 border-t-2 border-slate-200 flex items-center justify-between gap-2">
                     
                     {/* Status Dropdown Quick Changer */}
                     <div className="relative">
                       <select
                         value={p.status || "disponible"}
                         onChange={(e) => handleQuickStatusChange(p.id, e.target.value as any)}
-                        className="appearance-none text-xs font-black bg-slate-100 border border-slate-300 rounded-lg pl-3 pr-7 py-2 text-[#0f172a] outline-none cursor-pointer hover:bg-slate-200 transition-colors"
+                        className="appearance-none text-xs font-black bg-slate-100 border-2 border-slate-300 rounded-lg pl-3 pr-7 py-2 text-[#000000] outline-none cursor-pointer hover:bg-slate-200 transition-colors"
                       >
                         <option value="disponible">🟢 Disponible</option>
                         <option value="reservado">🟡 Reservado</option>
                         <option value="vendido">🔴 Vendido</option>
                         <option value="alquilado">🔵 Alquilado</option>
                       </select>
-                      <ChevronDown className="w-3.5 h-3.5 text-slate-600 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                      <ChevronDown className="w-3.5 h-3.5 text-[#000000] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                     </div>
 
                     <div className="flex items-center gap-1.5">
@@ -712,18 +721,18 @@ function AdminDashboard() {
                         to="/inmobiliaria/$slug"
                         params={{ slug: p.slug }}
                         target="_blank"
-                        className="p-2 text-slate-600 hover:text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-[#000000] hover:text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors"
                         title="Ver en web"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-4 h-4 stroke-[2.5]" />
                       </Link>
 
                       <button
                         onClick={() => handleOpenEditModal(p)}
-                        className="p-2 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                        className="p-2 text-[#000000] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
                         title="Editar inmueble"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-4 h-4 stroke-[2.5]" />
                       </button>
 
                       <button
@@ -731,7 +740,7 @@ function AdminDashboard() {
                         className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
                         title="Eliminar inmueble"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4 stroke-[2.5]" />
                       </button>
                     </div>
                   </div>
@@ -776,7 +785,7 @@ function AdminDashboard() {
               
               {/* Row 1: Nombre / Título Universal */}
               <div>
-                <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                   Título del Inmueble *
                 </label>
                 <input
@@ -784,21 +793,21 @@ function AdminDashboard() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder={`ej: ${formData.type} en ${formData.location}`}
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#0f172a] focus:border-[#2563eb] outline-none"
+                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                 />
               </div>
 
               {/* Row 2: Tipo, Operación, Referencia y Zona */}
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Tipo de Inmueble
                   </label>
                   <div className="relative">
                     <select
                       value={formData.type}
                       onChange={(e: any) => setFormData({ ...formData, type: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                     >
                       <option value="Piso">Piso</option>
                       <option value="Ático">Ático</option>
@@ -807,29 +816,29 @@ function AdminDashboard() {
                       <option value="Chalet">Chalet</option>
                       <option value="Oficina">Oficina</option>
                     </select>
-                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Operación
                   </label>
                   <div className="relative">
                     <select
                       value={formData.operation}
                       onChange={(e: any) => setFormData({ ...formData, operation: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                     >
                       <option value="comprar">Venta</option>
                       <option value="alquilar">Alquiler</option>
                     </select>
-                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Referencia
                   </label>
                   <input
@@ -837,33 +846,33 @@ function AdminDashboard() {
                     value={formData.ref}
                     onChange={(e) => setFormData({ ...formData, ref: e.target.value })}
                     placeholder="API A10750"
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Barrio / Zona
                   </label>
                   <div className="relative">
                     <select
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#0f172a] outline-none cursor-pointer"
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                     >
                       {SANTA_COLOMA_ZONES.map((zone) => (
                         <option key={zone} value={zone}>{zone}</option>
                       ))}
                     </select>
-                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                   </div>
                 </div>
               </div>
 
-              {/* Row 3: Precio, Habitaciones, Baños, Superficie */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {/* Row 3: Precio, Habitaciones, Baños, Superficie, Planta/Tipo */}
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Precio (€) *
                   </label>
                   <input
@@ -871,12 +880,12 @@ function AdminDashboard() {
                     required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#2563eb] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#2563eb] outline-none focus:border-[#2563eb]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Habitaciones
                   </label>
                   <input
@@ -884,12 +893,12 @@ function AdminDashboard() {
                     min={0}
                     value={formData.bedrooms}
                     onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Baños
                   </label>
                   <input
@@ -897,12 +906,12 @@ function AdminDashboard() {
                     min={0}
                     value={formData.bathrooms}
                     onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Superficie (m²)
                   </label>
                   <input
@@ -910,7 +919,20 @@ function AdminDashboard() {
                     min={1}
                     value={formData.surface}
                     onChange={(e) => setFormData({ ...formData, surface: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                    Planta / Altura
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.floor}
+                    onChange={(e) => setFormData({ ...formData, floor: e.target.value })}
+                    placeholder="ej: Planta 3ª, Bajos"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
                   />
                 </div>
               </div>
@@ -918,26 +940,26 @@ function AdminDashboard() {
               {/* Row 4: Estado y Características */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Estado Actual
                   </label>
                   <div className="relative">
                     <select
                       value={formData.status}
                       onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#0f172a] outline-none cursor-pointer"
+                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                     >
                       <option value="disponible">🟢 Disponible</option>
                       <option value="reservado">🟡 Reservado</option>
                       <option value="vendido">🔴 Vendido</option>
                       <option value="alquilado">🔵 Alquilado</option>
                     </select>
-                    <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                    <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                   </div>
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                     Características (separadas por comas)
                   </label>
                   <input
@@ -945,7 +967,7 @@ function AdminDashboard() {
                     value={formData.features}
                     onChange={(e) => setFormData({ ...formData, features: e.target.value })}
                     placeholder="Ascensor, Balcón, Parking, Aire Acondicionado..."
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#0f172a] outline-none"
+                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
                   />
                 </div>
               </div>
@@ -1106,7 +1128,7 @@ function AdminDashboard() {
 
               {/* Row 6: Descripción */}
               <div>
-                <label className="block text-xs font-black uppercase text-[#0f172a] mb-1.5">
+                <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                   Descripción Detallada
                 </label>
                 <textarea
@@ -1114,7 +1136,7 @@ function AdminDashboard() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Escribe los detalles de la vivienda, distribución, estado, orientación..."
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#0f172a] outline-none resize-none"
+                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#000000] placeholder:text-slate-500 outline-none resize-none focus:border-[#2563eb]"
                 />
               </div>
 

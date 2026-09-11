@@ -5,7 +5,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { 
   ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, 
-  ChevronRight, Home, Mail, Share2, CheckCircle2, ShieldCheck, Sparkles, 
+  ChevronRight, ChevronLeft, Home, Mail, Share2, CheckCircle2, ShieldCheck, Sparkles, 
   Calendar, Eye, Check, Play, Loader2, ArrowRight, ChevronDown, Send
 } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -16,6 +16,15 @@ import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+
+// Official WhatsApp Vector Icon
+function WhatsAppIcon({ className = "w-5 h-5 fill-white shrink-0" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+    </svg>
+  );
+}
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
@@ -363,21 +372,21 @@ function PropertyDetail() {
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-5 sm:p-8 md:p-12">
           
           {/* TOP NAV / ACTIONS BAR */}
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
             <div className="flex items-center gap-3">
               <Link 
                 to="/" 
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#2563eb] transition-colors bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-full border border-slate-200/80 shadow-xs"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 py-2.5 rounded-full border-2 border-blue-600 shadow-sm transition-all duration-200 hover:scale-102 cursor-pointer"
               >
-                <ArrowLeft className="w-4 h-4 text-[#2563eb]" /> {t.detail.back}
+                <ArrowLeft className="w-4 h-4 text-white stroke-[2.5]" /> {t.detail.back}
               </Link>
               <div className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-400">
                 <span>/</span>
-                <a href="/#propiedades" className="hover:text-slate-700 transition-colors">
+                <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors font-extrabold text-slate-700">
                   {property.operation === "alquilar" ? "Alquiler" : "Venta"}
                 </a>
                 <span>/</span>
-                <span className="text-slate-600 truncate max-w-[200px]">{property.ref || property.id.toUpperCase()}</span>
+                <span className="text-[#0f172a] font-black truncate max-w-[200px]">{property.ref || property.id.toUpperCase()}</span>
               </div>
             </div>
 
@@ -385,60 +394,83 @@ function PropertyDetail() {
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-[#2563eb] bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-full border border-slate-200/80 transition-all shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-5 py-2.5 rounded-full border-2 border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
                 title="Compartir enlace de esta propiedad"
               >
-                {copiedLink ? <Check className="w-4 h-4 text-emerald-600" /> : <Share2 className="w-4 h-4 text-slate-500" />}
+                {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
                 <span>{copiedLink ? "¡Enlace copiado!" : "Compartir"}</span>
               </button>
             </div>
           </div>
 
           {/* BREADCRUMB */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center flex-wrap gap-2 text-xs font-semibold text-slate-500">
-            <Link to="/" className="hover:text-[#2563eb] transition-colors">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center flex-wrap gap-2 text-xs font-bold text-slate-500">
+            <Link to="/" className="hover:text-[#2563eb] transition-colors text-slate-700">
               {language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio"}
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-            <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors">Inmobiliaria</a>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-            <span className="text-slate-400 font-medium">Santa Coloma de Gramenet</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-            <span className="text-[#2563eb] font-bold break-words">
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+            <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors text-slate-700">Inmobiliaria</a>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+            <span className="text-slate-500 font-bold">Santa Coloma de Gramenet</span>
+            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+            <span className="text-[#2563eb] font-black break-words">
               {pData.name}
             </span>
           </nav>
 
-          {/* LUXURY PHOTO GALLERY & VIEWER */}
+          {/* LUXURY PHOTO GALLERY & VIEWER WITH SLIDER CONTROLS */}
           <div className="mb-10">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group aspect-[16/10] max-h-[520px]">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[520px]">
               <img 
                 src={galleryImages[activeImageIdx] || galleryImages[0]} 
                 alt={`${pData.name} - Foto ${activeImageIdx + 1}`} 
                 loading="eager" 
                 fetchPriority="high" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 select-none" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none" />
 
               {/* Floating Status and Type Badges */}
               <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                <span className={`${statusColor} px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md backdrop-blur-xs`}>
+                <span className={`${statusColor} px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md`}>
                   {statusLabel}
                 </span>
-                <span className="bg-white/95 backdrop-blur-md text-[#0f172a] px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border border-slate-200/80">
+                <span className="bg-white text-[#0b214a] px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border border-slate-200">
                   {pData.type}
                 </span>
-                <span className="bg-[#0b1221]/90 backdrop-blur-md text-white font-mono px-3 py-1.5 rounded-full text-xs font-bold tracking-wider shadow-md border border-slate-700/80">
+                <span className="bg-[#0b214a] text-white font-mono px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider shadow-md border border-blue-900">
                   Ref: {property.ref || "API A10750"}
                 </span>
               </div>
 
+              {/* Slider Navigation Arrows - Conditionally when more than 1 photo */}
+              {galleryImages.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
+                    aria-label="Foto anterior"
+                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                  >
+                    <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
+                    aria-label="Foto siguiente"
+                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                  >
+                    <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
+                  </button>
+                </>
+              )}
+
               {/* Bottom Image Counter & Quick Info */}
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-bold z-10">
-                <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20">
+                <div className="flex items-center gap-2 bg-[#0b214a] px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
                   <Eye className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Foto {activeImageIdx + 1} de {galleryImages.length}</span>
+                  <span className="font-mono font-black">Foto {activeImageIdx + 1} de {galleryImages.length}</span>
                 </div>
                 {hasValidVideo && (
                   <a
@@ -462,8 +494,8 @@ function PropertyDetail() {
                     onClick={() => setActiveImageIdx(idx)}
                     className={`relative shrink-0 w-24 h-18 sm:w-28 sm:h-20 rounded-2xl overflow-hidden border-2 transition-all cursor-pointer shadow-xs ${
                       activeImageIdx === idx 
-                        ? "border-[#2563eb] ring-2 ring-[#2563eb]/30 scale-102" 
-                        : "border-slate-200 opacity-70 hover:opacity-100"
+                        ? "border-[#2563eb] ring-2 ring-[#2563eb] scale-102 opacity-100" 
+                        : "border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
                     }`}
                   >
                     <img src={img} alt={`Miniatura ${idx + 1}`} className="w-full h-full object-cover" />
@@ -480,19 +512,19 @@ function PropertyDetail() {
             <div className="lg:col-span-8">
               
               {/* Header Title & Price Badge */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 border-b border-slate-100 pb-8">
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
                 <div>
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-3">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-3">
                     {pData.name}
                   </h1>
-                  <div className="flex items-center gap-2 text-slate-600 font-semibold text-sm sm:text-base">
-                    <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <div className="flex items-center gap-2 text-slate-700 font-bold text-sm sm:text-base">
+                    <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                     <span>{formatLocation(pData.location || property.location, language)}, {property.city || "Santa Coloma de Gramenet"}</span>
                   </div>
                 </div>
 
-                <div className="sm:text-right shrink-0">
-                  <span className="text-[11px] uppercase tracking-widest text-slate-400 font-extrabold block mb-1">
+                <div className="sm:text-right shrink-0 bg-blue-50 border-2 border-blue-200 p-4 rounded-2xl shadow-xs">
+                  <span className="text-[11px] uppercase tracking-widest text-[#000000] font-black block mb-1">
                     Precio Inmueble
                   </span>
                   <div className="text-3xl sm:text-4xl font-black text-[#2563eb] tracking-tight font-sans">
@@ -546,12 +578,12 @@ function PropertyDetail() {
 
               {/* DESCRIPTION BLOCK */}
               <div className="mb-12">
-                <h2 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-2.5">
+                <h2 className="text-2xl font-black text-[#000000] mb-4 flex items-center gap-2.5">
                   <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
                   {t.detail.description}
                 </h2>
                 <div className="bg-slate-50 border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs">
-                  <p className="text-slate-700 leading-relaxed text-base sm:text-lg whitespace-pre-line font-medium">
+                  <p className="text-slate-800 leading-relaxed text-base sm:text-lg whitespace-pre-line font-medium">
                     {pData.description}
                   </p>
                 </div>
@@ -559,7 +591,7 @@ function PropertyDetail() {
 
               {/* FEATURES CHECKLIST */}
               <div className="mb-12">
-                <h2 className="text-2xl font-black text-slate-900 mb-5 flex items-center gap-2.5">
+                <h2 className="text-2xl font-black text-[#000000] mb-5 flex items-center gap-2.5">
                   <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
                   {t.detail.features} e Instalaciones
                 </h2>
@@ -567,12 +599,12 @@ function PropertyDetail() {
                   {pData.features.map((feat: string, idx: number) => (
                     <div 
                       key={idx} 
-                      className="flex items-center gap-3.5 bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-xs hover:border-[#2563eb]/40 transition-colors"
+                      className="flex items-center gap-3.5 bg-blue-50/60 border-2 border-blue-200 p-4 rounded-2xl shadow-xs hover:border-[#2563eb] transition-all"
                     >
-                      <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
-                        <CheckCircle2 className="w-4 h-4 stroke-[3]" />
+                      <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm">
+                        <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />
                       </div>
-                      <span className="text-sm font-bold text-slate-800">{feat}</span>
+                      <span className="text-sm font-black text-[#000000]">{feat}</span>
                     </div>
                   ))}
                 </div>
@@ -628,7 +660,7 @@ function PropertyDetail() {
                 
                 {/* Header card info */}
                 <div className="relative z-10 mb-6">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-3.5 py-1.5 rounded-full inline-block mb-3 shadow-sm">
+                  <span className="text-[11px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-3.5 py-1.5 rounded-full inline-block mb-3 shadow-sm border border-blue-400">
                     Atención Inmediata
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
@@ -639,15 +671,15 @@ function PropertyDetail() {
                   </p>
                 </div>
 
-                {/* Property quick summary in card */}
-                <div className="relative z-10 bg-white text-slate-900 rounded-2xl p-4 border-2 border-blue-400 mb-6 shadow-md">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1.5">
-                    <span>Referencia:</span>
-                    <span className="font-mono text-slate-900 font-black bg-slate-100 px-2 py-0.5 rounded-md">{property.ref || property.id.toUpperCase()}</span>
+                {/* Property quick summary in card - HIGH CONTRAST PURE BLACK */}
+                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 border-2 border-blue-400 mb-6 shadow-md">
+                  <div className="flex items-center justify-between text-xs font-black text-[#000000] mb-2">
+                    <span className="uppercase tracking-wider">Referencia:</span>
+                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-2.5 py-1 rounded-md border border-slate-300 text-xs">{property.ref || property.id.toUpperCase()}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500">
-                    <span>Precio:</span>
-                    <span className="text-xl text-[#2563eb] font-black">{property.priceFormatted}</span>
+                  <div className="flex items-center justify-between text-xs font-black text-[#000000]">
+                    <span className="uppercase tracking-wider">Precio:</span>
+                    <span className="text-2xl text-[#2563eb] font-black tracking-tight">{property.priceFormatted}</span>
                   </div>
                 </div>
 
@@ -659,7 +691,7 @@ function PropertyDetail() {
                     rel="noopener noreferrer" 
                     className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    <MessageCircle className="w-5 h-5 fill-white shrink-0" />
+                    <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
                     <span>Contactar por WhatsApp</span>
                   </a>
 
@@ -667,13 +699,13 @@ function PropertyDetail() {
                     href="tel:+34934685656" 
                     className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
-                    <Phone className="w-4 h-4 text-[#2563eb]" />
+                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
                     <span>Llamar a Oficina: 93 468 56 56</span>
                   </a>
 
                   <a 
                     href="#contactar" 
-                    className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
                     <span>Pedir Cita Online</span>

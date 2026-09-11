@@ -110,7 +110,7 @@ export default function HeroCarousel({
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
         {/* Mobile text container: comfortable width, clean readability */}
-        <div className="max-w-[54%] xs:max-w-[52%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        <div className="max-w-[56%] xs:max-w-[54%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -118,9 +118,9 @@ export default function HeroCarousel({
               transition={{ duration: 0.5, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[10px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.08em] sm:tracking-[0.12em] px-3 sm:px-5 py-1.5 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[9.5px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.06em] sm:tracking-[0.12em] px-2.5 xs:px-3 sm:px-5 py-1 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
-                <span className="text-left leading-none">{customTag || t.heroCarousel.tag}</span>
+                <span className="text-left leading-tight whitespace-nowrap">{customTag || t.heroCarousel.tag}</span>
               </div>
             </motion.div>
 
@@ -128,14 +128,16 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15, ease: expo }}
-              className="text-[25px] xs:text-[28px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.12] sm:leading-[1.04] mb-2 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading"
+              className="text-[23px] xs:text-[26px] sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.1] sm:leading-[1.04] mb-2 sm:mb-3.5 font-black text-[#0b214a] tracking-tight font-heading"
             >
               {customHeadline ? (
                 customHeadline
               ) : (
                 <>
-                  {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}<br />
-                  <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                  <span className="block whitespace-nowrap">
+                    {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}
+                  </span>
+                  <span className="text-[#2563eb] block mt-0.5 sm:mt-1 whitespace-nowrap">
                     {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
                   </span>
                 </>

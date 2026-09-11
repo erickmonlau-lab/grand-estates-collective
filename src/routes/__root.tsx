@@ -37,37 +37,56 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
+
+    // Handle Vite/TanStack chunk mismatch after a new deployment:
+    const msg = (error?.message || String(error)).toLowerCase();
+    const isChunkError =
+      msg.includes("failed to fetch dynamically imported module") ||
+      msg.includes("dynamically imported module") ||
+      msg.includes("loading chunk");
+
+    if (isChunkError && typeof window !== "undefined") {
+      const lastReload = sessionStorage.getItem("chunk_reload_timestamp");
+      const now = Date.now();
+      // Reload once automatically to fetch the newest build hashes without getting into a loop
+      if (!lastReload || now - parseInt(lastReload, 10) > 10000) {
+        sessionStorage.setItem("chunk_reload_timestamp", String(now));
+        window.location.reload();
+      }
+    }
   }, [error]);
+
+  const handleReload = () => {
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    } else {
+      router.invalidate();
+      reset();
+    }
+  };
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Esta página no se pudo cargar
+          Nueva versión disponible
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Ha ocurrido un error inesperado. Puedes intentar recargar o volver a la página de inicio.
+          Se ha actualizado la web de Gesgrama con nuevas mejoras. Pulsa en actualizar para cargar la versión más reciente.
         </p>
-        <div className="mt-4 p-4 bg-red-100 text-red-900 rounded-md text-left overflow-auto text-xs break-words">
-          <strong>Error:</strong> {error?.message || String(error)}
-          <br />
-          <pre className="mt-2 whitespace-pre-wrap">{error?.stack}</pre>
-        </div>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            onClick={handleReload}
+            className="inline-flex items-center justify-center rounded-xl bg-[#2563eb] text-white px-5 py-2.5 text-sm font-black transition-colors hover:bg-blue-700 shadow-md cursor-pointer"
           >
-            Reintentar
+            Actualizar página
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-bold text-foreground transition-colors hover:bg-accent"
           >
             Volver al inicio
           </a>

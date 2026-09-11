@@ -34,60 +34,19 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error("Root route error captured:", error);
-
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-
-    // Handle Vite/TanStack chunk mismatch after new deployments without trapping user in a modal
-    const msg = (error?.message || String(error)).toLowerCase();
-    const isChunkError =
-      msg.includes("failed to fetch dynamically imported module") ||
-      msg.includes("dynamically imported module") ||
-      msg.includes("loading chunk") ||
-      msg.includes("loading css chunk") ||
-      msg.includes("error loading module") ||
-      msg.includes("unexpected token '<'") ||
-      msg.includes("mime type");
-
-    if (typeof window !== "undefined") {
-      const reloadKey = "gesgrama_route_recovery";
-      const last = sessionStorage.getItem(reloadKey);
-      const now = Date.now();
-
-      // If chunk error or first-time failure, transparently hard-reload once bypassing cache
-      if ((isChunkError || !last) && (!last || now - Number(last) > 15000)) {
-        sessionStorage.setItem(reloadKey, String(now));
-        window.location.replace(window.location.pathname + window.location.search);
-        return;
-      }
+function ErrorComponent({ error }: { error: Error; reset: () => void }) {
+  if (typeof window !== "undefined") {
+    // Transparently reload to clear any outdated chunk without displaying any error UI
+    const reloadKey = "gesgrama_route_recovery";
+    const last = sessionStorage.getItem(reloadKey);
+    const now = Date.now();
+    if (!last || now - Number(last) > 8000) {
+      sessionStorage.setItem(reloadKey, String(now));
+      window.location.replace(window.location.href);
     }
-  }, [error]);
+  }
 
-  return (
-    <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-center">
-      <div className="max-w-md w-full">
-        <h2 className="text-xl font-bold text-slate-900 font-serif">Gesgrama</h2>
-        <p className="mt-2 text-sm text-slate-600">
-          Hemos detectado una actualización en la plataforma.
-        </p>
-        <div className="mt-6">
-          <a
-            href="/"
-            onClick={() => {
-              if (typeof window !== "undefined") {
-                sessionStorage.removeItem("gesgrama_route_recovery");
-              }
-            }}
-            className="inline-flex items-center justify-center rounded-xl bg-[#001033] hover:bg-[#001a4d] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all shadow-md"
-          >
-            Ir al inicio
-          </a>
-        </div>
-      </div>
-    </main>
-  );
+  return null;
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({

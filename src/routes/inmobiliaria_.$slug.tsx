@@ -746,53 +746,62 @@ function PropertyDetail() {
                 </div>
 
                 <div className="sm:text-right shrink-0 bg-[#2563eb] border-2 border-blue-600 px-5 py-4 rounded-2xl shadow-lg self-start sm:self-center">
-                  <span className="text-[11px] uppercase tracking-widest text-blue-100 font-black block mb-1">
+                  <span className="text-[11.5px] uppercase tracking-normal text-white/95 font-semibold block mb-1">
                     {t.detail.priceTitle}
                   </span>
-                  <div className="text-3xl sm:text-4xl font-black text-white tracking-tight font-sans">
+                  <div className="text-3xl sm:text-4xl font-black text-white tracking-tight font-sans leading-none">
                     {property.priceFormatted}
                   </div>
+                  {property.surface && property.surface > 0 && property.price && (
+                    <div className="text-xs font-semibold text-blue-100/90 mt-1.5 tracking-tight">
+                      {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* KEY SPECS METRIC PILLS - SOLID BRAND BLUE / CONTRAST ACCENTS */}
+              {/* KEY SPECS METRIC PILLS - REORDERED: SUPERFICIE, HABITACIONES, BAÑOS, PLANTA/TIPO */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-10">
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Bed className="w-5 h-5 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.bedrooms}</span>
-                    <span className="text-xl font-black text-white">{property.bedrooms} {t.detail.roomShort}</span>
-                  </div>
-                </div>
-
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Bath className="w-5 h-5 stroke-[2.5]" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.bathrooms}</span>
-                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
-                  </div>
-                </div>
-
+                {/* 1. Superficie */}
                 <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
                   <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Maximize className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.surface}</span>
+                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.surface}</span>
                     <span className="text-xl font-black text-white">{property.surface} m²</span>
                   </div>
                 </div>
 
+                {/* 2. Habitaciones */}
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Bed className="w-5 h-5 stroke-[2.5]" />
+                  </div>
+                  <div>
+                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.bedrooms}</span>
+                    <span className="text-xl font-black text-white">{property.bedrooms} {t.detail.roomShort}</span>
+                  </div>
+                </div>
+
+                {/* 3. Baños */}
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Bath className="w-5 h-5 stroke-[2.5]" />
+                  </div>
+                  <div>
+                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.bathrooms}</span>
+                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
+                  </div>
+                </div>
+
+                {/* 4. Planta / Tipo */}
                 <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
                   <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Building2 className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">{t.detail.floor}</span>
+                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.floor}</span>
                     <span className="text-base font-black text-white truncate block max-w-[100px]">{pData.floor || pData.type}</span>
                   </div>
                 </div>

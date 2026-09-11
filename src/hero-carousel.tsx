@@ -77,11 +77,7 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* ── MOBILE ────────────────────────────────────────────────────────────────────────
-            object-[15%_top]: left-offset = 173×0.15 = 26px
-            Woman (≈35% = 197px scaled) lands at 197-26 = 171px = 44% of screen.
-            Man  (≈65% = 366px scaled) lands at 366-26 = 340px = 87% of screen.
-            Gradient ends at 42% → people appear crisp with NO white wash over them. */}
+        {/* ── MOBILE ─────────────────────────────────────────────────────────────────── */}
         <div className="sm:hidden absolute inset-0">
           <motion.img
             src={heroBgMobile}
@@ -94,8 +90,8 @@ export default function HeroCarousel({
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* Gradient: solid white left text area, FULLY transparent before people start */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[30%] via-[#F8FAFC]/40 via-[38%] to-transparent to-[44%] pointer-events-none" />
+          {/* STRONG solid white left panel → text perfectly readable. Fade 45-58% → people crisp on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[42%] via-[#F8FAFC]/85 via-[50%] via-[#F8FAFC]/30 via-[56%] to-transparent to-[60%] pointer-events-none" />
           {/* Bottom fade */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
@@ -121,8 +117,8 @@ export default function HeroCarousel({
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* Mobile: text in left 42% — within the white gradient, before the couple starts */}
-        <div className="max-w-[42%] xs:max-w-[40%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* Mobile: text left 48% — gradient covers this area solidly */}
+        <div className="max-w-[48%] xs:max-w-[46%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -171,12 +167,12 @@ export default function HeroCarousel({
             >
               <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
                 <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
-                <span className="truncate">{t.heroCarousel.btnValuation}</span>
+                <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
               <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-4 sm:px-7 py-2 sm:py-3.5 rounded-full font-black text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
                 <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
-                <span className="truncate">{t.heroCarousel.btnProperties}</span>
+                <span>{t.heroCarousel.btnProperties}</span>
               </a>
             </motion.div>
 

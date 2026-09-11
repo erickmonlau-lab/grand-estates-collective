@@ -1230,7 +1230,7 @@ function SantaColomaBarrioPage() {
                 };
 
                 return (
-                  <div className="mt-6">
+                  <div id="properties-results" className="mt-6 scroll-mt-28">
                     {/* Results Count & Sort directly below zones pills */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
                       <div className="flex items-center gap-2.5">
@@ -1331,8 +1331,8 @@ function SantaColomaBarrioPage() {
                               });
                               setVisibleCount(Math.max(liveProperties.length, properties.length, 50));
                               
-                              // Smooth scroll up to property list so the user immediately sees all items
-                              const el = document.getElementById('propiedades');
+                              // Smooth scroll directly to the property listings grid
+                              const el = document.getElementById('properties-results') || document.getElementById('propiedades');
                               if (el) {
                                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                               }

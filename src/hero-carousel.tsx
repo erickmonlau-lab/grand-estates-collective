@@ -77,14 +77,32 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Mobile: strictly right 50% of screen. Desktop: right 50-65%. Image uses object-left-top to show the couple who are on the left side of the photo frame */}
-        <div className="absolute right-0 top-0 w-[50%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
+        {/* Mobile: full-width image with focal point at 75% from left → couple lands on right side of screen */}
+        <div className="sm:hidden absolute inset-0">
+          <motion.img
+            src={heroBgDesktop}
+            alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
+            className="w-full h-full object-cover object-[75%_top]"
+            loading="eager"
+            fetchPriority="high"
+            width={1100}
+            height={1440}
+            animate={{ scale: [1, 1.02, 1] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* White gradient covering left ~50%: solid white fades to transparent → text readable, couple visible on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[40%] via-[#F8FAFC]/60 via-[55%] to-transparent pointer-events-none" />
+          {/* Bottom fade */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
+        </div>
+
+        {/* Desktop: right half container */}
+        <div className="hidden sm:block absolute right-0 top-0 sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
           <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[left_top] sm:object-[right_top]"
+              className="w-full h-full object-cover object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -93,23 +111,14 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-
-          {/* Desktop gradient feathering */}
-          <div className="hidden sm:block absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
-          <div className="hidden sm:block absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
-
-          {/* Mobile: feather the left edge of the photo container into background */}
-          <div className="sm:hidden absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
-          <div className="sm:hidden absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
-
-        {/* Mobile only: strong white gradient covering the left 55% of the section to ensure text readability */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* On mobile: keep text to ~52% left – the white gradient overlay covers up to 58% to protect readability */}
-        <div className="max-w-[52%] xs:max-w-[50%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* On mobile: text constrained to left ~55%, gradient above protects readability */}
+        <div className="max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -213,7 +222,7 @@ export default function HeroCarousel({
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                   <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
                 </span>
-                <span className="font-extrabold font-sans text-slate-900 text-xs sm:text-[15px] truncate">
+                <span className="font-extrabold font-sans text-slate-900 text-xs sm:text-[15px] leading-tight">
                   {customTrustBadge || t.heroCarousel.trustBadge}
                 </span>
               </div>

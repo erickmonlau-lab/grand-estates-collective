@@ -28,10 +28,27 @@ export function getLocalProperties(): ExtendedProperty[] {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProperties));
       return defaultProperties as ExtendedProperty[];
     }
-    return JSON.parse(raw);
+    const parsed: ExtendedProperty[] = JSON.parse(raw);
+    // Ensure defaultProperties exist and are up to date with any newly added properties
+    const customProps = parsed.filter(p => !defaultProperties.some(dp => dp.id === p.id));
+    const merged = [...defaultProperties as ExtendedProperty[], ...customProps];
+    return merged;
   } catch {
     return defaultProperties as ExtendedProperty[];
   }
+}
+
+// Find property by slug, id, or reference
+export function findPropertyBySlugOrId(slugOrId: string): ExtendedProperty | undefined {
+  const list = getLocalProperties();
+  const normalized = (slugOrId || "").trim().toLowerCase();
+  return (
+    list.find(p => p.slug === slugOrId || p.slug.toLowerCase() === normalized) ||
+    list.find(p => p.id === slugOrId || p.id.toLowerCase() === normalized) ||
+    list.find(p => p.ref && p.ref.toLowerCase() === normalized) ||
+    defaultProperties.find(p => p.slug === slugOrId || p.slug.toLowerCase() === normalized) ||
+    defaultProperties.find(p => p.id === slugOrId || p.id.toLowerCase() === normalized)
+  );
 }
 
 // Save to LocalStorage
@@ -79,9 +96,10 @@ export async function fetchProperties(): Promise<ExtendedProperty[]> {
           description_en: d.description_en,
           features: d.features || [],
           image: d.image || "/images/modern_office_space.webp",
-          gallery: d.gallery || [],
+          gallery: Array.isArray(d.gallery) ? d.gallery : [d.image],
           operation: d.operation || "comprar",
           status: d.status || "disponible",
+          videoUrl: d.video_url || undefined,
           createdAt: d.created_at
         }));
         saveLocalProperties(mapped);
@@ -104,6 +122,7 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
     id: generatedId,
     slug: generatedSlug,
     status: property.status || "disponible",
+    videoUrl: property.videoUrl?.trim() || undefined,
     createdAt: new Date().toISOString()
   };
 
@@ -132,7 +151,8 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
         image: newProp.image,
         gallery: newProp.gallery,
         operation: newProp.operation,
-        status: newProp.status
+        status: newProp.status,
+        video_url: newProp.videoUrl || null
       }]);
       if (error) console.error("Error creating in Supabase:", error);
     } catch (err) {
@@ -173,6 +193,7 @@ export async function updateProperty(id: string, updates: Partial<ExtendedProper
       if (updates.gallery !== undefined) dbUpdates.gallery = updates.gallery;
       if (updates.operation !== undefined) dbUpdates.operation = updates.operation;
       if (updates.status !== undefined) dbUpdates.status = updates.status;
+      if (updates.videoUrl !== undefined) dbUpdates.video_url = updates.videoUrl || null;
 
       const { error } = await supabase.from("properties").update(dbUpdates).eq("id", id);
       if (error) console.error("Error updating in Supabase:", error);

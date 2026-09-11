@@ -133,6 +133,7 @@ function AdminDashboard() {
     features: "Ascensor, Terraza, Calefacción, Exterior",
     image: "",
     gallery: [] as string[],
+    videoUrl: "",
     status: "disponible" as "disponible" | "reservado" | "vendido" | "alquilado"
   });
 
@@ -200,6 +201,7 @@ function AdminDashboard() {
         "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
         "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=80"
       ],
+      videoUrl: "",
       status: "disponible"
     });
     setIsModalOpen(true);
@@ -227,6 +229,7 @@ function AdminDashboard() {
       features: (p.features || []).join(", "),
       image: p.image,
       gallery: p.gallery || [],
+      videoUrl: p.videoUrl || "",
       status: p.status || "disponible"
     });
     setIsModalOpen(true);
@@ -308,6 +311,7 @@ function AdminDashboard() {
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
+        videoUrl: formData.videoUrl.trim() || undefined,
         status: formData.status
       });
     } else {
@@ -333,6 +337,7 @@ function AdminDashboard() {
         features: featuresList,
         image: formData.image || "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
         gallery: formData.gallery.length > 0 ? formData.gallery : [formData.image],
+        videoUrl: formData.videoUrl.trim() || undefined,
         status: formData.status
       });
     }
@@ -1075,6 +1080,26 @@ function AdminDashboard() {
                       ))}
                     </div>
                   )}
+                </div>
+
+                {/* Row 5.3: TOUR VIRTUAL / VÍDEO (OPCIONAL) */}
+                <div className="pt-4 border-t border-slate-200">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-black uppercase text-[#0f172a]">
+                      Vídeo Tour / Recorrido Virtual (Opcional)
+                    </label>
+                    <span className="text-[11px] font-bold text-slate-500">Solo si existe vídeo real</span>
+                  </div>
+                  <input
+                    type="url"
+                    value={formData.videoUrl}
+                    onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
+                    placeholder="https://www.youtube.com/embed/... o enlace de YouTube / Vimeo"
+                    className="w-full bg-white border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                  />
+                  <p className="text-[11px] text-slate-500 mt-1 font-medium">
+                    Si se deja vacío, la sección de vídeo no se mostrará en la ficha del inmueble para mantener el diseño impecable.
+                  </p>
                 </div>
 
               </div>

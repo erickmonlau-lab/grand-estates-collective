@@ -5,7 +5,7 @@ import { homeArticles as articles } from "../data/homeArticles";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Fragment } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -1156,7 +1156,7 @@ function Index() {
                   const isRaval = zoneVal === "El Raval";
 
                   return (
-                    <React.Fragment key={zoneVal}>
+                    <Fragment key={zoneVal}>
                       {isRaval && <span className="sm:hidden basis-full h-0 pointer-events-none" />}
                       <button
                         onClick={() => {
@@ -1171,7 +1171,7 @@ function Index() {
                       >
                         {label}
                       </button>
-                    </React.Fragment>
+                    </Fragment>
                   );
                 });
               })()}

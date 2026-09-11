@@ -37,11 +37,11 @@ export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
 
   return (
     <div 
-      className={`fixed bottom-18 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
+      className={`fixed bottom-22 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
         isScrolling ? "opacity-20 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
       }`}
       style={{
-        bottom: 'calc(4.5rem + env(safe-area-inset-bottom, 0px))',
+        bottom: 'calc(5.5rem + env(safe-area-inset-bottom, 0px))',
         right: 'calc(0.75rem + env(safe-area-inset-right, 0px))'
       }}
     >

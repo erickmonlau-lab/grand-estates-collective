@@ -77,8 +77,8 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half raised upwards. On mobile: generous vertical height, slightly lowered (top-6) */}
-        <div className="absolute right-0 top-6 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[74%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
+        {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
+        <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
@@ -95,11 +95,11 @@ export default function HeroCarousel({
           </picture>
 
           {/* Feathering: left edge */}
-          <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
-          {/* Feathering: top edge down to the heads — mobile only */}
-          <div className="sm:hidden absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#F8FAFC] from-[15%] via-[#F8FAFC]/70 to-transparent pointer-events-none" />
-          {/* Feathering: balanced bottom fade on mobile */}
-          <div className="absolute inset-x-0 -bottom-1 h-40 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/65 to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
+          {/* Feathering: top edge difuminado suave arriba de la imagen */}
+          <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#F8FAFC] from-[20%] via-[#F8FAFC]/75 to-transparent pointer-events-none z-10" />
+          {/* Feathering: balanced bottom fade */}
+          <div className="absolute inset-x-0 -bottom-1 h-36 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/70 to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop covering entire buttons and text area */}
@@ -246,7 +246,7 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 mt-0 sm:mt-4 mb-1 sm:mb-0"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-2 xs:-mt-1 sm:mt-4 mb-2.5 sm:mb-2"
         >
           {/* Mobile: fade the right column into the background */}
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">

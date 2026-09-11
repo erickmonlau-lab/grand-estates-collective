@@ -70,10 +70,10 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className={`relative text-slate-900 min-h-0 sm:min-h-screen ${
+      className={`relative text-slate-900 h-[100dvh] sm:h-screen sm:min-h-[700px] ${
         customHeadline
-          ? "pt-16 sm:pt-28 lg:pt-32"
-          : "pt-16 sm:pt-28 lg:pt-32"
+          ? "pt-18 sm:pt-28 lg:pt-32"
+          : "pt-18 sm:pt-28 lg:pt-32"
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">

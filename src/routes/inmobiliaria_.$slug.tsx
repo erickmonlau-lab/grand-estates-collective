@@ -6,10 +6,11 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { 
   ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, 
   ChevronRight, Home, Mail, Share2, CheckCircle2, ShieldCheck, Sparkles, 
-  Calendar, Eye, Check, Play
+  Calendar, Eye, Check, Play, Loader2, ArrowRight, ChevronDown, Send
 } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { translations } from "../data/translations";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
@@ -203,6 +204,61 @@ function PropertyDetail() {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2200);
     }
+  };
+
+  // Contact Form State for Property Details
+  const [contactForm, setContactForm] = useState({
+    nombre: "",
+    telefono: "",
+    email: "",
+    mensaje: "",
+    privacidad: false,
+  });
+  const [contactErrors, setContactErrors] = useState<{
+    nombre?: string;
+    telefono?: string;
+    email?: string;
+    privacidad?: string;
+  }>({});
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors: typeof contactErrors = {};
+    if (!contactForm.nombre.trim()) {
+      errors.nombre = language === "ca" ? "El nom és obligatori" : language === "en" ? "Name is required" : "El nombre es obligatorio";
+    }
+    if (!contactForm.telefono.trim()) {
+      errors.telefono = language === "ca" ? "El telèfon és obligatori" : language === "en" ? "Phone is required" : "El teléfono es obligatorio";
+    }
+    if (!contactForm.email.trim()) {
+      errors.email = language === "ca" ? "L'email és obligatori" : language === "en" ? "Email is required" : "El email es obligatorio";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
+      errors.email = language === "ca" ? "Format d'email invàlid" : language === "en" ? "Invalid email format" : "Formato de correo no válido";
+    }
+    if (!contactForm.privacidad) {
+      errors.privacidad = language === "ca" ? "Has d'acceptar la política de privacitat" : language === "en" ? "You must accept privacy policy" : "Debes aceptar la política de privacidad";
+    }
+
+    setContactErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    setIsSubmittingContact(true);
+    setTimeout(() => {
+      setIsSubmittingContact(false);
+      setIsSubmittedSuccess(true);
+      setContactForm({
+        nombre: "",
+        telefono: "",
+        email: "",
+        mensaje: "",
+        privacidad: false,
+      });
+      setTimeout(() => {
+        setIsSubmittedSuccess(false);
+      }, 4000);
+    }, 1000);
   };
 
   // LOADING SKELETON STATE (Avoids instant flashing of 404 while database/store resolves)
@@ -494,7 +550,7 @@ function PropertyDetail() {
                   <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
                   {t.detail.description}
                 </h2>
-                <div className="bg-slate-50/70 border border-slate-200/70 rounded-3xl p-6 sm:p-8">
+                <div className="bg-slate-50 border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs">
                   <p className="text-slate-700 leading-relaxed text-base sm:text-lg whitespace-pre-line font-medium">
                     {pData.description}
                   </p>
@@ -511,9 +567,9 @@ function PropertyDetail() {
                   {pData.features.map((feat: string, idx: number) => (
                     <div 
                       key={idx} 
-                      className="flex items-center gap-3.5 bg-white border border-slate-200/80 p-4 rounded-2xl shadow-xs"
+                      className="flex items-center gap-3.5 bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-xs"
                     >
-                      <div className="w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200">
+                      <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-300">
                         <CheckCircle2 className="w-4 h-4" />
                       </div>
                       <span className="text-sm font-bold text-slate-800">{feat}</span>
@@ -526,8 +582,8 @@ function PropertyDetail() {
               {hasValidVideo && (
                 <div id="video-tour" className="mb-12 bg-[#0b1221] text-white rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-xl">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="p-2 rounded-xl bg-blue-600/30 text-blue-400">
-                      <Play className="w-5 h-5 fill-blue-400" />
+                    <span className="p-2 rounded-xl bg-blue-600 text-white">
+                      <Play className="w-5 h-5 fill-white" />
                     </span>
                     <div>
                       <h3 className="text-xl font-black tracking-tight">Recorrido en Vídeo de la Propiedad</h3>
@@ -549,7 +605,7 @@ function PropertyDetail() {
               )}
 
               {/* PROFESSIONAL GUARANTEE BADGE */}
-              <div className="bg-blue-50/70 border border-blue-200/70 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <div className="bg-[#eff6ff] border-2 border-blue-200 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-xs">
                 <div className="w-12 h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
                   <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
                 </div>
@@ -567,11 +623,11 @@ function PropertyDetail() {
 
             {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD */}
             <div className="lg:col-span-4">
-              <div className="bg-slate-50/90 rounded-[28px] p-6 sm:p-8 border border-slate-200/90 sticky top-28 shadow-lg">
+              <div className="bg-[#f8fafc] rounded-[28px] p-6 sm:p-8 border-2 border-slate-200 sticky top-28 shadow-xl">
                 
                 {/* Header card info */}
                 <div className="mb-6">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#2563eb] bg-blue-100/60 px-3 py-1 rounded-full inline-block mb-3">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#2563eb] bg-blue-100 px-3 py-1 rounded-full inline-block mb-3 border border-blue-200">
                     Atención Inmediata
                   </span>
                   <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2">
@@ -630,12 +686,162 @@ function PropertyDetail() {
 
         </div>
 
+        {/* DIRECT PROPERTY INQUIRY / CONTACT FORM CARD */}
+        <div id="contactar" className="mt-12 bg-white rounded-[28px] md:rounded-[36px] p-6 sm:p-8 md:p-12 shadow-xl border-2 border-slate-200">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
+                <Mail className="w-3.5 h-3.5 text-blue-400" />
+                <span>{language === "ca" ? "Contactar amb un Assessor" : language === "en" ? "Contact an Advisor" : "Contactar con un Asesor"}</span>
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight font-sans mb-3">
+                {language === "ca" 
+                  ? "¿T'interessa aquest immoble? T'assessorem" 
+                  : language === "en" 
+                  ? "Interested in this property? We guide you" 
+                  : "¿Te interesa este inmueble? Te asesoramos"}
+              </h2>
+              <p className="text-slate-600 text-sm sm:text-base font-medium">
+                {language === "ca"
+                  ? `Deixa'ns les teves dades per concertar una visita per a ${pData.name} (Ref: ${property.ref || property.id}).`
+                  : language === "en"
+                  ? `Leave your details to schedule a visit for ${pData.name} (Ref: ${property.ref || property.id}).`
+                  : `Déjanos tus datos para concertar una visita o solicitar más información sobre ${pData.name} (Ref: ${property.ref || property.id}).`}
+              </p>
+            </div>
+
+            <form onSubmit={handleContactSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                    {language === "ca" ? "NOM COMPLET *" : language === "en" ? "FULL NAME *" : "NOMBRE COMPLETO *"}
+                  </label>
+                  <input 
+                    type="text" 
+                    placeholder={language === "ca" ? "El teu nom..." : language === "en" ? "Your name..." : "Tu nombre..."} 
+                    value={contactForm.nombre}
+                    onChange={e => {
+                      setContactForm(f => ({ ...f, nombre: e.target.value }));
+                      if (contactErrors.nombre) setContactErrors(err => ({ ...err, nombre: undefined }));
+                    }}
+                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                  />
+                  {contactErrors.nombre && (
+                    <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.nombre}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                    {language === "ca" ? "TELÈFON *" : language === "en" ? "PHONE NUMBER *" : "TELÉFONO *"}
+                  </label>
+                  <input 
+                    type="tel" 
+                    placeholder={language === "ca" ? "El teu telèfon (ex. 600 000 000)" : language === "en" ? "Your phone number" : "Tu teléfono (ej. 600 000 000)"} 
+                    value={contactForm.telefono}
+                    onChange={e => {
+                      setContactForm(f => ({ ...f, telefono: e.target.value }));
+                      if (contactErrors.telefono) setContactErrors(err => ({ ...err, telefono: undefined }));
+                    }}
+                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                  />
+                  {contactErrors.telefono && (
+                    <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.telefono}</p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                  {language === "ca" ? "CORREU ELECTRÒNIC *" : language === "en" ? "EMAIL ADDRESS *" : "CORREO ELECTRÓNICO *"}
+                </label>
+                <input 
+                  type="email" 
+                  placeholder={language === "ca" ? "el.teu.email@exemple.com" : language === "en" ? "your.email@example.com" : "tu.correo@ejemplo.com"} 
+                  value={contactForm.email}
+                  onChange={e => {
+                    setContactForm(f => ({ ...f, email: e.target.value }));
+                    if (contactErrors.email) setContactErrors(err => ({ ...err, email: undefined }));
+                  }}
+                  className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                />
+                {contactErrors.email && (
+                  <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.email}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                  {language === "ca" ? "MISSATGE O PREGUNTA (OPCIONAL)" : language === "en" ? "MESSAGE OR QUESTION (OPTIONAL)" : "MENSAJE O PREGUNTA (OPCIONAL)"}
+                </label>
+                <textarea 
+                  rows={3} 
+                  placeholder={language === "ca" ? `Hola, voldria rebre més informació o fer una visita a l'immoble ${pData.name}...` : language === "en" ? `Hello, I would like more information or to visit ${pData.name}...` : `Hola, me gustaría recibir más información o concertar una visita para ${pData.name}...`} 
+                  value={contactForm.mensaje}
+                  onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
+                  className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all resize-none font-sans placeholder:text-slate-400" 
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2.5 pt-1">
+                  <input 
+                    type="checkbox" 
+                    id="property-privacy" 
+                    checked={contactForm.privacidad}
+                    onChange={e => {
+                      setContactForm(f => ({ ...f, privacidad: e.target.checked }));
+                      if (contactErrors.privacidad) setContactErrors(err => ({ ...err, privacidad: undefined }));
+                    }}
+                    className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
+                  />
+                  <label htmlFor="property-privacy" className="text-xs sm:text-sm text-[#0f172a] font-bold cursor-pointer font-sans select-none">
+                    {language === "ca" 
+                      ? "He llegit i accepto la política de privacitat i el tractament de les meves dades." 
+                      : language === "en" 
+                      ? "I have read and accept the privacy policy and data processing." 
+                      : "He leído y acepto la política de privacidad y el tratamiento de mis datos."}
+                  </label>
+                </div>
+                {contactErrors.privacidad && (
+                  <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.privacidad}</p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmittingContact}
+                className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
+                  isSubmittedSuccess ? "bg-[#0b214a] hover:bg-[#0f172a]" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
+                }`}
+              >
+                {isSubmittingContact ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <span>{language === "ca" ? "Enviant sol·licitud..." : language === "en" ? "Sending inquiry..." : "Enviando solicitud..."}</span>
+                  </>
+                ) : isSubmittedSuccess ? (
+                  <div className="flex items-center gap-2">
+                    <Check className="w-5 h-5 stroke-[3] text-white" />
+                    <span>{language === "ca" ? "Sol·licitud enviada amb èxit!" : language === "en" ? "Inquiry sent successfully!" : "¡Solicitud enviada con éxito!"}</span>
+                  </div>
+                ) : (
+                  <>
+                    <span>{language === "ca" ? "Sol·licitar Informació / Concertar Visita" : language === "en" ? "Request Information / Book Visit" : "Solicitar Información / Concertar Visita"}</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+
         {/* BOTTOM NAVIGATION BLOCK TO KEEP EXPLORING THE WEBSITE */}
-        <div className="mt-12 bg-white rounded-[28px] p-6 sm:p-8 md:p-10 shadow-lg border border-slate-200/80">
+        <div className="mt-12 bg-white rounded-[28px] p-6 sm:p-8 md:p-10 shadow-lg border-2 border-slate-200">
           <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-2 font-sans">
             {language === 'ca' ? 'Descobreix més immobles a Barcelona' : language === 'en' ? 'Discover More Properties in Barcelona' : 'Descubre más inmuebles en Barcelona'}
           </h3>
-          <p className="text-slate-500 text-sm md:text-base font-medium mb-6">
+          <p className="text-slate-600 text-sm md:text-base font-bold mb-6">
             {language === 'ca' 
               ? 'Explora el nostre catàleg complet de pisos o sol·licita una tasació personalitzada.' 
               : language === 'en'
@@ -646,7 +852,7 @@ function PropertyDetail() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <a
               href="/#propiedades"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 transition-all flex items-center gap-3 group"
+              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
             >
               <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
                 <Building2 className="w-5 h-5" />
@@ -655,13 +861,13 @@ function PropertyDetail() {
                 <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
                   Catálogo Inmobiliario
                 </p>
-                <p className="text-[11px] text-slate-500 font-medium">Ver todos los inmuebles</p>
+                <p className="text-[11px] text-slate-500 font-bold">Ver todos los inmuebles</p>
               </div>
             </a>
 
             <a
               href="/#valuator-form"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 transition-all flex items-center gap-3 group"
+              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
             >
               <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
                 <Home className="w-5 h-5" />
@@ -670,13 +876,13 @@ function PropertyDetail() {
                 <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
                   Valorar mi Propiedad
                 </p>
-                <p className="text-[11px] text-slate-500 font-medium">Tasación gratuita</p>
+                <p className="text-[11px] text-slate-500 font-bold">Tasación gratuita</p>
               </div>
             </a>
 
             <a
-              href="/#contacto"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/70 transition-all flex items-center gap-3 group"
+              href="#contactar"
+              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
             >
               <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
                 <Phone className="w-5 h-5" />
@@ -685,89 +891,76 @@ function PropertyDetail() {
                 <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
                   Contactar con Asesor
                 </p>
-                <p className="text-[11px] text-slate-500 font-medium">Atención inmediata</p>
+                <p className="text-[11px] text-slate-500 font-bold">Atención inmediata</p>
               </div>
             </a>
           </div>
         </div>
       </main>
 
-      {/* FOOTER CORPORATIVO UNIFICADO */}
-      <footer className="bg-[#0b1329] text-white pt-16 pb-0 border-t border-slate-800">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-14">
-          <div className="flex flex-col md:flex-row justify-between gap-12 lg:gap-16">
-            
-            {/* Left Block: Logo, Info & 4 Columns */}
-            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-              
-              {/* Brand Col */}
-              <div>
-                <Link to="/" className="inline-flex items-center gap-3 mb-6 group">
-                  <img src={logoImg} alt="Gesgrama" className="w-10 h-10 rounded-xl object-contain bg-white p-1" />
-                  <span className="text-2xl font-black tracking-tight text-white group-hover:text-blue-200 transition-colors font-sans">
-                    GESGRAMA
-                  </span>
-                </Link>
-                <p className="text-sm text-slate-300 font-medium leading-relaxed mb-6">
-                  {t.footer.brandDesc}
-                </p>
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Colegiados CAFBL 8.423 · AICAT 7.892
+      {/* ── FOOTER CORPORATIVO OFICIAL COMPLETO (IDENTICO A HOME) ── */}
+      <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10" style={{ backgroundColor: '#0b1221' }}>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col gap-10 relative">
+          
+          {/* Top Section: 4 Columns + Mascot */}
+          <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
+            {/* Mascot on Mobile (<768px): Centered Above Columns */}
+            <div className="w-full md:hidden flex justify-center items-center mb-4">
+              <FooterMascot className="w-44 sm:w-52 h-auto object-contain drop-shadow-lg" />
+            </div>
+
+            {/* Text Columns (Left Block) */}
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
+              {/* Logo + tagline */}
+              <div className="lg:col-span-1">
+                <div className="inline-block mb-4">
+                  <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
                 </div>
+                <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
+                  {t.footer.descripcion}
+                </p>
               </div>
 
-              {/* Navigation */}
+              {/* Navegación rápida */}
               <div>
-                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Navegación</h3>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h3>
                 <ul className="space-y-3.5">
-                  <li>
-                    <Link to="/" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Inicio
-                    </Link>
-                  </li>
-                  <li>
-                    <a href="/#propiedades" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Inmuebles
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/#servicios" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Servicios
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/#contacto" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Contacto
-                    </a>
-                  </li>
+                  {[
+                    { label: t.nav.propiedades, href: "/#propiedades" },
+                    { label: t.nav.servicios, href: "/#servicios" },
+                    { label: t.nav.nosotros, href: "/#nosotros" },
+                    { label: t.nav.contacto, href: "/#contacto" },
+                  ].map(link => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               {/* Contacto */}
               <div>
-                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Contacto</h3>
-                <ul className="space-y-3.5 text-base text-slate-300 font-bold">
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.contactInfo}</h3>
+                <ul className="space-y-4 text-base text-slate-300 font-bold">
                   <li className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5" />
-                    <span>Rambla de Sant Sebastià, 48, Santa Coloma de Gramenet</span>
+                    <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
+                    <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
                   </li>
                   <li>
-                    <a href="tel:934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
+                    <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
                       <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
-                      93 468 56 56
+                      {language === "en" ? "Office:" : "Oficina:"} 93 468 56 56
                     </a>
                   </li>
                   <li>
-                    <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 transition-colors font-bold">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#25D366] shrink-0">
+                    <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
                         <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
                       </svg>
-                      WhatsApp: 601 259 424
+                      WhatsApp: 601 25 94 24
                     </a>
                   </li>
                   <li>
@@ -781,40 +974,75 @@ function PropertyDetail() {
 
               {/* Legal */}
               <div>
-                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Legal</h3>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.legal}</h3>
                 <ul className="space-y-3.5">
                   <li>
                     <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
                       <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Aviso Legal
+                      {language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}
                     </Link>
                   </li>
                   <li>
                     <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
                       <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Política de Privacidad
+                      {language === "ca" ? "Política de Privacitat" : language === "en" ? "Privacy Policy" : "Política de Privacidad"}
                     </Link>
                   </li>
                   <li>
                     <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
                       <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Política de Cookies
+                      {language === "ca" ? "Política de Cookies" : language === "en" ? "Cookie Policy" : "Política de Cookies"}
                     </Link>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Right Block: Mascot Illustration */}
+            {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
             <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
               <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
             </div>
           </div>
 
+          {/* Cobertura en Santa Coloma de Gramenet */}
+          <div className="border-t border-white/10 pt-8 pb-2">
+            <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
+              {language === "ca" ? "COBERTURA A SANTA COLOMA DE GRAMENET" : language === "en" ? "COVERAGE IN SANTA COLOMA DE GRAMENET" : "COBERTURA EN SANTA COLOMA DE GRAMENET"}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-7 gap-2 sm:gap-2.5">
+              {[
+                { name: "Centre", slug: "centre" },
+                { name: "Santa Rosa", slug: "santa-rosa" },
+                { name: "Can Mariner", slug: "can-mariner" },
+                { name: "Fondo", slug: "fondo" },
+                { name: "Singuerlín", slug: "singuerlin" },
+                { name: "Riera Alta", slug: "riera-alta" },
+                { name: "Llatí", slug: "llati" },
+                { name: "El Raval", slug: "el-raval" },
+                { name: "Riu Nord", slug: "riu-nord" },
+                { name: "Riu Sud", slug: "riu-sud" },
+                { name: "Can Franquesa", slug: "can-franquesa" },
+                { name: "Les Oliveres", slug: "les-oliveres" },
+                { name: "La Guinardera", slug: "la-guinardera" },
+                { name: "Cementiri Vell", slug: "cementiri-vell" }
+              ].map(zone => (
+                <Link
+                  key={zone.slug}
+                  to="/administrador-fincas/$city"
+                  params={{ city: zone.slug }}
+                  className="px-2.5 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] text-xs sm:text-xs xl:text-sm font-extrabold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5 text-center whitespace-nowrap"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
+                  <span className="truncate">{zone.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* Bottom Horizontal Block: Acreditaciones Profesionales */}
-          <div className="border-t border-slate-800 pt-8 mt-12">
+          <div className="border-t border-white/10 pt-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
-              ACREDITACIONES PROFESIONALES OFICIALES
+              {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
             </h3>
             <AccreditationBadges language={language} />
           </div>
@@ -822,13 +1050,13 @@ function PropertyDetail() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 bg-[#060c18]">
+        <div className="border-t border-white/10 bg-[#060c18]">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. Todos los derechos reservados. · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener">Kovia</a></p>
             <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
-              <Link to="/aviso-legal" className="hover:text-blue-200">Aviso Legal</Link>
+              <Link to="/aviso-legal" className="hover:text-blue-200">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
               <span>·</span>
-              <Link to="/politica-privacidad" className="hover:text-blue-200">Privacidad</Link>
+              <Link to="/politica-privacidad" className="hover:text-blue-200">{language === "ca" ? "Privacitat" : language === "en" ? "Privacy" : "Privacidad"}</Link>
               <span>·</span>
               <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
               <span>·</span>

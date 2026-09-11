@@ -768,8 +768,8 @@ function Index() {
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#e5e9f0] text-onyx py-6 md:py-10 border-t-2 border-slate-300/90 scroll-mt-24 md:scroll-mt-28">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-md border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
+      <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-24 md:scroll-mt-28">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
           <Reveal>
             <div className="mb-4">
               <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">

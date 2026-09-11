@@ -104,13 +104,13 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 -bottom-1 h-60 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/85 via-[55%] to-transparent pointer-events-none" />
         </div>
 
-        {/* Mobile: solid white text backdrop, crisp short fade */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-[#F8FAFC] from-[85%] to-transparent pointer-events-none" />
+        {/* Mobile: solid white text backdrop covering entire buttons and text area */}
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#F8FAFC] from-[78%] to-transparent pointer-events-none z-[1]" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
         {/* Mobile text container: comfortable width, clean readability */}
-        <div className="max-w-[56%] xs:max-w-[54%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        <div className="max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -148,7 +148,7 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25, ease: expo }}
-              className="text-[#1e293b] text-[13px] xs:text-[14px] sm:text-lg md:text-[1.25rem] mb-3 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
+              className="text-[#1e293b] text-[12.5px] xs:text-[13.5px] sm:text-lg md:text-[1.25rem] mb-3 sm:mb-5 font-bold leading-snug sm:leading-relaxed font-sans"
             >
               {customSubtitle || t.heroCarousel.subtitle}
             </motion.p>
@@ -157,14 +157,14 @@ export default function HeroCarousel({
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full max-w-[210px] xs:max-w-[230px] sm:max-w-none mb-3.5 sm:mb-4.5"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-3.5 sm:mb-4.5"
             >
-              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 xs:py-2 sm:py-3.5 rounded-full font-black text-[11px] xs:text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
+              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10.5px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
                 <Home className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 shrink-0" />
                 <span>{t.heroCarousel.btnValuation}</span>
                 <ArrowRight className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 group-hover:translate-x-1 transition-transform shrink-0" />
               </a>
-              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 xs:py-2 sm:py-3.5 rounded-full font-black text-[11px] xs:text-[11.5px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
+              <a href="#propiedades" className="btn-lift w-full sm:w-auto bg-white/95 backdrop-blur-xs hover:bg-slate-50 text-[#0f172a] border border-slate-300 px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10.5px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-xs">
                 <Building2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 text-[#2563eb] shrink-0" />
                 <span>{t.heroCarousel.btnProperties}</span>
               </a>

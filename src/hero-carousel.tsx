@@ -77,33 +77,10 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On mobile: full background integration with top & left feathering for a seamless, professional look */}
-        <div className="sm:hidden absolute inset-0 pointer-events-none">
+        {/* On desktop: right half. On mobile: anchored strictly to the right with clean boundary */}
+        <div className="absolute right-0 top-0 w-[72%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
-            <motion.img
-              src={heroBgDesktop}
-              alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[22%_top]"
-              loading="eager"
-              fetchPriority="high"
-              width={2560}
-              height={1440}
-              animate={{ scale: [1, 1.02, 1] }}
-              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </picture>
-          {/* Top gradient: melts naturally under navbar without looking like an overlaid rectangle */}
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
-          {/* Left gradient: provides clean, solid backdrop for text and fades out smoothly to the right */}
-          <div className="absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-[#F8FAFC] from-60% via-[#F8FAFC]/85 via-80% to-transparent pointer-events-none" />
-          {/* Bottom gradient: seamlessly merges into stats cards */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
-        </div>
-
-        {/* On desktop: right half container */}
-        <div className="hidden sm:block absolute right-0 top-0 sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
-          <picture className="w-full h-full block">
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
@@ -116,9 +93,14 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          <div className="absolute inset-y-0 left-0 w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+          
+          {/* Feathering on left edge of the photo */}
+          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
+
+        {/* Mobile: Full-height solid white base for the text column that smoothly transitions where the photo starts */}
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

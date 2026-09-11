@@ -77,14 +77,14 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: anchored strictly to the right with clean boundary */}
-        <div className="absolute right-0 top-0 w-[72%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
+        {/* On desktop: right half. On mobile: anchored strictly to the right */}
+        <div className="absolute right-0 top-0 w-[76%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[right_top]"
+              className="w-full h-full object-cover object-[48%_top] sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -100,7 +100,7 @@ export default function HeroCarousel({
         </div>
 
         {/* Mobile: Full-height solid white base for the text column that smoothly transitions where the photo starts */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] to-transparent pointer-events-none" />
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

@@ -45,20 +45,20 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (typeof window !== "undefined") {
+      setMobileMenuOpen(false);
       const isHomePage = window.location.pathname === "/" || window.location.pathname === "";
       if (isHomePage) {
         e.preventDefault();
-        setMobileMenuOpen(false);
         const el = document.getElementById(targetId);
         if (el) {
           const navOffset = window.innerWidth < 768 ? 100 : 110;
           const elementPosition = el.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+          const offsetPosition = elementPosition + window.scrollY - navOffset;
           window.scrollTo({
             top: Math.max(0, offsetPosition),
             behavior: "smooth"
           });
-          window.history.pushState(null, "", `#${targetId}`);
+          window.history.replaceState(null, "", `#${targetId}`);
         }
       }
     }

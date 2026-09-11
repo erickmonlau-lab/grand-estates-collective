@@ -430,38 +430,38 @@ function PropertyDetail() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none" />
 
-              {/* Floating Status and Type Badges */}
-              <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
-                <span className={`${statusColor} px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md`}>
+              {/* Floating Status and Type Badges - Evenly aligned with proper inset and flex-wrap */}
+              <div className="absolute top-4 left-4 right-4 flex flex-wrap items-center gap-2 z-10 pointer-events-none">
+                <span className={`${statusColor} px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md pointer-events-auto`}>
                   {statusLabel}
                 </span>
-                <span className="bg-white text-[#0b214a] px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border border-slate-200">
+                <span className="bg-white text-[#0b214a] px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border border-slate-200 pointer-events-auto">
                   {pData.type}
                 </span>
-                <span className="bg-[#0b214a] text-white font-mono px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider shadow-md border border-blue-900">
+                <span className="bg-[#0b214a] text-white font-mono px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider shadow-md border border-blue-900 pointer-events-auto">
                   Ref: {property.ref || "API A10750"}
                 </span>
               </div>
 
-              {/* Slider Navigation Arrows - Conditionally when more than 1 photo */}
+              {/* Slider Navigation Arrows - High visibility bright brand blue (#2563eb) with white arrow icons */}
               {galleryImages.length > 1 && (
                 <>
                   <button
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                     aria-label={t.detail.photoPrev}
-                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
-                    <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
+                    <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
                     aria-label={t.detail.photoNext}
-                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#0b214a]/90 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 hover:border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
-                    <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
+                    <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
                   </button>
                 </>
               )}
@@ -511,7 +511,7 @@ function PropertyDetail() {
             {/* LEFT COLUMN: TITLE, SPECS, DESCRIPTION, FEATURES, VIDEO */}
             <div className="lg:col-span-8">
               
-              {/* Header Title & Price Badge */}
+              {/* Header Title & Price Badge - SOLID BRAND BLUE CARD WITH WHITE TEXT */}
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
                 <div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-3">
@@ -523,11 +523,11 @@ function PropertyDetail() {
                   </div>
                 </div>
 
-                <div className="sm:text-right shrink-0 bg-blue-50 border-2 border-blue-200 p-4 rounded-2xl shadow-xs">
-                  <span className="text-[11px] uppercase tracking-widest text-[#000000] font-black block mb-1">
+                <div className="sm:text-right shrink-0 bg-[#2563eb] border-2 border-blue-600 px-5 py-4 rounded-2xl shadow-lg">
+                  <span className="text-[11px] uppercase tracking-widest text-blue-100 font-black block mb-1">
                     {t.detail.priceTitle}
                   </span>
-                  <div className="text-3xl sm:text-4xl font-black text-[#2563eb] tracking-tight font-sans">
+                  <div className="text-3xl sm:text-4xl font-black text-white tracking-tight font-sans">
                     {property.priceFormatted}
                   </div>
                 </div>
@@ -593,7 +593,7 @@ function PropertyDetail() {
               <div className="mb-12">
                 <h2 className="text-2xl font-black text-[#000000] mb-5 flex items-center gap-2.5">
                   <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
-                  {t.detail.features} {t.detail.featuresSubtitle}
+                  {t.detail.features}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {pData.features.map((feat: string, idx: number) => (

@@ -77,8 +77,8 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: generous vertical height, slightly lowered (top-6) */}
-        <div className="absolute right-0 top-6 sm:top-0 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[74%] sm:h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
+        {/* On desktop: right half raised upwards. On mobile: generous vertical height, slightly lowered (top-6) */}
+        <div className="absolute right-0 top-6 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[74%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img

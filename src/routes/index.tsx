@@ -2851,14 +2851,29 @@ function Index() {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-                <a
-                  href="#contacto"
-                  onClick={() => setSelectedServiceIndex(null)}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedServiceIndex(null);
+                    setTimeout(() => {
+                      const el = document.getElementById("contacto");
+                      if (el) {
+                        const navOffset = window.innerWidth < 768 ? 76 : 90;
+                        const elementPosition = el.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+                        window.scrollTo({
+                          top: Math.max(0, offsetPosition),
+                          behavior: "smooth"
+                        });
+                        window.history.pushState(null, "", "#contacto");
+                      }
+                    }, 50);
+                  }}
                   className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm py-3.5 px-6 rounded-full text-center transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 font-sans uppercase tracking-wider cursor-pointer"
                 >
                   <span>{t.serviceModal.contactBtn}</span>
                   <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-                </a>
+                </button>
                 <button
                   type="button"
                   onClick={() => setSelectedServiceIndex(null)}

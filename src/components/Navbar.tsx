@@ -51,7 +51,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
         setMobileMenuOpen(false);
         const el = document.getElementById(targetId);
         if (el) {
-          const navOffset = window.innerWidth < 768 ? 90 : 110;
+          const navOffset = window.innerWidth < 768 ? 76 : 90;
           const elementPosition = el.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - navOffset;
           window.scrollTo({

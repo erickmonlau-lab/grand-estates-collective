@@ -202,7 +202,19 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 105px;
+    scroll-padding-top: 76px;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      scroll-padding-top: 86px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 92px;
+    }
   }
 
   body {

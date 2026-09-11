@@ -1102,11 +1102,43 @@ function AdminDashboard() {
                   <button
                     type="button"
                     onClick={() => galleryFileInputRef.current?.click()}
-                    className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer mb-3"
+                    className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer mb-2.5"
                   >
                     <Layers className="w-4 h-4" />
-                    <span>+ Añadir Más Fotos a la Galería (Seleccionar Varias)</span>
+                    <span>+ Añadir Más Fotos a la Galería (Sin límite, selecciona tantas fotos como desees)</span>
                   </button>
+
+                  <div className="flex gap-2 items-center mb-3">
+                    <input
+                      type="url"
+                      placeholder="O pegar URL de imagen para la galería (https://...)"
+                      id="newGalleryUrlInput"
+                      className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const val = (e.currentTarget.value || "").trim();
+                          if (val) {
+                            setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, val] }));
+                            e.currentTarget.value = "";
+                          }
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById("newGalleryUrlInput") as HTMLInputElement | null;
+                        if (input && input.value.trim()) {
+                          setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, input.value.trim()] }));
+                          input.value = "";
+                        }
+                      }}
+                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-black px-4 py-2 rounded-xl cursor-pointer"
+                    >
+                      Añadir URL
+                    </button>
+                  </div>
 
                   {/* Gallery Thumbnails Grid */}
                   {formData.gallery.length > 0 && (

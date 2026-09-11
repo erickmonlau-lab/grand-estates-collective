@@ -4,7 +4,7 @@ import { findPropertyBySlugOrId, getLocalProperties, fetchProperties, subscribeP
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { 
-  ArrowLeft, Bath, Bed, Maximize, MapPin, Building2, Phone, MessageCircle, 
+  ArrowLeft, Bath, Bed, Maximize, MapPin, Map, Building2, Phone, MessageCircle, 
   ChevronRight, ChevronLeft, Home, Mail, Share2, CheckCircle2, ShieldCheck, Sparkles, 
   Calendar, Eye, Check, Play, Loader2, ArrowRight, ChevronDown, Send, Maximize2, X
 } from "lucide-react";
@@ -82,24 +82,60 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Product",
+            "@type": "RealEstateListing",
             "name": property.name,
-            "description": property.description.slice(0, 160),
+            "description": property.description.slice(0, 200),
             "url": canonicalUrl,
-            "image": [ogImage],
+            "image": property.gallery && property.gallery.length > 0 ? property.gallery : [ogImage],
+            "datePosted": "2026-01-01",
             "offers": {
               "@type": "Offer",
               "price": property.price,
               "priceCurrency": "EUR",
+              "businessFunction": property.operation === "alquilar" ? "http://purl.org/goodrelations/v1#LeaseOut" : "http://purl.org/goodrelations/v1#Sell",
               "availability": "https://schema.org/InStock",
-              "url": canonicalUrl
+              "url": canonicalUrl,
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": property.price,
+                "priceCurrency": "EUR",
+                "unitText": property.operation === "alquilar" ? "MONTH" : "ONE_TIME"
+              }
             },
-            "brand": { "@type": "Organization", "name": "Gesgrama" },
-            "additionalProperty": [
-              { "@type": "PropertyValue", "name": "Habitaciones", "value": property.bedrooms },
-              { "@type": "PropertyValue", "name": "Baños", "value": property.bathrooms },
-              { "@type": "PropertyValue", "name": "Superficie", "value": `${property.surface} m²` }
-            ],
+            "about": {
+              "@type": property.type === "Local" ? "CommercialProperty" : property.type === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
+              "name": property.name,
+              "description": property.description,
+              "numberOfRooms": property.bedrooms,
+              "numberOfBedrooms": property.bedrooms,
+              "numberOfBathroomsTotal": property.bathrooms,
+              "floorSize": {
+                "@type": "QuantitativeValue",
+                "value": property.surface,
+                "unitCode": "MTK"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Santa Coloma de Gramenet",
+                "addressRegion": "Barcelona",
+                "addressCountry": "ES",
+                "streetAddress": `${property.location}, Santa Coloma de Gramenet`
+              }
+            },
+            "broker": {
+              "@type": "RealEstateAgent",
+              "name": "Gesgrama Inmobiliaria",
+              "url": SITE_DOMAIN,
+              "telephone": "+34934685656",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Rambla de Sant Sebastià, 48",
+                "addressLocality": "Santa Coloma de Gramenet",
+                "postalCode": "08921",
+                "addressRegion": "Barcelona",
+                "addressCountry": "ES"
+              }
+            },
             "breadcrumb": {
               "@type": "BreadcrumbList",
               "itemListElement": [
@@ -206,6 +242,84 @@ function PropertyDetail() {
     window.scrollTo(0, 0);
     setActiveImageIdx(0);
   }, [slug]);
+
+  // Dynamically update document head JSON-LD schema when property updates in client
+  useEffect(() => {
+    if (!property || typeof document === "undefined") return;
+    const scriptId = "realestate-listing-schema";
+    let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
+    if (!scriptTag) {
+      scriptTag = document.createElement("script");
+      scriptTag.id = scriptId;
+      scriptTag.type = "application/ld+json";
+      document.head.appendChild(scriptTag);
+    }
+    const canonicalUrl = `${SITE_DOMAIN}/inmobiliaria/${property.slug}`;
+    const ogImg = typeof property.gallery?.[0] === "string" && property.gallery[0].startsWith("http")
+      ? property.gallery[0]
+      : property.image?.startsWith("http")
+      ? property.image
+      : `https://www.gesgrama.es/og-image.png`;
+
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      "name": property.name,
+      "description": (property.description || "").slice(0, 200),
+      "url": canonicalUrl,
+      "image": property.gallery && property.gallery.length > 0 ? property.gallery : [ogImg],
+      "datePosted": "2026-01-01",
+      "offers": {
+        "@type": "Offer",
+        "price": property.price,
+        "priceCurrency": "EUR",
+        "businessFunction": property.operation === "alquilar" ? "http://purl.org/goodrelations/v1#LeaseOut" : "http://purl.org/goodrelations/v1#Sell",
+        "availability": "https://schema.org/InStock",
+        "url": canonicalUrl,
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": property.price,
+          "priceCurrency": "EUR",
+          "unitText": property.operation === "alquilar" ? "MONTH" : "ONE_TIME"
+        }
+      },
+      "about": {
+        "@type": property.type === "Local" ? "CommercialProperty" : property.type === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
+        "name": property.name,
+        "description": property.description,
+        "numberOfRooms": property.bedrooms,
+        "numberOfBedrooms": property.bedrooms,
+        "numberOfBathroomsTotal": property.bathrooms,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": property.surface,
+          "unitCode": "MTK"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Coloma de Gramenet",
+          "addressRegion": "Barcelona",
+          "addressCountry": "ES",
+          "streetAddress": `${property.location}, Santa Coloma de Gramenet`
+        }
+      },
+      "broker": {
+        "@type": "RealEstateAgent",
+        "name": "Gesgrama Inmobiliaria",
+        "url": SITE_DOMAIN,
+        "telephone": "+34934685656",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rambla de Sant Sebastià, 48",
+          "addressLocality": "Santa Coloma de Gramenet",
+          "postalCode": "08921",
+          "addressRegion": "Barcelona",
+          "addressCountry": "ES"
+        }
+      }
+    };
+    scriptTag.textContent = JSON.stringify(schemaData);
+  }, [property]);
 
   // Keyboard navigation for full screen lightbox
   useEffect(() => {
@@ -396,7 +510,7 @@ function PropertyDetail() {
       {/* SHARED CANONICAL NAVY NAVBAR */}
       <Navbar language={language} setLanguage={changeLanguage} />
 
-      <main className="pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1340px] mx-auto">
+      <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1340px] mx-auto">
         <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-5 sm:p-8 md:p-12">
           
           {/* TOP NAV / ACTIONS BAR */}
@@ -470,7 +584,7 @@ function PropertyDetail() {
                 </div>
               </div>
 
-              {/* Slider Navigation Arrows - Bright brand blue (#2563eb) with white icons, perfectly centered and balanced */}
+              {/* Slider Navigation Arrows - Moved to edges with opacity 0.7 and hover 1 */}
               {galleryImages.length > 1 && (
                 <>
                   <button
@@ -480,9 +594,9 @@ function PropertyDetail() {
                       setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
                     }}
                     aria-label={t.detail.photoPrev}
-                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
                   >
-                    <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
                   </button>
 
                   <button
@@ -492,9 +606,9 @@ function PropertyDetail() {
                       setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
                     }}
                     aria-label={t.detail.photoNext}
-                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
                   >
-                    <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
                   </button>
                 </>
               )}
@@ -530,7 +644,7 @@ function PropertyDetail() {
               </span>
             </div>
 
-            {/* Gallery Thumbnails Carousel / Strip - Centered on desktop */}
+            {/* Gallery Thumbnails Carousel / Strip - Clean outline matching border-radius */}
             {galleryImages.length > 1 && (
               <div className="flex gap-3 overflow-x-auto py-3.5 px-1 scrollbar-none justify-start sm:justify-center">
                 {galleryImages.map((img, idx) => (
@@ -538,13 +652,13 @@ function PropertyDetail() {
                     key={idx}
                     type="button"
                     onClick={() => setActiveImageIdx(idx)}
-                    className={`relative shrink-0 w-24 h-18 sm:w-28 sm:h-20 rounded-2xl overflow-hidden border-2 transition-all cursor-pointer shadow-xs ${
+                    className={`relative shrink-0 w-24 h-18 sm:w-28 sm:h-20 rounded-2xl overflow-hidden transition-all cursor-pointer shadow-xs ${
                       activeImageIdx === idx 
-                        ? "border-[#2563eb] ring-2 ring-[#2563eb] scale-102 opacity-100" 
-                        : "border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
+                        ? "outline-3 outline-[#2563eb] -outline-offset-1 scale-102 opacity-100" 
+                        : "border border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
                     }`}
                   >
-                    <img src={img} alt={`${pData.name} - ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`${pData.name} - ${idx + 1}`} className="w-full h-full object-cover rounded-2xl" />
                   </button>
                 ))}
               </div>
@@ -554,11 +668,11 @@ function PropertyDetail() {
           {/* MAIN DETAILS GRID: LEFT CONTENT + RIGHT STICKY CARD */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             
-            {/* LEFT COLUMN: TITLE, SPECS, DESCRIPTION, FEATURES, VIDEO */}
+            {/* LEFT COLUMN: TITLE, SPECS, DESCRIPTION, FEATURES, VIDEO, MAP */}
             <div className="lg:col-span-8">
               
-              {/* Header Title & Price Badge - SOLID BRAND BLUE CARD WITH WHITE TEXT */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
+              {/* Header Title & Price Badge - VERTICALLY ALIGNED */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
                 <div>
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-3">
                     {pData.name}
@@ -569,7 +683,7 @@ function PropertyDetail() {
                   </div>
                 </div>
 
-                <div className="sm:text-right shrink-0 bg-[#2563eb] border-2 border-blue-600 px-5 py-4 rounded-2xl shadow-lg">
+                <div className="sm:text-right shrink-0 bg-[#2563eb] border-2 border-blue-600 px-5 py-4 rounded-2xl shadow-lg self-start sm:self-center">
                   <span className="text-[11px] uppercase tracking-widest text-blue-100 font-black block mb-1">
                     {t.detail.priceTitle}
                   </span>
@@ -693,6 +807,34 @@ function PropertyDetail() {
                 </div>
               )}
 
+              {/* EMBEDDED LOCATION MAP BLOCK */}
+              <div className="mb-12">
+                <h2 className="text-2xl font-black text-[#000000] mb-2 flex items-center gap-2.5">
+                  <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
+                  {t.detail.locationMapTitle}
+                </h2>
+                <p className="text-sm font-bold text-slate-600 mb-4 flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <span>{t.detail.locationMapSubtitle.replace("{location}", formatLocation(pData.location || property.location, language))}</span>
+                </p>
+                <div className="rounded-3xl overflow-hidden border-2 border-slate-300 shadow-md bg-slate-100 relative">
+                  <iframe
+                    title={`Mapa de ubicación - ${pData.name}`}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(`${pData.location || property.location}, Santa Coloma de Gramenet, Barcelona, Spain`)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                    width="100%"
+                    height="340"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    allowFullScreen
+                    className="w-full"
+                  />
+                  <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] font-bold text-slate-500">
+                    <span>{t.detail.locationMapDisclaimer}</span>
+                    <span className="text-[#2563eb] font-extrabold uppercase tracking-wider">{property.city || "Santa Coloma de Gramenet"}</span>
+                  </div>
+                </div>
+              </div>
+
               {/* PROFESSIONAL GUARANTEE BADGE */}
               <div className="bg-[#0b214a] text-white border-2 border-blue-900 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-lg">
                 <div className="w-12 h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
@@ -754,17 +896,17 @@ function PropertyDetail() {
 
                   <a 
                     href="tel:+34934685656" 
-                    className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-md cursor-pointer whitespace-nowrap"
                   >
-                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
-                    <span>{t.detail.callBtn}</span>
+                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5] shrink-0" />
+                    <span className="truncate">{t.detail.callBtn}</span>
                   </a>
 
                   <a 
                     href="#contactar" 
                     className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-4 h-4 shrink-0" />
                     <span>{t.detail.bookBtn}</span>
                   </a>
                 </div>
@@ -804,10 +946,10 @@ function PropertyDetail() {
           </div>
 
           <div className="p-6 sm:p-8 md:p-12 max-w-3xl mx-auto">
-            <form onSubmit={handleContactSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleContactSubmit} className="space-y-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-0.5 text-xs font-sans">
                     {t.detail.nameField}
                   </label>
                   <input 
@@ -818,7 +960,7 @@ function PropertyDetail() {
                       setContactForm(f => ({ ...f, nombre: e.target.value }));
                       if (contactErrors.nombre) setContactErrors(err => ({ ...err, nombre: undefined }));
                     }}
-                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
                   />
                   {contactErrors.nombre && (
                     <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.nombre}</p>
@@ -826,7 +968,7 @@ function PropertyDetail() {
                 </div>
 
                 <div>
-                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-0.5 text-xs font-sans">
                     {t.detail.phoneField}
                   </label>
                   <input 
@@ -837,7 +979,7 @@ function PropertyDetail() {
                       setContactForm(f => ({ ...f, telefono: e.target.value }));
                       if (contactErrors.telefono) setContactErrors(err => ({ ...err, telefono: undefined }));
                     }}
-                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                    className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
                   />
                   {contactErrors.telefono && (
                     <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.telefono}</p>
@@ -846,7 +988,7 @@ function PropertyDetail() {
               </div>
 
               <div>
-                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-0.5 text-xs font-sans">
                   {t.detail.emailField}
                 </label>
                 <input 
@@ -857,7 +999,7 @@ function PropertyDetail() {
                     setContactForm(f => ({ ...f, email: e.target.value }));
                     if (contactErrors.email) setContactErrors(err => ({ ...err, email: undefined }));
                   }}
-                  className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
+                  className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400`} 
                 />
                 {contactErrors.email && (
                   <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.email}</p>
@@ -865,7 +1007,7 @@ function PropertyDetail() {
               </div>
 
               <div>
-                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">
+                <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-0.5 text-xs font-sans">
                   {t.detail.messageField}
                 </label>
                 <textarea 
@@ -873,7 +1015,7 @@ function PropertyDetail() {
                   placeholder={t.detail.messagePlaceholder.replace("{name}", pData.name)} 
                   value={contactForm.mensaje}
                   onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
-                  className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-4 py-3 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all resize-none font-sans placeholder:text-slate-400" 
+                  className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all resize-none font-sans placeholder:text-slate-400" 
                 />
               </div>
 

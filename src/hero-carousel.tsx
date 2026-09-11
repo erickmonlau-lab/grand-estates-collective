@@ -77,8 +77,8 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: generous vertical height (h-[72%]), anchored from near top, naturally filling the space */}
-        <div className="absolute right-0 top-2 sm:top-0 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[72%] sm:h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
+        {/* On desktop: right half. On mobile: generous vertical height, slightly lowered (top-6) */}
+        <div className="absolute right-0 top-6 sm:top-0 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[74%] sm:h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
@@ -100,15 +100,12 @@ export default function HeroCarousel({
           <div className="sm:hidden absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC]/50 to-transparent pointer-events-none" />
           {/* Feathering: right edge — mobile only */}
           <div className="sm:hidden absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
-          {/* Feathering: bottom edge with progressive, natural fade */}
-          <div className="absolute inset-x-0 -bottom-1 h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/75 to-transparent pointer-events-none" />
+          {/* Feathering: extra-tall bottom fade that transitions ultra-smoothly over the lower half */}
+          <div className="absolute inset-x-0 -bottom-1 h-60 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/85 via-[55%] to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop, crisp short fade */}
         <div className="sm:hidden absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-[#F8FAFC] from-[85%] to-transparent pointer-events-none" />
-
-        {/* Mobile: white gradient BEHIND the bottom metrics area (not over the cards) */}
-        <div className="sm:hidden absolute bottom-0 right-0 w-[55%] h-[42%] bg-gradient-to-tl from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

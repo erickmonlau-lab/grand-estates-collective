@@ -78,7 +78,7 @@ export default function HeroCarousel({
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half. On mobile: anchored strictly to the right */}
-        <div className="absolute right-0 top-0 w-[62%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
+        <div className="absolute right-0 top-0 w-[62%] h-auto sm:h-full sm:w-[65%] lg:w-[50%] xl:w-[46%] pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
           <picture className="w-full block sm:h-full">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img

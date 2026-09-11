@@ -501,45 +501,45 @@ function PropertyDetail() {
                 </div>
               </div>
 
-              {/* KEY SPECS METRIC PILLS */}
+              {/* KEY SPECS METRIC PILLS - SOLID BRAND BLUE / CONTRAST ACCENTS */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-10">
-                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                    <Bed className="w-5 h-5 stroke-[2.2]" />
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Bed className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Dormitorios</span>
-                    <span className="text-lg font-black text-slate-900">{property.bedrooms} hab.</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Dormitorios</span>
+                    <span className="text-xl font-black text-white">{property.bedrooms} hab.</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                    <Bath className="w-5 h-5 stroke-[2.2]" />
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Bath className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Baños</span>
-                    <span className="text-lg font-black text-slate-900">{property.bathrooms} {property.bathrooms === 1 ? "baño" : "baños"}</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Baños</span>
+                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? "baño" : "baños"}</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                    <Maximize className="w-5 h-5 stroke-[2.2]" />
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Maximize className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Superficie</span>
-                    <span className="text-lg font-black text-slate-900">{property.surface} m²</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Superficie</span>
+                    <span className="text-xl font-black text-white">{property.surface} m²</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-center gap-3.5">
-                  <div className="w-11 h-11 rounded-xl bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                    <Building2 className="w-5 h-5 stroke-[2.2]" />
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
+                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                    <Building2 className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Planta / Tipo</span>
-                    <span className="text-sm font-black text-slate-900 truncate block max-w-[100px]">{pData.floor || pData.type}</span>
+                    <span className="text-[10px] uppercase font-black text-blue-100 tracking-wider block">Planta / Tipo</span>
+                    <span className="text-base font-black text-white truncate block max-w-[100px]">{pData.floor || pData.type}</span>
                   </div>
                 </div>
               </div>
@@ -567,10 +567,10 @@ function PropertyDetail() {
                   {pData.features.map((feat: string, idx: number) => (
                     <div 
                       key={idx} 
-                      className="flex items-center gap-3.5 bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-xs"
+                      className="flex items-center gap-3.5 bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-xs hover:border-[#2563eb]/40 transition-colors"
                     >
-                      <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-300">
-                        <CheckCircle2 className="w-4 h-4" />
+                      <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <CheckCircle2 className="w-4 h-4 stroke-[3]" />
                       </div>
                       <span className="text-sm font-bold text-slate-800">{feat}</span>
                     </div>
@@ -605,15 +605,15 @@ function PropertyDetail() {
               )}
 
               {/* PROFESSIONAL GUARANTEE BADGE */}
-              <div className="bg-[#eff6ff] border-2 border-blue-200 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-xs">
+              <div className="bg-[#0b214a] text-white border-2 border-blue-900 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-lg">
                 <div className="w-12 h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
                   <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
                 </div>
                 <div>
-                  <h4 className="text-base font-black text-slate-900 mb-1">
+                  <h4 className="text-base font-black text-white mb-1">
                     Garantía Inmobiliaria Gesgrama
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                  <p className="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed">
                     Inmueble revisado jurídica y registralmente por Agentes de la Propiedad Inmobiliaria (AICAT 7.892 y CAFBL 8.423). Sin sorpresas ni costes ocultos.
                   </p>
                 </div>
@@ -623,40 +623,41 @@ function PropertyDetail() {
 
             {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD */}
             <div className="lg:col-span-4">
-              <div className="bg-[#f8fafc] rounded-[28px] p-6 sm:p-8 border-2 border-slate-200 sticky top-28 shadow-xl">
+              <div className="bg-[#0b214a] text-white rounded-[28px] p-6 sm:p-8 border-2 border-blue-900 sticky top-28 shadow-2xl overflow-hidden relative">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#2563eb] rounded-full blur-[70px] pointer-events-none opacity-40"></div>
                 
                 {/* Header card info */}
-                <div className="mb-6">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#2563eb] bg-blue-100 px-3 py-1 rounded-full inline-block mb-3 border border-blue-200">
+                <div className="relative z-10 mb-6">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-3.5 py-1.5 rounded-full inline-block mb-3 shadow-sm">
                     Atención Inmediata
                   </span>
-                  <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
                     {t.detail.interested}
                   </h3>
-                  <p className="text-slate-500 text-xs sm:text-sm font-medium leading-relaxed">
+                  <p className="text-blue-100 text-xs sm:text-sm font-medium leading-relaxed">
                     {t.detail.contactDesc.replace("{name}", pData.name)}
                   </p>
                 </div>
 
                 {/* Property quick summary in card */}
-                <div className="bg-white rounded-2xl p-4 border border-slate-200/70 mb-6 shadow-xs">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
+                <div className="relative z-10 bg-white text-slate-900 rounded-2xl p-4 border-2 border-blue-400 mb-6 shadow-md">
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1.5">
                     <span>Referencia:</span>
-                    <span className="font-mono text-slate-900 font-black">{property.ref || property.id.toUpperCase()}</span>
+                    <span className="font-mono text-slate-900 font-black bg-slate-100 px-2 py-0.5 rounded-md">{property.ref || property.id.toUpperCase()}</span>
                   </div>
                   <div className="flex items-center justify-between text-xs font-bold text-slate-500">
                     <span>Precio:</span>
-                    <span className="text-base text-[#2563eb] font-black">{property.priceFormatted}</span>
+                    <span className="text-xl text-[#2563eb] font-black">{property.priceFormatted}</span>
                   </div>
                 </div>
 
                 {/* DIRECT ACTION BUTTONS */}
-                <div className="space-y-3 mb-6">
+                <div className="relative z-10 space-y-3 mb-6">
                   <a 
                     href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-full flex items-center justify-center gap-3 bg-[#075E54] hover:bg-[#054c44] text-white py-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     <MessageCircle className="w-5 h-5 fill-white shrink-0" />
                     <span>Contactar por WhatsApp</span>
@@ -664,19 +665,27 @@ function PropertyDetail() {
 
                   <a 
                     href="tel:+34934685656" 
-                    className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-800 border-2 border-slate-300 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-xs cursor-pointer"
+                    className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
                   >
                     <Phone className="w-4 h-4 text-[#2563eb]" />
                     <span>Llamar a Oficina: 93 468 56 56</span>
                   </a>
+
+                  <a 
+                    href="#contactar" 
+                    className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                  >
+                    <Mail className="w-4 h-4" />
+                    <span>Pedir Cita Online</span>
+                  </a>
                 </div>
 
                 {/* OFFICE ADDRESS & SCHEDULE */}
-                <div className="pt-5 border-t border-slate-200/80 text-center text-xs text-slate-500 space-y-1 font-medium">
-                  <p className="font-bold text-slate-700">Oficina Gesgrama:</p>
+                <div className="relative z-10 pt-5 border-t border-blue-800 text-center text-xs text-blue-200 space-y-1 font-medium">
+                  <p className="font-bold text-white">Oficina Gesgrama:</p>
                   <p>Rambla de Sant Sebastià, 48</p>
                   <p>Santa Coloma de Gramenet</p>
-                  <p className="text-[11px] text-[#2563eb] font-bold pt-1">Lunes a Viernes · 9:30 - 13:30 / 16:30 - 20:00</p>
+                  <p className="text-[11px] text-[#38bdf8] font-black pt-1">Lunes a Viernes · 9:30 - 13:30 / 16:30 - 20:00</p>
                 </div>
 
               </div>
@@ -687,21 +696,23 @@ function PropertyDetail() {
         </div>
 
         {/* DIRECT PROPERTY INQUIRY / CONTACT FORM CARD */}
-        <div id="contactar" className="mt-12 bg-white rounded-[28px] md:rounded-[36px] p-6 sm:p-8 md:p-12 shadow-xl border-2 border-slate-200">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-8">
-              <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
-                <Mail className="w-3.5 h-3.5 text-blue-400" />
+        <div id="contactar" className="mt-12 bg-white rounded-[28px] md:rounded-[36px] shadow-2xl border-2 border-blue-900/30 overflow-hidden">
+          {/* Form Top Brand Banner */}
+          <div className="bg-[#0b214a] text-white p-6 sm:p-8 md:p-10 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-1/4 w-60 h-60 bg-[#2563eb] rounded-full blur-[90px] pointer-events-none opacity-30" />
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm mb-3">
+                <Mail className="w-3.5 h-3.5 text-white" />
                 <span>{language === "ca" ? "Contactar amb un Assessor" : language === "en" ? "Contact an Advisor" : "Contactar con un Asesor"}</span>
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight font-sans mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight font-sans mb-3">
                 {language === "ca" 
                   ? "¿T'interessa aquest immoble? T'assessorem" 
                   : language === "en" 
                   ? "Interested in this property? We guide you" 
                   : "¿Te interesa este inmueble? Te asesoramos"}
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-medium">
+              <p className="text-blue-100 text-sm sm:text-base font-medium">
                 {language === "ca"
                   ? `Deixa'ns les teves dades per concertar una visita per a ${pData.name} (Ref: ${property.ref || property.id}).`
                   : language === "en"
@@ -709,7 +720,9 @@ function PropertyDetail() {
                   : `Déjanos tus datos para concertar una visita o solicitar más información sobre ${pData.name} (Ref: ${property.ref || property.id}).`}
               </p>
             </div>
+          </div>
 
+          <div className="p-6 sm:p-8 md:p-12 max-w-3xl mx-auto">
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -837,11 +850,14 @@ function PropertyDetail() {
         </div>
 
         {/* BOTTOM NAVIGATION BLOCK TO KEEP EXPLORING THE WEBSITE */}
-        <div className="mt-12 bg-white rounded-[28px] p-6 sm:p-8 md:p-10 shadow-lg border-2 border-slate-200">
-          <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-2 font-sans">
-            {language === 'ca' ? 'Descobreix més immobles a Barcelona' : language === 'en' ? 'Discover More Properties in Barcelona' : 'Descubre más inmuebles en Barcelona'}
-          </h3>
-          <p className="text-slate-600 text-sm md:text-base font-bold mb-6">
+        <div className="mt-12 bg-white rounded-[28px] p-6 sm:p-8 md:p-10 shadow-xl border-2 border-slate-200">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
+            <h3 className="text-xl md:text-2xl font-black text-slate-900 font-sans">
+              {language === 'ca' ? 'Descobreix més immobles a Barcelona' : language === 'en' ? 'Discover More Properties in Barcelona' : 'Descubre más inmuebles en Barcelona'}
+            </h3>
+          </div>
+          <p className="text-slate-600 text-sm md:text-base font-bold mb-6 pl-5">
             {language === 'ca' 
               ? 'Explora el nostre catàleg complet de pisos o sol·licita una tasació personalitzada.' 
               : language === 'en'
@@ -852,46 +868,46 @@ function PropertyDetail() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <a
               href="/#propiedades"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
+              className="p-5 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
-              <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                <Building2 className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                <Building2 className="w-6 h-6 stroke-[2.2]" />
               </div>
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
+                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
                   Catálogo Inmobiliario
                 </p>
-                <p className="text-[11px] text-slate-500 font-bold">Ver todos los inmuebles</p>
+                <p className="text-xs text-blue-200 font-bold">Ver todos los inmuebles</p>
               </div>
             </a>
 
             <a
               href="/#valuator-form"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
+              className="p-5 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
-              <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                <Home className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                <Home className="w-6 h-6 stroke-[2.2]" />
               </div>
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
+                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
                   Valorar mi Propiedad
                 </p>
-                <p className="text-[11px] text-slate-500 font-bold">Tasación gratuita</p>
+                <p className="text-xs text-blue-200 font-bold">Tasación profesional gratuita</p>
               </div>
             </a>
 
             <a
               href="#contactar"
-              className="p-5 rounded-2xl bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 transition-all flex items-center gap-3 group"
+              className="p-5 rounded-2xl bg-[#2563eb] hover:bg-blue-600 text-white border-2 border-blue-500 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
-              <div className="w-10 h-10 rounded-full bg-blue-100 text-[#2563eb] flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5" />
+              <div className="w-12 h-12 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                <Phone className="w-6 h-6 stroke-[2.2]" />
               </div>
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-wider text-slate-900 group-hover:text-[#2563eb] transition-colors">
+                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-100 transition-colors">
                   Contactar con Asesor
                 </p>
-                <p className="text-[11px] text-slate-500 font-bold">Atención inmediata</p>
+                <p className="text-xs text-blue-100 font-bold">Atención personalizada</p>
               </div>
             </a>
           </div>

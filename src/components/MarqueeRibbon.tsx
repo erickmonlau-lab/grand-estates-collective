@@ -50,13 +50,14 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
 
   return (
     <div 
-      className={`relative z-20 flex items-center bg-[#090D16] border-y border-white/10 select-none overflow-hidden h-11 sm:h-12 shadow-inner ${className}`}
+      className={`relative z-20 flex items-center bg-[#090D16] border-y border-white/10 select-none overflow-hidden h-13 sm:h-14 shadow-inner ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Fixed Left Badge (matching reference) */}
-      <div className="relative z-30 flex items-center h-full px-4 sm:px-6 bg-[#090D16] shrink-0 border-r border-white/10 shadow-[8px_0_16px_rgba(9,13,22,0.9)]">
-        <span className="text-[10px] sm:text-xs font-black tracking-widest text-slate-400 uppercase font-sans whitespace-nowrap">
+      <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#090D16] shrink-0 border-r border-white/15 shadow-[8px_0_16px_rgba(9,13,22,0.95)]">
+        <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#60a5fa] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse shrink-0" />
           {badge}
         </span>
       </div>
@@ -74,17 +75,17 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
             ease: "linear",
             duration: 26
           }}
-          className="flex items-center text-white font-sans text-[11px] sm:text-[13px] font-black tracking-wider uppercase whitespace-nowrap w-max will-change-transform"
+          className="flex items-center text-white font-sans text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap w-max will-change-transform"
         >
           {/* Track A */}
-          <div className="flex items-center gap-6 sm:gap-8 pr-6 sm:pr-8">
+          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9">
             {items.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={`track-a-${idx}`} className="flex items-center gap-2 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500 shrink-0" />
-                  {Icon && <Icon className="w-3.5 h-3.5 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
-                  <span className="text-slate-200 font-extrabold tracking-wider whitespace-nowrap">
+                <div key={`track-a-${idx}`} className="flex items-center gap-2.5 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
+                  {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
+                  <span className="text-white font-extrabold tracking-wide whitespace-nowrap">
                     {item.text}
                   </span>
                 </div>
@@ -93,14 +94,14 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
           </div>
 
           {/* Track B (Duplicate for seamless loop) */}
-          <div className="flex items-center gap-6 sm:gap-8 pr-6 sm:pr-8">
+          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9">
             {items.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={`track-b-${idx}`} className="flex items-center gap-2 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500 shrink-0" />
-                  {Icon && <Icon className="w-3.5 h-3.5 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
-                  <span className="text-slate-200 font-extrabold tracking-wider whitespace-nowrap">
+                <div key={`track-b-${idx}`} className="flex items-center gap-2.5 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
+                  {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
+                  <span className="text-white font-extrabold tracking-wide whitespace-nowrap">
                     {item.text}
                   </span>
                 </div>

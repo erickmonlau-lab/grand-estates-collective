@@ -2416,14 +2416,27 @@ function SantaColomaBarrioPage() {
                 </Reveal>
               </div>
 
-              <div className="w-full lg:w-5/12 flex justify-center lg:justify-end items-end self-end mt-0 lg:mt-0">
-                <img 
-                  src="/images/cta_advisors_closed_laptop.jpg" 
-                  alt="Asesores inmobiliarios Gesgrama" 
-                  width={1024}
-                  height={1024}
-                  className="w-full max-w-[480px] h-auto object-contain block -mb-1" 
-                />
+              <div className="w-full lg:w-5/12 flex justify-center lg:justify-end items-end self-end mt-2 lg:mt-0 relative">
+                <div 
+                  className="relative w-full max-w-[480px] overflow-hidden"
+                  style={{
+                    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
+                    WebkitMaskComposite: "destination-in",
+                    maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
+                    maskComposite: "intersect"
+                  }}
+                >
+                  <img 
+                    src="/images/cta_advisors_closed_laptop.jpg" 
+                    alt="Asesores inmobiliarios Gesgrama" 
+                    width={1024}
+                    height={1024}
+                    className="w-full h-auto object-contain block -mb-1" 
+                  />
+                </div>
+                <div className="absolute inset-y-0 left-0 w-12 sm:w-16 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
+                <div className="absolute inset-y-0 right-0 w-12 sm:w-16 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
+                <div className="absolute bottom-0 inset-x-0 h-10 sm:h-14 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
               </div>
             </div>
           </div>

@@ -446,11 +446,11 @@ function PropertyDetail() {
             </span>
           </nav>
 
-          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS */}
-          <div className="mb-8">
+          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS - CENTERED AND HARMONIOUS ON PC */}
+          <div className="mb-10 max-w-5xl mx-auto">
             <div 
               onClick={() => setIsLightboxOpen(true)}
-              className="relative rounded-3xl overflow-hidden shadow-xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[520px] cursor-zoom-in"
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[540px] cursor-zoom-in mx-auto"
               title={language === "ca" ? "Fes clic per ampliar la imatge en pantalla completa" : language === "en" ? "Click to view full screen" : "Haz clic para ampliar la imagen en pantalla grande"}
             >
               <img 
@@ -517,8 +517,8 @@ function PropertyDetail() {
               </div>
             </div>
 
-            {/* Badges Bar - Positioned cleanly OUTSIDE the image to never cover the photo */}
-            <div className="mt-4 flex flex-wrap items-center gap-2.5">
+            {/* Badges Bar - Centered on PC and cleanly balanced */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
               <span className={`${statusColor} px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm`}>
                 {statusLabel}
               </span>
@@ -530,9 +530,9 @@ function PropertyDetail() {
               </span>
             </div>
 
-            {/* Gallery Thumbnails Carousel / Strip */}
+            {/* Gallery Thumbnails Carousel / Strip - Centered on desktop */}
             {galleryImages.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto py-3.5 px-1 scrollbar-none">
+              <div className="flex gap-3 overflow-x-auto py-3.5 px-1 scrollbar-none justify-start sm:justify-center">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}

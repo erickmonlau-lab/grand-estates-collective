@@ -1134,28 +1134,47 @@ function Index() {
             {/* Quick access chips for zones - All visible at a glance (no scroll needed) */}
             <div className="mt-5 pb-5 border-b border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
               <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1 w-full sm:w-auto mb-1 sm:mb-0">{t.properties.popularZones}:</span>
-              {[
-                { label: t.properties.allZones, value: "Cualquier zona" },
-                ...[...new Set(properties.map(p => p.location))].map(loc => ({ label: formatLocation(loc, language), value: loc }))
-              ].map(item => {
-                const isActive = searchParams.zona === item.value;
-                return (
-                  <button
-                    key={item.value}
-                    onClick={() => {
-                      setConsoleFilters(prev => ({ ...prev, zona: item.value }));
-                      setSearchParams(prev => ({ ...prev, zona: item.value }));
-                    }}
-                    className={`px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
-                      isActive 
-                        ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
-                        : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                );
-              })}
+              {(() => {
+                // Curated visual order for harmonious wrapping on mobile (no orphaned single chips):
+                // Row 1: Todas las zonas, Riera Alta - Llatí, Singuerlín
+                // Row 2: Centro, Santa Rosa, Fondo
+                // Row 3: El Raval, Riu
+                const orderedZones = [
+                  "Cualquier zona",
+                  "Riera Alta - Llatí",
+                  "Singuerlín",
+                  "Centro",
+                  "Santa Rosa - Can Mariner",
+                  "Fondo",
+                  "El Raval",
+                  "Riu"
+                ];
+
+                return orderedZones.map(zoneVal => {
+                  const label = zoneVal === "Cualquier zona" ? t.properties.allZones : formatLocation(zoneVal, language);
+                  const isActive = searchParams.zona === zoneVal;
+                  const isRaval = zoneVal === "El Raval";
+
+                  return (
+                    <React.Fragment key={zoneVal}>
+                      {isRaval && <span className="sm:hidden basis-full h-0 pointer-events-none" />}
+                      <button
+                        onClick={() => {
+                          setConsoleFilters(prev => ({ ...prev, zona: zoneVal }));
+                          setSearchParams(prev => ({ ...prev, zona: zoneVal }));
+                        }}
+                        className={`px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
+                          isActive 
+                            ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
+                            : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    </React.Fragment>
+                  );
+                });
+              })()}
             </div>
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
@@ -2322,7 +2341,7 @@ function Index() {
             {/* RIGHT COLUMN: Contact Form Card */}
             <div className="lg:col-span-7">
               <Reveal delay={0.1}>
-                <div className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm">
+                <div id="formulario-contacto" className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-20 md:scroll-mt-24">
                   <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
                   
                   <form 
@@ -2370,8 +2389,9 @@ function Index() {
                     {/* Row 1: Nombre & Teléfono */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
+                        <label htmlFor="contacto-nombre-input" className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
                         <input 
+                          id="contacto-nombre-input"
                           type="text" 
                           placeholder={t.contacto.form.nombrePlaceholder} 
                           value={contactForm.nombre}
@@ -2854,18 +2874,34 @@ function Index() {
                 <button
                   type="button"
                   onClick={() => {
+                    const currentIdx = selectedServiceIndex;
                     setSelectedServiceIndex(null);
+                    // Pre-fill subject if applicable
+                    if (currentIdx === 0) {
+                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.comunidad }));
+                    } else if (currentIdx === 1 || currentIdx === 2) {
+                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.venta }));
+                    } else if (currentIdx === 3) {
+                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.otro }));
+                    }
+
                     setTimeout(() => {
-                      const el = document.getElementById("contacto");
-                      if (el) {
+                      const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
+                      if (formEl) {
                         const navOffset = window.innerWidth < 768 ? 76 : 90;
-                        const elementPosition = el.getBoundingClientRect().top;
+                        const elementPosition = formEl.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - navOffset;
                         window.scrollTo({
                           top: Math.max(0, offsetPosition),
                           behavior: "smooth"
                         });
-                        window.history.pushState(null, "", "#contacto");
+                        window.history.pushState(null, "", "#formulario-contacto");
+                        
+                        // Focus on the first input
+                        setTimeout(() => {
+                          const inputEl = document.getElementById("contacto-nombre-input");
+                          if (inputEl) inputEl.focus();
+                        }, 400);
                       }
                     }, 50);
                   }}

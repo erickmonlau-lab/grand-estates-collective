@@ -77,14 +77,14 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: full width with photo anchored strongly to the right (92% top) so the couple is fully visible on the right */}
-        <div className="absolute right-0 top-0 w-full sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full">
+        {/* On desktop: right half. On mobile: anchored firmly to the right half/side */}
+        <div className="absolute right-0 top-0 w-[140%] -right-[20%] sm:right-0 sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[92%_top] sm:object-[right_top]"
+              className="w-full h-full object-cover object-[right_top] sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -98,15 +98,15 @@ export default function HeroCarousel({
           <div className="hidden sm:block absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="hidden sm:block absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
           
-          {/* Mobile horizontal gradient: subtle protection on the left 40% only, leaving the entire right 60% completely transparent so the couple is 100% crisp and clear */}
-          <div className="sm:hidden absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/75 via-40% to-transparent pointer-events-none" />
+          {/* Mobile horizontal gradient: subtle protection on the left where text sits, right side fully clear */}
+          <div className="sm:hidden absolute inset-0 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/75 via-45% to-transparent pointer-events-none" />
           <div className="sm:hidden absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* On mobile: keep text width to ~65% so the couple on the right is completely free and unobstructed */}
-        <div className="max-w-[65%] xs:max-w-[64%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* On mobile: keep text width to ~62% so the couple on the right is completely free and unobstructed */}
+        <div className="max-w-[62%] xs:max-w-[60%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

@@ -82,7 +82,7 @@ export default function HeroCarousel({
           <motion.img
             src={heroBgMobile}
             alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-            className="w-full h-full object-cover object-[15%_top]"
+            className="w-full h-full object-cover object-right-top"
             loading="eager"
             fetchPriority="high"
             width={800}
@@ -90,10 +90,8 @@ export default function HeroCarousel({
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* STRONG solid white left panel → text perfectly readable. Fade 45-58% → people crisp on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[42%] via-[#F8FAFC]/85 via-[50%] via-[#F8FAFC]/30 via-[56%] to-transparent to-[60%] pointer-events-none" />
-          {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
+          {/* Subtle bottom fade to blend with stats banner */}
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
 
         {/* ── DESKTOP: right half container ─────────────────────────────────────────────── */}
@@ -117,8 +115,8 @@ export default function HeroCarousel({
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* Mobile: text left 48% — gradient covers this area solidly */}
-        <div className="max-w-[48%] xs:max-w-[46%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* Mobile: text given comfortable 58% width; right side displays the full couple seamlessly */}
+        <div className="max-w-[58%] xs:max-w-[56%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

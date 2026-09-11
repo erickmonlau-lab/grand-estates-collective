@@ -94,18 +94,17 @@ export default function HeroCarousel({
             />
           </picture>
           
-          {/* Feathering on left edge of the photo */}
-          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+        {/* Feathering on left edge of the photo */}
+          <div className="absolute inset-y-0 left-0 w-28 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/50 to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
-
-        {/* Mobile: Full-height organic white base for text with ultra-smooth progressive feathering */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[66%] bg-gradient-to-r from-[#F8FAFC] from-55% via-[#F8FAFC]/85 via-75% via-[#F8FAFC]/40 via-90% to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* Mobile text container: 54% width, text fully readable on clean #F8FAFC */}
-        <div className="max-w-[54%] xs:max-w-[52%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* Mobile text container: comfortable width, clean readability without blurring the couple */}
+        <div className="max-w-[56%] xs:max-w-[54%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto relative">
+          {/* Subtle soft feather behind text block so every word is crisp without casting a vertical cloud onto the woman */}
+          <div className="sm:hidden absolute -inset-3 -left-6 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/95 via-75% to-transparent rounded-r-3xl pointer-events-none -z-10" />
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

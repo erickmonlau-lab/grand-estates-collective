@@ -778,7 +778,7 @@ function Index() {
               </span>
               
               <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
-                {t.properties.title1} <span className="text-[#2563eb]">{t.properties.title2}</span>
+                {t.properties.title1} <span className="text-[#2563eb] whitespace-nowrap inline-block">{t.properties.title2}</span>
               </h2>
               
               <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
@@ -853,15 +853,15 @@ function Index() {
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <Building2 className="w-4 h-4 text-[#2563eb]" />
+                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
+                      <Building2 className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
                       <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "tipo" && (
@@ -923,15 +923,15 @@ function Index() {
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-[#2563eb]" />
+                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
+                      <MapPin className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
                       <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "zona" && (
@@ -987,15 +987,15 @@ function Index() {
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <Home className="w-4 h-4 text-[#2563eb]" />
+                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
+                      <Home className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
                       <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "habitaciones" && (
@@ -1056,15 +1056,15 @@ function Index() {
                   className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <span className="text-[#2563eb] text-xs font-black">€</span>
+                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
+                      <span className="text-white text-xs font-black">€</span>
                     </div>
                     <div>
                       <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
                       <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
                     </div>
                   </div>
-                  <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
+                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                 </button>
 
                 {openDropdown === "precio" && (

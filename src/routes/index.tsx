@@ -1388,32 +1388,53 @@ function Index() {
                   </AnimatePresence>
 
                   {/* LOAD MORE BUTTON (INSIDE CARD BUBBLE) */}
-                  <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100">
+                  <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
                     {visibleCount < filteredProperties.length ? (
                       <button 
-                        onClick={() => setVisibleCount(prev => prev + 4)}
-                        className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans"
+                        type="button"
+                        onClick={() => setVisibleCount(prev => prev + 6)}
+                        className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
                       >
                         <span>{t.properties.verMas}</span>
                         <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                       </button>
                     ) : (
-                      <button 
-                        onClick={() => {
-                          setSearchParams({
-                            mode: "comprar",
-                            zona: "Cualquier zona",
-                            tipo: "Cualquier tipo",
-                            precio: "Cualquier precio",
-                            habitaciones: "Cualquier número"
-                          });
-                          setVisibleCount(properties.length);
-                        }}
-                        className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans"
-                      >
-                        <span>{t.properties.verTodas}</span>
-                        <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                      </button>
+                      <div className="flex flex-col items-center gap-3">
+                        <button 
+                          type="button"
+                          onClick={() => {
+                            // Reset filters to defaults and show all available properties
+                            const defaultFilters = {
+                              mode: "comprar",
+                              zona: "Cualquier zona",
+                              tipo: "Cualquier tipo",
+                              precio: "Cualquier precio",
+                              habitaciones: "Cualquier número"
+                            };
+                            setSearchParams(defaultFilters);
+                            setConsoleFilters({
+                              zona: "Cualquier zona",
+                              tipo: "Cualquier tipo",
+                              precio: "Cualquier precio",
+                              habitaciones: "Cualquier número"
+                            });
+                            setVisibleCount(Math.max(liveProperties.length, properties.length, 50));
+                            
+                            // Smooth scroll up to property list so the user immediately sees all items
+                            const el = document.getElementById('propiedades');
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }}
+                          className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                        >
+                          <span>{t.properties.verTodas}</span>
+                          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                        </button>
+                        <p className="text-[11px] font-bold text-slate-400 font-sans tracking-tight">
+                          {t.properties.showingAll} ({filteredProperties.length})
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>

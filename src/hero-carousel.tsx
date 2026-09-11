@@ -99,8 +99,8 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
 
-        {/* Mobile: Full-height solid white base for the text column that smoothly transitions where the photo starts */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[61%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] via-[82%] to-transparent pointer-events-none" />
+        {/* Mobile: Full-height organic white base for text with ultra-smooth progressive feathering */}
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[66%] bg-gradient-to-r from-[#F8FAFC] from-55% via-[#F8FAFC]/85 via-75% via-[#F8FAFC]/40 via-90% to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

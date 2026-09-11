@@ -70,7 +70,7 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className={`relative text-slate-900 min-h-[100dvh] sm:min-h-screen ${
+      className={`relative text-slate-900 min-h-[100vh] sm:min-h-screen ${
         customHeadline
           ? "pt-24 sm:pt-28 lg:pt-32"
           : "pt-24 sm:pt-28 lg:pt-32"
@@ -98,8 +98,8 @@ export default function HeroCarousel({
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: top edge down to the heads — mobile only */}
           <div className="sm:hidden absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#F8FAFC] from-[30%] via-[#F8FAFC]/80 via-[65%] to-transparent pointer-events-none" />
-          {/* Feathering: moderate bottom fade on mobile (h-32) that only gently softens the bottom edge without eating into the couple */}
-          <div className="absolute inset-x-0 -bottom-1 h-32 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[15%] via-[#F8FAFC]/60 to-transparent pointer-events-none" />
+          {/* Feathering: balanced bottom fade on mobile (h-44) */}
+          <div className="absolute inset-x-0 -bottom-1 h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/75 to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop covering entire buttons and text area */}
@@ -116,7 +116,7 @@ export default function HeroCarousel({
               transition={{ duration: 0.5, delay: 0.05, ease: expo }}
               className="mb-2 sm:mb-3"
             >
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[9.5px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.06em] sm:tracking-[0.12em] px-2.5 xs:px-3 sm:px-5 py-1 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full animate-float">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[9.5px] xs:text-[11px] sm:text-[13px] font-black uppercase tracking-[0.06em] sm:tracking-[0.12em] px-2.5 xs:px-3 sm:px-5 py-1 sm:py-2 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
                 <span className="text-left leading-tight whitespace-nowrap">{customTag || t.heroCarousel.tag}</span>
               </div>

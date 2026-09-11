@@ -403,8 +403,8 @@ function PropertyDetail() {
             </div>
           </div>
 
-          {/* BREADCRUMB */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center flex-wrap gap-2 text-xs font-bold text-slate-500">
+          {/* BREADCRUMB - Clean desktop path, hidden on mobile for cleaner native experience */}
+          <nav aria-label="Breadcrumb" className="hidden sm:flex mb-6 items-center flex-wrap gap-2 text-xs font-bold text-slate-500">
             <Link to="/" className="hover:text-[#2563eb] transition-colors text-slate-700">
               {t.detail.home}
             </Link>
@@ -418,8 +418,8 @@ function PropertyDetail() {
             </span>
           </nav>
 
-          {/* LUXURY PHOTO GALLERY & VIEWER WITH SLIDER CONTROLS */}
-          <div className="mb-10">
+          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS */}
+          <div className="mb-8">
             <div className="relative rounded-3xl overflow-hidden shadow-xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[520px]">
               <img 
                 src={galleryImages[activeImageIdx] || galleryImages[0]} 
@@ -428,29 +428,16 @@ function PropertyDetail() {
                 fetchPriority="high" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 select-none" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-              {/* Floating Status and Type Badges - Evenly aligned with proper inset and flex-wrap */}
-              <div className="absolute top-4 left-4 right-4 flex flex-wrap items-center gap-2 z-10 pointer-events-none">
-                <span className={`${statusColor} px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md pointer-events-auto`}>
-                  {statusLabel}
-                </span>
-                <span className="bg-white text-[#0b214a] px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-md border border-slate-200 pointer-events-auto">
-                  {pData.type}
-                </span>
-                <span className="bg-[#0b214a] text-white font-mono px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider shadow-md border border-blue-900 pointer-events-auto">
-                  Ref: {property.ref || "API A10750"}
-                </span>
-              </div>
-
-              {/* Slider Navigation Arrows - High visibility bright brand blue (#2563eb) with white arrow icons */}
+              {/* Slider Navigation Arrows - Bright brand blue (#2563eb) with white icons, perfectly centered and balanced */}
               {galleryImages.length > 1 && (
                 <>
                   <button
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                     aria-label={t.detail.photoPrev}
-                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
                     <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
                   </button>
@@ -459,7 +446,7 @@ function PropertyDetail() {
                     type="button"
                     onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
                     aria-label={t.detail.photoNext}
-                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
+                    className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer"
                   >
                     <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[3] text-white" />
                   </button>
@@ -467,7 +454,7 @@ function PropertyDetail() {
               )}
 
               {/* Bottom Image Counter & Quick Info */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white text-xs font-bold z-10">
+              <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between text-white text-xs font-bold z-10">
                 <div className="flex items-center gap-2 bg-[#0b214a] px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
                   <Eye className="w-3.5 h-3.5 text-blue-400" />
                   <span className="font-mono font-black">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
@@ -482,6 +469,19 @@ function PropertyDetail() {
                   </a>
                 )}
               </div>
+            </div>
+
+            {/* Badges Bar - Positioned cleanly OUTSIDE the image to never cover the photo */}
+            <div className="mt-4 flex flex-wrap items-center gap-2.5">
+              <span className={`${statusColor} px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm`}>
+                {statusLabel}
+              </span>
+              <span className="bg-[#0b214a] text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm border border-blue-900">
+                {pData.type}
+              </span>
+              <span className="bg-white text-[#0f172a] font-mono px-4 py-2 rounded-xl text-xs font-black tracking-wider shadow-sm border-2 border-slate-300">
+                Ref: {property.ref || "API A10750"}
+              </span>
             </div>
 
             {/* Gallery Thumbnails Carousel / Strip */}

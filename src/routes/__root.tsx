@@ -46,13 +46,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     const isChunkError =
       msg.includes("failed to fetch dynamically imported module") ||
       msg.includes("dynamically imported module") ||
-      msg.includes("loading chunk");
+      msg.includes("loading chunk") ||
+      msg.includes("loading css chunk") ||
+      msg.includes("error loading module");
 
     if (isChunkError && typeof window !== "undefined") {
       const lastReload = sessionStorage.getItem("chunk_reload_timestamp");
       const now = Date.now();
-      // Reload once automatically to fetch the newest build hashes without getting into a loop
-      if (!lastReload || now - parseInt(lastReload, 10) > 10000) {
+      // Auto-reload immediately if not reloaded in the last 15 seconds
+      if (!lastReload || now - parseInt(lastReload, 10) > 15000) {
         sessionStorage.setItem("chunk_reload_timestamp", String(now));
         window.location.reload();
       }
@@ -61,6 +63,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
   const handleReload = () => {
     if (typeof window !== "undefined") {
+      // Clear cache and hard reload
+      sessionStorage.removeItem("chunk_reload_timestamp");
       window.location.reload();
     } else {
       router.invalidate();
@@ -69,26 +73,37 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Nueva versión disponible
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+      <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xl text-center">
+        <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#2563eb] flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 animate-spin" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+          </svg>
+        </div>
+        <h1 className="text-2xl font-black tracking-tight text-slate-900 font-sans">
+          Actualizando a la última versión
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Se ha actualizado la web de Gesgrama con nuevas mejoras. Pulsa en actualizar para cargar la versión más reciente.
+        <p className="mt-2 text-sm text-slate-600 font-medium leading-relaxed">
+          Se han publicado mejoras en la web. Pulsa en el botón para cargar la versión más reciente al instante.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
           <button
             onClick={handleReload}
-            className="inline-flex items-center justify-center rounded-xl bg-[#2563eb] text-white px-5 py-2.5 text-sm font-black transition-colors hover:bg-blue-700 shadow-md cursor-pointer"
+            className="inline-flex items-center justify-center rounded-xl bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 text-xs font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
           >
-            Actualizar página
+            Actualizar ahora
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-bold text-foreground transition-colors hover:bg-accent"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.location.href = "/";
+              }
+            }}
+            className="inline-flex items-center justify-center rounded-xl border-2 border-slate-200 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-700 transition-colors cursor-pointer"
           >
-            Volver al inicio
+            Ir al inicio
           </a>
         </div>
       </div>

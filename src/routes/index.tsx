@@ -768,7 +768,7 @@ function Index() {
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-24 md:scroll-mt-28">
+      <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
           <Reveal>
             <div className="mb-4">
@@ -1273,7 +1273,7 @@ function Index() {
               };
 
               return (
-                <div id="properties-results" className="mt-6 scroll-mt-28">
+                <div id="properties-results" className="mt-6 scroll-mt-32">
                   {/* Results Count & Sort directly below zones pills */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
                     <div className="flex items-center gap-2.5">
@@ -1402,8 +1402,8 @@ function Index() {
       </section>
 
       {/* ── TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
-      <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-24 md:scroll-mt-28">
-        <div id="testimonios" className="-top-28 relative block invisible" />
+      <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
+        <div id="testimonios" className="-top-32 relative block invisible" />
         <div className="bg-white rounded-[24px] md:rounded-[30px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Subtle Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
@@ -1520,7 +1520,7 @@ function Index() {
       </section>
 
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-24 md:scroll-mt-28">
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
           <div className="text-center mb-4 sm:mb-6">
             <Reveal>
@@ -1606,7 +1606,7 @@ function Index() {
 
       {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
       <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-32 md:scroll-mt-36">
-        <div id="valorador" className="-top-28 relative block invisible" />
+        <div id="valorador" className="-top-32 relative block invisible" />
         <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
             
@@ -1895,7 +1895,7 @@ function Index() {
       </section>
 
       {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
-      <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-24 md:scroll-mt-28">
+      <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
         <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
             
@@ -2180,7 +2180,7 @@ function Index() {
       {/* ── FAQ (COMPACT LAYOUT WITH BALANCED TEXT) ── */}
       <section 
         id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-24 md:scroll-mt-28"
+        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-28 md:scroll-mt-32"
       >
         <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
           <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
@@ -2274,7 +2274,7 @@ function Index() {
       </section>
 
       {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-24 md:scroll-mt-28">
+      <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
@@ -2330,7 +2330,7 @@ function Index() {
             {/* RIGHT COLUMN: Contact Form Card */}
             <div className="lg:col-span-7">
               <Reveal delay={0.1}>
-                <div id="formulario-contacto" className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-20 md:scroll-mt-24">
+                <div id="formulario-contacto" className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-28 md:scroll-mt-32">
                   <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
                   
                   <form 

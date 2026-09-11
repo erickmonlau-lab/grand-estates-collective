@@ -716,7 +716,7 @@ function SantaColomaBarrioPage() {
         />
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
-        <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-24 md:scroll-mt-28">
+        <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
             <Reveal>
               <div className="mb-4">
@@ -1222,7 +1222,7 @@ function SantaColomaBarrioPage() {
                 };
 
                 return (
-                  <div id="properties-results" className="mt-6 scroll-mt-28">
+                  <div id="properties-results" className="mt-6 scroll-mt-32">
                     {/* Results Count & Sort directly below zones pills */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
                       <div className="flex items-center gap-2.5">
@@ -1348,7 +1348,7 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 2. TESTIMONIOS CANÓNICOS (GOOGLE REVIEWS CON 5 ESTRELLAS) ── */}
-        <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-10 scroll-mt-24 md:scroll-mt-28">
+        <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-10 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-[#f8fafc] rounded-[24px] md:rounded-[30px] shadow-xl border border-slate-300 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 text-[#0f172a]">
             <Reveal>
               <div className="mb-6 md:mb-8 text-center">
@@ -1424,7 +1424,7 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 3. SERVICIOS INTEGRALES CORPORATIVOS (GRID 2x2 HORIZONTAL CON MODAL) ── */}
-        <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-24 md:scroll-mt-28">
+        <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
             <div className="text-center mb-6">
               <Reveal>
@@ -1796,7 +1796,7 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 5. ÁREA DE COBERTURA Y SEDE CENTRAL (MAPA CON PÍLDORAS DE BARRIOS) ── */}
-        <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-24 md:scroll-mt-28">
+        <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
           <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
               <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
@@ -2054,7 +2054,7 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 8. FAQS DEL BARRIO (FORMATO CANÓNICO OSCURO DE GESGRAMA) ── */}
-        <section id="faq" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-24 md:scroll-mt-28">
+        <section id="faq" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
             <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
               <Reveal>
@@ -2147,7 +2147,7 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 9. FORMULARIO DE CONTACTO CANÓNICO CON VALIDACIÓN ── */}
-        <section id="contacto" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900 scroll-mt-24 md:scroll-mt-28">
+        <section id="contacto" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
               <div className="lg:col-span-5 flex flex-col justify-center">
@@ -2195,7 +2195,7 @@ function SantaColomaBarrioPage() {
 
               <div className="lg:col-span-7">
                 <Reveal delay={0.1}>
-                  <div id="formulario-contacto" className="bg-white border-2 border-slate-300 p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-24">
+                  <div id="formulario-contacto" className="bg-white border-2 border-slate-300 p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-28 md:scroll-mt-32">
                     <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">
                       {language === "ca" ? `Consulta per a ${data.name}` : language === "en" ? `Inquiry for ${data.name}` : `Consulta para ${data.name}`}
                     </h3>

@@ -77,8 +77,8 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half. On mobile: anchored strictly to the right */}
-        <div className="absolute right-0 top-0 w-[62%] aspect-[55/72] sm:aspect-auto sm:h-full sm:w-[65%] lg:w-[50%] xl:w-[46%] pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
+        {/* On desktop: right half. On mobile: anchored to the right, lowered so it doesn't stick to the header */}
+        <div className="absolute right-0 top-8 sm:top-0 w-[60%] aspect-[55/72] sm:aspect-auto sm:h-full sm:w-[65%] lg:w-[50%] xl:w-[46%] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
@@ -89,7 +89,7 @@ export default function HeroCarousel({
               fetchPriority="high"
               width={2560}
               height={1440}
-              animate={{ scale: [1, 1.02, 1] }}
+              animate={{ scale: [1.02, 1.05, 1.02] }}
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
@@ -97,11 +97,11 @@ export default function HeroCarousel({
           {/* Feathering: left edge */}
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: top edge — mobile only */}
-          <div className="sm:hidden absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F8FAFC] to-transparent pointer-events-none" />
+          <div className="sm:hidden absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
           {/* Feathering: right edge — mobile only */}
           <div className="sm:hidden absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
-          {/* Feathering: bottom edge */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
+          {/* Feathering: bottom edge with solid base at bottom to prevent any black lines */}
+          <div className="absolute inset-x-0 -bottom-1 h-36 bg-gradient-to-t from-[#F8FAFC] from-[35%] via-[#F8FAFC]/85 to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop, crisp short fade */}

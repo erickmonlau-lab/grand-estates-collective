@@ -78,13 +78,13 @@ export default function HeroCarousel({
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half. On mobile: anchored strictly to the right */}
-        <div className="absolute right-0 top-0 w-[62%] h-auto sm:h-full sm:w-[65%] lg:w-[50%] xl:w-[46%] pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
-          <picture className="w-full block sm:h-full">
+        <div className="absolute right-0 top-0 w-[62%] aspect-[55/72] sm:aspect-auto sm:h-full sm:w-[65%] lg:w-[50%] xl:w-[46%] pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
+          <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-auto sm:h-full sm:object-cover sm:object-[right_top]"
+              className="w-full h-full object-cover object-[center_top] sm:object-[right_top] block"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -96,7 +96,7 @@ export default function HeroCarousel({
 
           {/* Feathering: left edge */}
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
-          {/* Feathering: top edge — mobile only, blends into header */}
+          {/* Feathering: top edge — mobile only */}
           <div className="sm:hidden absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: right edge — mobile only */}
           <div className="sm:hidden absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />

@@ -1131,52 +1131,6 @@ function Index() {
               </button>
             </div>
 
-            {/* Quick access chips for zones - All visible at a glance (no scroll needed) */}
-            <div className="mt-5 pb-5 border-b border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
-              <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1 w-full sm:w-auto mb-1 sm:mb-0">{t.properties.popularZones}:</span>
-              {(() => {
-                // Curated visual order for harmonious wrapping on mobile (no orphaned single chips):
-                // Row 1: Todas las zonas, Riera Alta - Llatí, Singuerlín
-                // Row 2: Centro, Santa Rosa, Fondo
-                // Row 3: El Raval, Riu
-                const orderedZones = [
-                  "Cualquier zona",
-                  "Riera Alta - Llatí",
-                  "Singuerlín",
-                  "Centro",
-                  "Santa Rosa - Can Mariner",
-                  "Fondo",
-                  "El Raval",
-                  "Riu"
-                ];
-
-                return orderedZones.map(zoneVal => {
-                  const label = zoneVal === "Cualquier zona" ? t.properties.allZones : formatLocation(zoneVal, language);
-                  const isActive = searchParams.zona === zoneVal;
-                  const isRaval = zoneVal === "El Raval";
-
-                  return (
-                    <Fragment key={zoneVal}>
-                      {isRaval && <span className="sm:hidden basis-full h-0 pointer-events-none" />}
-                      <button
-                        onClick={() => {
-                          setConsoleFilters(prev => ({ ...prev, zona: zoneVal }));
-                          setSearchParams(prev => ({ ...prev, zona: zoneVal }));
-                        }}
-                        className={`px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
-                          isActive 
-                            ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
-                            : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    </Fragment>
-                  );
-                });
-              })()}
-            </div>
-
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
             {(() => {
               const renderPropertyCard = (property: any, idx: number) => {

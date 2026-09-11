@@ -1650,9 +1650,9 @@ function SantaColomaBarrioPage() {
                   </div>
 
                   {/* 2. Rango estimado de mercado en una caja estilizada */}
-                  <div className="bg-slate-100/90 border border-slate-200 rounded-xl py-2 px-3 mb-2.5">
-                    <p className="text-xs sm:text-sm font-extrabold text-slate-700 font-sans">
-                      {t.valorador.rangoEstimado}: <span className="font-black text-[#0f172a] text-sm sm:text-base">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
+                  <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2.5 shadow-sm">
+                    <p className="text-xs sm:text-sm font-semibold text-slate-300 font-sans">
+                      {t.valorador.rangoEstimado}: <span className="font-extrabold text-white text-sm sm:text-base ml-1">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                     </p>
                   </div>
 

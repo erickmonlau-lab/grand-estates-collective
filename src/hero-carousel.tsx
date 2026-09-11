@@ -78,13 +78,13 @@ export default function HeroCarousel({
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half. On mobile: anchored strictly to the right */}
-        <div className="absolute right-0 top-0 w-[62%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
+        <div className="absolute right-0 top-0 w-[62%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[42%_top] sm:object-[right_top]"
+              className="w-full h-full object-contain object-[center_top] sm:object-cover sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -223,6 +223,8 @@ export default function HeroCarousel({
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
           className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 mt-3 sm:mt-4 mb-0"
         >
+          {/* Mobile: fade the right column into the background */}
+          <div className="sm:hidden absolute inset-y-0 right-0 w-[52%] bg-gradient-to-l from-[#F8FAFC] from-[30%] to-transparent pointer-events-none z-10" />
           <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">

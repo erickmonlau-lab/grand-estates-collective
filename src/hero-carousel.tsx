@@ -78,17 +78,15 @@ export default function HeroCarousel({
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* ── MOBILE ────────────────────────────────────────────────────────────────────────
-            Image: heroBgMobile 800×1200 (portrait). Viewport ≈ 390×844.
-            With object-cover, scale = 844/1200 = 0.703 → rendered width = 563px → crop 173px.
-            object-position 31% → left-offset = 54px.
-            Woman (≈35% of original = 197px scaled) lands at 197-54 = 143px = 37% of screen.
-            Man  (≈65% of original = 366px scaled) lands at 366-54 = 312px = 80% of screen.
-            Both people visible in the RIGHT side. Gradient covers left text area.          */}
+            object-[15%_top]: left-offset = 173×0.15 = 26px
+            Woman (≈35% = 197px scaled) lands at 197-26 = 171px = 44% of screen.
+            Man  (≈65% = 366px scaled) lands at 366-26 = 340px = 87% of screen.
+            Gradient ends at 42% → people appear crisp with NO white wash over them. */}
         <div className="sm:hidden absolute inset-0">
           <motion.img
             src={heroBgMobile}
             alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-            className="w-full h-full object-cover object-[31%_top]"
+            className="w-full h-full object-cover object-[15%_top]"
             loading="eager"
             fetchPriority="high"
             width={800}
@@ -96,8 +94,8 @@ export default function HeroCarousel({
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* White gradient: solid #F8FAFC up to 35%, fades to transparent at 52% */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[35%] via-[#F8FAFC]/65 via-[50%] to-transparent pointer-events-none" />
+          {/* Gradient: solid white left text area, FULLY transparent before people start */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F8FAFC] from-[30%] via-[#F8FAFC]/40 via-[38%] to-transparent to-[44%] pointer-events-none" />
           {/* Bottom fade */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
@@ -123,8 +121,8 @@ export default function HeroCarousel({
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* On mobile: text left ~52%, white gradient protects readability */}
-        <div className="max-w-[52%] xs:max-w-[50%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* Mobile: text in left 42% — within the white gradient, before the couple starts */}
+        <div className="max-w-[42%] xs:max-w-[40%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

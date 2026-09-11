@@ -53,19 +53,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     if (isChunkError && typeof window !== "undefined") {
       const lastReload = sessionStorage.getItem("chunk_reload_timestamp");
       const now = Date.now();
-      // Auto-reload immediately if not reloaded in the last 15 seconds
-      if (!lastReload || now - parseInt(lastReload, 10) > 15000) {
+      if (!lastReload || now - parseInt(lastReload, 10) > 8000) {
         sessionStorage.setItem("chunk_reload_timestamp", String(now));
         window.location.reload();
+        return;
       }
     }
   }, [error]);
 
   const handleReload = () => {
     if (typeof window !== "undefined") {
-      // Clear cache and hard reload
       sessionStorage.removeItem("chunk_reload_timestamp");
-      window.location.reload();
+      window.location.href = "/";
     } else {
       router.invalidate();
       reset();
@@ -82,29 +81,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           </svg>
         </div>
         <h1 className="text-2xl font-black tracking-tight text-slate-900 font-sans">
-          Actualizando a la última versión
+          Cargando Gesgrama...
         </h1>
         <p className="mt-2 text-sm text-slate-600 font-medium leading-relaxed">
-          Se han publicado mejoras en la web. Pulsa en el botón para cargar la versión más reciente al instante.
+          Sincronizando la última versión de la web.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
           <button
             onClick={handleReload}
             className="inline-flex items-center justify-center rounded-xl bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 text-xs font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
           >
-            Actualizar ahora
+            Entrar a la web
           </button>
-          <a
-            href="/"
-            onClick={() => {
-              if (typeof window !== "undefined") {
-                window.location.href = "/";
-              }
-            }}
-            className="inline-flex items-center justify-center rounded-xl border-2 border-slate-200 bg-white hover:bg-slate-50 px-5 py-3 text-xs font-black uppercase tracking-wider text-slate-700 transition-colors cursor-pointer"
-          >
-            Ir al inicio
-          </a>
         </div>
       </div>
     </main>

@@ -209,6 +209,24 @@ const ZONE_TO_SLUG: Record<string, string> = {
   "Oliveres - Can Serra": "oliveres"
 };
 
+export const SLUG_TO_ZONE: Record<string, string> = {
+  "centre": "Centro",
+  "santa-rosa": "Santa Rosa - Can Mariner",
+  "can-mariner": "Santa Rosa - Can Mariner",
+  "fondo": "Fondo",
+  "singuerlin": "Singuerlín",
+  "riera-alta": "Riera Alta - Llatí",
+  "llati": "Riera Alta - Llatí",
+  "el-raval": "El Raval",
+  "riu-nord": "Riu",
+  "riu-sud": "Riu",
+  "can-franquesa": "Singuerlín",
+  "les-oliveres": "Singuerlín",
+  "la-guinardera": "Centro",
+  "cementiri-vell": "Centro",
+  "santa-coloma-de-gramenet": "Cualquier zona"
+};
+
 export const Route = createFileRoute("/administrador-fincas_/$city")({
   head: ({ params }) => {
     const rawSlug = (params.city as string) || "centre";
@@ -373,10 +391,13 @@ function SantaColomaBarrioPage() {
   const t = translations[language];
   const allBarrios = Object.values(SANTA_COLOMA_BARRIOS);
 
+  // Default initial zone based on neighborhood slug
+  const initialZone = SLUG_TO_ZONE[rawSlug] || "Cualquier zona";
+
   // Search console state
   const [searchParams, setSearchParams] = useState({
     mode: "comprar",
-    zona: "Cualquier zona",
+    zona: initialZone,
     tipo: "Cualquier tipo",
     precio: "Cualquier precio",
     habitaciones: "Cualquier número"
@@ -384,7 +405,7 @@ function SantaColomaBarrioPage() {
 
   const [consoleFilters, setConsoleFilters] = useState({
     tipo: "Cualquier tipo",
-    zona: "Cualquier zona",
+    zona: initialZone,
     habitaciones: "Cualquier número",
     precio: "Cualquier precio"
   });
@@ -394,6 +415,19 @@ function SantaColomaBarrioPage() {
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
+
+  // Sync filters whenever user navigates to a different neighborhood page
+  useEffect(() => {
+    const targetZone = SLUG_TO_ZONE[rawSlug] || "Cualquier zona";
+    setSearchParams(prev => ({
+      ...prev,
+      zona: targetZone
+    }));
+    setConsoleFilters(prev => ({
+      ...prev,
+      zona: targetZone
+    }));
+  }, [rawSlug]);
 
   useEffect(() => {
     setConsoleFilters({

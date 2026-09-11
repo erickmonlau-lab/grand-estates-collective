@@ -98,8 +98,6 @@ export default function HeroCarousel({
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: top edge down to the heads — mobile only */}
           <div className="sm:hidden absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#F8FAFC] from-[30%] via-[#F8FAFC]/80 via-[65%] to-transparent pointer-events-none" />
-          {/* Feathering: right edge — mobile only */}
-          <div className="sm:hidden absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: extra-tall bottom fade that transitions ultra-smoothly over the lower half */}
           <div className="absolute inset-x-0 -bottom-1 h-60 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/85 via-[55%] to-transparent pointer-events-none" />
         </div>
@@ -222,17 +220,20 @@ export default function HeroCarousel({
                   ) : language === 'ca' ? (
                     <>
                       <span className="block whitespace-nowrap">Més de 4.500</span>
-                      <span className="block whitespace-nowrap">clients ja confien en Gesgrama</span>
+                      <span className="block whitespace-nowrap">clients ja confien</span>
+                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">en Gesgrama</span>
                     </>
                   ) : language === 'en' ? (
                     <>
                       <span className="block whitespace-nowrap">Over 4,500 clients</span>
-                      <span className="block whitespace-nowrap">already trust Gesgrama</span>
+                      <span className="block whitespace-nowrap">already trust</span>
+                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">Gesgrama</span>
                     </>
                   ) : (
                     <>
                       <span className="block whitespace-nowrap">Más de 4.500</span>
-                      <span className="block whitespace-nowrap">clientes ya confían en Gesgrama</span>
+                      <span className="block whitespace-nowrap">clientes ya confían</span>
+                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">en Gesgrama</span>
                     </>
                   )}
                 </span>

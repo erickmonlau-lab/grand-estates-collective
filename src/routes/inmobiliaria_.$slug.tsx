@@ -19,6 +19,14 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
 export const Route = createFileRoute("/inmobiliaria_/$slug")({
+  loader: async ({ params }) => {
+    // Attempt to preload properties if not present
+    const existing = findPropertyBySlugOrId(params.slug);
+    if (!existing) {
+      await fetchProperties().catch(() => {});
+    }
+    return { slug: params.slug };
+  },
   head: ({ params }) => {
     const slug = params.slug as string;
     const property = findPropertyBySlugOrId(slug);
@@ -101,15 +109,36 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
 function PropertyDetail() {
   const { slug } = Route.useParams();
   
-  // Instant synchronous lookup with fallback to defaultProperties
+  // Instant lookup with fallback to defaultProperties
   const [property, setProperty] = useState<ExtendedProperty | undefined>(() => {
     return findPropertyBySlugOrId(slug);
   });
   
-  // Start with loading true if property is not found synchronously yet
+  // Only show loading if property is not found synchronously yet
   const [isLoading, setIsLoading] = useState<boolean>(() => !findPropertyBySlugOrId(slug));
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
+
+  // Sync state whenever slug changes
+  useEffect(() => {
+    const found = findPropertyBySlugOrId(slug);
+    if (found) {
+      setProperty(found);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+      fetchProperties()
+        .then(() => {
+          const fresh = findPropertyBySlugOrId(slug);
+          if (fresh) {
+            setProperty(fresh);
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [slug]);
 
   // Subscribe to property store changes (Supabase fetch or local storage updates)
   useEffect(() => {
@@ -121,41 +150,6 @@ function PropertyDetail() {
       }
     });
     return () => unsub();
-  }, [slug]);
-
-  // Robust fetch & fallback check
-  useEffect(() => {
-    let isMounted = true;
-    const existing = findPropertyBySlugOrId(slug);
-    if (existing) {
-      setProperty(existing);
-      setIsLoading(false);
-      return;
-    }
-
-    // Keep loading indicator active while querying Supabase / store
-    setIsLoading(true);
-
-    fetchProperties()
-      .then(() => {
-        if (!isMounted) return;
-        const found = findPropertyBySlugOrId(slug);
-        if (found) {
-          setProperty(found);
-        }
-      })
-      .catch((err) => {
-        console.warn("fetchProperties error:", err);
-      })
-      .finally(() => {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      });
-
-    return () => {
-      isMounted = false;
-    };
   }, [slug]);
 
   const [language, setLanguage] = useState<"es" | "en" | "ca">(() => {

@@ -29,10 +29,14 @@ export function getLocalProperties(): ExtendedProperty[] {
       return defaultProperties as ExtendedProperty[];
     }
     const parsed: ExtendedProperty[] = JSON.parse(raw);
-    // Ensure defaultProperties exist and are up to date with any newly added properties
-    const customProps = parsed.filter(p => !defaultProperties.some(dp => dp.id === p.id));
-    const merged = [...defaultProperties as ExtendedProperty[], ...customProps];
-    return merged;
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      return defaultProperties as ExtendedProperty[];
+    }
+    // Remote / updated items in parsed take precedence over defaults
+    const defaultsNotOverridden = (defaultProperties as ExtendedProperty[]).filter(
+      (dp) => !parsed.some((p) => p.id === dp.id || (p.slug && p.slug === dp.slug))
+    );
+    return [...parsed, ...defaultsNotOverridden];
   } catch {
     return defaultProperties as ExtendedProperty[];
   }

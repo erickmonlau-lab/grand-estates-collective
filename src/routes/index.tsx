@@ -1458,7 +1458,7 @@ function Index() {
                   <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>{t.testimonios.tag}</span>
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-2 font-sans">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-5 md:mb-6 font-sans">
                   {t.testimonios.title1}{" "}
                   <span className="relative inline-block text-[#2563eb] pb-1.5">
                     {t.testimonios.title2}
@@ -1467,8 +1467,8 @@ function Index() {
                     </svg>
                   </span>
                 </h2>
-                {/* Google Verified Reviews Subtitle Badge */}
-                <div className="flex items-center justify-center">
+                {/* Google Verified Reviews Subtitle Badge with spacious margin */}
+                <div className="flex items-center justify-center pt-2 sm:pt-3">
                   <div className="inline-flex items-center gap-2.5 bg-white border-2 border-slate-200 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-sm hover:border-[#2563eb]/40 transition-colors">
                     <GoogleIcon className="w-6 h-6 shrink-0" />
                     <span className="text-base sm:text-lg font-black text-slate-800 tracking-tight">

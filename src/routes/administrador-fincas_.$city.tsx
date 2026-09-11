@@ -1364,13 +1364,13 @@ function SantaColomaBarrioPage() {
                   <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>{t.testimonios.tag}</span>
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-2 font-sans">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-5 md:mb-6 font-sans">
                   {t.testimonios.title1}{" "}
                   <span className="relative inline-block text-[#2563eb] pb-1.5">
                     {t.testimonios.title2}
                   </span>
                 </h2>
-                <div className="mt-3.5 sm:mt-4 inline-flex items-center gap-2.5 bg-white border-2 border-slate-200 rounded-full px-5 py-2.5 shadow-sm hover:border-[#2563eb]/40 transition-colors">
+                <div className="pt-2 sm:pt-3 inline-flex items-center gap-2.5 bg-white border-2 border-slate-200 rounded-full px-5 py-2.5 shadow-sm hover:border-[#2563eb]/40 transition-colors">
                   <GoogleIcon className="w-6 h-6 shrink-0" />
                   <span className="text-base sm:text-lg font-black text-slate-800 tracking-tight">
                     {language === "ca" ? "Ressenyes verificades a Google" : language === "en" ? "Verified Google Reviews" : "Reseñas verificadas en Google"}

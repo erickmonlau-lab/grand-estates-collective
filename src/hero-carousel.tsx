@@ -100,7 +100,7 @@ export default function HeroCarousel({
         </div>
 
         {/* Mobile: Full-height solid white base for the text column that smoothly transitions where the photo starts */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC] to-transparent pointer-events-none" />
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[64%] bg-gradient-to-r from-[#F8FAFC] from-65% via-[#F8FAFC]/90 via-85% to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

@@ -98,8 +98,8 @@ export default function HeroCarousel({
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           {/* Feathering: top edge down to the heads — mobile only */}
           <div className="sm:hidden absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#F8FAFC] from-[30%] via-[#F8FAFC]/80 via-[65%] to-transparent pointer-events-none" />
-          {/* Feathering: extra-tall bottom fade that transitions ultra-smoothly over the lower half */}
-          <div className="absolute inset-x-0 -bottom-1 h-60 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/85 via-[55%] to-transparent pointer-events-none" />
+          {/* Feathering: moderate bottom fade on mobile (h-32) that only gently softens the bottom edge without eating into the couple */}
+          <div className="absolute inset-x-0 -bottom-1 h-32 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[15%] via-[#F8FAFC]/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Mobile: solid white text backdrop covering entire buttons and text area */}

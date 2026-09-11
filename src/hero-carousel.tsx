@@ -216,8 +216,25 @@ export default function HeroCarousel({
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                   <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
                 </span>
-                <span className="font-extrabold font-sans text-slate-900 text-[11px] xs:text-xs sm:text-[15px] leading-tight">
-                  {customTrustBadge || t.heroCarousel.trustBadge}
+                <span className="font-extrabold font-sans text-slate-900 text-[11px] xs:text-xs sm:text-[15px] leading-snug">
+                  {customTrustBadge ? (
+                    customTrustBadge
+                  ) : language === 'ca' ? (
+                    <>
+                      <span className="block whitespace-nowrap">Més de 4.500</span>
+                      <span className="block whitespace-nowrap">clients ja confien en Gesgrama</span>
+                    </>
+                  ) : language === 'en' ? (
+                    <>
+                      <span className="block whitespace-nowrap">Over 4,500 clients</span>
+                      <span className="block whitespace-nowrap">already trust Gesgrama</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="block whitespace-nowrap">Más de 4.500</span>
+                      <span className="block whitespace-nowrap">clientes ya confían en Gesgrama</span>
+                    </>
+                  )}
                 </span>
               </div>
             </motion.div>

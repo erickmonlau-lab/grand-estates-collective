@@ -34,20 +34,6 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error }: { error: Error; reset: () => void }) {
-  if (typeof window !== "undefined") {
-    // Transparently reload to clear any outdated chunk without displaying any error UI
-    const reloadKey = "gesgrama_route_recovery";
-    const last = sessionStorage.getItem(reloadKey);
-    const now = Date.now();
-    if (!last || now - Number(last) > 8000) {
-      sessionStorage.setItem(reloadKey, String(now));
-      window.location.replace(window.location.href);
-    }
-  }
-
-  return null;
-}
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -142,7 +128,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
 });
 
 function RootShell({ children }: { children: ReactNode }) {

@@ -35,64 +35,55 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
-  const router = useRouter();
+  console.error("Root route error captured:", error);
 
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
 
-    // Handle Vite/TanStack chunk mismatch after a new deployment:
+    // Handle Vite/TanStack chunk mismatch after new deployments without trapping user in a modal
     const msg = (error?.message || String(error)).toLowerCase();
     const isChunkError =
       msg.includes("failed to fetch dynamically imported module") ||
       msg.includes("dynamically imported module") ||
       msg.includes("loading chunk") ||
       msg.includes("loading css chunk") ||
-      msg.includes("error loading module");
+      msg.includes("error loading module") ||
+      msg.includes("unexpected token '<'") ||
+      msg.includes("mime type");
 
-    if (isChunkError && typeof window !== "undefined") {
-      const lastReload = sessionStorage.getItem("chunk_reload_timestamp");
+    if (typeof window !== "undefined") {
+      const reloadKey = "gesgrama_route_recovery";
+      const last = sessionStorage.getItem(reloadKey);
       const now = Date.now();
-      if (!lastReload || now - parseInt(lastReload, 10) > 8000) {
-        sessionStorage.setItem("chunk_reload_timestamp", String(now));
-        window.location.reload();
+
+      // If chunk error or first-time failure, transparently hard-reload once bypassing cache
+      if ((isChunkError || !last) && (!last || now - Number(last) > 15000)) {
+        sessionStorage.setItem(reloadKey, String(now));
+        window.location.replace(window.location.pathname + window.location.search);
         return;
       }
     }
   }, [error]);
 
-  const handleReload = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.removeItem("chunk_reload_timestamp");
-      window.location.href = "/";
-    } else {
-      router.invalidate();
-      reset();
-    }
-  };
-
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
-      <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xl text-center">
-        <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#2563eb] flex items-center justify-center mx-auto mb-4">
-          <svg className="w-6 h-6 animate-spin" viewBox="0 0 24 24" fill="none">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-          </svg>
-        </div>
-        <h1 className="text-2xl font-black tracking-tight text-slate-900 font-sans">
-          Cargando Gesgrama...
-        </h1>
-        <p className="mt-2 text-sm text-slate-600 font-medium leading-relaxed">
-          Sincronizando la última versión de la web.
+    <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-center">
+      <div className="max-w-md w-full">
+        <h2 className="text-xl font-bold text-slate-900 font-serif">Gesgrama</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Hemos detectado una actualización en la plataforma.
         </p>
-        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-          <button
-            onClick={handleReload}
-            className="inline-flex items-center justify-center rounded-xl bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 text-xs font-black uppercase tracking-wider transition-all shadow-md hover:shadow-lg cursor-pointer"
+        <div className="mt-6">
+          <a
+            href="/"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                sessionStorage.removeItem("gesgrama_route_recovery");
+              }
+            }}
+            className="inline-flex items-center justify-center rounded-xl bg-[#001033] hover:bg-[#001a4d] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all shadow-md"
           >
-            Entrar a la web
-          </button>
+            Ir al inicio
+          </a>
         </div>
       </div>
     </main>

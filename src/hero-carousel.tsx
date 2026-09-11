@@ -84,7 +84,7 @@ export default function HeroCarousel({
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-contain object-[center_top] sm:object-cover sm:object-[right_top]"
+              className="w-full h-full object-contain object-[center_20%] sm:object-cover sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -93,14 +93,22 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          
-          {/* Feathering on left edge of the photo */}
+
+          {/* Feathering: left edge */}
           <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+          {/* Feathering: top edge — mobile only, blends into header */}
+          <div className="sm:hidden absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F8FAFC] to-transparent pointer-events-none" />
+          {/* Feathering: right edge — mobile only */}
+          <div className="sm:hidden absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
+          {/* Feathering: bottom edge */}
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
 
-        {/* Mobile: Pure solid white backdrop covering all text, with a very tight, crisp fade right before the couple */}
+        {/* Mobile: solid white text backdrop, crisp short fade */}
         <div className="sm:hidden absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-[#F8FAFC] from-[85%] to-transparent pointer-events-none" />
+
+        {/* Mobile: white gradient BEHIND the bottom metrics area (not over the cards) */}
+        <div className="sm:hidden absolute bottom-0 right-0 w-[55%] h-[42%] bg-gradient-to-tl from-[#F8FAFC] via-[#F8FAFC]/90 to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
@@ -224,7 +232,6 @@ export default function HeroCarousel({
           className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 mt-3 sm:mt-4 mb-0"
         >
           {/* Mobile: fade the right column into the background */}
-          <div className="sm:hidden absolute inset-y-0 right-0 w-[52%] bg-gradient-to-l from-[#F8FAFC] from-[30%] to-transparent pointer-events-none z-10" />
           <div className="flex flex-col items-center justify-center text-center px-2 py-2.5 xs:py-3 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">

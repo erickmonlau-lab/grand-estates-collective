@@ -198,42 +198,42 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
                 <Link
                   to="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all"
+                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
                 >
-                  <span>{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</span>
-                  <span className="text-xs text-slate-500 font-mono font-normal">01</span>
+                  <span className="group-hover:translate-x-1 transition-transform">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</span>
+                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">01</span>
                 </Link>
                 <a
                   href="/#propiedades"
                   onClick={(e) => handleNavClick(e, "propiedades")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all"
+                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
                 >
-                  <span>{t.nav.propiedades}</span>
-                  <span className="text-xs text-slate-500 font-mono font-normal">02</span>
+                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.propiedades}</span>
+                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">02</span>
                 </a>
                 <a
                   href="/#servicios"
                   onClick={(e) => handleNavClick(e, "servicios")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all"
+                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
                 >
-                  <span>{t.nav.servicios}</span>
-                  <span className="text-xs text-slate-500 font-mono font-normal">03</span>
+                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.servicios}</span>
+                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">03</span>
                 </a>
                 <a
                   href="/#nosotros"
                   onClick={(e) => handleNavClick(e, "nosotros")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all"
+                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
                 >
-                  <span>{t.nav.nosotros}</span>
-                  <span className="text-xs text-slate-500 font-mono font-normal">04</span>
+                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.nosotros}</span>
+                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">04</span>
                 </a>
                 <a
                   href="/#contacto"
                   onClick={(e) => handleNavClick(e, "contacto")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-200 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all"
+                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
                 >
-                  <span>{t.nav.contacto}</span>
-                  <span className="text-xs text-slate-500 font-mono font-normal">05</span>
+                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.contacto}</span>
+                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">05</span>
                 </a>
               </div>
               

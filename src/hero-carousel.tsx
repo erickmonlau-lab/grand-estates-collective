@@ -84,7 +84,7 @@ export default function HeroCarousel({
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[70%_20%]"
+              className="w-full h-full object-cover object-[22%_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -96,7 +96,7 @@ export default function HeroCarousel({
           {/* Top gradient: melts naturally under navbar without looking like an overlaid rectangle */}
           <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
           {/* Left gradient: provides clean, solid backdrop for text and fades out smoothly to the right */}
-          <div className="absolute inset-y-0 left-0 w-[60%] bg-gradient-to-r from-[#F8FAFC] from-55% via-[#F8FAFC]/90 via-75% to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[52%] bg-gradient-to-r from-[#F8FAFC] from-60% via-[#F8FAFC]/85 via-80% to-transparent pointer-events-none" />
           {/* Bottom gradient: seamlessly merges into stats cards */}
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>

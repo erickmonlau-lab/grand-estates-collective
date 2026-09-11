@@ -2248,7 +2248,18 @@ function Index() {
             {/* Bottom Eye-Catching Blue CTA Button */}
             <div className="text-center">
               <a 
-                href="#contacto" 
+                href="#formulario-contacto" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const formEl = document.getElementById("formulario-contacto");
+                  if (formEl) {
+                    formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+                    const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
+                    if (inputEl) {
+                      setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
+                    }
+                  }
+                }}
                 className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
               >
                 <span>{t.faq.askDoubt}</span>

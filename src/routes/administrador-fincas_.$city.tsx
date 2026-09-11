@@ -2124,7 +2124,18 @@ function SantaColomaBarrioPage() {
 
               <div className="text-center">
                 <a 
-                  href="#contacto" 
+                  href="#formulario-contacto" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const formEl = document.getElementById("formulario-contacto");
+                    if (formEl) {
+                      formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+                      const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
+                      if (inputEl) {
+                        setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
+                      }
+                    }
+                  }}
                   className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
                 >
                   <span>{t.faq.askDoubt}</span>
@@ -2144,45 +2155,38 @@ function SantaColomaBarrioPage() {
                   <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
                     {t.contacto.badge}
                   </span>
-                  
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2.5 font-sans">
-                    {t.contacto.title1}<br />
-                    <span className="text-[#2563eb] italic font-serif">en {data.name}</span>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-3 leading-tight tracking-tight font-sans">
+                    {t.contacto.title1}{" "}
+                    <span className="relative inline-block text-[#2563eb]">
+                      {t.contacto.title2}
+                      <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
+                        <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                      </svg>
+                    </span>
                   </h2>
-                  
-                  <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-4 font-bold leading-snug font-sans">
-                    {language === "ca"
-                      ? `Demana'ns un estudi de costos sense compromís per a la teva finca a ${data.name}. T'atendrem en menys de 24 hores.`
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-bold font-sans mb-6">
+                    {language === "ca" 
+                      ? `Necessites un gestor a ${data.name}? Deixa'ns les teves dades i t'atendrem immediatament.`
                       : language === "en"
-                      ? `Request a free cost study for your building in ${data.name}. We reply in under 24 hours.`
-                      : `Pídenos un estudio económico sin compromiso para tu comunidad en ${data.name}. Te respondemos en menos de 24 horas.`}
+                      ? `Need a property manager in ${data.name}? Leave your details and we will assist you immediately.`
+                      : `¿Necesitas un administrador colegiado en ${data.name}? Déjanos tus datos y te atenderemos de inmediato.`}
                   </p>
 
-                  <div className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200 aspect-[16/10] group">
-                    <img 
-                      src={gesgramaOffice} 
-                      alt="Gesgrama oficina principal en Santa Coloma" 
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                    />
-                    
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:left-3 sm:right-auto bg-white rounded-xl p-3 shadow-lg border border-slate-200 max-w-[260px] z-20">
-                      <div className="flex items-start gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-[#dbeafe] text-[#2563eb] flex items-center justify-center shrink-0 mt-0.5">
-                          <MapPin className="w-3.5 h-3.5" />
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 bg-[#f8fafc] border border-slate-200 p-3 rounded-xl shadow-2xs">
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
+                        <MapPin className="w-4 h-4 text-[#2563eb]" />
+                      </div>
+                      <div>
+                        <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
+                          Av. dels Banús, 49
                         </div>
-                        <div>
-                          <div className="font-black text-[10px] sm:text-xs text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
-                          <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
-                            Av. dels Banús, 49
-                          </div>
-                          <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
-                            08923 Santa Coloma de Gramenet
-                          </div>
-                          <a href="tel:+34934685656" className="inline-flex items-center gap-1 text-[#2563eb] font-black text-xs sm:text-sm mt-1 font-sans">
-                            <Phone className="w-3 h-3 text-[#2563eb]" /> 93 468 56 56
-                          </a>
+                        <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
+                          08923 Santa Coloma de Gramenet
                         </div>
+                        <a href="tel:+34934685656" className="inline-flex items-center gap-1 text-[#2563eb] font-black text-xs sm:text-sm mt-1 font-sans">
+                          <Phone className="w-3 h-3 text-[#2563eb]" /> 93 468 56 56
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -2191,7 +2195,7 @@ function SantaColomaBarrioPage() {
 
               <div className="lg:col-span-7">
                 <Reveal delay={0.1}>
-                  <div className="bg-white border-2 border-slate-300 p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm">
+                  <div id="formulario-contacto" className="bg-white border-2 border-slate-300 p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-24">
                     <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">
                       {language === "ca" ? `Consulta per a ${data.name}` : language === "en" ? `Inquiry for ${data.name}` : `Consulta para ${data.name}`}
                     </h3>

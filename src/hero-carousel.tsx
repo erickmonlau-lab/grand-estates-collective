@@ -95,11 +95,11 @@ export default function HeroCarousel({
           </picture>
 
           {/* Feathering: left edge */}
-          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/80 to-transparent pointer-events-none" />
-          {/* Feathering: top edge difuminado suave arriba de la imagen */}
-          <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#F8FAFC] from-[20%] via-[#F8FAFC]/75 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-y-0 left-0 w-28 sm:w-40 md:w-52 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/85 to-transparent pointer-events-none z-10" />
+          {/* Feathering: top edge difuminado suave y profundo arriba de la imagen */}
+          <div className="absolute inset-x-0 top-0 h-40 sm:h-48 md:h-56 bg-gradient-to-b from-[#F8FAFC] from-[35%] via-[#F8FAFC]/80 via-[70%] to-transparent pointer-events-none z-20" />
           {/* Feathering: balanced bottom fade */}
-          <div className="absolute inset-x-0 -bottom-1 h-36 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/70 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 -bottom-1 h-36 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/70 to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Mobile: solid white text backdrop covering entire buttons and text area */}

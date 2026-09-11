@@ -77,30 +77,14 @@ export default function HeroCarousel({
       } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* ── MOBILE ─────────────────────────────────────────────────────────────────── */}
-        <div className="sm:hidden absolute inset-0">
-          <motion.img
-            src={heroBgMobile}
-            alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-            className="w-full h-full object-cover object-right-top"
-            loading="eager"
-            fetchPriority="high"
-            width={800}
-            height={1200}
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Subtle bottom fade to blend with stats banner */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
-        </div>
-
-        {/* ── DESKTOP: right half container ─────────────────────────────────────────────── */}
-        <div className="hidden sm:block absolute right-0 top-0 sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
+        {/* On desktop: right half. On mobile: anchored strictly to the right 66% */}
+        <div className="absolute right-0 top-0 w-[66%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none">
           <picture className="w-full h-full block">
+            <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[right_top]"
+              className="w-full h-full object-cover object-[30%_top] sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}
@@ -109,14 +93,16 @@ export default function HeroCarousel({
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>
-          <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+          
+          {/* Subtle gradient feathering on left edge to blend seamlessly into #F8FAFC */}
+          <div className="absolute inset-y-0 left-0 w-20 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* Mobile: text given comfortable 58% width; right side displays the full couple seamlessly */}
-        <div className="max-w-[58%] xs:max-w-[56%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
+        {/* Mobile text container: 54% width, text fully readable on clean #F8FAFC */}
+        <div className="max-w-[54%] xs:max-w-[52%] sm:max-w-2xl lg:max-w-3xl xl:max-w-[720px] text-left py-1 sm:py-2 my-auto">
           <div className="flex flex-col justify-center h-full">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

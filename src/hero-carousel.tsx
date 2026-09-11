@@ -70,11 +70,11 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className={`relative text-slate-900 h-[100dvh] sm:h-screen sm:min-h-[700px] ${
+      className={`relative text-slate-900 min-h-[620px] sm:min-h-[700px] h-auto sm:h-screen ${
         customHeadline
-          ? "pt-18 sm:pt-28 lg:pt-32"
-          : "pt-18 sm:pt-28 lg:pt-32"
-      } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
+          ? "pt-20 sm:pt-28 lg:pt-32"
+          : "pt-20 sm:pt-28 lg:pt-32"
+      } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 contain-paint`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
@@ -84,12 +84,12 @@ export default function HeroCarousel({
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[center_top] sm:object-[right_top] block"
+              className="w-full h-full object-cover object-[center_top] sm:object-[right_top] block transform-gpu will-change-transform"
               loading="eager"
               fetchPriority="high"
               width={2560}
               height={1440}
-              animate={{ scale: [1.02, 1.05, 1.02] }}
+              animate={shouldReduceMotion ? false : { scale: [1.02, 1.05, 1.02] }}
               transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
             />
           </picture>

@@ -94,10 +94,13 @@ export default function HeroCarousel({
             />
           </picture>
           
-          {/* Subtle gradient feathering on left edge to blend seamlessly into #F8FAFC */}
-          <div className="absolute inset-y-0 left-0 w-28 sm:w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/60 to-transparent pointer-events-none" />
+          {/* Desktop subtle gradient */}
+          <div className="hidden sm:block absolute inset-y-0 left-0 w-36 md:w-48 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#F8FAFC] to-transparent pointer-events-none" />
         </div>
+
+        {/* Mobile full-height text backdrop: solid #F8FAFC behind text, smoothly feathering out right where the couple starts */}
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[56%] bg-gradient-to-r from-[#F8FAFC] from-60% via-[#F8FAFC]/80 via-80% to-transparent pointer-events-none" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">

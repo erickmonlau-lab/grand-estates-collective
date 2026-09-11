@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import { 
   Building2, 
   MapPin, 
@@ -381,10 +381,51 @@ function SantaColomaBarrioPage() {
     precio: "Cualquier precio",
     habitaciones: "Cualquier número"
   });
+
+  const [consoleFilters, setConsoleFilters] = useState({
+    tipo: "Cualquier tipo",
+    zona: "Cualquier zona",
+    habitaciones: "Cualquier número",
+    precio: "Cualquier precio"
+  });
+
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [sortOption, setSortOption] = useState<string>("recientes");
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
+
+  useEffect(() => {
+    setConsoleFilters({
+      tipo: searchParams.tipo,
+      zona: searchParams.zona,
+      habitaciones: searchParams.habitaciones || "Cualquier número",
+      precio: searchParams.precio
+    });
+  }, [searchParams]);
+
+  const getTranslatedFilterLabel = (category: 'tipo' | 'zona' | 'habitaciones' | 'precio', val: string) => {
+    if (category === 'tipo') {
+      if (val === 'Cualquier tipo') return t.properties.anyType;
+      if (val === 'Piso') return language === 'ca' ? 'Pis' : language === 'en' ? 'Flat' : 'Piso';
+      if (val === 'Ático') return language === 'ca' ? 'Àtic' : language === 'en' ? 'Penthouse' : 'Ático';
+      if (val === 'Local comercial') return language === 'ca' ? 'Local comercial' : language === 'en' ? 'Commercial premises' : 'Local comercial';
+      if (val === 'Chalet') return language === 'ca' ? 'Xalet' : language === 'en' ? 'Villa' : 'Chalet';
+    }
+    if (category === 'zona') {
+      if (val === 'Cualquier zona') return t.properties.allZones;
+      return formatLocation(val, language);
+    }
+    if (category === 'habitaciones') {
+      if (val === 'Cualquier número') return (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || "Cualquier número";
+      if (val.includes('+')) return `${val.replace('+', '')}+ ${t.properties.bedrooms.toLowerCase()}`;
+    }
+    if (category === 'precio') {
+      if (val === 'Cualquier precio') return t.properties.anyPrice;
+      if (val.endsWith('€')) return `< ${val}`;
+    }
+    return val;
+  };
 
   // Favorites state
   const [favorites, setFavorites] = useState<string[]>(() => {
@@ -540,24 +581,53 @@ function SantaColomaBarrioPage() {
     };
   }, []);
 
-  // Filtered properties
-  const filteredProperties = liveProperties.filter(prop => {
-    if (searchParams.mode === "favoritos") {
-      return favorites.includes(prop.id);
-    }
-    const matchesMode = (prop.operation || "comprar") === searchParams.mode;
-    const matchesZone = searchParams.zona === "Cualquier zona" || (prop.location && prop.location.includes(searchParams.zona));
-    const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
-    const matchesPrice = isPriceValid(searchParams.precio, prop.price);
-    const matchesBeds = searchParams.habitaciones === "Cualquier número" || (
-      searchParams.habitaciones.includes("+")
-        ? prop.bedrooms >= parseInt(searchParams.habitaciones)
-        : prop.bedrooms === parseInt(searchParams.habitaciones)
-    );
-    return matchesMode && matchesZone && matchesType && matchesPrice && matchesBeds;
-  });
+  // Filtered and sorted properties
+  const filteredProperties = liveProperties
+    .filter(prop => {
+      if (searchParams.mode === "favoritos") {
+        return favorites.includes(prop.id);
+      }
+      const pOp = prop.operation || "comprar";
+      return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+    })
+    .filter(prop => {
+      if (searchParams.mode === "favoritos") return true;
+      const matchesZone = searchParams.zona === "Cualquier zona" || (prop.location && prop.location.includes(searchParams.zona));
+      const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
+      const matchesPrice = isPriceValid(searchParams.precio, prop.price);
+      const matchesBeds = searchParams.habitaciones === "Cualquier número" || !searchParams.habitaciones || (
+        searchParams.habitaciones.includes("+")
+          ? prop.bedrooms >= parseInt(searchParams.habitaciones.replace("+", ""), 10)
+          : prop.bedrooms === parseInt(searchParams.habitaciones, 10)
+      );
+      return matchesZone && matchesType && matchesPrice && matchesBeds;
+    })
+    .sort((a, b) => {
+      if (sortOption === "precio_asc") return a.price - b.price;
+      if (sortOption === "precio_desc") return b.price - a.price;
+      return 0; // recientes / default order
+    });
 
-  const displayProperties = filteredProperties.slice(0, visibleCount);
+  let displayProperties = filteredProperties.slice(0, visibleCount);
+  let isFallback = false;
+
+  if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
+    isFallback = true;
+    let similarProperties = liveProperties
+      .filter(p => searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona)))
+      .filter(p => (p.operation || "comprar") === searchParams.mode);
+
+    if (similarProperties.length === 0) {
+      similarProperties = liveProperties
+        .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
+        .filter(p => (p.operation || "comprar") === searchParams.mode);
+    }
+
+    if (similarProperties.length === 0) {
+      similarProperties = liveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
+    }
+    displayProperties = similarProperties.slice(0, 3);
+  }
 
   // Available filter options
   const tipos = ["Cualquier tipo", "Piso", "Ático", "Local comercial", "Chalet"];
@@ -684,301 +754,604 @@ function SantaColomaBarrioPage() {
                   </div>
                 </div>
               </div>
+            </Reveal>
 
-              {/* Filter Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 p-3 sm:p-4 rounded-2xl border border-slate-200">
-                {/* Tipo Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenDropdown(openDropdown === "tipo" ? null : "tipo");
-                    }}
-                    className="w-full flex items-center justify-between bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-black text-slate-800 transition-all text-left shadow-2xs"
+            {/* FILTERS */}
+            {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
+            <div className="mt-8 mb-4">
+              <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 xl:p-3 flex flex-col xl:flex-row items-stretch xl:items-center gap-3 xl:gap-4 relative z-40">
+                
+                {/* Field 1: Tipo de Inmueble */}
+                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                  <button 
+                    onClick={() => setOpenDropdown(openDropdown === "tipo" ? null : "tipo")}
+                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                   >
-                    <div className="truncate">
-                      <span className="block text-[10px] text-slate-500 font-bold uppercase">{t.properties.type}</span>
-                      <span className="truncate">{searchParams.tipo}</span>
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                        <Building2 className="w-4 h-4 text-[#2563eb]" />
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
+                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
+                      </div>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                   </button>
+
                   {openDropdown === "tipo" && (
-                    <div className="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-1.5">
-                      {tipos.map(tp => (
-                        <button
-                          key={tp}
-                          type="button"
-                          onClick={() => {
-                            setSearchParams(prev => ({ ...prev, tipo: tp }));
-                            setOpenDropdown(null);
-                          }}
-                          className="w-full text-left px-3 py-2 rounded-lg text-xs font-bold hover:bg-blue-50 text-slate-800 transition-colors"
-                        >
-                          {tp}
-                        </button>
-                      ))}
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                      {[
+                        { label: t.properties.anyType, value: "Cualquier tipo" },
+                        { label: "Piso", value: "Piso" },
+                        { label: "Apartamento", value: "Apartamento" },
+                        { label: "Ático", value: "Ático" },
+                        { label: "Chalet / Villa", value: "Chalet" },
+                        { label: "Local Comercial", value: "Local" },
+                        { label: "Oficina", value: "Oficina" },
+                        { label: "Aparcamiento", value: "Aparcamiento" }
+                      ].map(opt => {
+                        const count = liveProperties.filter(p => {
+                          const matchesMode = p.operation === searchParams.mode;
+                          const matchesTipo = opt.value === "Cualquier tipo" ? true : p.type === opt.value;
+                          return matchesMode && matchesTipo;
+                        }).length;
+
+                        const isActive = consoleFilters.tipo === opt.value;
+
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => {
+                              setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {isActive ? (
+                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              ) : (
+                                <span className="w-3.5 h-3.5 shrink-0" />
+                              )}
+                              <span>{opt.label}</span>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
 
-                {/* Zona Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenDropdown(openDropdown === "zona" ? null : "zona");
-                    }}
-                    className="w-full flex items-center justify-between bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-black text-slate-800 transition-all text-left shadow-2xs"
+                {/* Divider */}
+                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
+
+                {/* Field 2: Zona */}
+                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                  <button 
+                    onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
+                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                   >
-                    <div className="truncate">
-                      <span className="block text-[10px] text-slate-500 font-bold uppercase">{t.properties.zone}</span>
-                      <span className="truncate">{formatLocation(searchParams.zona, language)}</span>
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                        <MapPin className="w-4 h-4 text-[#2563eb]" />
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
+                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
+                      </div>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                   </button>
+
                   {openDropdown === "zona" && (
-                    <div className="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-1.5 max-h-56 overflow-y-auto">
-                      {zonas.map(zn => (
-                        <button
-                          key={zn}
-                          type="button"
-                          onClick={() => {
-                            setSearchParams(prev => ({ ...prev, zona: zn }));
-                            setOpenDropdown(null);
-                          }}
-                          className="w-full text-left px-3 py-2 rounded-lg text-xs font-bold hover:bg-blue-50 text-slate-800 transition-colors"
-                        >
-                          {formatLocation(zn, language)}
-                        </button>
-                      ))}
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                      {[
+                        { label: t.properties.allZones, value: "Cualquier zona" },
+                        ...[...new Set(liveProperties.map(p => p.location))].filter(Boolean).map(loc => ({ label: formatLocation(loc, language), value: loc }))
+                      ].map(opt => {
+                        const count = liveProperties.filter(p => {
+                          const matchesMode = p.operation === searchParams.mode;
+                          const matchesZona = opt.value === "Cualquier zona" ? true : p.location === opt.value;
+                          return matchesMode && matchesZona;
+                        }).length;
+
+                        const isActive = consoleFilters.zona === opt.value;
+
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => {
+                              setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {isActive ? (
+                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              ) : (
+                                <span className="w-3.5 h-3.5 shrink-0" />
+                              )}
+                              <span>{opt.label}</span>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
 
-                {/* Habitaciones Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenDropdown(openDropdown === "hab" ? null : "hab");
-                    }}
-                    className="w-full flex items-center justify-between bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-black text-slate-800 transition-all text-left shadow-2xs"
+                {/* Divider */}
+                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
+
+                {/* Field 3: Habitaciones */}
+                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                  <button 
+                    onClick={() => setOpenDropdown(openDropdown === "habitaciones" ? null : "habitaciones")}
+                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                   >
-                    <div className="truncate">
-                      <span className="block text-[10px] text-slate-500 font-bold uppercase">{t.properties.bedrooms}</span>
-                      <span className="truncate">{searchParams.habitaciones}</span>
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                        <Home className="w-4 h-4 text-[#2563eb]" />
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
+                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
+                      </div>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                   </button>
-                  {openDropdown === "hab" && (
-                    <div className="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-1.5">
-                      {habitaciones.map(hb => (
-                        <button
-                          key={hb}
-                          type="button"
-                          onClick={() => {
-                            setSearchParams(prev => ({ ...prev, habitaciones: hb }));
-                            setOpenDropdown(null);
-                          }}
-                          className="w-full text-left px-3 py-2 rounded-lg text-xs font-bold hover:bg-blue-50 text-slate-800 transition-colors"
-                        >
-                          {hb}
-                        </button>
-                      ))}
+
+                  {openDropdown === "habitaciones" && (
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                      {[
+                        { label: (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || "Cualquier número", value: "Cualquier número" },
+                        { label: "1+ " + t.properties.bedrooms.toLowerCase(), value: "1+" },
+                        { label: "2+ " + t.properties.bedrooms.toLowerCase(), value: "2+" },
+                        { label: "3+ " + t.properties.bedrooms.toLowerCase(), value: "3+" },
+                        { label: "4+ " + t.properties.bedrooms.toLowerCase(), value: "4+" }
+                      ].map(opt => {
+                        const count = liveProperties.filter(p => {
+                          const matchesMode = p.operation === searchParams.mode;
+                          if (!matchesMode) return false;
+                          if (opt.value === "Cualquier número") return true;
+                          const min = parseInt(opt.value.replace("+", ""), 10);
+                          return p.bedrooms >= min;
+                        }).length;
+
+                        const isActive = consoleFilters.habitaciones === opt.value;
+
+                        return (
+                          <button
+                            key={opt.value}
+                            onClick={() => {
+                              setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {isActive ? (
+                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              ) : (
+                                <span className="w-3.5 h-3.5 shrink-0" />
+                              )}
+                              <span>{opt.label}</span>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
 
-                {/* Precio Dropdown */}
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenDropdown(openDropdown === "precio" ? null : "precio");
-                    }}
-                    className="w-full flex items-center justify-between bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2.5 text-xs sm:text-sm font-black text-slate-800 transition-all text-left shadow-2xs"
+                {/* Divider */}
+                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
+
+                {/* Field 4: Precio Máximo */}
+                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
+                  <button 
+                    onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
+                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
                   >
-                    <div className="truncate">
-                      <span className="block text-[10px] text-slate-500 font-bold uppercase">{t.properties.price}</span>
-                      <span className="truncate">{searchParams.precio}</span>
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+                        <span className="text-[#2563eb] text-xs font-black">€</span>
+                      </div>
+                      <div>
+                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
+                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
+                      </div>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
                   </button>
+
                   {openDropdown === "precio" && (
-                    <div className="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-1.5">
-                      {preciosActuales.map(pr => (
-                        <button
-                          key={pr}
-                          type="button"
-                          onClick={() => {
-                            setSearchParams(prev => ({ ...prev, precio: pr }));
-                            setOpenDropdown(null);
-                          }}
-                          className="w-full text-left px-3 py-2 rounded-lg text-xs font-bold hover:bg-blue-50 text-slate-800 transition-colors"
-                        >
-                          {pr}
-                        </button>
-                      ))}
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                      {(searchParams.mode === "alquilar" 
+                        ? [t.properties.anyPrice, "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
+                        : [t.properties.anyPrice, "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
+                      ).map(opt => {
+                        const count = liveProperties.filter(p => {
+                          const matchesMode = p.operation === searchParams.mode;
+                          if (!matchesMode) return false;
+                          return isPriceValid(opt, p.price);
+                        }).length;
+
+                        const isActive = consoleFilters.precio === opt;
+
+                        return (
+                          <button
+                            key={opt}
+                            onClick={() => {
+                              setConsoleFilters(prev => ({ ...prev, precio: opt }));
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {isActive ? (
+                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
+                              ) : (
+                                <span className="w-3.5 h-3.5 shrink-0" />
+                              )}
+                              <span>{opt}</span>
+                            </div>
+                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
+
+                {/* Buscar Button */}
+                <button 
+                  onClick={() => {
+                    setSearchParams(prev => ({
+                      ...prev,
+                      tipo: consoleFilters.tipo,
+                      zona: consoleFilters.zona,
+                      habitaciones: consoleFilters.habitaciones,
+                      precio: consoleFilters.precio
+                    }));
+                    const el = document.getElementById('propiedades');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
+                >
+                  {t.hero.buscarBtn}
+                </button>
               </div>
 
-              {/* Property Grid */}
-              <div className="mt-8">
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
-                  <div className="flex items-center gap-2.5">
-                    <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black w-7 h-7 rounded-full shadow-sm">
-                      {filteredProperties.length}
-                    </span>
-                    <p className="text-sm sm:text-base font-black text-[#0f172a]">
-                      {t.properties.availableCount}
-                    </p>
-                  </div>
-                </div>
+              {/* Quick access chips for zones - All visible at a glance (no scroll needed) */}
+              <div className="mt-5 pb-5 border-b border-slate-100 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1">
+                <span className="text-xs sm:text-sm font-black text-[#0f172a] uppercase tracking-wider shrink-0 font-sans mr-1 w-full sm:w-auto mb-1 sm:mb-0">{t.properties.popularZones}:</span>
+                {(() => {
+                  const orderedZones = [
+                    "Cualquier zona",
+                    "Riera Alta - Llatí",
+                    "Singuerlín",
+                    "Centro",
+                    "Santa Rosa - Can Mariner",
+                    "Fondo",
+                    "El Raval",
+                    "Riu"
+                  ];
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8">
-                  {displayProperties.map((prop, idx) => {
-                    const isFav = favorites.includes(prop.id);
-                    const pData = getTranslatedProperty(prop, language, t.propertiesData);
-                    const isRent = (prop.operation || "").toLowerCase() === "alquilar" || prop.price < 5000;
-                    const type = pData.type || prop.type || "Piso";
+                  return orderedZones.map(zoneVal => {
+                    const label = zoneVal === "Cualquier zona" ? t.properties.allZones : formatLocation(zoneVal, language);
+                    const isActive = searchParams.zona === zoneVal;
+                    const isRaval = zoneVal === "El Raval";
 
                     return (
-                      <div key={prop.id} className="h-full">
-                        <Link to="/inmobiliaria/$slug" params={{ slug: prop.slug || prop.id }} className="block h-full">
-                          <div className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer">
-                            {/* Image Block */}
-                            <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
-                              <img
-                                src={prop.image}
-                                alt={pData.name || prop.title}
-                                loading="lazy"
-                                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
+                      <Fragment key={zoneVal}>
+                        {isRaval && <span className="sm:hidden basis-full h-0 pointer-events-none" />}
+                        <button
+                          onClick={() => {
+                            setConsoleFilters(prev => ({ ...prev, zona: zoneVal }));
+                            setSearchParams(prev => ({ ...prev, zona: zoneVal }));
+                          }}
+                          className={`px-3 py-1.5 rounded-full text-xs sm:text-xs xl:text-sm font-black transition-all duration-200 cursor-pointer font-sans text-center whitespace-nowrap shadow-2xs ${
+                            isActive 
+                              ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/25 border-2 border-[#2563eb]" 
+                              : "bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-900 hover:text-white"
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      </Fragment>
+                    );
+                  });
+                })()}
+              </div>
 
-                              {/* Floating Status & Type Pills */}
-                              <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
-                                <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
-                                  <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
-                                  <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
-                                </span>
-                                <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
-                                  {type}
+              {/* RESULTS COUNT & SORTING */}
+              {(() => {
+                const renderPropertyCard = (property: any, idx: number) => {
+                  const isFav = favorites.includes(property.id);
+                  const pData = getTranslatedProperty(property, language, t.propertiesData);
+                  const isRent = (property.operation || "").toLowerCase() === "alquilar" || property.price < 5000;
+                  const type = pData.type || property.type || "Piso";
+
+                  return (
+                    <motion.div
+                      key={property.id}
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.5, delay: (idx % 6) * 0.09, ease: easeOut }}
+                      className="h-full"
+                    >
+                      <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
+                        <motion.div
+                          whileHover={shouldReduceMotion ? undefined : { y: -6 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer"
+                        >
+                          {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
+                          <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
+                            <img 
+                              src={property.image} 
+                              alt={pData.name} 
+                              loading="lazy" 
+                              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
+                            
+                            {/* Floating Status & Type Pills */}
+                            <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
+                              <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
+                                <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
+                                <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
+                              </span>
+                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                                {type}
+                              </span>
+                            </div>
+
+                            {/* Heart Favorite Button with micro-bounce */}
+                            <motion.button
+                              type="button"
+                              whileTap={{ scale: 1.25 }}
+                              transition={{ type: "spring", stiffness: 450, damping: 17 }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleFavorite(property.id);
+                              }}
+                              aria-label="Guardar en favoritos"
+                              className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                                isFav 
+                                  ? 'bg-red-500 text-white shadow-red-500/30' 
+                                  : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
+                              }`}
+                            >
+                              <Heart className="w-5 h-5 fill-current" />
+                            </motion.button>
+
+                            {/* Bottom-left Ref Badge directly over the image */}
+                            <div className="absolute bottom-3 left-3.5 z-20">
+                              <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                                Ref: {property.ref || "PJ2024"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Content Block */}
+                          <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                            <div>
+                              {/* Location with Pin - Solid White Pill */}
+                              <div className="mb-2.5">
+                                <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
+                                  <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                                  <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
                                 </span>
                               </div>
 
-                              {/* Heart Favorite Button */}
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  toggleFavorite(prop.id);
-                                }}
-                                aria-label="Guardar en favoritos"
-                                className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
-                                  isFav
-                                    ? 'bg-red-500 text-white shadow-red-500/30'
-                                    : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
-                                }`}
-                              >
-                                <Heart className="w-5 h-5 fill-current" />
-                              </button>
+                              {/* Main Title */}
+                              <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
+                                {pData.name}
+                              </h3>
 
-                              {/* Bottom-left Ref Badge */}
-                              <div className="absolute bottom-3 left-3.5 z-20">
-                                <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
-                                  Ref: {prop.ref || "PJ2024"}
-                                </span>
+                              {/* Features Micro-Boxes */}
+                              <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
+                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                  <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                  <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
+                                </div>
+                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                  <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                  <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
+                                </div>
+                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                                  <Ruler className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                  <span>{property.surface} m²</span>
+                                </div>
+                              </div>
+
+                              {/* Floor / Feature Highlight badge */}
+                              <div className="mt-3">
+                                <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
+                                  <span className="truncate">{property.floor || (property.features && property.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
+                                </div>
                               </div>
                             </div>
 
-                            {/* Content Block */}
-                            <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
-                              <div>
-                                <div className="mb-2.5">
-                                  <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
-                                    <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                                    <span className="truncate">{formatLocation(pData.location || prop.location, language)}</span>
+                            {/* Price & Action Button */}
+                            <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
+                              <div className="flex flex-col min-w-0">
+                                <span className="inline-block self-start text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#2563eb] text-white mb-1 font-sans shadow-2xs">
+                                  {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
+                                </span>
+                                <div className="flex items-baseline whitespace-nowrap">
+                                  <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
+                                    {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
                                   </span>
-                                </div>
-
-                                <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
-                                  {pData.name || prop.title}
-                                </h3>
-
-                                <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
-                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                    <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                    <span>{prop.bedrooms > 0 ? prop.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
-                                  </div>
-                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                    <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                    <span>{prop.bathrooms > 0 ? prop.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
-                                  </div>
-                                  <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                    <Ruler className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                    <span>{prop.surface} m²</span>
-                                  </div>
-                                </div>
-
-                                <div className="mt-3">
-                                  <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
-                                    <span className="truncate">{prop.floor || (prop.features && prop.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
-                                  </div>
+                                  {isRent && (
+                                    <span className="text-[11px] font-black text-slate-500 font-sans ml-1">/mes</span>
+                                  )}
                                 </div>
                               </div>
 
-                              {/* Price & Action Button */}
-                              <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
-                                <div className="flex flex-col min-w-0">
-                                  <span className="inline-block self-start text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#2563eb] text-white mb-1 font-sans shadow-2xs">
-                                    {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
-                                  </span>
-                                  <div className="flex items-baseline whitespace-nowrap">
-                                    <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
-                                      {new Intl.NumberFormat('es-ES').format(prop.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
-                                    </span>
-                                    {isRent && (
-                                      <span className="text-[11px] font-black text-slate-500 font-sans ml-1">/mes</span>
-                                    )}
-                                  </div>
-                                </div>
-
-                                <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
-                                  <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
-                                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
-                                </div>
+                              <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                                <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                               </div>
                             </div>
                           </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </div>
+                        </motion.div>
+                      </Link>
+                    </motion.div>
+                  );
+                };
 
-                {visibleCount < filteredProperties.length && (
-                  <div className="text-center pt-4">
-                    <button
-                      type="button"
-                      onClick={() => setVisibleCount(prev => prev + 3)}
-                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg inline-flex items-center gap-2 cursor-pointer font-sans"
-                    >
-                      <span>{t.properties.verMas}</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+                return (
+                  <div className="mt-6">
+                    {/* Results Count & Sort directly below zones pills */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+                      <div className="flex items-center gap-2.5">
+                        <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black w-7 h-7 rounded-full shadow-sm">
+                          {filteredProperties.length}
+                        </span>
+                        <p className="text-sm sm:text-base font-black text-[#0f172a] font-sans">
+                          {t.properties.availableCount}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-3 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                        <span className="text-slate-600 font-black uppercase tracking-wider text-xs font-sans">{t.properties.sortBy}:</span>
+                        <button 
+                          onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
+                          className="flex items-center gap-2 bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2 font-black text-[#0f172a] hover:text-[#2563eb] transition-all shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
+                        >
+                          {sortOption === "precio_asc" ? "Precio: Menor a Mayor" : sortOption === "precio_desc" ? "Precio: Mayor a Menor" : t.properties.mostRecent} 
+                          <ChevronDown className="w-4 h-4 text-slate-700 shrink-0" />
+                        </button>
+
+                        {openDropdown === "ordenar" && (
+                          <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                            {[
+                              { label: t.properties.mostRecent, value: "recientes" },
+                              { label: "Precio: Menor a Mayor", value: "precio_asc" },
+                              { label: "Precio: Mayor a Menor", value: "precio_desc" }
+                            ].map(opt => (
+                              <button
+                                key={opt.value}
+                                onClick={() => {
+                                  setSortOption(opt.value);
+                                  setOpenDropdown(null);
+                                }}
+                                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
+                                  sortOption === opt.value ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
+                                }`}
+                              >
+                                <span>{opt.label}</span>
+                                {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {isFallback && (
+                      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-amber-800 text-sm font-medium">
+                        {t.properties.fallbackMsg}
+                      </div>
+                    )}
+
+                    {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={searchParams.mode}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
+                        transition={{ duration: 0.28, ease: "easeOut" }}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
+                      >
+                        {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* LOAD MORE BUTTON */}
+                    <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
+                      {visibleCount < filteredProperties.length ? (
+                        <button 
+                          type="button"
+                          onClick={() => setVisibleCount(prev => prev + 6)}
+                          className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                        >
+                          <span>{t.properties.verMas}</span>
+                          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                        </button>
+                      ) : (
+                        <div className="flex flex-col items-center gap-3">
+                          <button 
+                            type="button"
+                            onClick={() => {
+                              // Reset filters to defaults and show all available properties
+                              const defaultFilters = {
+                                mode: "comprar",
+                                zona: "Cualquier zona",
+                                tipo: "Cualquier tipo",
+                                precio: "Cualquier precio",
+                                habitaciones: "Cualquier número"
+                              };
+                              setSearchParams(defaultFilters);
+                              setConsoleFilters({
+                                zona: "Cualquier zona",
+                                tipo: "Cualquier tipo",
+                                precio: "Cualquier precio",
+                                habitaciones: "Cualquier número"
+                              });
+                              setVisibleCount(Math.max(liveProperties.length, properties.length, 50));
+                              
+                              // Smooth scroll up to property list so the user immediately sees all items
+                              const el = document.getElementById('propiedades');
+                              if (el) {
+                                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }}
+                            className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                          >
+                            <span>{t.properties.verTodas}</span>
+                            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                          </button>
+                          <p className="text-[11px] font-bold text-slate-400 font-sans tracking-tight">
+                            {t.properties.showingAll} ({filteredProperties.length})
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
-            </Reveal>
+                );
+              })()}
+            </div>
           </div>
         </section>
 

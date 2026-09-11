@@ -102,8 +102,8 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 -bottom-1 h-40 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[20%] via-[#F8FAFC]/65 to-transparent pointer-events-none" />
         </div>
 
-        {/* Mobile: solid white text backdrop covering entire buttons and text area */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#F8FAFC] from-[78%] to-transparent pointer-events-none z-[1]" />
+        {/* Mobile: solid clean background covering entire text, buttons and trust badge */}
+        <div className="sm:hidden absolute inset-y-0 left-0 w-[82%] bg-gradient-to-r from-[#F8FAFC] from-[82%] via-[#F8FAFC]/90 to-transparent pointer-events-none z-[1]" />
       </div>
 
       <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
@@ -214,26 +214,26 @@ export default function HeroCarousel({
                 <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                   <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
                 </span>
-                <span className="font-extrabold font-sans text-slate-900 text-[11px] xs:text-xs sm:text-[15px] leading-snug">
+                <span className="font-extrabold font-sans text-slate-950 text-[11px] xs:text-xs sm:text-[15px] leading-snug">
                   {customTrustBadge ? (
                     customTrustBadge
                   ) : language === 'ca' ? (
                     <>
-                      <span className="block whitespace-nowrap">Més de 4.500</span>
-                      <span className="block whitespace-nowrap">clients ja confien</span>
-                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">en Gesgrama</span>
+                      <span className="block whitespace-nowrap text-slate-950">Més de 4.500</span>
+                      <span className="block whitespace-nowrap text-slate-950">clients ja confien</span>
+                      <span className="block whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
                     </>
                   ) : language === 'en' ? (
                     <>
-                      <span className="block whitespace-nowrap">Over 4,500 clients</span>
-                      <span className="block whitespace-nowrap">already trust</span>
-                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">Gesgrama</span>
+                      <span className="block whitespace-nowrap text-slate-950">Over 4,500 clients</span>
+                      <span className="block whitespace-nowrap text-slate-950">already trust</span>
+                      <span className="block whitespace-nowrap text-slate-950 font-black">Gesgrama</span>
                     </>
                   ) : (
                     <>
-                      <span className="block whitespace-nowrap">Más de 4.500</span>
-                      <span className="block whitespace-nowrap">clientes ya confían</span>
-                      <span className="block whitespace-nowrap text-slate-600 sm:text-slate-900">en Gesgrama</span>
+                      <span className="block whitespace-nowrap text-slate-950">Más de 4.500</span>
+                      <span className="block whitespace-nowrap text-slate-950">clientes ya confían</span>
+                      <span className="block whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
                     </>
                   )}
                 </span>
@@ -246,7 +246,7 @@ export default function HeroCarousel({
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.55, ease: expo }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-1 sm:mt-4 mb-1.5 sm:mb-0"
+          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-3 sm:mt-4 mb-2.5 sm:mb-0"
         >
           {/* Mobile: fade the right column into the background */}
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4.5 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">

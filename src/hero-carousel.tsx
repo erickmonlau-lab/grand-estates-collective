@@ -79,12 +79,12 @@ export default function HeroCarousel({
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half. On mobile: anchored strictly to the right */}
         <div className="absolute right-0 top-0 w-[62%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-full pointer-events-none bg-[#F8FAFC] sm:bg-transparent">
-          <picture className="w-full h-full block">
+          <picture className="w-full block sm:h-full">
             <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-contain object-[center_top] sm:object-cover sm:object-[right_top]"
+              className="w-full h-auto sm:h-full sm:object-cover sm:object-[right_top]"
               loading="eager"
               fetchPriority="high"
               width={2560}

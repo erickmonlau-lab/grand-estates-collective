@@ -1757,7 +1757,7 @@ function SantaColomaBarrioPage() {
                       <span className="font-extrabold text-slate-200">
                         {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
                       </span>
-                      <span className="font-black text-[#60a5fa] text-sm sm:text-base">
+                      <span className="font-black text-white text-sm sm:text-base">
                         {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
                       </span>
                     </div>

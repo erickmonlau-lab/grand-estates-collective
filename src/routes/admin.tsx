@@ -30,7 +30,8 @@ import {
   Info,
   Layers,
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  ArrowRight
 } from "lucide-react";
 import {
   fetchProperties,
@@ -659,118 +660,165 @@ function AdminDashboard() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProperties.map((p) => (
-              <div
-                key={p.id}
-                className="bg-white rounded-2xl border-2 border-slate-300 shadow-sm overflow-hidden flex flex-col group hover:border-[#2563eb] transition-colors"
-              >
-                {/* Card Image + Status Badges */}
-                <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <span className="bg-[#0b214a] text-white text-xs font-black uppercase px-3 py-1 rounded-lg shadow-sm">
-                      {p.type}
-                    </span>
-                    <span className={`text-xs font-black uppercase px-3 py-1 rounded-lg shadow-sm ${
-                      p.operation === "alquilar" ? "bg-emerald-600 text-white" : "bg-[#2563eb] text-white"
-                    }`}>
-                      {p.operation === "alquilar" ? "Alquiler" : "Venta"}
-                    </span>
-                  </div>
+            {filteredProperties.map((p) => {
+              const isRent = (p.operation || "").toLowerCase() === "alquilar" || p.price < 5000;
+              const type = p.type || "Piso";
 
-                  {/* Ref Badge */}
-                  <div className="absolute top-3 right-3 bg-white text-[#000000] text-xs font-mono font-black px-2.5 py-1 rounded-md border-2 border-slate-300 shadow-sm">
-                    Ref: {p.ref || "API A10750"}
-                  </div>
+              return (
+                <div
+                  key={p.id}
+                  onClick={() => handleOpenEditModal(p)}
+                  className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] transition-all duration-300 overflow-hidden cursor-pointer select-none"
+                >
+                  {/* Card Image + Status Badges */}
+                  <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
 
-                  {/* Status Overlay Badge */}
-                  {p.status && p.status !== "disponible" && (
-                    <div className="absolute bottom-3 left-3 bg-amber-500 text-white text-xs font-black uppercase px-3 py-1 rounded-md shadow-md">
-                      {p.status.toUpperCase()}
+                    {/* Floating Operation & Type Pills */}
+                    <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
+                      <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
+                        <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`} />
+                        <span>{isRent ? "Alquiler" : "Venta"}</span>
+                      </span>
+                      <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                        {type}
+                      </span>
                     </div>
-                  )}
+
+                    {/* Top-right Status Pill if reserved/sold */}
+                    {p.status && p.status !== "disponible" && (
+                      <div className="absolute top-3.5 right-3.5 z-20">
+                        <span className={`inline-flex items-center text-xs font-black uppercase tracking-wider px-3 py-1 rounded-xl shadow-md font-sans ${
+                          p.status === "reservado"
+                            ? "bg-amber-500 text-white"
+                            : p.status === "vendido" || p.status === "alquilado"
+                            ? "bg-slate-800 text-white border border-slate-700"
+                            : "bg-[#2563eb] text-white"
+                        }`}>
+                          {p.status}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Bottom-left Ref Badge directly over the image */}
+                    <div className="absolute bottom-3 left-3.5 z-20">
+                      <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                        Ref: {p.ref || "PJ2024"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                    <div>
+                      {/* Location with Pin - Solid White Pill (No Transparency) */}
+                      <div className="mb-2.5">
+                        <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
+                          <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                          <span className="truncate">{p.location}, Santa Coloma</span>
+                        </span>
+                      </div>
+
+                      {/* Main Title */}
+                      <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
+                        {p.name}
+                      </h3>
+
+                      {/* Features Micro-Boxes (Identical to Home Page) */}
+                      <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
+                        <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                          <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                          <span>{p.bedrooms > 0 ? p.bedrooms : "0"} hab</span>
+                        </div>
+                        <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                          <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                          <span>{p.bathrooms > 0 ? p.bathrooms : "1"} {p.bathrooms === 1 ? 'baño' : 'baños'}</span>
+                        </div>
+                        <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
+                          <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                          <span>{p.surface} m²</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Price & Action Row */}
+                    <div>
+                      <div className="pt-4 mt-3 border-t border-slate-100 flex items-end justify-between gap-3">
+                        <div className="flex flex-col min-w-0">
+                          {/* Blue Pill Badge for "PRECIO" / "ALQUILER" */}
+                          <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
+                            {isRent ? "ALQUILER" : "PRECIO"}
+                          </span>
+                          <div className="flex items-baseline whitespace-nowrap">
+                            <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
+                              {new Intl.NumberFormat('es-ES').format(p.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
+                            </span>
+                            {isRent && (
+                              <span className="text-[11px] font-black text-slate-500 font-sans ml-1">/mes</span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Direct Click to Edit Pill Badge */}
+                        <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-2 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                          <span>Editar</span>
+                          <Edit className="w-3.5 h-3.5 stroke-[2.5]" />
+                        </div>
+                      </div>
+
+                      {/* Admin Controls Footer (Status quick change + External link + Delete) */}
+                      <div 
+                        onClick={(e) => e.stopPropagation()} 
+                        className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2"
+                      >
+                        {/* Status Dropdown Quick Changer */}
+                        <div className="relative">
+                          <select
+                            value={p.status || "disponible"}
+                            onChange={(e) => handleQuickStatusChange(p.id, e.target.value as any)}
+                            className="appearance-none text-xs font-black bg-slate-100 border border-slate-300 rounded-lg pl-3 pr-7 py-1.5 text-[#000000] outline-none cursor-pointer hover:bg-slate-200 transition-colors"
+                          >
+                            <option value="disponible">🟢 Disponible</option>
+                            <option value="reservado">🟡 Reservado</option>
+                            <option value="vendido">🔴 Vendido</option>
+                            <option value="alquilado">🔵 Alquilado</option>
+                          </select>
+                          <ChevronDown className="w-3.5 h-3.5 text-[#000000] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                        </div>
+
+                        <div className="flex items-center gap-1">
+                          <Link
+                            to="/inmobiliaria/$slug"
+                            params={{ slug: p.slug }}
+                            target="_blank"
+                            className="p-1.5 text-slate-700 hover:text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors"
+                            title="Ver en web"
+                          >
+                            <ExternalLink className="w-4 h-4 stroke-[2.5]" />
+                          </Link>
+
+                          <button
+                            type="button"
+                            onClick={() => setDeleteConfirmId(p.id)}
+                            className="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                            title="Eliminar inmueble"
+                          >
+                            <Trash2 className="w-4 h-4 stroke-[2.5]" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-
-                {/* Card Content */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-lg font-black text-[#000000] line-clamp-1 mb-1 font-sans">{p.name}</h3>
-                    <p className="text-xs font-bold text-slate-700 flex items-center gap-1 mb-3">
-                      <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                      <span>{p.location}, {p.city || "Santa Coloma"}</span>
-                    </p>
-
-                    <div className="flex items-center justify-between text-xs font-black text-[#000000] py-2.5 border-y-2 border-slate-200 mb-3">
-                      <span className="flex items-center gap-1">
-                        <Bed className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.bedrooms} hab.
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Bath className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.bathrooms} {p.bathrooms === 1 ? 'baño' : 'baños'}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Maximize2 className="w-4 h-4 text-[#2563eb] stroke-[2.5]" /> {p.surface} m²
-                      </span>
-                    </div>
-
-                    <div className="text-2xl font-black text-[#2563eb] font-sans">
-                      {p.priceFormatted || `${p.price.toLocaleString("es-ES")} €`}
-                    </div>
-                  </div>
-
-                  {/* Actions Row */}
-                  <div className="mt-5 pt-4 border-t-2 border-slate-200 flex items-center justify-between gap-2">
-                    
-                    {/* Status Dropdown Quick Changer */}
-                    <div className="relative">
-                      <select
-                        value={p.status || "disponible"}
-                        onChange={(e) => handleQuickStatusChange(p.id, e.target.value as any)}
-                        className="appearance-none text-xs font-black bg-slate-100 border-2 border-slate-300 rounded-lg pl-3 pr-7 py-2 text-[#000000] outline-none cursor-pointer hover:bg-slate-200 transition-colors"
-                      >
-                        <option value="disponible">🟢 Disponible</option>
-                        <option value="reservado">🟡 Reservado</option>
-                        <option value="vendido">🔴 Vendido</option>
-                        <option value="alquilado">🔵 Alquilado</option>
-                      </select>
-                      <ChevronDown className="w-3.5 h-3.5 text-[#000000] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
-                    </div>
-
-                    <div className="flex items-center gap-1.5">
-                      <Link
-                        to="/inmobiliaria/$slug"
-                        params={{ slug: p.slug }}
-                        target="_blank"
-                        className="p-2 text-[#000000] hover:text-[#2563eb] hover:bg-blue-50 rounded-lg transition-colors"
-                        title="Ver en web"
-                      >
-                        <ExternalLink className="w-4 h-4 stroke-[2.5]" />
-                      </Link>
-
-                      <button
-                        onClick={() => handleOpenEditModal(p)}
-                        className="p-2 text-[#000000] hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
-                        title="Editar inmueble"
-                      >
-                        <Edit className="w-4 h-4 stroke-[2.5]" />
-                      </button>
-
-                      <button
-                        onClick={() => setDeleteConfirmId(p.id)}
-                        className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                        title="Eliminar inmueble"
-                      >
-                        <Trash2 className="w-4 h-4 stroke-[2.5]" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 

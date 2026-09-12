@@ -617,52 +617,62 @@ function SantaColomaBarrioPage() {
   }, []);
 
   // Filtered and sorted properties
-  const filteredProperties = liveProperties
-    .filter(prop => {
-      if (searchParams.mode === "favoritos") {
-        return favorites.includes(prop.id);
-      }
-      const pOp = prop.operation || "comprar";
-      return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
-    })
-    .filter(prop => {
-      if (searchParams.mode === "favoritos") return true;
-      const matchesZone = searchParams.zona === "Cualquier zona" || (prop.location && prop.location.includes(searchParams.zona));
-      const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
-      const matchesPrice = isPriceValid(searchParams.precio, prop.price);
-      const matchesBeds = searchParams.habitaciones === "Cualquier número" || !searchParams.habitaciones || (
-        searchParams.habitaciones.includes("+")
-          ? prop.bedrooms >= parseInt(searchParams.habitaciones.replace("+", ""), 10)
-          : prop.bedrooms === parseInt(searchParams.habitaciones, 10)
-      );
-      return matchesZone && matchesType && matchesPrice && matchesBeds;
-    })
+  const matchesFilter = (prop: ExtendedProperty) => {
+    if (searchParams.mode === "favoritos") {
+      return favorites.includes(prop.id);
+    }
+    const pOp = prop.operation || "comprar";
+    const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+    if (!matchesMode) return false;
+
+    const matchesZone = searchParams.zona === "Cualquier zona" || (prop.location && prop.location.includes(searchParams.zona));
+    const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
+    const matchesPrice = isPriceValid(searchParams.precio, prop.price);
+    const matchesBeds = searchParams.habitaciones === "Cualquier número" || !searchParams.habitaciones || (
+      searchParams.habitaciones.includes("+")
+        ? prop.bedrooms >= parseInt(searchParams.habitaciones.replace("+", ""), 10)
+        : prop.bedrooms === parseInt(searchParams.habitaciones, 10)
+    );
+    return matchesZone && matchesType && matchesPrice && matchesBeds;
+  };
+
+  const exactMatches = liveProperties
+    .filter(matchesFilter)
     .sort((a, b) => {
       if (sortOption === "precio_asc") return a.price - b.price;
       if (sortOption === "precio_desc") return b.price - a.price;
       return 0; // recientes / default order
     });
 
-  let displayProperties = filteredProperties.slice(0, visibleCount);
+  // If there are no properties matching this neighborhood/filters, show ALL available properties
   let isFallback = false;
+  let effectiveProperties = exactMatches;
 
-  if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
+  if (exactMatches.length === 0 && searchParams.mode !== "favoritos") {
     isFallback = true;
-    let similarProperties = liveProperties
-      .filter(p => searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona)))
-      .filter(p => (p.operation || "comprar") === searchParams.mode);
+    effectiveProperties = liveProperties
+      .filter(prop => {
+        const pOp = prop.operation || "comprar";
+        return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+      })
+      .sort((a, b) => {
+        if (sortOption === "precio_asc") return a.price - b.price;
+        if (sortOption === "precio_desc") return b.price - a.price;
+        return 0;
+      });
 
-    if (similarProperties.length === 0) {
-      similarProperties = liveProperties
-        .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
-        .filter(p => (p.operation || "comprar") === searchParams.mode);
+    // If still empty (e.g. no rental properties), show all properties in the entire catalog
+    if (effectiveProperties.length === 0) {
+      effectiveProperties = [...liveProperties].sort((a, b) => {
+        if (sortOption === "precio_asc") return a.price - b.price;
+        if (sortOption === "precio_desc") return b.price - a.price;
+        return 0;
+      });
     }
-
-    if (similarProperties.length === 0) {
-      similarProperties = liveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
-    }
-    displayProperties = similarProperties.slice(0, 3);
   }
+
+  const filteredProperties = effectiveProperties;
+  const displayProperties = filteredProperties.slice(0, visibleCount);
 
   // Available filter options
   const tipos = ["Cualquier tipo", "Piso", "Ático", "Local comercial", "Chalet"];
@@ -1272,8 +1282,29 @@ function SantaColomaBarrioPage() {
                     </div>
 
                     {isFallback && (
-                      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-amber-800 text-sm font-medium">
-                        {t.properties.fallbackMsg}
+                      <div className="bg-blue-50/80 border border-blue-200/80 rounded-2xl p-4 sm:p-5 mb-6 text-slate-800 text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                        <div className="flex items-center gap-3">
+                          <span className="w-8 h-8 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
+                            <Home className="w-4 h-4" />
+                          </span>
+                          <p className="font-semibold text-slate-700 leading-snug">
+                            {language === "ca"
+                              ? `Actualment no hi ha immobles exclusius a ${data.name}. T'oferim el catàleg complet d'immobles disponibles a Santa Coloma de Gramenet:`
+                              : language === "en"
+                              ? `There are currently no exclusive listings in ${data.name}. Here is our full catalog of available properties across Santa Coloma:`
+                              : `Actualmente no hay inmuebles exclusivos en ${data.name}. Te mostramos todo nuestro catálogo de inmuebles disponibles en Santa Coloma:`}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSearchParams(prev => ({ ...prev, zona: "Cualquier zona" }));
+                            setConsoleFilters(prev => ({ ...prev, zona: "Cualquier zona" }));
+                          }}
+                          className="shrink-0 text-xs font-black uppercase tracking-wider text-[#2563eb] hover:text-[#1d4ed8] underline cursor-pointer"
+                        >
+                          {t.properties.verTodas}
+                        </button>
                       </div>
                     )}
 

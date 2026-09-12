@@ -539,16 +539,16 @@ function AdminDashboard() {
             <Link
               to="/"
               target="_blank"
-              className="hidden md:flex items-center gap-1.5 text-xs font-extrabold text-slate-300 hover:text-white bg-white/10 px-3 py-2 rounded-xl transition-colors"
+              className="hidden md:flex items-center gap-1.5 text-xs font-black text-white bg-slate-700 hover:bg-slate-600 px-3.5 py-2 rounded-xl transition-colors shadow-sm"
             >
               <span>Ver Web</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 text-white" />
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs font-black text-red-300 hover:text-red-200 bg-red-950/40 border border-red-500/30 px-3.5 py-2 rounded-xl transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-black text-white bg-rose-600 hover:bg-rose-700 px-3.5 py-2 rounded-xl transition-colors cursor-pointer shadow-sm"
             >
-              <LogOut className="w-4 h-4" />
+              <LogOut className="w-4 h-4 text-white" />
               <span>Cerrar Sesión</span>
             </button>
           </div>

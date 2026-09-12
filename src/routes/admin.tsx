@@ -31,7 +31,9 @@ import {
   Layers,
   Sparkles,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  Phone,
+  Mail
 } from "lucide-react";
 import {
   fetchProperties,
@@ -45,6 +47,9 @@ import {
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { SANTA_COLOMA_ZONES, type PropertyType } from "@/data/properties";
 import { autoTranslateText } from "@/lib/translateProperty";
+import { FooterMascot } from "@/components/FooterMascot";
+import { AccreditationBadges } from "@/components/AccreditationBadges";
+import { translations } from "@/data/translations";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -471,7 +476,7 @@ function AdminDashboard() {
 
   // 2. AUTHENTICATED ADMIN DASHBOARD
   return (
-    <div className="min-h-screen bg-slate-100 text-[#0f172a] font-sans pb-16">
+    <div className="min-h-screen bg-slate-100 text-[#0f172a] font-sans flex flex-col justify-between">
       
       {/* Top Navbar */}
       <header className="bg-[#0b1221] text-white sticky top-0 z-30 shadow-md border-b border-white/10">
@@ -510,7 +515,7 @@ function AdminDashboard() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-8">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-8 pb-16 flex-1 w-full">
         
         {/* Supabase Status & Setup Helper Banner */}
         <div className="bg-white border-2 border-slate-300 rounded-2xl p-5 mb-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -823,6 +828,172 @@ function AdminDashboard() {
         )}
 
       </main>
+
+      {/* FOOTER OFICIAL GESGRAMA */}
+      <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10 w-full" style={{ backgroundColor: '#0b1221' }}>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col gap-10 relative">
+          
+          {/* Top Section: 4 Columns + Mascot */}
+          <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
+            {/* Text Columns (Left Block) */}
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
+              {/* Logo + tagline */}
+              <div className="lg:col-span-1">
+                <div className="inline-block mb-4">
+                  <img src="/images/logo-gesgrama-text-horizontal.webp" alt="Gesgrama - Inmobiliaria y Administración de Fincas" width={212} height={52} className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
+                </div>
+                <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
+                  {translations.es.footer.descripcion}
+                </p>
+              </div>
+
+              {/* Navegación rápida */}
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{translations.es.footer.quickLinks}</h3>
+                <ul className="space-y-3.5">
+                  {[
+                    { label: translations.es.nav.propiedades, href: "/#propiedades" },
+                    { label: translations.es.nav.servicios, href: "/#servicios" },
+                    { label: translations.es.nav.nosotros, href: "/#nosotros" },
+                    { label: translations.es.nav.contacto, href: "/#contacto" },
+                  ].map(link => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contacto */}
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{translations.es.footer.contactInfo}</h3>
+                <ul className="space-y-4 text-base text-slate-300 font-bold">
+                  <li className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
+                    <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
+                  </li>
+                  <li>
+                    <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
+                      <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
+                      Oficina: 93 468 56 56
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
+                        <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                      </svg>
+                      WhatsApp: 601 25 94 24
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:info@gesgrama.com" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
+                      <Mail className="w-5 h-5 text-[#2563eb] shrink-0" />
+                      info@gesgrama.com
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Legal */}
+              <div>
+                <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{translations.es.footer.legal}</h3>
+                <ul className="space-y-3.5">
+                  <li>
+                    <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Aviso Legal
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Política de Privacidad
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Política de Cookies
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Mascot on Mobile (<768px): Placed discreetly at the end of content */}
+            <div className="w-full md:hidden flex justify-center items-center pt-2 pb-2">
+              <FooterMascot className="w-24 sm:w-28 h-auto object-contain drop-shadow-md opacity-90" />
+            </div>
+
+            {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}
+            <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
+              <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
+            </div>
+          </div>
+
+          {/* Cobertura en Santa Coloma de Gramenet */}
+          <div className="border-t border-white/10 pt-8 pb-2">
+            <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
+              COBERTURA EN SANTA COLOMA DE GRAMENET
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-7 gap-2 sm:gap-2.5">
+              {[
+                { name: "Centre", slug: "centre" },
+                { name: "Santa Rosa", slug: "santa-rosa" },
+                { name: "Can Mariner", slug: "can-mariner" },
+                { name: "Fondo", slug: "fondo" },
+                { name: "Singuerlín", slug: "singuerlin" },
+                { name: "Riera Alta", slug: "riera-alta" },
+                { name: "Llatí", slug: "llati" },
+                { name: "El Raval", slug: "el-raval" },
+                { name: "Riu Nord", slug: "riu-nord" },
+                { name: "Riu Sud", slug: "riu-sud" },
+                { name: "Can Franquesa", slug: "can-franquesa" },
+                { name: "Les Oliveres", slug: "les-oliveres" },
+                { name: "La Guinardera", slug: "la-guinardera" },
+                { name: "Cementiri Vell", slug: "cementiri-vell" }
+              ].map(zone => (
+                <Link
+                  key={zone.slug}
+                  to="/administrador-fincas/$city"
+                  params={{ city: zone.slug }}
+                  className="px-2.5 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] text-xs sm:text-xs xl:text-sm font-extrabold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-1.5 text-center whitespace-nowrap"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
+                  <span className="truncate">{zone.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Horizontal Block: Acreditaciones Profesionales */}
+          <div className="border-t border-white/10 pt-8">
+            <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
+              ACREDITACIONES PROFESIONALES
+            </h3>
+            <AccreditationBadges language="es" />
+          </div>
+
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 bg-[#060c18]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
+            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {translations.es.footer.rights} · <span className="inline-block whitespace-nowrap">Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="underline hover:text-blue-300">Kovia</a></span></p>
+            <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
+              <Link to="/aviso-legal" className="hover:text-blue-200">Aviso Legal</Link>
+              <span>·</span>
+              <Link to="/politica-privacidad" className="hover:text-blue-200">Privacidad</Link>
+              <span>·</span>
+              <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* CREATE / EDIT PROPERTY MODAL */}
       {isModalOpen && (

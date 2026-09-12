@@ -1895,34 +1895,68 @@ function SantaColomaBarrioPage() {
                     const isEqual = diffPrice === 0;
 
                     return (
-                      <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 divide-y divide-blue-900/60 font-sans">
-                        {/* Line 1: Neighborhood average price */}
-                        <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
-                          <span className="font-bold text-slate-300">
-                            {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
-                          </span>
-                          <span className="font-black text-white text-sm sm:text-base">
-                            {new Intl.NumberFormat('es-ES').format(neighborhoodPricePerM2)} €/m²
-                          </span>
+                      <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 font-sans">
+                        <div className="divide-y divide-blue-900/60">
+                          {/* Line 1: Neighborhood average price */}
+                          <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
+                            <span className="font-bold text-slate-300">
+                              {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
+                            </span>
+                            <span className="font-black text-white text-sm sm:text-base">
+                              {new Intl.NumberFormat('es-ES').format(neighborhoodPricePerM2)} €/m²
+                            </span>
+                          </div>
+
+                          {/* Line 2: Property estimated price/m² and comparative indicator */}
+                          <div className="flex items-center justify-between text-xs sm:text-sm pt-2.5">
+                            <div className="flex items-center gap-1.5 group/tip relative">
+                              <span className="font-bold text-slate-300">
+                                {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
+                              </span>
+                              <button
+                                type="button"
+                                aria-label={
+                                  language === "ca"
+                                    ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor total i la superfície indicada."
+                                    : language === "en"
+                                    ? "Estimated price per sq m for your home, calculated from total estimated value and specified area."
+                                    : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."
+                                }
+                                className="text-slate-400 hover:text-white cursor-pointer focus:outline-hidden"
+                              >
+                                <Info className="w-3.5 h-3.5" />
+                              </button>
+                              {/* Hover/focus tooltip */}
+                              <div className="pointer-events-none absolute left-0 bottom-full mb-2 hidden w-56 sm:w-64 rounded-xl bg-slate-900/95 p-2.5 text-[11px] font-normal leading-snug text-slate-200 shadow-xl border border-slate-700 backdrop-blur-md z-50 group-hover/tip:block group-focus-within/tip:block transition-all">
+                                {language === "ca"
+                                  ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor estimat total i la superfície indicada."
+                                  : language === "en"
+                                  ? "Estimated price per sq m for your home, calculated from the total estimated value and specified area."
+                                  : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="font-black text-white text-sm sm:text-base">
+                                {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
+                              </span>
+                              {!isEqual && (
+                                <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-sm text-white ${
+                                  isAbove ? "bg-emerald-600 border border-emerald-500/50" : "bg-sky-600 border border-sky-500/50"
+                                }`}>
+                                  {isAbove ? `+${diffPct}%` : `${diffPct}%`}
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
 
-                        {/* Line 2: Property estimated price/m² and comparative indicator */}
-                        <div className="flex items-center justify-between text-xs sm:text-sm pt-2.5">
-                          <span className="font-bold text-slate-300">
-                            {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <span className="font-black text-white text-sm sm:text-base">
-                              {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
-                            </span>
-                            {!isEqual && (
-                              <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-sm text-white ${
-                                isAbove ? "bg-emerald-600 border border-emerald-500/50" : "bg-sky-600 border border-sky-500/50"
-                              }`}>
-                                {isAbove ? `+${diffPct}%` : `${diffPct}%`}
-                              </span>
-                            )}
-                          </div>
+                        {/* Micro-note explaining comparison and percentage diff */}
+                        <div className="mt-2.5 pt-2 border-t border-blue-900/40 text-[11px] text-slate-400 text-center leading-tight">
+                          {language === "ca"
+                            ? "Compara el preu estimat del teu habitatge amb la mitjana de la zona."
+                            : language === "en"
+                            ? "Compares your estimated property price with the area average."
+                            : "Compara el precio estimado de tu vivienda con la media de la zona."}
                         </div>
                       </div>
                     );

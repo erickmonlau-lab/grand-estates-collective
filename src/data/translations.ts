@@ -647,7 +647,7 @@ export const translations = {
       analizando: "Analyzing data for",
       valorEstimado: "ESTIMATED VALUE",
       rangoEstimado: "Estimated range",
-      disclaimer: "Guidance valuation based on real estate sector averages.",
+      disclaimer: "Guidance valuation based on market averages.",
       seleccionaZona: "Select area",
       estimacionAutomatizada: "Orientative estimation based on market data, does not replace a professional appraisal",
       ejemploResultado: "SAMPLE RESULT",

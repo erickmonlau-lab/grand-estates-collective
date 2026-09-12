@@ -1758,9 +1758,9 @@ function Index() {
                   />
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-700 mb-4 font-bold py-2 px-3 rounded-xl bg-blue-50/70 border border-blue-200/80">
-                  <span className="text-[#2563eb] font-black text-base leading-none">*</span>
-                  <span className="text-slate-800 font-semibold">{t.valorador.disclaimer}</span>
+                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-700 mb-4 font-bold py-2 px-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-center">
+                  <span className="text-[#2563eb] font-black text-base leading-none shrink-0">*</span>
+                  <span className="text-slate-800 font-semibold text-balance">{t.valorador.disclaimer}</span>
                 </div>
                 
                 {/* 3. Sparkline Price Trend Chart Container */}
@@ -2191,22 +2191,37 @@ function Index() {
               </div>
             </Reveal>
 
-            {/* Accordion Cards - ~80% compact padding and sizing */}
-            <div className="w-full flex flex-col gap-2.5 mb-6">
+            {/* Accordion Cards - Visual Cards with Index Badges & Balanced Text */}
+            <div className="w-full flex flex-col gap-3 mb-6">
               {t.faq.items.map((item, i) => {
                 const isActive = activeFaq === i;
                 return (
                   <Reveal key={i} delay={i * 0.08}>
                     <div 
                       onClick={() => setActiveFaq(isActive ? null : i)}
-                      className="cursor-pointer bg-[#e2e8f0] border border-slate-300/80 rounded-xl p-3.5 sm:p-4 shadow-xs transition-colors duration-200 hover:border-slate-400 group"
+                      className={`cursor-pointer rounded-2xl p-4 sm:p-5 transition-all duration-300 group border ${
+                        isActive 
+                          ? 'bg-white shadow-lg border-blue-500/40 ring-1 ring-blue-500/20' 
+                          : 'bg-slate-100/95 hover:bg-white border-slate-200/90 hover:border-blue-400/50 shadow-xs'
+                      }`}
                     >
-                      <div className="flex justify-between items-center gap-3">
-                        <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg pr-2 font-sans leading-snug">{item.q}</h3>
+                      <div className="flex justify-between items-center gap-3.5">
+                        <div className="flex items-start sm:items-center gap-3 min-w-0">
+                          <span className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors duration-200 font-sans ${
+                            isActive ? 'bg-[#2563eb] text-white shadow-xs' : 'bg-slate-200 text-slate-700 group-hover:bg-blue-100 group-hover:text-[#2563eb]'
+                          }`}>
+                            0{i + 1}
+                          </span>
+                          <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg font-sans leading-snug text-balance">
+                            {item.q}
+                          </h3>
+                        </div>
                         <motion.div 
                           animate={{ rotate: isActive ? 45 : 0 }}
                           transition={{ duration: 0.2, ease: "easeOut" }}
-                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 shadow-xs ${isActive ? 'bg-[#1d4ed8] text-white' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'}`}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
+                            isActive ? 'bg-[#1d4ed8] text-white shadow-sm' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'
+                          }`}
                         >
                           <span className="text-xl font-black leading-none select-none">+</span>
                         </motion.div>
@@ -2221,7 +2236,7 @@ function Index() {
                             transition={{ duration: 0.28, ease: "easeOut" }}
                             className="overflow-hidden"
                           >
-                            <p className="pt-3 text-[#0f172a] leading-relaxed font-bold text-xs sm:text-sm md:text-base border-t border-slate-300/80 mt-3 font-sans">
+                            <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
                               {item.a}
                             </p>
                           </motion.div>

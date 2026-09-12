@@ -1442,9 +1442,12 @@ function SantaColomaBarrioPage() {
                             <span>{t.properties.verTodas}</span>
                             <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                           </button>
-                          <p className="text-[11px] font-bold text-slate-400 font-sans tracking-tight">
-                            {t.properties.showingAll} ({filteredProperties.length})
-                          </p>
+                          <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
+                            <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                            <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
+                              {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
+                            </p>
+                          </div>
                         </div>
                       )}
                     </div>

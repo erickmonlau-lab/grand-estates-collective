@@ -520,7 +520,7 @@ function AdminDashboard() {
 
   // 2. AUTHENTICATED ADMIN DASHBOARD
   return (
-    <div className="min-h-screen bg-slate-100 text-[#0f172a] font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-slate-100 text-[#0f172a] font-ui-clean flex flex-col justify-between">
       
       {/* Top Navbar */}
       <header className="bg-[#0b1221] text-white sticky top-0 z-30 shadow-md border-b border-white/10">
@@ -1049,7 +1049,7 @@ function AdminDashboard() {
 
       {/* CREATE / EDIT PROPERTY MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto font-ui-clean">
           <div className="bg-white rounded-3xl w-full max-w-3xl shadow-2xl border-2 border-slate-300 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
@@ -1059,7 +1059,7 @@ function AdminDashboard() {
                   <Building2 className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black font-sans">
+                  <h3 className="text-xl font-black">
                     {editingProperty ? "Editar Inmueble" : "Añadir Nuevo Inmueble"}
                   </h3>
                   <p className="text-xs text-slate-300 mt-0.5">
@@ -1151,12 +1151,12 @@ function AdminDashboard() {
                         >
                           <option value="Piso">Piso</option>
                           <option value="Ático">Ático</option>
-                          <option value="Apartamento">Apartamento</option>
-                          <option value="Local comercial">Local comercial</option>
-                          <option value="Chalet">Chalet</option>
-                          <option value="Oficina">Oficina</option>
+                          <option value="Dúplex">Dúplex</option>
+                          <option value="Casa">Casa / Chalet</option>
+                          <option value="Local">Local Comercial</option>
+                          <option value="Parking">Parking</option>
                         </select>
-                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                        <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                       </div>
                     </div>
 
@@ -1173,7 +1173,7 @@ function AdminDashboard() {
                           <option value="comprar">Venta</option>
                           <option value="alquilar">Alquiler</option>
                         </select>
-                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                        <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                       </div>
                     </div>
 
@@ -1185,42 +1185,52 @@ function AdminDashboard() {
                         type="text"
                         value={formData.ref}
                         onChange={(e) => setFormData({ ...formData, ref: e.target.value })}
-                        placeholder="API A10750"
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                        placeholder="ej: API A10750"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                        Barrio / Zona
+                        Zona / Barrio *
                       </label>
                       <div className="relative">
                         <select
                           value={formData.location}
-                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          onChange={(e: any) => setFormData({ ...formData, location: e.target.value })}
                           className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                         >
-                          {SANTA_COLOMA_ZONES.map((zone) => (
-                            <option key={zone} value={zone}>{zone}</option>
-                          ))}
+                          <option value="Centro">Centro</option>
+                          <option value="Santa Rosa - Can Mariner">Santa Rosa - Can Mariner</option>
+                          <option value="Fondo">Fondo</option>
+                          <option value="Singuerlín">Singuerlín</option>
+                          <option value="Riera Alta - Llatí">Riera Alta - Llatí</option>
+                          <option value="El Raval">El Raval</option>
+                          <option value="Riu">Riu</option>
                         </select>
-                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                        <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Row 3: Precio, Habitaciones, Baños, Superficie, Planta/Tipo */}
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-                    <div>
+                  {/* Row 3: Precio, Habitaciones, Baños, Superficie y Planta */}
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                    <div className="col-span-2 sm:col-span-1">
                       <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
                         Precio (€) *
                       </label>
                       <input
                         type="number"
-                        required
                         value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#2563eb] outline-none focus:border-[#2563eb]"
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setFormData({
+                            ...formData,
+                            price: val,
+                            priceFormatted: formData.operation === "alquilar" ? `${val} €/mes` : `${val.toLocaleString("es-ES")} €`
+                          });
+                        }}
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
 
@@ -1230,10 +1240,9 @@ function AdminDashboard() {
                       </label>
                       <input
                         type="number"
-                        min={0}
                         value={formData.bedrooms}
                         onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
 
@@ -1243,10 +1252,9 @@ function AdminDashboard() {
                       </label>
                       <input
                         type="number"
-                        min={0}
                         value={formData.bathrooms}
                         onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
 
@@ -1256,37 +1264,37 @@ function AdminDashboard() {
                       </label>
                       <input
                         type="number"
-                        min={1}
                         value={formData.surface}
                         onChange={(e) => setFormData({ ...formData, surface: Number(e.target.value) })}
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
 
                     <div>
                       <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                        Planta / Altura
+                        Planta
                       </label>
                       <input
                         type="text"
                         value={formData.floor}
                         onChange={(e) => setFormData({ ...formData, floor: e.target.value })}
-                        placeholder="ej: Planta 3ª, Bajos"
-                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                        placeholder="ej: Planta 3ª"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
                       />
                     </div>
                   </div>
 
-                  {/* Row 4: Estado y Componente Interactivo de Características (Chips/Tags) */}
+                  {/* Row 4: Estado Comercial + Tags/Chips de Características */}
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {/* Estado Comercial */}
                       <div>
                         <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                          Estado Actual
+                          Estado Comercial *
                         </label>
                         <div className="relative">
                           <select
-                            value={formData.status}
+                            value={formData.status || "disponible"}
                             onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
                             className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
                           >
@@ -1316,7 +1324,7 @@ function AdminDashboard() {
                               }
                             }}
                             placeholder="Escribe una comodidad (ej. Ascensor, Terraza...) y pulsa Enter"
-                            className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                            className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-bold text-[#000000] outline-none focus:border-[#2563eb]"
                           />
                           <button
                             type="button"
@@ -1351,12 +1359,12 @@ function AdminDashboard() {
                             .map((feat) => (
                               <div
                                 key={feat}
-                                className="inline-flex items-center gap-2 bg-blue-50/80 border-2 border-blue-300 px-3.5 py-2 rounded-xl text-xs font-black text-[#0f172a] shadow-xs hover:border-[#2563eb] transition-all group"
+                                className="inline-flex items-center gap-2 bg-blue-50/80 border-2 border-blue-300 px-3.5 py-2 rounded-xl text-xs font-bold text-[#0f172a] shadow-xs hover:border-[#2563eb] transition-all group"
                               >
                                 <div className="w-5 h-5 rounded-md bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
                                   <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
                                 </div>
-                                <span className="font-sans">{feat}</span>
+                                <span>{feat}</span>
                                 <button
                                   type="button"
                                   onClick={() => handleRemoveFeature(feat)}
@@ -1375,8 +1383,8 @@ function AdminDashboard() {
                       )}
 
                       {/* Quick Suggestions Pills */}
-                      <div className="mt-3.5 pt-3 border-t border-slate-200 flex flex-wrap items-center gap-1.5">
-                        <span className="text-[11px] font-black uppercase text-slate-700 mr-1">Sugerencias rápidas:</span>
+                      <div className="mt-3.5 pt-3 border-t border-slate-200 flex flex-wrap items-center gap-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-700 mr-1">Sugerencias rápidas:</span>
                         {["Ascensor", "Terraza", "Balcón", "Parking", "Calefacción", "Aire Acondicionado", "Exterior", "Cerca de Metro", "Reformado"].map((sug) => {
                           const isAlreadyAdded = formData.features
                             ? formData.features.split(",").map((s) => s.trim().toLowerCase()).includes(sug.toLowerCase())
@@ -1387,7 +1395,7 @@ function AdminDashboard() {
                               key={sug}
                               type="button"
                               onClick={() => handleAddFeature(sug)}
-                              className="text-[11px] font-extrabold bg-white border border-slate-300 hover:border-[#2563eb] text-slate-800 hover:text-[#2563eb] px-2.5 py-1 rounded-lg transition-colors cursor-pointer shadow-2xs"
+                              className="text-xs font-semibold bg-white border border-slate-300 hover:border-[#2563eb] text-slate-800 hover:text-[#2563eb] px-3 py-1.5 rounded-lg transition-colors cursor-pointer shadow-2xs"
                             >
                               + {sug}
                             </button>

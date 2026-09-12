@@ -579,202 +579,190 @@ function PropertyDetail() {
       {/* SHARED CANONICAL NAVY NAVBAR */}
       <Navbar language={language} setLanguage={changeLanguage} />
 
-      <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1340px] mx-auto">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-5 sm:p-8 md:p-12">
+      <main className="pt-24 sm:pt-28 md:pt-32 pb-20 px-4 sm:px-6 md:px-8 max-w-[1340px] mx-auto">
+        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 p-4 sm:p-6 md:p-8 lg:p-10">
           
-          {/* TOP NAV / ACTIONS BAR */}
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
-            <div className="flex items-center gap-3">
+          {/* COMPACT TOP NAV / ACTIONS BAR - STREAMLINED FOR ABOVE-THE-FOLD SPACE */}
+          <div className="mb-4 sm:mb-6 flex items-center justify-between gap-3 border-b border-slate-200 pb-3 sm:pb-4">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <Link 
                 to="/" 
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 py-2.5 rounded-full border-2 border-blue-600 shadow-sm transition-all duration-200 hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-blue-600 shadow-xs transition-all duration-200 hover:scale-102 cursor-pointer shrink-0"
               >
-                <ArrowLeft className="w-4 h-4 text-white stroke-[2.5]" /> {t.detail.back}
+                <ArrowLeft className="w-3.5 h-3.5 text-white stroke-[2.5]" /> {t.detail.back}
               </Link>
-              <div className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-400">
+              <nav aria-label="Breadcrumb" className="hidden md:flex items-center gap-1.5 text-xs font-bold text-slate-500 truncate">
                 <span>/</span>
-                <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors font-extrabold text-slate-700">
+                <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors font-extrabold text-slate-700 whitespace-nowrap">
                   {property.operation === "alquilar" ? t.detail.forRent : t.detail.forSale}
                 </a>
                 <span>/</span>
-                <span className="text-[#0f172a] font-black truncate max-w-[200px]">{property.ref || property.id.toUpperCase()}</span>
-              </div>
+                <span className="text-slate-500 whitespace-nowrap">Santa Coloma</span>
+                <span>/</span>
+                <span className="text-[#0f172a] font-black truncate max-w-[240px]">{pData.name}</span>
+              </nav>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               <a
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${property?.name ? `${property.name} — ` : ''}${typeof window !== "undefined" ? window.location.href : `${SITE_DOMAIN}/inmobiliaria/${slug}`}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 py-2 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3 py-1.5 rounded-full transition-all shadow-xs hover:scale-102 cursor-pointer"
                 title="Compartir por WhatsApp"
               >
                 <WhatsAppIcon className="w-3.5 h-3.5 fill-white shrink-0" />
-                <span className="hidden md:inline">WhatsApp</span>
+                <span className="hidden lg:inline">WhatsApp</span>
               </a>
 
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-5 py-2.5 rounded-full border-2 border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-blue-900 transition-all shadow-xs hover:scale-102 cursor-pointer"
                 title={t.detail.shareTitle}
               >
-                {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
+                {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" /> : <Share2 className="w-3.5 h-3.5 text-blue-200" />}
                 <span>{copiedLink ? t.detail.linkCopied : t.detail.share}</span>
               </button>
             </div>
           </div>
 
-          {/* BREADCRUMB - Clean desktop path, hidden on mobile for cleaner native experience */}
-          <nav aria-label="Breadcrumb" className="hidden sm:flex mb-6 items-center flex-wrap gap-2 text-xs font-bold text-slate-500">
-            <Link to="/" className="hover:text-[#2563eb] transition-colors text-slate-700">
-              {t.detail.home}
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <a href="/#propiedades" className="hover:text-[#2563eb] transition-colors text-slate-700">{t.detail.realEstate}</a>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-slate-500 font-bold">Santa Coloma de Gramenet</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-            <span className="text-[#2563eb] font-black break-words">
-              {pData.name}
-            </span>
-          </nav>
+          {/* ════════════════════════════════════════════════════════════════════════
+              HERO SECTION: 2 COLUMNS IN DESKTOP (IMAGE LEFT + TITLE/PRICE/SPECS RIGHT)
+              VERTICAL IN MOBILE (IMAGE TOP, CONTENT BELOW)
+          ════════════════════════════════════════════════════════════════════════ */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center mb-8 sm:mb-10 pb-8 sm:pb-10 border-b-2 border-slate-200">
+            
+            {/* LEFT COLUMN: HERO GALLERY & IMAGE WITH OVERLAY BADGES */}
+            <div className="lg:col-span-7 xl:col-span-7 w-full">
+              <div 
+                onClick={() => setIsLightboxOpen(true)}
+                className="relative rounded-3xl overflow-hidden shadow-xl border-2 border-slate-200 bg-slate-950 group aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/11] max-h-[460px] cursor-zoom-in w-full mx-auto"
+                title={language === "ca" ? "Fes clic per ampliar la imatge en pantalla completa" : language === "en" ? "Click to view full screen" : "Haz clic para ampliar la imagen en pantalla grande"}
+              >
+                <img 
+                  src={galleryImages[activeImageIdx] || galleryImages[0]} 
+                  alt={`${pData.name} - ${activeImageIdx + 1}`} 
+                  loading="eager" 
+                  fetchPriority="high" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103 select-none" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
-          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS - EXPANDED PRESENCE ON DESKTOP */}
-          <div className="mb-10 w-full max-w-6xl mx-auto">
-            <div 
-              onClick={() => setIsLightboxOpen(true)}
-              className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/10] max-h-[580px] cursor-zoom-in mx-auto"
-              title={language === "ca" ? "Fes clic per ampliar la imatge en pantalla completa" : language === "en" ? "Click to view full screen" : "Haz clic para ampliar la imagen en pantalla grande"}
-            >
-              <img 
-                src={galleryImages[activeImageIdx] || galleryImages[0]} 
-                alt={`${pData.name} - ${activeImageIdx + 1}`} 
-                loading="eager" 
-                fetchPriority="high" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103 select-none" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-              {/* Status Badges Overlaid in Top-Left */}
-              <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-2 flex-wrap">
-                <span className={`${statusColor} px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider shadow-md font-sans`}>
-                  {statusLabel}
-                </span>
-                <span className="bg-[#0b214a]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider shadow-md border border-white/20 font-sans">
-                  {pData.type}
-                </span>
-              </div>
-
-              {/* Floating Fullscreen Zoom Indicator in Top-Right */}
-              <div className="absolute top-3.5 right-3.5 z-20 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity">
-                <div className="bg-[#0b214a]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full border border-white/20 shadow-lg flex items-center gap-1.5 text-xs font-black">
-                  <Maximize2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span className="hidden sm:inline">{language === "ca" ? "Ampliar" : language === "en" ? "Expand" : "Ampliar"}</span>
-                </div>
-              </div>
-
-              {/* Slider Navigation Arrows - Clean with hover effects */}
-              {galleryImages.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
-                    }}
-                    aria-label={t.detail.photoPrev}
-                    className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
-                  >
-                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
-                    }}
-                    aria-label={t.detail.photoNext}
-                    className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
-                  >
-                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
-                  </button>
-                </>
-              )}
-
-              {/* Bottom Image Counter, Ref Code & Quick Video Tour */}
-              <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between text-white text-xs font-bold z-10 gap-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <div className="flex items-center gap-2 bg-[#0b214a]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
-                    <Eye className="w-3.5 h-3.5 text-blue-400" />
-                    <span className="font-mono font-black">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
-                  </div>
-                  <span className="inline-flex items-center text-[11px] font-mono font-black text-white/95 bg-black/70 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/20 shadow-xs">
-                    Ref: {property.ref || "API A10750"}
+                {/* Status Badges Overlaid in Top-Left */}
+                <div className="absolute top-3 left-3 z-20 flex items-center gap-2 flex-wrap">
+                  <span className={`${statusColor} px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-md font-sans`}>
+                    {statusLabel}
+                  </span>
+                  <span className="bg-[#0b214a]/90 backdrop-blur-md text-white px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider shadow-md border border-white/20 font-sans">
+                    {pData.type}
                   </span>
                 </div>
-                {hasValidVideo && (
-                  <a
-                    href="#video-tour"
-                    className="flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 py-1.5 rounded-full border border-blue-400/40 shadow-md transition-colors"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-white" />
-                    <span className="hidden sm:inline">{t.detail.videoTour}</span>
-                  </a>
+
+                {/* Floating Fullscreen Zoom Indicator in Top-Right */}
+                <div className="absolute top-3 right-3 z-20 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity">
+                  <div className="bg-[#0b214a]/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full border border-white/20 shadow-lg flex items-center gap-1.5 text-xs font-black">
+                    <Maximize2 className="w-3 h-3 text-[#38bdf8]" />
+                    <span className="hidden sm:inline">{language === "ca" ? "Ampliar" : language === "en" ? "Expand" : "Ampliar"}</span>
+                  </div>
+                </div>
+
+                {/* Slider Navigation Arrows */}
+                {galleryImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+                      }}
+                      aria-label={t.detail.photoPrev}
+                      className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+                    >
+                      <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+                      }}
+                      aria-label={t.detail.photoNext}
+                      className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+                    >
+                      <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
+                    </button>
+                  </>
                 )}
+
+                {/* Bottom Image Counter, Ref Code & Quick Video Tour */}
+                <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 sm:right-3 flex items-center justify-between text-white text-xs font-bold z-10 gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center gap-1.5 bg-[#0b214a]/90 backdrop-blur-md px-3 py-1 rounded-full border border-blue-400/40 shadow-md">
+                      <Eye className="w-3.5 h-3.5 text-blue-400" />
+                      <span className="font-mono font-black text-[11px] sm:text-xs">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
+                    </div>
+                    <span className="inline-flex items-center text-[10px] sm:text-[11px] font-mono font-black text-white/95 bg-black/70 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/20 shadow-xs">
+                      Ref: {property.ref || "API A10750"}
+                    </span>
+                  </div>
+                  {hasValidVideo && (
+                    <a
+                      href="#video-tour"
+                      className="flex items-center gap-1.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 py-1 rounded-full border border-blue-400/40 shadow-md transition-colors text-xs"
+                    >
+                      <Play className="w-3 h-3 fill-white" />
+                      <span className="hidden sm:inline">{t.detail.videoTour}</span>
+                    </a>
+                  )}
+                </div>
               </div>
+
+              {/* Gallery Thumbnails Strip */}
+              {galleryImages.length > 1 && (
+                <div className="flex gap-2.5 overflow-x-auto pt-3 px-1 scrollbar-none justify-start sm:justify-center">
+                  {galleryImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIdx(idx)}
+                      className={`relative shrink-0 w-18 h-14 sm:w-22 sm:h-16 rounded-xl overflow-hidden transition-all cursor-pointer shadow-xs ${
+                        activeImageIdx === idx 
+                          ? "outline-2 outline-[#2563eb] -outline-offset-1 scale-102 opacity-100" 
+                          : "border border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
+                      }`}
+                    >
+                      <img src={img} alt={`${pData.name} - ${idx + 1}`} className="w-full h-full object-cover rounded-xl" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Gallery Thumbnails Carousel / Strip - Clean outline matching border-radius */}
-            {galleryImages.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto py-3.5 px-1 scrollbar-none justify-start sm:justify-center">
-                {galleryImages.map((img, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setActiveImageIdx(idx)}
-                    className={`relative shrink-0 w-24 h-18 sm:w-28 sm:h-20 rounded-2xl overflow-hidden transition-all cursor-pointer shadow-xs ${
-                      activeImageIdx === idx 
-                        ? "outline-3 outline-[#2563eb] -outline-offset-1 scale-102 opacity-100" 
-                        : "border border-slate-300 opacity-70 hover:opacity-100 hover:border-blue-400"
-                    }`}
-                  >
-                    <img src={img} alt={`${pData.name} - ${idx + 1}`} className="w-full h-full object-cover rounded-2xl" />
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* MAIN DETAILS GRID: LEFT CONTENT + RIGHT STICKY CARD */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-            
-            {/* LEFT COLUMN: TITLE, SPECS, DESCRIPTION, FEATURES, VIDEO, MAP */}
-            <div className="lg:col-span-8">
+            {/* RIGHT COLUMN: TITLE, PRICE, LOCATION & 4 KEY SPECS CARDS (VISIBLE WITHOUT SCROLLING ON DESKTOP) */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-center">
               
-              {/* Header Title & Price Badge - PERFECTLY CENTER-ALIGNED VERTICALLY */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
-                <div className="flex-1 min-w-0">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-3">
-                    {pData.name}
-                  </h1>
-                  <div className="flex items-center gap-2 text-slate-700 font-bold text-sm sm:text-base">
-                    <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                    <span>{formatLocation(pData.location || property.location, language)}, {property.city || "Santa Coloma de Gramenet"}</span>
-                  </div>
+              {/* Top Row: Title + Location */}
+              <div className="mb-5">
+                <div className="flex items-center gap-1.5 text-slate-700 font-bold text-xs sm:text-sm mb-2">
+                  <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                  <span>{formatLocation(pData.location || property.location, language)}, {property.city || "Santa Coloma de Gramenet"}</span>
                 </div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-[#000000] tracking-tight leading-[1.15]">
+                  {pData.name}
+                </h1>
+              </div>
 
-                <div className="sm:text-right shrink-0 self-start sm:self-center flex flex-col items-start sm:items-end justify-center">
-                  {/* Blue Pill Badge for "PRECIO" / "PREU" */}
-                  <span className="inline-block bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
+              {/* Price Block */}
+              <div className="bg-slate-50 border-2 border-slate-200/90 rounded-2xl p-4 sm:p-5 mb-6 shadow-xs flex items-center justify-between gap-4">
+                <div>
+                  <span className="inline-block bg-[#2563eb] text-white text-[10.5px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1.5 font-sans">
                     {t.detail.price.replace(":", "")}
                   </span>
-                  {/* Big Dark Price with Vibrant Blue Currency Symbol */}
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none whitespace-nowrap">
+                  <div className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none whitespace-nowrap">
                     {(() => {
                       if (property.priceFormatted) {
-                        // If price ends with €/mes or €
                         if (property.priceFormatted.includes("€/mes")) {
                           const num = property.priceFormatted.replace("€/mes", "").trim();
                           return (
@@ -800,62 +788,75 @@ function PropertyDetail() {
                       );
                     })()}
                   </div>
-                  {/* Clean Price per m² */}
-                  {property.surface && property.surface > 0 && property.price && (
-                    <div className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 tracking-tight font-sans whitespace-nowrap">
-                      {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
-                    </div>
-                  )}
                 </div>
+
+                {property.surface && property.surface > 0 && property.price && (
+                  <div className="text-right shrink-0 border-l-2 border-slate-200 pl-4">
+                    <span className="text-[10.5px] uppercase font-bold text-slate-500 block">Precio m²</span>
+                    <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight font-sans whitespace-nowrap">
+                      {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* KEY SPECS METRIC PILLS - EQUAL PADDING, NO-WRAP VALUES, RESPONSIVE & BALANCED */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 mb-10">
+              {/* 4 KEY SPECS METRIC PILLS (2x2 GRID FOR BALANCED RIGHT-COLUMN FIT) */}
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                 {/* 1. Superficie */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Maximize className="w-5 h-5 stroke-[2.5]" />
+                <div className="bg-[#2563eb] border border-blue-600 rounded-2xl px-3.5 py-3 flex items-center gap-3 shadow-sm min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                    <Maximize className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.surface}</span>
-                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.surface} m²</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.surface}</span>
+                    <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.surface} m²</span>
                   </div>
                 </div>
 
                 {/* 2. Habitaciones */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Bed className="w-5 h-5 stroke-[2.5]" />
+                <div className="bg-[#2563eb] border border-blue-600 rounded-2xl px-3.5 py-3 flex items-center gap-3 shadow-sm min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                    <Bed className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bedrooms}</span>
-                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bedrooms} {t.detail.roomShort}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bedrooms}</span>
+                    <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bedrooms} {t.detail.roomShort}</span>
                   </div>
                 </div>
 
                 {/* 3. Baños */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Bath className="w-5 h-5 stroke-[2.5]" />
+                <div className="bg-[#2563eb] border border-blue-600 rounded-2xl px-3.5 py-3 flex items-center gap-3 shadow-sm min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                    <Bath className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bathrooms}</span>
-                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bathrooms}</span>
+                    <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
                   </div>
                 </div>
 
                 {/* 4. Planta / Tipo */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                    <Building2 className="w-5 h-5 stroke-[2.5]" />
+                <div className="bg-[#2563eb] border border-blue-600 rounded-2xl px-3.5 py-3 flex items-center gap-3 shadow-sm min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                    <Building2 className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.floor}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.floor}</span>
                     <span className="text-base sm:text-lg font-black text-white whitespace-nowrap truncate block leading-tight mt-0.5">{pData.floor || pData.type}</span>
                   </div>
                 </div>
               </div>
 
+            </div>
+
+          </div>
+
+          {/* MAIN DETAILS GRID: LEFT CONTENT (DESCRIPTION, FEATURES, MAP) + RIGHT STICKY CARD */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+            
+            {/* LEFT COLUMN: DESCRIPTION, FEATURES, VIDEO, MAP */}
+            <div className="lg:col-span-8">
+              
               {/* DESCRIPTION BLOCK */}
               <div className="mb-12">
                 <h2 className="text-2xl font-black text-[#000000] mb-4 flex items-center gap-2.5">

@@ -7,7 +7,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, Fragment } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote, Info } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
@@ -394,24 +394,38 @@ function Index() {
     zoneName: string;
     trendPct: number;
     monthlyPrices: number[];
+    propertyM2: number;
+    propertyPricePerM2: number;
+    neighborhoodPricePerM2: number;
   }>(() => {
     const defaultStats = ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    const exact = 85 * defaultStats.pricePerM2;
+    const m2 = 85;
+    // Calibrated market valuation factor based on surface size (smaller units command higher €/m², larger units lower €/m²)
+    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
+    const propPricePerM2 = Math.round(defaultStats.pricePerM2 * sizeFactor);
+    const exact = Math.round(m2 * propPricePerM2);
     return {
       estimatedValue: exact,
       rangeMin: Math.round(exact * 0.93),
       rangeMax: Math.round(exact * 1.07),
       zoneName: "Centre",
       trendPct: defaultStats.trendPct,
-      monthlyPrices: defaultStats.monthlyPrices
+      monthlyPrices: defaultStats.monthlyPrices,
+      propertyM2: m2,
+      propertyPricePerM2: propPricePerM2,
+      neighborhoodPricePerM2: defaultStats.pricePerM2
     };
   });
 
   const handleCalculateValuation = () => {
     setIsCalculatingValuation(true);
-    const m2 = parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85;
+    const m2 = Math.max(20, Math.min(600, parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85));
     const stats = ZONE_MARKET_STATS[valuatorData.zona] || ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    const exactValue = Math.round(m2 * stats.pricePerM2);
+    
+    // Calibrated property valuation per m² accounting for unit scale efficiency
+    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
+    const propPricePerM2 = Math.round(stats.pricePerM2 * sizeFactor);
+    const exactValue = Math.round(m2 * propPricePerM2);
     const minVal = Math.round(exactValue * 0.93);
     const maxVal = Math.round(exactValue * 1.07);
 
@@ -420,9 +434,12 @@ function Index() {
         estimatedValue: exactValue,
         rangeMin: minVal,
         rangeMax: maxVal,
-        zoneName: valuatorData.zona || "Zona seleccionada",
+        zoneName: valuatorData.zona || "Centre",
         trendPct: stats.trendPct,
-        monthlyPrices: stats.monthlyPrices
+        monthlyPrices: stats.monthlyPrices,
+        propertyM2: m2,
+        propertyPricePerM2: propPricePerM2,
+        neighborhoodPricePerM2: stats.pricePerM2
       });
       setIsCalculatingValuation(false);
     }, 1200);
@@ -1824,9 +1841,9 @@ function Index() {
                 </div>
 
                 {/* Disclaimer box with neutral dark gray background and pure white text */}
-                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white mb-4 font-semibold py-2.5 px-3.5 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center">
-                  <span className="text-white font-black text-base leading-none shrink-0">*</span>
-                  <span className="text-white font-medium text-balance">{t.valorador.disclaimer}</span>
+                <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white mb-4 font-semibold py-2 px-3 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center leading-snug">
+                  <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-200 shrink-0 self-center" />
+                  <span className="text-white font-medium text-balance leading-tight">{t.valorador.disclaimer}</span>
                 </div>
                 
                 {/* 3. Sparkline Price Trend Chart Container */}
@@ -1923,9 +1940,8 @@ function Index() {
 
                 {/* Hyper-local Price Benchmark with Comparative Property Price/m² */}
                 {(() => {
-                  const propertyM2 = parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85;
-                  const propertyPricePerM2 = Math.round(calculatedResult.estimatedValue / propertyM2);
-                  const neighborhoodPricePerM2 = ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150;
+                  const propertyPricePerM2 = calculatedResult.propertyPricePerM2;
+                  const neighborhoodPricePerM2 = calculatedResult.neighborhoodPricePerM2;
                   const diffPrice = propertyPricePerM2 - neighborhoodPricePerM2;
                   const diffPct = ((diffPrice / neighborhoodPricePerM2) * 100).toFixed(1);
                   const isAbove = diffPrice > 0;
@@ -1970,10 +1986,10 @@ function Index() {
                   <a
                     href={`https://wa.me/34689438012?text=${encodeURIComponent(
                       language === "ca"
-                        ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${valuatorData.metros || 85} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
+                        ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
                         : language === "en"
-                        ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${valuatorData.metros || 85} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
-                        : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${valuatorData.metros || 85} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
+                        ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
+                        : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

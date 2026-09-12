@@ -754,8 +754,8 @@ function PropertyDetail() {
                 </h1>
               </div>
 
-              {/* Price Block */}
-              <div className="bg-slate-50 border-2 border-slate-200/90 rounded-2xl p-4 sm:p-5 mb-6 shadow-xs flex items-center justify-between gap-4">
+              {/* Price Block - Solid White, Soft Gray Border (#D1D5DB), Light Box Shadow */}
+              <div className="bg-white border border-[#d1d5db] rounded-2xl p-4 sm:p-5 mb-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-4">
                 <div>
                   <span className="inline-block bg-[#2563eb] text-white text-[10.5px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1.5 font-sans">
                     {t.detail.price.replace(":", "")}
@@ -791,7 +791,7 @@ function PropertyDetail() {
                 </div>
 
                 {property.surface && property.surface > 0 && property.price && (
-                  <div className="text-right shrink-0 border-l-2 border-slate-200 pl-4">
+                  <div className="text-right shrink-0 border-l border-[#d1d5db] pl-4 sm:pl-5">
                     <span className="text-[10.5px] uppercase font-bold text-slate-500 block">Precio m²</span>
                     <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight font-sans whitespace-nowrap">
                       {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²

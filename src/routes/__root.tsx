@@ -141,13 +141,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "telephone": "+34934685656",
           "email": "info@gesgrama.com",
           "priceRange": "€€",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "148",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Av. dels Banús, 49",

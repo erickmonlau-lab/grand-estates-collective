@@ -753,9 +753,9 @@ function PropertyDetail() {
             {/* LEFT COLUMN: TITLE, SPECS, DESCRIPTION, FEATURES, VIDEO, MAP */}
             <div className="lg:col-span-8">
               
-              {/* Header Title & Price Badge - VERTICALLY ALIGNED */}
+              {/* Header Title & Price Badge - PERFECTLY CENTER-ALIGNED VERTICALLY */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 border-b-2 border-slate-200 pb-8">
-                <div>
+                <div className="flex-1 min-w-0">
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-3">
                     {pData.name}
                   </h1>
@@ -765,13 +765,13 @@ function PropertyDetail() {
                   </div>
                 </div>
 
-                <div className="sm:text-right shrink-0 self-start sm:self-center">
+                <div className="sm:text-right shrink-0 self-start sm:self-center flex flex-col items-start sm:items-end justify-center">
                   {/* Blue Pill Badge for "PRECIO" / "PREU" */}
                   <span className="inline-block bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
                     {t.detail.price.replace(":", "")}
                   </span>
                   {/* Big Dark Price with Vibrant Blue Currency Symbol */}
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none whitespace-nowrap">
                     {(() => {
                       if (property.priceFormatted) {
                         // If price ends with €/mes or €
@@ -802,56 +802,56 @@ function PropertyDetail() {
                   </div>
                   {/* Clean Price per m² */}
                   {property.surface && property.surface > 0 && property.price && (
-                    <div className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 tracking-tight font-sans">
+                    <div className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 tracking-tight font-sans whitespace-nowrap">
                       {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* KEY SPECS METRIC PILLS - REORDERED: SUPERFICIE, HABITACIONES, BAÑOS, PLANTA/TIPO */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-10">
+              {/* KEY SPECS METRIC PILLS - EQUAL PADDING, NO-WRAP VALUES, RESPONSIVE & BALANCED */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 mb-10">
                 {/* 1. Superficie */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Maximize className="w-5 h-5 stroke-[2.5]" />
                   </div>
-                  <div>
-                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.surface}</span>
-                    <span className="text-xl font-black text-white">{property.surface} m²</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.surface}</span>
+                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.surface} m²</span>
                   </div>
                 </div>
 
                 {/* 2. Habitaciones */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Bed className="w-5 h-5 stroke-[2.5]" />
                   </div>
-                  <div>
-                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.bedrooms}</span>
-                    <span className="text-xl font-black text-white">{property.bedrooms} {t.detail.roomShort}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bedrooms}</span>
+                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bedrooms} {t.detail.roomShort}</span>
                   </div>
                 </div>
 
                 {/* 3. Baños */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Bath className="w-5 h-5 stroke-[2.5]" />
                   </div>
-                  <div>
-                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.bathrooms}</span>
-                    <span className="text-xl font-black text-white">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bathrooms}</span>
+                    <span className="text-lg sm:text-xl font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
                   </div>
                 </div>
 
                 {/* 4. Planta / Tipo */}
-                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl p-4 flex items-center gap-3.5 shadow-md transition-transform hover:-translate-y-0.5">
-                  <div className="w-11 h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="bg-[#2563eb] border-2 border-blue-600 rounded-2xl px-3.5 sm:px-4 py-3.5 flex items-center gap-3 shadow-md transition-transform hover:-translate-y-0.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
                     <Building2 className="w-5 h-5 stroke-[2.5]" />
                   </div>
-                  <div>
-                    <span className="text-[11.5px] uppercase font-semibold text-white/95 tracking-normal block leading-tight">{t.detail.floor}</span>
-                    <span className="text-base font-black text-white truncate block max-w-[100px]">{pData.floor || pData.type}</span>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10.5px] sm:text-[11px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.floor}</span>
+                    <span className="text-base sm:text-lg font-black text-white whitespace-nowrap truncate block leading-tight mt-0.5">{pData.floor || pData.type}</span>
                   </div>
                 </div>
               </div>

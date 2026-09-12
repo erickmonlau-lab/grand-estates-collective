@@ -1756,7 +1756,6 @@ function Index() {
 
                 {/* 1. "VALOR ESTIMADO" pill badge */}
                 <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider mb-3 shadow-md font-sans">
-                  <span className="w-2.5 h-2.5 rounded-full bg-white shrink-0 animate-pulse"></span>
                   <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
                 </div>
                 
@@ -1766,26 +1765,36 @@ function Index() {
                 </div>
 
                 {/* 2. Rango estimado de mercado en una caja estilizada */}
-                <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2.5 shadow-sm">
+                <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2 shadow-sm">
                   <p className="text-xs sm:text-sm font-semibold text-slate-300 font-sans">
                     {t.valorador.rangoEstimado}: <span className="font-extrabold text-white text-sm sm:text-base ml-1">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                   </p>
                 </div>
 
-                {/* Animated Range Progress Bar */}
-                <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden mb-3 border border-slate-300">
-                  <motion.div
-                    key={`range-bar-${calculatedResult.estimatedValue}`}
-                    initial={shouldReduceMotion ? false : { width: "0%" }}
-                    animate={{ width: "70%" }}
-                    transition={{ duration: 1.2, ease: easeOut }}
-                    className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
-                  />
+                {/* Animated Range Progress Bar with Context Label */}
+                <div className="mb-3">
+                  <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-slate-300">
+                    <motion.div
+                      key={`range-bar-${calculatedResult.estimatedValue}`}
+                      initial={shouldReduceMotion ? false : { width: "0%" }}
+                      animate={{ width: "70%" }}
+                      transition={{ duration: 1.2, ease: easeOut }}
+                      className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
+                    />
+                  </div>
+                  <p className="text-[11px] text-slate-500 font-medium mt-1 text-center font-sans">
+                    {language === "ca" 
+                      ? "Posició del valor estimat dins del rang de mercat" 
+                      : language === "en" 
+                      ? "Estimated value position within the market range" 
+                      : "Posición del valor estimado dentro del rango de mercado"}
+                  </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-700 mb-4 font-bold py-2 px-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-center">
-                  <span className="text-[#2563eb] font-black text-base leading-none shrink-0">*</span>
-                  <span className="text-slate-800 font-semibold text-balance">{t.valorador.disclaimer}</span>
+                {/* Disclaimer box with neutral dark gray background and pure white text */}
+                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-white mb-4 font-semibold py-2.5 px-3.5 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center">
+                  <span className="text-white font-black text-base leading-none shrink-0">*</span>
+                  <span className="text-white font-medium text-balance">{t.valorador.disclaimer}</span>
                 </div>
                 
                 {/* 3. Sparkline Price Trend Chart Container */}
@@ -1848,7 +1857,7 @@ function Index() {
                     })()}
                   </div>
                   {/* X-Axis Month Labels */}
-                  <div className="flex justify-between items-center text-xs sm:text-[13px] font-black text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
+                  <div className="flex justify-between items-center text-xs sm:text-[13px] font-bold text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
                     {(() => {
                       const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
                       const now = new Date();
@@ -1858,26 +1867,71 @@ function Index() {
                         const m = d.toLocaleDateString(locale, { month: "short" });
                         months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
                       }
-                      return months.map((month, mIdx) => (
-                        <span key={mIdx} className={mIdx === 5 ? "text-[#2563eb] font-black" : "text-slate-700"}>
-                          {month}
-                        </span>
-                      ));
+                      return months.map((month, mIdx) => {
+                        const isCurrentMonth = mIdx === 5;
+                        return (
+                          <span
+                            key={mIdx}
+                            className={
+                              isCurrentMonth
+                                ? "inline-flex items-center gap-1 text-[#2563eb] font-black underline underline-offset-4 decoration-2 decoration-[#2563eb]"
+                                : "text-slate-600 font-semibold"
+                            }
+                          >
+                            {isCurrentMonth && (
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
+                            )}
+                            <span>{month}</span>
+                          </span>
+                        );
+                      });
                     })()}
                   </div>
                 </div>
 
-                {/* Hyper-local Price Benchmark */}
-                <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3">
-                  <div className="flex items-center justify-between text-xs sm:text-sm">
-                    <span className="font-extrabold text-slate-200">
-                      {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
-                    </span>
-                    <span className="font-black text-white text-sm sm:text-base">
-                      {new Intl.NumberFormat('es-ES').format(ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150)} €/m²
-                    </span>
-                  </div>
-                </div>
+                {/* Hyper-local Price Benchmark with Comparative Property Price/m² */}
+                {(() => {
+                  const propertyM2 = parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85;
+                  const propertyPricePerM2 = Math.round(calculatedResult.estimatedValue / propertyM2);
+                  const neighborhoodPricePerM2 = ZONE_PRICE_PER_M2[calculatedResult.zoneName] || 2150;
+                  const diffPrice = propertyPricePerM2 - neighborhoodPricePerM2;
+                  const diffPct = ((diffPrice / neighborhoodPricePerM2) * 100).toFixed(1);
+                  const isAbove = diffPrice > 0;
+                  const isEqual = diffPrice === 0;
+
+                  return (
+                    <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 divide-y divide-blue-900/60 font-sans">
+                      {/* Line 1: Neighborhood average price */}
+                      <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
+                        <span className="font-bold text-slate-300">
+                          {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
+                        </span>
+                        <span className="font-black text-white text-sm sm:text-base">
+                          {new Intl.NumberFormat('es-ES').format(neighborhoodPricePerM2)} €/m²
+                        </span>
+                      </div>
+
+                      {/* Line 2: Property estimated price/m² and comparative indicator */}
+                      <div className="flex items-center justify-between text-xs sm:text-sm pt-2.5">
+                        <span className="font-bold text-slate-300">
+                          {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-black text-white text-sm sm:text-base">
+                            {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
+                          </span>
+                          {!isEqual && (
+                            <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-md ${
+                              isAbove ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" : "bg-sky-500/20 text-sky-300 border border-sky-500/30"
+                            }`}>
+                              {isAbove ? `+${diffPct}%` : `${diffPct}%`}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Bottom CTA Row: Direct WhatsApp button */}
                 <div>

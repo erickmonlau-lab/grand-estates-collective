@@ -205,7 +205,6 @@ function PropertyDetail() {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [showLightboxArrows, setShowLightboxArrows] = useState(true);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   // Keyboard navigation for Lightbox (Esc, Left arrow, Right arrow)
@@ -1578,31 +1577,6 @@ function PropertyDetail() {
               </div>
 
               <div className="flex items-center gap-2 shrink-0">
-                {/* Clean View Toggle Button */}
-                {galleryImages.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => setShowLightboxArrows((prev) => !prev)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
-                      showLightboxArrows 
-                        ? "bg-white/10 hover:bg-white/20 text-white/90 border-white/20" 
-                        : "bg-[#2563eb] hover:bg-[#1d4ed8] text-white border-blue-400 shadow-lg ring-2 ring-blue-400/40"
-                    }`}
-                    title={showLightboxArrows 
-                      ? (language === "ca" ? "Ocultar fletxes (Mode net)" : language === "en" ? "Hide arrows (Clean view)" : "Ocultar flechas (Modo limpio)")
-                      : (language === "ca" ? "Mostrar fletxes" : language === "en" ? "Show arrows" : "Mostrar flechas")
-                    }
-                  >
-                    {showLightboxArrows ? <EyeOff className="w-3.5 h-3.5 shrink-0" /> : <Eye className="w-3.5 h-3.5 shrink-0" />}
-                    <span className="hidden xs:inline sm:inline">
-                      {showLightboxArrows 
-                        ? (language === "ca" ? "Veure net" : language === "en" ? "Clean view" : "Modo limpio")
-                        : (language === "ca" ? "Amb fletxes" : language === "en" ? "With arrows" : "Con flechas")
-                      }
-                    </span>
-                  </button>
-                )}
-
                 {/* Close Button */}
                 <button
                   type="button"
@@ -1665,7 +1639,7 @@ function PropertyDetail() {
               )}
 
               {/* Prev Button - Sleek Glassmorphism, Perfectly Centered */}
-              {galleryImages.length > 1 && showLightboxArrows && (
+              {galleryImages.length > 1 && (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -1680,7 +1654,7 @@ function PropertyDetail() {
               )}
 
               {/* Next Button - Sleek Glassmorphism, Perfectly Centered */}
-              {galleryImages.length > 1 && showLightboxArrows && (
+              {galleryImages.length > 1 && (
                 <button
                   type="button"
                   onClick={(e) => {

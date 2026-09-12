@@ -981,7 +981,7 @@ function PropertyDetail() {
                     allowFullScreen
                     className="w-full"
                   />
-                  <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 text-[11px] font-bold text-slate-500">
+                  <div className="bg-slate-50 px-4 py-3 border-t border-slate-200 text-xs sm:text-sm font-bold text-slate-700">
                     <span>{t.detail.locationMapDisclaimer}</span>
                   </div>
                 </div>
@@ -993,10 +993,10 @@ function PropertyDetail() {
                   <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
                 </div>
                 <div>
-                  <h4 className="text-base font-black text-white mb-1">
+                  <h4 className="text-base sm:text-lg font-black text-white mb-1">
                     {t.detail.guaranteeTitle}
                   </h4>
-                  <p className="text-xs sm:text-sm text-blue-100 font-medium leading-relaxed">
+                  <p className="text-sm text-blue-100 font-medium leading-relaxed">
                     {t.detail.guaranteeDesc}
                   </p>
                 </div>
@@ -1004,79 +1004,86 @@ function PropertyDetail() {
 
             </div>
 
-            {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD */}
+            {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD - SPACIOUS & PREMIUM */}
             <div className="lg:col-span-4 h-full">
-              <div className="bg-[#0b214a] text-white rounded-[28px] p-6 sm:p-8 border-2 border-blue-900 lg:sticky lg:top-28 shadow-2xl overflow-hidden relative">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#2563eb] rounded-full blur-[70px] pointer-events-none opacity-40"></div>
+              <div className="bg-[#0b214a] text-white rounded-[32px] p-6 sm:p-8 md:p-9 border-2 border-blue-900 lg:sticky lg:top-28 shadow-2xl overflow-hidden relative">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#2563eb] rounded-full blur-[80px] pointer-events-none opacity-40"></div>
                 
                 {/* Header card info */}
-                <div className="relative z-10 mb-6">
+                <div className="relative z-10 mb-7">
                   {/* Unified Blue Pill Badge identical to PRECIO pill */}
-                  <span className="inline-block bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-xs mb-3 font-sans">
+                  <span className="inline-block bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-xs mb-3.5 font-sans">
                     {t.detail.immediateAttention}
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2.5 leading-tight">
                     {t.detail.interested}
                   </h3>
-                  <p className="text-blue-100 text-xs sm:text-sm font-medium leading-relaxed">
+                  <p className="text-blue-100 text-sm font-medium leading-relaxed">
                     {t.detail.contactDesc.replace("{name}", pData.name)}
                   </p>
                 </div>
 
-                {/* Property quick summary in card - HIGH CONTRAST */}
-                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 border-2 border-blue-400 mb-6 shadow-md">
-                  <div className="flex items-center justify-between text-xs font-black text-[#000000] mb-2">
-                    <span className="uppercase tracking-wider">{t.detail.ref}</span>
-                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-2.5 py-1 rounded-md border border-slate-300 text-xs">{property.ref || property.id.toUpperCase()}</span>
+                {/* Property quick summary in card - HIGH CONTRAST & SPACIOUS */}
+                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 sm:p-6 border-2 border-blue-400 mb-7 shadow-md">
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-black text-[#000000] mb-2.5">
+                    <span className="uppercase tracking-wider text-slate-700">{t.detail.ref}</span>
+                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-3 py-1 rounded-lg border border-slate-300 text-xs sm:text-sm">{property.ref || property.id.toUpperCase()}</span>
                   </div>
-                  <div className="flex items-center justify-between text-xs font-black text-[#000000]">
-                    <span className="uppercase tracking-wider">{t.detail.price}</span>
-                    <span className="text-2xl text-[#2563eb] font-black tracking-tight">{property.priceFormatted}</span>
+                  <div className="flex items-center justify-between text-xs sm:text-sm font-black text-[#000000]">
+                    <span className="uppercase tracking-wider text-slate-700">{t.detail.price}</span>
+                    <span className="text-2xl sm:text-3xl text-[#2563eb] font-black tracking-tight">{property.priceFormatted}</span>
                   </div>
                 </div>
 
-                {/* DIRECT ACTION BUTTONS: WHATSAPP PRINCIPAL + 2-COLUMN SECONDARY */}
-                <div className="relative z-10 space-y-3 mb-6">
+                {/* DIRECT ACTION BUTTONS: FULL-WIDTH APILADOS CON TEXTO COMPLETO Y LEGIBLE */}
+                <div className="relative z-10 space-y-3.5 mb-7">
                   {/* Primary Call To Action: WhatsApp */}
                   <a 
                     href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
+                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 px-4 rounded-2xl text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
                   >
                     <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
                     <span>{t.detail.whatsappBtn}</span>
                   </a>
 
-                  {/* Secondary Buttons: 2-column grid to reduce visual hierarchy and compact the card */}
-                  <div className="grid grid-cols-2 gap-2.5">
-                    <a 
-                      href="tel:+34934685656" 
-                      className="flex items-center justify-center gap-1.5 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
-                    >
-                      <Phone className="w-3.5 h-3.5 text-[#2563eb] stroke-[2.5] shrink-0" />
-                      <span className="truncate">{t.detail.callBtn}</span>
-                    </a>
+                  {/* Secondary 1: Llamar a oficina (full width, sin cortes de texto) */}
+                  <a 
+                    href="tel:+34934685656" 
+                    className="w-full flex items-center justify-center gap-2.5 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                  >
+                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5] shrink-0" />
+                    <span>{t.detail.callBtn}</span>
+                  </a>
 
-                    <a 
-                      href="#contactar" 
-                      className="flex items-center justify-center gap-1.5 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
-                    >
-                      <Mail className="w-3.5 h-3.5 shrink-0" />
-                      <span className="truncate">{t.detail.bookBtn}</span>
-                    </a>
-                  </div>
+                  {/* Secondary 2: Pedir cita online (full width, sin cortes de texto) */}
+                  <a 
+                    href="#contactar" 
+                    className="w-full flex items-center justify-center gap-2.5 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3.5 px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                  >
+                    <Mail className="w-4 h-4 shrink-0" />
+                    <span>{t.detail.bookBtn}</span>
+                  </a>
                 </div>
 
-                {/* OFFICE ADDRESS & SCHEDULE - HIGH CONTRAST */}
-                <div className="relative z-10 pt-5 border-t border-blue-800 text-center text-xs space-y-1 font-medium">
-                  <p className="font-extrabold text-white text-xs">{t.detail.officeLabel}</p>
-                  <p className="text-slate-200">Rambla de Sant Sebastià, 48</p>
-                  <p className="text-slate-200">Santa Coloma de Gramenet</p>
-                  <p className="text-xs text-white font-extrabold pt-1.5 flex items-center justify-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-                    <span>{t.detail.schedule}</span>
-                  </p>
+                {/* OFFICE ADDRESS & SCHEDULE - CLEAN, CLEAR & NO BROKEN TIME RANGES */}
+                <div className="relative z-10 pt-6 border-t border-blue-800 text-center space-y-2 font-medium">
+                  <p className="font-black text-white text-sm sm:text-base tracking-wide">{t.detail.officeLabel}</p>
+                  <p className="text-slate-200 text-xs sm:text-sm font-semibold">Rambla de Sant Sebastià, 48</p>
+                  <p className="text-slate-200 text-xs sm:text-sm font-semibold">Santa Coloma de Gramenet</p>
+                  
+                  {/* Horario perfectamente formateado en 2 líneas limpias sin cortar horas */}
+                  <div className="pt-2">
+                    <div className="bg-blue-950/70 border border-blue-400/30 rounded-2xl py-3 px-3 text-xs sm:text-sm text-slate-100 shadow-xs space-y-1">
+                      <p className="font-bold text-white tracking-wide">
+                        {language === "ca" ? "Dilluns a Divendres" : language === "en" ? "Monday to Friday" : "Lunes a Viernes"}
+                      </p>
+                      <p className="text-[#38bdf8] font-black tracking-tight whitespace-nowrap">
+                        9:30 - 13:30 <span className="text-white/60 mx-1">/</span> 16:30 - 20:00
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -1172,29 +1179,37 @@ function PropertyDetail() {
                 </label>
                 <textarea 
                   rows={3} 
-                  placeholder={t.detail.messagePlaceholder.replace("{name}", pData.name)} 
+                  placeholder={t.detail.messagePlaceholder} 
                   value={contactForm.mensaje}
-                  onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
-                  className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all resize-none font-sans placeholder:text-slate-400" 
+                  onChange={e => {
+                    setContactForm(f => ({ ...f, mensaje: e.target.value }));
+                    if (contactErrors.mensaje) setContactErrors(err => ({ ...err, mensaje: undefined }));
+                  }}
+                  className={`w-full bg-[#f8fafc] border-2 ${contactErrors.mensaje ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-100 outline-none transition-all font-sans placeholder:text-slate-400 resize-none`} 
                 />
+                {contactErrors.mensaje && (
+                  <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.mensaje}</p>
+                )}
               </div>
 
               <div>
-                <div className="flex items-center gap-2.5 pt-1">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none">
                   <input 
                     type="checkbox" 
-                    id="property-privacy" 
                     checked={contactForm.privacidad}
                     onChange={e => {
                       setContactForm(f => ({ ...f, privacidad: e.target.checked }));
                       if (contactErrors.privacidad) setContactErrors(err => ({ ...err, privacidad: undefined }));
                     }}
-                    className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
+                    className="mt-1 w-4 h-4 rounded border-slate-300 text-[#2563eb] focus:ring-[#2563eb]" 
                   />
-                  <label htmlFor="property-privacy" className="text-xs sm:text-sm text-[#0f172a] font-bold cursor-pointer font-sans select-none">
-                    {t.detail.privacyCheckbox}
-                  </label>
-                </div>
+                  <span className="text-xs text-slate-700 font-bold leading-normal">
+                    {t.detail.privacyNotice.replace("{privacyPolicy}", "")}
+                    <Link to="/politica-privacidad" className="text-[#2563eb] underline hover:text-blue-800">
+                      {language === "ca" ? "política de privacitat" : language === "en" ? "privacy policy" : "política de privacidad"}
+                    </Link>
+                  </span>
+                </label>
                 {contactErrors.privacidad && (
                   <p className="text-xs text-red-600 font-black mt-1 font-sans">{contactErrors.privacidad}</p>
                 )}
@@ -1240,49 +1255,49 @@ function PropertyDetail() {
             {t.detail.exploreMoreSubtitle}
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
             <a
               href="/#propiedades"
-              className="p-5 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
+              className="p-5 sm:p-6 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
               <div className="w-12 h-12 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
                 <Building2 className="w-6 h-6 stroke-[2.2]" />
               </div>
-              <div>
-                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
+              <div className="min-w-0">
+                <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors leading-snug">
                   {t.detail.catalogCardTitle}
                 </p>
-                <p className="text-xs text-blue-200 font-bold">{t.detail.catalogCardSubtitle}</p>
+                <p className="text-xs sm:text-sm text-slate-200 font-bold mt-0.5">{t.detail.catalogCardSubtitle}</p>
               </div>
             </a>
 
             <a
               href="/#valuator-form"
-              className="p-5 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
+              className="p-5 sm:p-6 rounded-2xl bg-[#0b214a] hover:bg-[#142d5c] text-white border-2 border-blue-900 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
               <div className="w-12 h-12 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
                 <Home className="w-6 h-6 stroke-[2.2]" />
               </div>
-              <div>
-                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors">
+              <div className="min-w-0">
+                <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white group-hover:text-blue-200 transition-colors leading-snug">
                   {t.detail.valuatorCardTitle}
                 </p>
-                <p className="text-xs text-blue-200 font-bold">{t.detail.valuatorCardSubtitle}</p>
+                <p className="text-xs sm:text-sm text-slate-200 font-bold mt-0.5">{t.detail.valuatorCardSubtitle}</p>
               </div>
             </a>
 
             <a
               href="#contactar"
-              className="p-5 rounded-2xl bg-[#2563eb] hover:bg-blue-600 text-white border-2 border-blue-500 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
+              className="p-5 sm:p-6 rounded-2xl bg-[#2563eb] hover:bg-blue-600 text-white border-2 border-blue-500 transition-all duration-300 flex items-center gap-4 group shadow-md hover:shadow-xl hover:-translate-y-0.5"
             >
               <div className="w-12 h-12 rounded-xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
                 <Phone className="w-6 h-6 stroke-[2.2]" />
               </div>
-              <div>
-                <p className="text-sm font-black uppercase tracking-wider text-white group-hover:text-blue-100 transition-colors">
+              <div className="min-w-0">
+                <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white group-hover:text-blue-100 transition-colors leading-snug">
                   {t.detail.advisorCardTitle}
                 </p>
-                <p className="text-xs text-blue-100 font-bold">{t.detail.advisorCardSubtitle}</p>
+                <p className="text-xs sm:text-sm text-blue-100 font-bold mt-0.5">{t.detail.advisorCardSubtitle}</p>
               </div>
             </a>
           </div>

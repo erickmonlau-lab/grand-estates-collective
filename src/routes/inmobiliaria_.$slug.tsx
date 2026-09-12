@@ -640,11 +640,11 @@ function PropertyDetail() {
             </span>
           </nav>
 
-          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS - CENTERED AND HARMONIOUS ON PC */}
-          <div className="mb-10 max-w-5xl mx-auto">
+          {/* LUXURY PHOTO GALLERY & VIEWER WITH CLEAN SLIDER CONTROLS - EXPANDED PRESENCE ON DESKTOP */}
+          <div className="mb-10 w-full max-w-6xl mx-auto">
             <div 
               onClick={() => setIsLightboxOpen(true)}
-              className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] max-h-[540px] cursor-zoom-in mx-auto"
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 bg-slate-950 group aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/10] max-h-[580px] cursor-zoom-in mx-auto"
               title={language === "ca" ? "Fes clic per ampliar la imatge en pantalla completa" : language === "en" ? "Click to view full screen" : "Haz clic para ampliar la imagen en pantalla grande"}
             >
               <img 
@@ -654,9 +654,19 @@ function PropertyDetail() {
                 fetchPriority="high" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103 select-none" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
-              {/* Floating Fullscreen Zoom Indicator in top-right */}
+              {/* Status Badges Overlaid in Top-Left */}
+              <div className="absolute top-3.5 left-3.5 z-20 flex items-center gap-2 flex-wrap">
+                <span className={`${statusColor} px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider shadow-md font-sans`}>
+                  {statusLabel}
+                </span>
+                <span className="bg-[#0b214a]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider shadow-md border border-white/20 font-sans">
+                  {pData.type}
+                </span>
+              </div>
+
+              {/* Floating Fullscreen Zoom Indicator in Top-Right */}
               <div className="absolute top-3.5 right-3.5 z-20 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity">
                 <div className="bg-[#0b214a]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-full border border-white/20 shadow-lg flex items-center gap-1.5 text-xs font-black">
                   <Maximize2 className="w-3.5 h-3.5 text-[#38bdf8]" />
@@ -664,7 +674,7 @@ function PropertyDetail() {
                 </div>
               </div>
 
-              {/* Slider Navigation Arrows - Moved to edges with opacity 0.7 and hover 1 */}
+              {/* Slider Navigation Arrows - Clean with hover effects */}
               {galleryImages.length > 1 && (
                 <>
                   <button
@@ -674,7 +684,7 @@ function PropertyDetail() {
                       setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
                     }}
                     aria-label={t.detail.photoPrev}
-                    className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
                   </button>
@@ -686,18 +696,23 @@ function PropertyDetail() {
                       setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
                     }}
                     aria-label={t.detail.photoNext}
-                    className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.35)] border-2 border-white transition-all duration-200 opacity-75 hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer"
                   >
                     <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[3] text-white" />
                   </button>
                 </>
               )}
 
-              {/* Bottom Image Counter & Quick Info */}
-              <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between text-white text-xs font-bold z-10">
-                <div className="flex items-center gap-2 bg-[#0b214a] px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
-                  <Eye className="w-3.5 h-3.5 text-blue-400" />
-                  <span className="font-mono font-black">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
+              {/* Bottom Image Counter, Ref Code & Quick Video Tour */}
+              <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between text-white text-xs font-bold z-10 gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-2 bg-[#0b214a]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-blue-400/40 shadow-md">
+                    <Eye className="w-3.5 h-3.5 text-blue-400" />
+                    <span className="font-mono font-black">{t.detail.photoCount.replace("{current}", String(activeImageIdx + 1)).replace("{total}", String(galleryImages.length))}</span>
+                  </div>
+                  <span className="inline-flex items-center text-[11px] font-mono font-black text-white/95 bg-black/70 backdrop-blur-xs px-2.5 py-1 rounded-full border border-white/20 shadow-xs">
+                    Ref: {property.ref || "API A10750"}
+                  </span>
                 </div>
                 {hasValidVideo && (
                   <a
@@ -705,23 +720,10 @@ function PropertyDetail() {
                     className="flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-4 py-1.5 rounded-full border border-blue-400/40 shadow-md transition-colors"
                   >
                     <Play className="w-3.5 h-3.5 fill-white" />
-                    <span>{t.detail.videoTour}</span>
+                    <span className="hidden sm:inline">{t.detail.videoTour}</span>
                   </a>
                 )}
               </div>
-            </div>
-
-            {/* Badges Bar - Centered on PC and cleanly balanced */}
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
-              <span className={`${statusColor} px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm`}>
-                {statusLabel}
-              </span>
-              <span className="bg-[#0b214a] text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm border border-blue-900">
-                {pData.type}
-              </span>
-              <span className="bg-white text-[#0f172a] font-mono px-4 py-2 rounded-xl text-xs font-black tracking-wider shadow-sm border-2 border-slate-300">
-                Ref: {property.ref || "API A10750"}
-              </span>
             </div>
 
             {/* Gallery Thumbnails Carousel / Strip - Clean outline matching border-radius */}
@@ -867,26 +869,52 @@ function PropertyDetail() {
                 </div>
               </div>
 
-              {/* FEATURES CHECKLIST */}
-              <div className="mb-12">
-                <h2 className="text-2xl font-black text-[#000000] mb-5 flex items-center gap-2.5">
-                  <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
-                  {t.detail.features}
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  {pData.features.map((feat: string, idx: number) => (
-                    <div 
-                      key={idx} 
-                      className="flex items-center gap-3.5 bg-blue-50/60 border-2 border-blue-200 p-4 rounded-2xl shadow-xs hover:border-[#2563eb] transition-all"
-                    >
-                      <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm">
-                        <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />
-                      </div>
-                      <span className="text-sm font-black text-[#000000]">{feat}</span>
+              {/* FEATURES CHECKLIST - FILTER OUT ATTRIBUTES ALREADY IN TOP SPECS */}
+              {(() => {
+                const filteredFeatures = (pData.features || []).filter((feat: string) => {
+                  if (!feat) return false;
+                  const lower = feat.toLowerCase();
+                  return !(
+                    lower.includes("dormitori") ||
+                    lower.includes("habitación") ||
+                    lower.includes("habitacion") ||
+                    lower.includes("habitacions") ||
+                    lower.includes("bedroom") ||
+                    lower.includes("bany") ||
+                    lower.includes("baño") ||
+                    lower.includes("bathroom") ||
+                    lower.includes("m²") ||
+                    lower.includes("m2") ||
+                    lower.includes("superficie") ||
+                    lower.includes("surface") ||
+                    (property.type && lower.includes(property.type.toLowerCase()))
+                  );
+                });
+
+                if (filteredFeatures.length === 0) return null;
+
+                return (
+                  <div className="mb-12">
+                    <h2 className="text-2xl font-black text-[#000000] mb-5 flex items-center gap-2.5">
+                      <span className="w-2.5 h-6 bg-[#2563eb] rounded-full inline-block" />
+                      {t.detail.features}
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {filteredFeatures.map((feat: string, idx: number) => (
+                        <div 
+                          key={idx} 
+                          className="flex items-center gap-3.5 bg-blue-50/60 border-2 border-blue-200 p-4 rounded-2xl shadow-xs hover:border-[#2563eb] transition-all"
+                        >
+                          <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm">
+                            <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />
+                          </div>
+                          <span className="text-sm font-black text-[#000000]">{feat}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                );
+              })()}
 
               {/* VIDEO TOUR BLOCK - CONDITIONAL: ONLY IF REAL VIDEO EXISTS */}
               {hasValidVideo && (
@@ -933,7 +961,13 @@ function PropertyDetail() {
                 </h2>
                 <p className="text-sm font-bold text-slate-600 mb-4 flex items-center gap-1.5">
                   <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
-                  <span>{t.detail.locationMapSubtitle.replace("{location}", formatLocation(pData.location || property.location, language))}</span>
+                  <span>
+                    {language === "ca"
+                      ? `Zona ${formatLocation(pData.location || property.location, "ca")}, Santa Coloma de Gramenet`
+                      : language === "en"
+                      ? `Zone ${formatLocation(pData.location || property.location, "en")}, Santa Coloma de Gramenet`
+                      : `Zona ${formatLocation(pData.location || property.location, "es")}, Santa Coloma de Gramenet`}
+                  </span>
                 </p>
                 <div className="rounded-3xl overflow-hidden border-2 border-slate-300 shadow-md bg-slate-100 relative">
                   <iframe
@@ -946,9 +980,8 @@ function PropertyDetail() {
                     allowFullScreen
                     className="w-full"
                   />
-                  <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] font-bold text-slate-500">
+                  <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 text-[11px] font-bold text-slate-500">
                     <span>{t.detail.locationMapDisclaimer}</span>
-                    <span className="text-[#2563eb] font-extrabold uppercase tracking-wider">{property.city || "Santa Coloma de Gramenet"}</span>
                   </div>
                 </div>
               </div>

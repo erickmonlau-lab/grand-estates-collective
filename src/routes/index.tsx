@@ -1969,8 +1969,8 @@ function Index() {
                             {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
                           </span>
                           {!isEqual && (
-                            <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-xs ${
-                              isAbove ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" : "bg-sky-500/20 text-sky-300 border border-sky-500/30"
+                            <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-sm text-white ${
+                              isAbove ? "bg-emerald-600 border border-emerald-500/50" : "bg-sky-600 border border-sky-500/50"
                             }`}>
                               {isAbove ? `+${diffPct}%` : `${diffPct}%`}
                             </span>

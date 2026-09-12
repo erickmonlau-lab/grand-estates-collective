@@ -6,7 +6,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { 
   ArrowLeft, Bath, Bed, Maximize, MapPin, Map, Building2, Phone, MessageCircle, 
   ChevronRight, ChevronLeft, Home, Mail, Share2, CheckCircle2, ShieldCheck, Sparkles, 
-  Calendar, Eye, Check, Play, Loader2, ArrowRight, ChevronDown, Send, Maximize2, X
+  Calendar, Eye, EyeOff, Check, Play, Loader2, ArrowRight, ChevronDown, Send, Maximize2, X
 } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
@@ -165,7 +165,25 @@ function PropertyDetail() {
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [showLightboxArrows, setShowLightboxArrows] = useState(true);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  // Keyboard navigation for Lightbox (Esc, Left arrow, Right arrow)
+  useEffect(() => {
+    if (!isLightboxOpen || !property) return;
+    const imagesCount = (property.gallery && property.gallery.length > 0) ? property.gallery.length : 1;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsLightboxOpen(false);
+      } else if (e.key === "ArrowLeft") {
+        setActiveImageIdx((prev) => (prev === 0 ? imagesCount - 1 : prev - 1));
+      } else if (e.key === "ArrowRight") {
+        setActiveImageIdx((prev) => (prev === imagesCount - 1 ? 0 : prev + 1));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isLightboxOpen, property]);
 
   // Sync state whenever slug changes
   useEffect(() => {
@@ -1382,65 +1400,134 @@ function PropertyDetail() {
             onClick={() => setIsLightboxOpen(false)}
             className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 select-none"
           >
-            {/* Top Bar: Title, Counter & Close Button */}
+            {/* Top Bar: Title, Counter, Clean View Toggle & Close Button */}
             <div 
               onClick={(e) => e.stopPropagation()} 
-              className="flex items-center justify-between gap-4 text-white z-20 pb-3"
+              className="flex items-center justify-between gap-3 text-white z-20 pb-2.5 sm:pb-3 border-b border-white/10"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <span className="bg-[#2563eb] text-white px-3 py-1 rounded-full text-xs font-mono font-black shrink-0">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span className="bg-[#2563eb] text-white px-2.5 sm:px-3 py-1 rounded-full text-xs font-mono font-black shrink-0 shadow">
                   {activeImageIdx + 1} / {galleryImages.length}
                 </span>
-                <h3 className="text-sm sm:text-base font-black truncate text-white/90">
+                <h3 className="text-xs sm:text-base font-bold truncate text-white/90 max-w-[140px] sm:max-w-md">
                   {pData.name}
                 </h3>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsLightboxOpen(false)}
-                className="w-11 h-11 rounded-full bg-white/10 hover:bg-red-600 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 shadow-lg"
-                title={language === "ca" ? "Tancar (Esc)" : language === "en" ? "Close (Esc)" : "Cerrar (Esc)"}
-              >
-                <X className="w-6 h-6 stroke-[2.5]" />
-              </button>
+
+              <div className="flex items-center gap-2 shrink-0">
+                {/* Clean View Toggle Button */}
+                {galleryImages.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => setShowLightboxArrows((prev) => !prev)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
+                      showLightboxArrows 
+                        ? "bg-white/10 hover:bg-white/20 text-white/90 border-white/20" 
+                        : "bg-[#2563eb] hover:bg-[#1d4ed8] text-white border-blue-400 shadow-lg ring-2 ring-blue-400/40"
+                    }`}
+                    title={showLightboxArrows 
+                      ? (language === "ca" ? "Ocultar fletxes (Mode net)" : language === "en" ? "Hide arrows (Clean view)" : "Ocultar flechas (Modo limpio)")
+                      : (language === "ca" ? "Mostrar fletxes" : language === "en" ? "Show arrows" : "Mostrar flechas")
+                    }
+                  >
+                    {showLightboxArrows ? <EyeOff className="w-3.5 h-3.5 shrink-0" /> : <Eye className="w-3.5 h-3.5 shrink-0" />}
+                    <span className="hidden xs:inline sm:inline">
+                      {showLightboxArrows 
+                        ? (language === "ca" ? "Veure net" : language === "en" ? "Clean view" : "Modo limpio")
+                        : (language === "ca" ? "Amb fletxes" : language === "en" ? "With arrows" : "Con flechas")
+                      }
+                    </span>
+                  </button>
+                )}
+
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setIsLightboxOpen(false)}
+                  className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-red-600 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0 shadow-lg border border-white/20"
+                  title={language === "ca" ? "Tancar (Esc)" : language === "en" ? "Close (Esc)" : "Cerrar (Esc)"}
+                >
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+                </button>
+              </div>
             </div>
 
-            {/* Central Zoomed Image with Next/Prev Controls */}
+            {/* Central Zoomed Image with Next/Prev Controls & Swipe/Tap Navigation */}
             <div 
               onClick={(e) => e.stopPropagation()} 
-              className="relative flex-1 flex items-center justify-center min-h-0 overflow-hidden my-2"
+              className="relative flex-1 flex items-center justify-center min-h-0 overflow-hidden my-2 select-none touch-pan-y"
             >
               <motion.img
                 key={activeImageIdx}
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
                 src={galleryImages[activeImageIdx]}
                 alt={`${pData.name} - ${activeImageIdx + 1}`}
-                className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
+                drag={galleryImages.length > 1 ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.25}
+                onDragEnd={(_e, { offset, velocity }) => {
+                  const swipeThreshold = 50;
+                  if (offset.x < -swipeThreshold || velocity.x < -500) {
+                    setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+                  } else if (offset.x > swipeThreshold || velocity.x > 500) {
+                    setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+                  }
+                }}
+                className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl pointer-events-auto cursor-grab active:cursor-grabbing"
               />
 
-              {/* Prev Button */}
+              {/* Invisible Left & Right Click/Tap Zones for Seamless Navigation in Clean Mode */}
               {galleryImages.length > 1 && (
+                <>
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+                    }}
+                    className="absolute left-0 top-0 bottom-0 w-1/4 cursor-w-resize z-10"
+                    title={language === "ca" ? "Imatge anterior" : language === "en" ? "Previous image" : "Imagen anterior"}
+                  />
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+                    }}
+                    className="absolute right-0 top-0 bottom-0 w-1/4 cursor-e-resize z-10"
+                    title={language === "ca" ? "Imatge següent" : language === "en" ? "Next image" : "Siguiente imagen"}
+                  />
+                </>
+              )}
+
+              {/* Prev Button - Sleek Glassmorphism, Perfectly Centered */}
+              {galleryImages.length > 1 && showLightboxArrows && (
                 <button
                   type="button"
-                  onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
-                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-2xl border-2 border-white transition-transform hover:scale-110 active:scale-95 cursor-pointer z-30"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+                  }}
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-white/40 backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-30"
                   title="Anterior (Flecha izquierda)"
                 >
-                  <ChevronLeft className="w-7 h-7 sm:w-8 sm:h-8 stroke-[3]" />
+                  <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
                 </button>
               )}
 
-              {/* Next Button */}
-              {galleryImages.length > 1 && (
+              {/* Next Button - Sleek Glassmorphism, Perfectly Centered */}
+              {galleryImages.length > 1 && showLightboxArrows && (
                 <button
                   type="button"
-                  onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
-                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white flex items-center justify-center shadow-2xl border-2 border-white transition-transform hover:scale-110 active:scale-95 cursor-pointer z-30"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+                  }}
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/45 hover:bg-[#2563eb] text-white flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.5)] border border-white/40 backdrop-blur-md transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-30"
                   title="Siguiente (Flecha derecha)"
                 >
-                  <ChevronRight className="w-7 h-7 sm:w-8 sm:h-8 stroke-[3]" />
+                  <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.5]" />
                 </button>
               )}
             </div>

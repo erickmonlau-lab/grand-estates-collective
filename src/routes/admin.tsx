@@ -33,7 +33,10 @@ import {
   ChevronDown,
   ArrowRight,
   Phone,
-  Mail
+  Mail,
+  FileText,
+  Film,
+  Languages
 } from "lucide-react";
 import {
   fetchProperties,
@@ -146,6 +149,8 @@ function AdminDashboard() {
   });
 
   const [showTranslations, setShowTranslations] = useState(false);
+  const [activeModalTab, setActiveModalTab] = useState<"basicos" | "multimedia" | "descripcion">("basicos");
+  const [newFeatureInput, setNewFeatureInput] = useState<string>("");
   const mainFileInputRef = useRef<HTMLInputElement>(null);
   const galleryFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -218,6 +223,9 @@ function AdminDashboard() {
       videoUrl: "",
       status: "disponible"
     });
+    setActiveModalTab("basicos");
+    setNewFeatureInput("");
+    setShowTranslations(false);
     setIsModalOpen(true);
   };
 
@@ -247,6 +255,9 @@ function AdminDashboard() {
       videoUrl: p.videoUrl || "",
       status: p.status || "disponible"
     });
+    setActiveModalTab("basicos");
+    setNewFeatureInput("");
+    setShowTranslations(false);
     setIsModalOpen(true);
   };
 
@@ -303,6 +314,36 @@ function AdminDashboard() {
         gallery: newGallery.filter(Boolean)
       };
     });
+  };
+
+  const handleAddFeature = (featToAdd?: string) => {
+    const text = (featToAdd !== undefined ? featToAdd : newFeatureInput).trim();
+    if (!text) return;
+    
+    // Split by comma if user pasted comma-separated list
+    const incoming = text.split(",").map((s) => s.trim()).filter(Boolean);
+    const existing = formData.features
+      ? formData.features.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+    
+    // Add unique ones
+    const merged = [...existing];
+    for (const item of incoming) {
+      if (!merged.some((m) => m.toLowerCase() === item.toLowerCase())) {
+        merged.push(item);
+      }
+    }
+    
+    setFormData((prev) => ({ ...prev, features: merged.join(", ") }));
+    setNewFeatureInput("");
+  };
+
+  const handleRemoveFeature = (featureToRemove: string) => {
+    const existing = formData.features
+      ? formData.features.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+    const filtered = existing.filter((f) => f !== featureToRemove);
+    setFormData((prev) => ({ ...prev, features: filtered.join(", ") }));
   };
 
   const handleSaveProperty = async (e: React.FormEvent) => {
@@ -1023,518 +1064,713 @@ function AdminDashboard() {
               </button>
             </div>
 
+            {/* Modal Tabs Header */}
+            <div className="bg-slate-100 border-b border-slate-200 px-6 pt-3 flex items-center gap-2 overflow-x-auto">
+              <button
+                type="button"
+                onClick={() => setActiveModalTab("basicos")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs font-black uppercase tracking-wider transition-all border-b-2 cursor-pointer whitespace-nowrap ${
+                  activeModalTab === "basicos"
+                    ? "bg-white text-[#2563eb] border-[#2563eb] shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-200/60"
+                }`}
+              >
+                <FileText className="w-4 h-4 stroke-[2.5]" />
+                <span>1. Datos Básicos</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveModalTab("multimedia")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs font-black uppercase tracking-wider transition-all border-b-2 cursor-pointer whitespace-nowrap ${
+                  activeModalTab === "multimedia"
+                    ? "bg-white text-[#2563eb] border-[#2563eb] shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-200/60"
+                }`}
+              >
+                <Film className="w-4 h-4 stroke-[2.5]" />
+                <span>2. Fotos y Vídeo ({formData.gallery.length + (formData.image ? 1 : 0)})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveModalTab("descripcion")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs font-black uppercase tracking-wider transition-all border-b-2 cursor-pointer whitespace-nowrap ${
+                  activeModalTab === "descripcion"
+                    ? "bg-white text-[#2563eb] border-[#2563eb] shadow-xs"
+                    : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-200/60"
+                }`}
+              >
+                <Languages className="w-4 h-4 stroke-[2.5]" />
+                <span>3. Descripción y Traducciones</span>
+              </button>
+            </div>
+
             {/* Modal Form */}
-            <form onSubmit={handleSaveProperty} className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
+            <form onSubmit={handleSaveProperty} className="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto">
               
-              {/* Row 1: Nombre / Título Universal */}
-              <div>
-                <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                  Título del Inmueble *
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder={`ej: ${formData.type} en ${formData.location}`}
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
-                />
-              </div>
-
-              {/* Row 2: Tipo, Operación, Referencia y Zona */}
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Tipo de Inmueble
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.type}
-                      onChange={(e: any) => setFormData({ ...formData, type: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
-                    >
-                      <option value="Piso">Piso</option>
-                      <option value="Ático">Ático</option>
-                      <option value="Apartamento">Apartamento</option>
-                      <option value="Local comercial">Local comercial</option>
-                      <option value="Chalet">Chalet</option>
-                      <option value="Oficina">Oficina</option>
-                    </select>
-                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Operación
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.operation}
-                      onChange={(e: any) => setFormData({ ...formData, operation: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
-                    >
-                      <option value="comprar">Venta</option>
-                      <option value="alquilar">Alquiler</option>
-                    </select>
-                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Referencia
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.ref}
-                    onChange={(e) => setFormData({ ...formData, ref: e.target.value })}
-                    placeholder="API A10750"
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Barrio / Zona
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
-                    >
-                      {SANTA_COLOMA_ZONES.map((zone) => (
-                        <option key={zone} value={zone}>{zone}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Row 3: Precio, Habitaciones, Baños, Superficie, Planta/Tipo */}
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Precio (€) *
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#2563eb] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Habitaciones
-                  </label>
-                  <input
-                    type="number"
-                    min={0}
-                    value={formData.bedrooms}
-                    onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Baños
-                  </label>
-                  <input
-                    type="number"
-                    min={0}
-                    value={formData.bathrooms}
-                    onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Superficie (m²)
-                  </label>
-                  <input
-                    type="number"
-                    min={1}
-                    value={formData.surface}
-                    onChange={(e) => setFormData({ ...formData, surface: Number(e.target.value) })}
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Planta / Altura
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.floor}
-                    onChange={(e) => setFormData({ ...formData, floor: e.target.value })}
-                    placeholder="ej: Planta 3ª, Bajos"
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-              </div>
-
-              {/* Row 4: Estado y Características */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Estado Actual
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={formData.status}
-                      onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
-                      className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
-                    >
-                      <option value="disponible">🟢 Disponible</option>
-                      <option value="reservado">🟡 Reservado</option>
-                      <option value="vendido">🔴 Vendido</option>
-                      <option value="alquilado">🔵 Alquilado</option>
-                    </select>
-                    <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                    Características (separadas por comas)
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.features}
-                    onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-                    placeholder="Ascensor, Balcón, Parking, Aire Acondicionado..."
-                    className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
-                  />
-                </div>
-              </div>
-
-              {/* Row 5: ADJUNTAR FOTO PRINCIPAL (PORTADA) */}
-              <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-5 space-y-4">
-                
-                {/* Guidelines Box */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3.5 flex items-start gap-3">
-                  <Info className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5" />
-                  <div className="text-xs text-slate-700 leading-relaxed">
-                    <strong className="text-[#0f172a] block font-black mb-0.5">Especificaciones recomendadas para las imágenes:</strong>
-                    <span className="font-semibold">
-                      • Formato: <strong>JPG, PNG o WEBP</strong><br />
-                      • Orientación: <strong>Horizontal (16:9 o 4:3)</strong><br />
-                      • Resolución recomendada: <strong>1200 x 800 px</strong> (Mínimo: 800 x 600 px)<br />
-                      • Peso máximo recomendado: <strong>Hasta 5 MB</strong> (la web optimiza la compresión automáticamente).
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-xs font-black uppercase text-[#0f172a]">
-                      Foto Principal (Portada del Inmueble) *
+              {/* TAB 1: DATOS BÁSICOS */}
+              {activeModalTab === "basicos" && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  {/* Row 1: Nombre / Título Universal */}
+                  <div>
+                    <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                      Título del Inmueble *
                     </label>
-                    <span className="text-[11px] font-bold text-slate-500">Visible en catálogo y ficha</span>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder={`ej: ${formData.type} en ${formData.location}`}
+                      className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-black text-[#000000] focus:border-[#2563eb] outline-none"
+                    />
                   </div>
 
-                  {/* Upload button or Image Preview */}
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                    
-                    {/* Image Preview Box */}
-                    <div className="sm:col-span-4 aspect-[16/10] bg-white rounded-xl border-2 border-slate-300 overflow-hidden relative group flex items-center justify-center">
-                      {formData.image ? (
-                        <>
-                          <img src={formData.image} alt="Vista previa" className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => mainFileInputRef.current?.click()}
-                              className="bg-white/90 hover:bg-white text-[#0f172a] text-xs font-black px-2.5 py-1.5 rounded-lg shadow-md cursor-pointer"
-                            >
-                              Cambiar
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="text-center p-3 text-slate-400">
-                          <Camera className="w-8 h-8 mx-auto mb-1 opacity-50" />
-                          <span className="text-[11px] font-bold block">Sin imagen</span>
-                        </div>
-                      )}
+                  {/* Row 2: Tipo, Operación, Referencia y Zona */}
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Tipo de Inmueble
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.type}
+                          onChange={(e: any) => setFormData({ ...formData, type: e.target.value })}
+                          className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
+                        >
+                          <option value="Piso">Piso</option>
+                          <option value="Ático">Ático</option>
+                          <option value="Apartamento">Apartamento</option>
+                          <option value="Local comercial">Local comercial</option>
+                          <option value="Chalet">Chalet</option>
+                          <option value="Oficina">Oficina</option>
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                      </div>
                     </div>
 
-                    {/* File Attachment & URL Input */}
-                    <div className="sm:col-span-8 space-y-2.5">
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Operación
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.operation}
+                          onChange={(e: any) => setFormData({ ...formData, operation: e.target.value })}
+                          className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
+                        >
+                          <option value="comprar">Venta</option>
+                          <option value="alquilar">Alquiler</option>
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Referencia
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.ref}
+                        onChange={(e) => setFormData({ ...formData, ref: e.target.value })}
+                        placeholder="API A10750"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Barrio / Zona
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
+                        >
+                          {SANTA_COLOMA_ZONES.map((zone) => (
+                            <option key={zone} value={zone}>{zone}</option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-[#000000] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 3: Precio, Habitaciones, Baños, Superficie, Planta/Tipo */}
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Precio (€) *
+                      </label>
+                      <input
+                        type="number"
+                        required
+                        value={formData.price}
+                        onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#2563eb] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Habitaciones
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        value={formData.bedrooms}
+                        onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Baños
+                      </label>
+                      <input
+                        type="number"
+                        min={0}
+                        value={formData.bathrooms}
+                        onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Superficie (m²)
+                      </label>
+                      <input
+                        type="number"
+                        min={1}
+                        value={formData.surface}
+                        onChange={(e) => setFormData({ ...formData, surface: Number(e.target.value) })}
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                        Planta / Altura
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.floor}
+                        onChange={(e) => setFormData({ ...formData, floor: e.target.value })}
+                        placeholder="ej: Planta 3ª, Bajos"
+                        className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 4: Estado y Componente Interactivo de Características (Chips/Tags) */}
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                          Estado Actual
+                        </label>
+                        <div className="relative">
+                          <select
+                            value={formData.status}
+                            onChange={(e: any) => setFormData({ ...formData, status: e.target.value })}
+                            className="appearance-none w-full bg-slate-50 border-2 border-slate-300 rounded-xl pl-3.5 pr-9 py-3 text-sm font-black text-[#000000] outline-none cursor-pointer focus:border-[#2563eb]"
+                          >
+                            <option value="disponible">🟢 Disponible</option>
+                            <option value="reservado">🟡 Reservado</option>
+                            <option value="vendido">🔴 Vendido</option>
+                            <option value="alquilado">🔵 Alquilado</option>
+                          </select>
+                          <ChevronDown className="w-4 h-4 text-slate-700 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
+                        </div>
+                      </div>
+
+                      {/* Add new tag / chip input */}
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
+                          Añadir Característica / Equipamiento
+                        </label>
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={newFeatureInput}
+                            onChange={(e) => setNewFeatureInput(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                handleAddFeature();
+                              }
+                            }}
+                            placeholder="Escribe una comodidad (ej. Ascensor, Terraza...) y pulsa Enter"
+                            className="flex-1 bg-slate-50 border-2 border-slate-300 rounded-xl px-3.5 py-3 text-sm font-black text-[#000000] outline-none focus:border-[#2563eb]"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleAddFeature()}
+                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-3 rounded-xl font-black text-xs uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs shrink-0"
+                          >
+                            <Plus className="w-4 h-4 stroke-[2.5]" />
+                            <span>Añadir</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Chips Display Area - Styled exactly like the public listing features */}
+                    <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]">
+                          Características del Inmueble (Chips visuales activos)
+                        </span>
+                        <span className="text-xs font-bold text-slate-700">
+                          {formData.features ? formData.features.split(",").filter((s) => s.trim()).length : 0} seleccionadas
+                        </span>
+                      </div>
+
+                      {/* Tag list */}
+                      {formData.features && formData.features.split(",").filter((s) => s.trim()).length > 0 ? (
+                        <div className="flex flex-wrap gap-2.5">
+                          {formData.features
+                            .split(",")
+                            .map((s) => s.trim())
+                            .filter(Boolean)
+                            .map((feat) => (
+                              <div
+                                key={feat}
+                                className="inline-flex items-center gap-2 bg-blue-50/80 border-2 border-blue-300 px-3.5 py-2 rounded-xl text-xs font-black text-[#0f172a] shadow-xs hover:border-[#2563eb] transition-all group"
+                              >
+                                <div className="w-5 h-5 rounded-md bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
+                                  <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" />
+                                </div>
+                                <span className="font-sans">{feat}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveFeature(feat)}
+                                  className="ml-1 text-slate-400 hover:text-red-600 hover:bg-red-50 p-1 rounded-md transition-colors cursor-pointer"
+                                  title={`Eliminar "${feat}"`}
+                                >
+                                  <X className="w-3.5 h-3.5 stroke-[2.5]" />
+                                </button>
+                              </div>
+                            ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs font-bold text-slate-600 italic py-2">
+                          No hay características añadidas aún. Escribe arriba o haz clic en las sugerencias rápidas:
+                        </p>
+                      )}
+
+                      {/* Quick Suggestions Pills */}
+                      <div className="mt-3.5 pt-3 border-t border-slate-200 flex flex-wrap items-center gap-1.5">
+                        <span className="text-[11px] font-black uppercase text-slate-700 mr-1">Sugerencias rápidas:</span>
+                        {["Ascensor", "Terraza", "Balcón", "Parking", "Calefacción", "Aire Acondicionado", "Exterior", "Cerca de Metro", "Reformado"].map((sug) => {
+                          const isAlreadyAdded = formData.features
+                            ? formData.features.split(",").map((s) => s.trim().toLowerCase()).includes(sug.toLowerCase())
+                            : false;
+                          if (isAlreadyAdded) return null;
+                          return (
+                            <button
+                              key={sug}
+                              type="button"
+                              onClick={() => handleAddFeature(sug)}
+                              className="text-[11px] font-extrabold bg-white border border-slate-300 hover:border-[#2563eb] text-slate-800 hover:text-[#2563eb] px-2.5 py-1 rounded-lg transition-colors cursor-pointer shadow-2xs"
+                            >
+                              + {sug}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Next Step Button */}
+                  <div className="flex justify-end pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setActiveModalTab("multimedia")}
+                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                    >
+                      <span>Siguiente: Fotos y Vídeo</span>
+                      <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 2: FOTOS Y VÍDEO */}
+              {activeModalTab === "multimedia" && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-5 space-y-4">
+                    
+                    {/* Guidelines Box */}
+                    <div className="bg-blue-50 border border-blue-300 rounded-xl p-3.5 flex items-start gap-3 shadow-2xs">
+                      <Info className="w-5 h-5 text-[#2563eb] shrink-0 mt-0.5" />
+                      <div className="text-xs text-slate-800 leading-relaxed">
+                        <strong className="text-[#0f172a] block font-black mb-0.5">Especificaciones recomendadas para las imágenes:</strong>
+                        <span className="font-bold text-slate-700">
+                          • Formato: <strong className="text-[#0f172a]">JPG, PNG o WEBP</strong><br />
+                          • Orientación: <strong className="text-[#0f172a]">Horizontal (16:9 o 4:3)</strong><br />
+                          • Resolución recomendada: <strong className="text-[#0f172a]">1200 x 800 px</strong> (Mínimo: 800 x 600 px)<br />
+                          • Peso máximo recomendado: <strong className="text-[#0f172a]">Hasta 5 MB</strong> (la web optimiza la compresión automáticamente).
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-xs font-black uppercase text-[#0f172a]">
+                          Foto Principal (Portada del Inmueble) *
+                        </label>
+                        <span className="text-xs font-black text-slate-700">Visible en catálogo y ficha pública</span>
+                      </div>
+
+                      {/* Upload button or Image Preview */}
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                        
+                        {/* Image Preview Box */}
+                        <div className="sm:col-span-4 aspect-[16/10] bg-white rounded-xl border-2 border-slate-300 overflow-hidden relative group flex items-center justify-center shadow-xs">
+                          {formData.image ? (
+                            <>
+                              <img src={formData.image} alt="Vista previa" className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={() => mainFileInputRef.current?.click()}
+                                  className="bg-white/90 hover:bg-white text-[#0f172a] text-xs font-black px-2.5 py-1.5 rounded-lg shadow-md cursor-pointer"
+                                >
+                                  Cambiar
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <div className="text-center p-3 text-slate-400">
+                              <Camera className="w-8 h-8 mx-auto mb-1 opacity-50" />
+                              <span className="text-xs font-bold block text-slate-600">Sin imagen</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* File Attachment & URL Input */}
+                        <div className="sm:col-span-8 space-y-2.5">
+                          <input
+                            type="file"
+                            ref={mainFileInputRef}
+                            onChange={handleMainFileChange}
+                            accept="image/jpeg,image/png,image/webp"
+                            className="hidden"
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => mainFileInputRef.current?.click()}
+                            className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
+                          >
+                            <Upload className="w-4 h-4" />
+                            <span>Adjuntar Foto desde el Ordenador o Móvil</span>
+                          </button>
+
+                          <div className="relative">
+                            <span className="text-[11px] font-black uppercase text-slate-700 block mb-1">O pegar enlace de foto (URL externa):</span>
+                            <input
+                              type="url"
+                              value={formData.image}
+                              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                              placeholder="https://images.unsplash.com/photo-..."
+                              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                            />
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* GALERÍA DE FOTOS ADICIONALES */}
+                    <div className="pt-4 border-t border-slate-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-xs font-black uppercase text-[#0f172a]">
+                          Galería de Fotos Adicionales (Interiores, Plano, Terraza...)
+                        </label>
+                        <span className="text-xs font-black text-[#2563eb] bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                          {formData.gallery.length} foto(s) en galería
+                        </span>
+                      </div>
+
                       <input
                         type="file"
-                        ref={mainFileInputRef}
-                        onChange={handleMainFileChange}
+                        ref={galleryFileInputRef}
+                        onChange={handleGalleryFilesChange}
                         accept="image/jpeg,image/png,image/webp"
+                        multiple
                         className="hidden"
                       />
 
                       <button
                         type="button"
-                        onClick={() => mainFileInputRef.current?.click()}
-                        className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
+                        onClick={() => galleryFileInputRef.current?.click()}
+                        className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer mb-2.5"
                       >
-                        <Upload className="w-4 h-4" />
-                        <span>Adjuntar Foto desde el Ordenador o Móvil</span>
+                        <Layers className="w-4 h-4" />
+                        <span>+ Añadir Más Fotos a la Galería (Sin límite, selecciona tantas como desees)</span>
                       </button>
 
-                      <div className="relative">
-                        <span className="text-[10px] font-black uppercase text-slate-500 block mb-1">O pegar enlace de foto (URL externa):</span>
+                      <div className="flex gap-2 items-center mb-3">
                         <input
                           type="url"
-                          value={formData.image}
-                          onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                          placeholder="https://images.unsplash.com/photo-..."
-                          className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none"
+                          placeholder="O pegar URL de imagen para la galería (https://...)"
+                          id="newGalleryUrlInput"
+                          className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              const val = (e.currentTarget.value || "").trim();
+                              if (val) {
+                                setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, val] }));
+                                e.currentTarget.value = "";
+                              }
+                            }
+                          }}
                         />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const input = document.getElementById("newGalleryUrlInput") as HTMLInputElement | null;
+                            if (input && input.value.trim()) {
+                              setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, input.value.trim()] }));
+                              input.value = "";
+                            }
+                          }}
+                          className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-black px-4 py-2 rounded-xl cursor-pointer shadow-xs"
+                        >
+                          Añadir URL
+                        </button>
                       </div>
+
+                      {/* Gallery Thumbnails Grid */}
+                      {formData.gallery.length > 0 && (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 pt-1">
+                          {formData.gallery.map((imgUrl, idx) => (
+                            <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-slate-300 bg-white group shadow-xs">
+                              <img src={imgUrl} alt={`Galería ${idx + 1}`} className="w-full h-full object-cover" />
+                              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1.5">
+                                <div className="flex justify-end">
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRemoveGalleryImage(idx)}
+                                    className="bg-red-600 hover:bg-red-700 text-white rounded-full p-1 shadow-md transition-colors cursor-pointer"
+                                    title="Quitar foto de la galería"
+                                  >
+                                    <X className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleSetAsCover(idx)}
+                                  className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-[10px] font-black uppercase tracking-wider py-1 px-1 rounded-md shadow-md transition-colors cursor-pointer text-center"
+                                  title="Convertir en foto principal de portada"
+                                >
+                                  Hacer Portada
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* TOUR VIRTUAL / VÍDEO (OPCIONAL) */}
+                    <div className="pt-4 border-t border-slate-200">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-black uppercase text-[#0f172a]">
+                          Vídeo Tour / Recorrido Virtual (Opcional)
+                        </label>
+                        <span className="text-xs font-black text-slate-700">Solo si existe vídeo real</span>
+                      </div>
+                      <input
+                        type="url"
+                        value={formData.videoUrl}
+                        onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
+                        placeholder="https://www.youtube.com/embed/... o enlace de YouTube / Vimeo"
+                        className="w-full bg-white border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                      />
+                      <p className="text-xs text-slate-700 mt-1 font-bold">
+                        Si se deja vacío, la sección de vídeo no se mostrará en la ficha del inmueble para mantener el diseño impecable.
+                      </p>
                     </div>
 
                   </div>
-                </div>
 
-                {/* Row 5.2: GALERÍA DE FOTOS ADICIONALES */}
-                <div className="pt-4 border-t border-slate-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-xs font-black uppercase text-[#0f172a]">
-                      Galería de Fotos Adicionales (Interiores, Plano, Terraza...)
-                    </label>
-                    <span className="text-[11px] font-bold text-slate-500">{formData.gallery.length} foto(s)</span>
-                  </div>
-
-                  <input
-                    type="file"
-                    ref={galleryFileInputRef}
-                    onChange={handleGalleryFilesChange}
-                    accept="image/jpeg,image/png,image/webp"
-                    multiple
-                    className="hidden"
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => galleryFileInputRef.current?.click()}
-                    className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer mb-2.5"
-                  >
-                    <Layers className="w-4 h-4" />
-                    <span>+ Añadir Más Fotos a la Galería (Sin límite, selecciona tantas fotos como desees)</span>
-                  </button>
-
-                  <div className="flex gap-2 items-center mb-3">
-                    <input
-                      type="url"
-                      placeholder="O pegar URL de imagen para la galería (https://...)"
-                      id="newGalleryUrlInput"
-                      className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          const val = (e.currentTarget.value || "").trim();
-                          if (val) {
-                            setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, val] }));
-                            e.currentTarget.value = "";
-                          }
-                        }
-                      }}
-                    />
+                  {/* Navigation Buttons between tabs */}
+                  <div className="flex items-center justify-between pt-2">
                     <button
                       type="button"
-                      onClick={() => {
-                        const input = document.getElementById("newGalleryUrlInput") as HTMLInputElement | null;
-                        if (input && input.value.trim()) {
-                          setFormData((prev) => ({ ...prev, gallery: [...prev.gallery, input.value.trim()] }));
-                          input.value = "";
-                        }
-                      }}
-                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-black px-4 py-2 rounded-xl cursor-pointer"
+                      onClick={() => setActiveModalTab("basicos")}
+                      className="px-5 py-2.5 rounded-xl border-2 border-slate-300 text-xs font-black text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                     >
-                      Añadir URL
+                      ← Volver a Datos Básicos
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveModalTab("descripcion")}
+                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+                    >
+                      <span>Siguiente: Descripción y Traducciones</span>
+                      <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                     </button>
                   </div>
+                </div>
+              )}
 
-                  {/* Gallery Thumbnails Grid */}
-                  {formData.gallery.length > 0 && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2.5 pt-1">
-                      {formData.gallery.map((imgUrl, idx) => (
-                        <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden border-2 border-slate-300 bg-white group shadow-xs">
-                          <img src={imgUrl} alt={`Galería ${idx + 1}`} className="w-full h-full object-cover" />
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-1.5">
-                            <div className="flex justify-end">
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveGalleryImage(idx)}
-                                className="bg-red-600 hover:bg-red-700 text-white rounded-full p-1 shadow-md transition-colors cursor-pointer"
-                                title="Quitar foto de la galería"
-                              >
-                                <X className="w-3.5 h-3.5" />
-                              </button>
+              {/* TAB 3: DESCRIPCIÓN Y TRADUCCIONES */}
+              {activeModalTab === "descripcion" && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  {/* Row 6: Descripción */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-black uppercase text-[#000000]">
+                        Descripción Detallada (Español) *
+                      </label>
+                      <span className="text-xs font-bold text-slate-700">Texto principal de la ficha</span>
+                    </div>
+                    <textarea
+                      rows={5}
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      placeholder="Escribe los detalles de la vivienda, distribución, estado, orientación, calidades..."
+                      className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#000000] placeholder:text-slate-500 outline-none resize-none focus:border-[#2563eb]"
+                    />
+                  </div>
+
+                  {/* Row 7: TRADUCCIONES AUTOMÁTICAS (CATALÁN / INGLÉS) */}
+                  <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-[#2563eb]" />
+                          <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]">
+                            Traducciones Automáticas (Catalán e Inglés)
+                          </span>
+                        </div>
+                        {/* High Contrast Clarified Text */}
+                        <p className="text-xs text-slate-800 font-bold mt-1 leading-snug">
+                          Al guardar, el sistema traduce automáticamente en segundo plano. Puedes desplegar para revisar o personalizar los textos si lo deseas.
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const finalName = formData.name.trim() || `${formData.type} en ${formData.location}`;
+                            setFormData({
+                              ...formData,
+                              name_ca: autoTranslateText(finalName, "ca"),
+                              name_en: autoTranslateText(finalName, "en"),
+                              description_ca: autoTranslateText(formData.description, "ca"),
+                              description_en: autoTranslateText(formData.description, "en")
+                            });
+                            setShowTranslations(true);
+                          }}
+                          className="bg-blue-100 hover:bg-blue-200 text-[#2563eb] text-xs font-black px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                        >
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>Auto-traducir ahora</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowTranslations(!showTranslations)}
+                          className="text-xs font-black text-slate-800 hover:text-[#2563eb] bg-white border border-slate-300 hover:border-[#2563eb] px-3 py-2 rounded-xl cursor-pointer shadow-2xs"
+                        >
+                          {showTranslations ? "Ocultar ▲" : "Ver / Editar ▼"}
+                        </button>
+                      </div>
+                    </div>
+
+                    {showTranslations && (
+                      <div className="pt-4 border-t border-slate-200 space-y-4 animate-in fade-in duration-200">
+                        {/* Catalan translation */}
+                        <div className="bg-white border-2 border-slate-300 rounded-xl p-4 shadow-xs">
+                          <div className="flex items-center justify-between mb-2.5">
+                            <span className="inline-block px-2.5 py-1 rounded-md bg-red-100 text-red-700 text-xs font-black uppercase tracking-wider">
+                              Català (Traducció)
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-600">Opcional: puedes afinarla manualmente</span>
+                          </div>
+                          <div className="space-y-3">
+                            <div>
+                              <label className="block text-xs font-black text-slate-800 mb-1">Títol en Català:</label>
+                              <input
+                                type="text"
+                                value={formData.name_ca}
+                                onChange={(e) => setFormData({ ...formData, name_ca: e.target.value })}
+                                placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "ca")}
+                                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                              />
                             </div>
-                            <button
-                              type="button"
-                              onClick={() => handleSetAsCover(idx)}
-                              className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-[10px] font-black uppercase tracking-wider py-1 px-1 rounded-md shadow-md transition-colors cursor-pointer text-center"
-                              title="Convertir en foto principal de portada"
-                            >
-                              Hacer Portada
-                            </button>
+                            <div>
+                              <label className="block text-xs font-black text-slate-800 mb-1">Descripció en Català:</label>
+                              <textarea
+                                rows={3}
+                                value={formData.description_ca}
+                                onChange={(e) => setFormData({ ...formData, description_ca: e.target.value })}
+                                placeholder={autoTranslateText(formData.description, "ca")}
+                                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
+                              />
+                            </div>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
 
-                {/* Row 5.3: TOUR VIRTUAL / VÍDEO (OPCIONAL) */}
-                <div className="pt-4 border-t border-slate-200">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-black uppercase text-[#0f172a]">
-                      Vídeo Tour / Recorrido Virtual (Opcional)
-                    </label>
-                    <span className="text-[11px] font-bold text-slate-500">Solo si existe vídeo real</span>
+                        {/* English translation */}
+                        <div className="bg-white border-2 border-slate-300 rounded-xl p-4 shadow-xs">
+                          <div className="flex items-center justify-between mb-2.5">
+                            <span className="inline-block px-2.5 py-1 rounded-md bg-blue-100 text-blue-700 text-xs font-black uppercase tracking-wider">
+                              English (Translation)
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-600">Optional: you can refine it manually</span>
+                          </div>
+                          <div className="space-y-3">
+                            <div>
+                              <label className="block text-xs font-black text-slate-800 mb-1">Title in English:</label>
+                              <input
+                                type="text"
+                                value={formData.name_en}
+                                onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
+                                placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "en")}
+                                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-black text-slate-800 mb-1">Description in English:</label>
+                              <textarea
+                                rows={3}
+                                value={formData.description_en}
+                                onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
+                                placeholder={autoTranslateText(formData.description, "en")}
+                                className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <input
-                    type="url"
-                    value={formData.videoUrl}
-                    onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-                    placeholder="https://www.youtube.com/embed/... o enlace de YouTube / Vimeo"
-                    className="w-full bg-white border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
-                  />
-                  <p className="text-[11px] text-slate-500 mt-1 font-medium">
-                    Si se deja vacío, la sección de vídeo no se mostrará en la ficha del inmueble para mantener el diseño impecable.
-                  </p>
-                </div>
 
-              </div>
-
-              {/* Row 6: Descripción */}
-              <div>
-                <label className="block text-xs font-black uppercase text-[#000000] mb-1.5">
-                  Descripción Detallada (Español) *
-                </label>
-                <textarea
-                  rows={4}
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Escribe los detalles de la vivienda, distribución, estado, orientación..."
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-bold text-[#000000] placeholder:text-slate-500 outline-none resize-none focus:border-[#2563eb]"
-                />
-              </div>
-
-              {/* Row 7: TRADUCCIONES AUTOMÁTICAS (CATALÁN / INGLÉS) */}
-              <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-4 sm:p-5">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#2563eb]" />
-                      <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]">
-                        Traducciones Automáticas (Catalán e Inglés)
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-600 font-medium mt-0.5">
-                      Al guardar, el sistema traduce automáticamente. Puedes desplegar para revisar o personalizar los textos.
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
+                  {/* Navigation Buttons */}
+                  <div className="flex items-center justify-start pt-2">
                     <button
                       type="button"
-                      onClick={() => {
-                        const finalName = formData.name.trim() || `${formData.type} en ${formData.location}`;
-                        setFormData({
-                          ...formData,
-                          name_ca: autoTranslateText(finalName, "ca"),
-                          name_en: autoTranslateText(finalName, "en"),
-                          description_ca: autoTranslateText(formData.description, "ca"),
-                          description_en: autoTranslateText(formData.description, "en")
-                        });
-                        setShowTranslations(true);
-                      }}
-                      className="bg-blue-100 hover:bg-blue-200 text-[#2563eb] text-xs font-black px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      onClick={() => setActiveModalTab("multimedia")}
+                      className="px-5 py-2.5 rounded-xl border-2 border-slate-300 text-xs font-black text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                     >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>Auto-traducir ahora</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setShowTranslations(!showTranslations)}
-                      className="text-xs font-bold text-slate-600 hover:text-slate-900 px-2 py-1 cursor-pointer"
-                    >
-                      {showTranslations ? "Ocultar ▲" : "Ver / Editar ▼"}
+                      ← Volver a Fotos y Vídeo
                     </button>
                   </div>
                 </div>
+              )}
 
-                {showTranslations && (
-                  <div className="pt-4 border-t border-slate-200 space-y-4 animate-in fade-in duration-200">
-                    {/* Catalan translation */}
-                    <div className="bg-white border border-slate-300 rounded-xl p-3.5">
-                      <span className="inline-block px-2 py-0.5 rounded bg-red-100 text-red-700 text-[10px] font-black uppercase tracking-wider mb-2">
-                        Català
-                      </span>
-                      <div className="space-y-2">
-                        <div>
-                          <label className="block text-[11px] font-black text-slate-700 mb-1">Títol en Català:</label>
-                          <input
-                            type="text"
-                            value={formData.name_ca}
-                            onChange={(e) => setFormData({ ...formData, name_ca: e.target.value })}
-                            placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "ca")}
-                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] font-black text-slate-700 mb-1">Descripció en Català:</label>
-                          <textarea
-                            rows={3}
-                            value={formData.description_ca}
-                            onChange={(e) => setFormData({ ...formData, description_ca: e.target.value })}
-                            placeholder={autoTranslateText(formData.description, "ca")}
-                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-medium text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* English translation */}
-                    <div className="bg-white border border-slate-300 rounded-xl p-3.5">
-                      <span className="inline-block px-2 py-0.5 rounded bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-wider mb-2">
-                        English
-                      </span>
-                      <div className="space-y-2">
-                        <div>
-                          <label className="block text-[11px] font-black text-slate-700 mb-1">Title in English:</label>
-                          <input
-                            type="text"
-                            value={formData.name_en}
-                            onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
-                            placeholder={autoTranslateText(formData.name || `${formData.type} en ${formData.location}`, "en")}
-                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-[#0f172a] outline-none focus:border-[#2563eb]"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] font-black text-slate-700 mb-1">Description in English:</label>
-                          <textarea
-                            rows={3}
-                            value={formData.description_en}
-                            onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
-                            placeholder={autoTranslateText(formData.description, "en")}
-                            className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-medium text-[#0f172a] outline-none resize-none focus:border-[#2563eb]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
+              {/* Action Buttons (Always Visible at bottom of modal) */}
+              <div className="flex items-center justify-end gap-3 pt-5 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}

@@ -1180,12 +1180,27 @@ function SantaColomaBarrioPage() {
                         >
                           {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
                           <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
-                            <img 
-                              src={property.image} 
-                              alt={pData.name} 
-                              loading="lazy" 
-                              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
-                            />
+                            {(() => {
+                              const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
+                              const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
+                              const srcSet = isUnsplash
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=480&q=70 480w, ${baseUnsplash}?auto=format&fit=crop&w=720&q=75 720w, ${baseUnsplash}?auto=format&fit=crop&w=960&q=75 960w`
+                                : undefined;
+                              const imgSrc = isUnsplash
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=600&q=75`
+                                : property.image;
+
+                              return (
+                                <img 
+                                  src={imgSrc}
+                                  srcSet={srcSet}
+                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                                  alt={pData.name} 
+                                  loading="lazy" 
+                                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
+                                />
+                              );
+                            })()}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                             
                             {/* Floating Status & Type Pills */}
@@ -1610,7 +1625,14 @@ function SantaColomaBarrioPage() {
                       className="card-lift group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                     >
                       <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
-                        <img src={bgs[i]} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <img 
+                          src={bgs[i]} 
+                          srcSet={`${bgs[i].replace("w=240", "w=150&q=65")} 150w, ${bgs[i].replace("w=240", "w=240&q=70")} 240w`}
+                          sizes="(max-width: 640px) 150px, 110px"
+                          alt={item.title} 
+                          loading="lazy" 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        />
                         <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
                           {icons[i]}
                         </div>

@@ -1165,7 +1165,7 @@ function SantaColomaBarrioPage() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                             
                             {/* Floating Status & Type Pills */}
-                            <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 z-20">
+                            <div className="absolute top-3.5 left-3.5 right-16 flex flex-wrap items-center gap-1.5 z-20 pointer-events-none">
                               <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
                                 <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                                 <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
@@ -1173,6 +1173,11 @@ function SantaColomaBarrioPage() {
                               <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
                                 {type}
                               </span>
+                              {property.status === "reservado" && (
+                                <span className="inline-flex items-center bg-amber-500 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                                  {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
+                                </span>
+                              )}
                             </div>
 
                             {/* Heart Favorite Button with micro-bounce */}
@@ -1414,27 +1419,31 @@ function SantaColomaBarrioPage() {
                           <button 
                             type="button"
                             onClick={() => {
-                              // Reset filters to defaults and show all available properties
-                              const defaultFilters = {
-                                mode: "comprar",
+                              // Preserve active mode (comprar/alquilar) if valid, reset secondary filters to display all
+                              const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                              const resetParams = {
+                                mode: currentMode,
                                 zona: "Cualquier zona",
                                 tipo: "Cualquier tipo",
                                 precio: "Cualquier precio",
                                 habitaciones: "Cualquier número"
                               };
-                              setSearchParams(defaultFilters);
+                              setSearchParams(resetParams);
                               setConsoleFilters({
                                 zona: "Cualquier zona",
                                 tipo: "Cualquier tipo",
                                 precio: "Cualquier precio",
                                 habitaciones: "Cualquier número"
                               });
-                              setVisibleCount(Math.max(liveProperties.length, properties.length, 50));
+                              // Show all available properties by expanding visibleCount
+                              setVisibleCount(999);
                               
                               // Smooth scroll directly to the property listings grid
                               const el = document.getElementById('properties-results') || document.getElementById('propiedades');
                               if (el) {
                                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              } else {
+                                window.location.hash = "#propiedades";
                               }
                             }}
                             className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"

@@ -1046,7 +1046,7 @@ function PropertyDetail() {
 
             {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD - SPACIOUS & PREMIUM */}
             <div className="lg:col-span-4 h-full">
-              <div className="bg-[#0b214a] text-white rounded-[32px] p-6 sm:p-8 md:p-9 border-2 border-blue-900 lg:sticky lg:top-28 shadow-2xl overflow-hidden relative">
+              <div className="bg-[#0b214a] text-white rounded-[28px] sm:rounded-[32px] p-4 xs:p-5 sm:p-8 md:p-9 border-2 border-blue-900 lg:sticky lg:top-28 shadow-2xl overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-[#2563eb] rounded-full blur-[80px] pointer-events-none opacity-40"></div>
                 
                 {/* Header card info */}
@@ -1064,45 +1064,52 @@ function PropertyDetail() {
                 </div>
 
                 {/* Property quick summary in card - HIGH CONTRAST & SPACIOUS */}
-                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 sm:p-6 border-2 border-blue-400 mb-7 shadow-md">
-                  <div className="flex items-center justify-between text-xs sm:text-sm font-black text-[#000000] mb-2.5">
-                    <span className="uppercase tracking-wider text-slate-700">{t.detail.ref}</span>
-                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-3 py-1 rounded-lg border border-slate-300 text-xs sm:text-sm">{property.ref || property.id.toUpperCase()}</span>
+                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-4 sm:p-6 border-2 border-blue-400 mb-7 shadow-md">
+                  <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-black text-[#000000] mb-3">
+                    <span className="uppercase tracking-wider text-slate-700 shrink-0">{t.detail.ref}</span>
+                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-2.5 sm:px-3 py-1 rounded-lg border border-slate-300 text-xs sm:text-sm shrink-0 whitespace-nowrap">
+                      {property.ref || property.id.toUpperCase()}
+                    </span>
                   </div>
-                  <div className="flex items-center justify-between text-xs sm:text-sm font-black text-[#000000]">
-                    <span className="uppercase tracking-wider text-slate-700">{t.detail.price}</span>
-                    <span className="text-2xl sm:text-3xl text-[#2563eb] font-black tracking-tight">{property.priceFormatted}</span>
+                  <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-black text-[#000000]">
+                    <span className="uppercase tracking-wider text-slate-700 shrink-0">{t.detail.price}</span>
+                    <span className="text-xl xs:text-2xl sm:text-3xl text-[#2563eb] font-black tracking-tight whitespace-nowrap shrink-0">
+                      {property.priceFormatted}
+                    </span>
                   </div>
                 </div>
 
                 {/* DIRECT ACTION BUTTONS: FULL-WIDTH APILADOS CON TEXTO COMPLETO Y LEGIBLE */}
-                <div className="relative z-10 space-y-3.5 mb-7">
+                <div className="relative z-10 space-y-3 mb-7">
                   {/* Primary Call To Action: WhatsApp */}
                   <a 
                     href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 px-4 rounded-2xl text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
+                    className="w-full flex items-center justify-center gap-2.5 bg-[#22c55e] hover:bg-[#16a34a] text-white py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99] text-center"
                   >
-                    <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
+                    <WhatsAppIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 fill-white shrink-0" />
                     <span>{t.detail.whatsappBtn}</span>
                   </a>
 
-                  {/* Secondary 1: Llamar a oficina (full width, sin cortes de texto) */}
+                  {/* Secondary 1: Llamar a oficina (full width, sin cortes de texto, adaptable a pantallas pequeñas) */}
                   <a 
                     href="tel:+34934685656" 
-                    className="w-full flex items-center justify-center gap-2.5 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3.5 px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                    className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3 sm:py-3.5 px-2.5 sm:px-4 rounded-2xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer text-center leading-snug"
                   >
-                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5] shrink-0" />
-                    <span>{t.detail.callBtn}</span>
+                    <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563eb] stroke-[2.5] shrink-0" />
+                    <span className="break-normal">
+                      <span className="whitespace-nowrap">{language === "ca" ? "Trucar a Oficina:" : language === "en" ? "Call Office:" : "Llamar a Oficina:"}</span>{" "}
+                      <span className="whitespace-nowrap font-mono">93 468 56 56</span>
+                    </span>
                   </a>
 
                   {/* Secondary 2: Pedir cita online (full width, sin cortes de texto) */}
                   <a 
                     href="#contactar" 
-                    className="w-full flex items-center justify-center gap-2.5 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3.5 px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                    className="w-full flex items-center justify-center gap-2 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3 sm:py-3.5 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap text-center"
                   >
-                    <Mail className="w-4 h-4 shrink-0" />
+                    <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                     <span>{t.detail.bookBtn}</span>
                   </a>
                 </div>
@@ -1517,11 +1524,11 @@ function PropertyDetail() {
         {/* Call Office Button */}
         <a 
           href="tel:+34934685656" 
-          className="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 py-2.5 px-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-98"
+          className="flex-1 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 py-2.5 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-wider transition-all active:scale-98 text-center"
           title={t.detail.callBtn}
         >
-          <Phone className="w-4 h-4 text-[#38bdf8] stroke-[2.5]" />
-          <span>{t.detail.callBtn}</span>
+          <Phone className="w-3.5 h-3.5 text-[#38bdf8] stroke-[2.5] shrink-0" />
+          <span className="truncate">{language === "ca" ? "Trucar oficina" : language === "en" ? "Call office" : "Llamar oficina"}</span>
         </a>
 
         {/* Primary WhatsApp Action */}

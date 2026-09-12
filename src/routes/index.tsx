@@ -1320,7 +1320,7 @@ function Index() {
                           <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
                             <div className="flex flex-col min-w-0">
                               {/* Blue Pill Badge for "PRECIO" / "PREU" - Identical to detail page */}
-                              <span className="inline-block self-start bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1 font-sans">
+                              <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
                                 {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                               </span>
                               <div className="flex items-baseline whitespace-nowrap">

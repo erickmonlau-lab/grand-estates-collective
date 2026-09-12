@@ -797,7 +797,7 @@ function PropertyDetail() {
               {/* Price Block - Solid White, Soft Gray Border (#D1D5DB), Light Box Shadow */}
               <div className="bg-white border border-[#d1d5db] rounded-2xl p-4 sm:p-5 mb-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-4">
                 <div>
-                  <span className="inline-block bg-[#2563eb] text-white text-[10.5px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1.5 font-sans">
+                  <span className="inline-flex items-center bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs mb-2 font-sans">
                     {t.detail.price.replace(":", "")}
                   </span>
                   <div className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none whitespace-nowrap">
@@ -831,9 +831,11 @@ function PropertyDetail() {
                 </div>
 
                 {property.surface && property.surface > 0 && property.price && (
-                  <div className="text-right shrink-0 border-l border-[#d1d5db] pl-4 sm:pl-5">
-                    <span className="text-[10.5px] uppercase font-bold text-slate-500 block">Precio m²</span>
-                    <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight font-sans whitespace-nowrap">
+                  <div className="text-right shrink-0 border-l border-[#d1d5db] pl-4 sm:pl-6">
+                    <span className="inline-block bg-slate-100 text-slate-700 border border-slate-200 text-[11px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md mb-1.5 font-sans">
+                      Precio m²
+                    </span>
+                    <span className="text-base sm:text-lg font-black text-[#0b214a] tracking-tight font-sans whitespace-nowrap block">
                       {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
                     </span>
                   </div>
@@ -1064,16 +1066,18 @@ function PropertyDetail() {
                 </div>
 
                 {/* Property quick summary in card - HIGH CONTRAST & SPACIOUS */}
-                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-4 sm:p-6 border-2 border-blue-400 mb-7 shadow-md">
-                  <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-black text-[#000000] mb-3">
-                    <span className="uppercase tracking-wider text-slate-700 shrink-0">{t.detail.ref}</span>
-                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-2.5 sm:px-3 py-1 rounded-lg border border-slate-300 text-xs sm:text-sm shrink-0 whitespace-nowrap">
+                <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-4 sm:p-5 border-2 border-blue-400 mb-7 shadow-md">
+                  <div className="flex items-center justify-between gap-3 text-xs sm:text-sm font-black text-[#000000] mb-3 pb-2.5 border-b border-slate-100">
+                    <span className="uppercase tracking-wider text-slate-700 shrink-0 font-sans">{t.detail.ref}</span>
+                    <span className="font-mono text-[#000000] font-black bg-slate-100 px-3 py-1 rounded-lg border border-slate-300 text-xs sm:text-sm shrink-0 whitespace-nowrap">
                       {property.ref || property.id.toUpperCase()}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between gap-2 text-xs sm:text-sm font-black text-[#000000]">
-                    <span className="uppercase tracking-wider text-slate-700 shrink-0">{t.detail.price}</span>
-                    <span className="text-xl xs:text-2xl sm:text-3xl text-[#2563eb] font-black tracking-tight whitespace-nowrap shrink-0">
+                  <div className="flex items-center justify-between gap-3 text-xs sm:text-sm font-black text-[#000000]">
+                    <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-2xs font-sans shrink-0">
+                      {t.detail.price.replace(":", "")}
+                    </span>
+                    <span className="text-xl sm:text-2xl text-[#2563eb] font-black tracking-tight whitespace-nowrap shrink-0 font-sans">
                       {property.priceFormatted}
                     </span>
                   </div>

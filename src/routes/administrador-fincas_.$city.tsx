@@ -443,20 +443,28 @@ function SantaColomaBarrioPage() {
     if (category === 'tipo') {
       if (val === 'Cualquier tipo') return t.properties.anyType;
       if (val === 'Piso') return language === 'ca' ? 'Pis' : language === 'en' ? 'Flat' : 'Piso';
+      if (val === 'Apartamento') return language === 'ca' ? 'Apartament' : language === 'en' ? 'Apartment' : 'Apartamento';
       if (val === 'Ático') return language === 'ca' ? 'Àtic' : language === 'en' ? 'Penthouse' : 'Ático';
-      if (val === 'Local comercial') return language === 'ca' ? 'Local comercial' : language === 'en' ? 'Commercial premises' : 'Local comercial';
-      if (val === 'Chalet') return language === 'ca' ? 'Xalet' : language === 'en' ? 'Villa' : 'Chalet';
+      if (val === 'Chalet' || val === 'Chalet / Villa') return language === 'ca' ? 'Xalet / Vil·la' : language === 'en' ? 'Villa / House' : 'Chalet / Villa';
+      if (val === 'Local' || val === 'Local Comercial' || val === 'Local comercial') return language === 'ca' ? 'Local comercial' : language === 'en' ? 'Commercial premises' : 'Local Comercial';
+      if (val === 'Oficina') return language === 'ca' ? 'Oficina' : language === 'en' ? 'Office' : 'Oficina';
+      if (val === 'Aparcamiento') return language === 'ca' ? 'Aparcament' : language === 'en' ? 'Parking space' : 'Aparcamiento';
     }
     if (category === 'zona') {
       if (val === 'Cualquier zona') return t.properties.allZones;
       return formatLocation(val, language);
     }
     if (category === 'habitaciones') {
-      if (val === 'Cualquier número') return (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || "Cualquier número";
+      if (val === 'Cualquier número') return (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || t.properties.anyHab || "Cualquier número";
       if (val.includes('+')) return `${val.replace('+', '')}+ ${t.properties.bedrooms.toLowerCase()}`;
     }
     if (category === 'precio') {
       if (val === 'Cualquier precio') return t.properties.anyPrice;
+      if (val.startsWith('Hasta ')) {
+        const amount = val.replace('Hasta ', '');
+        const prefix = language === 'ca' ? 'Fins a ' : language === 'en' ? 'Up to ' : 'Hasta ';
+        return `${prefix}${amount}`;
+      }
       if (val.endsWith('€')) return `< ${val}`;
     }
     return val;
@@ -825,16 +833,16 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "tipo" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
-                        { label: t.properties.anyType, value: "Cualquier tipo" },
-                        { label: "Piso", value: "Piso" },
-                        { label: "Apartamento", value: "Apartamento" },
-                        { label: "Ático", value: "Ático" },
-                        { label: "Chalet / Villa", value: "Chalet" },
-                        { label: "Local Comercial", value: "Local" },
-                        { label: "Oficina", value: "Oficina" },
-                        { label: "Aparcamiento", value: "Aparcamiento" }
+                        { value: "Cualquier tipo" },
+                        { value: "Piso" },
+                        { value: "Apartamento" },
+                        { value: "Ático" },
+                        { value: "Chalet" },
+                        { value: "Local" },
+                        { value: "Oficina" },
+                        { value: "Aparcamiento" }
                       ].map(opt => {
                         const count = liveProperties.filter(p => {
                           const matchesMode = p.operation === searchParams.mode;
@@ -843,30 +851,34 @@ function SantaColomaBarrioPage() {
                         }).length;
 
                         const isActive = consoleFilters.tipo === opt.value;
+                        const label = getTranslatedFilterLabel("tipo", opt.value);
 
                         return (
-                          <button
-                            key={opt.value}
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2">
-                              {isActive ? (
-                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
-                              ) : (
-                                <span className="w-3.5 h-3.5 shrink-0" />
-                              )}
-                              <span>{opt.label}</span>
-                            </div>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
-                              {count}
-                            </span>
-                          </button>
+                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
+                            <button
+                              onClick={() => {
+                                setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                {isActive ? (
+                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                ) : (
+                                  <span className="w-4 h-4 shrink-0" />
+                                )}
+                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
+                              </div>
+                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
+                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
+                              }`}>
+                                {count}
+                              </span>
+                            </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -895,10 +907,10 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "zona" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
-                        { label: t.properties.allZones, value: "Cualquier zona" },
-                        ...[...new Set(liveProperties.map(p => p.location))].filter(Boolean).map(loc => ({ label: formatLocation(loc, language), value: loc }))
+                        { value: "Cualquier zona" },
+                        ...[...new Set(liveProperties.map(p => p.location))].filter(Boolean).map(loc => ({ value: loc }))
                       ].map(opt => {
                         const count = liveProperties.filter(p => {
                           const matchesMode = p.operation === searchParams.mode;
@@ -907,30 +919,34 @@ function SantaColomaBarrioPage() {
                         }).length;
 
                         const isActive = consoleFilters.zona === opt.value;
+                        const label = getTranslatedFilterLabel("zona", opt.value);
 
                         return (
-                          <button
-                            key={opt.value}
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2">
-                              {isActive ? (
-                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
-                              ) : (
-                                <span className="w-3.5 h-3.5 shrink-0" />
-                              )}
-                              <span>{opt.label}</span>
-                            </div>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
-                              {count}
-                            </span>
-                          </button>
+                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
+                            <button
+                              onClick={() => {
+                                setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                {isActive ? (
+                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                ) : (
+                                  <span className="w-4 h-4 shrink-0" />
+                                )}
+                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
+                              </div>
+                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
+                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
+                              }`}>
+                                {count}
+                              </span>
+                            </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -959,13 +975,13 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "habitaciones" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
-                        { label: (t.properties as any).anyNumber || (t.properties as any).anyBedrooms || "Cualquier número", value: "Cualquier número" },
-                        { label: "1+ " + t.properties.bedrooms.toLowerCase(), value: "1+" },
-                        { label: "2+ " + t.properties.bedrooms.toLowerCase(), value: "2+" },
-                        { label: "3+ " + t.properties.bedrooms.toLowerCase(), value: "3+" },
-                        { label: "4+ " + t.properties.bedrooms.toLowerCase(), value: "4+" }
+                        { value: "Cualquier número" },
+                        { value: "1+" },
+                        { value: "2+" },
+                        { value: "3+" },
+                        { value: "4+" }
                       ].map(opt => {
                         const count = liveProperties.filter(p => {
                           const matchesMode = p.operation === searchParams.mode;
@@ -976,30 +992,34 @@ function SantaColomaBarrioPage() {
                         }).length;
 
                         const isActive = consoleFilters.habitaciones === opt.value;
+                        const label = getTranslatedFilterLabel("habitaciones", opt.value);
 
                         return (
-                          <button
-                            key={opt.value}
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2">
-                              {isActive ? (
-                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
-                              ) : (
-                                <span className="w-3.5 h-3.5 shrink-0" />
-                              )}
-                              <span>{opt.label}</span>
-                            </div>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
-                              {count}
-                            </span>
-                          </button>
+                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
+                            <button
+                              onClick={() => {
+                                setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                {isActive ? (
+                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                ) : (
+                                  <span className="w-4 h-4 shrink-0" />
+                                )}
+                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
+                              </div>
+                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
+                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
+                              }`}>
+                                {count}
+                              </span>
+                            </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -1028,10 +1048,10 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "precio" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {(searchParams.mode === "alquilar" 
-                        ? [t.properties.anyPrice, "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
-                        : [t.properties.anyPrice, "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
+                        ? ["Cualquier precio", "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
+                        : ["Cualquier precio", "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
                       ).map(opt => {
                         const count = liveProperties.filter(p => {
                           const matchesMode = p.operation === searchParams.mode;
@@ -1040,30 +1060,34 @@ function SantaColomaBarrioPage() {
                         }).length;
 
                         const isActive = consoleFilters.precio === opt;
+                        const label = getTranslatedFilterLabel("precio", opt);
 
                         return (
-                          <button
-                            key={opt}
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, precio: opt }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                              isActive ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2">
-                              {isActive ? (
-                                <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />
-                              ) : (
-                                <span className="w-3.5 h-3.5 shrink-0" />
-                              )}
-                              <span>{opt}</span>
-                            </div>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"}`}>
-                              {count}
-                            </span>
-                          </button>
+                          <div key={opt} className="py-1 first:pt-0 last:pb-0">
+                            <button
+                              onClick={() => {
+                                setConsoleFilters(prev => ({ ...prev, precio: opt }));
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                {isActive ? (
+                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                ) : (
+                                  <span className="w-4 h-4 shrink-0" />
+                                )}
+                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
+                              </div>
+                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
+                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
+                              }`}>
+                                {count}
+                              </span>
+                            </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -1251,30 +1275,32 @@ function SantaColomaBarrioPage() {
                           onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
                           className="flex items-center gap-2 bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2 font-black text-[#0f172a] hover:text-[#2563eb] transition-all shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
                         >
-                          {sortOption === "precio_asc" ? "Precio: Menor a Mayor" : sortOption === "precio_desc" ? "Precio: Mayor a Menor" : t.properties.mostRecent} 
+                          {sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent} 
                           <ChevronDown className="w-4 h-4 text-slate-700 shrink-0" />
                         </button>
 
                         {openDropdown === "ordenar" && (
-                          <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 py-3">
+                          <div className="absolute top-full right-0 mt-2 w-60 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                             {[
                               { label: t.properties.mostRecent, value: "recientes" },
-                              { label: "Precio: Menor a Mayor", value: "precio_asc" },
-                              { label: "Precio: Mayor a Menor", value: "precio_desc" }
+                              { label: t.properties.precioMenor, value: "precio_asc" },
+                              { label: t.properties.precioMayor, value: "precio_desc" }
                             ].map(opt => (
-                              <button
-                                key={opt.value}
-                                onClick={() => {
-                                  setSortOption(opt.value);
-                                  setOpenDropdown(null);
-                                }}
-                                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold text-left transition-all cursor-pointer font-sans ${
-                                  sortOption === opt.value ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-700 hover:bg-slate-50"
-                                }`}
-                              >
-                                <span>{opt.label}</span>
-                                {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[3]" />}
-                              </button>
+                              <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
+                                <button
+                                  key={opt.value}
+                                  onClick={() => {
+                                    setSortOption(opt.value);
+                                    setOpenDropdown(null);
+                                  }}
+                                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                    sortOption === opt.value ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
+                                  }`}
+                                >
+                                  <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
+                                  {sortOption === opt.value && <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />}
+                                </button>
+                              </div>
                             ))}
                           </div>
                         )}

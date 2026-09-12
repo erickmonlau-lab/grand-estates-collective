@@ -54,13 +54,13 @@ function NotFoundComponent() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
-          <Link
-            to="/"
+          <a
+            href="/"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer"
           >
             <Home className="w-4 h-4 text-white" />
             <span>Volver al inicio</span>
-          </Link>
+          </a>
 
           <a
             href="/#propiedades"

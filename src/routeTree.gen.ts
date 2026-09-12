@@ -16,6 +16,7 @@ import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
+import { Route as AdministradorFincasIndexRouteImport } from './routes/administrador-fincas.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
 import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
@@ -56,6 +57,12 @@ const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
   path: '/noticias/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdministradorFincasIndexRoute =
+  AdministradorFincasIndexRouteImport.update({
+    id: '/administrador-fincas/',
+    path: '/administrador-fincas/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
   id: '/servicios_/$slug',
   path: '/servicios/$slug',
@@ -88,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/administrador-fincas/': typeof AdministradorFincasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +109,7 @@ export interface FileRoutesByTo {
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
+  '/administrador-fincas': typeof AdministradorFincasIndexRoute
   '/noticias': typeof NoticiasIndexRoute
 }
 export interface FileRoutesById {
@@ -115,6 +124,7 @@ export interface FileRoutesById {
   '/inmobiliaria_/$slug': typeof InmobiliariaSlugRoute
   '/noticias_/$slug': typeof NoticiasSlugRoute
   '/servicios_/$slug': typeof ServiciosSlugRoute
+  '/administrador-fincas/': typeof AdministradorFincasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
+    | '/administrador-fincas/'
     | '/noticias/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
     | '/servicios/$slug'
+    | '/administrador-fincas'
     | '/noticias'
   id:
     | '__root__'
@@ -156,6 +168,7 @@ export interface FileRouteTypes {
     | '/inmobiliaria_/$slug'
     | '/noticias_/$slug'
     | '/servicios_/$slug'
+    | '/administrador-fincas/'
     | '/noticias/'
   fileRoutesById: FileRoutesById
 }
@@ -170,6 +183,7 @@ export interface RootRouteChildren {
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
+  AdministradorFincasIndexRoute: typeof AdministradorFincasIndexRoute
   NoticiasIndexRoute: typeof NoticiasIndexRoute
 }
 
@@ -224,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoticiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/administrador-fincas/': {
+      id: '/administrador-fincas/'
+      path: '/administrador-fincas'
+      fullPath: '/administrador-fincas/'
+      preLoaderRoute: typeof AdministradorFincasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios_/$slug': {
       id: '/servicios_/$slug'
       path: '/servicios/$slug'
@@ -266,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
+  AdministradorFincasIndexRoute: AdministradorFincasIndexRoute,
   NoticiasIndexRoute: NoticiasIndexRoute,
 }
 export const routeTree = rootRouteImport

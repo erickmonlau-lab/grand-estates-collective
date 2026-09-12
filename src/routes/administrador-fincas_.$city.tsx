@@ -1766,7 +1766,7 @@ function SantaColomaBarrioPage() {
                         className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-500 font-medium mt-1 text-center font-sans">
+                    <p className="text-xs sm:text-[13px] text-slate-700 font-bold mt-1.5 text-center font-sans">
                       {language === "ca" 
                         ? "Posició del valor estimat dins del rang de mercat" 
                         : language === "en" 
@@ -1904,7 +1904,7 @@ function SantaColomaBarrioPage() {
                               {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
                             </span>
                             {!isEqual && (
-                              <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-md ${
+                              <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-xs ${
                                 isAbove ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" : "bg-sky-500/20 text-sky-300 border border-sky-500/30"
                               }`}>
                                 {isAbove ? `+${diffPct}%` : `${diffPct}%`}

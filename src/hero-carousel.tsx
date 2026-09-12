@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award, Calculator, Phone } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_master_2k.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
+import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
 
@@ -80,7 +81,7 @@ export default function HeroCarousel({
         {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
         <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgDesktop} />
+            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} />
             <motion.img
               src={heroBgDesktop}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"

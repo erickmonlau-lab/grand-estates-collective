@@ -393,6 +393,30 @@ function SantaColomaBarrioPage() {
   const t = translations[language];
   const allBarrios = Object.values(SANTA_COLOMA_BARRIOS);
 
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapInView, setMapInView] = useState(false);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = mapContainerRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setMapInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setMapInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Default initial zone based on neighborhood slug
   const initialZone = SLUG_TO_ZONE[rawSlug] || "Cualquier zona";
 
@@ -1574,10 +1598,10 @@ function SantaColomaBarrioPage() {
                   <Paintbrush key={3} className="w-5 h-5" />
                 ];
                 const bgs = [
-                  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=75&w=400&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=75&w=400&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=75&w=400&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=75&w=400&auto=format&fit=crop"
+                  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=70&w=240&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=70&w=240&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=70&w=240&auto=format&fit=crop",
+                  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=70&w=240&auto=format&fit=crop"
                 ];
                 return (
                   <Reveal key={i} delay={i * 0.1}>
@@ -1941,7 +1965,7 @@ function SantaColomaBarrioPage() {
                               </span>
                               {!isEqual && (
                                 <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-sm text-white ${
-                                  isAbove ? "bg-emerald-600 border border-emerald-500/50" : "bg-sky-600 border border-sky-500/50"
+                                  isAbove ? "bg-emerald-700 border border-emerald-600" : "bg-sky-700 border border-sky-600"
                                 }`}>
                                   {isAbove ? `+${diffPct}%` : `${diffPct}%`}
                                 </span>
@@ -2061,18 +2085,40 @@ function SantaColomaBarrioPage() {
                 </Reveal>
               </div>
 
-              <div className="w-full lg:w-1/2 relative h-[280px] sm:h-[330px] md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden border-[3px] border-[#2563eb] bg-[#e8ecf1] shadow-lg">
-                <iframe
-                  title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
-                  src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1s${language}!2ses!4v1700000000000!5m2!1s${language}!2ses`}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              <div 
+                ref={mapContainerRef}
+                className="w-full lg:w-1/2 relative h-[280px] sm:h-[330px] md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden border-[3px] border-[#2563eb] bg-[#e8ecf1] shadow-lg group"
+              >
+                {/* Skeleton placeholder */}
+                <div 
+                  className={`absolute inset-0 bg-[#e8ecf1] flex flex-col items-center justify-center transition-opacity duration-700 z-10 pointer-events-none ${
+                    mapLoaded ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#2563eb]/15 flex items-center justify-center mb-2 animate-pulse">
+                    <MapPin className="w-5 h-5 text-[#2563eb]" />
+                  </div>
+                  <span className="text-[11px] font-black text-slate-600 font-sans tracking-wide">
+                    {language === "ca" ? "Carregant mapa de la seu..." : language === "en" ? "Loading headquarters map..." : "Cargando mapa de la sede..."}
+                  </span>
+                </div>
+
+                {mapInView && (
+                  <iframe
+                    title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
+                    src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1s${language}!2ses!4v1700000000000!5m2!1s${language}!2ses`}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    onLoad={() => setMapLoaded(true)}
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className={`absolute inset-0 w-full h-full object-cover pointer-events-auto transition-opacity duration-700 ease-out ${
+                      mapLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                )}
 
                 <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:bottom-4 bg-[#0b172a] text-white rounded-xl p-3 sm:p-3.5 shadow-lg border border-white/20 z-30">
                   <div className="flex items-center gap-2.5">

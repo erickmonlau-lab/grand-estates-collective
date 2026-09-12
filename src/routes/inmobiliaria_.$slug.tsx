@@ -1004,13 +1004,14 @@ function PropertyDetail() {
             </div>
 
             {/* RIGHT COLUMN: STICKY CONTACT & INQUIRY CARD */}
-            <div className="lg:col-span-4">
-              <div className="bg-[#0b214a] text-white rounded-[28px] p-6 sm:p-8 border-2 border-blue-900 sticky top-28 shadow-2xl overflow-hidden relative">
+            <div className="lg:col-span-4 h-full">
+              <div className="bg-[#0b214a] text-white rounded-[28px] p-6 sm:p-8 border-2 border-blue-900 lg:sticky lg:top-28 shadow-2xl overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-[#2563eb] rounded-full blur-[70px] pointer-events-none opacity-40"></div>
                 
                 {/* Header card info */}
                 <div className="relative z-10 mb-6">
-                  <span className="text-[11px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-3.5 py-1.5 rounded-full inline-block mb-3 shadow-sm border border-blue-400">
+                  {/* Unified Blue Pill Badge identical to PRECIO pill */}
+                  <span className="inline-block bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-xs mb-3 font-sans">
                     {t.detail.immediateAttention}
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
@@ -1021,7 +1022,7 @@ function PropertyDetail() {
                   </p>
                 </div>
 
-                {/* Property quick summary in card - HIGH CONTRAST PURE BLACK */}
+                {/* Property quick summary in card - HIGH CONTRAST */}
                 <div className="relative z-10 bg-white text-[#000000] rounded-2xl p-5 border-2 border-blue-400 mb-6 shadow-md">
                   <div className="flex items-center justify-between text-xs font-black text-[#000000] mb-2">
                     <span className="uppercase tracking-wider">{t.detail.ref}</span>
@@ -1033,41 +1034,48 @@ function PropertyDetail() {
                   </div>
                 </div>
 
-                {/* DIRECT ACTION BUTTONS */}
+                {/* DIRECT ACTION BUTTONS: WHATSAPP PRINCIPAL + 2-COLUMN SECONDARY */}
                 <div className="relative z-10 space-y-3 mb-6">
+                  {/* Primary Call To Action: WhatsApp */}
                   <a 
                     href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                    className="w-full flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] text-white py-4 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
                   >
                     <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
                     <span>{t.detail.whatsappBtn}</span>
                   </a>
 
-                  <a 
-                    href="tel:+34934685656" 
-                    className="w-full flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-md cursor-pointer whitespace-nowrap"
-                  >
-                    <Phone className="w-4 h-4 text-[#2563eb] stroke-[2.5] shrink-0" />
-                    <span className="truncate">{t.detail.callBtn}</span>
-                  </a>
+                  {/* Secondary Buttons: 2-column grid to reduce visual hierarchy and compact the card */}
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <a 
+                      href="tel:+34934685656" 
+                      className="flex items-center justify-center gap-1.5 bg-white hover:bg-slate-100 text-[#0b214a] border-2 border-white py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#2563eb] stroke-[2.5] shrink-0" />
+                      <span className="truncate">{t.detail.callBtn}</span>
+                    </a>
 
-                  <a 
-                    href="#contactar" 
-                    className="w-full flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-blue-600 text-white py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer"
-                  >
-                    <Mail className="w-4 h-4 shrink-0" />
-                    <span>{t.detail.bookBtn}</span>
-                  </a>
+                    <a 
+                      href="#contactar" 
+                      className="flex items-center justify-center gap-1.5 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3 px-2 rounded-xl text-[11px] sm:text-xs font-black uppercase tracking-tight transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap"
+                    >
+                      <Mail className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{t.detail.bookBtn}</span>
+                    </a>
+                  </div>
                 </div>
 
-                {/* OFFICE ADDRESS & SCHEDULE */}
-                <div className="relative z-10 pt-5 border-t border-blue-800 text-center text-xs text-blue-200 space-y-1 font-medium">
-                  <p className="font-bold text-white">{t.detail.officeLabel}</p>
-                  <p>Rambla de Sant Sebastià, 48</p>
-                  <p>Santa Coloma de Gramenet</p>
-                  <p className="text-[11px] text-[#38bdf8] font-black pt-1">{t.detail.schedule}</p>
+                {/* OFFICE ADDRESS & SCHEDULE - HIGH CONTRAST */}
+                <div className="relative z-10 pt-5 border-t border-blue-800 text-center text-xs space-y-1 font-medium">
+                  <p className="font-extrabold text-white text-xs">{t.detail.officeLabel}</p>
+                  <p className="text-slate-200">Rambla de Sant Sebastià, 48</p>
+                  <p className="text-slate-200">Santa Coloma de Gramenet</p>
+                  <p className="text-xs text-white font-extrabold pt-1.5 flex items-center justify-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                    <span>{t.detail.schedule}</span>
+                  </p>
                 </div>
 
               </div>
@@ -1448,8 +1456,34 @@ function PropertyDetail() {
         </div>
       </footer>
 
-      {/* Floating Utilities */}
-      <WhatsAppButton language={language} />
+      {/* COMPACT MOBILE FIXED BOTTOM ACTION BAR (ONLY ON MOBILE, REPLACES EXPANDED SIDEBAR) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0b214a]/95 backdrop-blur-md border-t border-blue-900/80 px-4 py-2.5 shadow-[0_-8px_25px_rgba(0,0,0,0.35)] flex items-center gap-3">
+        {/* Call Office Button */}
+        <a 
+          href="tel:+34934685656" 
+          className="flex-1 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 py-2.5 px-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-98"
+          title={t.detail.callBtn}
+        >
+          <Phone className="w-4 h-4 text-[#38bdf8] stroke-[2.5]" />
+          <span>{t.detail.callBtn}</span>
+        </a>
+
+        {/* Primary WhatsApp Action */}
+        <a 
+          href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex-[1.4] flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#16a34a] text-white py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md active:scale-98"
+        >
+          <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+          <span>WhatsApp</span>
+        </a>
+      </div>
+
+      {/* Floating Utilities (Desktop WhatsApp Button) */}
+      <div className="hidden lg:block">
+        <WhatsAppButton language={language} />
+      </div>
 
       {/* FULLSCREEN LIGHTBOX MODAL FOR IMAGES */}
       <AnimatePresence>

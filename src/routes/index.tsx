@@ -1259,19 +1259,51 @@ function Index() {
                               </div>
                             </div>
 
-                            {/* Floor / Feature Highlight badge - Solid White Pill (No Transparency) */}
-                            <div className="mt-3">
-                              <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black shadow-xs max-w-full">
-                                <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
-                                <span className="truncate">{pData.floor || (pData.features && pData.features[0]) || (language === "ca" ? "Immoble verificat per Gesgrama" : language === "en" ? "Verified property by Gesgrama" : "Inmueble verificado por Gesgrama")}</span>
-                              </div>
-                            </div>
+                            {/* Floor / Feature Highlight badge - Only shown if it provides non-redundant, relevant information */}
+                            {(() => {
+                              const isRedundant = (text: string) => {
+                                if (!text) return true;
+                                const lower = text.toLowerCase();
+                                return (
+                                  lower.includes("dormitori") ||
+                                  lower.includes("habitación") ||
+                                  lower.includes("habitacion") ||
+                                  lower.includes("bedroom") ||
+                                  lower.includes("bany") ||
+                                  lower.includes("baño") ||
+                                  lower.includes("bathroom") ||
+                                  lower.includes("verificat") ||
+                                  lower.includes("verified") ||
+                                  lower.includes("verificado")
+                                );
+                              };
+
+                              let relevantFeature = "";
+                              if (pData.floor && !isRedundant(pData.floor)) {
+                                relevantFeature = pData.floor;
+                              } else if (pData.features && pData.features.length > 0) {
+                                const found = pData.features.find((f: string) => !isRedundant(f));
+                                if (found) relevantFeature = found;
+                              }
+
+                              if (!relevantFeature) return null;
+
+                              return (
+                                <div className="mt-3">
+                                  <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold shadow-xs max-w-full">
+                                    <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
+                                    <span className="truncate">{relevantFeature}</span>
+                                  </div>
+                                </div>
+                              );
+                            })()}
                           </div>
 
                           {/* Price & Action Button */}
                           <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
                             <div className="flex flex-col min-w-0">
-                              <span className="inline-block self-start text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#2563eb] text-white mb-1 font-sans shadow-2xs">
+                              {/* Price Label Pill - High Contrast Deep Navy Text on Soft Blue Pill with Bold Weight */}
+                              <span className="inline-block self-start text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-blue-100 text-[#0b214a] border border-blue-200/80 mb-1 font-sans shadow-2xs">
                                 {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                               </span>
                               <div className="flex items-baseline whitespace-nowrap">

@@ -1161,24 +1161,24 @@ function PropertyDetail() {
               <button
                 type="submit"
                 disabled={isSubmittingContact}
-                className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
+                className={`w-full text-white py-3.5 sm:py-4 px-4 rounded-xl text-xs xs:text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2.5 mt-4 cursor-pointer font-sans disabled:opacity-80 whitespace-nowrap ${
                   isSubmittedSuccess ? "bg-[#0b214a] hover:bg-[#0f172a]" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
                 }`}
               >
                 {isSubmittingContact ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin shrink-0" />
                     <span>{t.detail.sendingInquiry}</span>
                   </>
                 ) : isSubmittedSuccess ? (
-                  <div className="flex items-center gap-2">
-                    <Check className="w-5 h-5 stroke-[3] text-white" />
+                  <div className="inline-flex items-center justify-center gap-2">
+                    <Check className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3] text-white shrink-0" />
                     <span>{t.detail.successInquiry}</span>
                   </div>
                 ) : (
                   <>
-                    <span>{t.detail.sendInquiry}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
+                    <span className="leading-none">{t.detail.sendInquiry}</span>
+                    <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-white shrink-0 stroke-[2.5]" />
                   </>
                 )}
               </button>

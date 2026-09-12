@@ -2174,8 +2174,8 @@ function SantaColomaBarrioPage() {
 
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 bg-[#f8fafc] border border-slate-200 p-3 rounded-xl shadow-2xs">
-                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
-                        <MapPin className="w-4 h-4 text-[#2563eb]" />
+                      <div className="w-8 h-8 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <MapPin className="w-4 h-4 text-white stroke-[2.5]" />
                       </div>
                       <div>
                         <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">

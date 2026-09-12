@@ -448,6 +448,7 @@ export const translations = {
       messageField: "MENSAJE O PREGUNTA (OPCIONAL)",
       messagePlaceholder: "Hola, me gustaría recibir más información o concertar una visita para {name}...",
       privacyCheckbox: "He leído y acepto la política de privacidad y el tratamiento de mis datos.",
+      privacyNotice: "He leído y acepto la política de privacidad y el tratamiento de mis datos.",
       sendInquiry: "Solicitar información",
       sendingInquiry: "Enviando solicitud...",
       successInquiry: "¡Solicitud enviada con éxito!",

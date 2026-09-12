@@ -150,6 +150,46 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
     };
   },
   component: PropertyDetail,
+  errorComponent: ({ error }) => {
+    return (
+      <div className="bg-slate-50 text-onyx font-sans min-h-screen flex flex-col justify-between">
+        <nav className="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[94%] max-w-[1300px] z-[100] flex items-center justify-between py-2 md:py-2.5 px-4 md:px-7 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md text-slate-900">
+          <Link to="/" className="hover:opacity-80 transition-opacity">
+            <img src={logoImg} alt="Gesgrama Logo" className="h-9 sm:h-11 w-auto object-contain" />
+          </Link>
+          <Link to="/" className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-[#2563eb] transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Volver al inicio
+          </Link>
+        </nav>
+
+        <main className="pt-32 pb-16 px-4 md:px-8 flex-1 flex items-center justify-center">
+          <div className="max-w-xl w-full bg-white rounded-[28px] md:rounded-[36px] p-8 md:p-12 text-center shadow-xl border border-slate-100">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-[#2563eb] text-xs font-black uppercase tracking-wider mb-4">
+              Gesgrama Inmobiliaria
+            </span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-3 tracking-tight">
+              Inmueble temporalmente no disponible
+            </h1>
+            <p className="text-slate-600 text-sm sm:text-base mb-8 leading-relaxed font-medium">
+              No hemos podido cargar la información de este inmueble en este momento. Puedes volver al catálogo para ver todas las viviendas disponibles.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link to="/" className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black uppercase tracking-wider text-xs transition-colors shadow-md">
+                Ver todos los inmuebles
+              </Link>
+              <a href="tel:+34934685656" className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 px-6 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs transition-colors">
+                Llamar: 93 468 56 56
+              </a>
+            </div>
+          </div>
+        </main>
+
+        <footer className="bg-[#0b1221] text-white py-8 px-6 text-center text-xs text-slate-400 border-t border-slate-800">
+          <p>© {new Date().getFullYear()} Gesgrama. Todos los derechos reservados.</p>
+        </footer>
+      </div>
+    );
+  },
 });
 
 function PropertyDetail() {
@@ -1204,7 +1244,7 @@ function PropertyDetail() {
                     className="mt-1 w-4 h-4 rounded border-slate-300 text-[#2563eb] focus:ring-[#2563eb]" 
                   />
                   <span className="text-xs text-slate-700 font-bold leading-normal">
-                    {t.detail.privacyNotice.replace("{privacyPolicy}", "")}
+                    {((t.detail as any)?.privacyNotice || (t.detail as any)?.privacyCheckbox || "He leído y acepto la política de privacidad.").replace("{privacyPolicy}", "").replace("política de privacidad", "").replace("política de privacitat", "").replace("privacy policy", "").trim()}{" "}
                     <Link to="/politica-privacidad" className="text-[#2563eb] underline hover:text-blue-800">
                       {language === "ca" ? "política de privacitat" : language === "en" ? "privacy policy" : "política de privacidad"}
                     </Link>

@@ -581,8 +581,14 @@ function Index() {
   ];
   const tipos = ["Piso", "Apartamento", "Ático", "Local comercial", "Chalet", "Oficina"];
 
+  // Filter properties: exclude "vendido" and "alquilado" from the public listing
+  // "disponible" and "reservado" remain visible to visitors
+  const activeLiveProperties = liveProperties.filter(
+    (p) => p.status !== "vendido" && p.status !== "alquilado"
+  );
+
   // Filter and sort properties
-  const filteredProperties = liveProperties
+  const filteredProperties = activeLiveProperties
     .filter(p => {
       if (searchParams.mode === "favoritos") {
         return favorites.includes(p.id);
@@ -608,18 +614,18 @@ function Index() {
 
   if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
     isFallback = true;
-    let similarProperties = liveProperties
+    let similarProperties = activeLiveProperties
       .filter(p => searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona)))
       .filter(p => (p.operation || "comprar") === searchParams.mode);
 
     if (similarProperties.length === 0) {
-      similarProperties = liveProperties
+      similarProperties = activeLiveProperties
         .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
         .filter(p => (p.operation || "comprar") === searchParams.mode);
     }
 
     if (similarProperties.length === 0) {
-      similarProperties = liveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
+      similarProperties = activeLiveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
     }
     displayProperties = similarProperties.slice(0, 3);
   }
@@ -1216,6 +1222,15 @@ function Index() {
                             </span>
                           </div>
 
+                          {/* Top-right Status Pill if reserved */}
+                          {property.status === "reservado" && (
+                            <div className="absolute top-3.5 right-14 z-20">
+                              <span className="inline-flex items-center bg-amber-500 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                                {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
+                              </span>
+                            </div>
+                          )}
+
                           {/* Heart Favorite Button with micro-bounce */}
                           <motion.button
                             type="button"
@@ -1264,7 +1279,7 @@ function Index() {
                             <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
                               <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
                                 <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
+                                <span>{property.bedrooms > 0 ? property.bedrooms : "0"} {language === "en" ? "bd" : "hab"}</span>
                               </div>
                               <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
                                 <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
@@ -1319,9 +1334,11 @@ function Index() {
                           {/* Price & Action Button */}
                           <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
                             <div className="flex flex-col min-w-0">
-                              {/* Blue Pill Badge for "PRECIO" / "PREU" - Identical to detail page */}
+                              {/* Blue Pill Badge for "VENTA" / "ALQUILER" */}
                               <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
-                                {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
+                                {isRent 
+                                  ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") 
+                                  : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}
                               </span>
                               <div className="flex items-baseline whitespace-nowrap">
                                 <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">

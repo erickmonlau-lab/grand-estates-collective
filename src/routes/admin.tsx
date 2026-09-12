@@ -797,9 +797,9 @@ function AdminDashboard() {
                     <div>
                       <div className="pt-4 mt-3 border-t border-slate-100 flex items-end justify-between gap-3">
                         <div className="flex flex-col min-w-0">
-                          {/* Blue Pill Badge for "PRECIO" / "ALQUILER" */}
+                          {/* Blue Pill Badge for "VENTA" / "ALQUILER" */}
                           <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
-                            {isRent ? "ALQUILER" : "PRECIO"}
+                            {isRent ? "ALQUILER" : "VENTA"}
                           </span>
                           <div className="flex items-baseline whitespace-nowrap">
                             <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">

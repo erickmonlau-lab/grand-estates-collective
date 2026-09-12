@@ -797,7 +797,7 @@ function PropertyDetail() {
               <div className="bg-white border border-[#d1d5db] rounded-2xl p-4 sm:p-5 mb-6 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between gap-4">
                 <div>
                   <span className="inline-flex items-center bg-[#2563eb] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-xs mb-2 font-sans">
-                    {t.detail.price.replace(":", "")}
+                    {property.operation === "alquilar" ? t.detail.forRent : t.detail.forSale}
                   </span>
                   <div className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none whitespace-nowrap">
                     {(() => {

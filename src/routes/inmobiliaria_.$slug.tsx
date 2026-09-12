@@ -1029,15 +1029,15 @@ function PropertyDetail() {
               </div>
 
               {/* PROFESSIONAL GUARANTEE BADGE */}
-              <div className="bg-[#0b214a] text-white border-2 border-blue-900 rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center gap-5 shadow-lg">
-                <div className="w-12 h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
+              <div className="bg-[#0b214a] text-white border-2 border-blue-900 rounded-3xl p-5 sm:p-7 flex items-start gap-4 sm:gap-5 shadow-lg font-sans">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
                   <ShieldCheck className="w-6 h-6 stroke-[2.2]" />
                 </div>
-                <div>
-                  <h4 className="text-base sm:text-lg font-black text-white mb-1">
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-base sm:text-lg font-black text-white mb-1.5 tracking-tight">
                     {t.detail.guaranteeTitle}
                   </h4>
-                  <p className="text-sm text-blue-100 font-medium leading-relaxed">
+                  <p className="text-xs sm:text-sm text-blue-100/90 font-medium leading-relaxed text-pretty">
                     {t.detail.guaranteeDesc}
                   </p>
                 </div>
@@ -1110,10 +1110,10 @@ function PropertyDetail() {
                   {/* Secondary 2: Pedir cita online (full width, sin cortes de texto) */}
                   <a 
                     href="#contactar" 
-                    className="w-full flex items-center justify-center gap-2 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3 sm:py-3.5 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap text-center"
+                    className="w-full flex items-center justify-center gap-2 bg-blue-600/90 hover:bg-[#2563eb] text-white border border-white/20 py-3 sm:py-3.5 px-2.5 sm:px-4 rounded-2xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wide transition-all shadow-sm hover:shadow-md cursor-pointer whitespace-nowrap text-center"
                   >
                     <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                    <span>{t.detail.bookBtn}</span>
+                    <span className="truncate">{t.detail.bookBtn}</span>
                   </a>
                 </div>
 

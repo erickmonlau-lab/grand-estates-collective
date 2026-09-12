@@ -56,6 +56,47 @@ export const Route = createFileRoute("/")({
           },
           "description": "Herramienta inteligente de estimación del precio de mercado m² para pisos y comunidades en todos los barrios de Santa Coloma de Gramenet."
         })
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Cómo se gestiona el cambio de administración a Gesgrama?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nos encargamos de todo el proceso de transición sin coste adicional: solicitamos la documentación al administrador anterior, auditamos el estado de las cuentas y convocamos la junta inicial."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué documentación necesito para vender mi piso con vosotros?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Necesitarás la escritura de propiedad, DNI/NIE, certificado de eficiencia energética, cédula de habitabilidad y el último recibo del IBI. Nosotros nos encargamos de tramitar lo que te falte."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo garantizáis el cobro del alquiler si el inquilino no paga?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ofrecemos un servicio integral de gestión de alquileres con seguro de impago garantizado, estudio de solvencia scoring del inquilino y cobertura legal ante cualquier eventualidad."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué área geográfica cubrís para administración de fincas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nuestra sede central está en Santa Coloma de Gramenet y damos cobertura directa en todo el área metropolitana de Barcelona, Maresme y Vallès."
+              }
+            }
+          ]
+        })
       }
     ],
   }),

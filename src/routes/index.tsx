@@ -20,12 +20,14 @@ import { Navbar } from '@/components/Navbar';
 import { AccreditationBadges } from '@/components/AccreditationBadges';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
+import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     links: [
       { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
       { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
+      { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
     ],
     scripts: [
       {

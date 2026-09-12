@@ -763,15 +763,44 @@ function PropertyDetail() {
                   </div>
                 </div>
 
-                <div className="sm:text-right shrink-0 bg-[#2563eb] border-2 border-blue-600 px-5 py-4 rounded-2xl shadow-lg self-start sm:self-center">
-                  <span className="text-[11.5px] uppercase tracking-normal text-white/95 font-semibold block mb-1">
-                    {t.detail.priceTitle}
+                <div className="sm:text-right shrink-0 self-start sm:self-center">
+                  {/* Blue Pill Badge for "PRECIO" / "PREU" */}
+                  <span className="inline-block bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-sans">
+                    {t.detail.price.replace(":", "")}
                   </span>
-                  <div className="text-3xl sm:text-4xl font-black text-white tracking-tight font-sans leading-none">
-                    {property.priceFormatted}
+                  {/* Big Dark Price with Vibrant Blue Currency Symbol */}
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight font-sans leading-none">
+                    {(() => {
+                      if (property.priceFormatted) {
+                        // If price ends with €/mes or €
+                        if (property.priceFormatted.includes("€/mes")) {
+                          const num = property.priceFormatted.replace("€/mes", "").trim();
+                          return (
+                            <>
+                              <span>{num}</span> <span className="text-[#2563eb]">€/mes</span>
+                            </>
+                          );
+                        } else if (property.priceFormatted.includes("€")) {
+                          const num = property.priceFormatted.replace("€", "").trim();
+                          return (
+                            <>
+                              <span>{num}</span><span className="text-[#2563eb] ml-1">€</span>
+                            </>
+                          );
+                        }
+                        return property.priceFormatted;
+                      }
+                      return (
+                        <>
+                          <span>{new Intl.NumberFormat("es-ES").format(property.price)}</span>
+                          <span className="text-[#2563eb] ml-1">€</span>
+                        </>
+                      );
+                    })()}
                   </div>
+                  {/* Clean Price per m² */}
                   {property.surface && property.surface > 0 && property.price && (
-                    <div className="text-xs font-semibold text-blue-100/90 mt-1.5 tracking-tight">
+                    <div className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 tracking-tight font-sans">
                       {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²
                     </div>
                   )}

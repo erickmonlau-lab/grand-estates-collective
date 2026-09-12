@@ -342,10 +342,6 @@ function ServiceDetail() {
       <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-12 flex flex-col gap-10 relative">
           <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
-            <div className="w-full md:hidden flex justify-center items-center mb-4">
-              <FooterMascot className="w-44 sm:w-52 h-auto object-contain drop-shadow-lg" />
-            </div>
-
             <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
               <div className="lg:col-span-1">
                 <div className="inline-block mb-4">
@@ -428,6 +424,11 @@ function ServiceDetail() {
                   </li>
                 </ul>
               </div>
+            </div>
+
+            {/* Mascot on Mobile (<768px): Placed discreetly at the end of content, compact scale */}
+            <div className="w-full md:hidden flex justify-center items-center pt-2 pb-2">
+              <FooterMascot className="w-24 sm:w-28 h-auto object-contain drop-shadow-md opacity-90" />
             </div>
 
             <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">

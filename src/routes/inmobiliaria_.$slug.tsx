@@ -1253,11 +1253,6 @@ function PropertyDetail() {
           
           {/* Top Section: 4 Columns + Mascot */}
           <div className="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-8 lg:gap-12">
-            {/* Mascot on Mobile (<768px): Centered Above Columns */}
-            <div className="w-full md:hidden flex justify-center items-center mb-4">
-              <FooterMascot className="w-44 sm:w-52 h-auto object-contain drop-shadow-lg" />
-            </div>
-
             {/* Text Columns (Left Block) */}
             <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 pb-4">
               {/* Logo + tagline */}
@@ -1345,6 +1340,11 @@ function PropertyDetail() {
                   </li>
                 </ul>
               </div>
+            </div>
+
+            {/* Mascot on Mobile (<768px): Placed discreetly at the end of content, compact scale */}
+            <div className="w-full md:hidden flex justify-center items-center pt-2 pb-2">
+              <FooterMascot className="w-24 sm:w-28 h-auto object-contain drop-shadow-md opacity-90" />
             </div>
 
             {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) */}

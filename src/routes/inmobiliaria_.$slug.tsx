@@ -831,8 +831,8 @@ function PropertyDetail() {
 
                 {property.surface && property.surface > 0 && property.price && (
                   <div className="text-right shrink-0 border-l border-[#d1d5db] pl-4 sm:pl-6">
-                    <span className="inline-block bg-slate-100 text-slate-700 border border-slate-200 text-[11px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md mb-1.5 font-sans">
-                      Precio m²
+                    <span className="inline-block bg-slate-100 text-[#374151] border border-slate-200 text-[11px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full mb-1.5 font-sans">
+                      {language === "en" ? "Price / m²" : language === "ca" ? "Preu m²" : "Precio m²"}
                     </span>
                     <span className="text-base sm:text-lg font-black text-[#0b214a] tracking-tight font-sans whitespace-nowrap block">
                       {Math.round(property.price / property.surface).toLocaleString("es-ES")} €/m²

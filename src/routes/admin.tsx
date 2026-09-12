@@ -32,6 +32,7 @@ import {
   Sparkles,
   ChevronDown,
   ArrowRight,
+  ArrowLeft,
   Phone,
   Mail,
   FileText,
@@ -459,6 +460,8 @@ function AdminDashboard() {
   const ventaCount = properties.filter((p) => (p.operation || "compra") === "comprar" || (p.operation || "compra") === "compra").length;
   const alquilerCount = properties.filter((p) => p.operation === "alquilar").length;
   const reservadoCount = properties.filter((p) => p.status === "reservado").length;
+  const vendidoCount = properties.filter((p) => p.status === "vendido").length;
+  const alquiladoCount = properties.filter((p) => p.status === "alquilado").length;
 
   // 1. LOGIN SCREEN IF NOT AUTHENTICATED
   if (!isAuthenticated) {
@@ -617,22 +620,30 @@ function AdminDashboard() {
         )}
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-5 rounded-2xl border-2 border-slate-300 shadow-sm">
-            <span className="text-xs font-black uppercase text-[#000000] tracking-wider">Total Inmuebles</span>
-            <div className="text-3xl font-black text-[#000000] mt-1 font-sans">{totalCount}</div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-8">
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-slate-300 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-[#000000] tracking-wider block truncate">Total Inmuebles</span>
+            <div className="text-2xl sm:text-3xl font-black text-[#000000] mt-1 font-sans">{totalCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-blue-200 shadow-sm">
-            <span className="text-xs font-black uppercase text-blue-700 tracking-wider">En Venta</span>
-            <div className="text-3xl font-black text-[#2563eb] mt-1 font-sans">{ventaCount}</div>
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-blue-200 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-blue-700 tracking-wider block truncate">En Venta</span>
+            <div className="text-2xl sm:text-3xl font-black text-[#2563eb] mt-1 font-sans">{ventaCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-emerald-200 shadow-sm">
-            <span className="text-xs font-black uppercase text-emerald-800 tracking-wider">En Alquiler</span>
-            <div className="text-3xl font-black text-emerald-700 mt-1 font-sans">{alquilerCount}</div>
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-emerald-200 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-emerald-800 tracking-wider block truncate">En Alquiler</span>
+            <div className="text-2xl sm:text-3xl font-black text-emerald-700 mt-1 font-sans">{alquilerCount}</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border-2 border-amber-200 shadow-sm">
-            <span className="text-xs font-black uppercase text-amber-800 tracking-wider">Reservados</span>
-            <div className="text-3xl font-black text-amber-600 mt-1 font-sans">{reservadoCount}</div>
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-amber-200 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-amber-800 tracking-wider block truncate">Reservados</span>
+            <div className="text-2xl sm:text-3xl font-black text-amber-600 mt-1 font-sans">{reservadoCount}</div>
+          </div>
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-rose-200 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-rose-800 tracking-wider block truncate">Vendidos</span>
+            <div className="text-2xl sm:text-3xl font-black text-rose-600 mt-1 font-sans">{vendidoCount}</div>
+          </div>
+          <div className="bg-white p-4 sm:p-5 rounded-2xl border-2 border-indigo-200 shadow-sm">
+            <span className="text-[11px] sm:text-xs font-black uppercase text-indigo-800 tracking-wider block truncate">Alquilados</span>
+            <div className="text-2xl sm:text-3xl font-black text-indigo-600 mt-1 font-sans">{alquiladoCount}</div>
           </div>
         </div>
 
@@ -1607,9 +1618,10 @@ function AdminDashboard() {
                     <button
                       type="button"
                       onClick={() => setActiveModalTab("basicos")}
-                      className="px-5 py-2.5 rounded-xl border-2 border-slate-300 text-xs font-black text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                     >
-                      ← Volver a Datos Básicos
+                      <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+                      <span>Volver a Datos Básicos</span>
                     </button>
                     <button
                       type="button"
@@ -1645,20 +1657,20 @@ function AdminDashboard() {
 
                   {/* Row 7: TRADUCCIONES AUTOMÁTICAS (CATALÁN / INGLÉS) */}
                   <div className="bg-slate-50 border-2 border-slate-300 rounded-2xl p-4 sm:p-5">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                      <div>
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-3">
+                      <div className="flex-1">
                         <div className="flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-[#2563eb]" />
                           <span className="text-xs font-black uppercase tracking-wider text-[#0f172a]">
                             Traducciones Automáticas (Catalán e Inglés)
                           </span>
                         </div>
-                        {/* High Contrast Clarified Text */}
-                        <p className="text-xs text-slate-800 font-bold mt-1 leading-snug">
+                        {/* High Contrast Clarified Text & Clean Alignment */}
+                        <p className="text-xs text-slate-900 font-bold mt-1.5 leading-relaxed">
                           Al guardar, el sistema traduce automáticamente en segundo plano. Puedes desplegar para revisar o personalizar los textos si lo deseas.
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+                      <div className="flex items-center gap-2 shrink-0 sm:self-center">
                         <button
                           type="button"
                           onClick={() => {
@@ -1672,15 +1684,15 @@ function AdminDashboard() {
                             });
                             setShowTranslations(true);
                           }}
-                          className="bg-blue-100 hover:bg-blue-200 text-[#2563eb] text-xs font-black px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                          className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-sm hover:shadow-md"
                         >
-                          <Sparkles className="w-3.5 h-3.5" />
+                          <Sparkles className="w-3.5 h-3.5 text-white" />
                           <span>Auto-traducir ahora</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => setShowTranslations(!showTranslations)}
-                          className="text-xs font-black text-slate-800 hover:text-[#2563eb] bg-white border border-slate-300 hover:border-[#2563eb] px-3 py-2 rounded-xl cursor-pointer shadow-2xs"
+                          className="text-xs font-black text-slate-800 hover:text-[#2563eb] bg-white border border-slate-300 hover:border-[#2563eb] px-3.5 py-2.5 rounded-xl cursor-pointer shadow-2xs transition-colors"
                         >
                           {showTranslations ? "Ocultar ▲" : "Ver / Editar ▼"}
                         </button>
@@ -1761,9 +1773,10 @@ function AdminDashboard() {
                     <button
                       type="button"
                       onClick={() => setActiveModalTab("multimedia")}
-                      className="px-5 py-2.5 rounded-xl border-2 border-slate-300 text-xs font-black text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer shadow-sm"
                     >
-                      ← Volver a Fotos y Vídeo
+                      <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+                      <span>Volver a Fotos y Vídeo</span>
                     </button>
                   </div>
                 </div>

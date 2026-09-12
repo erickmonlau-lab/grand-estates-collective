@@ -1125,12 +1125,12 @@ function PropertyDetail() {
                   
                   {/* Horario perfectamente formateado en 2 líneas limpias sin cortar horas */}
                   <div className="pt-2">
-                    <div className="bg-blue-950/70 border border-blue-400/30 rounded-2xl py-3 px-3 text-xs sm:text-sm text-slate-100 shadow-xs space-y-1">
-                      <p className="font-bold text-white tracking-wide">
+                    <div className="bg-blue-950/70 border border-blue-400/30 rounded-2xl py-3 px-3 text-xs sm:text-sm shadow-xs space-y-1">
+                      <p className="font-black text-white tracking-wide">
                         {language === "ca" ? "Dilluns a Divendres" : language === "en" ? "Monday to Friday" : "Lunes a Viernes"}
                       </p>
-                      <p className="text-[#38bdf8] font-black tracking-tight whitespace-nowrap">
-                        9:30 - 13:30 <span className="text-white/60 mx-1">/</span> 16:30 - 20:00
+                      <p className="text-white/95 font-semibold tracking-normal whitespace-nowrap">
+                        9:30 - 13:30 <span className="text-blue-300 font-bold mx-1.5">/</span> 16:30 - 20:00
                       </p>
                     </div>
                   </div>

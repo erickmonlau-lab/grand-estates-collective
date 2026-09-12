@@ -504,20 +504,46 @@ function PropertyDetail() {
     if (Object.keys(errors).length > 0) return;
 
     setIsSubmittingContact(true);
-    setTimeout(() => {
-      setIsSubmittingContact(false);
-      setIsSubmittedSuccess(true);
-      setContactForm({
-        nombre: "",
-        telefono: "",
-        email: "",
-        mensaje: "",
-        privacidad: false,
+
+    const payload = {
+      _subject: `🏡 Consulta Inmueble Gesgrama: ${property?.name || "Inmueble"} [Ref: ${property?.ref || property?.id || "-"}] (${contactForm.nombre})`,
+      _template: "table",
+      _captcha: "false",
+      "Nombre y Apellidos": contactForm.nombre,
+      "Teléfono / WhatsApp": contactForm.telefono,
+      "Correo Electrónico": contactForm.email,
+      "Inmueble": property?.name || "-",
+      "Referencia": property?.ref || property?.id || "-",
+      "Precio": property?.price ? `${new Intl.NumberFormat('es-ES').format(property.price)} €` : "-",
+      "Ubicación": property?.location || "-",
+      "Mensaje": contactForm.mensaje || "Solicitud de información / visita",
+      "Página del Inmueble": typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/inmobiliaria/${slug}`,
+      "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
+    };
+
+    fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .catch(() => {})
+      .finally(() => {
+        setIsSubmittingContact(false);
+        setIsSubmittedSuccess(true);
+        setContactForm({
+          nombre: "",
+          telefono: "",
+          email: "",
+          mensaje: "",
+          privacidad: false,
+        });
+        setTimeout(() => {
+          setIsSubmittedSuccess(false);
+        }, 4000);
       });
-      setTimeout(() => {
-        setIsSubmittedSuccess(false);
-      }, 4000);
-    }, 1000);
   };
 
   // LOADING SKELETON STATE (Avoids instant flashing of 404 while database/store resolves)

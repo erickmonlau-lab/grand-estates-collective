@@ -2499,21 +2499,45 @@ function SantaColomaBarrioPage() {
                         if (Object.keys(errors).length > 0) return;
 
                         setIsSubmittingContact(true);
-                        setTimeout(() => {
-                          setIsSubmittingContact(false);
-                          setIsSubmittedSuccess(true);
-                          setContactForm({
-                            nombre: "",
-                            telefono: "",
-                            email: "",
-                            asunto: `Gestión de Comunidades en ${data.name}`,
-                            mensaje: "",
-                            privacidad: false
+
+                        const payload = {
+                          _subject: `🏢 Solicitud Fincas Gesgrama [Barrio: ${data.name}]: ${contactForm.asunto || "Gestión de Comunidad"} (${contactForm.nombre})`,
+                          _template: "table",
+                          _captcha: "false",
+                          "Nombre y Apellidos": contactForm.nombre,
+                          "Teléfono / WhatsApp": contactForm.telefono,
+                          "Correo Electrónico": contactForm.email,
+                          "Barrio / Zona": data.name,
+                          "Motivo de Contacto": contactForm.asunto,
+                          "Mensaje": contactForm.mensaje || "Solicitud de información sobre administración de fincas",
+                          "Página de Origen": typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/administrador-fincas/${data.slug}`,
+                          "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
+                        };
+
+                        fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                          },
+                          body: JSON.stringify(payload)
+                        })
+                          .catch(() => {})
+                          .finally(() => {
+                            setIsSubmittingContact(false);
+                            setIsSubmittedSuccess(true);
+                            setContactForm({
+                              nombre: "",
+                              telefono: "",
+                              email: "",
+                              asunto: `Gestión de Comunidades en ${data.name}`,
+                              mensaje: "",
+                              privacidad: false
+                            });
+                            setTimeout(() => {
+                              setIsSubmittedSuccess(false);
+                            }, 4000);
                           });
-                          setTimeout(() => {
-                            setIsSubmittedSuccess(false);
-                          }, 3000);
-                        }, 1000);
                       }} 
                       className="space-y-4"
                     >

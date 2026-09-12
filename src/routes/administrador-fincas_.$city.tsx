@@ -1755,23 +1755,8 @@ function SantaColomaBarrioPage() {
                     </div>
                   </div>
 
-                  {/* Bottom CTA Row: Two solid-background buttons */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    <Link
-                      to="/administrador-fincas/$city"
-                      params={{ city: ZONE_TO_SLUG[calculatedResult.zoneName] || "centre" }}
-                      className="w-full inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-black text-[#0b214a] hover:text-[#2563eb] bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 py-3 px-3.5 rounded-xl transition-all shadow-xs group"
-                    >
-                      <Building2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                      <span className="truncate">
-                        {language === "ca" 
-                          ? `Guia a ${formatLocation(calculatedResult.zoneName, language)}`
-                          : language === "en"
-                          ? `Guide in ${formatLocation(calculatedResult.zoneName, language)}`
-                          : `Guía en ${formatLocation(calculatedResult.zoneName, language)}`}
-                      </span>
-                    </Link>
-
+                  {/* Bottom CTA Row: Direct WhatsApp button */}
+                  <div>
                     <a
                       href={`https://wa.me/34689438012?text=${encodeURIComponent(
                         language === "ca"
@@ -1782,9 +1767,9 @@ function SantaColomaBarrioPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-xs sm:text-sm py-3 px-3.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 group cursor-pointer"
+                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-sm py-3.5 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2.5 group cursor-pointer hover:scale-[1.01]"
                     >
-                      <WhatsAppBrandIcon className="w-4 h-4 fill-white shrink-0" />
+                      <WhatsAppBrandIcon className="w-5 h-5 fill-white shrink-0" />
                       <span>WhatsApp</span>
                     </a>
                   </div>

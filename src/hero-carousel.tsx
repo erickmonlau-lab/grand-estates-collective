@@ -162,7 +162,27 @@ export default function HeroCarousel({
               transition={{ duration: 0.5, delay: 0.35, ease: expo }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4"
             >
-              <a href={customValuationHref || "#valuator-form"} className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md">
+              <a 
+                href={customValuationHref || "#valuator-form"} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const targetId = customValuationHref ? customValuationHref.replace(/^#/, "") : "valuator-form";
+                  const targetEl = document.getElementById(targetId) || document.getElementById("valorador") || document.getElementById("valuator-form");
+                  if (targetEl) {
+                    const navOffset = window.innerWidth < 768 ? 75 : 85;
+                    const elementPosition = targetEl.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - navOffset;
+                    window.scrollTo({
+                      top: Math.max(0, offsetPosition),
+                      behavior: "smooth"
+                    });
+                    window.history.replaceState(null, "", `#${targetId}`);
+                    const inputEl = document.getElementById("valuator-zona-select") || targetEl.querySelector("select");
+                    if (inputEl) setTimeout(() => (inputEl as HTMLElement).focus({ preventScroll: true }), 450);
+                  }
+                }}
+                className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md"
+              >
                 <Calculator className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.ctaValuation || t.heroCarousel.btnValuation}</span>
               </a>

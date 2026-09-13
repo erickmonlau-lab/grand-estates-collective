@@ -1683,8 +1683,8 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 4. VALORADOR DE INMUEBLES CANÓNICO CON PRESELECCIÓN DEL BARRIO ── */}
-        <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-32 md:scroll-mt-36">
-          <div id="valorador" className="-top-28 relative block invisible" />
+        <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24">
+          <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
           <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
               

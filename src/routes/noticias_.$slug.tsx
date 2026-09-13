@@ -985,9 +985,9 @@ function ArticleDetail() {
             </div>
           </div>
 
-          {/* Mascot on Mobile (<768px): Placed discreetly at the end of content, compact scale */}
-          <div className="w-full md:hidden flex justify-center items-center pt-2 pb-2">
-            <FooterMascot className="w-24 sm:w-28 h-auto object-contain drop-shadow-md opacity-90" />
+          {/* Mascot on Mobile (<768px): Prominent and clear mascot presentation */}
+          <div className="w-full md:hidden flex justify-center items-center pt-4 pb-4">
+            <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
           </div>
 
           {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Sweet spot scale */}

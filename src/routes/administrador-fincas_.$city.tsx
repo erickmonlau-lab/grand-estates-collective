@@ -873,7 +873,7 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "tipo" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
                         { value: "Cualquier tipo" },
                         { value: "Piso" },
@@ -947,7 +947,7 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "zona" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
                         { value: "Cualquier zona" },
                         ...[...new Set(liveProperties.map(p => p.location))].filter(Boolean).map(loc => ({ value: loc }))
@@ -1015,7 +1015,7 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "habitaciones" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {[
                         { value: "Cualquier número" },
                         { value: "1+" },
@@ -1088,7 +1088,7 @@ function SantaColomaBarrioPage() {
                   </button>
 
                   {openDropdown === "precio" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                       {(searchParams.mode === "alquilar" 
                         ? ["Cualquier precio", "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
                         : ["Cualquier precio", "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
@@ -1374,7 +1374,7 @@ function SantaColomaBarrioPage() {
                         </button>
 
                         {openDropdown === "ordenar" && (
-                          <div className="absolute top-full right-0 mt-2 w-60 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
+                          <div className="absolute top-full right-0 mt-2 w-60 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
                             {[
                               { label: t.properties.mostRecent, value: "recientes" },
                               { label: t.properties.precioMenor, value: "precio_asc" },
@@ -2846,9 +2846,9 @@ function SantaColomaBarrioPage() {
               </div>
             </div>
 
-            {/* Mascot on Mobile (<768px): Placed discreetly at the end of content, compact scale */}
-            <div className="w-full md:hidden flex justify-center items-center pt-2 pb-2">
-              <FooterMascot className="w-24 sm:w-28 h-auto object-contain drop-shadow-md opacity-90" />
+            {/* Mascot on Mobile (<768px): Prominent and clear mascot presentation */}
+            <div className="w-full md:hidden flex justify-center items-center pt-4 pb-4">
+              <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
             </div>
 
             <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">

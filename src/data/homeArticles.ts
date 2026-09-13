@@ -1,6 +1,6 @@
-import art1Img from "@/assets/art1_asesor_inmobiliario.jpg";
-import art2Img from "@/assets/art2_contrato_exclusividad.jpg";
-import art3Img from "@/assets/art3_perito_judicial.jpg";
+import art1Img from "@/assets/art1_asesor_inmobiliario.webp";
+import art2Img from "@/assets/art2_contrato_exclusividad.webp";
+import art3Img from "@/assets/art3_perito_judicial.webp";
 import art4Img from "@/assets/art4_obra_nueva.webp";
 
 export interface HomeArticle {

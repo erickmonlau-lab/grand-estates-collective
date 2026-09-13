@@ -1,11 +1,11 @@
-import art1Img from "@/assets/art1_asesor_inmobiliario.jpg";
-import art2Img from "@/assets/art2_contrato_exclusividad.jpg";
-import art3Img from "@/assets/art3_perito_judicial.jpg";
+import art1Img from "@/assets/art1_asesor_inmobiliario.webp";
+import art2Img from "@/assets/art2_contrato_exclusividad.webp";
+import art3Img from "@/assets/art3_perito_judicial.webp";
 import obraNuevaRealImg from "@/assets/art4_obra_nueva.webp";
-import art5Img from "@/assets/art5_singuerlin_centre.jpg";
-import art6Img from "@/assets/art6_ite_rehabilitacion.jpg";
-import art7Img from "@/assets/art7_plusvalia_fiscal.jpg";
-import art8Img from "@/assets/art8_comunidad_propietarios.jpg";
+import art5Img from "@/assets/art5_singuerlin_centre.webp";
+import art6Img from "@/assets/art6_ite_rehabilitacion.webp";
+import art7Img from "@/assets/art7_plusvalia_fiscal.webp";
+import art8Img from "@/assets/art8_comunidad_propietarios.webp";
 
 export interface ArticleContent {
   title: string;

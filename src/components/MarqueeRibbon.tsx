@@ -66,16 +66,12 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
       <div className="absolute left-28 sm:left-48 top-0 bottom-0 w-8 bg-gradient-to-r from-[#090D16] to-transparent z-20 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-[#090D16] to-transparent z-20 pointer-events-none" />
 
-      {/* Continuous Marquee Track */}
+      {/* Continuous Marquee Track - Pure GPU CSS animation */}
       <div className="flex-1 overflow-hidden flex items-center">
-        <motion.div
-          animate={{ x: isHovered ? undefined : ["0%", "-50%"] }}
-          transition={{
-            repeat: Infinity,
-            ease: "linear",
-            duration: 26
-          }}
-          className="flex items-center text-white font-sans text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap w-max will-change-transform"
+        <div
+          className={`flex items-center text-white font-sans text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap w-max animate-marquee ${
+            isHovered ? "[animation-play-state:paused]" : ""
+          }`}
         >
           {/* Track A */}
           <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9">
@@ -108,7 +104,7 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
               );
             })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -1306,6 +1306,9 @@ function Index() {
                                 sizes="(max-width: 640px) 340px, (max-width: 1024px) 360px, 380px"
                                 alt={pData.name} 
                                 loading="lazy" 
+                                decoding="async"
+                                width={360}
+                                height={235}
                                 className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
                               />
                             );
@@ -2430,6 +2433,9 @@ function Index() {
                         src={art.image}
                         alt={title}
                         loading="lazy"
+                        decoding="async"
+                        width={400}
+                        height={200}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </Link>

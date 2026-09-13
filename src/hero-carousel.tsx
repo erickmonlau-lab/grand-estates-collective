@@ -166,7 +166,19 @@ export default function HeroCarousel({
                 <Calculator className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.ctaValuation || t.heroCarousel.btnValuation}</span>
               </a>
-              <a href="#contacto" className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-extrabold text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-sm">
+              <a 
+                href="#formulario-contacto" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
+                  if (formEl) {
+                    formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                    const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                    if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                  }
+                }}
+                className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-extrabold text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-sm"
+              >
                 <Phone className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.ctaContact || t.heroCarousel.btnProperties}</span>
               </a>

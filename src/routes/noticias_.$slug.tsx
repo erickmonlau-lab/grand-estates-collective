@@ -699,7 +699,7 @@ function ArticleDetail() {
               </button>
 
               <a
-                href="/#contacto"
+                href="/#formulario-contacto"
                 className="inline-flex items-center justify-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-6 sm:px-7 py-3.5 rounded-full transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:scale-102"
               >
                 <span>{language === "ca" ? "Consultar" : language === "en" ? "Consult" : "Consultar"}</span>
@@ -802,7 +802,7 @@ function ArticleDetail() {
 
             {/* Card 3: Contactar */}
             <a
-              href="/#contacto"
+              href="/#formulario-contacto"
               className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-[280px]"
             >
               <div className="absolute inset-0 z-0">

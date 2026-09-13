@@ -266,7 +266,7 @@ function ServiceDetail() {
 
               <div className="flex flex-wrap items-center gap-4">
                 <a
-                  href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#contacto`}
+                  href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
                   className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-7 rounded-full shadow-lg transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>Solicitar este servicio</span>
@@ -328,7 +328,7 @@ function ServiceDetail() {
               <h3 className="text-lg font-bold mb-2">¿Necesitas asesoramiento inmediato?</h3>
               <p className="text-xs text-slate-300 mb-6 font-medium">Atendemos consultas presenciales en nuestra oficina de Santa Coloma de Gramenet o por teléfono y WhatsApp.</p>
               <a
-                href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#contacto`}
+                href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
                 className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-6 rounded-full text-center block transition-colors shadow-sm cursor-pointer"
               >
                 Solicitar presupuesto sin compromiso

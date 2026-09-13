@@ -632,6 +632,19 @@ function Index() {
     if (typeof window !== "undefined") {
       window.addEventListener("storage", refresh);
       window.addEventListener("focus", refresh);
+
+      if (window.location.hash === "#formulario-contacto" || window.location.hash === "#contacto") {
+        setTimeout(() => {
+          const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
+          if (formEl) {
+            formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+            const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+            if (inputEl) {
+              setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+            }
+          }
+        }, 300);
+      }
     }
 
     return () => {
@@ -2214,7 +2227,16 @@ function Index() {
                     </div>
                   </div>
                   <a 
-                    href="#contacto" 
+                    href="#formulario-contacto" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const formEl = document.getElementById("formulario-contacto");
+                      if (formEl) {
+                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                      }
+                    }}
                     className="w-full md:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm px-5 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-xs hover:shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer font-sans whitespace-nowrap group hover:scale-[1.02]"
                   >
                     <span>{t.hero.contacto}</span>
@@ -2312,7 +2334,19 @@ function Index() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-                  <a href="#contacto" className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans">
+                  <a 
+                    href="#formulario-contacto" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const formEl = document.getElementById("formulario-contacto");
+                      if (formEl) {
+                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                      }
+                    }}
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                  >
                     <Phone className="w-4 h-4 text-white" />
                     <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
                     <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
@@ -2897,7 +2931,16 @@ function Index() {
                     <span className="whitespace-nowrap">{t.finalCta.btnValuate}</span>
                   </a>
                   <a
-                    href="#contacto"
+                    href="#formulario-contacto"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const formEl = document.getElementById("formulario-contacto");
+                      if (formEl) {
+                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                      }
+                    }}
                     className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer font-sans"
                   >
                     <Phone className="w-4 h-4 text-white shrink-0" />

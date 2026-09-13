@@ -1532,16 +1532,23 @@ function PropertyDetail() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 bg-[#060c18]">
-          <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4">
-            <p className="text-sm sm:text-base text-white font-extrabold">© 2026 Gesgrama. {t.footer.rights} · <span className="inline-block whitespace-nowrap">Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="underline hover:text-blue-300">Kovia</a></span></p>
-            <div className="flex gap-4 text-sm sm:text-base text-white font-extrabold">
-              <Link to="/aviso-legal" className="hover:text-blue-200">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
-              <span>·</span>
-              <Link to="/politica-privacidad" className="hover:text-blue-200">{language === "ca" ? "Privacitat" : language === "en" ? "Privacy" : "Privacidad"}</Link>
-              <span>·</span>
-              <Link to="/politica-cookies" className="hover:text-blue-200">Cookies</Link>
-              <span>·</span>
+        <div className="border-t border-white/10 bg-[#060c18] pb-6 sm:pb-5">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-5 sm:py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4 sm:gap-6">
+            <div className="flex flex-col items-center sm:items-start gap-1">
+              <p className="text-xs sm:text-sm md:text-base text-slate-200 font-extrabold tracking-wide">
+                © 2026 Gesgrama. {t.footer.rights}
+              </p>
+              <p className="text-[11px] sm:text-xs text-slate-400 font-semibold">
+                Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="text-white underline hover:text-blue-300 font-bold">Kovia</a>
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs sm:text-sm md:text-base text-slate-300 font-extrabold">
+              <Link to="/aviso-legal" className="hover:text-white transition-colors">{language === "ca" ? "Avís Legal" : language === "en" ? "Legal Notice" : "Aviso Legal"}</Link>
+              <span className="text-slate-600">·</span>
+              <Link to="/politica-privacidad" className="hover:text-white transition-colors">{language === "ca" ? "Privacitat" : language === "en" ? "Privacy" : "Privacidad"}</Link>
+              <span className="text-slate-600">·</span>
+              <Link to="/politica-cookies" className="hover:text-white transition-colors">Cookies</Link>
+              <span className="text-slate-600">·</span>
               <Link to="/admin" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
             </div>
           </div>

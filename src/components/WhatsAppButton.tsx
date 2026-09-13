@@ -17,6 +17,8 @@ export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
   const shouldReduceMotion = useReducedMotion();
   const text = tooltips[language] || tooltips.es;
 
+  const [isNearFooter, setIsNearFooter] = useState(false);
+
   // Temporarily fade/scale down WhatsApp button during active user scrolling on mobile
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -35,13 +37,33 @@ export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
     };
   }, []);
 
+  // Detect when footer is in viewport on mobile so WhatsApp button doesn't block footer links
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const footerEl = document.querySelector("footer");
+    if (!footerEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setIsNearFooter(entry.isIntersecting);
+      },
+      { root: null, rootMargin: "0px 0px 50px 0px", threshold: 0.05 }
+    );
+
+    observer.observe(footerEl);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div 
-      className={`fixed bottom-22 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 transition-all duration-300 ${
+      className={`fixed z-40 flex items-center gap-3 transition-all duration-300 right-3 sm:right-6 bottom-20 sm:bottom-6 ${
+        isNearFooter ? "max-sm:opacity-0 max-sm:scale-75 max-sm:pointer-events-none sm:opacity-100 sm:scale-100" : ""
+      } ${
         isScrolling ? "opacity-20 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
       }`}
       style={{
-        bottom: 'calc(5.5rem + env(safe-area-inset-bottom, 0px))',
+        bottom: 'calc(5rem + env(safe-area-inset-bottom, 0px))',
         right: 'calc(0.75rem + env(safe-area-inset-right, 0px))'
       }}
     >

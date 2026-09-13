@@ -2073,8 +2073,8 @@ function Index() {
                         </div>
 
                         {/* Line 2: Property estimated price/m² and comparative indicator */}
-                        <div className="flex items-center justify-between text-xs sm:text-sm pt-2.5">
-                          <div className="flex items-center gap-1.5 group/tip relative">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-xs sm:text-sm pt-2.5">
+                          <div className="flex items-center gap-1.5 group/tip relative min-w-0">
                             <span className="font-bold text-slate-300">
                               {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
                             </span>
@@ -2087,7 +2087,7 @@ function Index() {
                                   ? "Estimated price per sq m for your home, calculated from total estimated value and specified area."
                                   : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."
                               }
-                              className="text-slate-400 hover:text-white cursor-pointer focus:outline-hidden"
+                              className="text-slate-400 hover:text-white cursor-pointer focus:outline-hidden shrink-0"
                             >
                               <Info className="w-3.5 h-3.5" />
                             </button>
@@ -2100,12 +2100,12 @@ function Index() {
                                 : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."}
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-black text-white text-sm sm:text-base">
-                              {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)} €/m²
+                          <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                            <span className="font-black text-white text-sm sm:text-base whitespace-nowrap">
+                              {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)}&nbsp;€/m²
                             </span>
                             {!isEqual && (
-                              <span className={`text-[11px] font-black px-2 py-0.5 rounded-md mr-1 sm:mr-1.5 shrink-0 shadow-sm text-white ${
+                              <span className={`text-[11px] font-black px-2 py-0.5 rounded-md shrink-0 shadow-sm text-white whitespace-nowrap ${
                                 isAbove ? "bg-emerald-700 border border-emerald-600" : "bg-sky-700 border border-sky-600"
                               }`}>
                                 {isAbove ? `+${diffPct}%` : `${diffPct}%`}

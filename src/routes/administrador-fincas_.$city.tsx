@@ -2060,7 +2060,7 @@ function SantaColomaBarrioPage() {
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 max-w-lg">
-                    {allBarrios.map(b => {
+                    {allBarrios.slice(0, -2).map(b => {
                       const isCurrent = b.slug === data.slug;
                       return (
                         <Link
@@ -2078,6 +2078,27 @@ function SantaColomaBarrioPage() {
                         </Link>
                       );
                     })}
+                    {/* Pair the last two barrios together so Cementiri Vell is never orphaned on its own row */}
+                    <div className="inline-flex flex-wrap gap-1.5 sm:gap-2">
+                      {allBarrios.slice(-2).map(b => {
+                        const isCurrent = b.slug === data.slug;
+                        return (
+                          <Link
+                            key={b.slug}
+                            to="/administrador-fincas/$city"
+                            params={{ city: b.slug }}
+                            className={`text-[11px] sm:text-xs font-black px-3 py-1 rounded-full border transition-all flex items-center gap-1 shrink-0 ${
+                              isCurrent
+                                ? "bg-[#2563eb] text-white border-[#2563eb] shadow-md ring-2 ring-blue-400"
+                                : "bg-white text-slate-900 border-slate-300 hover:bg-blue-50"
+                            }`}
+                          >
+                            <MapPin className={`w-3 h-3 shrink-0 ${isCurrent ? "text-white" : "text-[#2563eb]"}`} />
+                            <span>{b.name}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 </Reveal>
 

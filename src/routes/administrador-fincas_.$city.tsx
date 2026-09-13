@@ -742,25 +742,25 @@ function SantaColomaBarrioPage() {
           onPerformSearch={handleHeroSearch}
           customTag={
             language === "ca"
-              ? `Barri ${data.name} · Santa Coloma`
+              ? `Barri ${data.name} · Santa\u00A0Coloma`
               : language === "en"
-              ? `Neighborhood ${data.name} · Santa Coloma`
-              : `Barrio ${data.name} · Santa Coloma`
+              ? `Neighborhood ${data.name} · Santa\u00A0Coloma`
+              : `Barrio ${data.name} · Santa\u00A0Coloma`
           }
           customHeadline={
             <>
-              {language === "ca"
-                ? "Administració de Finques,"
-                : language === "en"
-                ? "Property Management,"
-                : "Administración de Fincas,"}
-              <br />
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+              <span className="block">
                 {language === "ca"
-                  ? `a ${data.name} · Santa Coloma`
+                  ? "Administració de Finques,"
                   : language === "en"
-                  ? `in ${data.name} · Santa Coloma`
-                  : `en ${data.name} · Santa Coloma`}
+                  ? "Property Management,"
+                  : "Administración de Fincas,"}
+              </span>
+              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+                {language === "ca" ? "a " : language === "en" ? "in " : "en "}
+                <span className="whitespace-nowrap">{data.name}</span>
+                {" · "}
+                <span className="whitespace-nowrap">Santa&nbsp;Coloma</span>
               </span>
             </>
           }

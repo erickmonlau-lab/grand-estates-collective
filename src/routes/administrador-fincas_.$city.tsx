@@ -1197,17 +1197,17 @@ function SantaColomaBarrioPage() {
                               const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
                               const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
                               const srcSet = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=480&q=70 480w, ${baseUnsplash}?auto=format&fit=crop&w=720&q=75 720w, ${baseUnsplash}?auto=format&fit=crop&w=960&q=75 960w`
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=70 360w, ${baseUnsplash}?auto=format&fit=crop&w=500&q=75 500w, ${baseUnsplash}?auto=format&fit=crop&w=720&q=75 720w`
                                 : undefined;
                               const imgSrc = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=600&q=75`
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=400&q=70`
                                 : property.image;
 
                               return (
                                 <img 
                                   src={imgSrc}
                                   srcSet={srcSet}
-                                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 360px, 380px"
                                   alt={pData.name} 
                                   loading="lazy" 
                                   className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 

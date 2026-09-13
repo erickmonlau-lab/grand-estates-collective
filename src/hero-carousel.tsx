@@ -192,17 +192,16 @@ export default function HeroCarousel({
                 href={customValuationHref || "#valuator-form"} 
                 onClick={(e) => {
                   e.preventDefault();
-                  const targetId = customValuationHref ? customValuationHref.replace(/^#/, "") : "valuator-form";
-                  const targetEl = document.getElementById(targetId) || document.getElementById("valorador") || document.getElementById("valuator-form");
+                  const targetEl = document.getElementById("valuator-card") || document.getElementById("valuator-form");
                   if (targetEl) {
-                    const navOffset = window.innerWidth < 768 ? 75 : 85;
+                    const navOffset = window.innerWidth < 768 ? 58 : 65;
                     const elementPosition = targetEl.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.scrollY - navOffset;
                     window.scrollTo({
                       top: Math.max(0, offsetPosition),
                       behavior: "smooth"
                     });
-                    window.history.replaceState(null, "", `#${targetId}`);
+                    window.history.replaceState(null, "", "#valuator-form");
                     const inputEl = document.getElementById("valuator-zona-select") || targetEl.querySelector("select");
                     if (inputEl) setTimeout(() => (inputEl as HTMLElement).focus({ preventScroll: true }), 450);
                   }

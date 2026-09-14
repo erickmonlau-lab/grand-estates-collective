@@ -360,3 +360,19 @@
   }
 }
 
+@keyframes whatsapp-pulse {
+  0%, 100% {
+    transform: scale3d(1, 1, 1);
+    box-shadow: 0 8px 25px rgba(7, 94, 84, 0.45);
+  }
+  50% {
+    transform: scale3d(1.05, 1.05, 1);
+    box-shadow: 0 14px 34px rgba(7, 94, 84, 0.7);
+  }
+}
+
+.animate-whatsapp-pulse {
+  animation: whatsapp-pulse 2.5s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+

@@ -13,14 +13,14 @@ import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 import handKeysImg from "@/assets/hand_keys_blue.webp";
 import gallery1 from "@/assets/gallery-1.webp";
 
-import WhatsAppButton from '@/components/WhatsAppButton';
-import CookieBanner from '@/components/CookieBanner';
 import { Navbar } from '@/components/Navbar';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 
 // Below-the-fold components: lazy loaded to reduce initial JS bundle
+const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
+const CookieBanner = lazy(() => import('@/components/CookieBanner'));
 const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({ default: m.FooterMascot })));
 const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges').then(m => ({ default: m.AccreditationBadges })));
 
@@ -1296,17 +1296,17 @@ function Index() {
                             const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
                             const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
                             const srcSet = isUnsplash
-                              ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=70 360w, ${baseUnsplash}?auto=format&fit=crop&w=500&q=75 500w, ${baseUnsplash}?auto=format&fit=crop&w=720&q=75 720w`
+                              ? `${baseUnsplash}?auto=format&fit=crop&w=340&q=65 340w, ${baseUnsplash}?auto=format&fit=crop&w=480&q=68 480w, ${baseUnsplash}?auto=format&fit=crop&w=640&q=70 640w`
                               : undefined;
                             const imgSrc = isUnsplash
-                              ? `${baseUnsplash}?auto=format&fit=crop&w=400&q=70`
+                              ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=65`
                               : property.image;
 
                             return (
                               <img 
                                 src={imgSrc}
                                 srcSet={srcSet}
-                                sizes="(max-width: 640px) 340px, (max-width: 1024px) 360px, 380px"
+                                sizes="(max-width: 640px) 320px, (max-width: 1024px) 340px, 360px"
                                 alt={pData.name} 
                                 loading="lazy" 
                                 decoding="async"
@@ -2624,6 +2624,9 @@ function Index() {
                     src={gesgramaOffice} 
                     alt="Gesgrama oficina principal en Santa Coloma" 
                     loading="lazy"
+                    decoding="async"
+                    width={480}
+                    height={300}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   
@@ -3235,9 +3238,11 @@ function Index() {
         </div>
       </footer>
 
-      {/* Floating Utilities */}
-      <WhatsAppButton language={language} />
-      <CookieBanner language={language} />
+      {/* Floating Utilities (Lazy loaded) */}
+      <Suspense fallback={null}>
+        <WhatsAppButton language={language} />
+        <CookieBanner language={language} />
+      </Suspense>
 
       {/* Service Detail Modal */}
       {selectedServiceIndex !== null && (

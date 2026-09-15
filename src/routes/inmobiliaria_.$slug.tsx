@@ -521,36 +521,87 @@ function PropertyDetail() {
       "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
     };
 
-    fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+    const web3Payload = {
+      access_key: "29166dd1-5523-42cd-b759-6875c7977d14",
+      subject: `🏡 Consulta Inmueble Gesgrama: ${property?.name || "Inmueble"} [Ref: ${property?.ref || property?.id || "-"}] (${contactForm.nombre})`,
+      from_name: "Web Gesgrama",
+      name: contactForm.nombre,
+      phone: contactForm.telefono,
+      email: contactForm.email,
+      inmueble: property?.name || "-",
+      referencia: property?.ref || property?.id || "-",
+      precio: property?.price ? `${new Intl.NumberFormat('es-ES').format(property.price)} €` : "-",
+      ubicacion: property?.location || "-",
+      mensaje: contactForm.mensaje || "Solicitud de información / visita",
+      pagina_inmueble: typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/inmobiliaria/${slug}`,
+      fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
+    };
+
+    const resetInmuebleFormSuccess = () => {
+      setIsSubmittedSuccess(true);
+      setContactForm({
+        nombre: "",
+        telefono: "",
+        email: "",
+        mensaje: "",
+        privacidad: false,
+      });
+      setTimeout(() => {
+        setIsSubmittedSuccess(false);
+      }, 4000);
+    };
+
+    const triggerInmuebleWhatsAppFallback = () => {
+      const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
+      window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+    };
+
+    // 1er intento: Web3Forms
+    fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(web3Payload)
     })
       .then(async (res) => {
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && (data.success === "true" || data.success === true)) {
-          setIsSubmittedSuccess(true);
-          setContactForm({
-            nombre: "",
-            telefono: "",
-            email: "",
-            mensaje: "",
-            privacidad: false,
-          });
-          setTimeout(() => {
-            setIsSubmittedSuccess(false);
-          }, 4000);
+        const resData = await res.json().catch(() => ({}));
+        if (res.ok && (resData.success === true || resData.success === "true")) {
+          resetInmuebleFormSuccess();
         } else {
-          const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
-          window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+          // 2do intento: FormSubmit
+          fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(async (res2) => {
+              const data2 = await res2.json().catch(() => ({}));
+              if (res2.ok && (data2.success === true || data2.success === "true")) {
+                resetInmuebleFormSuccess();
+              } else {
+                triggerInmuebleWhatsAppFallback();
+              }
+            })
+            .catch(() => triggerInmuebleWhatsAppFallback());
         }
       })
       .catch(() => {
-        const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
-        window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+        fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        })
+          .then(async (res2) => {
+            const data2 = await res2.json().catch(() => ({}));
+            if (res2.ok && (data2.success === true || data2.success === "true")) {
+              resetInmuebleFormSuccess();
+            } else {
+              triggerInmuebleWhatsAppFallback();
+            }
+          })
+          .catch(() => triggerInmuebleWhatsAppFallback());
       })
       .finally(() => {
         setIsSubmittingContact(false);

@@ -2573,37 +2573,86 @@ function SantaColomaBarrioPage() {
                           "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                         };
 
-                        fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                        const web3Payload = {
+                          access_key: "29166dd1-5523-42cd-b759-6875c7977d14",
+                          subject: `🏢 Solicitud Fincas Gesgrama [Barrio: ${data.name}]: ${contactForm.asunto || "Gestión de Comunidad"} (${contactForm.nombre})`,
+                          from_name: "Web Gesgrama",
+                          name: contactForm.nombre,
+                          phone: contactForm.telefono,
+                          email: contactForm.email,
+                          barrio_zona: data.name,
+                          asunto: contactForm.asunto,
+                          mensaje: contactForm.mensaje || "Solicitud de información sobre administración de fincas",
+                          pagina_origen: typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/administrador-fincas/${data.slug}`,
+                          fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
+                        };
+
+                        const resetCityFormSuccess = () => {
+                          setIsSubmittedSuccess(true);
+                          setContactForm({
+                            nombre: "",
+                            telefono: "",
+                            email: "",
+                            asunto: `Gestión de Comunidades en ${data.name || "Santa Coloma"}`,
+                            mensaje: "",
+                            privacidad: false
+                          });
+                          setTimeout(() => {
+                            setIsSubmittedSuccess(false);
+                          }, 4000);
+                        };
+
+                        const triggerCityWhatsAppFallback = () => {
+                          const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
+                          window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                        };
+
+                        // 1er intento: Web3Forms
+                        fetch("https://api.web3forms.com/submit", {
                           method: "POST",
                           headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json"
                           },
-                          body: JSON.stringify(payload)
+                          body: JSON.stringify(web3Payload)
                         })
                           .then(async (res) => {
-                            const data = await res.json().catch(() => ({}));
-                            if (res.ok && (data.success === "true" || data.success === true)) {
-                              setIsSubmittedSuccess(true);
-                              setContactForm({
-                                nombre: "",
-                                telefono: "",
-                                email: "",
-                                asunto: `Gestión de Comunidades en ${data.name || "Santa Coloma"}`,
-                                mensaje: "",
-                                privacidad: false
-                              });
-                              setTimeout(() => {
-                                setIsSubmittedSuccess(false);
-                              }, 4000);
+                            const resData = await res.json().catch(() => ({}));
+                            if (res.ok && (resData.success === true || resData.success === "true")) {
+                              resetCityFormSuccess();
                             } else {
-                              const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
-                              window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                              // 2do intento: FormSubmit
+                              fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                                body: JSON.stringify(payload)
+                              })
+                                .then(async (res2) => {
+                                  const data2 = await res2.json().catch(() => ({}));
+                                  if (res2.ok && (data2.success === true || data2.success === "true")) {
+                                    resetCityFormSuccess();
+                                  } else {
+                                    triggerCityWhatsAppFallback();
+                                  }
+                                })
+                                .catch(() => triggerCityWhatsAppFallback());
                             }
                           })
                           .catch(() => {
-                            const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
-                            window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                            fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                              body: JSON.stringify(payload)
+                            })
+                              .then(async (res2) => {
+                                const data2 = await res2.json().catch(() => ({}));
+                                if (res2.ok && (data2.success === true || data2.success === "true")) {
+                                  resetCityFormSuccess();
+                                } else {
+                                  triggerCityWhatsAppFallback();
+                                }
+                              })
+                              .catch(() => triggerCityWhatsAppFallback());
                           })
                           .finally(() => {
                             setIsSubmittingContact(false);

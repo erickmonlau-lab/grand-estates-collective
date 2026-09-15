@@ -2695,38 +2695,86 @@ function Index() {
                         "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                       };
 
-                      fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                      const web3Payload = {
+                        access_key: "29166dd1-5523-42cd-b759-6875c7977d14",
+                        subject: `📋 Solicitud Web Gesgrama: ${contactForm.asunto || "Consulta General"} (${contactForm.nombre})`,
+                        from_name: "Web Gesgrama",
+                        name: contactForm.nombre,
+                        phone: contactForm.telefono,
+                        email: contactForm.email,
+                        asunto: contactForm.asunto,
+                        mensaje: contactForm.mensaje || "Sin mensaje adicional",
+                        pagina_origen: typeof window !== "undefined" ? window.location.href : "https://www.gesgrama.es/",
+                        fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
+                      };
+
+                      const resetFormSuccess = () => {
+                        setIsSubmittedSuccess(true);
+                        setContactForm({
+                          nombre: "",
+                          telefono: "",
+                          email: "",
+                          asunto: "Gestión de Comunidades",
+                          mensaje: "",
+                          privacidad: false
+                        });
+                        setTimeout(() => {
+                          setIsSubmittedSuccess(false);
+                        }, 4000);
+                      };
+
+                      const triggerWhatsAppFallback = () => {
+                        const fallbackMsg = `Hola Gesgrama, os contacto desde la web:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Consulta general"}`;
+                        window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                      };
+
+                      // 1er intento: Web3Forms (Alta disponibilidad Cloudflare/AWS)
+                      fetch("https://api.web3forms.com/submit", {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",
                           "Accept": "application/json"
                         },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify(web3Payload)
                       })
                         .then(async (res) => {
                           const data = await res.json().catch(() => ({}));
-                          if (res.ok && (data.success === "true" || data.success === true)) {
-                            setIsSubmittedSuccess(true);
-                            setContactForm({
-                              nombre: "",
-                              telefono: "",
-                              email: "",
-                              asunto: "Gestión de Comunidades",
-                              mensaje: "",
-                              privacidad: false
-                            });
-                            setTimeout(() => {
-                              setIsSubmittedSuccess(false);
-                            }, 4000);
+                          if (res.ok && (data.success === true || data.success === "true")) {
+                            resetFormSuccess();
                           } else {
-                            // Si el servicio requiere activación o falla, abrir fallback de WhatsApp directo con los datos ya introducidos
-                            const fallbackMsg = `Hola Gesgrama, os contacto desde la web:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Consulta general"}`;
-                            window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                            // 2do intento: FormSubmit si falla Web3Forms
+                            fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                              body: JSON.stringify(payload)
+                            })
+                              .then(async (res2) => {
+                                const data2 = await res2.json().catch(() => ({}));
+                                if (res2.ok && (data2.success === true || data2.success === "true")) {
+                                  resetFormSuccess();
+                                } else {
+                                  triggerWhatsAppFallback();
+                                }
+                              })
+                              .catch(() => triggerWhatsAppFallback());
                           }
                         })
                         .catch(() => {
-                          const fallbackMsg = `Hola Gesgrama, os contacto desde la web:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Consulta general"}`;
-                          window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                          // Si falla la red, intentar FormSubmit
+                          fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                            body: JSON.stringify(payload)
+                          })
+                            .then(async (res2) => {
+                              const data2 = await res2.json().catch(() => ({}));
+                              if (res2.ok && (data2.success === true || data2.success === "true")) {
+                                resetFormSuccess();
+                              } else {
+                                triggerWhatsAppFallback();
+                              }
+                            })
+                            .catch(() => triggerWhatsAppFallback());
                         })
                         .finally(() => {
                           setIsSubmittingContact(false);

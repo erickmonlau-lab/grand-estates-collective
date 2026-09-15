@@ -5,7 +5,7 @@ import { homeArticles as articles } from "../data/homeArticles";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
-import { useEffect, useRef, useState, Fragment } from "react";
+import { useEffect, useRef, useState, Fragment, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote, Info } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
@@ -15,12 +15,15 @@ import gallery1 from "@/assets/gallery-1.webp";
 
 import WhatsAppButton from '@/components/WhatsAppButton';
 import CookieBanner from '@/components/CookieBanner';
-import { FooterMascot } from '@/components/FooterMascot';
 import { Navbar } from '@/components/Navbar';
-import { AccreditationBadges } from '@/components/AccreditationBadges';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
+
+// Below-the-fold components: lazy loaded to reduce initial JS bundle
+const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({ default: m.FooterMascot })));
+const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges').then(m => ({ default: m.AccreditationBadges })));
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -732,10 +735,10 @@ function Index() {
       {/* Open Graph */}
       <meta property="og:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" />
       <meta property="og:description" content="Gestión profesional, transparente y cercana para tu comunidad y propiedad en Santa Coloma de Gramenet y área metropolitana. +4500 clientes satisfechos." />
-      <meta property="og:url" content="https://grand-estates-collective.vercel.app/" />
+      <meta property="og:url" content="https://gesgrama.com/" />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
-      <meta property="og:image:secure_url" content="https://grand-estates-collective.vercel.app/og-image.png" />
+      <meta property="og:image" content="https://gesgrama.com/og-image.png" />
+      <meta property="og:image:secure_url" content="https://gesgrama.com/og-image.png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/png" />
@@ -748,7 +751,7 @@ function Index() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" />
       <meta name="twitter:description" content="Gestión profesional de comunidades, compraventa de pisos y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana." />
-      <meta name="twitter:image" content="https://grand-estates-collective.vercel.app/og-image.png" />
+      <meta name="twitter:image" content="https://gesgrama.com/og-image.png" />
 
       {/* Geo Targeting SEO — Barcelona, Cataluña, España */}
       <meta name="geo.region" content="ES-CT" />
@@ -3088,12 +3091,16 @@ function Index() {
 
             {/* Mascot on Mobile (<768px): Prominent and clear mascot presentation */}
             <div className="w-full md:hidden flex justify-center items-center pt-4 pb-4">
-              <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
+              <Suspense fallback={null}>
+                <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
+              </Suspense>
             </div>
 
             {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Sweet spot scale */}
             <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
-              <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
+              <Suspense fallback={null}>
+                <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
+              </Suspense>
             </div>
           </div>
 
@@ -3137,7 +3144,9 @@ function Index() {
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
               {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
             </h3>
-            <AccreditationBadges language={language} />
+            <Suspense fallback={<div className="h-16" />}>
+              <AccreditationBadges language={language} />
+            </Suspense>
           </div>
 
         </div>

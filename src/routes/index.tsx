@@ -2392,6 +2392,8 @@ function Index() {
                 <img 
                   src={gesgramaOffice} 
                   alt="Oficina principal Gesgrama" 
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-center" 
                 />
               </Reveal>
@@ -2973,6 +2975,8 @@ function Index() {
                   alt="Asesores inmobiliarios Gesgrama" 
                   width={1024}
                   height={1024}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain block -mb-1"
                 />
               </div>

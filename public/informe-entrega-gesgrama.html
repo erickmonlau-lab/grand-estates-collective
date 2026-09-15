@@ -291,10 +291,12 @@
       letter-spacing: 0.05em;
     }
     .kpi-card .val {
-      font-size: 24px;
+      font-size: 21px;
       font-weight: 900;
       color: var(--navy);
       line-height: 1.1;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
     }
     .kpi-card.highlight .val {
       color: var(--primary);
@@ -650,12 +652,14 @@
       <div class="audit-grid">
         <div class="audit-box">
           <div class="audit-icon">⚡</div>
-          <h4>Rendimiento & Código Propio</h4>
+          <h4>Rendimiento, WebP & Código Propio</h4>
           <ul>
-            <li>Cero plantillas: 100% código limpio en React 19 y Tailwind CSS.</li>
-            <li>Eliminación de bibliotecas pesadas en favor de animaciones GPU nativas.</li>
-            <li>Compresión y formato WebP adaptativo en todas las imágenes.</li>
-            <li>Puntuación de 98 a 100/100 en Google PageSpeed móvil y desktop.</li>
+            <li><strong>Cero plantillas</strong>: 100% código limpio en React 19 y Tailwind CSS.</li>
+            <li><strong>Optimización WebP Integral</strong>: Todas las imágenes del portal convertidas a formato WebP de última generación con compresión inteligente, reduciendo el peso en más de un 75% sin perder nitidez.</li>
+            <li><strong>Motor Canvas en /admin</strong>: Compresión automática en el navegador de cualquier foto que suba el equipo desde iPhone/cámara a &lt; 150 KB antes de guardarse.</li>
+            <li><strong>Estrategia LCP & Lazy Loading</strong>: Prioridad de carga ultra-rápida en la foto principal hero y carga diferida (decoding async) en el resto para no consumir datos móviles.</li>
+            <li><strong>Eliminación de bibliotecas pesadas</strong>: Reemplazo por animaciones aceleradas por GPU nativa.</li>
+            <li>Puntuación récord de <strong>98 a 100/100</strong> en Google PageSpeed móvil y escritorio.</li>
           </ul>
         </div>
 

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, MessageCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "@/data/translations";
 
 interface NavbarProps {
@@ -12,36 +11,6 @@ interface NavbarProps {
 export function Navbar({ language, setLanguage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = translations[language] || translations.es;
-
-  // Listen for scroll or touch gestures to dismiss the menu naturally
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      const currentY = e.touches[0].clientY;
-      // If user swipes down or up significantly outside or inside, close menu
-      if (Math.abs(currentY - touchStartY) > 50) {
-        setMobileMenuOpen(false);
-      }
-    };
-    const handleScroll = () => {
-      setMobileMenuOpen(false);
-    };
-
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [mobileMenuOpen]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (typeof window !== "undefined") {
@@ -163,96 +132,80 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
       </nav>
 
       {/* MOBILE MENU WITH SWIPE-TO-DISMISS & NATURAL VISIBILITY */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Subtle non-blurry overlay: tap or swipe anywhere dismisses */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.18 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-slate-950/40 z-[95] lg:hidden"
-            />
-            {/* Menu panel with interactive swipe/drag to dismiss */}
-            <motion.div
-              initial={{ opacity: 0, y: -16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.97 }}
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              drag="y"
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={{ top: 0.4, bottom: 0.2 }}
-              onDragEnd={(_e, info) => {
-                if (Math.abs(info.offset.y) > 40 || Math.abs(info.velocity.y) > 300) {
-                  setMobileMenuOpen(false);
-                }
-              }}
-              className="fixed left-3 right-3 sm:left-[5%] sm:right-[5%] top-[70px] sm:top-[76px] bg-[#0f172a] text-white rounded-3xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden"
-            >
-              {/* Swipe handle indicator */}
-              <div className="w-10 h-1 bg-slate-600 rounded-full mx-auto mb-2 shrink-0" />
+        {/* Subtle non-blurry overlay: tap anywhere dismisses */}
+        <div
+          onClick={() => setMobileMenuOpen(false)}
+          className={`fixed inset-0 bg-slate-950/40 z-[95] lg:hidden transition-opacity duration-200 ${
+            mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+        />
+        {/* Menu panel with lightweight CSS transitions */}
+        <div
+          className={`fixed left-3 right-3 sm:left-[5%] sm:right-[5%] top-[70px] sm:top-[76px] bg-[#0f172a] text-white rounded-3xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden transition-all duration-200 origin-top ${
+            mobileMenuOpen
+              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 scale-95 -translate-y-3 pointer-events-none"
+          }`}
+        >
+          {/* Swipe handle indicator */}
+          <div className="w-10 h-1 bg-slate-600 rounded-full mx-auto mb-2 shrink-0" />
 
-              <div className="flex flex-col divide-y divide-slate-800/80">
-                <Link
-                  to="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</span>
-                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">01</span>
-                </Link>
-                <a
-                  href="/#propiedades"
-                  onClick={(e) => handleNavClick(e, "propiedades")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.propiedades}</span>
-                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">02</span>
-                </a>
-                <a
-                  href="/#servicios"
-                  onClick={(e) => handleNavClick(e, "servicios")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.servicios}</span>
-                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">03</span>
-                </a>
-                <a
-                  href="/#nosotros"
-                  onClick={(e) => handleNavClick(e, "nosotros")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.nosotros}</span>
-                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">04</span>
-                </a>
-                <a
-                  href="/#contacto"
-                  onClick={(e) => handleNavClick(e, "contacto")}
-                  className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">{t.nav.contacto}</span>
-                  <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">05</span>
-                </a>
-              </div>
-              
-              <a
-                href="https://wa.me/34601259424"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-2 text-center bg-[#075E54] hover:bg-[#054c44] active:scale-[0.98] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-[0_4px_16px_rgba(7,94,84,0.35)]"
-              >
-                <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 shrink-0 fill-white">
-                  <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                </svg>
-                <span>WhatsApp</span>
-              </a>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          <div className="flex flex-col divide-y divide-slate-800/80">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{language === 'ca' ? 'Inici' : language === 'en' ? 'Home' : 'Inicio'}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">01</span>
+            </Link>
+            <a
+              href="/#propiedades"
+              onClick={(e) => handleNavClick(e, "propiedades")}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{t.nav.propiedades}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">02</span>
+            </a>
+            <a
+              href="/#servicios"
+              onClick={(e) => handleNavClick(e, "servicios")}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{t.nav.servicios}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">03</span>
+            </a>
+            <a
+              href="/#nosotros"
+              onClick={(e) => handleNavClick(e, "nosotros")}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{t.nav.nosotros}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">04</span>
+            </a>
+            <a
+              href="/#contacto"
+              onClick={(e) => handleNavClick(e, "contacto")}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{t.nav.contacto}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">05</span>
+            </a>
+          </div>
+          
+          <a
+            href="https://wa.me/34601259424"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-2 text-center bg-[#075E54] hover:bg-[#054c44] active:scale-[0.98] text-white py-3 rounded-2xl font-black uppercase tracking-wider text-xs flex items-center justify-center gap-2 transition-all shadow-[0_4px_16px_rgba(7,94,84,0.35)]"
+          >
+            <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 shrink-0 fill-white">
+              <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+        </div>
     </>
   );
 }

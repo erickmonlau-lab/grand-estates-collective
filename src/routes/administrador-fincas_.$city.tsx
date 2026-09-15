@@ -1629,24 +1629,25 @@ function SantaColomaBarrioPage() {
                   <Paintbrush key={3} className="w-5 h-5" />
                 ];
                 const bgs = [
-                  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=70&w=240&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=70&w=240&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=70&w=240&auto=format&fit=crop",
-                  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=70&w=240&auto=format&fit=crop"
+                  "/images/service-1.webp",
+                  "/images/service-2.webp",
+                  "/images/service-3.webp",
+                  "/images/service-4.webp"
                 ];
                 return (
                   <Reveal key={i} delay={i * 0.1}>
                     <div 
                       onClick={() => setSelectedServiceIndex(i)}
-                      className="card-lift group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                      className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                     >
                       <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
                         <img 
                           src={bgs[i]} 
-                          srcSet={`${bgs[i].replace("w=240", "w=150&q=65")} 150w, ${bgs[i].replace("w=240", "w=240&q=70")} 240w`}
-                          sizes="(max-width: 640px) 150px, 110px"
                           alt={item.title} 
                           loading="lazy" 
+                          decoding="async"
+                          width={110}
+                          height={95}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                         />
                         <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">

@@ -48,7 +48,7 @@ export const Route = createFileRoute("/servicios_/$slug")({
               "url": SITE_DOMAIN,
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Av. dels Sants nº 49-51 local",
+                "streetAddress": "Av. dels Banús, 49",
                 "addressLocality": "Santa Coloma de Gramenet",
                 "postalCode": "08923",
                 "addressRegion": "Barcelona",

@@ -81,8 +81,8 @@ export default function HeroCarousel({
         {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
         <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
           <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={640} height={853} />
-            <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={1920} height={1080} />
+            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+            <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img
               src={heroBgMobileLcp}
               alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
@@ -90,8 +90,8 @@ export default function HeroCarousel({
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              width={640}
-              height={853}
+              width={360}
+              height={554}
             />
           </picture>
 

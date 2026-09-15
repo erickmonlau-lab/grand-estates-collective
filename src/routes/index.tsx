@@ -18,9 +18,8 @@ import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 
-// Below-the-fold components: lazy loaded to reduce initial JS bundle
-const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
-const CookieBanner = lazy(() => import('@/components/CookieBanner'));
+import WhatsAppButton from '@/components/WhatsAppButton';
+import CookieBanner from '@/components/CookieBanner';
 const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({ default: m.FooterMascot })));
 const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges').then(m => ({ default: m.AccreditationBadges })));
 
@@ -3238,11 +3237,9 @@ function Index() {
         </div>
       </footer>
 
-      {/* Floating Utilities (Lazy loaded) */}
-      <Suspense fallback={null}>
-        <WhatsAppButton language={language} />
-        <CookieBanner language={language} />
-      </Suspense>
+      {/* Floating Utilities */}
+      <WhatsAppButton language={language} />
+      <CookieBanner language={language} />
 
       {/* Service Detail Modal */}
       {selectedServiceIndex !== null && (

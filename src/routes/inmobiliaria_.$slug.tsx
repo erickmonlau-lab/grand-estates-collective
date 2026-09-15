@@ -529,20 +529,31 @@ function PropertyDetail() {
       },
       body: JSON.stringify(payload)
     })
-      .catch(() => {})
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && (data.success === "true" || data.success === true)) {
+          setIsSubmittedSuccess(true);
+          setContactForm({
+            nombre: "",
+            telefono: "",
+            email: "",
+            mensaje: "",
+            privacidad: false,
+          });
+          setTimeout(() => {
+            setIsSubmittedSuccess(false);
+          }, 4000);
+        } else {
+          const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
+          window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+        }
+      })
+      .catch(() => {
+        const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
+        window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+      })
       .finally(() => {
         setIsSubmittingContact(false);
-        setIsSubmittedSuccess(true);
-        setContactForm({
-          nombre: "",
-          telefono: "",
-          email: "",
-          mensaje: "",
-          privacidad: false,
-        });
-        setTimeout(() => {
-          setIsSubmittedSuccess(false);
-        }, 4000);
       });
   };
 

@@ -2581,21 +2581,32 @@ function SantaColomaBarrioPage() {
                           },
                           body: JSON.stringify(payload)
                         })
-                          .catch(() => {})
+                          .then(async (res) => {
+                            const data = await res.json().catch(() => ({}));
+                            if (res.ok && (data.success === "true" || data.success === true)) {
+                              setIsSubmittedSuccess(true);
+                              setContactForm({
+                                nombre: "",
+                                telefono: "",
+                                email: "",
+                                asunto: `Gestión de Comunidades en ${data.name || "Santa Coloma"}`,
+                                mensaje: "",
+                                privacidad: false
+                              });
+                              setTimeout(() => {
+                                setIsSubmittedSuccess(false);
+                              }, 4000);
+                            } else {
+                              const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
+                              window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                            }
+                          })
+                          .catch(() => {
+                            const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
+                            window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                          })
                           .finally(() => {
                             setIsSubmittingContact(false);
-                            setIsSubmittedSuccess(true);
-                            setContactForm({
-                              nombre: "",
-                              telefono: "",
-                              email: "",
-                              asunto: `Gestión de Comunidades en ${data.name}`,
-                              mensaje: "",
-                              privacidad: false
-                            });
-                            setTimeout(() => {
-                              setIsSubmittedSuccess(false);
-                            }, 4000);
                           });
                       }} 
                       className="space-y-4"

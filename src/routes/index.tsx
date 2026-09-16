@@ -24,8 +24,6 @@ const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({
 const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges').then(m => ({ default: m.AccreditationBadges })));
 
 
-import { DeferredSection } from "@/components/DeferredSection";
-
 export const Route = createFileRoute("/")({
   head: () => ({
     links: [
@@ -1812,7 +1810,6 @@ function Index() {
       </section>
 
       {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
-      <DeferredSection minHeight="700px">
       <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24">
         <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
         <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a] scroll-mt-14 sm:scroll-mt-16">
@@ -2173,9 +2170,7 @@ function Index() {
           </div>
         </div>
       </section>
-      </DeferredSection>
 
-      <DeferredSection minHeight="800px">
       {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
       <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
         <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
@@ -2600,9 +2595,7 @@ function Index() {
           </div>
         </div>
       </section>
-      </DeferredSection>
 
-      <DeferredSection minHeight="900px">
       {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
       <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
@@ -3061,7 +3054,6 @@ function Index() {
           </div>
         </div>
       </section>
-      </DeferredSection>
       </main>
 
       {/* ── FOOTER GSAP ── */}

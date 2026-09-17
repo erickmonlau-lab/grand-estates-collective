@@ -111,22 +111,14 @@ export default function HeroCarousel({
         {/* Mobile text container: comfortable width, clean readability */}
         <div className={`max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl ${customHeadline ? "xl:max-w-[780px]" : "xl:max-w-[720px]"} text-left py-1 sm:py-2 my-auto`}>
           <div className="flex flex-col justify-center h-full">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: expo }}
-              className="mb-1.5 sm:mb-2.5"
-            >
+            <div className="mb-1.5 sm:mb-2.5">
               <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[7.5px] xs:text-[9.5px] sm:text-[12.5px] font-black uppercase tracking-[0.04em] sm:tracking-[0.1em] px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
                 <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
                 <span className="text-left leading-tight line-clamp-1">{customTag || t.heroCarousel.tag}</span>
               </div>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15, ease: expo }}
+            <h1
               className={`text-[23px] xs:text-[26px] ${
                 customHeadline
                   ? "sm:text-4xl md:text-[2.85rem] lg:text-[3.35rem] leading-[1.08] sm:leading-[1.06]"
@@ -145,21 +137,15 @@ export default function HeroCarousel({
                   </span>
                 </>
               )}
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.25, ease: expo }}
+            <p
               className="text-[#1e293b] text-[12px] xs:text-[13px] sm:text-base md:text-[1.15rem] mb-2 sm:mb-4 font-bold leading-snug sm:leading-relaxed font-sans"
             >
               {customSubtitle || t.heroCarousel.subtitle}
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35, ease: expo }}
+            <div
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4"
             >
               {/* Primary CTA: Solicitar presupuesto -> directly to contact form */}
@@ -211,12 +197,9 @@ export default function HeroCarousel({
                 <Calculator className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.btnValuation || "Valorar mi propiedad"}</span>
               </a>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45, ease: expo }}
+            <div
               className="flex items-center gap-2 sm:gap-3 pt-0.5"
             >
               {/* Overlapping customer avatars stack */}
@@ -283,7 +266,7 @@ export default function HeroCarousel({
                   )}
                 </span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award, Calculator, Phone, Send } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
@@ -16,8 +15,6 @@ interface HeroCarouselProps {
   customTrustBadge?: string;
   customValuationHref?: string;
 }
-
-const expo = [0.16, 1, 0.3, 1] as const;
 
 // Self-contained: fires count-up on mount after 400ms. Always animates.
 function StatCounter({
@@ -66,7 +63,6 @@ export default function HeroCarousel({
   customValuationHref,
 }: HeroCarouselProps) {
   const t = translations[language];
-  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
@@ -270,10 +266,7 @@ export default function HeroCarousel({
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.55, ease: expo }}
+        <div
           className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-10 xs:-mt-8 sm:-mt-6 md:-mt-8 mb-3 sm:mb-4"
         >
           {/* Mobile: fade the right column into the background */}
@@ -305,7 +298,7 @@ export default function HeroCarousel({
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ── CONTINUOUS AUTHORITY MARQUEE INTEGRATED AS HERO BASE ── */}

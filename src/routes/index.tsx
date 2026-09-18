@@ -29,6 +29,7 @@ export const Route = createFileRoute("/")({
     links: [
       { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
+      { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
       { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
     ],
     scripts: [
@@ -629,7 +630,14 @@ function Index() {
       });
     };
 
-    refresh();
+    // Defer network fetch until initial render & paint are complete
+    if (typeof window !== "undefined") {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(refresh, { timeout: 2500 });
+      } else {
+        setTimeout(refresh, 1500);
+      }
+    }
 
     if (typeof window !== "undefined") {
       window.addEventListener("storage", refresh);

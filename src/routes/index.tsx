@@ -11,6 +11,7 @@ import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, Che
 import { Navbar } from '@/components/Navbar';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
+import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));

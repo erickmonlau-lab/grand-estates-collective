@@ -8,13 +8,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { useEffect, useRef, useState, Fragment, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote, Info } from "lucide-react";
-import logoImg from "@/assets/logo.webp";
-import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
-import handKeysImg from "@/assets/hand_keys_blue.webp";
-import gallery1 from "@/assets/gallery-1.webp";
-
 import { Navbar } from '@/components/Navbar';
-import MarqueeRibbon from '@/components/MarqueeRibbon';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 

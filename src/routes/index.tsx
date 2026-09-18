@@ -1,22 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
-import { homeArticles as articles } from "../data/homeArticles";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
-import { useEffect, useRef, useState, Fragment, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MapPin, Building2, Phone, Mail, MessageCircle, HelpCircle, Menu, X, ChevronRight, Calendar, ChevronDown, ArrowRight, Send, Check, Heart, Star, Home, Clock, Ruler, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, Loader2, CheckCircle2, Key, Quote, Info } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));
 const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({ default: m.FooterMascot })));
 const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges').then(m => ({ default: m.AccreditationBadges })));
+const ValuatorSection = lazy(() => import('@/components/ValuatorSection'));
+const CoberturaSection = lazy(() => import('@/components/CoberturaSection'));
+const BlogSection = lazy(() => import('@/components/BlogSection'));
+const FaqSection = lazy(() => import('@/components/FaqSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 
 
 export const Route = createFileRoute("/")({
@@ -247,57 +251,6 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
 function Index() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Contact form UX state
-  const [contactForm, setContactForm] = useState(() => {
-    let initialAsunto = "Gestión de Comunidades";
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const queryAsunto = params.get("asunto");
-      if (queryAsunto) {
-        initialAsunto = queryAsunto;
-      }
-    }
-    return {
-      nombre: "",
-      telefono: "",
-      email: "",
-      asunto: initialAsunto,
-      mensaje: "",
-      privacidad: false
-    };
-  });
-  const [contactErrors, setContactErrors] = useState<{
-    nombre?: string;
-    telefono?: string;
-    email?: string;
-    privacidad?: string;
-  }>({});
-  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
-  const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [mapInView, setMapInView] = useState(false);
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = mapContainerRef.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setMapInView(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setMapInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "400px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("language");
@@ -384,177 +337,10 @@ function Index() {
     });
   };
 
-  // Valuator real calculation state & market stats
-  const ZONE_MARKET_STATS: Record<string, { pricePerM2: number; trendPct: number; monthlyPrices: number[] }> = {
-    "Centre": { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] },
-    "Centro": { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] },
-    "Santa Rosa - Can Mariner": { pricePerM2: 1910, trendPct: 5.1, monthlyPrices: [1815, 1835, 1855, 1875, 1890, 1910] },
-    "Singuerlín": { pricePerM2: 1720, trendPct: 3.4, monthlyPrices: [1660, 1675, 1685, 1700, 1710, 1720] },
-    "Fondo": { pricePerM2: 1680, trendPct: 5.8, monthlyPrices: [1585, 1605, 1625, 1645, 1660, 1680] },
-    "El Raval": { pricePerM2: 1790, trendPct: 4.2, monthlyPrices: [1715, 1730, 1745, 1760, 1775, 1790] },
-    "Riera Alta - Llatí": { pricePerM2: 1850, trendPct: 3.9, monthlyPrices: [1780, 1795, 1810, 1825, 1835, 1850] },
-    "Riu": { pricePerM2: 1950, trendPct: 4.5, monthlyPrices: [1865, 1880, 1900, 1915, 1935, 1950] },
-    "Riu Nord / Riu Sud": { pricePerM2: 1950, trendPct: 4.5, monthlyPrices: [1865, 1880, 1900, 1915, 1935, 1950] },
-    "Oliveres - Can Serra": { pricePerM2: 1720, trendPct: 3.2, monthlyPrices: [1665, 1680, 1690, 1700, 1710, 1720] }
-  };
-
-  const ZONE_PRICE_PER_M2: Record<string, number> = Object.fromEntries(
-    Object.entries(ZONE_MARKET_STATS).map(([k, v]) => [k, v.pricePerM2])
-  );
-
-  const ZONE_TO_SLUG: Record<string, string> = {
-    "Centre": "centre",
-    "Centro": "centre",
-    "Santa Rosa - Can Mariner": "santa-rosa",
-    "Singuerlín": "singuerlin",
-    "Fondo": "fondo",
-    "El Raval": "el-raval",
-    "Riera Alta - Llatí": "riera-alta",
-    "Riu": "riu-nord",
-    "Riu Nord / Riu Sud": "riu-nord",
-    "Oliveres - Can Serra": "oliveres"
-  };
-
-  const getSparklineData = (prices: number[], width = 250, height = 80, paddingY = 16, paddingX = 15) => {
-    if (!prices || prices.length < 2) {
-      return {
-        linePath: "M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14",
-        areaPath: "M 15,62 Q 40,58 62,55 T 109,44 T 156,35 T 203,24 T 250,14 L 250,80 L 15,80 Z",
-        points: [
-          { cx: 15, cy: 62 }, { cx: 62, cy: 55 }, { cx: 109, cy: 44 },
-          { cx: 156, cy: 35 }, { cx: 203, cy: 24 }, { cx: 250, cy: 14 }
-        ]
-      };
-    }
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    const range = max - min || 1;
-    const innerHeight = height - paddingY * 2;
-    const innerWidth = width - paddingX * 2;
-    const stepX = innerWidth / (prices.length - 1);
-
-    const points = prices.map((val, idx) => {
-      const cx = Math.round(paddingX + idx * stepX);
-      const cy = Math.round(height - paddingY - ((val - min) / range) * innerHeight);
-      return { cx, cy };
-    });
-
-    let linePath = `M ${points[0].cx},${points[0].cy}`;
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      const midX = (prev.cx + curr.cx) / 2;
-      linePath += ` Q ${midX},${prev.cy} ${curr.cx},${curr.cy}`;
-    }
-
-    const last = points[points.length - 1];
-    const first = points[0];
-    const areaPath = `${linePath} L ${last.cx},${height} L ${first.cx},${height} Z`;
-
-    return { linePath, areaPath, points };
-  };
-
-  const [valuatorData, setValuatorData] = useState({
-    zona: "Centre",
-    metros: "85"
-  });
-  const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
-  const [calculatedResult, setCalculatedResult] = useState<{
-    estimatedValue: number;
-    rangeMin: number;
-    rangeMax: number;
-    zoneName: string;
-    trendPct: number;
-    monthlyPrices: number[];
-    propertyM2: number;
-    propertyPricePerM2: number;
-    neighborhoodPricePerM2: number;
-  }>(() => {
-    const defaultStats = ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    const m2 = 85;
-    // Calibrated market valuation factor based on surface size (smaller units command higher €/m², larger units lower €/m²)
-    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
-    const propPricePerM2 = Math.round(defaultStats.pricePerM2 * sizeFactor);
-    const exact = Math.round(m2 * propPricePerM2);
-    return {
-      estimatedValue: exact,
-      rangeMin: Math.round(exact * 0.93),
-      rangeMax: Math.round(exact * 1.07),
-      zoneName: "Centre",
-      trendPct: defaultStats.trendPct,
-      monthlyPrices: defaultStats.monthlyPrices,
-      propertyM2: m2,
-      propertyPricePerM2: propPricePerM2,
-      neighborhoodPricePerM2: defaultStats.pricePerM2
-    };
-  });
-
-  const handleCalculateValuation = () => {
-    setIsCalculatingValuation(true);
-    const m2 = Math.max(20, Math.min(600, parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85));
-    const stats = ZONE_MARKET_STATS[valuatorData.zona] || ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    
-    // Calibrated property valuation per m² accounting for unit scale efficiency
-    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
-    const propPricePerM2 = Math.round(stats.pricePerM2 * sizeFactor);
-    const exactValue = Math.round(m2 * propPricePerM2);
-    const minVal = Math.round(exactValue * 0.93);
-    const maxVal = Math.round(exactValue * 1.07);
-
-    setTimeout(() => {
-      setCalculatedResult({
-        estimatedValue: exactValue,
-        rangeMin: minVal,
-        rangeMax: maxVal,
-        zoneName: valuatorData.zona || "Centre",
-        trendPct: stats.trendPct,
-        monthlyPrices: stats.monthlyPrices,
-        propertyM2: m2,
-        propertyPricePerM2: propPricePerM2,
-        neighborhoodPricePerM2: stats.pricePerM2
-      });
-      setIsCalculatingValuation(false);
-    }, 1200);
-  };
-  const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [mapInteractive, setMapInteractive] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(3);
-  const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
-
-  // Lock body scroll when service modal is open
-  useEffect(() => {
-    if (selectedServiceIndex !== null) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedServiceIndex]);
-
-  // --- USER AUTHENTICATION STATE & MOCK DATABASE ---
-  const [user, setUser] = useState<{ email: string } | null>(() => {
-    try {
-      const stored = localStorage.getItem('gesgrama_current_user');
-      return stored ? JSON.parse(stored) : null;
-    } catch {
-      return null;
-    }
-  });
-
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<"login" | "register">("login");
-  const [authEmail, setAuthEmail] = useState("");
-  const [authPassword, setAuthPassword] = useState("");
-  const [authMessage, setAuthMessage] = useState("");
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-
   // Favorites state persisted directly in localStorage without login requirement
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
-      const stored = localStorage.getItem('gesgrama_favorites');
+      const stored = localStorage.getItem("gesgrama_favorites");
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -565,44 +351,58 @@ function Index() {
     setFavorites(prev => {
       const updated = prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id];
       try {
-        localStorage.setItem('gesgrama_favorites', JSON.stringify(updated));
+        localStorage.setItem("gesgrama_favorites", JSON.stringify(updated));
       } catch (e) {
-        console.error('Error saving favorites:', e);
+        console.error("Error saving favorites:", e);
       }
       return updated;
     });
   };
 
-  const getTranslatedFilterLabel = (category: 'tipo' | 'zona' | 'habitaciones' | 'precio', val: string) => {
-    if (category === 'tipo') {
-      if (val === 'Cualquier tipo') return t.properties.anyType;
-      if (val === 'Piso') return language === 'ca' ? 'Pis' : language === 'en' ? 'Flat' : 'Piso';
-      if (val === 'Apartamento') return language === 'ca' ? 'Apartament' : language === 'en' ? 'Apartment' : 'Apartamento';
-      if (val === 'Ático') return language === 'ca' ? 'Àtic' : language === 'en' ? 'Penthouse' : 'Ático';
-      if (val === 'Chalet' || val === 'Chalet / Villa') return language === 'ca' ? 'Xalet / Vil·la' : language === 'en' ? 'Villa / House' : 'Chalet / Villa';
-      if (val === 'Local' || val === 'Local Comercial' || val === 'Local comercial') return language === 'ca' ? 'Local comercial' : language === 'en' ? 'Commercial premises' : 'Local Comercial';
-      if (val === 'Oficina') return language === 'ca' ? 'Oficina' : language === 'en' ? 'Office' : 'Oficina';
-      if (val === 'Aparcamiento') return language === 'ca' ? 'Aparcament' : language === 'en' ? 'Parking space' : 'Aparcamiento';
+  const getTranslatedFilterLabel = (category: "tipo" | "zona" | "habitaciones" | "precio", val: string) => {
+    if (category === "tipo") {
+      if (val === "Cualquier tipo") return t.properties.anyType;
+      if (val === "Piso") return language === "ca" ? "Pis" : language === "en" ? "Flat" : "Piso";
+      if (val === "Apartamento") return language === "ca" ? "Apartament" : language === "en" ? "Apartment" : "Apartamento";
+      if (val === "Ático") return language === "ca" ? "Àtic" : language === "en" ? "Penthouse" : "Ático";
+      if (val === "Chalet" || val === "Chalet / Villa") return language === "ca" ? "Xalet / Vil·la" : language === "en" ? "Villa / House" : "Chalet / Villa";
+      if (val === "Local" || val === "Local Comercial" || val === "Local comercial") return language === "ca" ? "Local comercial" : language === "en" ? "Commercial premises" : "Local Comercial";
+      if (val === "Oficina") return language === "ca" ? "Oficina" : language === "en" ? "Office" : "Oficina";
+      if (val === "Aparcamiento") return language === "ca" ? "Aparcament" : language === "en" ? "Parking space" : "Aparcamiento";
     }
-    if (category === 'zona') {
-      if (val === 'Cualquier zona') return t.properties.allZones;
+    if (category === "zona") {
+      if (val === "Cualquier zona") return t.properties.allZones;
       return formatLocation(val, language);
     }
-    if (category === 'habitaciones') {
-      if (val === 'Cualquier número') return (t.properties as any).anyBedrooms || t.properties.anyHab || "Cualquier número";
-      if (val.includes('+')) return `${val.replace('+', '')}+ ${t.properties.bedrooms.toLowerCase()}`;
+    if (category === "habitaciones") {
+      if (val === "Cualquier número") return (t.properties as any).anyBedrooms || t.properties.anyHab || "Cualquier número";
+      if (val.includes("+")) return val.replace("+", "") + "+ " + t.properties.bedrooms.toLowerCase();
     }
-    if (category === 'precio') {
-      if (val === 'Cualquier precio') return t.properties.anyPrice;
-      if (val.startsWith('Hasta ')) {
-        const amount = val.replace('Hasta ', '');
-        const prefix = language === 'ca' ? 'Fins a ' : language === 'en' ? 'Up to ' : 'Hasta ';
-        return `${prefix}${amount}`;
+    if (category === "precio") {
+      if (val === "Cualquier precio") return t.properties.anyPrice;
+      if (val.startsWith("Hasta ")) {
+        const amount = val.replace("Hasta ", "");
+        const prefix = language === "ca" ? "Fins a " : language === "en" ? "Up to " : "Hasta ";
+        return prefix + amount;
       }
-      if (val.endsWith('€')) return `< ${val}`;
+      if (val.endsWith("€")) return "< " + val;
     }
     return val;
   };
+
+  const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedServiceIndex !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedServiceIndex]);
+
   const iconMap: Record<string, React.ReactNode> = {
     building: <Building2 className="w-7 h-7" />,
     home: <Home className="w-7 h-7" />,
@@ -1654,504 +1454,15 @@ function Index() {
         </div>
       </section>
 
-      {/* ── VALORADOR DE INMUEBLES (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24">
-        <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-        <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a] scroll-mt-14 sm:scroll-mt-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-            
-            {/* LEFT COLUMN: Form */}
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-xs font-black tracking-wider uppercase px-3.5 py-1.5 rounded-xl shadow-xs font-sans">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
-                  <span>{t.valorador.tag}</span>
-                </span>
-              </div>
+            {/* ── VALORADOR DE INMUEBLES ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={shouldReduceMotion} />
+      </Suspense>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2.5 sm:mb-3.5 leading-[1.12] tracking-tight font-sans text-[#0f172a] flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span>{t.valorador.title}</span>
-                <span className="bg-[#2563eb] text-white px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl shadow-sm whitespace-nowrap">
-                  {t.valorador.titleAccent}
-                </span>
-              </h2>
-
-              <p className="text-slate-600 text-base sm:text-lg md:text-xl max-w-xl mb-5 sm:mb-6 leading-relaxed font-bold font-sans">
-                {t.valorador.subtitle}
-              </p>
-
-              <div className="w-full max-w-xl">
-                <div className="w-full">
-                  {/* Inputs Row with crystal clear visual labels & m² suffix */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                    {/* Select Zona */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                        {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
-                      </label>
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 w-full">
-                          <MapPin className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                          <select
-                            id="valuator-zona-select"
-                            aria-label="Seleccionar zona de la propiedad"
-                            value={valuatorData.zona}
-                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
-                          >
-                            <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
-                            {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
-                          </select>
-                        </div>
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
-                      </div>
-                    </div>
-
-                    {/* Input Superficie (m²) */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                        {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
-                      </label>
-                      <div className="flex items-center gap-2.5">
-                        <Ruler className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                        <input
-                          id="valuator-metros-input"
-                          type="number"
-                          min="20"
-                          max="600"
-                          placeholder="85"
-                          value={valuatorData.metros}
-                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
-                        />
-                        <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border border-slate-900 px-2.5 py-0.5 rounded-md shrink-0">
-                          m²
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Submit Button */}
-                  <button
-                    type="button"
-                    onClick={handleCalculateValuation}
-                    disabled={isCalculatingValuation}
-                    className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
-                  >
-                    <Home className="w-4 h-4 text-white" />
-                    <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </button>
-
-                  {/* Trust Badges - Horizontal row centered under button */}
-                  <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-3 sm:gap-4 mt-2 w-full">
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#60a5fa] stroke-[3] shrink-0" />
-                      <span>{t.valorador.sinCompromiso}</span>
-                    </span>
-                    <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
-                      <span>{t.valorador.resultadoInmediato}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: White Floating Result Card with Permanent Blue Border */}
-            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end w-full">
-              <div className="bg-white text-[#0f172a] rounded-3xl p-5 sm:p-7 shadow-xl w-full max-w-[460px] border-2 border-[#2563eb] relative overflow-hidden text-center">
-                
-                {/* Spinner / Skeleton Loading Overlay with AnimatePresence */}
-                <AnimatePresence>
-                  {isCalculatingValuation && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6"
-                    >
-                      <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
-                      <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
-                      <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* 1. "VALOR ESTIMADO" pill badge */}
-                <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider mb-3 shadow-md font-sans">
-                  <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
-                </div>
-                
-                {/* Main Estimated Value with animated Count-Up */}
-                <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-2 leading-none tracking-tight font-sans">
-                  <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-black">€</span>
-                </div>
-
-                {/* 2. Rango estimado de mercado en una caja estilizada */}
-                <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2 shadow-sm">
-                  <p className="text-xs sm:text-sm font-semibold text-slate-300 font-sans">
-                    {t.valorador.rangoEstimado}: <span className="font-extrabold text-white text-sm sm:text-base ml-1">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
-                  </p>
-                </div>
-
-                {/* Animated Range Progress Bar with Context Label */}
-                <div className="mb-3">
-                  <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-slate-300">
-                    <motion.div
-                      key={`range-bar-${calculatedResult.estimatedValue}`}
-                      initial={shouldReduceMotion ? false : { width: "0%" }}
-                      animate={{ width: "70%" }}
-                      transition={{ duration: 1.2, ease: easeOut }}
-                      className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
-                    />
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-slate-700 font-bold mt-1.5 text-center font-sans">
-                    {language === "ca" 
-                      ? "Posició del valor estimat dins del rang de mercat" 
-                      : language === "en" 
-                      ? "Estimated value position within the market range" 
-                      : "Posición del valor estimado dentro del rango de mercado"}
-                  </p>
-                </div>
-
-                {/* Disclaimer box with neutral dark gray background and pure white text */}
-                <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white mb-4 font-semibold py-2 px-3 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center leading-snug">
-                  <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-200 shrink-0 self-center" />
-                  <span className="text-white font-medium text-balance leading-tight">{t.valorador.disclaimer}</span>
-                </div>
-                
-                {/* 3. Sparkline Price Trend Chart Container */}
-                <div className="pt-3.5 pb-2 px-3.5 bg-slate-50 rounded-2xl border border-slate-200 mb-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
-                      {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
-                    </span>
-                    <span className="bg-[#2563eb] text-white px-3 py-1 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-sm font-sans">
-                      <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
-                    </span>
-                  </div>
-                  <div className="w-full h-20 sm:h-24 relative pt-1">
-                    {(() => {
-                      const spark = getSparklineData(calculatedResult.monthlyPrices);
-                      return (
-                        <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
-                          <defs>
-                            <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#2563eb" stopOpacity="0.35" />
-                              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.02" />
-                            </linearGradient>
-                          </defs>
-                          {/* Subdued horizontal guide lines */}
-                          <line x1="0" y1="20" x2="250" y2="20" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                          <line x1="0" y1="50" x2="250" y2="50" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                          
-                          {/* Fill area & Trend curve */}
-                          <path
-                            d={spark.areaPath}
-                            fill="url(#sparklineGrad)"
-                          />
-                          <motion.path
-                            key={`trend-line-${calculatedResult.estimatedValue}-${calculatedResult.zoneName}`}
-                            d={spark.linePath} 
-                            fill="none" 
-                            stroke="#2563eb" 
-                            strokeWidth="3" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            initial={shouldReduceMotion ? false : { pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{ duration: 1, ease: "easeInOut" }}
-                          />
-                          
-                          {/* Data Points */}
-                          {spark.points.map((pt, pIdx) => (
-                            <circle
-                              key={pIdx}
-                              cx={pt.cx}
-                              cy={pt.cy}
-                              r={pIdx === spark.points.length - 1 ? 4.5 : 3}
-                              fill={pIdx === spark.points.length - 1 ? "#2563eb" : "#ffffff"}
-                              stroke={pIdx === spark.points.length - 1 ? "#ffffff" : "#2563eb"}
-                              strokeWidth="2.5"
-                            />
-                          ))}
-                        </svg>
-                      );
-                    })()}
-                  </div>
-                  {/* X-Axis Month Labels */}
-                  <div className="flex justify-between items-center text-xs sm:text-[13px] font-bold text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
-                    {(() => {
-                      const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
-                      const now = new Date();
-                      const months = [];
-                      for (let i = 5; i >= 0; i--) {
-                        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                        const m = d.toLocaleDateString(locale, { month: "short" });
-                        months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
-                      }
-                      return months.map((month, mIdx) => {
-                        const isCurrentMonth = mIdx === 5;
-                        return (
-                          <span
-                            key={mIdx}
-                            className={
-                              isCurrentMonth
-                                ? "inline-flex items-center gap-1 text-[#2563eb] font-black underline underline-offset-4 decoration-2 decoration-[#2563eb]"
-                                : "text-slate-600 font-semibold"
-                            }
-                          >
-                            {isCurrentMonth && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
-                            )}
-                            <span>{month}</span>
-                          </span>
-                        );
-                      });
-                    })()}
-                  </div>
-                </div>
-
-                {/* Hyper-local Price Benchmark with Comparative Property Price/m² */}
-                {(() => {
-                  const propertyPricePerM2 = calculatedResult.propertyPricePerM2;
-                  const neighborhoodPricePerM2 = calculatedResult.neighborhoodPricePerM2;
-                  const diffPrice = propertyPricePerM2 - neighborhoodPricePerM2;
-                  const diffPct = ((diffPrice / neighborhoodPricePerM2) * 100).toFixed(1);
-                  const isAbove = diffPrice > 0;
-                  const isEqual = diffPrice === 0;
-
-                  return (
-                    <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 font-sans">
-                      <div className="divide-y divide-blue-900/60">
-                        {/* Line 1: Neighborhood average price */}
-                        <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
-                          <span className="font-bold text-slate-300">
-                            {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
-                          </span>
-                          <span className="font-black text-white text-sm sm:text-base">
-                            {new Intl.NumberFormat('es-ES').format(neighborhoodPricePerM2)} €/m²
-                          </span>
-                        </div>
-
-                        {/* Line 2: Property estimated price/m² and comparative indicator */}
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-xs sm:text-sm pt-2.5">
-                          <div className="flex items-center gap-1.5 group/tip relative min-w-0">
-                            <span className="font-bold text-slate-300">
-                              {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
-                            </span>
-                            <button
-                              type="button"
-                              aria-label={
-                                language === "ca"
-                                  ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor total i la superfície indicada."
-                                  : language === "en"
-                                  ? "Estimated price per sq m for your home, calculated from total estimated value and specified area."
-                                  : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."
-                              }
-                              className="text-slate-400 hover:text-white cursor-pointer focus:outline-hidden shrink-0"
-                            >
-                              <Info className="w-3.5 h-3.5" />
-                            </button>
-                            {/* Hover/focus tooltip */}
-                            <div className="pointer-events-none absolute left-0 bottom-full mb-2 hidden w-56 sm:w-64 rounded-xl bg-slate-900/95 p-2.5 text-[11px] font-normal leading-snug text-slate-200 shadow-xl border border-slate-700 backdrop-blur-md z-50 group-hover/tip:block group-focus-within/tip:block transition-all">
-                              {language === "ca"
-                                ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor estimat total i la superfície indicada."
-                                : language === "en"
-                                ? "Estimated price per sq m for your home, calculated from the total estimated value and specified area."
-                                : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                            <span className="font-black text-white text-sm sm:text-base whitespace-nowrap">
-                              {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)}&nbsp;€/m²
-                            </span>
-                            {!isEqual && (
-                              <span className={`text-[11px] font-black px-2 py-0.5 rounded-md shrink-0 shadow-sm text-white whitespace-nowrap ${
-                                isAbove ? "bg-emerald-700 border border-emerald-600" : "bg-sky-700 border border-sky-600"
-                              }`}>
-                                {isAbove ? `+${diffPct}%` : `${diffPct}%`}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Micro-note explaining comparison and percentage diff */}
-                      <div className="mt-2.5 pt-2 border-t border-blue-900/40 text-[11px] text-slate-400 text-center leading-tight">
-                        {language === "ca"
-                          ? "Compara el preu estimat del teu habitatge amb la mitjana de la zona."
-                          : language === "en"
-                          ? "Compares your estimated property price with the area average."
-                          : "Compara el precio estimado de tu vivienda con la media de la zona."}
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Bottom CTA Row: Direct WhatsApp button */}
-                <div>
-                  <a
-                    href={`https://wa.me/34689438012?text=${encodeURIComponent(
-                      language === "ca"
-                        ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
-                        : language === "en"
-                        ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
-                        : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-sm py-3.5 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2.5 group cursor-pointer hover:scale-[1.01]"
-                  >
-                    <WhatsAppBrandIcon className="w-5 h-5 fill-white shrink-0" />
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS - POINT 5 LIGHT GRAY BG) ── */}
-      <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
-            
-            {/* LEFT CONTENT */}
-            <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
-              <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 border border-slate-200">
-                  <MapPin className="w-3.5 h-3.5 text-[#2563eb]" />
-                  <span>{language === "ca" ? "ÀREA DE COBERTURA" : language === "en" ? "COVERAGE AREA" : "ÁREA DE COBERTURA"}</span>
-                </span>
-                
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white mb-3 font-sans flex flex-col items-start gap-1">
-                  <span>{language === "ca" ? "Experts a" : language === "en" ? "Experts in" : "Expertos en"}</span>
-                  <span className="inline-block bg-[#2563eb] text-white px-3.5 py-1 rounded-xl shadow-md mt-0.5 whitespace-nowrap">
-                    Santa Coloma de
-                  </span>
-                  <span className="inline-block bg-[#2563eb] text-white px-3.5 py-1 rounded-xl shadow-md whitespace-nowrap">
-                    Gramenet
-                  </span>
-                </h2>
-                
-                <p className="text-slate-100 text-sm sm:text-base md:text-lg max-w-lg mb-3 font-bold leading-snug font-sans">
-                  {language === "ca" ? "Equip propi amb atenció personalitzada a tots els barris de Santa Coloma de Gramenet." : language === "en" ? "Our own team with personalized service in all neighborhoods of Santa Coloma de Gramenet." : "Equipo propio con atención personalizada en todos los barrios de Santa Coloma de Gramenet."}
-                </p>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 max-w-lg">
-                  {[
-                    "Centro",
-                    "Singuerlín",
-                    "Santa Rosa - Can Mariner",
-                    "Fondo",
-                    "Riera Alta - Llatí",
-                    "El Raval",
-                    "Riu Nord / Riu Sud",
-                    "Oliveres - Can Serra"
-                  ].map((barrio) => (
-                    <span key={barrio} className="bg-white text-slate-950 text-[11px] sm:text-xs font-black px-2.5 sm:px-3 py-1 rounded-full border border-slate-300 shadow-2xs hover:border-white hover:bg-blue-50 transition-all flex items-center gap-1 cursor-default">
-                      <MapPin className="w-3 h-3 text-[#2563eb] shrink-0" />
-                      <span>{formatLocation(barrio, language)}</span>
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
-
-              {/* Help Bubble Card - Compact 80% */}
-              <Reveal delay={0.1} className="w-full">
-                <div className="bg-white border-2 border-[#2563eb] rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3.5 sm:gap-4 shadow-lg text-[#0f172a]">
-                  <div className="flex items-center gap-3 sm:gap-3.5 flex-1">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 text-white shadow-xs">
-                      <MessageCircle className="w-5 h-5 sm:w-5.5 sm:h-5.5 stroke-[2.2]" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-base sm:text-lg font-black text-[#0f172a] leading-tight font-sans tracking-tight">
-                        {language === "ca" ? "¿Necessites ajuda?" : language === "en" ? "Need help?" : "¿Necesitas ayuda?"}
-                      </h3>
-                      <p className="text-slate-600 text-xs sm:text-sm font-bold leading-tight mt-0.5 font-sans">
-                        {language === "ca" ? "Som aquí per ajudar-te, sense compromís." : language === "en" ? "We are here to help you, no obligation." : "Estamos aquí para ayudarte, sin compromiso."}
-                      </p>
-                    </div>
-                  </div>
-                  <a 
-                    href="#formulario-contacto" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const formEl = document.getElementById("formulario-contacto");
-                      if (formEl) {
-                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
-                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
-                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
-                      }
-                    }}
-                    className="w-full md:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm px-5 py-2.5 sm:py-3 rounded-full transition-all duration-300 shadow-xs hover:shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer font-sans whitespace-nowrap group hover:scale-[1.02]"
-                  >
-                    <span>{t.hero.contacto}</span>
-                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform stroke-[2.5]" />
-                  </a>
-                </div>
-              </Reveal>
-            </div>
-
-            {/* RIGHT CONTENT: MAP WITH PROMINENT BLUE BORDER */}
-            <div 
-              ref={mapContainerRef}
-              className="w-full lg:w-1/2 relative h-[280px] sm:h-[330px] md:h-[380px] rounded-2xl md:rounded-3xl overflow-hidden border-[3px] border-[#2563eb] bg-[#e8ecf1] shadow-lg group"
-            >
-              {/* Skeleton placeholder */}
-              <div 
-                className={`absolute inset-0 bg-[#e8ecf1] flex flex-col items-center justify-center transition-opacity duration-700 z-10 pointer-events-none ${
-                  mapLoaded ? "opacity-0" : "opacity-100"
-                }`}
-              >
-                <div className="w-10 h-10 rounded-full bg-[#2563eb]/15 flex items-center justify-center mb-2 animate-pulse">
-                  <MapPin className="w-5 h-5 text-[#2563eb]" />
-                </div>
-                <span className="text-[11px] font-black text-slate-600 font-sans tracking-wide">
-                  {language === "ca" ? "Carregant mapa de la seu..." : language === "en" ? "Loading headquarters map..." : "Cargando mapa de la sede..."}
-                </span>
-              </div>
-
-              {/* Iframe rendered on demand */}
-              {mapInView && (
-                <iframe
-                  title="Ubicación de Gesgrama en Santa Coloma de Gramenet"
-                  src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.077202353112!2d2.2104523154273864!3d41.44840897925842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4bcccdcd86551%3A0xc3dfbb0e816a761e!2sAv.%20dels%20Ban%C3%BAs%2C%2049%2C%2008923%20Santa%20Coloma%20de%20Gramenet%2C%20Barcelona!5e0!3m2!1s${language}!2ses!4v1700000000000!5m2!1s${language}!2ses`}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  onLoad={() => setMapLoaded(true)}
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className={`absolute inset-0 w-full h-full object-cover pointer-events-auto transition-opacity duration-700 ease-out ${
-                    mapLoaded ? "opacity-100" : "opacity-0"
-                  }`}
-                ></iframe>
-              )}
-
-              {/* Floating Card Bottom Right */}
-              <div className="absolute bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:bottom-4 bg-[#0b172a] text-white rounded-xl p-3 sm:p-3.5 shadow-lg border border-white/20 z-30 pointer-events-auto max-w-full">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="font-black text-white text-[10px] sm:text-xs uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
-                    <p className="text-white text-xs sm:text-sm font-black font-sans leading-tight">Av. dels Banús, 49</p>
-                    <p className="text-slate-300 text-[11px] sm:text-xs font-bold font-sans">08923 Santa Coloma de Gramenet</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+            {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <CoberturaSection language={language} t={t} />
+      </Suspense>
 
       {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
       <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
@@ -2250,571 +1561,20 @@ function Index() {
         </div>
       </section>
 
-      {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
-      <section id="blog" className="pt-4 pb-8 sm:pb-12 md:pb-14 px-4 sm:px-6 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="max-w-[1150px] mx-auto">
-          <Reveal>
-            <div className="mb-4 sm:mb-6 text-center">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-xl shadow-xs mb-2">
-                <Calendar className="w-3.5 h-3.5 text-white" />
-                <span>{t.noticias.tag}</span>
-              </span>
-              
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-1.5 font-sans tracking-tight">
-                {t.noticias.title1} <span className="text-[#2563eb]">{t.noticias.title2}</span>
-              </h2>
-              
-              <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-snug font-sans mt-1">
-                {t.noticias.subtitle}
-              </p>
-            </div>
-          </Reveal>
+            {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <BlogSection language={language} t={t} />
+      </Suspense>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            {articles.slice(0, 4).map((art, i) => {
-              const title = art.title[language];
-              const summary = art.summary[language];
-              const date = art.date;
-              return (
-                <Reveal key={art.id} delay={i * 0.1}>
-                  <div className="bg-white rounded-2xl sm:rounded-3xl p-5 flex flex-col h-full border-2 border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                    <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/8] overflow-hidden rounded-xl mb-3.5 bg-slate-100 cursor-pointer">
-                      <img
-                        src={art.image}
-                        alt={title}
-                        loading="lazy"
-                        decoding="async"
-                        width={400}
-                        height={200}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </Link>
-                    <div className="flex flex-col flex-1">
-                      <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
-                        <span className="text-slate-500 font-extrabold">{date}</span>
-                      </div>
-                      <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
-                        {title}
-                      </Link>
-                      <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
-                        {summary}
-                      </p>
-                      <div className="mt-auto pt-3 border-t border-slate-100">
-                        <Link
-                          to="/noticias/$slug"
-                          params={{ slug: art.slug }}
-                          className="inline-flex items-center gap-2 text-sm sm:text-base font-black text-[#2563eb] hover:text-[#1d4ed8] group-hover:gap-3 transition-all font-sans cursor-pointer"
-                        >
-                          <span>{t.noticias.seguirLeyendo}</span>
-                          <ArrowRight className="w-4.5 h-4.5 text-[#2563eb]" />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
+      {/* ── FAQ ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <FaqSection t={t} />
+      </Suspense>
 
-          <Reveal delay={0.3}>
-            <div className="text-center mt-8 sm:mt-12 mb-2 sm:mb-4">
-              <Link
-                to="/noticias"
-                className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-9 py-4.5 rounded-full text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer font-sans"
-              >
-                <span>{t.noticias.verTodasBtn}</span>
-                <ArrowRight className="w-5 h-5 text-white" />
-              </Link>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── FAQ (COMPACT LAYOUT WITH BALANCED TEXT) ── */}
-      <section 
-        id="faq" 
-        className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-28 md:scroll-mt-32"
-      >
-        <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
-          <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
-            <Reveal>
-              <div className="text-center mb-6 flex flex-col items-center">
-                {/* White Badge with Icon next to Text */}
-                <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-3 font-sans">
-                  <HelpCircle className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-                  <span>{t.faq.tag}</span>
-                </span>
-
-                {/* Title */}
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white tracking-tight font-sans mb-2">
-                  <span className="bg-[#2563eb] text-white px-3 py-1 rounded-xl inline-block shadow-md">
-                    {t.faq.title1}
-                  </span>{" "}
-                  {t.faq.title2}
-                </h2>
-
-                <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-1.5">
-                  {t.faq.subtitle}
-                </p>
-              </div>
-            </Reveal>
-
-            {/* Accordion Cards - Visual Cards with Index Badges & Balanced Text */}
-            <div className="w-full flex flex-col gap-3 mb-6">
-              {t.faq.items.map((item, i) => {
-                const isActive = activeFaq === i;
-                return (
-                  <Reveal key={i} delay={i * 0.08}>
-                    <div 
-                      onClick={() => setActiveFaq(isActive ? null : i)}
-                      className={`cursor-pointer rounded-2xl p-4 sm:p-5 transition-all duration-300 group border ${
-                        isActive 
-                          ? 'bg-white shadow-lg border-blue-500/40 ring-1 ring-blue-500/20' 
-                          : 'bg-slate-100/95 hover:bg-white border-slate-200/90 hover:border-blue-400/50 shadow-xs'
-                      }`}
-                    >
-                      <div className="flex justify-between items-center gap-3.5">
-                        <div className="flex items-start sm:items-center gap-3 min-w-0">
-                          <span className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors duration-200 font-sans ${
-                            isActive ? 'bg-[#2563eb] text-white shadow-xs' : 'bg-slate-200 text-slate-700 group-hover:bg-blue-100 group-hover:text-[#2563eb]'
-                          }`}>
-                            0{i + 1}
-                          </span>
-                          <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg font-sans leading-snug text-balance">
-                            {item.q}
-                          </h3>
-                        </div>
-                        <motion.div 
-                          animate={{ rotate: isActive ? 45 : 0 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
-                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
-                            isActive ? 'bg-[#1d4ed8] text-white shadow-sm' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'
-                          }`}
-                        >
-                          <span className="text-xl font-black leading-none select-none">+</span>
-                        </motion.div>
-                      </div>
-                      <AnimatePresence initial={false}>
-                        {isActive && (
-                          <motion.div 
-                            key={`faq-ans-${i}`}
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.28, ease: "easeOut" }}
-                            className="overflow-hidden"
-                          >
-                            <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
-                              {item.a}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
-
-            {/* Bottom Eye-Catching Blue CTA Button */}
-            <div className="text-center">
-              <a 
-                href="#formulario-contacto" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  const formEl = document.getElementById("formulario-contacto");
-                  if (formEl) {
-                    formEl.scrollIntoView({ behavior: "smooth", block: "center" });
-                    const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
-                    if (inputEl) {
-                      setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
-                    }
-                  }
-                }}
-                className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
-              >
-                <span>{t.faq.askDoubt}</span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CONTACT (EXACT MATCH REFERENCE IMAGE) ── */}
-      <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-            
-            {/* LEFT COLUMN: Title & Image Overlay Card */}
-            <div className="lg:col-span-5 flex flex-col justify-center">
-              <Reveal>
-                <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
-                  {t.contacto.badge}
-                </span>
-                
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2.5 font-sans">
-                  {t.contacto.title1}<br />
-                  <span className="text-[#2563eb] italic font-serif">{t.contacto.title2}</span>
-                </h2>
-                
-                <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-4 font-bold leading-snug font-sans">
-                  {t.contacto.subtitle}
-                </p>
-
-                {/* Storefront Image Card with Central Office Overlay */}
-                <div className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/80 aspect-[16/10] group">
-                  <img 
-                    src={gesgramaOffice} 
-                    alt="Gesgrama oficina principal en Santa Coloma" 
-                    loading="lazy"
-                    decoding="async"
-                    width={480}
-                    height={300}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                  />
-                  
-                  {/* Floating Office Badge */}
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:left-3 sm:right-auto bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-lg border border-slate-100 max-w-[260px] z-20">
-                    <div className="flex items-start gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                        <MapPin className="w-4 h-4 text-white stroke-[2.5]" />
-                      </div>
-                      <div>
-                        <div className="font-black text-[10px] sm:text-xs text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
-                        <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
-                          Av. dels Banús, 49
-                        </div>
-                        <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
-                          08923 Santa Coloma de Gramenet
-                        </div>
-                        <a href="tel:+34934685656" className="inline-flex items-center gap-1 text-[#2563eb] font-black text-xs sm:text-sm mt-1 font-sans">
-                          <Phone className="w-3 h-3 text-[#2563eb]" /> 93 468 56 56
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-
-            {/* RIGHT COLUMN: Contact Form Card */}
-            <div className="lg:col-span-7">
-              <Reveal delay={0.1}>
-                <div id="formulario-contacto" className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-28 md:scroll-mt-32">
-                  <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
-                  
-                  <form 
-                    key={language} 
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      const errors: typeof contactErrors = {};
-                      if (!contactForm.nombre.trim()) {
-                        errors.nombre = language === "ca" ? "El nom és obligatori" : language === "en" ? "Name is required" : "El nombre es obligatorio";
-                      }
-                      if (!contactForm.telefono.trim()) {
-                        errors.telefono = language === "ca" ? "El telèfon és obligatori" : language === "en" ? "Phone is required" : "El teléfono es obligatorio";
-                      }
-                      if (!contactForm.email.trim()) {
-                        errors.email = language === "ca" ? "L'email és obligatori" : language === "en" ? "Email is required" : "El email es obligatorio";
-                      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
-                        errors.email = language === "ca" ? "Format d'email invàlid" : language === "en" ? "Invalid email format" : "Formato de correo no válido";
-                      }
-                      if (!contactForm.privacidad) {
-                        errors.privacidad = language === "ca" ? "Has d'acceptar la política de privacitat" : language === "en" ? "You must accept privacy policy" : "Debes aceptar la política de privacidad";
-                      }
-
-                      setContactErrors(errors);
-                      if (Object.keys(errors).length > 0) return;
-
-                      setIsSubmittingContact(true);
-
-                      const payload = {
-                        _subject: `📋 Solicitud Web Gesgrama: ${contactForm.asunto || "Consulta General"} (${contactForm.nombre})`,
-                        _template: "table",
-                        _captcha: "false",
-                        "Nombre y Apellidos": contactForm.nombre,
-                        "Teléfono / WhatsApp": contactForm.telefono,
-                        "Correo Electrónico": contactForm.email,
-                        "Motivo de Contacto": contactForm.asunto,
-                        "Mensaje": contactForm.mensaje || "Sin mensaje adicional",
-                        "Página de Origen": typeof window !== "undefined" ? window.location.href : "https://www.gesgrama.es/",
-                        "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
-                      };
-
-                      const web3Payload = {
-                        access_key: "29166dd1-5523-42cd-b759-6875c7977d14",
-                        subject: `📋 Solicitud Web Gesgrama: ${contactForm.asunto || "Consulta General"} (${contactForm.nombre})`,
-                        from_name: "Web Gesgrama",
-                        name: contactForm.nombre,
-                        phone: contactForm.telefono,
-                        email: contactForm.email,
-                        asunto: contactForm.asunto,
-                        mensaje: contactForm.mensaje || "Sin mensaje adicional",
-                        pagina_origen: typeof window !== "undefined" ? window.location.href : "https://www.gesgrama.es/",
-                        fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
-                      };
-
-                      const resetFormSuccess = () => {
-                        setIsSubmittedSuccess(true);
-                        setContactForm({
-                          nombre: "",
-                          telefono: "",
-                          email: "",
-                          asunto: "Gestión de Comunidades",
-                          mensaje: "",
-                          privacidad: false
-                        });
-                        setTimeout(() => {
-                          setIsSubmittedSuccess(false);
-                        }, 4000);
-                      };
-
-                      const triggerWhatsAppFallback = () => {
-                        const fallbackMsg = `Hola Gesgrama, os contacto desde la web:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Consulta general"}`;
-                        window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
-                      };
-
-                      // 1er intento: Web3Forms (Alta disponibilidad Cloudflare/AWS)
-                      fetch("https://api.web3forms.com/submit", {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                          "Accept": "application/json"
-                        },
-                        body: JSON.stringify(web3Payload)
-                      })
-                        .then(async (res) => {
-                          const data = await res.json().catch(() => ({}));
-                          if (res.ok && (data.success === true || data.success === "true")) {
-                            resetFormSuccess();
-                          } else {
-                            // 2do intento: FormSubmit si falla Web3Forms
-                            fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
-                              method: "POST",
-                              headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                              body: JSON.stringify(payload)
-                            })
-                              .then(async (res2) => {
-                                const data2 = await res2.json().catch(() => ({}));
-                                if (res2.ok && (data2.success === true || data2.success === "true")) {
-                                  resetFormSuccess();
-                                } else {
-                                  triggerWhatsAppFallback();
-                                }
-                              })
-                              .catch(() => triggerWhatsAppFallback());
-                          }
-                        })
-                        .catch(() => {
-                          // Si falla la red, intentar FormSubmit
-                          fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                            body: JSON.stringify(payload)
-                          })
-                            .then(async (res2) => {
-                              const data2 = await res2.json().catch(() => ({}));
-                              if (res2.ok && (data2.success === true || data2.success === "true")) {
-                                resetFormSuccess();
-                              } else {
-                                triggerWhatsAppFallback();
-                              }
-                            })
-                            .catch(() => triggerWhatsAppFallback());
-                        })
-                        .finally(() => {
-                          setIsSubmittingContact(false);
-                        });
-                    }} 
-                    className="space-y-4"
-                  >
-                    {/* Row 1: Nombre & Teléfono */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      <div>
-                        <label htmlFor="contacto-nombre-input" className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
-                        <input 
-                          id="contacto-nombre-input"
-                          type="text" 
-                          placeholder={t.contacto.form.nombrePlaceholder} 
-                          value={contactForm.nombre}
-                          onChange={e => {
-                            setContactForm(f => ({ ...f, nombre: e.target.value }));
-                            if (contactErrors.nombre) setContactErrors(err => ({ ...err, nombre: undefined }));
-                          }}
-                          className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
-                        />
-                        <AnimatePresence>
-                          {contactErrors.nombre && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -4 }}
-                              transition={{ duration: 0.2 }}
-                              className="text-xs text-red-600 font-black mt-1 font-sans"
-                            >
-                              {contactErrors.nombre}
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                      <div>
-                        <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
-                        <input 
-                          type="text" 
-                          placeholder={t.contacto.form.telefonoPlaceholder} 
-                          value={contactForm.telefono}
-                          onChange={e => {
-                            setContactForm(f => ({ ...f, telefono: e.target.value }));
-                            if (contactErrors.telefono) setContactErrors(err => ({ ...err, telefono: undefined }));
-                          }}
-                          className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
-                        />
-                        <AnimatePresence>
-                          {contactErrors.telefono && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -4 }}
-                              transition={{ duration: 0.2 }}
-                              className="text-xs text-red-600 font-black mt-1 font-sans"
-                            >
-                              {contactErrors.telefono}
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                    
-                    {/* Row 2: Correo & Tipo de Consulta en 2 columnas horizontales */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      <div>
-                        <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.email.toUpperCase()}</label>
-                        <input 
-                          type="email" 
-                          placeholder={t.contacto.form.emailPlaceholder} 
-                          value={contactForm.email}
-                          onChange={e => {
-                            setContactForm(f => ({ ...f, email: e.target.value }));
-                            if (contactErrors.email) setContactErrors(err => ({ ...err, email: undefined }));
-                          }}
-                          className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
-                        />
-                        <AnimatePresence>
-                          {contactErrors.email && (
-                            <motion.p
-                              initial={{ opacity: 0, y: -4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -4 }}
-                              transition={{ duration: 0.2 }}
-                              className="text-xs text-red-600 font-black mt-1 font-sans"
-                            >
-                              {contactErrors.email}
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
-                      </div>
-
-                      <div>
-                        <label htmlFor="contacto-asunto-select" className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
-                        <div className="relative">
-                          <select 
-                            id="contacto-asunto-select" 
-                            aria-label="Seleccionar motivo o tipo de consulta" 
-                            value={contactForm.asunto}
-                            onChange={e => setContactForm(f => ({ ...f, asunto: e.target.value }))}
-                            className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out appearance-none pr-8 cursor-pointer truncate font-sans"
-                          >
-                            <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
-                            <option>{t.contacto.form.asuntoOpciones.venta}</option>
-                            <option>{t.contacto.form.asuntoOpciones.juridico}</option>
-                            <option>{t.contacto.form.asuntoOpciones.otro}</option>
-                          </select>
-                          <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Row 3: Mensaje */}
-                    <div>
-                      <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
-                      <textarea 
-                        rows={2} 
-                        placeholder={t.contacto.form.mensajePlaceholder} 
-                        value={contactForm.mensaje}
-                        onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
-                        className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out resize-none font-sans placeholder:text-slate-400" 
-                      />
-                    </div>
-
-                    {/* Checkbox Privacidad */}
-                    <div>
-                      <div className="flex items-center gap-2.5 pt-1">
-                        <input 
-                          type="checkbox" 
-                          id="privacy" 
-                          checked={contactForm.privacidad}
-                          onChange={e => {
-                            setContactForm(f => ({ ...f, privacidad: e.target.checked }));
-                            if (contactErrors.privacidad) setContactErrors(err => ({ ...err, privacidad: undefined }));
-                          }}
-                          className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
-                        />
-                        <label htmlFor="privacy" className="text-sm sm:text-base text-[#0f172a] font-bold cursor-pointer font-sans select-none">{t.contacto.form.privacidad}</label>
-                      </div>
-                      <AnimatePresence>
-                        {contactErrors.privacidad && (
-                          <motion.p
-                            initial={{ opacity: 0, y: -6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.2 }}
-                            className="text-xs text-red-600 font-black mt-1 font-sans"
-                          >
-                            {contactErrors.privacidad}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
-
-                    {/* Submit Button with Loading & Success micro-animation */}
-                    <button
-                      type="submit"
-                      disabled={isSubmittingContact}
-                      className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
-                        isSubmittedSuccess ? "bg-[#0b214a] hover:bg-[#0f172a]" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
-                      }`}
-                    >
-                      {isSubmittingContact ? (
-                        <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          <span>{language === "ca" ? "Enviant..." : language === "en" ? "Sending..." : "Enviando..."}</span>
-                        </>
-                      ) : isSubmittedSuccess ? (
-                        <motion.div 
-                          initial={{ scale: 0.7, opacity: 0 }}
-                          animate={{ scale: [0.7, 1.2, 1], opacity: 1 }}
-                          transition={{ duration: 0.4, ease: easeOut }}
-                          className="flex items-center gap-2"
-                        >
-                          <Check className="w-5 h-5 stroke-[3] text-white" />
-                          <span>{language === "ca" ? "Missatge enviat!" : language === "en" ? "Message sent!" : "¡Mensaje enviado!"}</span>
-                        </motion.div>
-                      ) : (
-                        <>
-                          <span>{t.contacto.form.botonEnviar}</span>
-                          <ArrowRight className="w-4 h-4 text-white" />
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </div>
-              </Reveal>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* ── CONTACT ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <ContactSection language={language} t={t} />
+      </Suspense>
 
       {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
       <section id="final-cta" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
@@ -3088,123 +1848,36 @@ function Index() {
         <CookieBanner language={language} />
       </Suspense>
 
-      {/* Service Detail Modal */}
-      {selectedServiceIndex !== null && (
-        <div 
-          className="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto"
-          onClick={() => setSelectedServiceIndex(null)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-[28px] max-w-xl w-full shadow-2xl relative border-2 border-slate-200 max-h-[90vh] overflow-hidden my-auto text-[#0f172a] animate-in fade-in zoom-in-95 duration-200 flex flex-col"
-          >
-            {/* Top Brand Color Banner */}
-            <div className="relative bg-gradient-to-r from-[#0b214a] via-[#1e3a6e] to-[#2563eb] p-6 sm:p-8 text-white">
-              <button
-                type="button"
-                onClick={() => setSelectedServiceIndex(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs border border-white/20 hover:scale-105"
-                aria-label="Cerrar modal"
-              >
-                <X className="w-5 h-5 stroke-[2.5]" />
-              </button>
-
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-lg border border-white/80">
-                  {selectedServiceIndex === 0 && <Building2 className="w-7 h-7 stroke-[2.2]" />}
-                  {selectedServiceIndex === 1 && <TrendingUp className="w-7 h-7 stroke-[2.2]" />}
-                  {selectedServiceIndex === 2 && <Shield className="w-7 h-7 stroke-[2.2]" />}
-                  {selectedServiceIndex === 3 && <Paintbrush className="w-7 h-7 stroke-[2.2]" />}
-                </div>
-                <div>
-                  <span className="inline-block bg-white/20 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-white/20 font-sans">
-                    {t.servicios.tag}
-                  </span>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight font-sans tracking-tight">
-                    {t.serviceModal.items[selectedServiceIndex]?.title}
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-blue-100 text-xs sm:text-sm font-extrabold mt-3 font-sans leading-snug">
-                {t.serviceModal.items[selectedServiceIndex]?.tagline}
-              </p>
-            </div>
-
-            {/* Content Body */}
-            <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
-              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans">
-                {t.serviceModal.items[selectedServiceIndex]?.description}
-              </p>
-
-              {/* Benefits with solid light-blue container and vibrant blue icons */}
-              <div className="bg-[#eff6ff] rounded-2xl p-4 sm:p-5 border-2 border-[#bfdbfe] space-y-3 shadow-xs">
-                <p className="text-xs font-black uppercase tracking-wider text-[#1e3a6e] mb-2 font-sans">
-                  {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
-                </p>
-                {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-extrabold text-[#0f172a] font-sans">
-                    <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                      <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
-                    </div>
-                    <span className="leading-snug pt-0.5">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const currentIdx = selectedServiceIndex;
-                    setSelectedServiceIndex(null);
-                    // Pre-fill subject if applicable
-                    if (currentIdx === 0) {
-                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.comunidad }));
-                    } else if (currentIdx === 1 || currentIdx === 2) {
-                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.venta }));
-                    } else if (currentIdx === 3) {
-                      setContactForm(prev => ({ ...prev, asunto: t.contacto.form.asuntoOpciones.otro }));
-                    }
-
-                    setTimeout(() => {
-                      const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
-                      if (formEl) {
-                        const navOffset = window.innerWidth < 768 ? 76 : 90;
-                        const elementPosition = formEl.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-                        window.scrollTo({
-                          top: Math.max(0, offsetPosition),
-                          behavior: "smooth"
-                        });
-                        window.history.pushState(null, "", "#formulario-contacto");
-                        
-                        // Focus on the first input
-                        setTimeout(() => {
-                          const inputEl = document.getElementById("contacto-nombre-input");
-                          if (inputEl) inputEl.focus();
-                        }, 400);
-                      }
-                    }, 50);
-                  }}
-                  className="w-full sm:flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm py-3.5 px-6 rounded-full text-center transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 font-sans uppercase tracking-wider cursor-pointer"
-                >
-                  <span>{t.serviceModal.contactBtn}</span>
-                  <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedServiceIndex(null)}
-                  className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-[#0f172a] border border-slate-300 font-black text-xs sm:text-sm py-3.5 px-7 rounded-full transition-all cursor-pointer font-sans uppercase tracking-wider"
-                >
-                  {t.serviceModal.close}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            {/* Service Detail Modal */}
+      <Suspense fallback={null}>
+        <ServiceModal
+          selectedServiceIndex={selectedServiceIndex}
+          onClose={() => setSelectedServiceIndex(null)}
+          language={language}
+          t={t}
+          onSelectServiceContact={(asunto) => {
+            setSelectedServiceIndex(null);
+            window.dispatchEvent(new CustomEvent("set-contact-asunto", { detail: asunto }));
+            setTimeout(() => {
+              const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
+              if (formEl) {
+                const navOffset = window.innerWidth < 768 ? 76 : 90;
+                const elementPosition = formEl.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+                window.scrollTo({
+                  top: Math.max(0, offsetPosition),
+                  behavior: "smooth"
+                });
+                window.history.pushState(null, "", "#formulario-contacto");
+                setTimeout(() => {
+                  const inputEl = document.getElementById("contacto-nombre-input");
+                  if (inputEl) inputEl.focus();
+                }, 400);
+              }
+            }, 50);
+          }}
+        />
+      </Suspense>
 
     </div>
   );

@@ -28,10 +28,11 @@ function StatCounter({
   suffix?: string;
   duration?: number;
 }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
 
   useEffect(() => {
-    // 400ms delay gives SSR hydration time to settle before starting RAF
+    // If client prefers motion, start from 0 and animate smoothly up to target
+    setCount(0);
     const delay = setTimeout(() => {
       let startTime: number | null = null;
       let raf: number;

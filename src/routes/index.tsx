@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
 import { homeArticles as articles } from "../data/homeArticles";
-import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, Fragment, lazy, Suspense } from "react";

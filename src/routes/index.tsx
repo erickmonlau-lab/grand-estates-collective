@@ -15,6 +15,7 @@ import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));
+const FooterMascot = lazy(() => import('@/components/FooterMascot').then(m => ({ default: m.FooterMascot })));
 
 
 export const Route = createFileRoute("/")({

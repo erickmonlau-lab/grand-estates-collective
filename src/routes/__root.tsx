@@ -112,8 +112,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://www.gesgrama.es/og-image.png" },
     ],
     links: [
-      { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as const },
-      { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as const },
       { rel: "canonical", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "es", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "ca", href: "https://www.gesgrama.es/" },

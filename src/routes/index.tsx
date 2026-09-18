@@ -30,6 +30,7 @@ export const Route = createFileRoute("/")({
       { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
       { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
+      { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
       { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
     ],
     scripts: [

@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import appCss from "../styles.css?inline";
+import "../styles.css";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 import { ArrowLeft, Home, Phone, Building2 } from "lucide-react";
@@ -193,7 +193,6 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
-        <style dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
       <body>
         {children}

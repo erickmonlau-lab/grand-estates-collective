@@ -26,9 +26,9 @@ const AccreditationBadges = lazy(() => import('@/components/AccreditationBadges'
 export const Route = createFileRoute("/")({
   head: () => ({
     links: [
-      { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
       { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
+      { rel: "preload", href: "/images/logo-gesgrama-text-horizontal.webp", as: "image", type: "image/webp" },
     ],
     scripts: [
       {

@@ -19,10 +19,18 @@ function WhatsAppIcon({ className = "w-4 h-4 fill-white shrink-0" }: { className
 
 const SITE_DOMAIN = "https://www.gesgrama.es";
 
+const ARTICLE_ALIASES: Record<string, string> = {
+  "guia-itp-2026-cataluna": "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+  "ley-vivienda-limites-alquiler-santa-coloma": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+  "eficiencia-energetica-subvenciones-comunidades": "ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+  "como-elegir-buen-administrador-fincas": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+};
+
 export const Route = createFileRoute("/noticias_/$slug")({
   head: ({ params }) => {
-    const slug = params.slug as string;
-    const article = articles.find((a) => a.slug === slug);
+    const rawSlug = params.slug as string;
+    const resolvedSlug = ARTICLE_ALIASES[rawSlug] || rawSlug;
+    const article = articles.find((a) => a.slug === resolvedSlug);
     if (!article) {
       return {
         meta: [
@@ -92,7 +100,8 @@ export const Route = createFileRoute("/noticias_/$slug")({
 });
 
 function ArticleDetail() {
-  const { slug } = Route.useParams();
+  const { slug: rawSlug } = Route.useParams();
+  const slug = ARTICLE_ALIASES[rawSlug] || rawSlug;
   const article = articles.find((a) => a.slug === slug);
   const [language, setLanguage] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {

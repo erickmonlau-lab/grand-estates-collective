@@ -67,6 +67,16 @@ export function findPropertyBySlugOrId(slugOrId: string): ExtendedProperty | und
   const list = getLocalProperties();
   const allCandidates = [...list, ...(defaultProperties as ExtendedProperty[])];
 
+  // Alias map for legacy URLs
+  const SLUG_ALIASES: Record<string, string> = {
+    "casa-unifamiliar-singuerlin": "apartamento-exterior-singuerlin",
+  };
+  if (SLUG_ALIASES[normRaw] || SLUG_ALIASES[normDecoded]) {
+    const targetSlug = SLUG_ALIASES[normRaw] || SLUG_ALIASES[normDecoded];
+    const match = allCandidates.find((p) => p.slug === targetSlug);
+    if (match) return match;
+  }
+
   // 1. Direct exact matches
   for (const p of allCandidates) {
     if (p.slug === raw || p.slug === decoded) return p;

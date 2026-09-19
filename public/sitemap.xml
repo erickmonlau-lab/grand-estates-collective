@@ -151,43 +151,43 @@
   <!-- Properties (Inmobiliaria Santa Coloma) -->
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/piso-reformado-riera-alta-llati</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/apartamento-exterior-singuerlin</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/atico-duplex-centro-santa-coloma</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/piso-luminoso-santa-rosa-can-mariner</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/piso-familiar-fondo</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.gesgrama.es/inmobiliaria/local-comercial-avenida-banus</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/casa-unifamiliar-singuerlin</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.gesgrama.es/inmobiliaria/piso-con-vistas-al-riu</loc>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
@@ -195,33 +195,57 @@
   <!-- News / Blog Index -->
   <url>
     <loc>https://www.gesgrama.es/noticias</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
 
-  <!-- News Articles (Guías & Artículos) -->
+  <!-- News Articles (Guías & Artículos Reales) -->
   <url>
-    <loc>https://www.gesgrama.es/noticias/guia-itp-2026-cataluna</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.gesgrama.es/noticias/que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo</loc>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/ley-vivienda-limites-alquiler-santa-coloma</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.gesgrama.es/noticias/que-es-un-contrato-de-exclusividad-inmobiliaria</loc>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/eficiencia-energetica-subvenciones-comunidades</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.gesgrama.es/noticias/que-es-un-perito-judicial-inmobiliario</loc>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/como-elegir-buen-administrador-fincas</loc>
-    <lastmod>2026-09-07</lastmod>
+    <loc>https://www.gesgrama.es/noticias/descubre-todo-sobre-una-vivienda-de-obra-nueva</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/noticias/guia-alquilar-vender-piso-singuerlin-centre-santa-coloma</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/noticias/ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/noticias/plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.gesgrama.es/noticias/claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra</loc>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>

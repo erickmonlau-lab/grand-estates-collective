@@ -1,4 +1,31 @@
 {
+  "redirects": [
+    {
+      "source": "/inmobiliaria/casa-unifamiliar-singuerlin",
+      "destination": "/inmobiliaria/apartamento-exterior-singuerlin",
+      "permanent": true
+    },
+    {
+      "source": "/noticias/guia-itp-2026-cataluna",
+      "destination": "/noticias/plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+      "permanent": true
+    },
+    {
+      "source": "/noticias/ley-vivienda-limites-alquiler-santa-coloma",
+      "destination": "/noticias/guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+      "permanent": true
+    },
+    {
+      "source": "/noticias/eficiencia-energetica-subvenciones-comunidades",
+      "destination": "/noticias/ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+      "permanent": true
+    },
+    {
+      "source": "/noticias/como-elegir-buen-administrador-fincas",
+      "destination": "/noticias/claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -682,7 +682,7 @@ function SantaColomaBarrioPage() {
     if (searchParams.mode === "favoritos") {
       return favorites.includes(prop.id);
     }
-    const pOp = prop.operation || "comprar";
+    const pOp = (prop.operation || "comprar") as string;
     const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
     if (!matchesMode) return false;
 
@@ -713,7 +713,7 @@ function SantaColomaBarrioPage() {
     isFallback = true;
     effectiveProperties = liveProperties
       .filter(prop => {
-        const pOp = prop.operation || "comprar";
+        const pOp = (prop.operation || "comprar") as string;
         return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
       })
       .sort((a, b) => {

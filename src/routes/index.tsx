@@ -6,10 +6,11 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
+import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));
@@ -306,6 +307,7 @@ function Index() {
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<string>("recientes");
+  const [visibleCount, setVisibleCount] = useState<number>(6);
 
   useEffect(() => {
     setConsoleFilters({
@@ -485,7 +487,7 @@ function Index() {
       if (searchParams.mode === "favoritos") {
         return favorites.includes(p.id);
       }
-      const pOp = p.operation || "comprar";
+      const pOp = (p.operation || "comprar") as string;
       return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
     })
     .filter(p => {

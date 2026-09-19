@@ -103,7 +103,7 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
               }
             },
             "about": {
-              "@type": property.type === "Local" ? "CommercialProperty" : property.type === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
+              "@type": (property.type as string) === "Local" ? "CommercialProperty" : (property.type as string) === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
               "name": property.name,
               "description": property.description,
               "numberOfRooms": property.bedrooms,
@@ -341,7 +341,7 @@ function PropertyDetail() {
         }
       },
       "about": {
-        "@type": property.type === "Local" ? "CommercialProperty" : property.type === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
+        "@type": (property.type as string) === "Local" ? "CommercialProperty" : (property.type as string) === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
         "name": property.name,
         "description": property.description,
         "numberOfRooms": property.bedrooms,
@@ -477,6 +477,7 @@ function PropertyDetail() {
     nombre?: string;
     telefono?: string;
     email?: string;
+    mensaje?: string;
     privacidad?: string;
   }>({});
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);

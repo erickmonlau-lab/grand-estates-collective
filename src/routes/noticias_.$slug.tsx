@@ -292,10 +292,10 @@ function ArticleDetail() {
     ];
 
     // Replace matching patterns with styled elements
-    let parts: (string | JSX.Element)[] = [text];
+    let parts: (string | React.ReactNode)[] = [text];
 
     keyPatterns.forEach((pattern) => {
-      const newParts: (string | JSX.Element)[] = [];
+      const newParts: (string | React.ReactNode)[] = [];
       parts.forEach((part) => {
         if (typeof part !== "string") {
           newParts.push(part);

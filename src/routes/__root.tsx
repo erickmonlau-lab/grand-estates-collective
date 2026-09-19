@@ -6,13 +6,14 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import "../styles.css";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
-import { ArrowLeft, Home, Phone, Building2 } from "lucide-react";
+import { ArrowLeft, Home, Phone, Building2, RefreshCw } from "lucide-react";
 import { FooterMascot } from "../components/FooterMascot";
 
 function NotFoundComponent() {
@@ -87,6 +88,86 @@ function NotFoundComponent() {
   );
 }
 
+function RootErrorComponent({ error, reset }: ErrorComponentProps) {
+  useEffect(() => {
+    reportLovableError(error, { component: "RootErrorComponent" });
+    console.error("Gesgrama Application Error:", error);
+  }, [error]);
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#0b172a] via-[#0f2142] to-[#0b172a] px-4 py-12 text-center text-white relative overflow-hidden font-sans">
+      {/* Background Decorative Blur Rings */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-xl mx-auto flex flex-col items-center relative z-10 w-full">
+        {/* Brand Logo */}
+        <a href="/" className="mb-6 hover:opacity-90 transition-opacity">
+          <img
+            src="/images/logo-gesgrama-text-horizontal.webp"
+            alt="Gesgrama"
+            width={212}
+            height={52}
+            className="h-9 sm:h-11 w-auto object-contain brightness-0 invert"
+          />
+        </a>
+
+        {/* Friendly Mascot */}
+        <div className="w-40 sm:w-48 h-auto mb-2 drop-shadow-[0_10px_25px_rgba(37,99,235,0.3)]">
+          <FooterMascot className="w-full h-auto object-contain" />
+        </div>
+
+        {/* Error Badge */}
+        <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-black tracking-widest uppercase px-4 py-1.5 rounded-xl shadow-lg mb-4">
+          <span>Incidencia temporal</span>
+        </div>
+
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white mb-3 leading-tight text-balance">
+          Ha ocurrido un imprevisto al cargar la página
+        </h1>
+
+        <p className="text-slate-300 text-sm sm:text-base max-w-md font-bold leading-relaxed mb-8 text-balance">
+          Estamos actualizando los servicios en directo. Puedes volver a intentar la conexión o regresar a la página principal.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+          <button
+            type="button"
+            onClick={() => {
+              if (reset) reset();
+              window.location.reload();
+            }}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-3.5 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5 cursor-pointer"
+          >
+            <RefreshCw className="w-4 h-4 text-white" />
+            <span>Recargar página</span>
+          </button>
+
+          <a
+            href="/"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-7 py-3.5 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
+          >
+            <Home className="w-4 h-4 text-blue-400" />
+            <span>Volver al inicio</span>
+          </a>
+        </div>
+
+        {/* Direct Phone Assistance */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-400">
+          <span>Atención al cliente:</span>
+          <a
+            href="tel:934685656"
+            className="text-white hover:text-blue-400 underline font-black inline-flex items-center gap-1.5"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#2563eb]" />
+            <span>93 468 56 56</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -185,6 +266,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
+  errorComponent: RootErrorComponent,
 });
 
 function RootShell({ children }: { children: ReactNode }) {

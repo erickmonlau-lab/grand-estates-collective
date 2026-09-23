@@ -294,26 +294,87 @@ function RootShell({ children }: { children: ReactNode }) {
 *,::before,::after{box-sizing:border-box}
 html{font-size:clamp(15px,.4vw + 14px,18px);-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:#F8FAFC;overflow-x:hidden;width:100%;font-family:"AG Book Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-h1,h2{font-family:"Aachen BT",Georgia,serif}
+h1,h2{font-family:"Aachen BT",Georgia,serif;margin:0}
 svg{max-width:100%;height:auto}
 svg:not([width]):not([class*="w-"]){width:24px;height:24px}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
-/* Tailwind display utilities — must be present before full CSS loads */
+picture{display:block}
+/* ── TAILWIND DISPLAY / VISIBILITY ─────────────────────────────────── */
 .hidden{display:none!important}
+.block{display:block}
+.inline-block{display:inline-block}
+.inline-flex{display:inline-flex}
+.flex{display:flex}
+.grid{display:grid}
+/* ── TAILWIND POSITION ──────────────────────────────────────────────── */
+.static{position:static}
+.relative{position:relative}
+.absolute{position:absolute}
+.fixed{position:fixed}
+.sticky{position:sticky}
+/* ── INSET / PLACEMENT ──────────────────────────────────────────────── */
+.inset-0{top:0;right:0;bottom:0;left:0}
+.inset-x-0{left:0;right:0}
+.inset-y-0{top:0;bottom:0}
+.top-0{top:0}
+.right-0{right:0}
+.bottom-0{bottom:0}
+.left-0{left:0}
+/* ── Z-INDEX ────────────────────────────────────────────────────────── */
+.z-0{z-index:0}
+.z-10{z-index:10}
+.z-20{z-index:20}
+.z-\[1\]{z-index:1}
+.z-\[95\]{z-index:95}
+.z-\[100\]{z-index:100}
+/* ── OVERFLOW ───────────────────────────────────────────────────────── */
+.overflow-hidden{overflow:hidden}
+/* ── FLEX ───────────────────────────────────────────────────────────── */
+.flex-col{flex-direction:column}
+.flex-1{flex:1 1 0%}
+.flex-row{flex-direction:row}
+.flex-wrap{flex-wrap:wrap}
+.items-center{align-items:center}
+.items-stretch{align-items:stretch}
+.items-start{align-items:flex-start}
+.justify-between{justify-content:space-between}
+.justify-center{justify-content:center}
+.justify-start{justify-content:flex-start}
+.shrink-0{flex-shrink:0}
+.grow{flex-grow:1}
+.gap-1\.5{gap:.375rem}
+.gap-2{gap:.5rem}
+.gap-3{gap:.75rem}
+.gap-3\.5{gap:.875rem}
+/* ── SIZING ─────────────────────────────────────────────────────────── */
+.w-full{width:100%}
+.h-full{height:100%}
+.w-auto{width:auto}
+.h-auto{height:auto}
+.mx-auto{margin-left:auto;margin-right:auto}
+.max-w-\[1360px\]{max-width:1360px}
+.max-w-\[55\%\]{max-width:55%}
+/* ── VISIBILITY / OPACITY ───────────────────────────────────────────── */
 .opacity-0{opacity:0}
 .pointer-events-none{pointer-events:none}
-.scale-95{transform:scale(.95)}
-/* Navbar pill */
+.pointer-events-auto{pointer-events:auto}
+.select-none{user-select:none}
+/* ── OBJECT FIT ─────────────────────────────────────────────────────── */
+.object-cover{object-fit:cover}
+.object-contain{object-fit:contain}
+/* ── CRITICAL COLORS ────────────────────────────────────────────────── */
+.text-white{color:#fff}
+.text-slate-900{color:#0f172a}
+.bg-white{background-color:#fff}
+/* ── NAVBAR pill ────────────────────────────────────────────────────── */
 nav[class*="fixed"]{position:fixed;top:.625rem;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:space-between;width:calc(100% - 20px);max-width:1360px;background:rgba(15,23,42,.95);border:1px solid rgba(51,65,85,.8);border-radius:9999px;padding:.5rem .875rem;color:#fff;gap:.75rem}
 @media(min-width:640px){nav[class*="fixed"]{top:.875rem;padding:.625rem 1.25rem}}
-/* Hero section */
-section#hero{position:relative;min-height:100svh;background:#F8FAFC;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding-top:4.5rem;padding-left:1rem;padding-right:1rem}
+/* ── HERO section ───────────────────────────────────────────────────── */
+section#hero{position:relative;min-height:100svh;background:#F8FAFC;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding-top:4.5rem;padding-left:1rem;padding-right:1rem;color:#0f172a}
 @media(min-width:640px){section#hero{padding-top:6rem;padding-left:2rem;padding-right:2rem}}
 @media(min-width:1024px){section#hero{padding-top:7rem;padding-left:3rem;padding-right:3rem}}
-/* Announcement banner above navbar */
-div[class*="marquee"]{overflow:hidden}
-/* Prevent layout shift on images with known dimensions */
+/* Prevent layout shift on images */
 img[width][height]{height:auto}
         ` }} />
         {/*

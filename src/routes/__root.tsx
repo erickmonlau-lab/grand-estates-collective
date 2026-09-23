@@ -299,6 +299,11 @@ svg{max-width:100%;height:auto}
 svg:not([width]):not([class*="w-"]){width:24px;height:24px}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
+/* Tailwind display utilities — must be present before full CSS loads */
+.hidden{display:none!important}
+.opacity-0{opacity:0}
+.pointer-events-none{pointer-events:none}
+.scale-95{transform:scale(.95)}
 /* Navbar pill */
 nav[class*="fixed"]{position:fixed;top:.625rem;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:space-between;width:calc(100% - 20px);max-width:1360px;background:rgba(15,23,42,.95);border:1px solid rgba(51,65,85,.8);border-radius:9999px;padding:.5rem .875rem;color:#fff;gap:.75rem}
 @media(min-width:640px){nav[class*="fixed"]{top:.875rem;padding:.625rem 1.25rem}}

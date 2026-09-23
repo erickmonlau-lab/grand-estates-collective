@@ -198,6 +198,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "alternate", hrefLang: "ca", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "en", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "x-default", href: "https://www.gesgrama.es/" },
+      { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },
       { rel: "icon", href: "/favicon-48x48.png?v=2027", type: "image/png", sizes: "48x48" },

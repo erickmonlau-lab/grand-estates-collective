@@ -11,7 +11,9 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       number: "PJI 2024",
       url: "https://www.aspejure.com/",
       title: "Asociación de Peritos Judiciales de España (PJI)",
-      imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain"
+      imgClass: "h-28 sm:h-36 md:h-40 w-auto object-contain",
+      width: 767,
+      height: 975
     },
     {
       id: "apis-peritos",
@@ -20,7 +22,9 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       number: "1639",
       url: "https://consejocoapis.org/",
       title: "Colegio Oficial y Consejo General de Agentes de la Propiedad Inmobiliaria y Peritos (APIS)",
-      imgClass: "h-28 sm:h-34 md:h-38 w-auto object-contain"
+      imgClass: "h-28 sm:h-34 md:h-38 w-auto object-contain",
+      width: 923,
+      height: 927
     },
     {
       id: "api",
@@ -29,7 +33,9 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       number: "A10750",
       url: "https://www.apicatalunya.com/",
       title: "Col·legi Oficial d'Agents de la Propietat Immobiliària (API Catalunya)",
-      imgClass: "h-22 sm:h-28 md:h-32 w-auto object-contain"
+      imgClass: "h-22 sm:h-28 md:h-32 w-auto object-contain",
+      width: 984,
+      height: 347
     },
     {
       id: "aicat",
@@ -38,7 +44,9 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
       number: "AICAT 5583",
       url: "https://habitatge.gencat.cat/ca/inici/",
       title: "Registre d'Agents Immobiliaris de Catalunya — Agència de l'Habitatge de Catalunya (Generalitat)",
-      imgClass: "w-full max-w-[260px] h-auto max-h-22 sm:max-h-28 md:max-h-32 object-contain rounded-xl shadow-xs contrast-105"
+      imgClass: "w-full max-w-[260px] h-auto max-h-22 sm:max-h-28 md:max-h-32 object-contain rounded-xl shadow-xs contrast-105",
+      width: 1024,
+      height: 216
     }
   ];
 
@@ -58,8 +66,11 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
             <img
               src={b.logo}
               alt={b.alt}
+              width={b.width}
+              height={b.height}
               className={b.imgClass}
               loading="lazy"
+              decoding="async"
             />
           </div>
           

@@ -85,21 +85,27 @@ function applyCssOptimizations(response: Response): Response {
         const href = el.getAttribute("href");
         if (!href || !href.endsWith(".css")) return;
 
-        // Insert high-priority preload BEFORE the link so the browser downloads
-        // the CSS at full network priority (without this, media=print lowers it).
+        // Insert high-priority preload BEFORE the link
         el.before(
           `<link rel="preload" href="${href}" as="style" fetchpriority="high">`,
           { html: true },
         );
 
-        // Change the stylesheet to media="print" so it does not block rendering.
-        // onload switches it back to "all" once the download finishes.
-        // React 19 has suppressHydrationWarning on this element and will not
-        // overwrite these attributes during client hydration.
+        // KEY FIX: Remove data-precedence so React 19 does NOT adopt this as a
+        // managed Suspense stylesheet resource. Without it, React won't suspend
+        // waiting for media="print" to match "all", which was causing the error
+        // boundary to trigger. React re-inserts its own <link> from cache after
+        // hydration — that's fine because the CSS will already be cached.
+        el.removeAttribute("data-precedence");
+
+        // Make the stylesheet non-blocking: browser still downloads it at high
+        // priority (via the preload above), but doesn't block paint.
+        // onload flips media back to 'all' once the CSS is ready.
         el.setAttribute("media", "print");
         el.setAttribute("onload", "this.media='all'");
       },
     })
+
     .transform(response);
 }
 

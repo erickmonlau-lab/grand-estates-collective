@@ -279,9 +279,10 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         {/* Minimal critical CSS: paints the page background on first byte,
-            preventing the blank flash before the full stylesheet activates */}
+            prevents SVG icons (like WhatsApp, Navbar icons) from expanding to 100%
+            viewport width before the main stylesheet activates, and hides FOUC. */}
         <style dangerouslySetInnerHTML={{
-          __html: "*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}"
+          __html: "*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}svg{max-width:100%;height:auto}svg:not([width]){width:24px;height:24px}"
         }} />
         {/* High-priority preload: browser fetches CSS immediately at full
             network priority even though media=print makes it non-blocking */}

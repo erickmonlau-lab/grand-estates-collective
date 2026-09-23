@@ -10,7 +10,11 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import "../styles.css";
+// Import CSS as a URL string so Vite processes and hashes it, but TanStack Start
+// does NOT auto-inject a render-blocking <link rel="stylesheet"> via HeadContent.
+// We inject the <link> manually in RootShell below with media="print" + onLoad
+// so the CSS is non-blocking while still being preloaded at high priority.
+import cssHref from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 import { ArrowLeft, Home, Phone, Building2, RefreshCw } from "lucide-react";
@@ -274,6 +278,26 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
+        {/* Minimal critical CSS: paints the page background on first byte,
+            preventing the blank flash before the full stylesheet activates */}
+        <style dangerouslySetInnerHTML={{
+          __html: "*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}"
+        }} />
+        {/* High-priority preload: browser fetches CSS immediately at full
+            network priority even though media=print makes it non-blocking */}
+        <link rel="preload" href={cssHref} as="style" fetchPriority="high" />
+        {/* Non-blocking stylesheet: media="print" means the browser downloads
+            it without blocking the render pipeline. onLoad switches to "all"
+            once the CSS is ready, applying all styles instantly.
+            React renders this identically in SSR and client → no hydration mismatch */}
+        <link
+          rel="stylesheet"
+          href={cssHref}
+          media="print"
+          onLoad={(e) => {
+            (e.currentTarget as HTMLLinkElement).media = "all";
+          }}
+        />
       </head>
       <body>
         {children}

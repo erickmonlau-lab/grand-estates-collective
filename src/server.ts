@@ -44,78 +44,12 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-/**
- * Uses Cloudflare HTMLRewriter to make the main Vite CSS non-render-blocking.
- *
- * Conservative approach to avoid React 19 hydration conflicts:
- * - Adds a high-priority <link rel="preload"> BEFORE the stylesheet so the browser
- *   downloads CSS immediately at full priority.
- * - Sets media="print" + onload on the stylesheet so it doesn't block the render
- *   pipeline (the browser still downloads it, just doesn't block painting).
- * - Does NOT add <noscript> or extra elements that could confuse React's head
- *   resource reconciliation during hydration.
- * - React 19 uses suppressHydrationWarning on stylesheet links, so it tolerates
- *   the extra media="print" attribute without throwing a hydration error.
- *
- * HTMLRewriter processes the response as a stream — no buffering, no TBT impact.
- */
-function applyCssOptimizations(response: Response): Response {
-  const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.includes("text/html") || response.status !== 200) return response;
-
-  // Minimal critical CSS painted on first byte so the hero background is visible
-  // immediately — prevents the blank white flash before the full CSS activates.
-  const CRITICAL_CSS =
-    `<style id="__c">` +
-    `*,::before,::after{box-sizing:border-box}` +
-    `body{margin:0;background:#F8FAFC;overflow-x:hidden}` +
-    `</style>`;
-
-  return new HTMLRewriter()
-    // ── Inject critical CSS at end of <head> ─────────────────────────────────
-    .on("head", {
-      element(el) {
-        el.append(CRITICAL_CSS, { html: true });
-      },
-    })
-    // ── Convert render-blocking asset stylesheets to non-blocking ─────────────
-    // Selector: only Vite asset CSS (href contains /assets/ and ends with .css)
-    .on('link[rel="stylesheet"][href*="/assets/"]', {
-      element(el) {
-        const href = el.getAttribute("href");
-        if (!href || !href.endsWith(".css")) return;
-
-        // Insert high-priority preload BEFORE the link
-        el.before(
-          `<link rel="preload" href="${href}" as="style" fetchpriority="high">`,
-          { html: true },
-        );
-
-        // KEY FIX: Remove data-precedence so React 19 does NOT adopt this as a
-        // managed Suspense stylesheet resource. Without it, React won't suspend
-        // waiting for media="print" to match "all", which was causing the error
-        // boundary to trigger. React re-inserts its own <link> from cache after
-        // hydration — that's fine because the CSS will already be cached.
-        el.removeAttribute("data-precedence");
-
-        // Make the stylesheet non-blocking: browser still downloads it at high
-        // priority (via the preload above), but doesn't block paint.
-        // onload flips media back to 'all' once the CSS is ready.
-        el.setAttribute("media", "print");
-        el.setAttribute("onload", "this.media='all'");
-      },
-    })
-
-    .transform(response);
-}
-
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      const normalized = await normalizeCatastrophicSsrResponse(response);
-      return applyCssOptimizations(normalized);
+      return await normalizeCatastrophicSsrResponse(response);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

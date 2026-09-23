@@ -16,45 +16,6 @@ interface HeroCarouselProps {
   customValuationHref?: string;
 }
 
-// Self-contained: fires count-up on mount after 400ms. Always animates.
-function StatCounter({
-  target,
-  prefix = "",
-  suffix = "",
-  duration = 1400,
-}: {
-  target: number;
-  prefix?: string;
-  suffix?: string;
-  duration?: number;
-}) {
-  const [count, setCount] = useState(target);
-
-  useEffect(() => {
-    // If client prefers motion, start from 0 and animate smoothly up to target
-    setCount(0);
-    const delay = setTimeout(() => {
-      let startTime: number | null = null;
-      let raf: number;
-      const step = (ts: number) => {
-        if (!startTime) startTime = ts;
-        const progress = Math.min((ts - startTime) / duration, 1);
-        // Cubic ease-out
-        const ease = 1 - Math.pow(1 - progress, 3);
-        setCount(Math.round(ease * target));
-        if (progress < 1) raf = requestAnimationFrame(step);
-      };
-      raf = requestAnimationFrame(step);
-      return () => cancelAnimationFrame(raf);
-    }, 400);
-    return () => clearTimeout(delay);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // runs once on mount
-
-  const display = target >= 1000 ? new Intl.NumberFormat('es-ES').format(count) : count;
-  return <span>{prefix}{display}{suffix}</span>;
-}
-
 export default function HeroCarousel({
   language = 'es',
   customTag,
@@ -274,28 +235,28 @@ export default function HeroCarousel({
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <StatCounter target={4500} suffix="+" />
+              <span>4.500+</span>
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
           </div>
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <ThumbsUp className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
-              <StatCounter target={98} suffix="%" />
+              <span>98%</span>
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
           </div>
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
             <Building2 className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <StatCounter target={300} prefix="+" />
+              <span>+300</span>
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
           </div>
           <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
             <Award className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
             <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
-              <StatCounter target={15} suffix="+" />
+              <span>15+</span>
             </p>
             <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
           </div>

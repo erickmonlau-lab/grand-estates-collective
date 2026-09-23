@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ShieldCheck, Star, Clock, MapPin, Building2, Award, FileCheck, ThumbsUp } from "lucide-react";
 
 interface MarqueeRibbonProps {

@@ -378,22 +378,19 @@ section#hero{position:relative;min-height:100svh;background:#F8FAFC;overflow:hid
 img[width][height]{height:auto}
         ` }} />
         {/*
-          Full stylesheet loads asynchronously (non-blocking).
-          media="print" tells the browser not to block rendering on this sheet.
-          onLoad switches it to media="all" once downloaded, applying all styles.
-          The critical CSS above ensures the page already looks correct by then.
-          React SSR + client both render this identically → no hydration mismatch.
+          Full stylesheet:
+          We inject the link with native HTML onload="this.media='all'" via dangerouslySetInnerHTML.
+          Why? React's onLoad attribute does NOT render to SSR HTML attributes (it attaches via JS event listeners).
+          Because React strips onLoad from HTML string, in real browsers the media stayed "print" indefinitely!
+          Using native HTML ensures onload="this.media='all'" is in the initial HTML string.
         */}
         <link rel="preload" href={cssHref} as="style" fetchPriority="high" />
-        <link
-          rel="stylesheet"
-          href={cssHref}
-          media="print"
-          onLoad={(e) => {
-            (e.currentTarget as HTMLLinkElement).media = "all";
+        <div
+          style={{ display: "none" }}
+          dangerouslySetInnerHTML={{
+            __html: `<link rel="stylesheet" href="${cssHref}" media="print" onload="this.media='all'">`
           }}
         />
-        {/* Fallback: if JS is disabled, load stylesheet normally */}
         <noscript><link rel="stylesheet" href={cssHref} /></noscript>
       </head>
       <body>

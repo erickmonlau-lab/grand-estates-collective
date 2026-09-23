@@ -278,14 +278,57 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
-        {/* Minimal critical CSS: paints the page background on first byte,
-            prevents SVG icons (like WhatsApp, Navbar icons) from expanding to 100%
-            viewport width before the main stylesheet activates, and hides FOUC. */}
-        <style dangerouslySetInnerHTML={{
-          __html: "*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}svg{max-width:100%;height:auto}svg:not([width]){width:24px;height:24px}"
-        }} />
-        {/* Standard stylesheet: blocking ensures zero FOUC, zero unstyled content or blue links */}
-        <link rel="stylesheet" href={cssHref} />
+        {/*
+          ── CRITICAL CSS ──────────────────────────────────────────────────────
+          Inlined CSS that covers exactly what is visible above the fold:
+            • Tailwind base reset (box-sizing, margin, overflow)
+            • Body / html base styles matching styles.css @layer base
+            • Navbar: fixed pill, background color, text colors, layout
+            • Hero: background, min-height, layout
+            • SVG guard (prevent icons exploding to 100vw before full CSS loads)
+          This eliminates FOUC completely while allowing the full stylesheet
+          to load asynchronously (non-blocking), keeping FCP fast.
+          ─────────────────────────────────────────────────────────────────────
+        */}
+        <style dangerouslySetInnerHTML={{ __html: `
+*,::before,::after{box-sizing:border-box}
+html{font-size:clamp(15px,.4vw + 14px,18px);-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#F8FAFC;overflow-x:hidden;width:100%;font-family:"AG Book Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+h1,h2{font-family:"Aachen BT",Georgia,serif}
+svg{max-width:100%;height:auto}
+svg:not([width]):not([class*="w-"]){width:24px;height:24px}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+/* Navbar pill */
+nav[class*="fixed"]{position:fixed;top:.625rem;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:space-between;width:calc(100% - 20px);max-width:1360px;background:rgba(15,23,42,.95);border:1px solid rgba(51,65,85,.8);border-radius:9999px;padding:.5rem .875rem;color:#fff;gap:.75rem}
+@media(min-width:640px){nav[class*="fixed"]{top:.875rem;padding:.625rem 1.25rem}}
+/* Hero section */
+section#hero{position:relative;min-height:100svh;background:#F8FAFC;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding-top:4.5rem;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){section#hero{padding-top:6rem;padding-left:2rem;padding-right:2rem}}
+@media(min-width:1024px){section#hero{padding-top:7rem;padding-left:3rem;padding-right:3rem}}
+/* Announcement banner above navbar */
+div[class*="marquee"]{overflow:hidden}
+/* Prevent layout shift on images with known dimensions */
+img[width][height]{height:auto}
+        ` }} />
+        {/*
+          Full stylesheet loads asynchronously (non-blocking).
+          media="print" tells the browser not to block rendering on this sheet.
+          onLoad switches it to media="all" once downloaded, applying all styles.
+          The critical CSS above ensures the page already looks correct by then.
+          React SSR + client both render this identically → no hydration mismatch.
+        */}
+        <link rel="preload" href={cssHref} as="style" fetchPriority="high" />
+        <link
+          rel="stylesheet"
+          href={cssHref}
+          media="print"
+          onLoad={(e) => {
+            (e.currentTarget as HTMLLinkElement).media = "all";
+          }}
+        />
+        {/* Fallback: if JS is disabled, load stylesheet normally */}
+        <noscript><link rel="stylesheet" href={cssHref} /></noscript>
       </head>
       <body>
         {children}

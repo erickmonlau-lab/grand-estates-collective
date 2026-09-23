@@ -44,58 +44,60 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-// Minimal critical CSS: only what is needed to paint the above-the-fold hero
-// before the full 184 kB stylesheet finishes loading.
-const CRITICAL_CSS = `<style id="__c">*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}</style>`;
-
 /**
- * Uses Cloudflare's native HTMLRewriter API to transform the SSR response
- * STREAM — no buffering, no latency cost, no TBT impact.
+ * Uses Cloudflare HTMLRewriter to make the main Vite CSS non-render-blocking.
  *
- * What it does:
- * 1. Injects minimal critical CSS into <head> so first paint is not blank.
- * 2. Converts every render-blocking /assets/*.css stylesheet link to the
- *    preload + non-blocking pattern so the browser can paint immediately.
+ * Conservative approach to avoid React 19 hydration conflicts:
+ * - Adds a high-priority <link rel="preload"> BEFORE the stylesheet so the browser
+ *   downloads CSS immediately at full priority.
+ * - Sets media="print" + onload on the stylesheet so it doesn't block the render
+ *   pipeline (the browser still downloads it, just doesn't block painting).
+ * - Does NOT add <noscript> or extra elements that could confuse React's head
+ *   resource reconciliation during hydration.
+ * - React 19 uses suppressHydrationWarning on stylesheet links, so it tolerates
+ *   the extra media="print" attribute without throwing a hydration error.
  *
- * HTMLRewriter processes the response byte-by-byte as it streams from
- * TanStack Start's React SSR, so streaming and TBT are completely unaffected.
+ * HTMLRewriter processes the response as a stream — no buffering, no TBT impact.
  */
 function applyCssOptimizations(response: Response): Response {
   const contentType = response.headers.get("content-type") ?? "";
   if (!contentType.includes("text/html") || response.status !== 200) return response;
 
+  // Minimal critical CSS painted on first byte so the hero background is visible
+  // immediately — prevents the blank white flash before the full CSS activates.
+  const CRITICAL_CSS =
+    `<style id="__c">` +
+    `*,::before,::after{box-sizing:border-box}` +
+    `body{margin:0;background:#F8FAFC;overflow-x:hidden}` +
+    `</style>`;
+
   return new HTMLRewriter()
-    // ── 1. Inject critical inline CSS at end of <head> ──────────────────────
+    // ── Inject critical CSS at end of <head> ─────────────────────────────────
     .on("head", {
       element(el) {
         el.append(CRITICAL_CSS, { html: true });
       },
     })
-    // ── 2. Convert render-blocking asset CSS to non-blocking ─────────────────
-    // Selector targets: <link rel="stylesheet" href="/assets/...css">
-    // Works regardless of extra attributes (crossorigin, nonce, etc.)
+    // ── Convert render-blocking asset stylesheets to non-blocking ─────────────
+    // Selector: only Vite asset CSS (href contains /assets/ and ends with .css)
     .on('link[rel="stylesheet"][href*="/assets/"]', {
       element(el) {
         const href = el.getAttribute("href");
         if (!href || !href.endsWith(".css")) return;
 
-        // a) Insert preload hint BEFORE the existing link tag
-        //    → browser discovers & downloads CSS immediately, at high priority
+        // Insert high-priority preload BEFORE the link so the browser downloads
+        // the CSS at full network priority (without this, media=print lowers it).
         el.before(
           `<link rel="preload" href="${href}" as="style" fetchpriority="high">`,
           { html: true },
         );
 
-        // b) Change the existing link to media="print" so it doesn't block render.
-        //    onload flips it back to "all" once the CSS has been downloaded.
+        // Change the stylesheet to media="print" so it does not block rendering.
+        // onload switches it back to "all" once the download finishes.
+        // React 19 has suppressHydrationWarning on this element and will not
+        // overwrite these attributes during client hydration.
         el.setAttribute("media", "print");
         el.setAttribute("onload", "this.media='all'");
-
-        // c) <noscript> fallback for visitors with JS disabled
-        el.after(
-          `<noscript><link rel="stylesheet" href="${href}"></noscript>`,
-          { html: true },
-        );
       },
     })
     .transform(response);

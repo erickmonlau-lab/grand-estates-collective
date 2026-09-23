@@ -274,6 +274,36 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
+        {/* Render-blocking CSS optimization: convert auto-injected stylesheet to non-blocking with high priority preload */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){
+              function makeNonBlocking(link) {
+                if (link && link.rel === 'stylesheet' && !link.dataset.nonblocking) {
+                  link.dataset.nonblocking = 'true';
+                  var preload = document.createElement('link');
+                  preload.rel = 'preload';
+                  preload.as = 'style';
+                  preload.href = link.href;
+                  link.parentNode.insertBefore(preload, link);
+                  link.media = 'print';
+                  link.onload = function() { this.media = 'all'; };
+                }
+              }
+              var links = document.querySelectorAll('link[rel="stylesheet"]');
+              for (var i = 0; i < links.length; i++) makeNonBlocking(links[i]);
+              var obs = new MutationObserver(function(mutations) {
+                for (var i = 0; i < mutations.length; i++) {
+                  var nodes = mutations[i].addedNodes;
+                  for (var j = 0; j < nodes.length; j++) {
+                    if (nodes[j].tagName === 'LINK') makeNonBlocking(nodes[j]);
+                  }
+                }
+              });
+              obs.observe(document.head, { childList: true });
+            })();`
+          }}
+        />
       </head>
       <body>
         {children}

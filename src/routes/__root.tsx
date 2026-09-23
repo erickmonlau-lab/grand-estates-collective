@@ -284,21 +284,8 @@ function RootShell({ children }: { children: ReactNode }) {
         <style dangerouslySetInnerHTML={{
           __html: "*,::before,::after{box-sizing:border-box}body{margin:0;background:#F8FAFC;overflow-x:hidden}svg{max-width:100%;height:auto}svg:not([width]){width:24px;height:24px}"
         }} />
-        {/* High-priority preload: browser fetches CSS immediately at full
-            network priority even though media=print makes it non-blocking */}
-        <link rel="preload" href={cssHref} as="style" fetchPriority="high" />
-        {/* Non-blocking stylesheet: media="print" means the browser downloads
-            it without blocking the render pipeline. onLoad switches to "all"
-            once the CSS is ready, applying all styles instantly.
-            React renders this identically in SSR and client → no hydration mismatch */}
-        <link
-          rel="stylesheet"
-          href={cssHref}
-          media="print"
-          onLoad={(e) => {
-            (e.currentTarget as HTMLLinkElement).media = "all";
-          }}
-        />
+        {/* Standard stylesheet: blocking ensures zero FOUC, zero unstyled content or blue links */}
+        <link rel="stylesheet" href={cssHref} />
       </head>
       <body>
         {children}

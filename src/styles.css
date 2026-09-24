@@ -302,7 +302,6 @@
   display: flex;
   width: max-content;
   animation: marquee 28s linear infinite;
-  will-change: transform;
 }
 
 .animate-marquee:hover {
@@ -313,7 +312,6 @@
   display: flex;
   width: max-content;
   animation: marquee-reverse 32s linear infinite;
-  will-change: transform;
 }
 
 .animate-marquee-reverse:hover {
@@ -322,7 +320,6 @@
 
 .animate-float {
   animation: float-slow 4.5s ease-in-out infinite;
-  will-change: transform;
 }
 
 .animate-pop-in {

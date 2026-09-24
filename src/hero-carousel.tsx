@@ -38,7 +38,7 @@ export default function HeroCarousel({
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
         <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
-          <picture className="w-full h-full block transform-gpu">
+          <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img

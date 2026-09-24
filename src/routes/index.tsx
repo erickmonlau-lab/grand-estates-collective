@@ -530,7 +530,7 @@ function Index() {
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
       {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}
-      <DeferredHydration rootMargin="400px" fallback={<div className="min-h-[1200px] bg-[#cbd5e1]" />}>
+      <DeferredHydration rootMargin="50px" fallback={<div className="min-h-[1200px] bg-[#cbd5e1]" />}>
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">

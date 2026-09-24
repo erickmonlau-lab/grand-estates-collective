@@ -6,7 +6,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
   const badges = [
     {
       id: "pji",
-      logo: "/images/badges/logo-pji-escudo.jpg",
+      logo: "/images/badges/logo-pji-escudo.webp",
       alt: "Peritos Judiciales Inmobiliarios",
       number: "PJI 2024",
       url: "https://www.aspejure.com/",
@@ -17,7 +17,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
     },
     {
       id: "apis-peritos",
-      logo: "/images/badges/logo-apis-peritos.jpg",
+      logo: "/images/badges/logo-apis-peritos.webp",
       alt: "APIS - PERITOS",
       number: "1639",
       url: "https://consejocoapis.org/",
@@ -28,7 +28,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
     },
     {
       id: "api",
-      logo: "/images/badges/logo-api.jpg",
+      logo: "/images/badges/logo-api.webp",
       alt: "API - Col·legis i associació d'agents immobiliaris",
       number: "A10750",
       url: "https://www.apicatalunya.com/",
@@ -39,7 +39,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
     },
     {
       id: "aicat",
-      logo: "/images/badges/logo-aicat.jpg",
+      logo: "/images/badges/logo-aicat.webp",
       alt: "Registre d'Agents Immobiliaris de Catalunya (AICAT)",
       number: "AICAT 5583",
       url: "https://habitatge.gencat.cat/ca/inici/",
@@ -71,6 +71,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
               className={b.imgClass}
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
             />
           </div>
           

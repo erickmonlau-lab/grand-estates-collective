@@ -168,6 +168,7 @@ export default function HeroCarousel({
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   width={32}
                   height={32}
                 />
@@ -177,6 +178,7 @@ export default function HeroCarousel({
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   width={32}
                   height={32}
                 />
@@ -186,6 +188,7 @@ export default function HeroCarousel({
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   width={32}
                   height={32}
                 />
@@ -195,6 +198,7 @@ export default function HeroCarousel({
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                   width={32}
                   height={32}
                 />

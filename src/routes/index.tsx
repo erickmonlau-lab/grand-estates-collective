@@ -274,6 +274,18 @@ function Index() {
     };
   }, []);
 
+  const [mountFloating, setMountFloating] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("requestIdleCallback" in window) {
+      const id = (window as any).requestIdleCallback(() => setMountFloating(true), { timeout: 3000 });
+      return () => (window as any).cancelIdleCallback(id);
+    } else {
+      const timer = setTimeout(() => setMountFloating(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const [searchParams, setSearchParams] = useState({
     mode: "comprar",
     zona: "Cualquier zona",
@@ -1818,10 +1830,12 @@ function Index() {
       </footer>
 
       {/* Floating Utilities */}
-      <Suspense fallback={null}>
-        <WhatsAppButton language={language} />
-        <CookieBanner language={language} />
-      </Suspense>
+      {mountFloating && (
+        <Suspense fallback={null}>
+          <WhatsAppButton language={language} />
+          <CookieBanner language={language} />
+        </Suspense>
+      )}
 
             {/* Service Detail Modal */}
       <Suspense fallback={null}>

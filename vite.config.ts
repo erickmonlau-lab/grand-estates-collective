@@ -28,8 +28,6 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks: (id) => {
-            // Split heavy animation library into its own async chunk
-            if (id.includes('framer-motion')) return 'vendor-motion';
             // Split icon library into its own async chunk
             if (id.includes('lucide-react')) return 'vendor-icons';
             // Split all Radix UI primitives together

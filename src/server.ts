@@ -70,6 +70,10 @@ export default {
           "CDN-Cache-Control",
           "public, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800",
         );
+        headers.set(
+          "Vercel-CDN-Cache-Control",
+          "public, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800",
+        );
         return new Response(normalized.body, {
           status: normalized.status,
           headers,

@@ -2,10 +2,6 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-// Build-time URL of the processed CSS bundle (hash changes per build)
-import cssUrl from "./styles.css?url";
-// Critical above-the-fold CSS — inlined to eliminate render-blocking CSS
-import { criticalCss } from "./lib/critical-css";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -55,9 +51,7 @@ export default {
       const response = await handler.fetch(request, env, ctx);
       const normalized = await normalizeCatastrophicSsrResponse(response);
 
-      // ── Home page: inline critical CSS + make full CSS non-blocking ────────
-      // This is done AFTER Nitro/React renders HTML, so React is unaware of it.
-      // React reconciles on hydration, but by then the full CSS is already cached.
+      // Cache SSR HTML at Vercel Edge CDN for the home page to cut TTFB
       const url = new URL(request.url);
       if (
         request.method === "GET" &&
@@ -65,33 +59,15 @@ export default {
         normalized.status === 200 &&
         (normalized.headers.get("content-type") ?? "").includes("text/html")
       ) {
-        const html = await normalized.text();
-
-        // Find the blocking CSS link injected by Vite/TanStack Start
-        const blockingLink = `<link rel="stylesheet" href="${cssUrl}">`;
-
-        // Non-blocking replacement:
-        //  1. <style> with critical CSS renders immediately (no network request)
-        //  2. <link rel="preload"> starts full CSS download in parallel (non-blocking)
-        //  3. Inline <script> appends <link rel="stylesheet"> dynamically (async — never blocks render)
-        //  4. <noscript> fallback for JS-disabled browsers
-        const nonBlocking = [
-          `<style>${criticalCss}</style>`,
-          `<link rel="preload" href="${cssUrl}" as="style">`,
-          `<script>(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='${cssUrl}';document.head.appendChild(l);})();</script>`,
-          `<noscript><link rel="stylesheet" href="${cssUrl}"></noscript>`,
-        ].join("");
-
-        const transformed = html.includes(blockingLink)
-          ? html.replace(blockingLink, nonBlocking)
-          : html; // fallback: return unchanged if selector not found
-
         const headers = new Headers(normalized.headers);
-        headers.set("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");
-        // Remove Content-Length — body size changed after transformation
-        headers.delete("content-length");
-
-        return new Response(transformed, { status: normalized.status, headers });
+        headers.set(
+          "Cache-Control",
+          "s-maxage=3600, stale-while-revalidate=86400",
+        );
+        return new Response(normalized.body, {
+          status: normalized.status,
+          headers,
+        });
       }
 
       return normalized;

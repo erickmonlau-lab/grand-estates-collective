@@ -175,6 +175,13 @@ function PriceCounter({ value, duration = 1200 }: { value: number; duration?: nu
 }
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const shouldReduce = useReducedMotion();
+  // On mobile viewports framer-motion's whileInView causes forced reflows
+  // that cost 60-100ms of main thread work — skip animation there
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  if (shouldReduce || isMobile) {
+    return <div className={className}>{children}</div>;
+  }
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -248,6 +255,7 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
 };
 function Index() {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
@@ -923,15 +931,15 @@ function Index() {
                 return (
                   <motion.div
                     key={property.id}
-                    initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={shouldReduceMotion || isMobile ? false : { opacity: 0, y: 30 }}
+                    whileInView={shouldReduceMotion || isMobile ? undefined : { opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.5, delay: (idx % 6) * 0.09, ease: easeOut }}
                     className="h-full"
                   >
                     <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
                       <motion.div
-                        whileHover={shouldReduceMotion ? undefined : { y: -6 }}
+                        whileHover={shouldReduceMotion || isMobile ? undefined : { y: -6 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] transition-all duration-300 overflow-hidden cursor-pointer"
                       >

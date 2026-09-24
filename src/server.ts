@@ -59,23 +59,6 @@ export default {
         normalized.status === 200 &&
         (normalized.headers.get("content-type") ?? "").includes("text/html")
       ) {
-        let htmlBody = await normalized.text();
-
-        // Extract LCP image preload links and hoist them to the very top of <head>
-        // so mobile browsers begin streaming the hero image before downloading JS modules
-        const lcpMobileMatch = htmlBody.match(/<link[^>]+family_barcelona_mobile_lcp[^>]+>/i);
-        const lcpDesktopMatch = htmlBody.match(/<link[^>]+family_barcelona_desktop_opt[^>]+>/i);
-
-        if (lcpMobileMatch && lcpDesktopMatch) {
-          // Remove existing instances from the tail of <head>
-          htmlBody = htmlBody.replace(lcpMobileMatch[0], "");
-          htmlBody = htmlBody.replace(lcpDesktopMatch[0], "");
-
-          // Insert right after <head>
-          const topPreloads = `${lcpMobileMatch[0]}${lcpDesktopMatch[0]}`;
-          htmlBody = htmlBody.replace("<head>", `<head>${topPreloads}`);
-        }
-
         const headers = new Headers(normalized.headers);
         // Instruct Vercel Edge CDN to keep the rendered HTML cached for 1 day,
         // allowing background revalidation for 7 days, avoiding cold-start SSR.
@@ -91,7 +74,7 @@ export default {
           "Vercel-CDN-Cache-Control",
           "public, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800",
         );
-        return new Response(htmlBody, {
+        return new Response(normalized.body, {
           status: normalized.status,
           headers,
         });

@@ -15,6 +15,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 import { ArrowLeft, Home, Phone, Building2, RefreshCw } from "lucide-react";
 import { FooterMascot } from "../components/FooterMascot";
+import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
+import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 
 function NotFoundComponent() {
   return (
@@ -193,6 +195,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://www.gesgrama.es/og-image.png" },
     ],
     links: [
+      { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
+      { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
       { rel: "canonical", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "es", href: "https://www.gesgrama.es/" },
       { rel: "alternate", hrefLang: "ca", href: "https://www.gesgrama.es/" },

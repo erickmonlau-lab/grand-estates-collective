@@ -7,9 +7,6 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
-import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
-import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));
@@ -1645,8 +1642,6 @@ function Index() {
           </div>
         </div>
       </section>
-      </DeferredHydration>
-      </main>
 
       {/* ── FOOTER GSAP ── */}
       <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10" style={{ backgroundColor: '#0b1221' }}>
@@ -1828,6 +1823,8 @@ function Index() {
           </div>
         </div>
       </footer>
+      </DeferredHydration>
+      </main>
 
       {/* Floating Utilities */}
       {mountFloating && (

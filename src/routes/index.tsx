@@ -964,7 +964,7 @@ function Index() {
                               {type}
                             </span>
                             {property.status === "reservado" && (
-                              <span className="inline-flex items-center bg-amber-500 text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                              <span className="inline-flex items-center bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-sans">
                                 {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
                               </span>
                             )}

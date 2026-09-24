@@ -695,7 +695,7 @@ function PropertyDetail() {
     : t.detail.statusSale;
 
   const statusColor = property.status === "reservado"
-    ? "bg-amber-500 text-white"
+    ? "bg-amber-400 text-amber-950 border border-amber-500/40 font-black"
     : property.status === "vendido" || property.status === "alquilado"
     ? "bg-slate-700 text-white"
     : property.operation === "alquilar"

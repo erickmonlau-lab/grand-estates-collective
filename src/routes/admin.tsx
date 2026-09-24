@@ -753,7 +753,7 @@ function AdminDashboard() {
                       <div className="absolute top-3.5 right-3.5 z-20">
                         <span className={`inline-flex items-center text-xs font-black uppercase tracking-wider px-3 py-1 rounded-xl shadow-md font-sans ${
                           p.status === "reservado"
-                            ? "bg-amber-500 text-white"
+                            ? "bg-amber-400 text-amber-950 border border-amber-500/40 font-black"
                             : p.status === "vendido" || p.status === "alquilado"
                             ? "bg-slate-800 text-white border border-slate-700"
                             : "bg-[#2563eb] text-white"

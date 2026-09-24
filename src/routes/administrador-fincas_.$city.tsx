@@ -1221,15 +1221,15 @@ function SantaColomaBarrioPage() {
                             
                             {/* Floating Status & Type Pills */}
                             <div className="absolute top-3.5 left-3.5 right-16 flex flex-wrap items-center gap-1.5 z-20 pointer-events-none">
-                              <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
+                              <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-sans">
                                 <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                                 <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                               </span>
-                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
+                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-sans">
                                 {type}
                               </span>
                               {property.status === "reservado" && (
-                                <span className="inline-flex items-center bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-sans">
+                                <span className="inline-flex items-center bg-amber-400 text-amber-950 font-bold uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-sans">
                                   {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
                                 </span>
                               )}
@@ -1341,7 +1341,7 @@ function SantaColomaBarrioPage() {
                             <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
                               <div className="flex flex-col min-w-0">
                                 {/* Blue Pill Badge for "PRECIO" / "PREU" - Identical to detail page */}
-                                <span className="inline-block self-start bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1 font-sans">
+                                <span className="inline-block self-start bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1 font-sans">
                                   {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
                                 </span>
                                 <div className="flex items-baseline whitespace-nowrap">
@@ -1354,7 +1354,7 @@ function SantaColomaBarrioPage() {
                                 </div>
                               </div>
 
-                              <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
+                              <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb]">
                                 <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
                                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
                               </div>

@@ -10,7 +10,9 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import "../styles.css";
+// Critical CSS inline — load non-blocking to eliminate render-blocking CSS
+import cssUrl from "../styles.css?url";
+import { criticalCss } from "../lib/critical-css";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 import { ArrowLeft, Home, Phone, Building2, RefreshCw } from "lucide-react";
@@ -272,9 +274,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  // Script that appends the full CSS <link> asynchronously (non-render-blocking).
+  // The browser downloads the CSS in the background while the page renders with
+  // the inlined critical CSS. When download completes it applies automatically.
+  const loadCssScript = `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='${cssUrl}';document.head.appendChild(l);})();`;
+
   return (
     <html lang="es">
       <head>
+        {/* 1. Critical CSS inline: renders hero + navbar without any network request */}
+        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
+        {/* 2. Preload full CSS so it starts downloading immediately (parallel) */}
+        <link rel="preload" href={cssUrl} as="style" />
+        {/* 3. Full CSS loads non-blocking via inline script */}
+        <script dangerouslySetInnerHTML={{ __html: loadCssScript }} />
+        {/* 4. Fallback for no-JS: load CSS synchronously */}
+        <noscript><link rel="stylesheet" href={cssUrl} /></noscript>
         <HeadContent />
       </head>
       <body>

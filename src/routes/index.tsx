@@ -7,6 +7,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
+import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton').then(m => ({ default: m.WhatsAppButton })));
 const CookieBanner = lazy(() => import('@/components/CookieBanner'));

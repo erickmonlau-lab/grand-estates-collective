@@ -13,7 +13,7 @@ export default defineConfig({
     server: {
       entry: "server",
       build: {
-        inlineCss: true,
+        inlineCss: false,
       },
     },
   },

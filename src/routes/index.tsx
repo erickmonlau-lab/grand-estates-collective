@@ -5,7 +5,6 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
@@ -176,15 +175,9 @@ function PriceCounter({ value, duration = 1200 }: { value: number; duration?: nu
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.55, delay, ease: easeOut }}
-      className={className}
-    >
+    <div className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -247,8 +240,6 @@ const isPriceValid = (priceStr: string, propertyPrice: number) => {
   return true;
 };
 function Index() {
-  const shouldReduceMotion = useReducedMotion();
-
   const [language, setLanguageState] = useState<"es" | "en" | "ca">(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("language");
@@ -921,19 +912,13 @@ function Index() {
                 const type = pData.type || property.type || "Piso";
 
                 return (
-                  <motion.div
+                  <div
                     key={property.id}
-                    initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.5, delay: (idx % 6) * 0.09, ease: easeOut }}
                     className="h-full"
                   >
                     <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                      <motion.div
-                        whileHover={shouldReduceMotion ? undefined : { y: -6 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] transition-all duration-300 overflow-hidden cursor-pointer"
+                      <div
+                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] hover:-translate-y-1.5 transition-all duration-300 overflow-hidden cursor-pointer"
                       >
                         {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
                         <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
@@ -980,24 +965,22 @@ function Index() {
                           </div>
 
                           {/* Heart Favorite Button with micro-bounce */}
-                          <motion.button
+                          <button
                             type="button"
-                            whileTap={{ scale: 1.25 }}
-                            transition={{ type: "spring", stiffness: 450, damping: 17 }}
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
                               toggleFavorite(property.id);
                             }}
                             aria-label="Guardar en favoritos"
-                            className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                            className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center active:scale-125 transition-all duration-200 cursor-pointer shadow-md z-20 ${
                               isFav 
                                 ? 'bg-red-500 text-white shadow-red-500/30' 
                                 : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
                             }`}
                           >
                             <Heart className="w-5 h-5 fill-current" />
-                          </motion.button>
+                          </button>
 
                           {/* Bottom-left Ref Badge directly over the image */}
                           <div className="absolute bottom-3 left-3.5 z-20">
@@ -1104,9 +1087,9 @@ function Index() {
                             </div>
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     </Link>
-                  </motion.div>
+                  </div>
                 );
               };
 
@@ -1166,19 +1149,13 @@ function Index() {
                     </div>
                   )}
 
-                  {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={searchParams.mode}
-                      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
-                      transition={{ duration: 0.28, ease: "easeOut" }}
-                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
-                    >
-                      {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                    </motion.div>
-                  </AnimatePresence>
+                  {/* PROPERTY CARDS GRID */}
+                  <div
+                    key={searchParams.mode}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
+                  >
+                    {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                  </div>
 
                   {/* LOAD MORE BUTTON (INSIDE CARD BUBBLE) */}
                   <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
@@ -1457,7 +1434,7 @@ function Index() {
 
             {/* ── VALORADOR DE INMUEBLES ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={shouldReduceMotion} />
+        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
       </Suspense>
 
             {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}

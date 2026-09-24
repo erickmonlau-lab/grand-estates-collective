@@ -44,52 +44,33 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
-// Cloudflare execution context type
-type CfCtx = { waitUntil: (p: Promise<unknown>) => void };
-
-// Cache the home page SSR HTML at Cloudflare edge using Cache API.
-// Cloudflare Workers ignore s-maxage on Worker responses — must use caches.default explicitly.
-const HOME_CACHE_TTL = 3600; // 1 hour
-
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
+      const response = await handler.fetch(request, env, ctx);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+
+      // Cache SSR HTML at Vercel Edge CDN for the home page to cut TTFB
       const url = new URL(request.url);
-      const isHomeGet =
+      if (
         request.method === "GET" &&
         url.pathname === "/" &&
-        !request.headers.has("cookie");
-
-      if (isHomeGet) {
-        // Try to serve from Cloudflare edge cache first
-        const cache = (caches as unknown as { default: Cache }).default;
-        const cacheKey = new Request(url.toString(), { method: "GET" });
-        const cached = await cache.match(cacheKey);
-        if (cached) return cached;
-
-        // Cache miss — do SSR, then store result
-        const response = await handler.fetch(request, env, ctx);
-        const normalized = await normalizeCatastrophicSsrResponse(response);
-
-        if (
-          normalized.status === 200 &&
-          (normalized.headers.get("content-type") ?? "").includes("text/html")
-        ) {
-          const headers = new Headers(normalized.headers);
-          headers.set("Cache-Control", `public, max-age=${HOME_CACHE_TTL}`);
-          const toCache = new Response(normalized.clone().body, {
-            status: normalized.status,
-            headers,
-          });
-          (ctx as CfCtx).waitUntil(cache.put(cacheKey, toCache));
-        }
-
-        return normalized;
+        normalized.status === 200 &&
+        (normalized.headers.get("content-type") ?? "").includes("text/html")
+      ) {
+        const headers = new Headers(normalized.headers);
+        headers.set(
+          "Cache-Control",
+          "s-maxage=3600, stale-while-revalidate=86400",
+        );
+        return new Response(normalized.body, {
+          status: normalized.status,
+          headers,
+        });
       }
 
-      const response = await handler.fetch(request, env, ctx);
-      return normalizeCatastrophicSsrResponse(response);
+      return normalized;
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

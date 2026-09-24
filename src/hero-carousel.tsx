@@ -33,12 +33,12 @@ export default function HeroCarousel({
         customHeadline
           ? "pt-18 sm:pt-20 lg:pt-24 h-auto lg:h-screen lg:min-h-[700px]"
           : "pt-18 sm:pt-24 lg:pt-28 h-[100svh] sm:h-screen"
-      } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12 contain-paint`}
+      } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
     >
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
         <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
-          <picture className="w-full h-full block">
+          <picture className="w-full h-full block transform-gpu">
             <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img

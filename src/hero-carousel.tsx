@@ -47,7 +47,7 @@ export default function HeroCarousel({
               className="w-full h-full object-cover object-[center_top] sm:object-[right_top] block"
               loading="eager"
               fetchPriority="high"
-              decoding="async"
+              decoding="sync"
               width={360}
               height={554}
             />

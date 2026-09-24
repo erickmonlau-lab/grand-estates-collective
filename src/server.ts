@@ -60,9 +60,15 @@ export default {
         (normalized.headers.get("content-type") ?? "").includes("text/html")
       ) {
         const headers = new Headers(normalized.headers);
+        // Instruct Vercel Edge CDN to keep the rendered HTML cached for 1 day,
+        // allowing background revalidation for 7 days, avoiding cold-start SSR.
         headers.set(
           "Cache-Control",
-          "s-maxage=3600, stale-while-revalidate=86400",
+          "public, s-maxage=86400, stale-while-revalidate=604800",
+        );
+        headers.set(
+          "CDN-Cache-Control",
+          "public, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800",
         );
         return new Response(normalized.body, {
           status: normalized.status,

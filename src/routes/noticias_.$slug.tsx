@@ -745,11 +745,16 @@ function ArticleDetail() {
               className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-[280px]"
             >
               <div className="absolute inset-0 z-0">
-                <img
-                  src="/images/modern_office_space.webp"
-                  alt="Nuestros Inmuebles"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
-                />
+                <picture>
+                  <source media="(max-width: 640px)" srcSet="/images/modern_office_space_mobile.webp" width={400} height={225} />
+                  <img
+                    src="/images/modern_office_space_opt.webp"
+                    alt="Nuestros Inmuebles"
+                    width={700}
+                    height={394}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
               </div>
               

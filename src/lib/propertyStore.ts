@@ -154,7 +154,7 @@ export async function fetchProperties(): Promise<ExtendedProperty[]> {
           description_ca: d.description_ca,
           description_en: d.description_en,
           features: d.features || [],
-          image: d.image || "/images/modern_office_space.webp",
+          image: d.image || "/images/modern_office_space_opt.webp",
           gallery: Array.isArray(d.gallery) ? d.gallery : [d.image],
           operation: d.operation || "comprar",
           status: d.status || "disponible",

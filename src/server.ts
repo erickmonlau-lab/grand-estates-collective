@@ -67,8 +67,8 @@ export default {
       ) {
         const html = await normalized.text();
 
-        // Find the blocking CSS link injected by Vite/TanStack Start (with data-precedence or any attributes)
-        const cssLinkRegex = /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["'][^"']+\.css[^"']*["'][^>]*\/?>/i;
+        // Find the blocking CSS link injected by Vite/TanStack Start
+        const blockingLink = `<link rel="stylesheet" href="${cssUrl}">`;
 
         // Non-blocking replacement:
         //  1. <style> with critical CSS renders immediately (no network request)
@@ -82,9 +82,9 @@ export default {
           `<noscript><link rel="stylesheet" href="${cssUrl}"></noscript>`,
         ].join("");
 
-        const transformed = cssLinkRegex.test(html)
-          ? html.replace(cssLinkRegex, nonBlocking)
-          : html;
+        const transformed = html.includes(blockingLink)
+          ? html.replace(blockingLink, nonBlocking)
+          : html; // fallback: return unchanged if selector not found
 
         const headers = new Headers(normalized.headers);
         headers.set("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");

@@ -49,7 +49,28 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+
+      // Cache SSR HTML at Vercel Edge CDN for the home page to cut TTFB
+      const url = new URL(request.url);
+      if (
+        request.method === "GET" &&
+        url.pathname === "/" &&
+        normalized.status === 200 &&
+        (normalized.headers.get("content-type") ?? "").includes("text/html")
+      ) {
+        const headers = new Headers(normalized.headers);
+        headers.set(
+          "Cache-Control",
+          "s-maxage=3600, stale-while-revalidate=86400",
+        );
+        return new Response(normalized.body, {
+          status: normalized.status,
+          headers,
+        });
+      }
+
+      return normalized;
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

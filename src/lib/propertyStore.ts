@@ -1,5 +1,5 @@
 import { properties as defaultProperties, type Property } from "@/data/properties";
-import { supabase, isSupabaseConfigured } from "./supabase";
+import { getSupabase, isSupabaseConfigured } from "./supabase";
 
 const STORAGE_KEY = "gesgrama_properties_db";
 
@@ -124,17 +124,19 @@ export function saveLocalProperties(props: ExtendedProperty[]) {
 
 // Fetch all properties (from Supabase if configured, otherwise from local)
 export async function fetchProperties(): Promise<ExtendedProperty[]> {
-  if (isSupabaseConfigured && supabase) {
+  if (isSupabaseConfigured) {
     try {
-      const { data, error } = await supabase
-        .from("properties")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const supabase = await getSupabase();
+      if (supabase) {
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-      if (error) throw error;
-      if (data && data.length > 0) {
+        if (error) throw error;
+        if (data && data.length > 0) {
         // Map database fields to Property object
-        const mapped: ExtendedProperty[] = data.map((d) => ({
+        const mapped: ExtendedProperty[] = (data as any[]).map((d: any) => ({
           id: d.id,
           slug: d.slug || d.id,
           ref: d.ref || "API A10750",
@@ -164,10 +166,11 @@ export async function fetchProperties(): Promise<ExtendedProperty[]> {
         saveLocalProperties(mapped);
         return mapped;
       }
-    } catch (err) {
-      console.warn("Supabase fetch failed, using local storage fallback:", err);
     }
+  } catch (err) {
+    console.warn("Supabase fetch failed, using local storage fallback:", err);
   }
+}
   return getLocalProperties();
 }
 
@@ -185,35 +188,38 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
     createdAt: new Date().toISOString()
   };
 
-  if (isSupabaseConfigured && supabase) {
+  if (isSupabaseConfigured) {
     try {
-      const { error } = await supabase.from("properties").insert([{
-        id: newProp.id,
-        slug: newProp.slug,
-        ref: newProp.ref,
-        name: newProp.name,
-        name_ca: newProp.name_ca,
-        name_en: newProp.name_en,
-        type: newProp.type,
-        location: newProp.location,
-        city: newProp.city,
-        price: newProp.price,
-        price_formatted: newProp.priceFormatted,
-        specs: newProp.specs,
-        bedrooms: newProp.bedrooms,
-        bathrooms: newProp.bathrooms,
-        surface: newProp.surface,
-        description: newProp.description,
-        description_ca: newProp.description_ca,
-        description_en: newProp.description_en,
-        features: newProp.features,
-        image: newProp.image,
-        gallery: newProp.gallery,
-        operation: newProp.operation,
-        status: newProp.status,
-        video_url: newProp.videoUrl || null
-      }]);
-      if (error) console.error("Error creating in Supabase:", error);
+      const supabase = await getSupabase();
+      if (supabase) {
+        const { error } = await supabase.from("properties").insert([{
+          id: newProp.id,
+          slug: newProp.slug,
+          ref: newProp.ref,
+          name: newProp.name,
+          name_ca: newProp.name_ca,
+          name_en: newProp.name_en,
+          type: newProp.type,
+          location: newProp.location,
+          city: newProp.city,
+          price: newProp.price,
+          price_formatted: newProp.priceFormatted,
+          specs: newProp.specs,
+          bedrooms: newProp.bedrooms,
+          bathrooms: newProp.bathrooms,
+          surface: newProp.surface,
+          description: newProp.description,
+          description_ca: newProp.description_ca,
+          description_en: newProp.description_en,
+          features: newProp.features,
+          image: newProp.image,
+          gallery: newProp.gallery,
+          operation: newProp.operation,
+          status: newProp.status,
+          video_url: newProp.videoUrl || null
+        }]);
+        if (error) console.error("Error creating in Supabase:", error);
+      }
     } catch (err) {
       console.error("Supabase insert error:", err);
     }
@@ -227,35 +233,38 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
 
 // Update Property
 export async function updateProperty(id: string, updates: Partial<ExtendedProperty>): Promise<ExtendedProperty[]> {
-  if (isSupabaseConfigured && supabase) {
+  if (isSupabaseConfigured) {
     try {
-      const dbUpdates: Record<string, any> = {};
-      if (updates.name !== undefined) dbUpdates.name = updates.name;
-      if (updates.name_ca !== undefined) dbUpdates.name_ca = updates.name_ca;
-      if (updates.name_en !== undefined) dbUpdates.name_en = updates.name_en;
-      if (updates.ref !== undefined) dbUpdates.ref = updates.ref;
-      if (updates.type !== undefined) dbUpdates.type = updates.type;
-      if (updates.location !== undefined) dbUpdates.location = updates.location;
-      if (updates.city !== undefined) dbUpdates.city = updates.city;
-      if (updates.price !== undefined) {
-        dbUpdates.price = updates.price;
-        dbUpdates.price_formatted = updates.priceFormatted || `${updates.price.toLocaleString("es-ES")} €`;
-      }
-      if (updates.bedrooms !== undefined) dbUpdates.bedrooms = updates.bedrooms;
-      if (updates.bathrooms !== undefined) dbUpdates.bathrooms = updates.bathrooms;
-      if (updates.surface !== undefined) dbUpdates.surface = updates.surface;
-      if (updates.description !== undefined) dbUpdates.description = updates.description;
-      if (updates.description_ca !== undefined) dbUpdates.description_ca = updates.description_ca;
-      if (updates.description_en !== undefined) dbUpdates.description_en = updates.description_en;
-      if (updates.features !== undefined) dbUpdates.features = updates.features;
-      if (updates.image !== undefined) dbUpdates.image = updates.image;
-      if (updates.gallery !== undefined) dbUpdates.gallery = updates.gallery;
-      if (updates.operation !== undefined) dbUpdates.operation = updates.operation;
-      if (updates.status !== undefined) dbUpdates.status = updates.status;
-      if (updates.videoUrl !== undefined) dbUpdates.video_url = updates.videoUrl || null;
+      const supabase = await getSupabase();
+      if (supabase) {
+        const dbUpdates: Record<string, any> = {};
+        if (updates.name !== undefined) dbUpdates.name = updates.name;
+        if (updates.name_ca !== undefined) dbUpdates.name_ca = updates.name_ca;
+        if (updates.name_en !== undefined) dbUpdates.name_en = updates.name_en;
+        if (updates.ref !== undefined) dbUpdates.ref = updates.ref;
+        if (updates.type !== undefined) dbUpdates.type = updates.type;
+        if (updates.location !== undefined) dbUpdates.location = updates.location;
+        if (updates.city !== undefined) dbUpdates.city = updates.city;
+        if (updates.price !== undefined) {
+          dbUpdates.price = updates.price;
+          dbUpdates.price_formatted = updates.priceFormatted || `${updates.price.toLocaleString("es-ES")} €`;
+        }
+        if (updates.bedrooms !== undefined) dbUpdates.bedrooms = updates.bedrooms;
+        if (updates.bathrooms !== undefined) dbUpdates.bathrooms = updates.bathrooms;
+        if (updates.surface !== undefined) dbUpdates.surface = updates.surface;
+        if (updates.description !== undefined) dbUpdates.description = updates.description;
+        if (updates.description_ca !== undefined) dbUpdates.description_ca = updates.description_ca;
+        if (updates.description_en !== undefined) dbUpdates.description_en = updates.description_en;
+        if (updates.features !== undefined) dbUpdates.features = updates.features;
+        if (updates.image !== undefined) dbUpdates.image = updates.image;
+        if (updates.gallery !== undefined) dbUpdates.gallery = updates.gallery;
+        if (updates.operation !== undefined) dbUpdates.operation = updates.operation;
+        if (updates.status !== undefined) dbUpdates.status = updates.status;
+        if (updates.videoUrl !== undefined) dbUpdates.video_url = updates.videoUrl || null;
 
-      const { error } = await supabase.from("properties").update(dbUpdates).eq("id", id);
-      if (error) console.error("Error updating in Supabase:", error);
+        const { error } = await supabase.from("properties").update(dbUpdates).eq("id", id);
+        if (error) console.error("Error updating in Supabase:", error);
+      }
     } catch (err) {
       console.error("Supabase update error:", err);
     }
@@ -269,10 +278,13 @@ export async function updateProperty(id: string, updates: Partial<ExtendedProper
 
 // Delete Property
 export async function deleteProperty(id: string): Promise<ExtendedProperty[]> {
-  if (isSupabaseConfigured && supabase) {
+  if (isSupabaseConfigured) {
     try {
-      const { error } = await supabase.from("properties").delete().eq("id", id);
-      if (error) console.error("Error deleting in Supabase:", error);
+      const supabase = await getSupabase();
+      if (supabase) {
+        const { error } = await supabase.from("properties").delete().eq("id", id);
+        if (error) console.error("Error deleting in Supabase:", error);
+      }
     } catch (err) {
       console.error("Supabase delete error:", err);
     }

@@ -11,7 +11,7 @@ import {
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { translations } from "../data/translations";
+import { translations, loadLanguage } from "../data/translations";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
@@ -268,18 +268,32 @@ function PropertyDetail() {
   });
 
   const changeLanguage = (lang: "es" | "en" | "ca") => {
-    setLanguage(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language", lang);
-      window.dispatchEvent(new Event("languagechange"));
+    if (lang === "es") {
+      setLanguage("es");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", "es");
+        window.dispatchEvent(new Event("languagechange"));
+      }
+    } else {
+      loadLanguage(lang).then(() => {
+        setLanguage(lang);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("language", lang);
+          window.dispatchEvent(new Event("languagechange"));
+        }
+      });
     }
   };
 
   useEffect(() => {
     const handleLangChange = () => {
       const stored = localStorage.getItem("language");
-      if (stored === "es" || stored === "en" || stored === "ca") {
-        setLanguage(stored);
+      if (stored === "ca" || stored === "en") {
+        loadLanguage(stored).then(() => {
+          setLanguage(stored);
+        });
+      } else if (stored === "es") {
+        setLanguage("es");
       }
     };
     if (typeof window !== "undefined") {

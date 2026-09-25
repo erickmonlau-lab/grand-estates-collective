@@ -4,7 +4,7 @@ import { articles } from "../data/articles";
 import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle, Share2, Check } from "lucide-react";
 import logoImg from "@/assets/logo.webp";
 import { useEffect, useState } from "react";
-import { translations } from "../data/translations";
+import { translations, loadLanguage } from "../data/translations";
 import { FooterMascot } from "@/components/FooterMascot";
 import { Navbar } from "@/components/Navbar";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
@@ -115,18 +115,32 @@ function ArticleDetail() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const changeLanguage = (lang: "es" | "en" | "ca") => {
-    setLanguage(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language", lang);
-      window.dispatchEvent(new Event("languagechange"));
+    if (lang === "es") {
+      setLanguage("es");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", "es");
+        window.dispatchEvent(new Event("languagechange"));
+      }
+    } else {
+      loadLanguage(lang).then(() => {
+        setLanguage(lang);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("language", lang);
+          window.dispatchEvent(new Event("languagechange"));
+        }
+      });
     }
   };
 
   useEffect(() => {
     const handleLangChange = () => {
       const stored = localStorage.getItem("language");
-      if (stored === "es" || stored === "en" || stored === "ca") {
-        setLanguage(stored);
+      if (stored === "ca" || stored === "en") {
+        loadLanguage(stored).then(() => {
+          setLanguage(stored);
+        });
+      } else if (stored === "es") {
+        setLanguage("es");
       }
     };
     if (typeof window !== "undefined") {

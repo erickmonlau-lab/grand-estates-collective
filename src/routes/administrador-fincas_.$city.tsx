@@ -31,7 +31,7 @@ import { properties, formatLocation } from "@/data/properties";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
 import { homeArticles as articles } from "@/data/homeArticles";
-import { translations } from "@/data/translations";
+import { translations, loadLanguage } from "@/data/translations";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
@@ -366,18 +366,32 @@ function SantaColomaBarrioPage() {
   });
 
   const handleLanguageChange = (lang: "es" | "en" | "ca") => {
-    setLanguageState(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language", lang);
-      window.dispatchEvent(new Event("languagechange"));
+    if (lang === "es") {
+      setLanguageState("es");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", "es");
+        window.dispatchEvent(new Event("languagechange"));
+      }
+    } else {
+      loadLanguage(lang).then(() => {
+        setLanguageState(lang);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("language", lang);
+          window.dispatchEvent(new Event("languagechange"));
+        }
+      });
     }
   };
 
   useEffect(() => {
     const syncLang = () => {
       const savedLang = localStorage.getItem("language") as "es" | "en" | "ca";
-      if (savedLang && ["es", "en", "ca"].includes(savedLang)) {
-        setLanguageState(savedLang);
+      if (savedLang === "ca" || savedLang === "en") {
+        loadLanguage(savedLang).then(() => {
+          setLanguageState(savedLang);
+        });
+      } else if (savedLang === "es") {
+        setLanguageState("es");
       }
     };
     if (typeof window !== "undefined") {

@@ -102,7 +102,7 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 // ---------------------------------------------------------------------------
 // TRANSLATIONS (es / en / ca)
 // ---------------------------------------------------------------------------
-import { translations } from "../data/translations";
+import { translations, loadLanguage } from "../data/translations";
 
 // ---------------------------------------------------------------------------
 // HELPERS
@@ -245,10 +245,20 @@ function Index() {
   });
 
   const setLanguage = (lang: "es" | "en" | "ca") => {
-    setLanguageState(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("language", lang);
-      window.dispatchEvent(new Event("languagechange"));
+    if (lang === "es") {
+      setLanguageState("es");
+      if (typeof window !== "undefined") {
+        localStorage.setItem("language", "es");
+        window.dispatchEvent(new Event("languagechange"));
+      }
+    } else {
+      loadLanguage(lang).then(() => {
+        setLanguageState(lang);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("language", lang);
+          window.dispatchEvent(new Event("languagechange"));
+        }
+      });
     }
   };
   const t = translations[language];
@@ -256,8 +266,12 @@ function Index() {
   useEffect(() => {
     const handleLangChange = () => {
       const stored = localStorage.getItem("language");
-      if (stored === "es" || stored === "en" || stored === "ca") {
-        setLanguageState(stored);
+      if (stored === "ca" || stored === "en") {
+        loadLanguage(stored).then(() => {
+          setLanguageState(stored);
+        });
+      } else if (stored === "es") {
+        setLanguageState("es");
       }
     };
     if (typeof window !== "undefined") {

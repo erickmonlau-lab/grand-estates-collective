@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 import { useState, useEffect } from "react";
 import { Calendar, ArrowRight, Menu, X, MessageCircle } from "lucide-react";
-import { translations } from "../data/translations";
+import { translations, loadLanguage } from "../data/translations";
 
 import { Navbar } from "@/components/Navbar";
 
@@ -29,15 +29,27 @@ function NoticiasCatalogComponent() {
 
   useEffect(() => {
     const savedLang = localStorage.getItem("language") as "es" | "en" | "ca";
-    if (savedLang && ["es", "en", "ca"].includes(savedLang)) {
-      setLanguage(savedLang);
+    if (savedLang === "ca" || savedLang === "en") {
+      loadLanguage(savedLang).then(() => {
+        setLanguage(savedLang);
+      });
+    } else if (savedLang === "es") {
+      setLanguage("es");
     }
   }, []);
 
   const handleLanguageChange = (lang: "es" | "en" | "ca") => {
-    setLanguage(lang);
-    localStorage.setItem("language", lang);
-    window.dispatchEvent(new Event("languagechange"));
+    if (lang === "es") {
+      setLanguage("es");
+      localStorage.setItem("language", "es");
+      window.dispatchEvent(new Event("languagechange"));
+    } else {
+      loadLanguage(lang).then(() => {
+        setLanguage(lang);
+        localStorage.setItem("language", lang);
+        window.dispatchEvent(new Event("languagechange"));
+      });
+    }
   };
 
   const t = translations[language] || translations.es;

@@ -145,7 +145,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                     "Correo Electrónico": contactForm.email,
                     "Motivo de Contacto": contactForm.asunto,
                     "Mensaje": contactForm.mensaje || "Sin mensaje adicional",
-                    "Página de Origen": typeof window !== "undefined" ? window.location.href : "https://www.gesgrama.es/",
+                    "Página de Origen": typeof window !== "undefined" ? window.location.href : "https://gesgrama.com/",
                     "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                   };
 
@@ -158,7 +158,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                     email: contactForm.email,
                     asunto: contactForm.asunto,
                     mensaje: contactForm.mensaje || "Sin mensaje adicional",
-                    pagina_origen: typeof window !== "undefined" ? window.location.href : "https://www.gesgrama.es/",
+                    pagina_origen: typeof window !== "undefined" ? window.location.href : "https://gesgrama.com/",
                     fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                   };
 

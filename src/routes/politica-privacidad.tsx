@@ -12,7 +12,7 @@ export const Route = createFileRoute("/politica-privacidad")({
       { name: "robots", content: "index, follow" },
     ],
     links: [
-      { rel: "canonical", href: "https://www.gesgrama.es/politica-privacidad" }
+      { rel: "canonical", href: "https://gesgrama.com/politica-privacidad" }
     ]
   }),
   component: PoliticaPrivacidadComponent

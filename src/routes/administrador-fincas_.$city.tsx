@@ -40,7 +40,7 @@ import HeroCarousel from "@/hero-carousel";
 import MarqueeRibbon from "@/components/MarqueeRibbon";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
-const SITE_DOMAIN = "https://www.gesgrama.es";
+const SITE_DOMAIN = "https://gesgrama.com";
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 function GoogleIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -235,7 +235,7 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
     const isGlobal = rawSlug === "santa-coloma-de-gramenet";
     const data: NeighborhoodDetail = SANTA_COLOMA_BARRIOS[rawSlug] || SANTA_COLOMA_BARRIOS["centre"];
     const canonicalUrl = `${SITE_DOMAIN}/administrador-fincas/${isGlobal ? "santa-coloma-de-gramenet" : data.slug}`;
-    const ogImage = "https://www.gesgrama.es/og-image.png";
+    const ogImage = "https://gesgrama.com/og-image.png";
 
     const title = isGlobal
       ? "Administrador de Fincas en Santa Coloma de Gramenet · Gesgrama"
@@ -2583,7 +2583,7 @@ function SantaColomaBarrioPage() {
                           "Barrio / Zona": data.name,
                           "Motivo de Contacto": contactForm.asunto,
                           "Mensaje": contactForm.mensaje || "Solicitud de información sobre administración de fincas",
-                          "Página de Origen": typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/administrador-fincas/${data.slug}`,
+                          "Página de Origen": typeof window !== "undefined" ? window.location.href : `https://gesgrama.com/administrador-fincas/${data.slug}`,
                           "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                         };
 
@@ -2597,7 +2597,7 @@ function SantaColomaBarrioPage() {
                           barrio_zona: data.name,
                           asunto: contactForm.asunto,
                           mensaje: contactForm.mensaje || "Solicitud de información sobre administración de fincas",
-                          pagina_origen: typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/administrador-fincas/${data.slug}`,
+                          pagina_origen: typeof window !== "undefined" ? window.location.href : `https://gesgrama.com/administrador-fincas/${data.slug}`,
                           fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
                         };
 

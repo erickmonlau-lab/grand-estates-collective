@@ -17,7 +17,7 @@ function WhatsAppIcon({ className = "w-4 h-4 fill-white shrink-0" }: { className
   );
 }
 
-const SITE_DOMAIN = "https://www.gesgrama.es";
+const SITE_DOMAIN = "https://gesgrama.com";
 
 const ARTICLE_ALIASES: Record<string, string> = {
   "guia-itp-2026-cataluna": "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/noticias_/$slug")({
     const canonicalUrl = `${SITE_DOMAIN}/noticias/${article.slug}`;
     const ogImageUrl = typeof article.image === "string" && article.image.startsWith("http")
       ? article.image
-      : `https://www.gesgrama.es/og-image.png`;
+      : `https://gesgrama.com/og-image.png`;
     return {
       meta: [
         { title: `${content.title} | Blog Gesgrama` },

@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
           "provider": {
             "@type": "RealEstateAgent",
             "name": "Gesgrama",
-            "url": "https://www.gesgrama.es",
+            "url": "https://gesgrama.com",
             "telephone": "+34934685656",
             "address": {
               "@type": "PostalAddress",

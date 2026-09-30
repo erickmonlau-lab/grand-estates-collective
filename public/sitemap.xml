@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Homepage -->
   <url>
-    <loc>https://www.gesgrama.es/</loc>
+    <loc>https://gesgrama.com/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -10,19 +10,19 @@
 
   <!-- Legal Pages -->
   <url>
-    <loc>https://www.gesgrama.es/aviso-legal</loc>
+    <loc>https://gesgrama.com/aviso-legal</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/politica-privacidad</loc>
+    <loc>https://gesgrama.com/politica-privacidad</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/politica-cookies</loc>
+    <loc>https://gesgrama.com/politica-cookies</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -30,25 +30,25 @@
 
   <!-- Core Transactional Services -->
   <url>
-    <loc>https://www.gesgrama.es/servicios/administracion-de-fincas</loc>
+    <loc>https://gesgrama.com/servicios/administracion-de-fincas</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/servicios/gestion-inmobiliaria</loc>
+    <loc>https://gesgrama.com/servicios/gestion-inmobiliaria</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/servicios/asesoria-juridica-fiscal</loc>
+    <loc>https://gesgrama.com/servicios/asesoria-juridica-fiscal</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/servicios/obras-mantenimiento</loc>
+    <loc>https://gesgrama.com/servicios/obras-mantenimiento</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -56,7 +56,7 @@
 
   <!-- Santa Coloma de Gramenet Global GEO Hub -->
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/santa-coloma-de-gramenet</loc>
+    <loc>https://gesgrama.com/administrador-fincas/santa-coloma-de-gramenet</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -64,85 +64,85 @@
 
   <!-- 14 BARRIS OFICIALS DE SANTA COLOMA DE GRAMENET -->
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/centre</loc>
+    <loc>https://gesgrama.com/administrador-fincas/centre</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/santa-rosa</loc>
+    <loc>https://gesgrama.com/administrador-fincas/santa-rosa</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/can-mariner</loc>
+    <loc>https://gesgrama.com/administrador-fincas/can-mariner</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/fondo</loc>
+    <loc>https://gesgrama.com/administrador-fincas/fondo</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/singuerlin</loc>
+    <loc>https://gesgrama.com/administrador-fincas/singuerlin</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/riera-alta</loc>
+    <loc>https://gesgrama.com/administrador-fincas/riera-alta</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/llati</loc>
+    <loc>https://gesgrama.com/administrador-fincas/llati</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/el-raval</loc>
+    <loc>https://gesgrama.com/administrador-fincas/el-raval</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/riu-nord</loc>
+    <loc>https://gesgrama.com/administrador-fincas/riu-nord</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/riu-sud</loc>
+    <loc>https://gesgrama.com/administrador-fincas/riu-sud</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/can-franquesa</loc>
+    <loc>https://gesgrama.com/administrador-fincas/can-franquesa</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/les-oliveres</loc>
+    <loc>https://gesgrama.com/administrador-fincas/les-oliveres</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/la-guinardera</loc>
+    <loc>https://gesgrama.com/administrador-fincas/la-guinardera</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/administrador-fincas/cementiri-vell</loc>
+    <loc>https://gesgrama.com/administrador-fincas/cementiri-vell</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.88</priority>
@@ -150,43 +150,43 @@
 
   <!-- Properties (Inmobiliaria Santa Coloma) -->
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-reformado-riera-alta-llati</loc>
+    <loc>https://gesgrama.com/inmobiliaria/piso-reformado-riera-alta-llati</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/apartamento-exterior-singuerlin</loc>
+    <loc>https://gesgrama.com/inmobiliaria/apartamento-exterior-singuerlin</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/atico-duplex-centro-santa-coloma</loc>
+    <loc>https://gesgrama.com/inmobiliaria/atico-duplex-centro-santa-coloma</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-luminoso-santa-rosa-can-mariner</loc>
+    <loc>https://gesgrama.com/inmobiliaria/piso-luminoso-santa-rosa-can-mariner</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-familiar-fondo</loc>
+    <loc>https://gesgrama.com/inmobiliaria/piso-familiar-fondo</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/local-comercial-avenida-banus</loc>
+    <loc>https://gesgrama.com/inmobiliaria/local-comercial-avenida-banus</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/inmobiliaria/piso-con-vistas-al-riu</loc>
+    <loc>https://gesgrama.com/inmobiliaria/piso-con-vistas-al-riu</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
@@ -194,7 +194,7 @@
 
   <!-- News / Blog Index -->
   <url>
-    <loc>https://www.gesgrama.es/noticias</loc>
+    <loc>https://gesgrama.com/noticias</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
@@ -202,49 +202,49 @@
 
   <!-- News Articles (Guías & Artículos Reales) -->
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo</loc>
+    <loc>https://gesgrama.com/noticias/que-es-un-asesor-inmobiliario-y-por-que-podrias-necesitarlo</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-contrato-de-exclusividad-inmobiliaria</loc>
+    <loc>https://gesgrama.com/noticias/que-es-un-contrato-de-exclusividad-inmobiliaria</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/que-es-un-perito-judicial-inmobiliario</loc>
+    <loc>https://gesgrama.com/noticias/que-es-un-perito-judicial-inmobiliario</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/descubre-todo-sobre-una-vivienda-de-obra-nueva</loc>
+    <loc>https://gesgrama.com/noticias/descubre-todo-sobre-una-vivienda-de-obra-nueva</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/guia-alquilar-vender-piso-singuerlin-centre-santa-coloma</loc>
+    <loc>https://gesgrama.com/noticias/guia-alquilar-vender-piso-singuerlin-centre-santa-coloma</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner</loc>
+    <loc>https://gesgrama.com/noticias/ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval</loc>
+    <loc>https://gesgrama.com/noticias/plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://www.gesgrama.es/noticias/claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra</loc>
+    <loc>https://gesgrama.com/noticias/claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>

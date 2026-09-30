@@ -6,14 +6,14 @@ import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 
-const SITE_DOMAIN = "https://www.gesgrama.es";
+const SITE_DOMAIN = "https://gesgrama.com";
 
 export const Route = createFileRoute("/servicios_/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
     const service = servicesData[slug] || servicesData["administracion-de-fincas"];
     const canonicalUrl = `${SITE_DOMAIN}/servicios/${service.slug}`;
-    const ogImage = "https://www.gesgrama.es/og-image.png";
+    const ogImage = "https://gesgrama.com/og-image.png";
     return {
       meta: [
         { title: service.metaTitle },

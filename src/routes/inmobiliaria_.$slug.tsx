@@ -26,7 +26,7 @@ function WhatsAppIcon({ className = "w-5 h-5 fill-white shrink-0" }: { className
   );
 }
 
-const SITE_DOMAIN = "https://www.gesgrama.es";
+const SITE_DOMAIN = "https://gesgrama.com";
 
 export const Route = createFileRoute("/inmobiliaria_/$slug")({
   loader: async ({ params }) => {
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
       ? property.gallery[0]
       : property.image?.startsWith("http")
       ? property.image
-      : `https://www.gesgrama.es/og-image.png`;
+      : `https://gesgrama.com/og-image.png`;
     const title = `${property.name} — ${property.priceFormatted} | Gesgrama Inmobiliaria`;
     const description = `${property.type} en ${property.location}: ${property.description.slice(0, 130)}...`;
     return {
@@ -330,7 +330,7 @@ function PropertyDetail() {
       ? property.gallery[0]
       : property.image?.startsWith("http")
       ? property.image
-      : `https://www.gesgrama.es/og-image.png`;
+      : `https://gesgrama.com/og-image.png`;
 
     const schemaData = {
       "@context": "https://schema.org",
@@ -532,7 +532,7 @@ function PropertyDetail() {
       "Precio": property?.price ? `${new Intl.NumberFormat('es-ES').format(property.price)} €` : "-",
       "Ubicación": property?.location || "-",
       "Mensaje": contactForm.mensaje || "Solicitud de información / visita",
-      "Página del Inmueble": typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/inmobiliaria/${slug}`,
+      "Página del Inmueble": typeof window !== "undefined" ? window.location.href : `https://gesgrama.com/inmobiliaria/${slug}`,
       "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
     };
 
@@ -548,7 +548,7 @@ function PropertyDetail() {
       precio: property?.price ? `${new Intl.NumberFormat('es-ES').format(property.price)} €` : "-",
       ubicacion: property?.location || "-",
       mensaje: contactForm.mensaje || "Solicitud de información / visita",
-      pagina_inmueble: typeof window !== "undefined" ? window.location.href : `https://www.gesgrama.es/inmobiliaria/${slug}`,
+      pagina_inmueble: typeof window !== "undefined" ? window.location.href : `https://gesgrama.com/inmobiliaria/${slug}`,
       fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
     };
 

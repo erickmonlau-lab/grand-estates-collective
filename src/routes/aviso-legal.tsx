@@ -12,7 +12,7 @@ export const Route = createFileRoute("/aviso-legal")({
       { name: "robots", content: "index, follow" },
     ],
     links: [
-      { rel: "canonical", href: "https://www.gesgrama.es/aviso-legal" }
+      { rel: "canonical", href: "https://gesgrama.com/aviso-legal" }
     ]
   }),
   component: AvisoLegalComponent

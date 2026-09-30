@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap URL
-Sitemap: https://www.gesgrama.es/sitemap.xml
+Sitemap: https://gesgrama.com/sitemap.xml

@@ -14,11 +14,11 @@ export const Route = createFileRoute("/noticias/")({
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Noticias y Artículos Inmobiliarios | Gesgrama" },
       { property: "og:description", content: "Todas las noticias y guías actualizadas sobre el sector inmobiliario y la gestión de comunidades en Santa Coloma de Gramenet." },
-      { property: "og:url", content: "https://www.gesgrama.es/noticias" },
+      { property: "og:url", content: "https://gesgrama.com/noticias" },
       { property: "og:type", content: "website" },
     ],
     links: [
-      { rel: "canonical", href: "https://www.gesgrama.es/noticias" }
+      { rel: "canonical", href: "https://gesgrama.com/noticias" }
     ]
   }),
   component: NoticiasCatalogComponent,

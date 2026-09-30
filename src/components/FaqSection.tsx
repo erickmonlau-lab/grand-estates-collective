@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { HelpCircle, ArrowRight } from "lucide-react";
 
 interface FaqSectionProps {
@@ -61,32 +60,21 @@ export default function FaqSection({ t }: FaqSectionProps) {
                         {item.q}
                       </h3>
                     </div>
-                    <motion.div 
-                      animate={{ rotate: isActive ? 45 : 0 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
+                    <div 
+                      className={`${isActive ? 'rotate-45' : ''} w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
                         isActive ? 'bg-[#1d4ed8] text-white shadow-sm' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'
                       }`}
                     >
                       <span className="text-xl font-black leading-none select-none">+</span>
-                    </motion.div>
+                    </div>
                   </div>
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motion.div 
-                        key={`faq-ans-${i}`}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
+                  <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`} aria-hidden={!isActive}>
+                    <div className="overflow-hidden">
+                      <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
                           {item.a}
                         </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </div>
+                  </div>
                 </div>
               );
             })}

@@ -435,12 +435,12 @@ function Index() {
 
   useEffect(() => {
     const unsub = subscribeProperties((list) => {
-      setLiveProperties(list);
+      setLiveProperties(prev => JSON.stringify(prev) === JSON.stringify(list) ? prev : list);
     });
 
     const refresh = () => {
       fetchProperties().then((data) => {
-        if (data) setLiveProperties(data);
+        if (data) setLiveProperties(prev => JSON.stringify(prev) === JSON.stringify(data) ? prev : data);
       });
     };
 
@@ -1468,9 +1468,11 @@ function Index() {
       </DeferredHydration>
 
             {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}
-      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <CoberturaSection language={language} t={t} />
-      </Suspense>
+      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+          <CoberturaSection language={language} t={t} />
+        </Suspense>
+      </DeferredHydration>
 
       {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
       <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">

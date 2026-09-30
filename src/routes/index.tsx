@@ -1461,9 +1461,11 @@ function Index() {
       </section>
 
             {/* ── VALORADOR DE INMUEBLES ── */}
-      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
-      </Suspense>
+      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+          <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
+        </Suspense>
+      </DeferredHydration>
 
             {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
@@ -1578,9 +1580,11 @@ function Index() {
       </Suspense>
 
       {/* ── CONTACT ── */}
-      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <ContactSection language={language} t={t} />
-      </Suspense>
+      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+          <ContactSection language={language} t={t} />
+        </Suspense>
+      </DeferredHydration>
 
       {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
       <section id="final-cta" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">

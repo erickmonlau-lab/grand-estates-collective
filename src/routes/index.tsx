@@ -146,69 +146,10 @@ function WhatsAppBrandIcon({ className = "w-4 h-4 fill-current shrink-0" }: { cl
   );
 }
 
-function PriceCounter({ value, duration = 1200 }: { value: number; duration?: number }) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const prevRef = useRef(value);
-
-  useEffect(() => {
-    const start = prevRef.current;
-    const end = value;
-    prevRef.current = value;
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(start + (end - start) * easeProgress));
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [value, duration]);
-
-  return <span>{new Intl.NumberFormat('es-ES').format(displayValue)}</span>;
-}
-
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <div className={className}>
       {children}
-    </div>
-  );
-}
-
-function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
-  return (
-    <Reveal className="text-center">
-      <div className="text-4xl md:text-6xl font-bold mb-3 text-onyx">{value}</div>
-      <div className="text-[10px] uppercase tracking-[0.3em] text-onyx/40 font-medium">{label}</div>
-    </Reveal>
-  );
-}
-
-function FormField({ label, placeholder, type = "text", textarea }: { label: string; placeholder: string; type?: string; textarea?: boolean }) {
-  return (
-    <div>
-      <label className="text-onyx font-bold uppercase tracking-wider block mb-2 text-[11px]">{label}</label>
-      {textarea ? (
-        <textarea
-          rows={3}
-          placeholder={placeholder}
-          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors resize-none placeholder:text-onyx/30"
-        />
-      ) : (
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors placeholder:text-onyx/30"
-        />
-      )}
     </div>
   );
 }

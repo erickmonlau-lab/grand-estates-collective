@@ -21,7 +21,6 @@ const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 import { DeferredHydration } from "@/components/DeferredHydration";
 import MarqueeRibbon from "@/components/MarqueeRibbon";
-import TrustBar from "@/components/TrustBar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -489,13 +488,10 @@ function Index() {
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
-        {/* ── 1. HERO SEARCH-FIRST COMPLETO (INTEGRADO SEGÚN REFERENCIA) ── */}
+        {/* ── 1. HERO SEARCH-FIRST COMPLETO ── */}
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
-        {/* ── 2. TRUST BAR (4 CARDS HORIZONTALES) ── */}
-        <TrustBar language={language} />
-
-        {/* ── 4. CINTA DE GARANTÍAS Y ACREDITACIONES (FULL WIDTH 100vw) ── */}
+        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (TRANSICIÓN VISUAL INMEDIATA) ── */}
         <MarqueeRibbon language={language} />
 
       {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}

@@ -75,7 +75,7 @@ export default function HeroCarousel({
   return (
     <header
       id="hero"
-      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 sm:pb-16 md:pb-20 border-b border-slate-200/80"
+      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-10 sm:pb-12 md:pb-14 lg:pb-16 border-b border-slate-200/80"
       onClick={() => setOpenDrop(null)}
     >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12">

@@ -9,37 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as PoliticaPrivacidadRouteImport } from './routes/politica-privacidad'
-import { Route as AdministradorFincasIndexRouteImport } from './routes/administrador-fincas.index'
-import { Route as AdministradorFincasCityRouteImport } from './routes/administrador-fincas_.$city'
-import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
+import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as AvisoLegalRouteImport } from './routes/aviso-legal'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias.index'
-import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
+import { Route as AdministradorFincasIndexRouteImport } from './routes/administrador-fincas.index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
+import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
+import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
+import { Route as AdministradorFincasCityRouteImport } from './routes/administrador-fincas_.$city'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AvisoLegalRoute = AvisoLegalRouteImport.update({
-  id: '/aviso-legal',
-  path: '/aviso-legal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
+const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
+  id: '/politica-privacidad',
+  path: '/politica-privacidad',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
@@ -47,9 +32,29 @@ const PoliticaCookiesRoute = PoliticaCookiesRouteImport.update({
   path: '/politica-cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
-  id: '/politica-privacidad',
-  path: '/politica-privacidad',
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvisoLegalRoute = AvisoLegalRouteImport.update({
+  id: '/aviso-legal',
+  path: '/aviso-legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
+  id: '/noticias/',
+  path: '/noticias/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdministradorFincasIndexRoute =
@@ -58,19 +63,9 @@ const AdministradorFincasIndexRoute =
     path: '/administrador-fincas/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdministradorFincasCityRoute = AdministradorFincasCityRouteImport.update({
-  id: '/administrador-fincas_/$city',
-  path: '/administrador-fincas/$city',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
-  id: '/inmobiliaria_/$slug',
-  path: '/inmobiliaria/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
-  id: '/noticias/',
-  path: '/noticias/',
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/servicios_/$slug',
+  path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
@@ -78,9 +73,14 @@ const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
   path: '/noticias/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/servicios_/$slug',
-  path: '/servicios/$slug',
+const InmobiliariaSlugRoute = InmobiliariaSlugRouteImport.update({
+  id: '/inmobiliaria_/$slug',
+  path: '/inmobiliaria/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdministradorFincasCityRoute = AdministradorFincasCityRouteImport.update({
+  id: '/administrador-fincas_/$city',
+  path: '/administrador-fincas/$city',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -189,32 +189,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aviso-legal': {
-      id: '/aviso-legal'
-      path: '/aviso-legal'
-      fullPath: '/aviso-legal'
-      preLoaderRoute: typeof AvisoLegalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
+    '/politica-privacidad': {
+      id: '/politica-privacidad'
+      path: '/politica-privacidad'
+      fullPath: '/politica-privacidad'
+      preLoaderRoute: typeof PoliticaPrivacidadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/politica-cookies': {
@@ -224,32 +203,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PoliticaCookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/politica-privacidad': {
-      id: '/politica-privacidad'
-      path: '/politica-privacidad'
-      fullPath: '/politica-privacidad'
-      preLoaderRoute: typeof PoliticaPrivacidadRouteImport
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/administrador-fincas/': {
-      id: '/administrador-fincas/'
-      path: '/administrador-fincas'
-      fullPath: '/administrador-fincas/'
-      preLoaderRoute: typeof AdministradorFincasIndexRouteImport
+    '/aviso-legal': {
+      id: '/aviso-legal'
+      path: '/aviso-legal'
+      fullPath: '/aviso-legal'
+      preLoaderRoute: typeof AvisoLegalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/administrador-fincas_/$city': {
-      id: '/administrador-fincas_/$city'
-      path: '/administrador-fincas/$city'
-      fullPath: '/administrador-fincas/$city'
-      preLoaderRoute: typeof AdministradorFincasCityRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/inmobiliaria_/$slug': {
-      id: '/inmobiliaria_/$slug'
-      path: '/inmobiliaria/$slug'
-      fullPath: '/inmobiliaria/$slug'
-      preLoaderRoute: typeof InmobiliariaSlugRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/noticias/': {
@@ -259,11 +238,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoticiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/noticias_/$slug': {
-      id: '/noticias_/$slug'
-      path: '/noticias/$slug'
-      fullPath: '/noticias/$slug'
-      preLoaderRoute: typeof NoticiasSlugRouteImport
+    '/administrador-fincas/': {
+      id: '/administrador-fincas/'
+      path: '/administrador-fincas'
+      fullPath: '/administrador-fincas/'
+      preLoaderRoute: typeof AdministradorFincasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicios_/$slug': {
@@ -271,6 +250,27 @@ declare module '@tanstack/react-router' {
       path: '/servicios/$slug'
       fullPath: '/servicios/$slug'
       preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias_/$slug': {
+      id: '/noticias_/$slug'
+      path: '/noticias/$slug'
+      fullPath: '/noticias/$slug'
+      preLoaderRoute: typeof NoticiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inmobiliaria_/$slug': {
+      id: '/inmobiliaria_/$slug'
+      path: '/inmobiliaria/$slug'
+      fullPath: '/inmobiliaria/$slug'
+      preLoaderRoute: typeof InmobiliariaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/administrador-fincas_/$city': {
+      id: '/administrador-fincas_/$city'
+      path: '/administrador-fincas/$city'
+      fullPath: '/administrador-fincas/$city'
+      preLoaderRoute: typeof AdministradorFincasCityRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

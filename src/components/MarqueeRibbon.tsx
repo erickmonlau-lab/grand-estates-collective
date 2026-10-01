@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShieldCheck, Star, Clock, MapPin, Building2, Award, FileCheck, ThumbsUp } from "lucide-react";
+import { ShieldCheck, Clock, Building2, Award, FileCheck, ThumbsUp } from "lucide-react";
 
 interface MarqueeRibbonProps {
   language?: "es" | "en" | "ca";
@@ -21,7 +21,7 @@ const RIBBON_ITEMS = {
     { text: "REGISTRE D'AGENTS IMMOBILIARIS (AICAT Nº 5583)", icon: ShieldCheck },
     { text: "+300 COMUNITATS DE PROPIETARIS ACTIVES", icon: Building2 },
     { text: "98% DE SATISFACCIÓ I FIDELITAT DE VEÏNS", icon: ThumbsUp },
-    { text: "ATENCIÓ URGENT EN ~15 MINUTS", icon: Clock },
+    { text: "ATENCIÓ URGENTE EN ~15 MINUTS", icon: Clock },
     { text: "AUDITORIA COMPTABLE I CONTROL DE DESPESES GRATUÏT", icon: FileCheck },
     { text: "+15 ANYS D'EXPERIÈNCIA A SANTA COLOMA I BARCELONA", icon: Award }
   ],
@@ -49,11 +49,11 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
 
   return (
     <div 
-      className={`relative z-20 flex items-center bg-[#090D16] border-y border-white/10 select-none overflow-hidden h-13 sm:h-14 shadow-inner ${className}`}
+      className={`w-full relative z-20 flex items-center bg-[#090D16] border-y border-white/10 select-none overflow-hidden h-12 sm:h-14 shadow-inner ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Fixed Left Badge (matching reference) */}
+      {/* Fixed Left Badge */}
       <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#090D16] shrink-0 border-r border-white/15 shadow-[8px_0_16px_rgba(9,13,22,0.95)]">
         <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#60a5fa] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse shrink-0" />
@@ -61,23 +61,23 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
         </span>
       </div>
 
-      {/* Edge gradient mask for natural fade */}
-      <div className="absolute left-28 sm:left-48 top-0 bottom-0 w-8 bg-gradient-to-r from-[#090D16] to-transparent z-20 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-[#090D16] to-transparent z-20 pointer-events-none" />
+      {/* Subtle edge fade gradient mask */}
+      <div className="absolute left-32 sm:left-48 top-0 bottom-0 w-8 bg-gradient-to-r from-[#090D16] to-transparent z-20 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-[#090D16] to-transparent z-20 pointer-events-none" />
 
-      {/* Continuous Marquee Track - Pure GPU CSS animation */}
+      {/* Seamless Continuous Marquee Track */}
       <div className="flex-1 overflow-hidden flex items-center">
         <div
           className={`flex items-center text-white font-sans text-xs sm:text-sm font-black tracking-wider uppercase whitespace-nowrap w-max animate-marquee ${
             isHovered ? "[animation-play-state:paused]" : ""
           }`}
         >
-          {/* Track A */}
-          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9">
+          {/* Track 1 */}
+          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0">
             {items.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={`track-a-${idx}`} className="flex items-center gap-2.5 shrink-0">
+                <div key={`track-1-${idx}`} className="flex items-center gap-2.5 shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
                   {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
                   <span className="text-white font-extrabold tracking-wide whitespace-nowrap">
@@ -88,12 +88,12 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
             })}
           </div>
 
-          {/* Track B (Duplicate for seamless loop) */}
-          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9">
+          {/* Track 2 (Seamless loop copy) */}
+          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0">
             {items.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div key={`track-b-${idx}`} className="flex items-center gap-2.5 shrink-0">
+                <div key={`track-2-${idx}`} className="flex items-center gap-2.5 shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
                   {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
                   <span className="text-white font-extrabold tracking-wide whitespace-nowrap">

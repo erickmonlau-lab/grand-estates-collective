@@ -20,6 +20,8 @@ const FaqSection = lazy(() => import('@/components/FaqSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 import { DeferredHydration } from "@/components/DeferredHydration";
+import { QuickSearchSection } from "@/components/QuickSearchSection";
+import MarqueeRibbon from "@/components/MarqueeRibbon";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -487,8 +489,14 @@ function Index() {
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
-        {/* ── HERO CON CINTA DE MOVIMIENTO INTEGRADA ── */}
-        <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
+        {/* ── 1. HERO AUTÓNOMO Y LIMPIO ── */}
+        <HeroCarousel language={language} />
+
+        {/* ── 2. BUSCADOR RÁPIDO INDEPENDIENTE + FRANJA TRUST ── */}
+        <QuickSearchSection onPerformSearch={handleHeroSearch} language={language} />
+
+        {/* ── 3. CINTA DE GARANTÍAS Y ACREDITACIONES (FULL WIDTH) ── */}
+        <MarqueeRibbon language={language} />
 
       {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}
       <DeferredHydration rootMargin="50px" fallback={<div className="min-h-[1200px] bg-[#cbd5e1]" />}>

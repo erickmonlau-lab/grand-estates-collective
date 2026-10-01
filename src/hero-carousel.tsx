@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award, Calculator, Phone, Send } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
 import MarqueeRibbon from '@/components/MarqueeRibbon';
@@ -138,7 +137,7 @@ export default function HeroCarousel({
                   e.preventDefault();
                   const targetEl = document.getElementById("valuator-card") || document.getElementById("valuator-form");
                   if (targetEl) {
-                    const navOffset = window.innerWidth < 768 ? 58 : 65;
+                    const navOffset = window.innerWidth < 768 ? 90 : 100;
                     const elementPosition = targetEl.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.scrollY - navOffset;
                     window.scrollTo({

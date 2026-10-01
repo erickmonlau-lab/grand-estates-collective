@@ -117,18 +117,18 @@ export default function HeroCarousel({
         {/* Difuminado suave central detrás del texto */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.40)_50%,rgba(255,255,255,0.05)_100%)]" />
         {/* Velos superior e inferior suaves para fundir bordes */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/90 via-white/30 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/70 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/90 via-white/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/70 to-transparent" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-8 md:pb-12 flex flex-col items-center text-center justify-between"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-5 sm:pb-6 flex flex-col items-center text-center"
       >
         {/* ── 2. BLOQUE EDITORIAL CENTRADO ── */}
-        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center pt-2 pb-6 sm:pb-8">
+        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
-          <div className="mb-3 sm:mb-4">
+          <div className="mb-2 sm:mb-2.5">
             <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
               {customTag || L.tag}
@@ -137,8 +137,8 @@ export default function HeroCarousel({
 
           {/* H1 — Titular centrado en 2 líneas exactas ("Tu próximo hogar," / "más cerca.") */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
-            style={{ fontSize: 'clamp(2.6rem, 5.8vw, 4.8rem)' }}
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
+            style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -152,8 +152,8 @@ export default function HeroCarousel({
 
           {/* Texto de apoyo — centrado, tipografía nítida y perfectamente legible */}
           <p
-            className="text-slate-800 font-semibold leading-relaxed max-w-[620px] mx-auto"
-            style={{ fontSize: 'clamp(1rem, 1.35vw, 1.15rem)' }}
+            className="text-slate-800 font-semibold leading-relaxed max-w-[600px] mx-auto mb-2 sm:mb-3"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>
@@ -161,7 +161,7 @@ export default function HeroCarousel({
 
         {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-6"
+          className="relative z-40 w-full max-w-[1020px] mx-auto my-3 sm:my-4"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -294,42 +294,42 @@ export default function HeroCarousel({
         </div>
 
         {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO ── */}
-        <div className="w-full max-w-[1020px] mx-auto mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-200/80">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center">
+        <div className="w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-slate-200/80">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes */}
-            <div className="flex items-center justify-center gap-3.5">
-              <Users className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-2xl font-black text-[#0b214a] leading-none">4.500+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#0b214a] leading-none">4.500+</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción */}
-            <div className="flex items-center justify-center gap-3.5">
-              <ThumbsUp className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3">
+              <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none">98%</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#2563eb] leading-none">98%</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades */}
-            <div className="flex items-center justify-center gap-3.5">
-              <Building2 className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3">
+              <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-2xl font-black text-[#0b214a] leading-none">+300</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#0b214a] leading-none">+300</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años */}
-            <div className="flex items-center justify-center gap-3.5">
-              <User className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3">
+              <User className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none">15+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#2563eb] leading-none">15+</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

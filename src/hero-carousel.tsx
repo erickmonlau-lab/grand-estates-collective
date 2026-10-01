@@ -100,81 +100,79 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO DE LA FAMILIA CON DIFUMINADO BLANCO QUE CUBRE TODA LA PÁGINA ── */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        <picture className="w-full h-full block">
-          <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
-          <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
-          <img
-            src={heroBgDesktop}
-            alt="Familia feliz con Gesgrama en su nuevo hogar"
-            className="w-full h-full object-cover object-[center_20%] sm:object-[center_15%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-            width={850}
-            height={1113}
-          />
-        </picture>
-
-        {/* Capa de difuminado blanco que cubre toda la página con suavidad y calidez */}
-        <div className="absolute inset-0 bg-white/55 sm:bg-white/50" />
-        
-        {/* Difuminado blanco generoso que arropa el contenido central garantizando contraste óptimo */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 85% 75% at 50% 32%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 45%, rgba(255,255,255,0.45) 80%, rgba(255,255,255,0.20) 100%)',
-          }}
-        />
-
-        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/80 to-transparent" />
+      {/* ── 1. FONDO CON DECORACIÓN GEOMÉTRICA SUTIL (ARCOS) ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#fafcff]">
+        {/* Arco sutil decorativo en la izquierda como en el diseño de referencia */}
+        <div className="hidden lg:block absolute -left-28 top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full border-[36px] border-blue-100/40 pointer-events-none" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-24 md:pt-26 pb-4 sm:pb-6 flex flex-col"
       >
-        {/* ── 2. BLOQUE EDITORIAL CENTRADO SOBRE FONDO LIMPIO ── */}
-        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
+        {/* ── 2. SECCIÓN SUPERIOR: TEXTO A LA IZQUIERDA + FOTO PANEL A LA DERECHA ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-center mb-6 sm:mb-8">
+          
+          {/* Columna Izquierda: Texto limpio y ultra legible */}
+          <div className="md:col-span-6 lg:col-span-7 flex flex-col items-center md:items-start text-center md:text-left z-10">
+            {/* Eyebrow / Kicker */}
+            <div className="mb-3 sm:mb-4">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
+                {customTag || L.tag}
+              </span>
+            </div>
 
-          {/* Eyebrow / Kicker */}
-          <div className="mb-2 sm:mb-2.5">
-            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
-              {customTag || L.tag}
-            </span>
+            {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas */}
+            <h1
+              className="font-black text-[#0b214a] tracking-tight leading-[1.05] mb-3 sm:mb-4 font-heading"
+              style={{ fontSize: 'clamp(2.5rem, 5.4vw, 4.4rem)' }}
+            >
+              {customHeadline ? (
+                customHeadline
+              ) : (
+                <>
+                  <span className="block text-[#0b214a]">{L.titleLine1}</span>
+                  <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
+                </>
+              )}
+            </h1>
+
+            {/* Texto de apoyo conciso y oscuro */}
+            <p
+              className="text-slate-800 font-bold leading-relaxed max-w-[520px] text-balance"
+              style={{ fontSize: 'clamp(0.95rem, 1.25vw, 1.12rem)' }}
+            >
+              {customSubtitle || L.subtitle}
+            </p>
           </div>
 
-          {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas exactas */}
-          <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
-            style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
-          >
-            {customHeadline ? (
-              customHeadline
-            ) : (
-              <>
-                <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
-              </>
-            )}
-          </h1>
+          {/* Columna Derecha: Panel de la Familia como en la referencia */}
+          <div className="md:col-span-6 lg:col-span-5 flex justify-center md:justify-end">
+            <div className="relative w-full max-w-[440px] sm:max-w-[480px] md:max-w-none aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/5] lg:aspect-[5/6] max-h-[460px] rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.14)] border-4 sm:border-[6px] border-white ring-1 ring-slate-100">
+              <picture className="w-full h-full block">
+                <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+                <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+                <img
+                  src={heroBgDesktop}
+                  alt="Familia feliz con Gesgrama en su nuevo hogar"
+                  className="w-full h-full object-cover object-[center_12%]"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
+                  width={850}
+                  height={1113}
+                />
+              </picture>
 
-          {/* Texto de apoyo conciso y oscuro de 1-2 líneas sobre fondo naturalmente limpio */}
-          <p
-            className="text-slate-800 font-bold leading-relaxed max-w-[580px] mx-auto text-balance"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
-          >
-            {customSubtitle || L.subtitle}
-          </p>
+              {/* Velo blanco degradado muy sutil en bordes para integración visual suave */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent pointer-events-none" />
+            </div>
+          </div>
         </div>
 
         {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto my-3 sm:my-4"
+          className="relative z-40 w-full max-w-[1020px] mx-auto my-2 sm:my-3"
           onClick={(e) => e.stopPropagation()}
         >
           <div

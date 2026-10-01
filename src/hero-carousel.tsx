@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
-import heroLivingRoom from "@/assets/premium_rental_apartment.webp";
+import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
+import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -99,38 +100,38 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO LIMPIO, PREMIUM Y ARQUITECTÓNICO ── */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#f8fafc]">
-        {/* Sutileza radial luminosa arquitectónica */}
+      {/* ── 1. FONDO DE LA FAMILIA CON DIFUMINADO BLANCO QUE CUBRE TODA LA PÁGINA ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        <picture className="w-full h-full block">
+          <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+          <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+          <img
+            src={heroBgDesktop}
+            alt="Familia feliz con Gesgrama en su nuevo hogar"
+            className="w-full h-full object-cover object-[center_20%] sm:object-[center_15%]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+            width={850}
+            height={1113}
+          />
+        </picture>
+
+        {/* Capa de difuminado blanco que cubre toda la página con suavidad y calidez */}
+        <div className="absolute inset-0 bg-white/55 sm:bg-white/50" />
+        
+        {/* Difuminado blanco generoso que arropa el contenido central garantizando contraste óptimo */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 90% 70% at 50% 20%, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%)',
+              'radial-gradient(ellipse 85% 75% at 50% 32%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 45%, rgba(255,255,255,0.45) 80%, rgba(255,255,255,0.20) 100%)',
           }}
         />
 
-        {/* FOTOGRAFÍA PROTAGONISTA INTEGRADA (Panel visual integrado sin entorpecer el texto) */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[62%] xl:w-[58%] opacity-30 sm:opacity-50 lg:opacity-90 overflow-hidden pointer-events-none">
-          <img
-            src={heroLivingRoom}
-            alt="Salón luminoso y moderno con terraza gestionado por Gesgrama"
-            className="w-full h-full object-cover object-[center_35%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-            width={1366}
-            height={768}
-          />
-          {/* Fundido lateral gradual hacia la izquierda para que el área de lectura sea naturalmente 100% limpia */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 lg:via-transparent to-transparent hidden sm:block" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/85 via-[#f8fafc]/30 to-[#f8fafc] sm:hidden" />
-          {/* Fundido inferior para conexión con las métricas y la cinta */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/60 to-transparent" />
-        </div>
-
-        {/* Velo superior suave para navbar */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white via-white/50 to-transparent" />
+        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </div>
 
       <div

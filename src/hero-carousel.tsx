@@ -149,10 +149,10 @@ export default function HeroCarousel({
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8 flex flex-col justify-between min-h-[580px] sm:min-h-[620px] md:min-h-[660px]"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-6 sm:pb-8 flex flex-col justify-between min-h-[520px] sm:min-h-[560px] md:min-h-[590px]"
       >
         {/* ── 2. SECCIÓN SUPERIOR: TEXTO A LA IZQUIERDA CON TOTAL LEGIBILIDAD ── */}
-        <div className="w-full max-w-[660px] text-center md:text-left flex flex-col items-center md:items-start pt-2 sm:pt-4">
+        <div className="w-full max-w-[660px] text-center md:text-left flex flex-col items-center md:items-start pt-1 sm:pt-2">
           
           {/* Eyebrow / Kicker */}
           <div className="mb-3 sm:mb-4">
@@ -179,33 +179,16 @@ export default function HeroCarousel({
 
           {/* Texto de apoyo conciso y oscuro */}
           <p
-            className="text-slate-800 font-bold leading-relaxed max-w-[500px] text-balance mb-6 sm:mb-8"
+            className="text-slate-800 font-bold leading-relaxed max-w-[500px] text-balance mb-4 sm:mb-6"
             style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>
-
-          {/* Botones de acción directa (como en la referencia editorial) */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10">
-            <a
-              href="#propiedades"
-              className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-black px-6 py-3 rounded-full uppercase tracking-wider shadow-md hover:shadow-lg transition-all"
-            >
-              <span>{language === "ca" ? "Veure propietats" : language === "en" ? "View properties" : "Ver propiedades"}</span>
-              <ChevronDown className="w-4 h-4 -rotate-90" />
-            </a>
-            <a
-              href="#servicios"
-              className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-slate-800 text-xs sm:text-sm font-bold px-6 py-3 rounded-full border border-slate-200 shadow-sm hover:shadow transition-all"
-            >
-              <span>{language === "ca" ? "Els nostres serveis" : language === "en" ? "Our services" : "Nuestros servicios"}</span>
-            </a>
-          </div>
         </div>
 
         {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto my-2 sm:my-3"
+          className="relative z-40 w-full max-w-[1020px] mx-auto my-3 sm:my-4"
           onClick={(e) => e.stopPropagation()}
         >
           <div

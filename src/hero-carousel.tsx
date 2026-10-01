@@ -112,28 +112,38 @@ export default function HeroCarousel({
           height={768}
         />
 
-        {/* Base blanca translúcida general para balance de contrastes */}
-        <div className="absolute inset-0 bg-white/45 sm:bg-white/40" />
+        {/* Base blanca translúcida calibrada */}
+        <div className="absolute inset-0 bg-white/35 sm:bg-white/30" />
         
-        {/* Difuminado blanco denso y limpio en la zona central para legibilidad cristalina del texto */}
+        {/* Difuminado blanco optimizado específicamente para arropar el bloque editorial (H1 y texto de apoyo) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 75% 65% at 50% 32%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 38%, rgba(255,255,255,0.80) 58%, rgba(255,255,255,0.20) 82%, transparent 100%)',
+              'radial-gradient(ellipse 900px 420px at 50% 27%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 45%, rgba(255,255,255,0.65) 70%, rgba(255,255,255,0.15) 88%, transparent 100%)',
           }}
         />
 
         {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/60 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/85 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </div>
 
       <div
         className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
       >
-        {/* ── 2. BLOQUE EDITORIAL CENTRADO ── */}
+        {/* ── 2. BLOQUE EDITORIAL CENTRADO CON DIFUSIÓN DEDICADA ── */}
         <div className="relative z-10 w-full max-w-[820px] mx-auto flex flex-col items-center text-center">
+
+          {/* Difusión suave directa detrás del texto para garantizar contraste inmaculado sin bordes perceptibles */}
+          <div
+            className="absolute -inset-x-8 -inset-y-6 -z-10 pointer-events-none rounded-[40px]"
+            style={{
+              background:
+                'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.60) 60%, transparent 100%)',
+              filter: 'blur(20px)',
+            }}
+          />
 
           {/* Eyebrow / Kicker */}
           <div className="mb-2 sm:mb-2.5">
@@ -160,7 +170,7 @@ export default function HeroCarousel({
 
           {/* Texto de apoyo — centrado, tono oscuro slate nítido y legible con fondo difuminado suave */}
           <p
-            className="text-slate-900 font-bold leading-relaxed max-w-[620px] mx-auto"
+            className="text-slate-900 font-bold leading-relaxed max-w-[600px] mx-auto"
             style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.06rem)' }}
           >
             {customSubtitle || L.subtitle}

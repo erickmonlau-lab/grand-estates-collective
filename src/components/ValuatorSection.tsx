@@ -299,8 +299,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </div>
               
               {/* 3. Sparkline Price Trend Chart Container */}
-              <div className="pt-3.5 pb-2 px-3.5 bg-slate-50 rounded-2xl border border-slate-200 mb-3">
-                <div className="flex items-center justify-between mb-2">
+<div className="p-2.5 bg-slate-50 rounded-2xl border border-slate-200 mb-2">
+                <div className="flex items-center justify-between mb-1">
                   <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
                     {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                   </span>

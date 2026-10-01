@@ -236,7 +236,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
           {/* RIGHT COLUMN: White Floating Result Card with Permanent Blue Border */}
           <div className="lg:col-span-5 flex items-center justify-center lg:justify-end w-full">
-            <div className="bg-white text-[#0f172a] rounded-3xl p-5 sm:p-7 shadow-xl w-full max-w-[460px] border-2 border-[#2563eb] relative overflow-hidden text-center">
+            <div className="bg-white text-[#0f172a] rounded-3xl p-4 sm:p-5 shadow-xl w-full max-w-[460px] border-2 border-[#2563eb] relative overflow-hidden text-center">
               
               {/* Spinner / Skeleton Loading Overlay with AnimatePresence */}
               <AnimatePresence>
@@ -256,25 +256,25 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </AnimatePresence>
 
               {/* 1. "VALOR ESTIMADO" pill badge */}
-              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider mb-3 shadow-md font-sans">
+              <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-3.5 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider mb-2 shadow-md font-sans">
                 <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
               </div>
               
               {/* Main Estimated Value with animated Count-Up */}
-              <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-2 leading-none tracking-tight font-sans">
+              <div className="text-3xl sm:text-4xl font-black text-[#0f172a] mb-1.5 leading-none tracking-tight font-sans">
                 <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-black">€</span>
               </div>
 
               {/* 2. Rango estimado de mercado en una caja estilizada */}
-              <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2 shadow-sm">
+              <div className="bg-slate-900 border border-slate-800 rounded-xl py-2 px-3 mb-1.5 shadow-sm">
                 <p className="text-xs sm:text-sm font-semibold text-slate-300 font-sans">
                   {t.valorador.rangoEstimado}: <span className="font-extrabold text-white text-sm sm:text-base ml-1">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
                 </p>
               </div>
 
               {/* Animated Range Progress Bar with Context Label */}
-              <div className="mb-3">
-                <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-slate-300">
+              <div className="mb-2">
+                <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden border border-slate-300">
                   <motion.div
                     key={`range-bar-${calculatedResult.estimatedValue}`}
                     initial={shouldReduceMotion ? false : { width: "0%" }}
@@ -283,7 +283,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                     className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
                   />
                 </div>
-                <p className="text-xs sm:text-[13px] text-slate-700 font-bold mt-1.5 text-center font-sans">
+                <p className="text-[11px] sm:text-xs text-slate-700 font-bold mt-1 text-center font-sans">
                   {language === "ca" 
                     ? "Posició del valor estimat dins del rang de mercat" 
                     : language === "en" 
@@ -293,14 +293,14 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </div>
 
               {/* Disclaimer box with neutral dark gray background and pure white text */}
-              <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white mb-4 font-semibold py-2 px-3 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center leading-snug">
+              <div className="flex items-center justify-center gap-1.5 text-[11px] sm:text-xs text-white mb-2 font-semibold py-1.5 px-2.5 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center leading-snug">
                 <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-200 shrink-0 self-center" />
                 <span className="text-white font-medium text-balance leading-tight">{t.valorador.disclaimer}</span>
               </div>
               
               {/* 3. Sparkline Price Trend Chart Container */}
-              <div className="pt-3.5 pb-2 px-3.5 bg-slate-50 rounded-2xl border border-slate-200 mb-3">
-                <div className="flex items-center justify-between mb-2">
+<div className="p-2.5 bg-slate-50 rounded-2xl border border-slate-200 mb-2">
+                <div className="flex items-center justify-between mb-1">
                   <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
                     {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
                   </span>
@@ -308,7 +308,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                     <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
                   </span>
                 </div>
-                <div className="w-full h-20 sm:h-24 relative pt-1">
+                <div className="w-full h-14 sm:h-16 relative pt-1">
                   {(() => {
                     const spark = getSparklineData(calculatedResult.monthlyPrices);
                     return (
@@ -358,7 +358,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   })()}
                 </div>
                 {/* X-Axis Month Labels */}
-                <div className="flex justify-between items-center text-xs sm:text-[13px] font-bold text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
+                <div className="flex justify-between items-center text-[11px] sm:text-xs font-bold text-[#0f172a] mt-1 px-1 font-sans border-t border-slate-200 pt-1">
                   {(() => {
                     const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
                     const now = new Date();
@@ -400,10 +400,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 const isEqual = diffPrice === 0;
 
                 return (
-                  <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 font-sans">
+                  <div className="bg-[#0b214a] text-white rounded-2xl p-3 text-left shadow-sm mb-2 font-sans">
                     <div className="divide-y divide-blue-900/60">
                       {/* Line 1: Neighborhood average price */}
-                      <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
+                      <div className="flex items-center justify-between text-xs sm:text-sm pb-2">
                         <span className="font-bold text-slate-300">
                           {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
                         </span>
@@ -413,7 +413,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       </div>
 
                       {/* Line 2: Property estimated price/m² and comparative indicator */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-xs sm:text-sm pt-2.5">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-xs sm:text-sm pt-2">
                         <div className="flex items-center gap-1.5">
                           <span className="w-2 h-2 rounded-full bg-[#38bdf8] shrink-0" />
                           <span className="font-bold text-slate-200">
@@ -436,7 +436,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                     </div>
 
                     {/* Micro-note explaining comparison and percentage diff */}
-                    <div className="mt-2.5 pt-2 border-t border-blue-900/40 text-[11px] text-slate-400 text-center leading-tight">
+                    <div className="mt-1.5 pt-1.5 border-t border-blue-900/40 text-[11px] text-slate-400 text-center leading-tight">
                       {language === "ca"
                         ? "Compara el preu estimat del teu habitatge amb la mitjana de la zona."
                         : language === "en"
@@ -459,7 +459,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-sm py-3.5 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2.5 group cursor-pointer hover:scale-[1.01]"
+                  className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-sm py-3 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2.5 group cursor-pointer hover:scale-[1.01]"
                 >
                   <WhatsAppBrandIcon className="w-5 h-5 fill-white shrink-0" />
                   <span>WhatsApp</span>

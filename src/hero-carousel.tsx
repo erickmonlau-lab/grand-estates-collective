@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, Send, Search, MapPin, Building2, ChevronDown, Check } from "lucide-react";
+import { Calculator, Send, Search, MapPin, Building2, ChevronDown, Check, Users, ThumbsUp, Award } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
@@ -73,9 +73,9 @@ export default function HeroCarousel({
   };
 
   return (
-    <header
+    <section
       id="hero"
-      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-8 sm:pb-10 md:pb-12 border-b border-slate-200/80"
+      className="hero relative z-30 bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-6 sm:pb-8 border-b border-slate-200/80"
       onClick={() => setOpenDrop(null)}
     >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12">
@@ -92,8 +92,8 @@ export default function HeroCarousel({
               </span>
             </div>
 
-            {/* Titular Principal H1 */}
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[3.2rem] lg:text-[3.6rem] font-black text-[#0b214a] tracking-tight leading-[1.08] mb-4 font-heading">
+            {/* Titular Principal H1 (Más impacto, excelente legibilidad y aire) */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[3.35rem] lg:text-[3.75rem] font-black text-[#0b214a] tracking-tight leading-[1.08] mb-4 font-heading">
               {customHeadline ? (
                 customHeadline
               ) : (
@@ -194,7 +194,7 @@ export default function HeroCarousel({
         {/* ── BUSCADOR CENTRADO HORIZONTALMENTE RESPECTO AL HERO COMPLETO ── */}
         <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center w-full relative z-30">
           <div 
-            className="w-full max-w-[940px] bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-3 shadow-[0_16px_44px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3"
+            className="w-full max-w-[940px] bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-3 shadow-[0_16px_44px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Toggle Comprar / Alquilar */}
@@ -228,7 +228,7 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
-                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-3 py-2.5 sm:py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer border sm:border-transparent border-slate-200/60"
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
                   <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
@@ -236,8 +236,8 @@ export default function HeroCarousel({
                     <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
                       {L.area}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] whitespace-nowrap mt-0.5">
-                      {zona === "Cualquier zona" ? L.selectArea : zona}
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                      {zona === "Cualquier zona" ? (language === "ca" ? "Totes les zones" : language === "en" ? "All areas" : "Toda zona") : zona}
                     </span>
                   </div>
                 </div>
@@ -271,7 +271,7 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
-                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-3 py-2.5 sm:py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer border sm:border-transparent border-slate-200/60"
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
                   <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
@@ -279,8 +279,8 @@ export default function HeroCarousel({
                     <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] whitespace-nowrap mt-0.5">
-                      {tipo === "Cualquier tipo" ? L.selectType : tipo}
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Tots els tipus" : language === "en" ? "All types" : "Todo tipo") : tipo}
                     </span>
                   </div>
                 </div>
@@ -321,7 +321,46 @@ export default function HeroCarousel({
           </div>
         </div>
 
+        {/* ── FRANJA COMPACTA DE CONFIANZA DENTRO DEL HERO (FORMATO DISCRETO Y ELEGANTE) ── */}
+        <div className="mt-8 pt-5 border-t border-slate-200/80 max-w-[940px] mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 items-center">
+            
+            <div className="flex items-center justify-center gap-2">
+              <Users className="w-4 h-4 text-[#2563eb] shrink-0" />
+              <div className="text-left">
+                <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">4.500+</p>
+                <p className="text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-2">
+              <ThumbsUp className="w-4 h-4 text-[#2563eb] shrink-0" />
+              <div className="text-left">
+                <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">98%</p>
+                <p className="text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-2">
+              <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+              <div className="text-left">
+                <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">+300</p>
+                <p className="text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-2">
+              <Award className="w-4 h-4 text-[#2563eb] shrink-0" />
+              <div className="text-left">
+                <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">15+</p>
+                <p className="text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
-    </header>
+    </section>
   );
 }

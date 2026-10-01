@@ -501,27 +501,26 @@ function Index() {
                 <Home className="w-3.5 h-3.5 text-white" />
                 <span>{t.properties.tag}</span>
               </span>
-              
+
               <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
                 {t.properties.title1} <span className="text-[#2563eb] whitespace-nowrap inline-block">{t.properties.title2}</span>
               </h2>
-              
+
               <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
                 {t.properties.subtitle}
               </p>
             </div>
 
-            {/* Dedicated full-width row for Mode Selector + Stat Badge right above Search Console */}
-            <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
-              {/* Search Mode Selector Tabs - Responsive 3-column equal grid on mobile to fit all screen sizes */}
+            {/* Mode tabs + count — NO duplicate search console */}
+            <div className="mt-5 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
               <div className="grid grid-cols-3 sm:flex sm:items-center bg-slate-200/90 p-1.5 sm:p-2 rounded-2xl border-2 border-slate-300 shadow-sm w-full sm:w-auto gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
                   className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
-                    searchParams.mode === "comprar" 
-                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "comprar"
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   {t.hero.comprar}
@@ -530,9 +529,9 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
                   className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
-                    searchParams.mode === "alquilar" 
-                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "alquilar"
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   {t.hero.alquilar}
@@ -541,9 +540,9 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
                   className={`px-1.5 xs:px-2 sm:px-5 py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap shadow-xs ${
-                    searchParams.mode === "favoritos" 
-                      ? "bg-red-600 text-white shadow-md ring-2 ring-red-500/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "favoritos"
+                      ? "bg-red-600 text-white shadow-md ring-2 ring-red-500/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   <Heart className={`w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
@@ -563,313 +562,6 @@ function Index() {
                   <span className="text-xs font-bold text-slate-300 tracking-wide font-sans mt-0.5">{language === "ca" ? "disponibles ara" : language === "en" ? "available now" : "disponibles ahora"}</span>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* FILTERS */}
-          {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
-          <div className="mt-8 mb-4">
-            <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 xl:p-3 flex flex-col xl:flex-row items-stretch xl:items-center gap-3 xl:gap-4 relative z-40">
-              
-              {/* Field 1: Tipo de Inmueble */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "tipo" ? null : "tipo")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <Building2 className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "tipo" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier tipo" },
-                      { value: "Piso" },
-                      { value: "Apartamento" },
-                      { value: "Ático" },
-                      { value: "Chalet" },
-                      { value: "Local" },
-                      { value: "Oficina" },
-                      { value: "Aparcamiento" }
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        const matchesTipo = opt.value === "Cualquier tipo" ? true : p.type === opt.value;
-                        return matchesMode && matchesTipo;
-                      }).length;
-
-                      const isActive = consoleFilters.tipo === opt.value;
-                      const label = getTranslatedFilterLabel("tipo", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 2: Zona */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "zona" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier zona" },
-                      ...[...new Set(properties.map(p => p.location))].map(loc => ({ value: loc }))
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        const matchesZona = opt.value === "Cualquier zona" ? true : p.location === opt.value;
-                        return matchesMode && matchesZona;
-                      }).length;
-
-                      const isActive = consoleFilters.zona === opt.value;
-                      const label = getTranslatedFilterLabel("zona", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 3: Habitaciones */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "habitaciones" ? null : "habitaciones")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <Home className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "habitaciones" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier número" },
-                      { value: "1+" },
-                      { value: "2+" },
-                      { value: "3+" },
-                      { value: "4+" }
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        if (!matchesMode) return false;
-                        if (opt.value === "Cualquier número") return true;
-                        const min = parseInt(opt.value.replace("+", ""), 10);
-                        return p.bedrooms >= min;
-                      }).length;
-
-                      const isActive = consoleFilters.habitaciones === opt.value;
-                      const label = getTranslatedFilterLabel("habitaciones", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 4: Precio Máximo */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <span className="text-white text-xs font-black">€</span>
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "precio" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {(searchParams.mode === "alquilar" 
-                      ? ["Cualquier precio", "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
-                      : ["Cualquier precio", "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
-                    ).map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        if (!matchesMode) return false;
-                        return isPriceValid(opt, p.price);
-                      }).length;
-
-                      const isActive = consoleFilters.precio === opt;
-                      const label = getTranslatedFilterLabel("precio", opt);
-
-                      return (
-                        <div key={opt} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, precio: opt }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Buscar Button */}
-              <button 
-                onClick={() => {
-                  setSearchParams(prev => ({
-                    ...prev,
-                    tipo: consoleFilters.tipo,
-                    zona: consoleFilters.zona,
-                    habitaciones: consoleFilters.habitaciones,
-                    precio: consoleFilters.precio
-                  }));
-                  const el = document.getElementById('propiedades');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }}
-                className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
-              >
-                {t.hero.buscarBtn}
-              </button>
             </div>
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}

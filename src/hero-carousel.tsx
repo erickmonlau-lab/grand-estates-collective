@@ -112,15 +112,21 @@ export default function HeroCarousel({
           height={768}
         />
 
-        {/* Base blanca translúcida para homogeneizar contraste */}
-        <div className="absolute inset-0 bg-white/35 sm:bg-white/30" />
+        {/* Base blanca translúcida balanceada para homogeneizar contraste sin apagar la fotografía */}
+        <div className="absolute inset-0 bg-white/40 sm:bg-white/30" />
         
-        {/* Difuminado blanco generoso y luminoso centrado directamente sobre el bloque de texto */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_32%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.78)_42%,rgba(255,255,255,0.25)_80%,transparent_100%)]" />
+        {/* Scrim direccional suave: mayor densidad luminosa sobre el bloque de texto y desvanecimiento hacia los laterales/ventanales */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 70% 60% at 50% 32%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0.30) 75%, transparent 100%)',
+          }}
+        />
 
-        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de garantías */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/95 via-white/40 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
+        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/95 via-white/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/85 to-transparent" />
       </div>
 
       <div
@@ -137,9 +143,9 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 — Titular centrado en 2 líneas exactas con máxima legibilidad */}
+          {/* H1 — Titular centrado en 2 líneas exactas con máxima nitidez tipográfica */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]"
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
             style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
@@ -152,10 +158,10 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Texto de apoyo — centrado, tipografía nítida y perfectamente legible */}
+          {/* Texto de apoyo — centrado, tono slate profundo de alto contraste, lectura fluida */}
           <p
-            className="text-slate-900 font-bold leading-relaxed max-w-[600px] mx-auto mb-2 sm:mb-3 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
+            className="text-slate-800 font-semibold leading-relaxed max-w-[560px] mx-auto mb-2 sm:mb-3"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>

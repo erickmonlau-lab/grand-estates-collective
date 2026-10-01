@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User, ArrowRight } from "lucide-react";
-import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
+import heroLivingRoom from "@/assets/premium_rental_apartment.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -61,15 +60,15 @@ export default function HeroCarousel({
       ? "Your next home,"
       : "Tu próximo hogar,",
     titleLine2: language === "ca"
-      ? "més a prop"
+      ? "més a prop."
       : language === "en"
-      ? "closer than ever"
-      : "más cerca",
+      ? "closer than ever."
+      : "más cerca.",
     subtitle: language === "ca"
-      ? "T'acompanyem per comprar, vendre o llogar la teva propietat amb transparència, proximitat i assessorament professional."
+      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon."
       : language === "en"
-      ? "We guide you to buy, rent or care for your property with transparency, closeness and professional advice."
-      : "Te acompañamos para comprar, vender o alquilar tu propiedad con transparencia, cercanía y asesoramiento profesional.",
+      ? "We accompany you to buy, sell or care for your property with transparency, local criteria and a responsive team."
+      : "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
     cta1: language === "ca" ? "Ver propiedades" : language === "en" ? "View properties" : "Ver propiedades",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
@@ -105,95 +104,86 @@ export default function HeroCarousel({
       className="hero relative bg-white text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── ARCO SUTIL DECORATIVO DE FONDO ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        <div className="absolute -left-[280px] top-[4%] w-[680px] h-[680px] rounded-full border-[52px] border-blue-50/60" />
+      {/* ── 1. FONDO FOTOGRÁFICO ARQUITECTÓNICO PANORÁMICO INTEGRADO ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        {/* Imagen arquitectónica situada a la derecha en desktop y de fondo completo sutil en móvil */}
+        <div className="absolute right-0 top-0 bottom-0 w-full md:w-[68%] lg:w-[62%] xl:w-[58%] h-full">
+          <img
+            src={heroLivingRoom}
+            alt="Salón luminoso y moderno gestionado por Gesgrama"
+            className="w-full h-full object-cover object-[center_35%]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+            width={1366}
+            height={768}
+          />
+        </div>
+
+        {/* Gradiente de integración elegante: blanco sólido en móvil para máxima legibilidad, y fusión sutil en desktop */}
+        <div className="absolute inset-0 bg-white/92 sm:bg-white/85 md:bg-gradient-to-r md:from-white md:via-white/95 md:via-42% lg:via-white/80 lg:via-48% md:to-transparent" />
+        {/* Velos superior e inferior para fundir con el navbar y la sección siguiente */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/80 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/90 to-transparent" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 pb-8 md:pb-12"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-8 md:pb-12 flex flex-col justify-between"
       >
-        {/* ── BLOQUE EDITORIAL + IMAGEN INTEGRADA (ESCENA ÚNICA) ── */}
-        <div className="relative flex flex-col md:flex-row items-center md:items-stretch justify-between min-h-[420px] md:min-h-[460px] lg:min-h-[480px]">
+        {/* ── 2. BLOQUE EDITORIAL SOBRE LA FOTO FUSIONADA ── */}
+        <div className="relative z-10 w-full md:max-w-[58%] lg:max-w-[52%] flex flex-col items-start text-left pt-2 pb-6 sm:pb-8">
 
-          {/* Columna editorial izquierda */}
-          <div className="relative z-10 w-full md:max-w-[54%] lg:max-w-[50%] flex flex-col items-start text-left justify-center pb-6 md:pb-8">
-
-            {/* Eyebrow / Kicker — pegado armónicamente al H1 */}
-            <div className="mb-2.5 sm:mb-3">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-3.5 sm:px-4 py-1.5 rounded-full font-sans shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
-                {customTag || L.tag}
-              </span>
-            </div>
-
-            {/* H1 — Titular cohesionado en 3 líneas que se lee como un solo bloque compacto */}
-            <h1
-              className="font-black text-[#0b214a] tracking-tight leading-[0.98] mb-3 sm:mb-4 font-heading max-w-[540px]"
-              style={{ fontSize: 'clamp(2.5rem, 5.2vw, 4.4rem)' }}
-            >
-              {customHeadline ? (
-                customHeadline
-              ) : (
-                <>
-                  <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                  <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
-                </>
-              )}
-            </h1>
-
-            {/* Subtítulo — nítido, elegante y con jerarquía secundaria inmediata */}
-            <p
-              className="text-slate-600 font-semibold leading-relaxed mb-5 sm:mb-6 max-w-[480px]"
-              style={{ fontSize: 'clamp(0.95rem, 1.25vw, 1.1rem)' }}
-            >
-              {customSubtitle || L.subtitle}
-            </p>
-
-            {/* CTA único principal — "Ver propiedades →" */}
-            <div className="flex items-center">
-              <button
-                type="button"
-                onClick={handleCta1}
-                className="inline-flex items-center gap-2.5 bg-[#0b214a] hover:bg-[#162d5e] text-white font-black text-sm sm:text-base px-7 sm:px-8 py-3.5 rounded-xl cursor-pointer transition-all shadow-md hover:shadow-lg select-none"
-              >
-                <span>{L.cta1}</span>
-                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-              </button>
-            </div>
+          {/* Eyebrow / Kicker */}
+          <div className="mb-2 sm:mb-2.5">
+            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-3.5 sm:px-4 py-1.5 rounded-full font-sans shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
+              {customTag || L.tag}
+            </span>
           </div>
 
-          {/* Imagen editorial integrada sin caja rígida (fade suave a blanco hacia la izquierda) */}
-          <div className="relative w-full md:w-[48%] lg:w-[48%] mt-6 md:mt-0 flex items-center justify-end">
-            <div className="relative w-full h-[320px] sm:h-[380px] md:h-full max-h-[500px] rounded-3xl md:rounded-[44px] overflow-hidden shadow-2xl md:shadow-none">
-              <picture className="w-full h-full block">
-                <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
-                <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
-                <img
-                  src={heroBgDesktop}
-                  alt="Pareja feliz con Gesgrama en su nuevo hogar"
-                  className="w-full h-full object-cover object-[center_16%]"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="sync"
-                  width={850}
-                  height={1113}
-                />
-              </picture>
-              {/* Máscara de integración progresiva con el fondo blanco (elimina bordes duros hacia el texto) */}
-              <div className="hidden md:block absolute inset-y-0 left-0 w-36 bg-gradient-to-r from-white via-white/50 to-transparent pointer-events-none" />
-              <div className="hidden md:block absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white/70 to-transparent pointer-events-none" />
-            </div>
+          {/* H1 — Titular compacto en 2 líneas exactas ("Tu próximo hogar," / "más cerca.") */}
+          <h1
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
+            style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}
+          >
+            {customHeadline ? (
+              customHeadline
+            ) : (
+              <>
+                <span className="block text-[#0b214a] whitespace-normal sm:whitespace-nowrap">{L.titleLine1}</span>
+                <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
+              </>
+            )}
+          </h1>
+
+          {/* Texto de apoyo — claramente legible, editorial (15-16px) */}
+          <p
+            className="text-slate-700 font-semibold leading-relaxed mb-5 sm:mb-6 max-w-[500px]"
+            style={{ fontSize: 'clamp(0.95rem, 1.25vw, 1.05rem)' }}
+          >
+            {customSubtitle || L.subtitle}
+          </p>
+
+          {/* CTA principal único — "Ver propiedades →" */}
+          <div className="flex items-center">
+            <button
+              type="button"
+              onClick={handleCta1}
+              className="inline-flex items-center gap-2.5 bg-[#0b214a] hover:bg-[#162d5e] text-white font-black text-sm sm:text-base px-7 sm:px-8 py-3.5 rounded-xl cursor-pointer transition-all shadow-md hover:shadow-lg select-none"
+            >
+              <span>{L.cta1}</span>
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            </button>
           </div>
         </div>
 
-        {/* ── BUSCADOR PRINCIPAL (SIGUIENTE ACCIÓN NATURAL DEL HERO) ── */}
+        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO RESPECTO AL CONTENEDOR PRINCIPAL ── */}
         <div
-          className="relative z-40 w-full mt-4 sm:mt-6"
+          className="relative z-40 w-full max-w-[1020px] mx-auto mt-6 sm:mt-8"
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.11)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-shadow hover:shadow-[0_24px_58px_rgba(37,99,235,0.14)]"
+            className="bg-white rounded-2xl sm:rounded-full border border-slate-200 shadow-[0_20px_50px_rgba(15,23,42,0.12)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.16)] hover:border-blue-200"
           >
             {/* Toggle Comprar / Alquilar */}
             <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
@@ -224,7 +214,7 @@ export default function HeroCarousel({
             {/* Separador vertical */}
             <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-2" />
 
-            {/* Selector ZONA — dropdown anclado hacia abajo naturalmente */}
+            {/* Selector ZONA */}
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
@@ -245,7 +235,7 @@ export default function HeroCarousel({
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
-              {/* Dropdown anclado hacia ABAJO con scroll y z-50 sobre métricas */}
+              {/* Dropdown anclado hacia abajo */}
               {openDrop === "zona" && (
                 <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
                   {ZONAS.map((z) => (
@@ -268,7 +258,7 @@ export default function HeroCarousel({
             {/* Separador vertical */}
             <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-2" />
 
-            {/* Selector TIPO — dropdown anclado hacia abajo naturalmente */}
+            {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
@@ -289,6 +279,7 @@ export default function HeroCarousel({
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
+              {/* Dropdown anclado hacia abajo */}
               {openDrop === "tipo" && (
                 <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
                   {TIPOS.map((tItem) => (
@@ -308,7 +299,7 @@ export default function HeroCarousel({
               )}
             </div>
 
-            {/* Botón BUSCAR — icono perfectamente centrado respecto al texto */}
+            {/* Botón BUSCAR — icono alineado con precisión y centrado */}
             <button
               type="button"
               onClick={handleSearch}
@@ -320,7 +311,7 @@ export default function HeroCarousel({
           </div>
         </div>
 
-        {/* ── MÉTRICAS: SEGUNDA CAPA DEL HERO (SEPARADA Y EQUILIBRADA) ── */}
+        {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO CON DIVISOR SUTIL ── */}
         <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-200/80">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center">
 

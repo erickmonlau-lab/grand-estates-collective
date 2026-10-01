@@ -100,73 +100,106 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO CON DECORACIÓN GEOMÉTRICA SUTIL (ARCOS) ── */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#fafcff]">
-        {/* Arco sutil decorativo en la izquierda como en el diseño de referencia */}
-        <div className="hidden lg:block absolute -left-28 top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full border-[36px] border-blue-100/40 pointer-events-none" />
+      {/* ── 1. FONDO CON IMAGEN DE LA FAMILIA QUE CUBRE GRAN PARTE DEL HERO Y SE FUNDE CON BLANCO ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#f8fafc]">
+        {/* Arco sutil decorativo en la izquierda y derecha como en el diseño de referencia */}
+        <div className="hidden lg:block absolute -left-28 top-1/2 -translate-y-1/2 w-[440px] h-[440px] rounded-full border-[38px] border-blue-100/50 pointer-events-none z-10" />
+        <div className="hidden xl:block absolute -right-20 top-1/4 w-[360px] h-[360px] rounded-full border-[32px] border-blue-100/30 pointer-events-none z-10" />
+
+        {/* Imagen de la familia cubriendo gran parte del Hero (desde el centro hacia la derecha, borde a borde) */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-[65%] lg:w-[60%] xl:w-[56%] h-full">
+          <picture className="w-full h-full block">
+            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+            <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+            <img
+              src={heroBgDesktop}
+              alt="Familia feliz con Gesgrama en su nuevo hogar"
+              className="w-full h-full object-cover object-[center_14%] md:object-[center_12%]"
+              loading="eager"
+              fetchPriority="high"
+              decoding="sync"
+              width={850}
+              height={1113}
+            />
+          </picture>
+
+          {/* Difuminado suave horizontal: de blanco puro a transparente para fundir la imagen con la zona de texto sin cortes */}
+          <div className="hidden md:block absolute inset-y-0 left-0 w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/90 via-40% to-transparent pointer-events-none" />
+
+          {/* Difuminado superior e inferior para fundir con navbar y ribbon */}
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none" />
+
+          {/* Tarjeta flotante de confianza en la derecha (como en la referencia) */}
+          <div className="hidden lg:flex absolute top-24 right-8 xl:right-16 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-[0_16px_36px_rgba(15,23,42,0.12)] border border-slate-100/80 items-center gap-3.5 max-w-[210px] pointer-events-auto transition-transform hover:-translate-y-0.5">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
+              <HomeIcon className="w-5 h-5 text-[#2563eb]" />
+            </div>
+            <div className="text-left">
+              <p className="text-[12px] font-bold text-slate-800 leading-tight">
+                {language === "ca" ? "Troba espais fets per a tu" : language === "en" ? "Find spaces that fit you" : "Encuentra espacios que encajan contigo"}
+              </p>
+              <div className="w-6 h-0.5 bg-[#2563eb] mt-1.5 rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        {/* En móvil, velo blanco sutil para asegurar que el texto sea perfectamente legible */}
+        <div className="md:hidden absolute inset-0 bg-white/80" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-24 md:pt-26 pb-4 sm:pb-6 flex flex-col"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-6 sm:pb-8 flex flex-col justify-between min-h-[580px] sm:min-h-[620px] md:min-h-[660px]"
       >
-        {/* ── 2. SECCIÓN SUPERIOR: TEXTO A LA IZQUIERDA + FOTO PANEL A LA DERECHA ── */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-center mb-6 sm:mb-8">
+        {/* ── 2. SECCIÓN SUPERIOR: TEXTO A LA IZQUIERDA CON TOTAL LEGIBILIDAD ── */}
+        <div className="w-full max-w-[660px] text-center md:text-left flex flex-col items-center md:items-start pt-2 sm:pt-4">
           
-          {/* Columna Izquierda: Texto limpio y ultra legible */}
-          <div className="md:col-span-6 lg:col-span-7 flex flex-col items-center md:items-start text-center md:text-left z-10">
-            {/* Eyebrow / Kicker */}
-            <div className="mb-3 sm:mb-4">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
-                {customTag || L.tag}
-              </span>
-            </div>
-
-            {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas */}
-            <h1
-              className="font-black text-[#0b214a] tracking-tight leading-[1.05] mb-3 sm:mb-4 font-heading"
-              style={{ fontSize: 'clamp(2.5rem, 5.4vw, 4.4rem)' }}
-            >
-              {customHeadline ? (
-                customHeadline
-              ) : (
-                <>
-                  <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                  <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
-                </>
-              )}
-            </h1>
-
-            {/* Texto de apoyo conciso y oscuro */}
-            <p
-              className="text-slate-800 font-bold leading-relaxed max-w-[520px] text-balance"
-              style={{ fontSize: 'clamp(0.95rem, 1.25vw, 1.12rem)' }}
-            >
-              {customSubtitle || L.subtitle}
-            </p>
+          {/* Eyebrow / Kicker */}
+          <div className="mb-3 sm:mb-4">
+            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
+              {customTag || L.tag}
+            </span>
           </div>
 
-          {/* Columna Derecha: Panel de la Familia como en la referencia */}
-          <div className="md:col-span-6 lg:col-span-5 flex justify-center md:justify-end">
-            <div className="relative w-full max-w-[440px] sm:max-w-[480px] md:max-w-none aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/5] lg:aspect-[5/6] max-h-[460px] rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.14)] border-4 sm:border-[6px] border-white ring-1 ring-slate-100">
-              <picture className="w-full h-full block">
-                <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
-                <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
-                <img
-                  src={heroBgDesktop}
-                  alt="Familia feliz con Gesgrama en su nuevo hogar"
-                  className="w-full h-full object-cover object-[center_12%]"
-                  loading="eager"
-                  fetchPriority="high"
-                  decoding="sync"
-                  width={850}
-                  height={1113}
-                />
-              </picture>
+          {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas */}
+          <h1
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
+            style={{ fontSize: 'clamp(2.5rem, 5.2vw, 4.3rem)' }}
+          >
+            {customHeadline ? (
+              customHeadline
+            ) : (
+              <>
+                <span className="block text-[#0b214a]">{L.titleLine1}</span>
+                <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
+              </>
+            )}
+          </h1>
 
-              {/* Velo blanco degradado muy sutil en bordes para integración visual suave */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent pointer-events-none" />
-            </div>
+          {/* Texto de apoyo conciso y oscuro */}
+          <p
+            className="text-slate-800 font-bold leading-relaxed max-w-[500px] text-balance mb-6 sm:mb-8"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
+          >
+            {customSubtitle || L.subtitle}
+          </p>
+
+          {/* Botones de acción directa (como en la referencia editorial) */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10">
+            <a
+              href="#propiedades"
+              className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-black px-6 py-3 rounded-full uppercase tracking-wider shadow-md hover:shadow-lg transition-all"
+            >
+              <span>{language === "ca" ? "Veure propietats" : language === "en" ? "View properties" : "Ver propiedades"}</span>
+              <ChevronDown className="w-4 h-4 -rotate-90" />
+            </a>
+            <a
+              href="#servicios"
+              className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-slate-800 text-xs sm:text-sm font-bold px-6 py-3 rounded-full border border-slate-200 shadow-sm hover:shadow transition-all"
+            >
+              <span>{language === "ca" ? "Els nostres serveis" : language === "en" ? "Our services" : "Nuestros servicios"}</span>
+            </a>
           </div>
         </div>
 

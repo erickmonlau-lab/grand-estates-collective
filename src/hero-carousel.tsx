@@ -112,13 +112,15 @@ export default function HeroCarousel({
           height={768}
         />
 
-        {/* Capa ligera con menos difuminado para apreciar toda la riqueza del salón y las vistas */}
-        <div className="absolute inset-0 bg-white/25 sm:bg-white/20" />
-        {/* Difuminado suave central detrás del texto */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.40)_50%,rgba(255,255,255,0.05)_100%)]" />
-        {/* Velos superior e inferior suaves para fundir bordes */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/90 via-white/30 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/70 to-transparent" />
+        {/* Base blanca translúcida para homogeneizar contraste */}
+        <div className="absolute inset-0 bg-white/35 sm:bg-white/30" />
+        
+        {/* Difuminado blanco generoso y luminoso centrado directamente sobre el bloque de texto */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_32%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.78)_42%,rgba(255,255,255,0.25)_80%,transparent_100%)]" />
+
+        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de garantías */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/95 via-white/40 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </div>
 
       <div
@@ -135,9 +137,9 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 — Titular centrado en 2 líneas exactas ("Tu próximo hogar," / "más cerca.") */}
+          {/* H1 — Titular centrado en 2 líneas exactas con máxima legibilidad */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]"
             style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
@@ -152,7 +154,7 @@ export default function HeroCarousel({
 
           {/* Texto de apoyo — centrado, tipografía nítida y perfectamente legible */}
           <p
-            className="text-slate-800 font-semibold leading-relaxed max-w-[600px] mx-auto mb-2 sm:mb-3"
+            className="text-slate-900 font-bold leading-relaxed max-w-[600px] mx-auto mb-2 sm:mb-3 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
             style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
           >
             {customSubtitle || L.subtitle}
@@ -165,7 +167,7 @@ export default function HeroCarousel({
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.18)] hover:border-blue-200"
+            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.18)] hover:border-blue-200"
           >
             {/* Toggle Comprar / Alquilar */}
             <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">

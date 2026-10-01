@@ -44,7 +44,6 @@ export default function HeroCarousel({
 }: HeroCarouselProps) {
   const t = translations[language];
 
-  // Search states
   const [mode, setMode] = useState<"comprar" | "alquilar">("comprar");
   const [zona, setZona] = useState("Toda zona");
   const [tipo, setTipo] = useState("Todo tipo");
@@ -52,17 +51,19 @@ export default function HeroCarousel({
 
   const L = {
     tag: language === "ca" ? "GESTIÓ IMMOBILIÀRIA I FINQUES" : language === "en" ? "REAL ESTATE & PROPERTY MANAGEMENT" : "GESTIÓN INMOBILIARIA Y FINCAS",
-    titleMain: language === "ca" ? "La teva propera llar," : language === "en" ? "Your next home," : "Tu próximo hogar,",
-    titleAccent: language === "ca" ? "més a prop." : language === "en" ? "closer than ever." : "más cerca.",
+    titleLine1: language === "ca" ? "La teva propera llar," : language === "en" ? "Your next home," : "Tu próximo hogar,",
+    titleLine2: language === "ca" ? "més a prop." : language === "en" ? "closer than ever." : "más cerca.",
     subtitle: language === "ca"
-      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon."
+      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència i criteri local."
       : language === "en"
-      ? "We accompany you to buy, sell or care for your property with transparency, local criteria and a responsive team."
-      : "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
+      ? "We guide you to buy, sell or care for your property with transparency and local expertise."
+      : "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia y criterio local.",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
+    allArea: language === "ca" ? "Qualsevol zona" : language === "en" ? "Any area" : "Toda zona",
     type: language === "ca" ? "TIPUS" : language === "en" ? "TYPE" : "TIPO",
+    allType: language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Todo tipo",
     search: language === "ca" ? "BUSCAR" : language === "en" ? "SEARCH" : "BUSCAR",
   };
 
@@ -80,52 +81,55 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="hero relative z-30 bg-white text-slate-900 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-10 sm:pb-14 overflow-visible"
+      className="hero relative bg-white text-slate-900 overflow-visible"
+      style={{ minHeight: 'calc(100svh - 0px)' }}
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── ARCO SUTIL DECORATIVO A LA IZQUIERDA (TAL CUAL LA REFERENCIA) ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        <div className="absolute -left-[300px] top-[4%] w-[680px] h-[680px] rounded-full border-[52px] border-blue-50/60 -z-10" />
+      {/* Arco decorativo sutil izquierda */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+        <div className="absolute -left-[260px] top-[6%] w-[600px] h-[600px] rounded-full border-[48px] border-blue-50/70" />
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12 relative z-10">
-        
-        {/* ── CONTENEDOR HERO EN VIEWPORT: TEXTO A LA IZQUIERDA + FOTO FLOTANTE REDONDEADA A LA DERECHA ── */}
-        <div className="relative min-h-[380px] sm:min-h-[420px] md:min-h-[460px] lg:min-h-[500px] flex items-center justify-between">
-          
-          {/* Columna de Texto Editorial */}
-          <div className="relative z-10 w-full md:max-w-[56%] lg:max-w-[52%] flex flex-col items-start text-left pt-2 pb-14 sm:pb-16 md:pb-20">
-            
-            {/* Pill Badge */}
-            <div className="mb-4 sm:mb-5">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb]/10 text-[#2563eb] text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 py-1.5 rounded-full font-sans">
-                <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
+      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 flex flex-col" style={{ minHeight: 'calc(100svh - 0px)', paddingTop: 'clamp(88px, 11vh, 120px)', paddingBottom: 'clamp(24px, 4vh, 48px)' }}>
+
+        {/* ── ZONA SUPERIOR: TEXTO IZQUIERDA + FOTO DERECHA ── */}
+        <div className="relative flex items-center justify-between flex-1 min-h-0" style={{ maxHeight: 'calc(100svh - 320px)' }}>
+
+          {/* Columna editorial izquierda */}
+          <div className="relative z-10 w-full md:max-w-[54%] lg:max-w-[50%] flex flex-col items-start text-left">
+
+            {/* Badge */}
+            <div className="mb-3 sm:mb-4">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb]/10 text-[#2563eb] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.14em] px-3.5 py-1.5 rounded-full font-sans">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
                 {customTag || L.tag}
               </span>
             </div>
 
-            {/* H1 Idéntico a la Referencia 2 */}
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-[4.25rem] lg:text-[4.85rem] font-black text-[#0b214a] tracking-tight leading-[1.04] mb-4 sm:mb-5 font-heading">
+            {/* H1 */}
+            <h1
+              className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
+              style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.5rem)' }}
+            >
               {customHeadline ? (
                 customHeadline
               ) : (
                 <>
-                  <span className="block text-[#0b214a]">{L.titleMain}</span>
-                  <span className="text-[#2563eb] block mt-0.5">{L.titleAccent}</span>
+                  <span className="block">{L.titleLine1}</span>
+                  <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
                 </>
               )}
             </h1>
 
-            {/* Subtítulo de 2 líneas airy y limpio */}
-            <p className="text-slate-600 text-sm sm:text-base md:text-[17px] font-bold leading-relaxed max-w-lg text-balance">
+            {/* Subtítulo */}
+            <p className="text-slate-500 font-medium leading-relaxed max-w-[480px]" style={{ fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)' }}>
               {customSubtitle || L.subtitle}
             </p>
-
           </div>
 
-          {/* Fotografía de la pareja como tarjeta grande con esquinas redondeadas suaves (Fiel a la Referencia 2) */}
-          <div className="absolute right-0 top-0 bottom-6 w-[48%] sm:w-[46%] lg:w-[45%] max-w-[580px] pointer-events-none z-0 hidden md:block">
-            <div className="relative w-full h-[400px] sm:h-[440px] md:h-[480px] lg:h-[510px] rounded-[48px] overflow-hidden">
+          {/* Foto flotante derecha */}
+          <div className="absolute right-0 top-0 bottom-0 w-[47%] sm:w-[44%] lg:w-[43%] max-w-[560px] pointer-events-none z-0 hidden md:flex items-stretch">
+            <div className="relative w-full rounded-[40px] overflow-hidden">
               <picture className="w-full h-full block">
                 <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
                 <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
@@ -140,28 +144,30 @@ export default function HeroCarousel({
                   height={1113}
                 />
               </picture>
-              {/* Fade blanco muy sutil en el borde izquierdo para fundirse con el fondo */}
-              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white via-white/30 to-transparent" />
+              {/* Fade blanco izquierdo */}
+              <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-white via-white/40 to-transparent" />
             </div>
           </div>
-
         </div>
 
-        {/* ── SEARCH PILL: BARRA FLOTANTE BLANCA HORIZONTAL SUPERPUESTA A LA PARTE INFERIOR DE LA FOTO ── */}
-        <div className="relative -mt-10 sm:-mt-12 md:-mt-14 z-40 w-full max-w-[840px] mx-auto md:mx-0">
-          <div 
-            className="bg-white rounded-full p-2 sm:p-2.5 shadow-[0_16px_48px_rgba(15,23,42,0.12)] border border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-1 transition-shadow hover:shadow-[0_20px_54px_rgba(37,99,235,0.15)]"
-            onClick={(e) => e.stopPropagation()}
+        {/* ── SEARCH PILL CENTRADO FULL-WIDTH ── */}
+        <div
+          className="relative z-40 w-full mt-5 sm:mt-6 md:mt-7"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className="bg-white rounded-2xl sm:rounded-full border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.13)] flex flex-col sm:flex-row items-stretch sm:items-center gap-0 sm:gap-0 overflow-hidden sm:overflow-visible transition-shadow hover:shadow-[0_24px_64px_rgba(37,99,235,0.16)]"
+            style={{ padding: 'clamp(6px, 1vw, 10px)' }}
           >
             {/* Toggle Comprar / Alquilar */}
-            <div className="flex bg-[#f1f5f9] p-1 rounded-full shrink-0">
+            <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 mx-1 sm:mx-0" style={{ padding: '4px', margin: '4px 4px 4px 4px' }}>
               <button
                 type="button"
                 onClick={() => setMode("comprar")}
-                className={`px-5 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none ${
+                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "comprar"
                     ? "bg-[#2563eb] text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900"
+                    : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {L.buy}
@@ -169,51 +175,48 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setMode("alquilar")}
-                className={`px-5 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none ${
+                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "alquilar"
                     ? "bg-[#2563eb] text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900"
+                    : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {L.rent}
               </button>
             </div>
 
-            {/* Separador vertical sutil */}
-            <div className="hidden sm:block w-[1px] h-8 bg-slate-200 mx-1 shrink-0" />
+            {/* Separador */}
+            <div className="hidden sm:block w-[1px] h-10 bg-slate-200 shrink-0 mx-1" />
 
-            {/* Selector 1: Zona */}
+            {/* Selector ZONA */}
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
-                className="w-full flex items-center justify-between text-left px-3 py-1.5 sm:py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-4 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
-                <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                <div className="flex items-center gap-3 min-w-0 pr-1">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
                       {L.area}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                    <span className="block text-sm sm:text-[15px] font-bold text-[#0f172a] truncate mt-0.5">
                       {zona}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
+                <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
               {openDrop === "zona" && (
-                <div className="absolute top-full left-0 mt-3 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
                   {ZONAS.map((z) => (
                     <button
                       key={z}
                       type="button"
-                      onClick={() => {
-                        setZona(z);
-                        setOpenDrop(null);
-                      }}
-                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
+                      onClick={() => { setZona(z); setOpenDrop(null); }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
                         zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
                       }`}
                     >
@@ -225,41 +228,38 @@ export default function HeroCarousel({
               )}
             </div>
 
-            {/* Separador vertical sutil */}
-            <div className="hidden sm:block w-[1px] h-8 bg-slate-200 mx-1 shrink-0" />
+            {/* Separador */}
+            <div className="hidden sm:block w-[1px] h-10 bg-slate-200 shrink-0 mx-1" />
 
-            {/* Selector 2: Tipo */}
+            {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
-                className="w-full flex items-center justify-between text-left px-3 py-1.5 sm:py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-4 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
-                <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <HomeIcon className="w-4 h-4 text-[#2563eb] shrink-0" />
+                <div className="flex items-center gap-3 min-w-0 pr-1">
+                  <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                    <span className="block text-sm sm:text-[15px] font-bold text-[#0f172a] truncate mt-0.5">
                       {tipo}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
+                <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
               {openDrop === "tipo" && (
-                <div className="absolute top-full left-0 mt-3 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
                   {TIPOS.map((tItem) => (
                     <button
                       key={tItem}
                       type="button"
-                      onClick={() => {
-                        setTipo(tItem);
-                        setOpenDrop(null);
-                      }}
-                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
+                      onClick={() => { setTipo(tItem); setOpenDrop(null); }}
+                      className={`w-full text-left px-4 py-2.5 text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
                         tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
                       }`}
                     >
@@ -271,55 +271,52 @@ export default function HeroCarousel({
               )}
             </div>
 
-            {/* Botón Buscar: Azul royal píldora alargada con icono (idéntico a la referencia 2) */}
+            {/* Botón BUSCAR */}
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 sm:px-8 py-2.5 sm:py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-xl sm:rounded-full font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mx-1 sm:mx-0"
+              style={{ padding: 'clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 40px)', margin: '4px 4px 4px 0' }}
             >
-              <Search className="w-4 h-4 stroke-[2.5]" />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
               <span>{L.search}</span>
             </button>
           </div>
         </div>
 
-        {/* ── FRANJA DE CONFIANZA INFERIOR (TAL CUAL LA REFERENCIA 2) ── */}
-        <div className="mt-12 sm:mt-14 pt-6 border-t border-slate-200/80 max-w-[1100px]">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 items-center">
-            
-            {/* Clientes satisfechos */}
-            <div className="flex items-center gap-3">
-              <Users className="w-5 h-5 text-[#2563eb] shrink-0 stroke-[2]" />
-              <div className="text-left">
+        {/* ── TRUST STRIP ── */}
+        <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200/70">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-0 sm:divide-x sm:divide-slate-200">
+
+            <div className="flex items-center gap-2.5 sm:gap-3 sm:pl-0 sm:pr-6">
+              <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+              <div>
                 <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">4.500+</p>
-                <p className="text-[11px] font-bold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
-            {/* Satisfacción */}
-            <div className="flex items-center gap-3">
-              <ThumbsUp className="w-5 h-5 text-[#2563eb] shrink-0 stroke-[2]" />
-              <div className="text-left">
+            <div className="flex items-center gap-2.5 sm:gap-3 sm:px-6">
+              <ThumbsUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+              <div>
                 <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">98%</p>
-                <p className="text-[11px] font-bold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
-            {/* Comunidades */}
-            <div className="flex items-center gap-3">
-              <Building2 className="w-5 h-5 text-[#2563eb] shrink-0 stroke-[2]" />
-              <div className="text-left">
+            <div className="flex items-center gap-2.5 sm:gap-3 sm:px-6">
+              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+              <div>
                 <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">+300</p>
-                <p className="text-[11px] font-bold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
-            {/* Años de experiencia */}
-            <div className="flex items-center gap-3">
-              <User className="w-5 h-5 text-[#2563eb] shrink-0 stroke-[2]" />
-              <div className="text-left">
+            <div className="flex items-center gap-2.5 sm:gap-3 sm:pl-6">
+              <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+              <div>
                 <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">15+</p>
-                <p className="text-[11px] font-bold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

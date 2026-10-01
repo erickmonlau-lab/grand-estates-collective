@@ -494,8 +494,6 @@ function Index() {
         {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (TRANSICIÓN VISUAL INMEDIATA) ── */}
         <MarqueeRibbon language={language} />
 
-      {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}
-      <DeferredHydration rootMargin="50px" fallback={<div className="min-h-[1200px] bg-[#cbd5e1]" />}>
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
@@ -896,6 +894,8 @@ function Index() {
         </div>
       </section>
 
+      {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS (VALUATOR, SERVICES, TESTIMONIALS, ETC.) ── */}
+      <DeferredHydration rootMargin="200px" fallback={<div className="min-h-[400px] bg-[#e2e8f0]" />}>
       {/* ── 5. VALORADOR DE INMUEBLES ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
         <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />

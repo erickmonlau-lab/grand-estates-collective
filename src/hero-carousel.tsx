@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
-import heroLivingRoom from "@/assets/premium_rental_apartment.webp";
+import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
+import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -66,10 +67,10 @@ export default function HeroCarousel({
       ? "closer than ever."
       : "más cerca.",
     subtitle: language === "ca"
-      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat en Santa Coloma de Gramenet i voltants, amb transparència, criteri local i un equip que respon."
+      ? "Compra, lloga o descobreix quant val la teva propietat a Santa Coloma."
       : language === "en"
-      ? "We accompany you to buy, sell or care for your property in Santa Coloma de Gramenet and surroundings, with transparency, local criteria and a responsive team."
-      : "Te acompañamos para comprar, vender o cuidar tu propiedad en Santa Coloma de Gramenet y alrededores, con transparencia, criterio local y un equipo que responde.",
+      ? "Buy, rent or discover how much your property is worth in Santa Coloma."
+      : "Compra, alquila o descubre cuánto vale tu propiedad en Santa Coloma.",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
@@ -99,34 +100,44 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO FOTOGRÁFICO ARQUITECTÓNICO PANORÁMICO COMPLETO ── */}
+      {/* ── 1. FONDO DE LA FAMILIA CON DIFUMINADO BLANCO QUE CUBRE TODA LA PÁGINA ── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        <img
-          src={heroLivingRoom}
-          alt="Salón luminoso y moderno con terraza gestionado por Gesgrama"
-          className="w-full h-full object-cover object-[center_35%]"
-          loading="eager"
-          fetchPriority="high"
-          decoding="sync"
-          width={1366}
-          height={768}
+        <picture className="w-full h-full block">
+          <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+          <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+          <img
+            src={heroBgDesktop}
+            alt="Familia feliz con Gesgrama en su nuevo hogar"
+            className="w-full h-full object-cover object-[center_20%] sm:object-[center_15%]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+            width={850}
+            height={1113}
+          />
+        </picture>
+
+        {/* Capa de difuminado blanco que cubre toda la página con suavidad y calidez */}
+        <div className="absolute inset-0 bg-white/55 sm:bg-white/50" />
+        
+        {/* Difuminado blanco generoso que arropa el contenido central garantizando contraste óptimo */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 85% 75% at 50% 32%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 45%, rgba(255,255,255,0.45) 80%, rgba(255,255,255,0.20) 100%)',
+          }}
         />
 
-        {/* Base blanca translúcida para homogeneizar contraste */}
-        <div className="absolute inset-0 bg-white/35 sm:bg-white/30" />
-        
-        {/* Difuminado blanco generoso y luminoso centrado directamente sobre el bloque de texto */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_65%_at_50%_32%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.78)_42%,rgba(255,255,255,0.25)_80%,transparent_100%)]" />
-
-        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de garantías */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/95 via-white/40 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
+        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/80 to-transparent" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-5 sm:pb-6 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
       >
-        {/* ── 2. BLOQUE EDITORIAL CENTRADO ── */}
+        {/* ── 2. BLOQUE EDITORIAL CENTRADO SOBRE FONDO LIMPIO ── */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
@@ -137,9 +148,9 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 — Titular centrado en 2 líneas exactas con máxima legibilidad */}
+          {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas exactas */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]"
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
             style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
@@ -152,9 +163,9 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Texto de apoyo — centrado, tipografía nítida y perfectamente legible */}
+          {/* Texto de apoyo conciso y oscuro de 1-2 líneas sobre fondo naturalmente limpio */}
           <p
-            className="text-slate-900 font-bold leading-relaxed max-w-[600px] mx-auto mb-2 sm:mb-3 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
+            className="text-slate-800 font-bold leading-relaxed max-w-[580px] mx-auto text-balance"
             style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
           >
             {customSubtitle || L.subtitle}

@@ -66,10 +66,10 @@ export default function HeroCarousel({
       ? "closer than ever."
       : "más cerca.",
     subtitle: language === "ca"
-      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat en Santa Coloma de Gramenet i voltants, amb transparència, criteri local i un equip que respon."
+      ? "Compra, lloga o descobreix quant val la teva propietat a Santa Coloma."
       : language === "en"
-      ? "We accompany you to buy, sell or care for your property in Santa Coloma de Gramenet and surroundings, with transparency, local criteria and a responsive team."
-      : "Te acompañamos para comprar, vender o cuidar tu propiedad en Santa Coloma de Gramenet y alrededores, con transparencia, criterio local y un equipo que responde.",
+      ? "Buy, rent or discover how much your property is worth in Santa Coloma."
+      : "Compra, alquila o descubre cuánto vale tu propiedad en Santa Coloma.",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
@@ -99,51 +99,45 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO FOTOGRÁFICO ARQUITECTÓNICO PANORÁMICO COMPLETO ── */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        <img
-          src={heroLivingRoom}
-          alt="Salón luminoso y moderno con terraza gestionado por Gesgrama"
-          className="w-full h-full object-cover object-[center_35%]"
-          loading="eager"
-          fetchPriority="high"
-          decoding="sync"
-          width={1366}
-          height={768}
-        />
-
-        {/* Base blanca translúcida calibrada */}
-        <div className="absolute inset-0 bg-white/35 sm:bg-white/30" />
-        
-        {/* Difuminado blanco optimizado específicamente para arropar el bloque editorial (H1 y texto de apoyo) */}
+      {/* ── 1. FONDO LIMPIO, PREMIUM Y ARQUITECTÓNICO ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#f8fafc]">
+        {/* Sutileza radial luminosa arquitectónica */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 900px 420px at 50% 27%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 45%, rgba(255,255,255,0.65) 70%, rgba(255,255,255,0.15) 88%, transparent 100%)',
+              'radial-gradient(ellipse 90% 70% at 50% 20%, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%)',
           }}
         />
 
-        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/50 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
+        {/* FOTOGRAFÍA PROTAGONISTA INTEGRADA (Panel visual integrado sin entorpecer el texto) */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[62%] xl:w-[58%] opacity-30 sm:opacity-50 lg:opacity-90 overflow-hidden pointer-events-none">
+          <img
+            src={heroLivingRoom}
+            alt="Salón luminoso y moderno con terraza gestionado por Gesgrama"
+            className="w-full h-full object-cover object-[center_35%]"
+            loading="eager"
+            fetchPriority="high"
+            decoding="sync"
+            width={1366}
+            height={768}
+          />
+          {/* Fundido lateral gradual hacia la izquierda para que el área de lectura sea naturalmente 100% limpia */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 lg:via-transparent to-transparent hidden sm:block" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/85 via-[#f8fafc]/30 to-[#f8fafc] sm:hidden" />
+          {/* Fundido inferior para conexión con las métricas y la cinta */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/60 to-transparent" />
+        </div>
+
+        {/* Velo superior suave para navbar */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white via-white/50 to-transparent" />
       </div>
 
       <div
         className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
       >
-        {/* ── 2. BLOQUE EDITORIAL CENTRADO CON DIFUSIÓN DEDICADA ── */}
-        <div className="relative z-10 w-full max-w-[820px] mx-auto flex flex-col items-center text-center">
-
-          {/* Difusión suave directa detrás del texto para garantizar contraste inmaculado sin bordes perceptibles */}
-          <div
-            className="absolute -inset-x-8 -inset-y-6 -z-10 pointer-events-none rounded-[40px]"
-            style={{
-              background:
-                'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.60) 60%, transparent 100%)',
-              filter: 'blur(20px)',
-            }}
-          />
+        {/* ── 2. BLOQUE EDITORIAL CENTRADO SOBRE FONDO LIMPIO ── */}
+        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
           <div className="mb-2 sm:mb-2.5">
@@ -153,9 +147,9 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 — Titular centrado en 2 líneas exactas con máxima nitidez tipográfica */}
+          {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas exactas */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2.5 sm:mb-3 font-heading"
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
             style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
@@ -168,10 +162,10 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Texto de apoyo — centrado, tono oscuro slate nítido y legible con fondo difuminado suave */}
+          {/* Texto de apoyo conciso y oscuro de 1-2 líneas sobre fondo naturalmente limpio */}
           <p
-            className="text-slate-900 font-bold leading-relaxed max-w-[600px] mx-auto"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.06rem)' }}
+            className="text-slate-800 font-bold leading-relaxed max-w-[580px] mx-auto text-balance"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>

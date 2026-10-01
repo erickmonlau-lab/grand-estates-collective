@@ -49,21 +49,21 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
 
   return (
     <div 
-      className={`w-full relative z-20 flex items-center bg-[#090D16] border-y border-white/10 select-none overflow-hidden h-12 sm:h-14 shadow-inner ${className}`}
+      className={`w-full relative z-20 flex items-center bg-[#0b214a] border-y border-white/10 select-none overflow-hidden h-12 sm:h-14 shadow-inner ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Fixed Left Badge */}
-      <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#090D16] shrink-0 border-r border-white/15 shadow-[8px_0_16px_rgba(9,13,22,0.95)]">
-        <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#60a5fa] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse shrink-0" />
+      {/* Fixed Left Badge: NAVY con texto blanco y acento azul */}
+      <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#0b214a] shrink-0 border-r border-white/15 shadow-[8px_0_16px_rgba(11,33,74,0.95)]">
+        <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#38bdf8] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse shrink-0 border border-white/40" />
           {badge}
         </span>
       </div>
 
-      {/* Subtle edge fade gradient mask */}
-      <div className="absolute left-32 sm:left-48 top-0 bottom-0 w-8 bg-gradient-to-r from-[#090D16] to-transparent z-20 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-[#090D16] to-transparent z-20 pointer-events-none" />
+      {/* Edge fade masks para suavizar la entrada y salida de texto */}
+      <div className="absolute left-[140px] sm:left-[210px] top-0 bottom-0 w-12 bg-gradient-to-r from-[#0b214a] to-transparent z-20 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-[#0b214a] to-transparent z-20 pointer-events-none" />
 
       {/* Seamless Continuous Marquee Track */}
       <div className="flex-1 overflow-hidden flex items-center">
@@ -72,37 +72,23 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
             isHovered ? "[animation-play-state:paused]" : ""
           }`}
         >
-          {/* Track 1 */}
-          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0">
-            {items.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div key={`track-1-${idx}`} className="flex items-center gap-2.5 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
-                  {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
-                  <span className="text-white font-extrabold tracking-wide whitespace-nowrap">
-                    {item.text}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Track 2 (Seamless loop copy) */}
-          <div className="flex items-center gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0">
-            {items.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div key={`track-2-${idx}`} className="flex items-center gap-2.5 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
-                  {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
-                  <span className="text-white font-extrabold tracking-wide whitespace-nowrap">
-                    {item.text}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+          {/* Tracks duplicados para movimiento infinito sin saltos ni cortes */}
+          {[1, 2, 3].map((trackNum) => (
+            <div key={`track-${trackNum}`} className="flex items-center gap-8 sm:gap-10 pr-8 sm:pr-10 shrink-0">
+              {items.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div key={`item-${trackNum}-${idx}`} className="flex items-center gap-2.5 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400/80 shrink-0" />
+                    {Icon && <Icon className="w-4 h-4 text-[#38bdf8] shrink-0 stroke-[2.5]" />}
+                    <span className="text-white font-bold tracking-wide whitespace-nowrap">
+                      {item.text}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </div>

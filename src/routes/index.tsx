@@ -21,6 +21,8 @@ const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 import { DeferredHydration } from "@/components/DeferredHydration";
 import MarqueeRibbon from "@/components/MarqueeRibbon";
+import QuickSearch from "@/components/QuickSearch";
+import TrustBar from "@/components/TrustBar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -265,7 +267,7 @@ function Index() {
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<string>("recientes");
-  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [visibleCount, setVisibleCount] = useState<number>(3);
 
   useEffect(() => {
     setConsoleFilters({
@@ -488,10 +490,16 @@ function Index() {
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
-        {/* ── 1. HERO COMPLETO CON QUICK SEARCH Y TRUST UNIFICADOS ── */}
-        <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
+        {/* ── 1. HERO DE MARCA (AUTÓNOMO, CON PRESENCIA Y RESPIRACIÓN) ── */}
+        <HeroCarousel language={language} />
 
-        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (FULL WIDTH) ── */}
+        {/* ── 2. QUICK SEARCH CENTRADO (FLUJO NATURAL, SIN SUPERPOSICIONES) ── */}
+        <QuickSearch onPerformSearch={handleHeroSearch} language={language} />
+
+        {/* ── 3. TRUST BAR (MÉTRICAS COMPACTAS) ── */}
+        <TrustBar language={language} />
+
+        {/* ── 4. CINTA DE GARANTÍAS Y ACREDITACIONES (FULL WIDTH 100vw) ── */}
         <MarqueeRibbon language={language} />
 
       {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}

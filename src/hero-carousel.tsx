@@ -115,7 +115,7 @@ export default function HeroCarousel({
 
             {/* ── BARRA DE BÚSQUEDA INTEGRADA DENTRO DEL HERO (Estilo Exacto Referencia Imagen 2) ── */}
             <div 
-              className="bg-white rounded-full p-2 sm:p-2.5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-6 max-w-2xl relative z-20"
+              className="bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-2.5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-2 mb-6 max-w-2xl relative z-20"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Toggle Comprar / Alquilar (Píldoras redondeadas) */}
@@ -123,7 +123,7 @@ export default function HeroCarousel({
                 <button
                   type="button"
                   onClick={() => setMode("comprar")}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
                     mode === "comprar"
                       ? "bg-[#2563eb] text-white shadow-md"
                       : "text-slate-600 hover:text-slate-900"
@@ -134,7 +134,7 @@ export default function HeroCarousel({
                 <button
                   type="button"
                   onClick={() => setMode("alquilar")}
-                  className={`px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
                     mode === "alquilar"
                       ? "bg-[#2563eb] text-white shadow-md"
                       : "text-slate-600 hover:text-slate-900"

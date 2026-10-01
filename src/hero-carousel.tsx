@@ -112,28 +112,28 @@ export default function HeroCarousel({
           height={768}
         />
 
-        {/* Base blanca translúcida balanceada para homogeneizar contraste sin apagar la fotografía */}
-        <div className="absolute inset-0 bg-white/40 sm:bg-white/30" />
+        {/* Base blanca translúcida general para balance de contrastes */}
+        <div className="absolute inset-0 bg-white/45 sm:bg-white/40" />
         
-        {/* Scrim direccional suave: mayor densidad luminosa sobre el bloque de texto y desvanecimiento hacia los laterales/ventanales */}
+        {/* Difuminado blanco denso y limpio en la zona central para legibilidad cristalina del texto */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 50% 32%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0.30) 75%, transparent 100%)',
+              'radial-gradient(ellipse 75% 65% at 50% 32%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 38%, rgba(255,255,255,0.80) 58%, rgba(255,255,255,0.20) 82%, transparent 100%)',
           }}
         />
 
         {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/95 via-white/50 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/60 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/85 to-transparent" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-5 sm:pb-6 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
       >
         {/* ── 2. BLOQUE EDITORIAL CENTRADO ── */}
-        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
+        <div className="relative z-10 w-full max-w-[820px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
           <div className="mb-2 sm:mb-2.5">
@@ -145,7 +145,7 @@ export default function HeroCarousel({
 
           {/* H1 — Titular centrado en 2 líneas exactas con máxima nitidez tipográfica */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2.5 sm:mb-3 font-heading"
             style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
           >
             {customHeadline ? (
@@ -158,10 +158,10 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Texto de apoyo — centrado, tono slate profundo de alto contraste, lectura fluida */}
+          {/* Texto de apoyo — centrado, tono oscuro slate nítido y legible con fondo difuminado suave */}
           <p
-            className="text-slate-800 font-semibold leading-relaxed max-w-[560px] mx-auto mb-2 sm:mb-3"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)' }}
+            className="text-slate-900 font-bold leading-relaxed max-w-[620px] mx-auto"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.06rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>

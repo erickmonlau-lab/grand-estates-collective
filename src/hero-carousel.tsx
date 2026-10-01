@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import { ArrowRight, Building2, Check, Home, Users, ThumbsUp, Award, Calculator, Phone, Send } from "lucide-react";
+import React, { useState } from 'react';
+import { Calculator, Send, Search, MapPin, Building2, ChevronDown, Check } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import heroBgMobile from "@/assets/family_barcelona_opt_mobile.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
-import MarqueeRibbon from '@/components/MarqueeRibbon';
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -16,265 +14,314 @@ interface HeroCarouselProps {
   customValuationHref?: string;
 }
 
+const ZONAS = [
+  "Cualquier zona",
+  "Santa Rosa - Can Mariner",
+  "Fondo",
+  "Riu",
+  "Centro",
+  "El Raval",
+  "Riera Alta - Llatí",
+  "Singuerlín",
+];
+
+const TIPOS = [
+  "Cualquier tipo",
+  "Piso",
+  "Apartamento",
+  "Ático",
+  "Chalet",
+  "Local",
+  "Oficina",
+];
+
 export default function HeroCarousel({
+  onPerformSearch,
   language = 'es',
   customTag,
   customHeadline,
   customSubtitle,
-  customTrustBadge,
   customValuationHref,
 }: HeroCarouselProps) {
   const t = translations[language];
 
+  // QuickSearch states
+  const [mode, setMode] = useState<"comprar" | "alquilar">("comprar");
+  const [zona, setZona] = useState("Cualquier zona");
+  const [tipo, setTipo] = useState("Cualquier tipo");
+  const [openDrop, setOpenDrop] = useState<"zona" | "tipo" | null>(null);
+
+  const L = {
+    buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
+    rent: language === "ca" ? "Llogar" : language === "en" ? "Rent" : "Alquilar",
+    area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
+    type: language === "ca" ? "TIPUS" : language === "en" ? "TYPE" : "TIPO",
+    search: language === "ca" ? "Cercar" : language === "en" ? "Search" : "Buscar",
+    selectArea: language === "ca" ? "Selecciona zona" : language === "en" ? "Select area" : "Selecciona zona",
+    selectType: language === "ca" ? "Selecciona tipus" : language === "en" ? "Select type" : "Selecciona tipo",
+  };
+
+  const handleSearch = () => {
+    onPerformSearch?.({ mode, zona, tipo, precio: "Cualquier precio" });
+    const el = document.getElementById("propiedades");
+    if (el) {
+      const navOffset = window.innerWidth < 768 ? 90 : 100;
+      const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
+      window.history.replaceState(null, "", "#propiedades");
+    }
+  };
+
   return (
-    <section
+    <header
       id="hero"
-      className={`relative text-slate-900 min-h-[100svh] ${
-        customHeadline
-          ? "pt-18 sm:pt-20 lg:pt-24 h-auto lg:h-screen lg:min-h-[700px]"
-          : "pt-18 sm:pt-24 lg:pt-28 h-[100svh] sm:h-screen"
-      } pb-0 flex flex-col justify-between overflow-hidden select-none bg-[#F8FAFC] px-4 md:px-8 xl:px-12`}
+      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-8 sm:pb-10 md:pb-12 border-b border-slate-200/80"
+      onClick={() => setOpenDrop(null)}
     >
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* On desktop: right half raised upwards. On mobile: starts at top-0 with soft gradient feathering */}
-        <div className="absolute right-0 top-0 sm:-top-8 lg:-top-12 w-[64%] sm:w-[65%] lg:w-[50%] xl:w-[46%] h-[78%] sm:h-[calc(100%+2rem)] lg:h-[calc(100%+3rem)] pointer-events-none bg-[#F8FAFC] sm:bg-transparent overflow-hidden">
-          <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
-            <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
-            <img
-              src={heroBgMobileLcp}
-              alt="Pareja feliz entrando a su nuevo hogar con las llaves y celebrando con Gesgrama"
-              className="w-full h-full object-cover object-[center_top] sm:object-[right_top] block"
-              loading="eager"
-              fetchPriority="high"
-              decoding="sync"
-              width={360}
-              height={554}
-            />
-          </picture>
-
-          {/* Feathering: left edge */}
-          <div className="absolute inset-y-0 left-0 w-28 sm:w-40 md:w-52 bg-gradient-to-r from-[#F8FAFC] via-[#F8FAFC]/85 to-transparent pointer-events-none z-10" />
-          {/* Feathering: top edge difuminado suave y profundo arriba de la imagen */}
-          <div className="absolute inset-x-0 top-0 h-40 sm:h-48 md:h-56 bg-gradient-to-b from-[#F8FAFC] from-[35%] via-[#F8FAFC]/80 via-[70%] to-transparent pointer-events-none z-20" />
-          {/* Feathering: balanced bottom fade */}
-          <div className="absolute inset-x-0 -bottom-1 h-36 sm:h-44 bg-gradient-to-t from-[#F8FAFC] from-[25%] via-[#F8FAFC]/70 to-transparent pointer-events-none z-10" />
-        </div>
-
-        {/* Mobile: solid white text backdrop covering entire buttons and text area */}
-        <div className="sm:hidden absolute inset-y-0 left-0 w-[70%] bg-gradient-to-r from-[#F8FAFC] from-[78%] to-transparent pointer-events-none z-[1]" />
-      </div>
-
-      <div className="max-w-[1360px] mx-auto w-full relative z-10 flex-1 flex flex-col justify-between pt-1 sm:pt-2 pb-2 sm:pb-3">
-        {/* Mobile text container: comfortable width, clean readability */}
-        <div className={`max-w-[55%] xs:max-w-[53%] sm:max-w-2xl lg:max-w-3xl ${customHeadline ? "xl:max-w-[780px]" : "xl:max-w-[720px]"} text-left py-1 sm:py-2 my-auto`}>
-          <div className="flex flex-col justify-center h-full">
-            <div className="mb-1.5 sm:mb-2.5">
-              <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#2563eb] text-white text-[7.5px] xs:text-[9.5px] sm:text-[12.5px] font-black uppercase tracking-[0.04em] sm:tracking-[0.1em] px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.28)] font-sans w-fit max-w-full">
-                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white shrink-0 animate-pulse" />
-                <span className="text-left leading-tight line-clamp-1">{customTag || t.heroCarousel.tag}</span>
-              </div>
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12">
+        {/* ── SECCIÓN SUPERIOR: CONTENIDO IZQUIERDA + FOTO EDITORIAL DERECHA ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
+          
+          {/* Columna Izquierda: Identidad y Propuesta de Valor */}
+          <div className="lg:col-span-7 flex flex-col justify-center relative z-10 text-left">
+            {/* Tag / Badge */}
+            <div className="mb-3 sm:mb-3.5">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 py-1.5 rounded-full shadow-[0_4px_16px_rgba(37,99,235,0.32)] font-sans">
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 animate-pulse" />
+                {customTag || t.heroCarousel.tag}
+              </span>
             </div>
 
-            <h1
-              className={`text-[23px] xs:text-[26px] ${
-                customHeadline
-                  ? "sm:text-4xl md:text-[2.85rem] lg:text-[3.35rem] leading-[1.08] sm:leading-[1.06]"
-                  : "sm:text-5xl md:text-[3.35rem] lg:text-[4rem] leading-[1.1] sm:leading-[1.04]"
-              } mb-2 sm:mb-3 font-black text-[#0b214a] tracking-tight font-heading`}
-            >
+            {/* Titular Principal H1 */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[3.2rem] lg:text-[3.6rem] font-black text-[#0b214a] tracking-tight leading-[1.08] mb-4 font-heading">
               {customHeadline ? (
                 customHeadline
               ) : (
                 <>
-                  <span className="block whitespace-nowrap">
+                  <span className="block text-[#0b214a]">
                     {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}
                   </span>
-                  <span className="text-[#2563eb] block mt-0.5 sm:mt-1 whitespace-nowrap">
+                  <span className="text-[#2563eb] block mt-1">
                     {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
                   </span>
                 </>
               )}
             </h1>
 
-            <p
-              className="text-[#1e293b] text-[12px] xs:text-[13px] sm:text-base md:text-[1.15rem] mb-2 sm:mb-4 font-bold leading-snug sm:leading-relaxed font-sans"
-            >
+            {/* Subtítulo descriptivo */}
+            <p className="text-slate-700 text-base sm:text-lg md:text-xl font-bold leading-relaxed mb-6 max-w-xl text-balance">
               {customSubtitle || t.heroCarousel.subtitle}
             </p>
 
-            <div
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-3.5 w-full max-w-[190px] xs:max-w-[205px] sm:max-w-none mb-2 sm:mb-4"
-            >
-              {/* Primary CTA: Solicitar presupuesto -> directly to contact form */}
-              <a 
-                href="#formulario-contacto" 
+            {/* CTAs Secundarios (debajo del texto, discretos y bien jerarquizados) */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <a
+                href="#formulario-contacto"
                 onClick={(e) => {
                   e.preventDefault();
                   const formEl = document.getElementById("formulario-contacto") || document.getElementById("contacto");
                   if (formEl) {
-                    const navOffset = window.innerWidth < 768 ? 75 : 85;
-                    const elementPosition = formEl.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.scrollY - navOffset;
-                    window.scrollTo({
-                      top: Math.max(0, offsetPosition),
-                      behavior: "smooth"
-                    });
+                    const navOffset = window.innerWidth < 768 ? 80 : 100;
+                    const pos = formEl.getBoundingClientRect().top + window.scrollY - navOffset;
+                    window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
                     window.history.replaceState(null, "", "#formulario-contacto");
                     const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
                     if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 450);
                   }
                 }}
-                className="btn-lift w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-7 py-1.5 sm:py-3.5 rounded-full font-black text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-md"
+                className="btn-lift bg-slate-900 hover:bg-[#2563eb] text-white px-6 sm:px-7 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all select-none"
               >
-                <Send className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white stroke-[2.5]" />
+                <Send className="w-3.5 h-3.5 stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.btnBudget || "Solicitar presupuesto"}</span>
               </a>
 
-              {/* Secondary CTA: Valorar mi propiedad (Calculadora) -> directly to valuator with exact offset */}
-              <a 
-                href={customValuationHref || "#valuator-form"} 
+              <a
+                href={customValuationHref || "#valuator-form"}
                 onClick={(e) => {
                   e.preventDefault();
                   const targetEl = document.getElementById("valuator-card") || document.getElementById("valuator-form");
                   if (targetEl) {
-                    const navOffset = window.innerWidth < 768 ? 58 : 65;
-                    const elementPosition = targetEl.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.scrollY - navOffset;
-                    window.scrollTo({
-                      top: Math.max(0, offsetPosition),
-                      behavior: "smooth"
-                    });
+                    const navOffset = window.innerWidth < 768 ? 90 : 110;
+                    const pos = targetEl.getBoundingClientRect().top + window.scrollY - navOffset;
+                    window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
                     window.history.replaceState(null, "", "#valuator-form");
                     const inputEl = document.getElementById("valuator-zona-select") || targetEl.querySelector("select");
                     if (inputEl) setTimeout(() => (inputEl as HTMLElement).focus({ preventScroll: true }), 450);
                   }
                 }}
-                className="btn-lift w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-3 sm:px-6 py-1.5 sm:py-3.5 rounded-full font-extrabold text-[10px] xs:text-[11px] sm:text-base tracking-wide flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 group cursor-pointer shrink-0 shadow-sm"
+                className="btn-lift bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-6 sm:px-7 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-all select-none"
               >
-                <Calculator className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563eb] stroke-[2.5]" />
+                <Calculator className="w-3.5 h-3.5 text-[#2563eb] stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.btnValuation || "Valorar mi propiedad"}</span>
               </a>
             </div>
 
-            <div
-              className="flex items-center gap-2 sm:gap-3 pt-0.5"
-            >
-              {/* Overlapping customer avatars stack */}
-              <div className="flex -space-x-1.5 sm:-space-x-2 shrink-0">
-                <img
-                  src="/images/avatar-1.webp"
-                  alt="Cliente Gesgrama"
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={32}
-                  height={32}
-                />
-                <img
-                  src="/images/avatar-2.webp"
-                  alt="Cliente Gesgrama"
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={32}
-                  height={32}
-                />
-                <img
-                  src="/images/avatar-3.webp"
-                  alt="Cliente Gesgrama"
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={32}
-                  height={32}
-                />
-                <img
-                  src="/images/avatar-4.webp"
-                  alt="Cliente Gesgrama"
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200/60"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={32}
-                  height={32}
-                />
-              </div>
+          </div>
 
-              <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm">
-                  <Check className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 text-white stroke-[3.5]" />
-                </span>
-                <span className="font-extrabold font-sans text-slate-950 text-[11px] xs:text-xs sm:text-[14px] lg:text-[15px] leading-snug">
-                  {customTrustBadge ? (
-                    customTrustBadge
-                  ) : language === 'ca' ? (
-                    <>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">Més de 4.500 </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">clients ja confien </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
-                    </>
-                  ) : language === 'en' ? (
-                    <>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">Over 4,500 clients </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">already trust </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">Gesgrama</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">Más de 4.500 </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950">clientes ya confían </span>
-                      <span className="block sm:inline whitespace-nowrap text-slate-950 font-black">en Gesgrama</span>
-                    </>
-                  )}
-                </span>
+          {/* Columna Derecha: Fotografía integrada suavemente con el fondo blanco/gris */}
+          <div className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0 z-10">
+            <div className="relative w-full max-w-[480px] lg:max-w-none rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.10)] border border-slate-200/80 bg-slate-100 aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] max-h-[440px] lg:max-h-[500px]">
+              <picture className="w-full h-full block">
+                <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+                <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+                <img
+                  src={heroBgDesktop}
+                  alt="Pareja feliz celebrando en su nuevo hogar con Gesgrama"
+                  className="w-full h-full object-cover object-[center_top] sm:object-center"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
+                  width={850}
+                  height={1113}
+                />
+              </picture>
+              
+              {/* Degradado suave a la izquierda para fundirse orgánicamente con el hero */}
+              <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#F8FAFC]/90 via-[#F8FAFC]/30 to-transparent pointer-events-none" />
+              {/* Degradado sutil inferior para el badge */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Badge de ubicación */}
+              <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 bg-[#0f172a]/90 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl border border-white/15 shadow-md flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+                <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider font-sans">Santa Coloma de Gramenet</span>
               </div>
             </div>
           </div>
+
         </div>
 
-        <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3.5 lg:gap-4 relative z-20 -mt-10 xs:-mt-8 sm:-mt-6 md:-mt-8 mb-3 sm:mb-4"
-        >
-          {/* Mobile: fade the right column into the background */}
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
-            <Users className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
-            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <span>4.500+</span>
-            </p>
-            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.clientesLabel}</p>
-          </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
-            <ThumbsUp className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
-            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
-              <span>98%</span>
-            </p>
-            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.satisfaccionLabel}</p>
-          </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-[#0f172a] text-white shadow-[0_4px_24px_rgba(15,23,42,0.22)] border border-slate-700/50 transition-all duration-200 hover:-translate-y-0.5">
-            <Building2 className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#6C96F7] mb-1 sm:mb-2" />
-            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-white">
-              <span>+300</span>
-            </p>
-            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-200 leading-tight font-sans">{t.heroCarousel.stats.comunidadesLabel}</p>
-          </div>
-          <div className="flex flex-col items-center justify-center text-center px-2 py-2 xs:py-2.5 sm:py-4 sm:px-4 rounded-xl sm:rounded-2xl bg-white text-[#0b214a] border border-slate-200 shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-all duration-200 hover:-translate-y-0.5">
-            <Award className="w-4 h-4 sm:w-5.5 sm:h-5.5 text-[#2563eb] mb-1 sm:mb-2" />
-            <p className="text-[20px] xs:text-[24px] sm:text-[38px] lg:text-[42px] font-black leading-none font-sans tracking-tight mb-0.5 sm:mb-1 text-[#0b214a]">
-              <span>15+</span>
-            </p>
-            <p className="text-[10px] xs:text-xs sm:text-[14.5px] font-bold text-slate-700 leading-tight font-sans">{t.heroCarousel.stats.anosLabel}</p>
+        {/* ── BUSCADOR CENTRADO HORIZONTALMENTE RESPECTO AL HERO COMPLETO ── */}
+        <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center w-full relative z-30">
+          <div 
+            className="w-full max-w-[940px] bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-3 shadow-[0_16px_44px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Toggle Comprar / Alquilar */}
+            <div className="flex bg-slate-100/90 p-1 rounded-full border border-slate-200 shrink-0">
+              <button
+                type="button"
+                onClick={() => setMode("comprar")}
+                className={`flex-1 sm:flex-initial px-5 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  mode === "comprar"
+                    ? "bg-[#2563eb] text-white shadow-md"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {L.buy}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("alquilar")}
+                className={`flex-1 sm:flex-initial px-5 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  mode === "alquilar"
+                    ? "bg-[#2563eb] text-white shadow-md"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {L.rent}
+              </button>
+            </div>
+
+            {/* Selector Zona */}
+            <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3 min-w-0">
+              <button
+                type="button"
+                onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
+                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                  <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <div className="min-w-0">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                      {L.area}
+                    </span>
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] whitespace-nowrap mt-0.5">
+                      {zona === "Cualquier zona" ? L.selectArea : zona}
+                    </span>
+                  </div>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
+              </button>
+
+              {openDrop === "zona" && (
+                <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-60 overflow-y-auto">
+                  {ZONAS.map((z) => (
+                    <button
+                      key={z}
+                      type="button"
+                      onClick={() => {
+                        setZona(z);
+                        setOpenDrop(null);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors ${
+                        zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate">{z}</span>
+                      {zona === z && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Selector Tipo */}
+            <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3 min-w-0">
+              <button
+                type="button"
+                onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
+                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                  <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <div className="min-w-0">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                      {L.type}
+                    </span>
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] whitespace-nowrap mt-0.5">
+                      {tipo === "Cualquier tipo" ? L.selectType : tipo}
+                    </span>
+                  </div>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
+              </button>
+
+              {openDrop === "tipo" && (
+                <div className="absolute top-full left-0 mt-2 w-60 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-60 overflow-y-auto">
+                  {TIPOS.map((tItem) => (
+                    <button
+                      key={tItem}
+                      type="button"
+                      onClick={() => {
+                        setTipo(tItem);
+                        setOpenDrop(null);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors ${
+                        tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate">{tItem}</span>
+                      {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Botón Buscar totalmente integrado en el flex contenedor */}
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 sm:px-9 py-3 sm:py-3.5 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
+            >
+              <Search className="w-4 h-4 stroke-[2.5]" />
+              <span>{L.search}</span>
+            </button>
           </div>
         </div>
-      </div>
 
-      {/* ── CONTINUOUS AUTHORITY MARQUEE INTEGRATED AS HERO BASE ── */}
-      <div className={`w-full relative z-20 ${customHeadline ? "mt-0 sm:mt-1" : "mt-0 sm:mt-2"}`}>
-        <MarqueeRibbon language={language} className="-mx-4 md:-mx-8 xl:-mx-12" />
       </div>
-    </section>
+    </header>
   );
 }

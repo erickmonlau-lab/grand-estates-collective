@@ -20,6 +20,7 @@ const FaqSection = lazy(() => import('@/components/FaqSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 import { DeferredHydration } from "@/components/DeferredHydration";
+import MarqueeRibbon from "@/components/MarqueeRibbon";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -146,69 +147,10 @@ function WhatsAppBrandIcon({ className = "w-4 h-4 fill-current shrink-0" }: { cl
   );
 }
 
-function PriceCounter({ value, duration = 1200 }: { value: number; duration?: number }) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const prevRef = useRef(value);
-
-  useEffect(() => {
-    const start = prevRef.current;
-    const end = value;
-    prevRef.current = value;
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(start + (end - start) * easeProgress));
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [value, duration]);
-
-  return <span>{new Intl.NumberFormat('es-ES').format(displayValue)}</span>;
-}
-
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <div className={className}>
       {children}
-    </div>
-  );
-}
-
-function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
-  return (
-    <Reveal className="text-center">
-      <div className="text-4xl md:text-6xl font-bold mb-3 text-onyx">{value}</div>
-      <div className="text-[10px] uppercase tracking-[0.3em] text-onyx/40 font-medium">{label}</div>
-    </Reveal>
-  );
-}
-
-function FormField({ label, placeholder, type = "text", textarea }: { label: string; placeholder: string; type?: string; textarea?: boolean }) {
-  return (
-    <div>
-      <label className="text-onyx font-bold uppercase tracking-wider block mb-2 text-[11px]">{label}</label>
-      {textarea ? (
-        <textarea
-          rows={3}
-          placeholder={placeholder}
-          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors resize-none placeholder:text-onyx/30"
-        />
-      ) : (
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="w-full bg-[#f8fafc] border border-slate-200 rounded-lg px-5 py-4 text-[15px] font-medium text-onyx focus:border-[#0082c8] focus:ring-1 focus:ring-[#0082c8] outline-none transition-colors placeholder:text-onyx/30"
-        />
-      )}
     </div>
   );
 }
@@ -323,7 +265,7 @@ function Index() {
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<string>("recientes");
-  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [visibleCount, setVisibleCount] = useState<number>(3);
 
   useEffect(() => {
     setConsoleFilters({
@@ -546,11 +488,12 @@ function Index() {
 
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
-        {/* ── HERO CON CINTA DE MOVIMIENTO INTEGRADA ── */}
+        {/* ── 1. HERO SEARCH-FIRST COMPLETO ── */}
         <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
 
-      {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS ── */}
-      <DeferredHydration rootMargin="50px" fallback={<div className="min-h-[1200px] bg-[#cbd5e1]" />}>
+        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (TRANSICIÓN VISUAL INMEDIATA) ── */}
+        <MarqueeRibbon language={language} />
+
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-8 md:py-12 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
@@ -558,29 +501,38 @@ function Index() {
             <div className="mb-4">
               <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
                 <Home className="w-3.5 h-3.5 text-white" />
-                <span>{t.properties.tag}</span>
+                <span>{language === "ca" ? "PROPIETATS DESTACADES" : language === "en" ? "FEATURED PROPERTIES" : "PROPIEDADES DESTACADAS"}</span>
               </span>
-              
+
               <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
-                {t.properties.title1} <span className="text-[#2563eb] whitespace-nowrap inline-block">{t.properties.title2}</span>
+                {language === "ca" ? (
+                  <>Descobreix les nostres <span className="text-[#2563eb] whitespace-nowrap inline-block">millors oportunitats.</span></>
+                ) : language === "en" ? (
+                  <>Discover our <span className="text-[#2563eb] whitespace-nowrap inline-block">best properties.</span></>
+                ) : (
+                  <>Descubre nuestras <span className="text-[#2563eb] whitespace-nowrap inline-block">mejores oportunidades.</span></>
+                )}
               </h2>
-              
+
               <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
-                {t.properties.subtitle}
+                {language === "ca"
+                  ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
+                  : language === "en"
+                  ? "Selection of properties in Santa Coloma and Barcelona managed with full guarantee and transparency by Gesgrama."
+                  : "Selección de inmuebles en Santa Coloma y Barcelona gestionados con total garantía y transparencia por Gesgrama."}
               </p>
             </div>
 
-            {/* Dedicated full-width row for Mode Selector + Stat Badge right above Search Console */}
-            <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
-              {/* Search Mode Selector Tabs - Responsive 3-column equal grid on mobile to fit all screen sizes */}
+            {/* Mode tabs + count — NO duplicate search console */}
+            <div className="mt-5 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
               <div className="grid grid-cols-3 sm:flex sm:items-center bg-slate-200/90 p-1.5 sm:p-2 rounded-2xl border-2 border-slate-300 shadow-sm w-full sm:w-auto gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
                   className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
-                    searchParams.mode === "comprar" 
-                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "comprar"
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   {t.hero.comprar}
@@ -589,9 +541,9 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
                   className={`px-2 sm:px-5 py-2.5 rounded-xl text-[11px] xs:text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer font-sans text-center shadow-xs ${
-                    searchParams.mode === "alquilar" 
-                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "alquilar"
+                      ? "bg-[#2563eb] text-white shadow-md ring-2 ring-[#2563eb]/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   {t.hero.alquilar}
@@ -600,9 +552,9 @@ function Index() {
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
                   className={`px-1.5 xs:px-2 sm:px-5 py-2.5 rounded-xl text-[10px] xs:text-[11px] sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap shadow-xs ${
-                    searchParams.mode === "favoritos" 
-                      ? "bg-red-600 text-white shadow-md ring-2 ring-red-500/20" 
-                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300 hover:text-slate-950"
+                    searchParams.mode === "favoritos"
+                      ? "bg-red-600 text-white shadow-md ring-2 ring-red-500/20"
+                      : "bg-white text-slate-800 hover:bg-slate-100 border border-slate-300"
                   }`}
                 >
                   <Heart className={`w-3 h-3 sm:w-4 sm:h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
@@ -622,313 +574,6 @@ function Index() {
                   <span className="text-xs font-bold text-slate-300 tracking-wide font-sans mt-0.5">{language === "ca" ? "disponibles ara" : language === "en" ? "available now" : "disponibles ahora"}</span>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* FILTERS */}
-          {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
-          <div className="mt-8 mb-4">
-            <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 xl:p-3 flex flex-col xl:flex-row items-stretch xl:items-center gap-3 xl:gap-4 relative z-40">
-              
-              {/* Field 1: Tipo de Inmueble */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "tipo" ? null : "tipo")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <Building2 className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "tipo" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier tipo" },
-                      { value: "Piso" },
-                      { value: "Apartamento" },
-                      { value: "Ático" },
-                      { value: "Chalet" },
-                      { value: "Local" },
-                      { value: "Oficina" },
-                      { value: "Aparcamiento" }
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        const matchesTipo = opt.value === "Cualquier tipo" ? true : p.type === opt.value;
-                        return matchesMode && matchesTipo;
-                      }).length;
-
-                      const isActive = consoleFilters.tipo === opt.value;
-                      const label = getTranslatedFilterLabel("tipo", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 2: Zona */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "zona" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier zona" },
-                      ...[...new Set(properties.map(p => p.location))].map(loc => ({ value: loc }))
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        const matchesZona = opt.value === "Cualquier zona" ? true : p.location === opt.value;
-                        return matchesMode && matchesZona;
-                      }).length;
-
-                      const isActive = consoleFilters.zona === opt.value;
-                      const label = getTranslatedFilterLabel("zona", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 3: Habitaciones */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "habitaciones" ? null : "habitaciones")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <Home className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "habitaciones" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {[
-                      { value: "Cualquier número" },
-                      { value: "1+" },
-                      { value: "2+" },
-                      { value: "3+" },
-                      { value: "4+" }
-                    ].map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        if (!matchesMode) return false;
-                        if (opt.value === "Cualquier número") return true;
-                        const min = parseInt(opt.value.replace("+", ""), 10);
-                        return p.bedrooms >= min;
-                      }).length;
-
-                      const isActive = consoleFilters.habitaciones === opt.value;
-                      const label = getTranslatedFilterLabel("habitaciones", opt.value);
-
-                      return (
-                        <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Divider */}
-              <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-              {/* Field 4: Precio Máximo */}
-              <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                <button 
-                  onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
-                  className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-8 h-8 rounded-full bg-[#2563eb] shadow-xs flex items-center justify-center shrink-0">
-                      <span className="text-white text-xs font-black">€</span>
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
-                      <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
-                    </div>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                </button>
-
-                {openDropdown === "precio" && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                    {(searchParams.mode === "alquilar" 
-                      ? ["Cualquier precio", "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
-                      : ["Cualquier precio", "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
-                    ).map(opt => {
-                      const count = properties.filter(p => {
-                        const matchesMode = p.operation === searchParams.mode;
-                        if (!matchesMode) return false;
-                        return isPriceValid(opt, p.price);
-                      }).length;
-
-                      const isActive = consoleFilters.precio === opt;
-                      const label = getTranslatedFilterLabel("precio", opt);
-
-                      return (
-                        <div key={opt} className="py-1 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setConsoleFilters(prev => ({ ...prev, precio: opt }));
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2.5">
-                              {isActive ? (
-                                <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                              ) : (
-                                <span className="w-4 h-4 shrink-0" />
-                              )}
-                              <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                            </div>
-                            <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                              isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                            }`}>
-                              {count}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Buscar Button */}
-              <button 
-                onClick={() => {
-                  setSearchParams(prev => ({
-                    ...prev,
-                    tipo: consoleFilters.tipo,
-                    zona: consoleFilters.zona,
-                    habitaciones: consoleFilters.habitaciones,
-                    precio: consoleFilters.precio
-                  }));
-                  const el = document.getElementById('propiedades');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }
-                }}
-                className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
-              >
-                {t.hero.buscarBtn}
-              </button>
             </div>
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
@@ -1249,7 +894,209 @@ function Index() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
+      {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS (VALUATOR, SERVICES, TESTIMONIALS, ETC.) ── */}
+      <DeferredHydration rootMargin="200px" fallback={<div className="min-h-[400px] bg-[#e2e8f0]" />}>
+      {/* ── 5. VALORADOR DE INMUEBLES ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
+      </Suspense>
+
+      {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
+      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
+            
+            {/* Left Content */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-center">
+              <Reveal>
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
+                </span>
+                
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
+                  {language === "ca" ? (
+                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
+                  ) : language === "en" ? (
+                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
+                  ) : (
+                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
+                  )}
+                </h2>
+                
+                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
+                  {language === "ca" 
+                    ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
+                    : language === "en" 
+                    ? "Transparent management, agile response and guaranteed cost optimization for your property." 
+                    : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                  <a 
+                    href="#formulario-contacto" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const formEl = document.getElementById("formulario-contacto");
+                      if (formEl) {
+                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                      }
+                    }}
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                  >
+                    <Phone className="w-4 h-4 text-white" />
+                    <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
+                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a 
+                    href="https://wa.me/34601259424" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
+                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                    </svg>
+                    <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
+                  </a>
+                </div>
+
+                {/* Stats Grid */}
+                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
+                  </div>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                  </div>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right Image (Left in desktop) */}
+            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
+              <Reveal delay={0.2} className="w-full h-full">
+                <img 
+                  src={gesgramaOffice} 
+                  alt="Oficina principal Gesgrama" 
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-center" 
+                />
+              </Reveal>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
+        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
+          <div className="text-center mb-4 sm:mb-6">
+            <Reveal>
+              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
+                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
+                <span>{t.servicios.tag}</span>
+              </span>
+            </Reveal>
+            <Reveal>
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
+                {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
+              </h2>
+            </Reveal>
+            <Reveal>
+              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
+                {t.servicios.subtitle}
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+            {t.servicios.items.map((item, i) => {
+              const icons = [
+                <Building2 key={0} className="w-5 h-5" />,
+                <TrendingUp key={1} className="w-5 h-5" />,
+                <Shield key={2} className="w-5 h-5" />,
+                <Paintbrush key={3} className="w-5 h-5" />
+              ];
+              const bgs = [
+                "/images/service-1.webp",
+                "/images/service-2.webp",
+                "/images/service-3.webp",
+                "/images/service-4.webp"
+              ];
+              return (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div 
+                    onClick={() => setSelectedServiceIndex(i)}
+                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                  >
+                    
+                    {/* Thumbnail con icono Cyan superpuesto */}
+                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
+                      <img 
+                        src={bgs[i]} 
+                        alt={item.title} 
+                        loading="lazy" 
+                        decoding="async"
+                        width={110}
+                        height={95}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                      />
+                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
+                        {icons[i]}
+                      </div>
+                    </div>
+
+                    {/* Texto informativo + Botón Píldora Azul Cyan */}
+                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
+                      <div>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
+                          {item.desc}
+                        </p>
+                      </div>
+                      <div>
+                        <button 
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedServiceIndex(i);
+                          }}
+                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
+                        >
+                          <span>{t.servicios.saberMas}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 8. COBERTURA LOCAL (BARRIOS Y ZONAS) ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <CoberturaSection language={language} t={t} />
+      </Suspense>
+
+      {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
       <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
         <div id="testimonios" className="-top-32 relative block invisible" />
         <div className="bg-white rounded-[24px] md:rounded-[30px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
@@ -1367,211 +1214,7 @@ function Index() {
         </div>
       </section>
 
-      {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
-          <div className="text-center mb-4 sm:mb-6">
-            <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
-                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
-                <span>{t.servicios.tag}</span>
-              </span>
-            </Reveal>
-            <Reveal>
-              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
-                {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
-              </h2>
-            </Reveal>
-            <Reveal>
-              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
-                {t.servicios.subtitle}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
-            {t.servicios.items.map((item, i) => {
-              const icons = [
-                <Building2 key={0} className="w-5 h-5" />,
-                <TrendingUp key={1} className="w-5 h-5" />,
-                <Shield key={2} className="w-5 h-5" />,
-                <Paintbrush key={3} className="w-5 h-5" />
-              ];
-              const bgs = [
-                "/images/service-1.webp",
-                "/images/service-2.webp",
-                "/images/service-3.webp",
-                "/images/service-4.webp"
-              ];
-              return (
-                <Reveal key={i} delay={i * 0.1}>
-                  <div 
-                    onClick={() => setSelectedServiceIndex(i)}
-                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
-                  >
-                    
-                    {/* Thumbnail con icono Cyan superpuesto */}
-                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
-                      <img 
-                        src={bgs[i]} 
-                        alt={item.title} 
-                        loading="lazy" 
-                        decoding="async"
-                        width={110}
-                        height={95}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                      />
-                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
-                        {icons[i]}
-                      </div>
-                    </div>
-
-                    {/* Texto informativo + Botón Píldora Azul Cyan */}
-                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
-                      <div>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
-                          {item.desc}
-                        </p>
-                      </div>
-                      <div>
-                        <button 
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedServiceIndex(i);
-                          }}
-                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
-                        >
-                          <span>{t.servicios.saberMas}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-white" />
-                        </button>
-                      </div>
-                    </div>
-
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-            {/* ── VALORADOR DE INMUEBLES ── */}
-      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-          <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
-        </Suspense>
-      </DeferredHydration>
-
-            {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}
-      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-          <CoberturaSection language={language} t={t} />
-        </Suspense>
-      </DeferredHydration>
-
-      {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
-      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
-            
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center">
-              <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
-                </span>
-                
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
-                  {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
-                  ) : language === "en" ? (
-                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
-                  ) : (
-                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
-                  )}
-                </h2>
-                
-                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
-                  {language === "ca" 
-                    ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
-                    : language === "en" 
-                    ? "Transparent management, agile response and guaranteed cost optimization for your property." 
-                    : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
-                </p>
-
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-                  <a 
-                    href="#formulario-contacto" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const formEl = document.getElementById("formulario-contacto");
-                      if (formEl) {
-                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
-                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
-                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
-                      }
-                    }}
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
-                  >
-                    <Phone className="w-4 h-4 text-white" />
-                    <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
-                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                  </a>
-                  <a 
-                    href="https://wa.me/34601259424" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
-                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                    </svg>
-                    <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
-                  </a>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
-                  </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
-                  </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-
-            {/* Right Image (Left in desktop) */}
-            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
-              <Reveal delay={0.2} className="w-full h-full">
-                <img 
-                  src={gesgramaOffice} 
-                  alt="Oficina principal Gesgrama" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover object-center" 
-                />
-              </Reveal>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-            {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      {/* ── 10. ÚLTIMAS NOTICIAS (BLOG) ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
         <BlogSection language={language} t={t} />
       </Suspense>
@@ -1582,11 +1225,9 @@ function Index() {
       </Suspense>
 
       {/* ── CONTACT ── */}
-      <DeferredHydration rootMargin="400px" fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-          <ContactSection language={language} t={t} />
-        </Suspense>
-      </DeferredHydration>
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <ContactSection language={language} t={t} />
+      </Suspense>
 
       {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
       <section id="final-cta" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">

@@ -904,7 +904,207 @@ function Index() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
+      {/* ── 5. VALORADOR DE INMUEBLES ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
+      </Suspense>
+
+      {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
+      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
+            
+            {/* Left Content */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-center">
+              <Reveal>
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
+                  <Building2 className="w-3.5 h-3.5" />
+                  <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
+                </span>
+                
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
+                  {language === "ca" ? (
+                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
+                  ) : language === "en" ? (
+                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
+                  ) : (
+                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
+                  )}
+                </h2>
+                
+                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
+                  {language === "ca" 
+                    ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
+                    : language === "en" 
+                    ? "Transparent management, agile response and guaranteed cost optimization for your property." 
+                    : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
+                </p>
+
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                  <a 
+                    href="#formulario-contacto" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const formEl = document.getElementById("formulario-contacto");
+                      if (formEl) {
+                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
+                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
+                      }
+                    }}
+                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                  >
+                    <Phone className="w-4 h-4 text-white" />
+                    <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
+                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a 
+                    href="https://wa.me/34601259424" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
+                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                    </svg>
+                    <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
+                  </a>
+                </div>
+
+                {/* Stats Grid */}
+                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
+                  </div>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                  </div>
+                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
+                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
+                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right Image (Left in desktop) */}
+            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
+              <Reveal delay={0.2} className="w-full h-full">
+                <img 
+                  src={gesgramaOffice} 
+                  alt="Oficina principal Gesgrama" 
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-center" 
+                />
+              </Reveal>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
+      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
+        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
+          <div className="text-center mb-4 sm:mb-6">
+            <Reveal>
+              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
+                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
+                <span>{t.servicios.tag}</span>
+              </span>
+            </Reveal>
+            <Reveal>
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
+                {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
+              </h2>
+            </Reveal>
+            <Reveal>
+              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
+                {t.servicios.subtitle}
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+            {t.servicios.items.map((item, i) => {
+              const icons = [
+                <Building2 key={0} className="w-5 h-5" />,
+                <TrendingUp key={1} className="w-5 h-5" />,
+                <Shield key={2} className="w-5 h-5" />,
+                <Paintbrush key={3} className="w-5 h-5" />
+              ];
+              const bgs = [
+                "/images/service-1.webp",
+                "/images/service-2.webp",
+                "/images/service-3.webp",
+                "/images/service-4.webp"
+              ];
+              return (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div 
+                    onClick={() => setSelectedServiceIndex(i)}
+                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                  >
+                    
+                    {/* Thumbnail con icono Cyan superpuesto */}
+                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
+                      <img 
+                        src={bgs[i]} 
+                        alt={item.title} 
+                        loading="lazy" 
+                        decoding="async"
+                        width={110}
+                        height={95}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                      />
+                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
+                        {icons[i]}
+                      </div>
+                    </div>
+
+                    {/* Texto informativo + Botón Píldora Azul Cyan */}
+                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
+                      <div>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
+                          {item.desc}
+                        </p>
+                      </div>
+                      <div>
+                        <button 
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedServiceIndex(i);
+                          }}
+                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
+                        >
+                          <span>{t.servicios.saberMas}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 8. COBERTURA LOCAL (BARRIOS Y ZONAS) ── */}
+      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
+        <CoberturaSection language={language} t={t} />
+      </Suspense>
+
+      {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
       <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
         <div id="testimonios" className="-top-32 relative block invisible" />
         <div className="bg-white rounded-[24px] md:rounded-[30px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
@@ -1022,207 +1222,7 @@ function Index() {
         </div>
       </section>
 
-      {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
-      <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
-          <div className="text-center mb-4 sm:mb-6">
-            <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
-                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
-                <span>{t.servicios.tag}</span>
-              </span>
-            </Reveal>
-            <Reveal>
-              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
-                {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
-              </h2>
-            </Reveal>
-            <Reveal>
-              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
-                {t.servicios.subtitle}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Grid de 2x2 Tarjetas Horizontales Informativas (Texto Protagonista + Imagen Thumbnail ~30%) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
-            {t.servicios.items.map((item, i) => {
-              const icons = [
-                <Building2 key={0} className="w-5 h-5" />,
-                <TrendingUp key={1} className="w-5 h-5" />,
-                <Shield key={2} className="w-5 h-5" />,
-                <Paintbrush key={3} className="w-5 h-5" />
-              ];
-              const bgs = [
-                "/images/service-1.webp",
-                "/images/service-2.webp",
-                "/images/service-3.webp",
-                "/images/service-4.webp"
-              ];
-              return (
-                <Reveal key={i} delay={i * 0.1}>
-                  <div 
-                    onClick={() => setSelectedServiceIndex(i)}
-                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
-                  >
-                    
-                    {/* Thumbnail con icono Cyan superpuesto */}
-                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
-                      <img 
-                        src={bgs[i]} 
-                        alt={item.title} 
-                        loading="lazy" 
-                        decoding="async"
-                        width={110}
-                        height={95}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                      />
-                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
-                        {icons[i]}
-                      </div>
-                    </div>
-
-                    {/* Texto informativo + Botón Píldora Azul Cyan */}
-                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
-                      <div>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
-                          {item.desc}
-                        </p>
-                      </div>
-                      <div>
-                        <button 
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedServiceIndex(i);
-                          }}
-                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
-                        >
-                          <span>{t.servicios.saberMas}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-white" />
-                        </button>
-                      </div>
-                    </div>
-
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-            {/* ── VALORADOR DE INMUEBLES ── */}
-      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
-      </Suspense>
-
-            {/* ── GALLERY (COBERTURA / PROYECTOS EXCLUSIVOS) ── */}
-      <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
-        <CoberturaSection language={language} t={t} />
-      </Suspense>
-
-      {/* ── CTA COMUNIDAD (ELEGANT LIGHT BUBBLE CARD WITH BLUE ACCENT) ── */}
-      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
-            
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center">
-              <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
-                </span>
-                
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
-                  {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
-                  ) : language === "en" ? (
-                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
-                  ) : (
-                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
-                  )}
-                </h2>
-                
-                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
-                  {language === "ca" 
-                    ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
-                    : language === "en" 
-                    ? "Transparent management, agile response and guaranteed cost optimization for your property." 
-                    : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
-                </p>
-
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-                  <a 
-                    href="#formulario-contacto" 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const formEl = document.getElementById("formulario-contacto");
-                      if (formEl) {
-                        formEl.scrollIntoView({ behavior: "smooth", block: "start" });
-                        const inputEl = document.getElementById("contacto-nombre-input") || formEl.querySelector("input");
-                        if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
-                      }
-                    }}
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
-                  >
-                    <Phone className="w-4 h-4 text-white" />
-                    <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
-                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                  </a>
-                  <a 
-                    href="https://wa.me/34601259424" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
-                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                    </svg>
-                    <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
-                  </a>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
-                  </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
-                  </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-
-            {/* Right Image (Left in desktop) */}
-            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
-              <Reveal delay={0.2} className="w-full h-full">
-                <img 
-                  src={gesgramaOffice} 
-                  alt="Oficina principal Gesgrama" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover object-center" 
-                />
-              </Reveal>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-            {/* ── ÚLTIMAS NOTICIAS (BLOG) ── */}
+      {/* ── 10. ÚLTIMAS NOTICIAS (BLOG) ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
         <BlogSection language={language} t={t} />
       </Suspense>

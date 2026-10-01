@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
@@ -36,6 +37,15 @@ const TIPOS = [
   "Oficina",
 ];
 
+interface DropCoords {
+  top?: number;
+  bottom?: number;
+  left: number;
+  width: number;
+  placement: "up" | "down";
+  maxHeight: number;
+}
+
 export default function HeroCarousel({
   onPerformSearch,
   language = 'es',
@@ -49,29 +59,114 @@ export default function HeroCarousel({
   const [zona, setZona] = useState("Santa Coloma");
   const [tipo, setTipo] = useState("Todo tipo");
   const [openDrop, setOpenDrop] = useState<"zona" | "tipo" | null>(null);
-  const [dropPlacement, setDropPlacement] = useState<"down" | "up">("down");
+  const [dropCoords, setDropCoords] = useState<DropCoords | null>(null);
 
-  const handleToggleDrop = (name: "zona" | "tipo", targetEl: HTMLElement | null) => {
+  const zonaTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const tipoTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
+
+  const calculateCoords = (targetEl: HTMLElement): DropCoords => {
+    const rect = targetEl.getBoundingClientRect();
+    const vpHeight = window.innerHeight;
+    const vpWidth = window.innerWidth;
+
+    const spaceBelow = vpHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    // Detect distance to bottom of hero or marquee ribbon if present
+    const heroEl = document.getElementById("hero");
+    const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : vpHeight;
+    const heroSpaceBelow = heroBottom - rect.bottom;
+
+    const availableSpaceBelow = Math.min(spaceBelow, heroSpaceBelow);
+    // Menu content typically needs ~250px. If space below is restricted, flip UP
+    const placement = (availableSpaceBelow < 260 && spaceAbove > 200) ? "up" : "down";
+
+    // Set width aligned with trigger (minimum comfortable width on mobile/desktop)
+    const minWidth = Math.min(vpWidth - 32, 280);
+    const width = Math.max(rect.width, minWidth);
+
+    // Ensure left does not overflow screen
+    let left = rect.left;
+    if (left + width > vpWidth - 16) {
+      left = Math.max(16, vpWidth - width - 16);
+    }
+    if (left < 16) left = 16;
+
+    const maxHeight = placement === "up" 
+      ? Math.min(270, spaceAbove - 24)
+      : Math.min(270, spaceBelow - 24);
+
+    return {
+      top: placement === "down" ? rect.bottom + 8 : undefined,
+      bottom: placement === "up" ? (vpHeight - rect.top + 8) : undefined,
+      left,
+      width,
+      placement,
+      maxHeight: Math.max(160, maxHeight),
+    };
+  };
+
+  const handleToggleDrop = (name: "zona" | "tipo", targetEl: HTMLButtonElement | null) => {
     if (openDrop === name) {
       setOpenDrop(null);
+      setDropCoords(null);
       return;
     }
     if (targetEl) {
-      const rect = targetEl.getBoundingClientRect();
-      const viewportSpaceBelow = window.innerHeight - rect.bottom;
-      // Also calculate space before hitting the Hero boundary / Marquee ribbon
-      const heroEl = document.getElementById("hero");
-      const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : window.innerHeight;
-      const heroSpaceBelow = heroBottom - rect.bottom;
-      
-      const availableSpaceBelow = Math.min(viewportSpaceBelow, heroSpaceBelow);
-      // Dropdown menu is ~240-260px tall with padding; flip up if space below is tight
-      setDropPlacement(availableSpaceBelow < 250 ? "up" : "down");
-    } else {
-      setDropPlacement("down");
+      setDropCoords(calculateCoords(targetEl));
+      setOpenDrop(name);
     }
-    setOpenDrop(name);
   };
+
+  // Close on outside click, Escape key, resize or scroll
+  useEffect(() => {
+    if (!openDrop) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenDrop(null);
+        setDropCoords(null);
+      }
+    };
+
+    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      if (
+        dropdownMenuRef.current?.contains(target) ||
+        zonaTriggerRef.current?.contains(target) ||
+        tipoTriggerRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setOpenDrop(null);
+      setDropCoords(null);
+    };
+
+    const handleScrollOrResize = () => {
+      // Re-anchor or close smoothly on scroll
+      if (openDrop === "zona" && zonaTriggerRef.current) {
+        setDropCoords(calculateCoords(zonaTriggerRef.current));
+      } else if (openDrop === "tipo" && tipoTriggerRef.current) {
+        setDropCoords(calculateCoords(tipoTriggerRef.current));
+      } else {
+        setOpenDrop(null);
+        setDropCoords(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("scroll", handleScrollOrResize, { passive: true });
+    window.addEventListener("resize", handleScrollOrResize, { passive: true });
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("scroll", handleScrollOrResize);
+      window.removeEventListener("resize", handleScrollOrResize);
+    };
+  }, [openDrop]);
 
   const L = {
     tag: language === "ca"
@@ -197,7 +292,7 @@ export default function HeroCarousel({
 
         {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO (CON SUFICIENTE AIRE INFERIOR) ── */}
         <div
-          className="relative z-50 w-full max-w-[1020px] mx-auto my-3 sm:my-4 mb-6 sm:mb-8"
+          className="relative z-40 w-full max-w-[1020px] mx-auto mt-2 sm:mt-3 mb-8 sm:mb-10"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -235,7 +330,10 @@ export default function HeroCarousel({
             {/* Selector ZONA */}
             <div className="relative flex-1 min-w-0">
               <button
+                ref={zonaTriggerRef}
                 type="button"
+                aria-expanded={openDrop === "zona"}
+                aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("zona", e.currentTarget)}
                 className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
@@ -252,29 +350,6 @@ export default function HeroCarousel({
                 </div>
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
-
-              {/* Dropdown inteligente collision-aware */}
-              {openDrop === "zona" && (
-                <div
-                  className={`absolute left-0 right-0 sm:min-w-[280px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.18)] py-2 z-[60] max-h-56 sm:max-h-64 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ${
-                    dropPlacement === "up" ? "bottom-full mb-3" : "top-full mt-3"
-                  }`}
-                >
-                  {ZONAS.map((z) => (
-                    <button
-                      key={z}
-                      type="button"
-                      onClick={() => { setZona(z); setOpenDrop(null); }}
-                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
-                        zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
-                      }`}
-                    >
-                      <span className="truncate">{z}</span>
-                      {zona === z && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Separador vertical */}
@@ -283,7 +358,10 @@ export default function HeroCarousel({
             {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0">
               <button
+                ref={tipoTriggerRef}
                 type="button"
+                aria-expanded={openDrop === "tipo"}
+                aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
                 className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
@@ -300,29 +378,6 @@ export default function HeroCarousel({
                 </div>
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
-
-              {/* Dropdown inteligente collision-aware */}
-              {openDrop === "tipo" && (
-                <div
-                  className={`absolute left-0 right-0 sm:min-w-[260px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.18)] py-2 z-[60] max-h-56 sm:max-h-64 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ${
-                    dropPlacement === "up" ? "bottom-full mb-3" : "top-full mt-3"
-                  }`}
-                >
-                  {TIPOS.map((tItem) => (
-                    <button
-                      key={tItem}
-                      type="button"
-                      onClick={() => { setTipo(tItem); setOpenDrop(null); }}
-                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
-                        tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
-                      }`}
-                    >
-                      <span className="truncate">{tItem}</span>
-                      {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Botón BUSCAR — icono alineado con precisión y centrado */}
@@ -336,6 +391,59 @@ export default function HeroCarousel({
             </button>
           </div>
         </div>
+
+        {/* ── DROPDOWNS VIA REACT PORTAL: Inmunes a clipping, overflow y stacking contexts ── */}
+        {openDrop && dropCoords && typeof document !== "undefined" && createPortal(
+          <div
+            ref={dropdownMenuRef}
+            role="listbox"
+            tabIndex={-1}
+            style={{
+              position: "fixed",
+              top: dropCoords.top !== undefined ? `${dropCoords.top}px` : undefined,
+              bottom: dropCoords.bottom !== undefined ? `${dropCoords.bottom}px` : undefined,
+              left: `${dropCoords.left}px`,
+              width: `${dropCoords.width}px`,
+              maxHeight: `${dropCoords.maxHeight}px`,
+              zIndex: 99999,
+            }}
+            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.22)] py-2 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {openDrop === "zona" && ZONAS.map((z) => (
+              <button
+                key={z}
+                type="button"
+                role="option"
+                aria-selected={zona === z}
+                onClick={() => { setZona(z); setOpenDrop(null); setDropCoords(null); }}
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
+                  zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                <span className="truncate">{z}</span>
+                {zona === z && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+              </button>
+            ))}
+
+            {openDrop === "tipo" && TIPOS.map((tItem) => (
+              <button
+                key={tItem}
+                type="button"
+                role="option"
+                aria-selected={tipo === tItem}
+                onClick={() => { setTipo(tItem); setOpenDrop(null); setDropCoords(null); }}
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
+                  tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                <span className="truncate">{tItem}</span>
+                {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+              </button>
+            ))}
+          </div>,
+          document.body
+        )}
 
         {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO ── */}
         <div className="w-full max-w-[1020px] mx-auto mt-2 sm:mt-3 pt-4 sm:pt-5 pb-2 border-t border-slate-200/80">

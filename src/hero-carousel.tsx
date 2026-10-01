@@ -61,9 +61,7 @@ export default function HeroCarousel({
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
-    allArea: language === "ca" ? "Qualsevol zona" : language === "en" ? "Any area" : "Toda zona",
     type: language === "ca" ? "TIPUS" : language === "en" ? "TYPE" : "TIPO",
-    allType: language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Todo tipo",
     search: language === "ca" ? "BUSCAR" : language === "en" ? "SEARCH" : "BUSCAR",
   };
 
@@ -82,7 +80,7 @@ export default function HeroCarousel({
     <section
       id="hero"
       className="hero relative bg-white text-slate-900 overflow-visible"
-      style={{ minHeight: 'calc(100svh - 0px)' }}
+      style={{ minHeight: '100svh' }}
       onClick={() => setOpenDrop(null)}
     >
       {/* Arco decorativo sutil izquierda */}
@@ -90,18 +88,27 @@ export default function HeroCarousel({
         <div className="absolute -left-[260px] top-[6%] w-[600px] h-[600px] rounded-full border-[48px] border-blue-50/70" />
       </div>
 
-      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 flex flex-col" style={{ minHeight: 'calc(100svh - 0px)', paddingTop: 'clamp(88px, 11vh, 120px)', paddingBottom: 'clamp(24px, 4vh, 48px)' }}>
+      <div
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 flex flex-col"
+        style={{
+          minHeight: '100svh',
+          paddingTop: 'clamp(88px, 11vh, 116px)',
+          paddingBottom: 'clamp(20px, 3.5vh, 44px)',
+        }}
+      >
 
-        {/* ── ZONA SUPERIOR: TEXTO IZQUIERDA + FOTO DERECHA ── */}
-        <div className="relative flex items-center justify-between flex-1 min-h-0" style={{ maxHeight: 'calc(100svh - 320px)' }}>
-
+        {/* ── BLOQUE EDITORIAL: texto izquierda + foto derecha ── */}
+        <div
+          className="relative flex items-center justify-between"
+          style={{ height: 'clamp(240px, calc(100svh - 300px), 440px)' }}
+        >
           {/* Columna editorial izquierda */}
           <div className="relative z-10 w-full md:max-w-[54%] lg:max-w-[50%] flex flex-col items-start text-left">
 
-            {/* Badge */}
+            {/* Badge — fondo azul sólido */}
             <div className="mb-3 sm:mb-4">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb]/10 text-[#2563eb] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.14em] px-3.5 py-1.5 rounded-full font-sans">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-black uppercase tracking-[0.14em] px-4 py-1.5 rounded-full font-sans shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/70 shrink-0" />
                 {customTag || L.tag}
               </span>
             </div>
@@ -109,7 +116,7 @@ export default function HeroCarousel({
             {/* H1 */}
             <h1
               className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
-              style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.5rem)' }}
+              style={{ fontSize: 'clamp(2.1rem, 5vw, 4rem)' }}
             >
               {customHeadline ? (
                 customHeadline
@@ -121,8 +128,11 @@ export default function HeroCarousel({
               )}
             </h1>
 
-            {/* Subtítulo */}
-            <p className="text-slate-500 font-medium leading-relaxed max-w-[480px]" style={{ fontSize: 'clamp(0.85rem, 1.2vw, 1.05rem)' }}>
+            {/* Subtítulo — legible y con peso */}
+            <p
+              className="text-slate-700 font-semibold leading-relaxed max-w-[480px]"
+              style={{ fontSize: 'clamp(0.9rem, 1.3vw, 1.05rem)' }}
+            >
               {customSubtitle || L.subtitle}
             </p>
           </div>
@@ -144,27 +154,24 @@ export default function HeroCarousel({
                   height={1113}
                 />
               </picture>
-              {/* Fade blanco izquierdo */}
               <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-white via-white/40 to-transparent" />
             </div>
           </div>
         </div>
 
-        {/* ── SEARCH PILL CENTRADO FULL-WIDTH ── */}
+        {/* ── SEARCH PILL — full-width centrado, protagonista ── */}
         <div
-          className="relative z-40 w-full mt-5 sm:mt-6 md:mt-7"
+          className="relative z-40 w-full mt-4 sm:mt-5"
           onClick={(e) => e.stopPropagation()}
         >
-          <div
-            className="bg-white rounded-2xl sm:rounded-full border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.13)] flex flex-col sm:flex-row items-stretch sm:items-center gap-0 sm:gap-0 overflow-hidden sm:overflow-visible transition-shadow hover:shadow-[0_24px_64px_rgba(37,99,235,0.16)]"
-            style={{ padding: 'clamp(6px, 1vw, 10px)' }}
-          >
+          <div className="bg-white rounded-2xl sm:rounded-full border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.13)] flex flex-col sm:flex-row items-stretch sm:items-center overflow-hidden sm:overflow-visible transition-shadow hover:shadow-[0_24px_64px_rgba(37,99,235,0.16)]" style={{ padding: '6px' }}>
+
             {/* Toggle Comprar / Alquilar */}
-            <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 mx-1 sm:mx-0" style={{ padding: '4px', margin: '4px 4px 4px 4px' }}>
+            <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 m-1">
               <button
                 type="button"
                 onClick={() => setMode("comprar")}
-                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "comprar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800"
@@ -175,7 +182,7 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setMode("alquilar")}
-                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "alquilar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-500 hover:text-slate-800"
@@ -193,12 +200,12 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
-                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-4 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-3.5 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-3 min-w-0 pr-1">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
+                  <MapPin className="w-5 h-5 text-[#2563eb] shrink-0" />
                   <div className="min-w-0">
-                    <span className="block text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
                       {L.area}
                     </span>
                     <span className="block text-sm sm:text-[15px] font-bold text-[#0f172a] truncate mt-0.5">
@@ -236,12 +243,12 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
-                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-4 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-left px-5 sm:px-6 py-3 sm:py-3.5 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-3 min-w-0 pr-1">
-                  <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
+                  <HomeIcon className="w-5 h-5 text-[#2563eb] shrink-0" />
                   <div className="min-w-0">
-                    <span className="block text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
                       {L.type}
                     </span>
                     <span className="block text-sm sm:text-[15px] font-bold text-[#0f172a] truncate mt-0.5">
@@ -271,52 +278,52 @@ export default function HeroCarousel({
               )}
             </div>
 
-            {/* Botón BUSCAR */}
+            {/* Botón BUSCAR — prominente */}
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-xl sm:rounded-full font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mx-1 sm:mx-0"
-              style={{ padding: 'clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 40px)', margin: '4px 4px 4px 0' }}
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-xl sm:rounded-full font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none m-1"
+              style={{ padding: '14px clamp(22px, 3vw, 40px)' }}
             >
-              <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+              <Search className="w-5 h-5 stroke-[2.5]" />
               <span>{L.search}</span>
             </button>
           </div>
         </div>
 
-        {/* ── TRUST STRIP ── */}
-        <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200/70">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-0 sm:divide-x sm:divide-slate-200">
+        {/* ── TRUST STRIP — números y labels grandes y legibles ── */}
+        <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200/80">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-0 sm:divide-x sm:divide-slate-200">
 
-            <div className="flex items-center gap-2.5 sm:gap-3 sm:pl-0 sm:pr-6">
-              <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center gap-3 sm:gap-4 sm:pr-8">
+              <Users className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div>
-                <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">4.500+</p>
-                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-2xl sm:text-3xl font-black text-[#0b214a] leading-none">4.500+</p>
+                <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 sm:gap-3 sm:px-6">
-              <ThumbsUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center gap-3 sm:gap-4 sm:px-8">
+              <ThumbsUp className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div>
-                <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">98%</p>
-                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none">98%</p>
+                <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 sm:gap-3 sm:px-6">
-              <Building2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center gap-3 sm:gap-4 sm:px-8">
+              <Building2 className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div>
-                <p className="text-sm sm:text-base font-black text-[#0b214a] leading-none">+300</p>
-                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-2xl sm:text-3xl font-black text-[#0b214a] leading-none">+300</p>
+                <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5 sm:gap-3 sm:pl-6">
-              <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center gap-3 sm:gap-4 sm:pl-8">
+              <User className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div>
-                <p className="text-sm sm:text-base font-black text-[#2563eb] leading-none">15+</p>
-                <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-0.5 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-2xl sm:text-3xl font-black text-[#2563eb] leading-none">15+</p>
+                <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

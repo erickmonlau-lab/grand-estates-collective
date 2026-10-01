@@ -75,14 +75,14 @@ export default function HeroCarousel({
   return (
     <header
       id="hero"
-      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-10 sm:pb-12 md:pb-14 lg:pb-16 border-b border-slate-200/80"
+      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/50 to-[#F8FAFC] text-slate-900 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 sm:pb-16 md:pb-20 border-b border-slate-200/80"
       onClick={() => setOpenDrop(null)}
     >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12">
-        {/* Lienzo Integrado 2 Columnas: Contenido + Buscador a la izquierda, Fotografía integrada a la derecha */}
+        {/* Fila Superior: Contenido principal a la izquierda y fotografía integrada a la derecha */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Columna Izquierda: Identidad, Titular, Subtítulo, Buscador Horizontal y CTAs */}
+          {/* Columna Izquierda: Identidad, Titular, Subtítulo y CTAs */}
           <div className="lg:col-span-7 flex flex-col justify-center z-10">
             {/* Tag / Badge */}
             <div className="mb-3.5">
@@ -113,135 +113,7 @@ export default function HeroCarousel({
               {customSubtitle || t.heroCarousel.subtitle}
             </p>
 
-            {/* ── BARRA DE BÚSQUEDA INTEGRADA DENTRO DEL HERO (Estilo Exacto Referencia Imagen 2) ── */}
-            <div 
-              className="bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-2.5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-2 mb-6 max-w-2xl relative z-20"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Toggle Comprar / Alquilar (Píldoras redondeadas) */}
-              <div className="flex bg-slate-100/90 p-1 rounded-full border border-slate-200 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setMode("comprar")}
-                  className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
-                    mode === "comprar"
-                      ? "bg-[#2563eb] text-white shadow-md"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {L.buy}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMode("alquilar")}
-                  className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
-                    mode === "alquilar"
-                      ? "bg-[#2563eb] text-white shadow-md"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {L.rent}
-                </button>
-              </div>
-
-              {/* Selector Zona con divisor vertical */}
-              <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3">
-                <button
-                  type="button"
-                  onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
-                  className="w-full flex items-center justify-between text-left px-2 py-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-2 min-w-0 pr-1">
-                    <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
-                    <div className="min-w-0">
-                      <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
-                        {L.area}
-                      </span>
-                      <span className="block text-xs font-bold text-[#0f172a] truncate mt-0.5">
-                        {zona === "Cualquier zona" ? L.selectArea : zona}
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
-                </button>
-
-                {openDrop === "zona" && (
-                  <div className="absolute top-full left-0 mt-2 w-60 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 max-h-56 overflow-y-auto">
-                    {ZONAS.map((z) => (
-                      <button
-                        key={z}
-                        type="button"
-                        onClick={() => {
-                          setZona(z);
-                          setOpenDrop(null);
-                        }}
-                        className={`w-full text-left px-4 py-2 text-xs font-bold flex items-center justify-between transition-colors ${
-                          zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
-                        }`}
-                      >
-                        <span className="truncate">{z}</span>
-                        {zona === z && <Check className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Selector Tipo con divisor vertical */}
-              <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3">
-                <button
-                  type="button"
-                  onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
-                  className="w-full flex items-center justify-between text-left px-2 py-1.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
-                >
-                  <div className="flex items-center gap-2 min-w-0 pr-1">
-                    <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
-                    <div className="min-w-0">
-                      <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
-                        {L.type}
-                      </span>
-                      <span className="block text-xs font-bold text-[#0f172a] truncate mt-0.5">
-                        {tipo === "Cualquier tipo" ? L.selectType : tipo}
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
-                </button>
-
-                {openDrop === "tipo" && (
-                  <div className="absolute top-full left-0 mt-2 w-52 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 max-h-56 overflow-y-auto">
-                    {TIPOS.map((tItem) => (
-                      <button
-                        key={tItem}
-                        type="button"
-                        onClick={() => {
-                          setTipo(tItem);
-                          setOpenDrop(null);
-                        }}
-                        className={`w-full text-left px-4 py-2 text-xs font-bold flex items-center justify-between transition-colors ${
-                          tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
-                        }`}
-                      >
-                        <span className="truncate">{tItem}</span>
-                        {tipo === tItem && <Check className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Botón Buscar azul redondeado con icono de lupa */}
-              <button
-                type="button"
-                onClick={handleSearch}
-                className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
-              >
-                <Search className="w-4 h-4 stroke-[2.5]" />
-                <span>{L.search}</span>
-              </button>
-            </div>
-
-            {/* CTAs Secundarios (Solicitar presupuesto / Valorar mi propiedad) */}
+            {/* CTAs debajo del texto y antes del buscador */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#formulario-contacto"
@@ -286,9 +158,9 @@ export default function HeroCarousel({
 
           </div>
 
-          {/* Columna Derecha: Fotografía que abraza el lateral derecho */}
+          {/* Columna Derecha: Fotografía integrada suavemente con el fondo blanco/gris */}
           <div className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0">
-            <div className="relative w-full max-w-[480px] lg:max-w-none rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_24px_55px_rgba(15,23,42,0.16)] border-2 border-slate-900/10 bg-slate-100 aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] max-h-[460px] lg:max-h-[520px]">
+            <div className="relative w-full max-w-[480px] lg:max-w-none rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.12)] border border-slate-200/80 bg-slate-100 aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] max-h-[440px] lg:max-h-[500px]">
               <picture className="w-full h-full block">
                 <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
                 <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
@@ -303,7 +175,13 @@ export default function HeroCarousel({
                   height={1113}
                 />
               </picture>
+              
+              {/* Degradado suave a la izquierda para fundirse orgánicamente con el fondo claro del hero */}
+              <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#F8FAFC]/80 via-[#F8FAFC]/30 to-transparent pointer-events-none" />
+              {/* Degradado sutil inferior para el badge */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+              
+              {/* Badge de ubicación */}
               <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 bg-[#0f172a]/90 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl border border-white/15 shadow-md flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
                 <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider font-sans">Santa Coloma de Gramenet</span>
@@ -312,6 +190,137 @@ export default function HeroCarousel({
           </div>
 
         </div>
+
+        {/* ── BUSCADOR CENTRADO HORIZONTALMENTE RESPECTO AL HERO COMPLETO ── */}
+        <div className="mt-8 sm:mt-10 md:mt-12 flex justify-center w-full relative z-30">
+          <div 
+            className="w-full max-w-4xl bg-white rounded-3xl sm:rounded-full p-2.5 sm:p-3 shadow-[0_16px_40px_rgba(15,23,42,0.12)] border border-slate-200/90 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Toggle Comprar / Alquilar */}
+            <div className="flex bg-slate-100/90 p-1 rounded-full border border-slate-200 shrink-0">
+              <button
+                type="button"
+                onClick={() => setMode("comprar")}
+                className={`flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  mode === "comprar"
+                    ? "bg-[#2563eb] text-white shadow-md"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {L.buy}
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("alquilar")}
+                className={`flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all cursor-pointer select-none ${
+                  mode === "alquilar"
+                    ? "bg-[#2563eb] text-white shadow-md"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {L.rent}
+              </button>
+            </div>
+
+            {/* Selector Zona */}
+            <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3">
+              <button
+                type="button"
+                onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
+                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                  <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <div className="min-w-0">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                      {L.area}
+                    </span>
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                      {zona === "Cualquier zona" ? L.selectArea : zona}
+                    </span>
+                  </div>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
+              </button>
+
+              {openDrop === "zona" && (
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-60 overflow-y-auto">
+                  {ZONAS.map((z) => (
+                    <button
+                      key={z}
+                      type="button"
+                      onClick={() => {
+                        setZona(z);
+                        setOpenDrop(null);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors ${
+                        zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate">{z}</span>
+                      {zona === z && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Selector Tipo */}
+            <div className="relative flex-1 sm:border-l sm:border-slate-200 sm:pl-3">
+              <button
+                type="button"
+                onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
+                className="w-full flex items-center justify-between text-left px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                  <Building2 className="w-4 h-4 text-[#2563eb] shrink-0" />
+                  <div className="min-w-0">
+                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                      {L.type}
+                    </span>
+                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
+                      {tipo === "Cualquier tipo" ? L.selectType : tipo}
+                    </span>
+                  </div>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
+              </button>
+
+              {openDrop === "tipo" && (
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-60 overflow-y-auto">
+                  {TIPOS.map((tItem) => (
+                    <button
+                      key={tItem}
+                      type="button"
+                      onClick={() => {
+                        setTipo(tItem);
+                        setOpenDrop(null);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors ${
+                        tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                      }`}
+                    >
+                      <span className="truncate">{tItem}</span>
+                      {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Botón Buscar totalmente integrado en el flex contenedor */}
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 sm:px-8 py-3 sm:py-3.5 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
+            >
+              <Search className="w-4 h-4 stroke-[2.5]" />
+              <span>{L.search}</span>
+            </button>
+          </div>
+        </div>
+
       </div>
     </header>
   );

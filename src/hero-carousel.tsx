@@ -49,6 +49,29 @@ export default function HeroCarousel({
   const [zona, setZona] = useState("Santa Coloma");
   const [tipo, setTipo] = useState("Todo tipo");
   const [openDrop, setOpenDrop] = useState<"zona" | "tipo" | null>(null);
+  const [dropPlacement, setDropPlacement] = useState<"down" | "up">("down");
+
+  const handleToggleDrop = (name: "zona" | "tipo", targetEl: HTMLElement | null) => {
+    if (openDrop === name) {
+      setOpenDrop(null);
+      return;
+    }
+    if (targetEl) {
+      const rect = targetEl.getBoundingClientRect();
+      const viewportSpaceBelow = window.innerHeight - rect.bottom;
+      // Also calculate space before hitting the Hero boundary / Marquee ribbon
+      const heroEl = document.getElementById("hero");
+      const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : window.innerHeight;
+      const heroSpaceBelow = heroBottom - rect.bottom;
+      
+      const availableSpaceBelow = Math.min(viewportSpaceBelow, heroSpaceBelow);
+      // Dropdown menu is ~240-260px tall with padding; flip up if space below is tight
+      setDropPlacement(availableSpaceBelow < 250 ? "up" : "down");
+    } else {
+      setDropPlacement("down");
+    }
+    setOpenDrop(name);
+  };
 
   const L = {
     tag: language === "ca"
@@ -135,7 +158,7 @@ export default function HeroCarousel({
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-22 sm:pt-26 md:pt-28 pb-4 sm:pb-6 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-18 sm:pt-20 md:pt-22 pb-5 sm:pb-7 flex flex-col items-center text-center"
       >
         {/* ── 2. BLOQUE EDITORIAL CENTRADO SOBRE FONDO LIMPIO ── */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
@@ -172,9 +195,9 @@ export default function HeroCarousel({
           </p>
         </div>
 
-        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO ── */}
+        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO (CON SUFICIENTE AIRE INFERIOR) ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto my-3 sm:my-4"
+          className="relative z-50 w-full max-w-[1020px] mx-auto my-3 sm:my-4 mb-6 sm:mb-8"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -213,7 +236,7 @@ export default function HeroCarousel({
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
-                onClick={() => setOpenDrop(openDrop === "zona" ? null : "zona")}
+                onClick={(e) => handleToggleDrop("zona", e.currentTarget)}
                 className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
@@ -230,9 +253,13 @@ export default function HeroCarousel({
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
-              {/* Dropdown anclado hacia abajo */}
+              {/* Dropdown inteligente collision-aware */}
               {openDrop === "zona" && (
-                <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto text-left">
+                <div
+                  className={`absolute left-0 right-0 sm:min-w-[280px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.18)] py-2 z-[60] max-h-56 sm:max-h-64 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ${
+                    dropPlacement === "up" ? "bottom-full mb-3" : "top-full mt-3"
+                  }`}
+                >
                   {ZONAS.map((z) => (
                     <button
                       key={z}
@@ -257,7 +284,7 @@ export default function HeroCarousel({
             <div className="relative flex-1 min-w-0">
               <button
                 type="button"
-                onClick={() => setOpenDrop(openDrop === "tipo" ? null : "tipo")}
+                onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
                 className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
@@ -274,9 +301,13 @@ export default function HeroCarousel({
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
               </button>
 
-              {/* Dropdown anclado hacia abajo */}
+              {/* Dropdown inteligente collision-aware */}
               {openDrop === "tipo" && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto text-left">
+                <div
+                  className={`absolute left-0 right-0 sm:min-w-[260px] max-w-[calc(100vw-2rem)] bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.18)] py-2 z-[60] max-h-56 sm:max-h-64 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ${
+                    dropPlacement === "up" ? "bottom-full mb-3" : "top-full mt-3"
+                  }`}
+                >
                   {TIPOS.map((tItem) => (
                     <button
                       key={tItem}
@@ -307,7 +338,7 @@ export default function HeroCarousel({
         </div>
 
         {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO ── */}
-        <div className="w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-slate-200/80">
+        <div className="w-full max-w-[1020px] mx-auto mt-2 sm:mt-3 pt-4 sm:pt-5 pb-2 border-t border-slate-200/80">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes */}

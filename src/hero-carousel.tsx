@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Calculator, Send } from "lucide-react";
+import { Calculator, Send, Check } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import { translations } from './data/translations';
@@ -27,43 +27,43 @@ export default function HeroCarousel({
   return (
     <header
       id="hero"
-      className="relative bg-[#F8FAFC] text-slate-900 overflow-hidden pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-14 sm:pb-16 md:pb-20 border-b border-slate-200/70"
+      className="relative bg-gradient-to-b from-[#F8FAFC] via-[#F1F5F9]/60 to-[#F8FAFC] text-slate-900 overflow-hidden pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 sm:pb-16 md:pb-20 border-b border-slate-200/80"
     >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 xl:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* ── COLUMNA IZQUIERDA: MARCA + COPY + CTAs (Desktop 7 cols) ── */}
+          {/* ── COLUMNA IZQUIERDA: IDENTIDAD + COPY + CTAs (Desktop 7 cols) ── */}
           <div className="lg:col-span-7 flex flex-col justify-center z-10">
-            {/* Tag / Badge */}
-            <div className="mb-3.5 sm:mb-4">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.12em] px-3.5 sm:px-4 py-1.5 rounded-full shadow-[0_4px_14px_rgba(37,99,235,0.3)]">
+            {/* Tag / Badge Píldora Azul Oficial Gesgrama */}
+            <div className="mb-3 sm:mb-4">
+              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 py-1.5 rounded-full shadow-[0_4px_16px_rgba(37,99,235,0.32)] font-sans">
                 <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 animate-pulse" />
                 {customTag || t.heroCarousel.tag}
               </span>
             </div>
 
-            {/* Titular Principal H1 */}
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[3.4rem] lg:text-[3.8rem] font-black text-[#0b214a] tracking-tight leading-[1.08] mb-3.5 sm:mb-4 font-heading">
+            {/* Titular Principal H1 con Jerarquía Visual de la Referencia */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-[3.5rem] lg:text-[4rem] font-black text-[#0b214a] tracking-tight leading-[1.06] mb-4 sm:mb-5 font-heading">
               {customHeadline ? (
                 customHeadline
               ) : (
                 <>
-                  <span className="block">
+                  <span className="block text-[#0b214a]">
                     {language === 'ca' ? 'La teva propera llar,' : language === 'en' ? 'Your next home,' : 'Tu próximo hogar,'}
                   </span>
-                  <span className="text-[#2563eb] block mt-0.5">
+                  <span className="text-[#2563eb] block mt-0.5 sm:mt-1">
                     {language === 'ca' ? 'més a prop.' : language === 'en' ? 'closer than ever.' : 'más cerca.'}
                   </span>
                 </>
               )}
             </h1>
 
-            {/* Subtítulo breve y limpio */}
+            {/* Subtítulo limpio y con aire de respiración */}
             <p className="text-slate-700 text-sm sm:text-base md:text-lg font-bold leading-relaxed mb-6 sm:mb-8 max-w-xl text-balance">
               {customSubtitle || t.heroCarousel.subtitle}
             </p>
 
-            {/* CTAs principales en flujo */}
+            {/* Acciones Comerciales Directas (Comprar / Vender / Valorar) */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
               <a
                 href="#formulario-contacto"
@@ -79,7 +79,7 @@ export default function HeroCarousel({
                     if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 450);
                   }
                 }}
-                className="btn-lift bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_8px_24px_rgba(37,99,235,0.35)] transition-all select-none"
+                className="btn-lift bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_8px_24px_rgba(37,99,235,0.35)] transition-all select-none"
               >
                 <Send className="w-4 h-4 stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.btnBudget || "Solicitar presupuesto"}</span>
@@ -99,21 +99,21 @@ export default function HeroCarousel({
                     if (inputEl) setTimeout(() => (inputEl as HTMLElement).focus({ preventScroll: true }), 450);
                   }
                 }}
-                className="btn-lift bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-5 sm:px-7 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-sm transition-all select-none"
+                className="btn-lift bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-300 hover:border-slate-400 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer shadow-sm transition-all select-none"
               >
                 <Calculator className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
                 <span className="whitespace-nowrap">{t.heroCarousel.btnValuation || "Valorar mi propiedad"}</span>
               </a>
             </div>
 
-            {/* Social Trust Strip */}
-            <div className="flex items-center gap-3 pt-2">
+            {/* Social Trust: Clientes Reales + Verificación */}
+            <div className="flex items-center gap-3 pt-1">
               <div className="flex -space-x-2 shrink-0">
                 {[1, 2, 3, 4].map(n => (
                   <img
                     key={n}
                     src={`/images/avatar-${n}.webp`}
-                    alt="Cliente satisfecho de Gesgrama"
+                    alt="Cliente de Gesgrama"
                     className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200"
                     loading="lazy"
                     decoding="async"
@@ -139,15 +139,15 @@ export default function HeroCarousel({
             </div>
           </div>
 
-          {/* ── COLUMNA DERECHA: FOTOGRAFÍA COMPLETA Y SIN RECORTES (Desktop 5 cols) ── */}
-          <div className="lg:col-span-5 relative flex items-center justify-center mt-2 lg:mt-0">
-            <div className="relative w-full max-w-[500px] lg:max-w-none rounded-[28px] sm:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(15,23,42,0.15)] border-2 border-slate-900/10 bg-slate-100 aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] max-h-[500px] lg:max-h-[560px]">
+          {/* ── COLUMNA DERECHA: FOTOGRAFÍA EDITORIAL COMPLETA (Desktop 5 cols) ── */}
+          <div className="lg:col-span-5 relative flex items-center justify-center mt-4 lg:mt-0">
+            <div className="relative w-full max-w-[480px] lg:max-w-none rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.18)] border-2 border-slate-900/10 bg-slate-100 aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/5] max-h-[500px] lg:max-h-[540px]">
               <picture className="w-full h-full block">
                 <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
                 <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
                 <img
                   src={heroBgDesktop}
-                  alt="Pareja feliz recibiendo las llaves de su nuevo hogar con Gesgrama"
+                  alt="Pareja feliz celebrando en su nuevo hogar con Gesgrama"
                   className="w-full h-full object-cover object-[center_top] sm:object-center"
                   loading="eager"
                   fetchPriority="high"
@@ -157,10 +157,10 @@ export default function HeroCarousel({
                 />
               </picture>
               
-              {/* Suave degradado inferior para acabado editorial elegante */}
+              {/* Degradado sutil inferior */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
               
-              {/* Badge sutil flotante en la foto */}
+              {/* Badge local en esquina inferior */}
               <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 bg-[#0f172a]/90 backdrop-blur-md text-white px-3.5 py-2 rounded-2xl border border-white/15 shadow-lg flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
                 <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider font-sans">Santa Coloma de Gramenet</span>

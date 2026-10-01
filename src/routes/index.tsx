@@ -507,15 +507,25 @@ function Index() {
             <div className="mb-4">
               <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
                 <Home className="w-3.5 h-3.5 text-white" />
-                <span>{t.properties.tag}</span>
+                <span>{language === "ca" ? "PROPIETATS DESTACADES" : language === "en" ? "FEATURED PROPERTIES" : "PROPIEDADES DESTACADAS"}</span>
               </span>
 
               <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
-                {t.properties.title1} <span className="text-[#2563eb] whitespace-nowrap inline-block">{t.properties.title2}</span>
+                {language === "ca" ? (
+                  <>Descobreix les nostres <span className="text-[#2563eb] whitespace-nowrap inline-block">millors oportunitats.</span></>
+                ) : language === "en" ? (
+                  <>Discover our <span className="text-[#2563eb] whitespace-nowrap inline-block">best properties.</span></>
+                ) : (
+                  <>Descubre nuestras <span className="text-[#2563eb] whitespace-nowrap inline-block">mejores oportunidades.</span></>
+                )}
               </h2>
 
               <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
-                {t.properties.subtitle}
+                {language === "ca"
+                  ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
+                  : language === "en"
+                  ? "Selection of properties in Santa Coloma and Barcelona managed with full guarantee and transparency by Gesgrama."
+                  : "Selección de inmuebles en Santa Coloma y Barcelona gestionados con total garantía y transparencia por Gesgrama."}
               </p>
             </div>
 

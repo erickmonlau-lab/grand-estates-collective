@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User, ArrowRight } from "lucide-react";
+import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroLivingRoom from "@/assets/premium_rental_apartment.webp";
 import { translations } from './data/translations';
 
@@ -14,6 +14,7 @@ interface HeroCarouselProps {
 }
 
 const ZONAS = [
+  "Santa Coloma",
   "Toda zona",
   "Santa Rosa - Can Mariner",
   "Fondo",
@@ -44,7 +45,7 @@ export default function HeroCarousel({
   const t = translations[language];
 
   const [mode, setMode] = useState<"comprar" | "alquilar">("comprar");
-  const [zona, setZona] = useState("Toda zona");
+  const [zona, setZona] = useState("Santa Coloma");
   const [tipo, setTipo] = useState("Todo tipo");
   const [openDrop, setOpenDrop] = useState<"zona" | "tipo" | null>(null);
 
@@ -65,11 +66,10 @@ export default function HeroCarousel({
       ? "closer than ever."
       : "más cerca.",
     subtitle: language === "ca"
-      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat amb transparència, criteri local i un equip que respon."
+      ? "T'acompanyem per comprar, vendre o cuidar la teva propietat en Santa Coloma de Gramenet i voltants, amb transparència, criteri local i un equip que respon."
       : language === "en"
-      ? "We accompany you to buy, sell or care for your property with transparency, local criteria and a responsive team."
-      : "Te acompañamos para comprar, vender o cuidar tu propiedad con transparencia, criterio local y un equipo que responde.",
-    cta1: language === "ca" ? "Ver propiedades" : language === "en" ? "View properties" : "Ver propiedades",
+      ? "We accompany you to buy, sell or care for your property in Santa Coloma de Gramenet and surroundings, with transparency, local criteria and a responsive team."
+      : "Te acompañamos para comprar, vender o cuidar tu propiedad en Santa Coloma de Gramenet y alrededores, con transparencia, criterio local y un equipo que responde.",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
@@ -93,104 +93,86 @@ export default function HeroCarousel({
     }
   };
 
-  const handleCta1 = () => {
-    const el = document.getElementById("propiedades");
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" });
-  };
-
   return (
     <section
       id="hero"
-      className="hero relative bg-white text-slate-900 overflow-visible"
+      className="hero relative text-slate-900 overflow-visible"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO FOTOGRÁFICO ARQUITECTÓNICO PANORÁMICO INTEGRADO ── */}
+      {/* ── 1. FONDO FOTOGRÁFICO ARQUITECTÓNICO PANORÁMICO COMPLETO ── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        {/* Imagen arquitectónica situada a la derecha en desktop y de fondo completo sutil en móvil */}
-        <div className="absolute right-0 top-0 bottom-0 w-full md:w-[68%] lg:w-[62%] xl:w-[58%] h-full">
-          <img
-            src={heroLivingRoom}
-            alt="Salón luminoso y moderno gestionado por Gesgrama"
-            className="w-full h-full object-cover object-[center_35%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-            width={1366}
-            height={768}
-          />
-        </div>
+        <img
+          src={heroLivingRoom}
+          alt="Salón luminoso y moderno con terraza gestionado por Gesgrama"
+          className="w-full h-full object-cover object-[center_35%]"
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
+          width={1366}
+          height={768}
+        />
 
-        {/* Gradiente de integración elegante: blanco sólido en móvil para máxima legibilidad, y fusión sutil en desktop */}
-        <div className="absolute inset-0 bg-white/92 sm:bg-white/85 md:bg-gradient-to-r md:from-white md:via-white/95 md:via-42% lg:via-white/80 lg:via-48% md:to-transparent" />
-        {/* Velos superior e inferior para fundir con el navbar y la sección siguiente */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/80 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white via-white/90 to-transparent" />
+        {/* Capa ligera con menos difuminado para apreciar toda la riqueza del salón y las vistas */}
+        <div className="absolute inset-0 bg-white/25 sm:bg-white/20" />
+        {/* Difuminado suave central detrás del texto */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.40)_50%,rgba(255,255,255,0.05)_100%)]" />
+        {/* Velos superior e inferior suaves para fundir bordes */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/90 via-white/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/70 to-transparent" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-8 md:pb-12 flex flex-col justify-between"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-8 md:pb-12 flex flex-col items-center text-center justify-between"
       >
-        {/* ── 2. BLOQUE EDITORIAL SOBRE LA FOTO FUSIONADA ── */}
-        <div className="relative z-10 w-full md:max-w-[58%] lg:max-w-[52%] flex flex-col items-start text-left pt-2 pb-6 sm:pb-8">
+        {/* ── 2. BLOQUE EDITORIAL CENTRADO ── */}
+        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center pt-2 pb-6 sm:pb-8">
 
           {/* Eyebrow / Kicker */}
-          <div className="mb-2 sm:mb-2.5">
-            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-3.5 sm:px-4 py-1.5 rounded-full font-sans shadow-sm">
+          <div className="mb-3 sm:mb-4">
+            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
               {customTag || L.tag}
             </span>
           </div>
 
-          {/* H1 — Titular compacto en 2 líneas exactas ("Tu próximo hogar," / "más cerca.") */}
+          {/* H1 — Titular centrado en 2 líneas exactas ("Tu próximo hogar," / "más cerca.") */}
           <h1
             className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-4 font-heading"
-            style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}
+            style={{ fontSize: 'clamp(2.6rem, 5.8vw, 4.8rem)' }}
           >
             {customHeadline ? (
               customHeadline
             ) : (
               <>
-                <span className="block text-[#0b214a] whitespace-normal sm:whitespace-nowrap">{L.titleLine1}</span>
+                <span className="block text-[#0b214a]">{L.titleLine1}</span>
                 <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
               </>
             )}
           </h1>
 
-          {/* Texto de apoyo — claramente legible, editorial (15-16px) */}
+          {/* Texto de apoyo — centrado, tipografía nítida y perfectamente legible */}
           <p
-            className="text-slate-700 font-semibold leading-relaxed mb-5 sm:mb-6 max-w-[500px]"
-            style={{ fontSize: 'clamp(0.95rem, 1.25vw, 1.05rem)' }}
+            className="text-slate-800 font-semibold leading-relaxed max-w-[620px] mx-auto"
+            style={{ fontSize: 'clamp(1rem, 1.35vw, 1.15rem)' }}
           >
             {customSubtitle || L.subtitle}
           </p>
-
-          {/* CTA principal único — "Ver propiedades →" */}
-          <div className="flex items-center">
-            <button
-              type="button"
-              onClick={handleCta1}
-              className="inline-flex items-center gap-2.5 bg-[#0b214a] hover:bg-[#162d5e] text-white font-black text-sm sm:text-base px-7 sm:px-8 py-3.5 rounded-xl cursor-pointer transition-all shadow-md hover:shadow-lg select-none"
-            >
-              <span>{L.cta1}</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
-          </div>
         </div>
 
-        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO RESPECTO AL CONTENEDOR PRINCIPAL ── */}
+        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto mt-6 sm:mt-8"
+          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-6"
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-slate-200 shadow-[0_20px_50px_rgba(15,23,42,0.12)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.16)] hover:border-blue-200"
+            className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.18)] hover:border-blue-200"
           >
             {/* Toggle Comprar / Alquilar */}
             <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
               <button
                 type="button"
                 onClick={() => setMode("comprar")}
-                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "comprar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
@@ -201,7 +183,7 @@ export default function HeroCarousel({
               <button
                 type="button"
                 onClick={() => setMode("alquilar")}
-                className={`px-5 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "alquilar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
@@ -237,7 +219,7 @@ export default function HeroCarousel({
 
               {/* Dropdown anclado hacia abajo */}
               {openDrop === "zona" && (
-                <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto text-left">
                   {ZONAS.map((z) => (
                     <button
                       key={z}
@@ -281,7 +263,7 @@ export default function HeroCarousel({
 
               {/* Dropdown anclado hacia abajo */}
               {openDrop === "tipo" && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl py-2 z-50 max-h-64 overflow-y-auto text-left">
                   {TIPOS.map((tItem) => (
                     <button
                       key={tItem}
@@ -303,7 +285,7 @@ export default function HeroCarousel({
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 sm:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mt-2 sm:mt-0"
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 sm:px-10 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mt-2 sm:mt-0"
             >
               <Search className="w-4 h-4 stroke-[2.5] shrink-0" />
               <span className="leading-none">{L.search}</span>
@@ -311,43 +293,43 @@ export default function HeroCarousel({
           </div>
         </div>
 
-        {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO CON DIVISOR SUTIL ── */}
-        <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-200/80">
+        {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO ── */}
+        <div className="w-full max-w-[1020px] mx-auto mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-200/80">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center">
 
             {/* Métrica 1: Clientes */}
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center justify-center gap-3.5">
               <Users className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl font-black text-[#0b214a] leading-none">4.500+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción */}
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center justify-center gap-3.5">
               <ThumbsUp className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none">98%</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades */}
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center justify-center gap-3.5">
               <Building2 className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl font-black text-[#0b214a] leading-none">+300</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años */}
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center justify-center gap-3.5">
               <User className="w-6 h-6 text-[#2563eb] shrink-0 stroke-[2]" />
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl font-black text-[#2563eb] leading-none">15+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-500 mt-1 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-1 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

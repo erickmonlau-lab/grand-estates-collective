@@ -547,9 +547,9 @@ export default function HeroCarousel({
         >
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
 
-            {/* Métrica 1: Clientes */}
+            {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
             <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
                 <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
@@ -558,7 +558,7 @@ export default function HeroCarousel({
               </div>
             </div>
 
-            {/* Métrica 2: Satisfacción */}
+            {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
             <div className="flex items-center justify-center gap-3.5 p-1">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
                 <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
@@ -569,9 +569,9 @@ export default function HeroCarousel({
               </div>
             </div>
 
-            {/* Métrica 3: Comunidades */}
+            {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
             <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
                 <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
@@ -580,7 +580,7 @@ export default function HeroCarousel({
               </div>
             </div>
 
-            {/* Métrica 4: Años */}
+            {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
             <div className="flex items-center justify-center gap-3.5 p-1">
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
                 <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />

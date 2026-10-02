@@ -115,9 +115,9 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
             <div>
               {/* Encabezado del panel: Datos del inmueble */}
-              <div className="flex items-center gap-2.5 mb-5">
-                <span className="w-3 h-3 rounded-full bg-[#2563eb] shrink-0 shadow-xs" />
-                <h3 className="text-[18px] sm:text-[19px] md:text-[20px] font-bold tracking-tight text-[#0b214a] font-sans">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-3.5 h-3.5 rounded-full bg-[#2563eb] shrink-0 shadow-sm" />
+                <h3 className="text-xl sm:text-2xl md:text-[25px] font-black tracking-tight text-[#0b214a] font-heading">
                   {language === "ca" ? "Dades de l'immoble" : language === "en" ? "Property Details" : "Datos del inmueble"}
                 </h3>
               </div>

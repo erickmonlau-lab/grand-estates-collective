@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
+import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -229,6 +230,23 @@ export default function HeroCarousel({
         {/* Fondo base arquitectónico ultra limpio */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9]/70 to-[#e2e8f0]/40" />
 
+        {/* Fotografía secundaria sutil de interior urbano realista (lado izquierdo) */}
+        <div className="absolute inset-y-0 left-0 w-[42%] lg:w-[38%] xl:w-[35%] hidden md:flex items-center justify-start pointer-events-none z-0">
+          <img
+            src={interiorLeftBg}
+            alt="Interior luminoso de vivienda en Santa Coloma"
+            className="w-full h-full object-cover object-center opacity-[0.28] filter saturate-[0.80] contrast-[0.92] transition-opacity duration-500"
+            loading="lazy"
+            decoding="async"
+            width={720}
+            height={480}
+          />
+          {/* Difuminados perimetrales suaves que integran el interior con el fondo sin bordes de card */}
+          <div className="absolute inset-y-0 right-0 w-36 lg:w-48 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
+        </div>
+
         {/* Fotografía de la pareja sonriente completa con alta fidelidad y proporción idéntica a producción */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none">
           <picture className="w-full h-full block">
@@ -305,7 +323,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1060px] mx-auto mt-4 sm:mt-5 mb-14 sm:mb-18 md:mb-20"
+          className="relative z-40 w-full max-w-[1060px] mx-auto mt-4 sm:mt-5 mb-20 sm:mb-24 md:mb-28"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -507,8 +525,13 @@ export default function HeroCarousel({
           document.body
         )}
 
-        {/* ── 4. TRUST: BARRA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
-        <div id="hero-trust-bar" className="w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
+        {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
+        <div
+          id="hero-trust-bar"
+          className={`w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+            openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
+          }`}
+        >
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes */}

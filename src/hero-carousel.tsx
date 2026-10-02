@@ -583,53 +583,53 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1040px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
+              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Users className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-[26px] md:text-[28px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-xs sm:text-[13.5px] font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
+                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
+              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <ThumbsUp className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-[26px] md:text-[28px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-xs sm:text-[13.5px] font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
+                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
+              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Building2 className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-[26px] md:text-[28px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-xs sm:text-[13.5px] font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
+                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-3.5 p-1">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
+              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <User className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-[26px] md:text-[28px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-xs sm:text-[13.5px] font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
+                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

@@ -15,7 +15,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 import { ArrowLeft, Home, Phone, Building2, RefreshCw } from "lucide-react";
 import { FooterMascot } from "../components/FooterMascot";
-import heroBgMobile from "@/assets/family_barcelona_mobile_lcp.webp";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 
 function NotFoundComponent() {
@@ -195,7 +194,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://gesgrama.com/og-image.png" },
     ],
     links: [
-      { rel: "preload", href: heroBgMobile, as: "image", type: "image/webp", media: "(max-width: 640px)", fetchpriority: "high" as any },
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
       { rel: "canonical", href: "https://gesgrama.com/" },
       { rel: "alternate", hrefLang: "es", href: "https://gesgrama.com/" },

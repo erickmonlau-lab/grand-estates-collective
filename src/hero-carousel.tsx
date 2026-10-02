@@ -286,7 +286,7 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-24 md:pb-28 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
       >
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
@@ -301,8 +301,8 @@ export default function HeroCarousel({
 
           {/* H1 Principal */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-3.5 font-heading max-w-[760px] mx-auto"
-            style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}
+            className="font-bold text-[#0b214a] tracking-normal leading-[1.06] mb-3 sm:mb-3.5 font-heading max-w-[780px] mx-auto"
+            style={{ fontSize: 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -380,17 +380,17 @@ export default function HeroCarousel({
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <MapPin className={`w-4 h-4 shrink-0 transition-colors ${openDrop === "barrio" ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
+                  <MapPin className="w-4 h-4 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-sans font-extrabold text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
                       {L.neighborhood}
                     </span>
-                    <span className="block text-xs sm:text-sm font-sans font-semibold text-[#0b214a] truncate mt-0.5">
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
                       {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : barrio}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
               </button>
             </div>
 
@@ -412,17 +412,17 @@ export default function HeroCarousel({
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <HomeIcon className={`w-4 h-4 shrink-0 transition-colors ${openDrop === "tipo" ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
+                  <HomeIcon className="w-4 h-4 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-sans font-extrabold text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-xs sm:text-sm font-sans font-semibold text-[#0b214a] truncate mt-0.5">
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
                       {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Cualquier tipo") : tipo}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
               </button>
             </div>
 
@@ -444,17 +444,17 @@ export default function HeroCarousel({
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <Tag className={`w-4 h-4 shrink-0 transition-colors ${openDrop === "precio" ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
+                  <Tag className="w-4 h-4 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-sans font-extrabold text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
                       {L.price}
                     </span>
-                    <span className="block text-xs sm:text-sm font-sans font-semibold text-[#0b214a] truncate mt-0.5">
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
                       {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquiera") : precio}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
               </button>
             </div>
 

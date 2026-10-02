@@ -9,8 +9,8 @@ interface BlogSectionProps {
 
 export default function BlogSection({ language, t }: BlogSectionProps) {
   return (
-    <section id="blog" className="pt-4 pb-8 sm:pb-12 md:pb-14 px-4 sm:px-6 md:px-8 bg-[#e2e8f0] text-onyx">
-      <div className="max-w-[1150px] mx-auto">
+    <section id="blog" className="pt-4 pb-8 sm:pb-12 md:pb-14 bg-[#e2e8f0] text-onyx">
+      <div className="max-w-[1320px] mx-4 md:mx-auto">
         <div className="mb-4 sm:mb-6 text-center">
           <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-xl shadow-xs mb-2">
             <Calendar className="w-3.5 h-3.5 text-white" />

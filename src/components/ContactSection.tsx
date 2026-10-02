@@ -50,8 +50,8 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
   const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
 
   return (
-    <section id="contacto" className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
-      <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
+    <section id="contacto" className="py-5 md:py-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
+      <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-4 md:mx-auto max-w-[1320px] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           {/* LEFT COLUMN: Title & Image Overlay Card */}

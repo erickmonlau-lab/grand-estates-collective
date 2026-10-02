@@ -515,7 +515,7 @@ function Index() {
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-7 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-7 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10">
           <div>
             {/* Header: Badge + H2 + Description */}
             <div className="mb-3 sm:mb-4">
@@ -953,8 +953,8 @@ function Index() {
       </Suspense>
 
       {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
-      <section className="py-5 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+      <section className="py-5 md:py-8 bg-[#e2e8f0] text-onyx">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
             
             {/* Left Content */}
@@ -1051,7 +1051,7 @@ function Index() {
 
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
       <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
+        <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white">
           <div className="text-center mb-4 sm:mb-6">
             <Reveal>
               <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
@@ -1152,7 +1152,7 @@ function Index() {
       {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
       <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
         <div id="testimonios" className="-top-32 relative block invisible" />
-        <div className="bg-white rounded-[24px] md:rounded-[30px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a]">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Subtle Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
           <div className="relative z-10">
@@ -1283,8 +1283,8 @@ function Index() {
       </Suspense>
 
       {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
-      <section id="final-cta" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+      <section id="final-cta" className="py-4 md:py-8 bg-[#e2e8f0] text-[#0f172a]">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
             
             {/* Left Content (Title, Subtitle & Buttons) */}

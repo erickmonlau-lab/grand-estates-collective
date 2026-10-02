@@ -33,8 +33,8 @@ export default function CoberturaSection({ language, t }: CoberturaSectionProps)
   }, []);
 
   return (
-    <section id="cobertura" className="py-4 md:py-8 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
-      <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+    <section id="cobertura" className="py-4 md:py-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
+      <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
         <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
           
           {/* LEFT CONTENT */}

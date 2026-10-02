@@ -13,7 +13,7 @@ export default function FaqSection({ t }: FaqSectionProps) {
       id="faq" 
       className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-28 md:scroll-mt-32"
     >
-      <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+      <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white flex flex-col items-center">
         <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
           <div className="text-center mb-6 flex flex-col items-center">
             {/* White Badge with Icon next to Text */}

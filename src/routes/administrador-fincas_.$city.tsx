@@ -819,7 +819,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
         <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1240px] relative z-10">
+          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10">
             <Reveal>
               <div className="mb-4">
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
@@ -1555,7 +1555,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 2. TESTIMONIOS CANÓNICOS (GOOGLE REVIEWS CON 5 ESTRELLAS) ── */}
         <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-10 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#f8fafc] rounded-[24px] md:rounded-[30px] shadow-xl border border-slate-300 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1240px] relative z-10 text-[#0f172a]">
+          <div className="bg-[#f8fafc] rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-300 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1320px] relative z-10 text-[#0f172a]">
             <Reveal>
               <div className="mb-6 md:mb-8 text-center">
                 <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-white/10 mb-2.5">
@@ -1631,7 +1631,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 3. SERVICIOS INTEGRALES CORPORATIVOS (GRID 2x2 HORIZONTAL CON MODAL) ── */}
         <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-white">
+          <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white">
             <div className="text-center mb-6">
               <Reveal>
                 <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
@@ -1722,7 +1722,7 @@ function SantaColomaBarrioPage() {
         {/* ── 4. VALORADOR DE INMUEBLES SIMPLIFICADO ORIENTADO A CONVERSIÓN ── */}
         <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
           <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-          <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-[#0f172a]">
+          <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
             
             {/* Header Kicker */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-200/90">
@@ -1917,7 +1917,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 5. ÁREA DE COBERTURA Y SEDE CENTRAL (MAPA CON PÍLDORAS DE BARRIOS) ── */}
         <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="bg-[#0b172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-white/10 p-4 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
               <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
                 <Reveal>
@@ -2073,7 +2073,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 6. GESTIÓN DE COMUNIDADES GESGRAMA (CON FOTOGRAFÍA OFICIAL DE SEDE) ── */}
         <section className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900">
-          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-5 md:p-8 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-5 md:p-8 mx-auto max-w-[1320px] relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
               <div className="w-full lg:w-1/2 flex flex-col justify-center">
                 <Reveal>
@@ -2162,7 +2162,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 7. ARTÍCULOS Y NOTICIAS INFORMATIVAS (BLOG) ── */}
         <section id="blog" className="pt-6 pb-8 sm:pb-12 md:pb-14 px-4 sm:px-6 md:px-8 bg-[#e2e8f0] text-slate-900">
-          <div className="max-w-[1150px] mx-auto">
+          <div className="max-w-[1320px] mx-auto">
             <Reveal>
               <div className="mb-6 text-center">
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-xl shadow-xs mb-2">
@@ -2239,7 +2239,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 8. FAQS DEL BARRIO (FORMATO CANÓNICO OSCURO DE GESGRAMA) ── */}
         <section id="faq" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-white flex flex-col items-center">
+          <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white flex flex-col items-center">
             <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
               <Reveal>
                 <div className="text-center mb-6 flex flex-col items-center">
@@ -2347,7 +2347,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 9. FORMULARIO DE CONTACTO CANÓNICO CON VALIDACIÓN ── */}
         <section id="contacto" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-7 md:p-9 mx-auto max-w-[1150px] relative z-10">
+          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-7 md:p-9 mx-auto max-w-[1320px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
               <div className="lg:col-span-5 flex flex-col justify-center">
                 <Reveal>
@@ -2677,7 +2677,7 @@ function SantaColomaBarrioPage() {
 
         {/* ── 10. BANNER FINAL CTA ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
         <section id="final-cta" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
-          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-auto max-w-[1150px] relative z-10 overflow-hidden">
+          <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-auto max-w-[1320px] relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
               <div className="w-full lg:w-7/12 text-left py-0 lg:py-1">
                 <Reveal>

@@ -83,7 +83,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
   return (
     <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
       <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-9 mx-3 sm:mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-[#0f172a]">
+      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-9 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
         
         {/* Header Kicker */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-7 pb-6 border-b border-slate-200">

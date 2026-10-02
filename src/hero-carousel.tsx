@@ -321,16 +321,16 @@ export default function HeroCarousel({
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
-          {/* Eyebrow / Kicker con Isotipo oficial de Gesgrama integrado */}
+          {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
           <div className="mb-3 sm:mb-3.5">
-            <span className="inline-flex items-center gap-2 sm:gap-2.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] pl-2 sm:pl-2.5 pr-4 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30">
-              <span className="w-5 h-5 sm:w-6 sm:h-6 md:w-6.5 md:h-6.5 rounded-full bg-white flex items-center justify-center shrink-0 p-1 shadow-xs">
+            <span className="inline-flex items-center gap-2 sm:gap-2.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] pl-1.5 sm:pl-2 pr-4 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30">
+              <span className="h-6 sm:h-7 md:h-7.5 w-auto px-1.5 py-0.5 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
                 <img
-                  src="/images/gesgrama-brand-icon.webp"
+                  src="/images/gesgrama-emblem-badge.webp"
                   alt="Gesgrama"
-                  width={96}
-                  height={104}
-                  className="w-full h-full object-contain"
+                  width={240}
+                  height={157}
+                  className="h-full w-auto object-contain"
                   loading="eager"
                   decoding="async"
                   aria-hidden="true"

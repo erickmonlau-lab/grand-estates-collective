@@ -275,15 +275,15 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
         </div>
 
-        {/* Fotografía de la pareja: En desktop a la derecha; en mobile una ÚNICA instancia como fondo sutil detrás de search/trust sin tapar el H1 */}
-        <div className="absolute inset-x-0 bottom-0 top-[45%] sm:top-0 sm:left-auto sm:right-0 sm:inset-y-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-center sm:justify-end pointer-events-none z-0">
+        {/* Fotografía de la pareja sonriente completa con alta fidelidad y proporción idéntica a producción */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none z-0">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img
               src={heroBgDesktop}
               alt="Familia sonriente en su nuevo hogar con Gesgrama"
-              className="w-full h-full object-cover object-[center_18%] sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-75 sm:opacity-90 lg:opacity-95 transition-opacity"
+              className="w-full h-full object-contain object-right-bottom sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
               loading="eager"
               fetchPriority="high"
               decoding="sync"
@@ -292,13 +292,13 @@ export default function HeroCarousel({
             />
           </picture>
 
-          {/* Difuminados perimetrales suaves */}
+          {/* Difuminados perimetrales suaves que funden la foto con el fondo sin cortar a los protagonistas */}
           <div className="absolute inset-y-0 left-0 w-32 sm:w-56 md:w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent hidden sm:block" />
-          <div className="absolute inset-x-0 top-0 h-32 sm:h-40 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 sm:h-40 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
         </div>
 
-        {/* Gradiente radial central en desktop para máxima legibilidad tipográfica */}
+        {/* Gradiente radial central que protege el 100% de la legibilidad tipográfica y del buscador */}
         <div
           className="absolute inset-0 hidden sm:block pointer-events-none"
           style={{
@@ -307,11 +307,11 @@ export default function HeroCarousel({
           }}
         />
 
-        {/* Transición móvil progresiva: 100% blanco bajo Header/Badge/H1/Subtítulo -> Revelado suave de imagen -> Fade a blanco antes de Marquee */}
+        {/* Transición móvil limpia: 100% fondo claro en Badge/H1/Subtítulo -> Revelado suave en zona inferior */}
         <div 
           className="absolute inset-0 sm:hidden pointer-events-none"
           style={{
-            background: 'linear-gradient(to bottom, #f8fafc 0%, #f8fafc 44%, rgba(248, 250, 252, 0.45) 58%, rgba(248, 250, 252, 0.20) 75%, rgba(248, 250, 252, 0.90) 94%, #f8fafc 100%)'
+            background: 'linear-gradient(to bottom, #f8fafc 0%, #f8fafc 42%, rgba(248, 250, 252, 0.40) 60%, rgba(248, 250, 252, 0.20) 78%, rgba(248, 250, 252, 0.90) 95%, #f8fafc 100%)'
           }}
         />
       </div>

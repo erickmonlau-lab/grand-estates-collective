@@ -683,7 +683,7 @@ function Index() {
                               <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                               <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                             </span>
-                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 max-w-[90px] truncate">
+                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
                               {type}
                             </span>
                           </div>

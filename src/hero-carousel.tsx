@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
-import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
 import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 
@@ -275,15 +274,14 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
         </div>
 
-        {/* Fotografía de la pareja sonriente completa con alta fidelidad y proporción idéntica a producción */}
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none z-0">
+        {/* Fotografía de la pareja: ÚNICAMENTE visible en tablet/desktop (hidden en mobile) */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] hidden md:flex items-end justify-end pointer-events-none z-0">
           <picture className="w-full h-full block">
-            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img
               src={heroBgDesktop}
               alt="Familia sonriente en su nuevo hogar con Gesgrama"
-              className="w-full h-full object-contain object-right-bottom sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
+              className="w-full h-full sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
               loading="eager"
               fetchPriority="high"
               decoding="sync"
@@ -298,7 +296,7 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
         </div>
 
-        {/* Gradiente radial central que protege el 100% de la legibilidad tipográfica y del buscador */}
+        {/* Gradiente radial central en desktop que protege el 100% de la legibilidad tipográfica y del buscador */}
         <div
           className="absolute inset-0 hidden sm:block pointer-events-none"
           style={{
@@ -307,11 +305,11 @@ export default function HeroCarousel({
           }}
         />
 
-        {/* Transición móvil limpia: 100% fondo claro en Badge/H1/Subtítulo -> Revelado suave en zona inferior */}
+        {/* Fondo móvil: Limpio, luminoso y elegante con sutil halo radial azul Gesgrama (cero imágenes, máxima legibilidad y ligereza) */}
         <div 
           className="absolute inset-0 sm:hidden pointer-events-none"
           style={{
-            background: 'linear-gradient(to bottom, #f8fafc 0%, #f8fafc 42%, rgba(248, 250, 252, 0.40) 60%, rgba(248, 250, 252, 0.20) 78%, rgba(248, 250, 252, 0.90) 95%, #f8fafc 100%)'
+            background: 'radial-gradient(ellipse 80% 50% at 50% 25%, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 0.95) 70%, #f8fafc 100%)'
           }}
         />
       </div>
@@ -573,11 +571,11 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
             <div className="flex items-center justify-center gap-3.5 p-1">

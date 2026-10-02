@@ -108,67 +108,69 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
         {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           
-          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Compact, No dead space) */}
-          <div className="lg:col-span-6 flex flex-col bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-xs relative overflow-hidden">
+          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Balanced, harmonious with right panel on desktop, compact on mobile) */}
+          <div className="lg:col-span-6 flex flex-col justify-between bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-xs relative overflow-hidden">
             {/* Top subtle blue accent indicator line */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#2563eb]" />
 
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#2563eb]" />
-              <p className="text-xs font-black uppercase tracking-wider text-[#0b214a]">
-                {language === "ca" ? "DADES DE L'IMMOBLE" : language === "en" ? "PROPERTY DETAILS" : "DATOS DEL INMUEBLE"}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
-              {/* Select Barrio / Zona */}
-              <div className="bg-slate-50/80 border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
-                <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-[#0b214a] mb-1">
-                  {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
-                </label>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 w-full min-w-0">
-                    <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                    <select
-                      id="valuator-zona-select"
-                      aria-label="Seleccionar zona de la propiedad"
-                      value={valuatorData.zona}
-                      onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                      className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate"
-                    >
-                      {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
-                    </select>
-                  </div>
-                  <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
-                </div>
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#2563eb]" />
+                <p className="text-xs font-black uppercase tracking-wider text-[#0b214a]">
+                  {language === "ca" ? "DADES DE L'IMMOBLE" : language === "en" ? "PROPERTY DETAILS" : "DATOS DEL INMUEBLE"}
+                </p>
               </div>
 
-              {/* Input Superficie estimada */}
-              <div className="bg-slate-50/80 border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
-                <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-[#0b214a] mb-1">
-                  {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
-                </label>
-                <div className="flex items-center gap-2">
-                  <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                  <input
-                    id="valuator-metros-input"
-                    type="number"
-                    min="20"
-                    max="600"
-                    placeholder="85"
-                    value={valuatorData.metros}
-                    onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                    className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 outline-none"
-                  />
-                  <span className="text-xs font-black text-[#0b214a] bg-slate-200/80 border border-slate-300 px-2 py-0.5 rounded-md shrink-0">
-                    m²
-                  </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5 sm:mb-6">
+                {/* Select Barrio / Zona */}
+                <div className="bg-slate-50/80 border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
+                  <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-[#0b214a] mb-1">
+                    {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
+                  </label>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 w-full min-w-0">
+                      <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                      <select
+                        id="valuator-zona-select"
+                        aria-label="Seleccionar zona de la propiedad"
+                        value={valuatorData.zona}
+                        onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                        className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate"
+                      >
+                        {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
+                      </select>
+                    </div>
+                    <ChevronDown className="w-4 h-4 text-slate-500 shrink-0" />
+                  </div>
+                </div>
+
+                {/* Input Superficie estimada */}
+                <div className="bg-slate-50/80 border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
+                  <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-[#0b214a] mb-1">
+                    {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                    <input
+                      id="valuator-metros-input"
+                      type="number"
+                      min="20"
+                      max="600"
+                      placeholder="85"
+                      value={valuatorData.metros}
+                      onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                      className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 outline-none"
+                    />
+                    <span className="text-xs font-black text-[#0b214a] bg-slate-200/80 border border-slate-300 px-2 py-0.5 rounded-md shrink-0">
+                      m²
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Main Action Button — High Placement, Solid Gesgrama Blue */}
-            <div className="mt-1">
+            <div className="mt-2 sm:mt-4">
               <button
                 type="button"
                 onClick={handleCalculateValuation}
@@ -181,7 +183,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </button>
 
               {/* Trust Guarantees — Distinct & Highly Legible */}
-              <div className="flex items-center justify-between text-xs sm:text-[13px] text-[#0b214a] font-bold mt-3.5 px-2">
+              <div className="flex items-center justify-between text-xs sm:text-[13px] text-[#0b214a] font-bold mt-4 px-2">
                 <span className="flex items-center gap-1.5">
                   <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                   {t.valorador.sinCompromiso}

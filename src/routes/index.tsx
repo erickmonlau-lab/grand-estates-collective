@@ -462,11 +462,40 @@ function Index() {
       return 0; // recientes / default order
     });
 
-  let displayProperties = filteredProperties.slice(0, visibleCount);
-  const isFallback = filteredProperties.length === 0 &&
-    searchParams.mode !== "favoritos" &&
+  // ── RELEVANCE-FIRST CATALOG ──
+  // Exact matches always appear first. Remaining same-mode properties follow.
+  // The grid is NEVER empty — if 0 exact matches, we show the full same-mode catalog.
+  const hasActiveFilters = searchParams.mode !== "favoritos" &&
     (searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio");
 
+  let displayProperties: typeof activeLiveProperties;
+  let isFallback = false;
+
+  if (!hasActiveFilters || searchParams.mode === "favoritos") {
+    displayProperties = filteredProperties.slice(0, visibleCount);
+  } else {
+    const exactMatchIds = new Set(filteredProperties.map(p => p.id));
+    const sameModeRest = activeLiveProperties
+      .filter(p => {
+        const pOp = (p.operation || "comprar") as string;
+        const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+        return matchesMode && !exactMatchIds.has(p.id);
+      })
+      .sort((a, b) => {
+        if (sortOption === "precio_asc") return a.price - b.price;
+        if (sortOption === "precio_desc") return b.price - a.price;
+        return 0;
+      });
+
+    if (filteredProperties.length === 0) {
+      // 0 exact matches → show full same-mode catalog, flag fallback for the notice bar
+      isFallback = true;
+      displayProperties = sameModeRest.slice(0, visibleCount);
+    } else {
+      // Some exact matches → exact first, rest appended (user always sees more)
+      displayProperties = [...filteredProperties, ...sameModeRest].slice(0, visibleCount);
+    }
+  }
 
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">

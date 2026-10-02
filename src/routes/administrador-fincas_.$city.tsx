@@ -726,16 +726,23 @@ function SantaColomaBarrioPage() {
       return 0; // recientes / default order
     });
 
-  // If there are no properties matching this neighborhood/filters, show ALL available properties
+  // ── RELEVANCE-FIRST CATALOG ──
+  // Exact matches always appear first. Remaining same-mode properties follow.
+  // Grid is NEVER empty — if 0 exact matches, show full same-mode catalog.
   let isFallback = false;
-  let effectiveProperties = exactMatches;
+  let filteredProperties: typeof exactMatches;
+  let displayProperties: typeof exactMatches;
 
-  if (exactMatches.length === 0 && searchParams.mode !== "favoritos") {
-    isFallback = true;
-    effectiveProperties = liveProperties
-      .filter(prop => {
-        const pOp = (prop.operation || "comprar") as string;
-        return pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+  if (searchParams.mode === "favoritos") {
+    filteredProperties = exactMatches;
+    displayProperties = filteredProperties.slice(0, visibleCount);
+  } else {
+    const exactMatchIds = new Set(exactMatches.map(p => p.id));
+    const sameModeRest = liveProperties
+      .filter(p => {
+        const pOp = (p.operation || "comprar") as string;
+        const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
+        return matchesMode && !exactMatchIds.has(p.id);
       })
       .sort((a, b) => {
         if (sortOption === "precio_asc") return a.price - b.price;
@@ -743,18 +750,18 @@ function SantaColomaBarrioPage() {
         return 0;
       });
 
-    // If still empty (e.g. no rental properties), show all properties in the entire catalog
-    if (effectiveProperties.length === 0) {
-      effectiveProperties = [...liveProperties].sort((a, b) => {
-        if (sortOption === "precio_asc") return a.price - b.price;
-        if (sortOption === "precio_desc") return b.price - a.price;
-        return 0;
-      });
+    if (exactMatches.length === 0) {
+      // 0 exact matches → show full same-mode catalog, flag fallback
+      isFallback = true;
+      filteredProperties = sameModeRest;
+      displayProperties = sameModeRest.slice(0, visibleCount);
+    } else {
+      // Some exact matches → exact first, rest appended
+      filteredProperties = exactMatches;
+      displayProperties = [...exactMatches, ...sameModeRest].slice(0, visibleCount);
     }
   }
 
-  const filteredProperties = effectiveProperties;
-  const displayProperties = filteredProperties.slice(0, visibleCount);
 
   // Available filter options
   const tipos = ["Cualquier tipo", "Piso", "Ático", "Local comercial", "Chalet"];

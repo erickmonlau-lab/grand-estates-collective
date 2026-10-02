@@ -1,0 +1,42 @@
+[
+  {
+    "run": 1,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 2,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 3,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 4,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 5,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 6,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 7,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 8,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 9,
+    "error": "browser.wsEndpoint is not a function"
+  },
+  {
+    "run": 10,
+    "error": "browser.wsEndpoint is not a function"
+  }
+]

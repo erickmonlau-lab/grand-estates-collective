@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
+import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
-import livingRoomInterior from "@/assets/living_barcelona_interior_opt.webp";
+import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -14,11 +14,14 @@ interface HeroCarouselProps {
   customSubtitle?: string;
   customTrustBadge?: string;
   customValuationHref?: string;
+  /** Pre-select a barrio on mount (used by neighbourhood pages) */
+  initialBarrio?: string;
+  /** Parent stores a reset function that restores hero to default state */
+  onRegisterReset?: (resetFn: () => void) => void;
 }
 
-const ZONAS = [
-  "Santa Coloma",
-  "Toda zona",
+const BARRIOS = [
+  "Todos los barrios",
   "Santa Rosa - Can Mariner",
   "Fondo",
   "Riu",
@@ -29,21 +32,36 @@ const ZONAS = [
 ];
 
 const TIPOS = [
-  "Todo tipo",
+  "Cualquier tipo",
   "Piso",
   "Apartamento",
   "Ático",
+  "Local comercial",
   "Chalet",
-  "Local",
   "Oficina",
 ];
 
+const PRECIOS_COMPRA = [
+  "Cualquier precio",
+  "Hasta 150.000 €",
+  "150.000 - 250.000 €",
+  "250.000 - 350.000 €",
+  "350.000 - 500.000 €",
+  "Más de 500.000 €",
+];
+
+const PRECIOS_ALQUILER = [
+  "Cualquier precio",
+  "Hasta 800 €",
+  "800 - 1.200 €",
+  "1.200 - 1.600 €",
+  "Más de 1.600 €",
+];
+
 interface DropCoords {
-  top?: number;
-  bottom?: number;
+  top: number;
   left: number;
   width: number;
-  placement: "up" | "down";
   maxHeight: number;
 }
 
@@ -53,62 +71,73 @@ export default function HeroCarousel({
   customTag,
   customHeadline,
   customSubtitle,
+  initialBarrio,
+  onRegisterReset,
 }: HeroCarouselProps) {
   const t = translations[language];
 
   const [mode, setMode] = useState<"comprar" | "alquilar">("comprar");
-  const [zona, setZona] = useState("Santa Coloma");
-  const [tipo, setTipo] = useState("Todo tipo");
-  const [openDrop, setOpenDrop] = useState<"zona" | "tipo" | null>(null);
+  const [barrio, setBarrio] = useState("Todos los barrios");
+  const [tipo, setTipo] = useState("Cualquier tipo");
+  const [precio, setPrecio] = useState("Cualquier precio");
+  const [openDrop, setOpenDrop] = useState<"barrio" | "tipo" | "precio" | null>(null);
   const [dropCoords, setDropCoords] = useState<DropCoords | null>(null);
 
-  const zonaTriggerRef = useRef<HTMLButtonElement | null>(null);
+  // Sync initialBarrio on mount (for neighbourhood pages)
+  useEffect(() => {
+    if (initialBarrio && BARRIOS.includes(initialBarrio)) {
+      setBarrio(initialBarrio);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialBarrio]);
+
+  // Register reset function so parent can call it when "Ver todos" is clicked
+  useEffect(() => {
+    if (onRegisterReset) {
+      onRegisterReset(() => {
+        setMode("comprar");
+        setBarrio("Todos los barrios");
+        setTipo("Cualquier tipo");
+        setPrecio("Cualquier precio");
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const barrioTriggerRef = useRef<HTMLButtonElement | null>(null);
   const tipoTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const precioTriggerRef = useRef<HTMLButtonElement | null>(null);
   const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
 
+  // ALWAYS OPEN DOWNWARDS (Strictly requested: no upward flip, natural downward flow)
+  // Shows approximately 5-7 options (maxHeight: 230px) with clean internal scrollbar
   const calculateCoords = (targetEl: HTMLElement): DropCoords => {
     const rect = targetEl.getBoundingClientRect();
     const vpHeight = window.innerHeight;
     const vpWidth = window.innerWidth;
 
-    const spaceBelow = vpHeight - rect.bottom;
-    const spaceAbove = rect.top;
-
-    // Detect distance to bottom of hero or marquee ribbon if present
-    const heroEl = document.getElementById("hero");
-    const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : vpHeight;
-    const heroSpaceBelow = heroBottom - rect.bottom;
-
-    const availableSpaceBelow = Math.min(spaceBelow, heroSpaceBelow);
-    // Menu content typically needs ~250px. If space below is restricted, flip UP
-    const placement = (availableSpaceBelow < 260 && spaceAbove > 200) ? "up" : "down";
-
-    // Set width aligned with trigger (minimum comfortable width on mobile/desktop)
     const minWidth = Math.min(vpWidth - 32, 280);
     const width = Math.max(rect.width, minWidth);
 
-    // Ensure left does not overflow screen
     let left = rect.left;
     if (left + width > vpWidth - 16) {
       left = Math.max(16, vpWidth - width - 16);
     }
     if (left < 16) left = 16;
 
-    const maxHeight = placement === "up" 
-      ? Math.min(270, spaceAbove - 24)
-      : Math.min(270, spaceBelow - 24);
+    // Fixed compact height for 5-7 options with internal scroll
+    const spaceBelow = vpHeight - rect.bottom;
+    const maxHeight = Math.min(232, Math.max(160, spaceBelow - 16));
 
     return {
-      top: placement === "down" ? rect.bottom + 8 : undefined,
-      bottom: placement === "up" ? (vpHeight - rect.top + 8) : undefined,
+      top: rect.bottom + 6,
       left,
       width,
-      placement,
-      maxHeight: Math.max(160, maxHeight),
+      maxHeight,
     };
   };
 
-  const handleToggleDrop = (name: "zona" | "tipo", targetEl: HTMLButtonElement | null) => {
+  const handleToggleDrop = (name: "barrio" | "tipo" | "precio", targetEl: HTMLButtonElement | null) => {
     if (openDrop === name) {
       setOpenDrop(null);
       setDropCoords(null);
@@ -135,8 +164,9 @@ export default function HeroCarousel({
       const target = e.target as Node;
       if (
         dropdownMenuRef.current?.contains(target) ||
-        zonaTriggerRef.current?.contains(target) ||
-        tipoTriggerRef.current?.contains(target)
+        barrioTriggerRef.current?.contains(target) ||
+        tipoTriggerRef.current?.contains(target) ||
+        precioTriggerRef.current?.contains(target)
       ) {
         return;
       }
@@ -145,11 +175,12 @@ export default function HeroCarousel({
     };
 
     const handleScrollOrResize = () => {
-      // Re-anchor or close smoothly on scroll
-      if (openDrop === "zona" && zonaTriggerRef.current) {
-        setDropCoords(calculateCoords(zonaTriggerRef.current));
+      if (openDrop === "barrio" && barrioTriggerRef.current) {
+        setDropCoords(calculateCoords(barrioTriggerRef.current));
       } else if (openDrop === "tipo" && tipoTriggerRef.current) {
         setDropCoords(calculateCoords(tipoTriggerRef.current));
+      } else if (openDrop === "precio" && precioTriggerRef.current) {
+        setDropCoords(calculateCoords(precioTriggerRef.current));
       } else {
         setOpenDrop(null);
         setDropCoords(null);
@@ -192,26 +223,29 @@ export default function HeroCarousel({
       : "Compra, alquila o descubre cuánto vale tu propiedad en Santa Coloma.",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
-    area: language === "ca" ? "ZONA" : language === "en" ? "AREA" : "ZONA",
+    neighborhood: language === "ca" ? "BARRI" : language === "en" ? "NEIGHBORHOOD" : "BARRIO",
     type: language === "ca" ? "TIPUS" : language === "en" ? "TYPE" : "TIPO",
+    price: language === "ca" ? "PREU" : language === "en" ? "PRICE" : "PRECIO",
     search: language === "ca" ? "BUSCAR" : language === "en" ? "SEARCH" : "BUSCAR",
   };
 
   const handleSearch = () => {
     onPerformSearch?.({
       mode,
-      zona: zona === "Toda zona" ? "Cualquier zona" : zona,
-      tipo: tipo === "Todo tipo" ? "Cualquier tipo" : tipo,
-      precio: "Cualquier precio",
+      zona: barrio === "Todos los barrios" ? "Cualquier zona" : barrio,
+      tipo: tipo === "Cualquier tipo" ? "Cualquier tipo" : tipo,
+      precio: precio === "Cualquier precio" ? "Cualquier precio" : precio,
     });
     const el = document.getElementById("propiedades");
     if (el) {
-      const navOffset = window.innerWidth < 768 ? 80 : 90;
+      const navOffset = window.innerWidth < 768 ? 90 : 130;
       const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
       window.history.replaceState(null, "", "#propiedades");
     }
   };
+
+  const preciosActuales = mode === "comprar" ? PRECIOS_COMPRA : PRECIOS_ALQUILER;
 
   return (
     <section
@@ -219,31 +253,29 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible bg-[#f8fafc]"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. DUAL-IMAGE COMPOSITION: HOGAR (IZQUIERDA) + CENTRO LIMPIO + PERSONAS (DERECHA) ── */}
+      {/* ── 1. BACKGROUND & PROTAGONIST PHOTOGRAPHY (RESTORED PRODUCTION COMPOSITION) ── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        {/* Fondo base ultra limpio, luminoso y arquitectónico */}
+        {/* Fondo base arquitectónico ultra limpio */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9]/70 to-[#e2e8f0]/40" />
 
-        {/* IMAGEN IZQUIERDA SECUNDARIA: Piso realista de Santa Coloma/Barcelona (salón luminoso con terraza) */}
-        {/* Oculta en móviles (sm:block), presencia ambiental suave (opacity ~35%), fade completo hacia el centro */}
-        <div className="absolute inset-y-0 left-0 w-[42%] xl:w-[46%] 2xl:w-[48%] hidden md:flex items-center justify-start pointer-events-none">
+        {/* Fotografía secundaria sutil de interior urbano realista (lado izquierdo) */}
+        <div className="absolute inset-y-0 left-0 w-[42%] lg:w-[38%] xl:w-[35%] hidden md:flex items-center justify-start pointer-events-none z-0">
           <img
-            src={livingRoomInterior}
-            alt="Interior luminoso de piso en Santa Coloma"
-            className="w-full h-full object-cover object-left opacity-[0.32] lg:opacity-[0.38] saturate-[0.85] contrast-[0.95] transition-opacity"
+            src={interiorLeftBg}
+            alt="Interior luminoso de vivienda en Santa Coloma"
+            className="w-full h-full object-cover object-center opacity-[0.28] filter saturate-[0.80] contrast-[0.92] transition-opacity duration-500"
             loading="lazy"
             decoding="async"
-            width={960}
-            height={536}
+            width={720}
+            height={480}
           />
-          {/* Difuminados perimetrales: fade suave hacia el centro, superior e inferior para evitar bordes duros */}
-          <div className="absolute inset-y-0 right-0 w-44 lg:w-64 xl:w-80 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
-          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#f8fafc] to-transparent" />
+          {/* Difuminados perimetrales suaves que integran el interior con el fondo sin bordes de card */}
+          <div className="absolute inset-y-0 right-0 w-36 lg:w-48 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
         </div>
 
-        {/* IMAGEN DERECHA PROTAGONISTA: Pareja sonriente en su nuevo hogar completa */}
+        {/* Fotografía de la pareja sonriente completa con alta fidelidad y proporción idéntica a producción */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
@@ -260,13 +292,13 @@ export default function HeroCarousel({
             />
           </picture>
 
-          {/* Difuminado suave lateral y vertical para fundir la foto con el fondo claro sin tapar ni cortar a la pareja */}
+          {/* Difuminados perimetrales suaves que funden la foto con el fondo sin cortar a los protagonistas */}
           <div className="absolute inset-y-0 left-0 w-32 sm:w-56 md:w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent hidden sm:block" />
           <div className="absolute inset-x-0 top-0 h-32 sm:h-40 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
         </div>
 
-        {/* Difuminado radial central que garantiza 100% de limpieza y contraste en titular y buscador */}
+        {/* Gradiente radial central que protege el 100% de la legibilidad tipográfica y del buscador */}
         <div
           className="absolute inset-0 hidden sm:block pointer-events-none"
           style={{
@@ -275,14 +307,15 @@ export default function HeroCarousel({
           }}
         />
 
-        {/* En móvil: velo translúcido equilibrado que asegura nitidez total de texto y foto */}
+        {/* Velo en dispositivos móviles para máxima legibilidad */}
         <div className="absolute inset-0 bg-[#f8fafc]/80 sm:hidden" />
       </div>
 
+      {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-18 md:pb-20 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
       >
-        {/* ── 2. BRANDING Y TITULAR ESTRICTAMENTE CENTRADOS CON MÁXIMA ELEGANCIA ── */}
+        {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
@@ -293,10 +326,10 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 — Navy + Azul Gesgrama sobre el eje central exacto */}
+          {/* H1 Principal */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-3.5 font-heading max-w-[760px] mx-auto"
-            style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}
+            className="font-bold text-[#0b214a] tracking-normal leading-[1.06] mb-3 sm:mb-3.5 font-heading max-w-[780px] mx-auto"
+            style={{ fontSize: 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -308,28 +341,31 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Subtítulo: conciso, 1-2 líneas, oscuro y nítido */}
+          {/* Subtítulo: tipografía sans limpia, navy muy oscuro / negro (#0b214a), font-semibold (600), legible, generoso line-height */}
           <p
-            className="text-slate-700 font-bold leading-relaxed max-w-[600px] mx-auto text-balance text-sm sm:text-base md:text-lg mb-2"
+            className="text-[#0b214a] font-sans font-semibold text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-2"
           >
             {customSubtitle || L.subtitle}
           </p>
         </div>
 
-        {/* ── 3. BUSCADOR SEARCH-FIRST CENTRADO CON AIRE Y SOMBRA NATURAL ── */}
+        {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 mb-10 sm:mb-12"
+          className="relative z-40 w-full max-w-[1060px] mx-auto mt-4 sm:mt-5 mb-14 sm:mb-16 md:mb-20"
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_22px_55px_rgba(15,23,42,0.12)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_26px_65px_rgba(37,99,235,0.16)] hover:border-blue-200"
+            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.10)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_60px_rgba(37,99,235,0.14)] hover:border-blue-200"
           >
             {/* Toggle Comprar / Alquilar */}
             <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
               <button
                 type="button"
-                onClick={() => setMode("comprar")}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                onClick={() => {
+                  setMode("comprar");
+                  setPrecio("Cualquier precio");
+                }}
+                className={`px-4 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-sans font-bold transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "comprar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
@@ -339,8 +375,11 @@ export default function HeroCarousel({
               </button>
               <button
                 type="button"
-                onClick={() => setMode("alquilar")}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-black transition-all cursor-pointer select-none whitespace-nowrap ${
+                onClick={() => {
+                  setMode("alquilar");
+                  setPrecio("Cualquier precio");
+                }}
+                className={`px-4 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-sans font-bold transition-all cursor-pointer select-none whitespace-nowrap ${
                   mode === "alquilar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
@@ -351,35 +390,39 @@ export default function HeroCarousel({
             </div>
 
             {/* Separador vertical */}
-            <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-2" />
+            <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-1" />
 
-            {/* Selector ZONA */}
+            {/* Selector BARRIO */}
             <div className="relative flex-1 min-w-0">
               <button
-                ref={zonaTriggerRef}
+                ref={barrioTriggerRef}
                 type="button"
-                aria-expanded={openDrop === "zona"}
+                aria-expanded={openDrop === "barrio"}
                 aria-haspopup="listbox"
-                onClick={(e) => handleToggleDrop("zona", e.currentTarget)}
-                className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
+                onClick={(e) => handleToggleDrop("barrio", e.currentTarget)}
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3.5 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                  openDrop === "barrio"
+                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
+                    : "border-transparent hover:bg-slate-50"
+                }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
+                  <MapPin className="w-4 h-4 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
-                      {L.area}
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
+                      {L.neighborhood}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
-                      {zona}
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
+                      {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : barrio}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "zona" ? "rotate-180 text-[#2563eb]" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
               </button>
             </div>
 
             {/* Separador vertical */}
-            <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-2" />
+            <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-1" />
 
             {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0">
@@ -389,20 +432,56 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "tipo"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
-                className="w-full flex items-center justify-between text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-slate-50 rounded-xl sm:rounded-full transition-colors cursor-pointer"
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3.5 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                  openDrop === "tipo"
+                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
+                    : "border-transparent hover:bg-slate-50"
+                }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0 pr-1">
-                  <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563eb] shrink-0" />
+                  <HomeIcon className="w-4 h-4 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-xs sm:text-sm font-bold text-[#0f172a] truncate mt-0.5">
-                      {tipo}
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
+                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Cualquier tipo") : tipo}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
+              </button>
+            </div>
+
+            {/* Separador vertical */}
+            <div className="hidden sm:block w-[1px] h-9 bg-slate-200 shrink-0 mx-1" />
+
+            {/* Selector PRECIO */}
+            <div className="relative flex-1 min-w-0">
+              <button
+                ref={precioTriggerRef}
+                type="button"
+                aria-expanded={openDrop === "precio"}
+                aria-haspopup="listbox"
+                onClick={(e) => handleToggleDrop("precio", e.currentTarget)}
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3.5 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                  openDrop === "precio"
+                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
+                    : "border-transparent hover:bg-slate-50"
+                }`}
+              >
+                <div className="flex items-center gap-2.5 min-w-0 pr-1">
+                  <Tag className="w-4 h-4 shrink-0 text-[#2563eb]" />
+                  <div className="min-w-0">
+                    <span className="block text-[11px] font-sans font-black text-slate-600 uppercase tracking-wider leading-none">
+                      {L.price}
+                    </span>
+                    <span className="block text-xs sm:text-[14px] font-sans font-bold text-[#0b214a] truncate mt-0.5">
+                      {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquiera") : precio}
+                    </span>
+                  </div>
+                </div>
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-500"}`} />
               </button>
             </div>
 
@@ -410,15 +489,15 @@ export default function HeroCarousel({
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 sm:px-10 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mt-2 sm:mt-0"
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-8 md:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-extrabold text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mt-2 sm:mt-0"
             >
               <Search className="w-4 h-4 stroke-[2.5] shrink-0" />
-              <span className="leading-none">{L.search}</span>
+              <span className="leading-none translate-y-[1px]">{L.search}</span>
             </button>
           </div>
         </div>
 
-        {/* ── DROPDOWNS VIA REACT PORTAL: Inmunes a clipping, overflow y stacking contexts ── */}
+        {/* ── DROPDOWNS: SIEMPRE HACIA ABAJO CON PORTAL Y SCROLL INTERNO DISCRETO ── */}
         {openDrop && dropCoords && typeof document !== "undefined" && createPortal(
           <div
             ref={dropdownMenuRef}
@@ -426,29 +505,28 @@ export default function HeroCarousel({
             tabIndex={-1}
             style={{
               position: "fixed",
-              top: dropCoords.top !== undefined ? `${dropCoords.top}px` : undefined,
-              bottom: dropCoords.bottom !== undefined ? `${dropCoords.bottom}px` : undefined,
+              top: `${dropCoords.top}px`,
               left: `${dropCoords.left}px`,
               width: `${dropCoords.width}px`,
               maxHeight: `${dropCoords.maxHeight}px`,
               zIndex: 99999,
             }}
-            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.22)] py-2 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5"
+            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.14)] py-1.5 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5 dropdown-scrollbar font-sans"
             onClick={(e) => e.stopPropagation()}
           >
-            {openDrop === "zona" && ZONAS.map((z) => (
+            {openDrop === "barrio" && BARRIOS.map((b) => (
               <button
-                key={z}
+                key={b}
                 type="button"
                 role="option"
-                aria-selected={zona === z}
-                onClick={() => { setZona(z); setOpenDrop(null); setDropCoords(null); }}
-                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
-                  zona === z ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                aria-selected={barrio === b}
+                onClick={() => { setBarrio(b); setOpenDrop(null); setDropCoords(null); }}
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                  barrio === b ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <span className="truncate">{z}</span>
-                {zona === z && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                <span className="truncate">{b}</span>
+                {barrio === b && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
               </button>
             ))}
 
@@ -459,7 +537,7 @@ export default function HeroCarousel({
                 role="option"
                 aria-selected={tipo === tItem}
                 onClick={() => { setTipo(tItem); setOpenDrop(null); setDropCoords(null); }}
-                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-bold flex items-center justify-between transition-colors cursor-pointer ${
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
                   tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
@@ -467,55 +545,76 @@ export default function HeroCarousel({
                 {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
               </button>
             ))}
+
+            {openDrop === "precio" && preciosActuales.map((pItem) => (
+              <button
+                key={pItem}
+                type="button"
+                role="option"
+                aria-selected={precio === pItem}
+                onClick={() => { setPrecio(pItem); setOpenDrop(null); setDropCoords(null); }}
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                  precio === pItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                <span className="truncate">{pItem}</span>
+                {precio === pItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+              </button>
+            ))}
           </div>,
           document.body
         )}
 
-        {/* ── 4. TRUST: ZONA DE CONTRASTE ESTABLE (CARD ELEGANTE TRASLÚCIDA DE ALTA LEGIBILIDAD) ── */}
-        <div className="w-full max-w-[1020px] mx-auto bg-white/90 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
+        {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
+        <div
+          id="hero-trust-bar"
+          className={`w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+            openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
+          }`}
+        >
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
 
-            {/* Métrica 1: Clientes */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
+            <div className="flex items-center justify-center gap-3.5 p-1">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 2: Satisfacción */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
+            <div className="flex items-center justify-center gap-3.5 p-1">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 3: Comunidades */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
+            <div className="flex items-center justify-center gap-3.5 p-1">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 4: Años */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
+            <div className="flex items-center justify-center gap-3.5 p-1">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 
@@ -525,4 +624,4 @@ export default function HeroCarousel({
       </div>
     </section>
   );
-}
+}

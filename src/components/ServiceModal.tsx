@@ -1,4 +1,4 @@
-import { Building2, TrendingUp, Shield, Paintbrush, X, Check, ArrowRight } from "lucide-react";
+import { Building2, TrendingUp, Scale, Wrench, X, Check, ArrowRight } from "lucide-react";
 
 interface ServiceModalProps {
   selectedServiceIndex: number | null;
@@ -26,26 +26,29 @@ export default function ServiceModal({
         onClick={(e) => e.stopPropagation()}
         className="bg-white rounded-[28px] max-w-xl w-full shadow-2xl relative border-2 border-slate-200 max-h-[90vh] overflow-hidden my-auto text-[#0f172a] animate-in fade-in zoom-in-95 duration-200 flex flex-col"
       >
-        {/* Top Brand Color Banner */}
-        <div className="relative bg-gradient-to-r from-[#0b214a] via-[#1e3a6e] to-[#2563eb] p-6 sm:p-8 text-white">
+        {/* Top Brand Color Banner with Solid Navy Background and Clear Iconography */}
+        <div className="relative bg-[#0b214a] p-6 sm:p-8 text-white overflow-hidden">
+          {/* Subtle architectural background decoration */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#60a5fa_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+          
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs border border-white/20 hover:scale-105"
+            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20 hover:scale-105 z-10"
             aria-label="Cerrar modal"
           >
             <X className="w-5 h-5 stroke-[2.5]" />
           </button>
 
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-lg border border-white/80">
+          <div className="flex items-center gap-4 relative z-10">
+            <div className="w-14 h-14 rounded-2xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-lg border border-white/90">
               {selectedServiceIndex === 0 && <Building2 className="w-7 h-7 stroke-[2.2]" />}
               {selectedServiceIndex === 1 && <TrendingUp className="w-7 h-7 stroke-[2.2]" />}
-              {selectedServiceIndex === 2 && <Shield className="w-7 h-7 stroke-[2.2]" />}
-              {selectedServiceIndex === 3 && <Paintbrush className="w-7 h-7 stroke-[2.2]" />}
+              {selectedServiceIndex === 2 && <Scale className="w-7 h-7 stroke-[2.2]" />}
+              {selectedServiceIndex === 3 && <Wrench className="w-7 h-7 stroke-[2.2]" />}
             </div>
             <div>
-              <span className="inline-block bg-white/20 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-white/20 font-sans">
+              <span className="inline-block bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-0.5 rounded-full mb-1 font-sans shadow-xs">
                 {t.servicios.tag}
               </span>
               <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight font-sans tracking-tight">
@@ -54,25 +57,28 @@ export default function ServiceModal({
             </div>
           </div>
 
-          <p className="text-blue-100 text-xs sm:text-sm font-extrabold mt-3 font-sans leading-snug">
+          <p className="text-blue-100 text-xs sm:text-sm font-semibold mt-3 font-sans leading-snug relative z-10">
             {t.serviceModal.items[selectedServiceIndex]?.tagline}
           </p>
         </div>
 
         {/* Content Body */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
-          <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans">
+          <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-medium font-sans">
             {t.serviceModal.items[selectedServiceIndex]?.description}
           </p>
 
-          {/* Benefits with solid light-blue container and vibrant blue icons */}
-          <div className="bg-[#eff6ff] rounded-2xl p-4 sm:p-5 border-2 border-[#bfdbfe] space-y-3 shadow-xs">
-            <p className="text-xs font-black uppercase tracking-wider text-[#1e3a6e] mb-2 font-sans">
-              {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
-            </p>
+          {/* Benefits with SOLID container and high contrast white title & distinct checkmarks */}
+          <div className="bg-[#0b214a] rounded-2xl p-5 sm:p-6 text-white space-y-3.5 shadow-md">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-[#38bdf8] shrink-0" />
+              <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-white font-sans">
+                {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
+              </p>
+            </div>
             {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit: string, idx: number) => (
-              <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-extrabold text-[#0f172a] font-sans">
-                <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+              <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-medium text-slate-100 font-sans">
+                <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                   <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                 </div>
                 <span className="leading-snug pt-0.5">{benefit}</span>

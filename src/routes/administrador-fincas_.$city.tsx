@@ -16,6 +16,8 @@ import {
   Home, 
   TrendingUp, 
   Shield, 
+  Scale,
+  Wrench,
   Calendar, 
   Ruler,
   Bath,
@@ -455,6 +457,7 @@ function SantaColomaBarrioPage() {
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedServiceIndex, setSelectedServiceIndex] = useState<number | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const heroResetRef = useRef<(() => void) | null>(null);
 
   // Sync filters whenever user navigates to a different neighborhood page
   useEffect(() => {
@@ -645,7 +648,11 @@ function SantaColomaBarrioPage() {
       habitaciones: "Cualquier número"
     });
     const el = document.getElementById("propiedades");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const navOffset = window.innerWidth < 768 ? 90 : 130;
+      const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
+    }
   };
 
   // Real-time dynamic property store synchronized with admin panel
@@ -767,6 +774,8 @@ function SantaColomaBarrioPage() {
         <HeroCarousel
           language={language}
           onPerformSearch={handleHeroSearch}
+          initialBarrio={SLUG_TO_ZONE[rawSlug] || undefined}
+          onRegisterReset={(fn) => { heroResetRef.current = fn; }}
           customTag={
             language === "ca"
               ? `Barri ${data.name} · Santa\u00A0Coloma`
@@ -1432,28 +1441,25 @@ function SantaColomaBarrioPage() {
                     </div>
 
                     {isFallback && (
-                      <div className="bg-blue-50/80 border border-blue-200/80 rounded-2xl p-4 sm:p-5 mb-6 text-slate-800 text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-                        <div className="flex items-center gap-3">
-                          <span className="w-8 h-8 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs">
-                            <Home className="w-4 h-4" />
-                          </span>
-                          <p className="font-semibold text-slate-700 leading-snug">
-                            {language === "ca"
-                              ? `Actualment no hi ha immobles exclusius a ${data.name}. T'oferim el catàleg complet d'immobles disponibles a Santa Coloma de Gramenet:`
-                              : language === "en"
-                              ? `There are currently no exclusive listings in ${data.name}. Here is our full catalog of available properties across Santa Coloma:`
-                              : `Actualmente no hay inmuebles exclusivos en ${data.name}. Te mostramos todo nuestro catálogo de inmuebles disponibles en Santa Coloma:`}
-                          </p>
-                        </div>
+                      <div className="flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 min-h-[52px]">
+                        <p className="text-sm font-semibold text-slate-600 leading-snug">
+                          {language === "ca"
+                            ? "No hi ha immobles que coincideixin amb aquests filtres."
+                            : language === "en"
+                            ? "No properties match these filters."
+                            : "No hay inmuebles que coincidan con estos filtros."}
+                        </p>
                         <button
                           type="button"
                           onClick={() => {
-                            setSearchParams(prev => ({ ...prev, zona: "Cualquier zona" }));
-                            setConsoleFilters(prev => ({ ...prev, zona: "Cualquier zona" }));
+                            const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                            setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                            setConsoleFilters({ zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                            heroResetRef.current?.();
                           }}
-                          className="shrink-0 text-xs font-black uppercase tracking-wider text-[#2563eb] hover:text-[#1d4ed8] underline cursor-pointer"
+                          className="shrink-0 text-xs font-black text-[#2563eb] hover:underline cursor-pointer"
                         >
-                          {t.properties.verTodas}
+                          {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
                         </button>
                       </div>
                     )}
@@ -1504,6 +1510,7 @@ function SantaColomaBarrioPage() {
                                 precio: "Cualquier precio",
                                 habitaciones: "Cualquier número"
                               });
+                              heroResetRef.current?.();
                               // Show all available properties by expanding visibleCount
                               setVisibleCount(999);
                               
@@ -1639,8 +1646,8 @@ function SantaColomaBarrioPage() {
                 const icons = [
                   <Building2 key={0} className="w-5 h-5" />,
                   <TrendingUp key={1} className="w-5 h-5" />,
-                  <Shield key={2} className="w-5 h-5" />,
-                  <Paintbrush key={3} className="w-5 h-5" />
+                  <Scale key={2} className="w-5 h-5" />,
+                  <Wrench key={3} className="w-5 h-5" />
                 ];
                 const bgs = [
                   "/images/service-1.webp",
@@ -1654,27 +1661,29 @@ function SantaColomaBarrioPage() {
                       onClick={() => setSelectedServiceIndex(i)}
                       className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                     >
-                      <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
+                      <div className="relative w-full sm:w-[120px] h-[95px] sm:h-[105px] rounded-lg sm:rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
                         <img 
                           src={bgs[i]} 
                           alt={item.title} 
                           loading="lazy" 
                           decoding="async"
-                          width={110}
-                          height={95}
+                          width={120}
+                          height={105}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                         />
-                        <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
-                          {icons[i]}
-                        </div>
                       </div>
 
                       <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                         <div>
-                          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
-                            {item.title}
-                          </h3>
-                          <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <span className="w-7 h-7 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
+                              {icons[i]}
+                            </span>
+                            <h3 className="text-base sm:text-lg md:text-xl font-black text-[#0f172a] leading-snug group-hover:text-[#0369a1] transition-colors">
+                              {item.title}
+                            </h3>
+                          </div>
+                          <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-3">
                             {item.desc}
                           </p>
                         </div>
@@ -1700,367 +1709,202 @@ function SantaColomaBarrioPage() {
           </div>
         </section>
 
-        {/* ── 4. VALORADOR DE INMUEBLES CANÓNICO CON PRESELECCIÓN DEL BARRIO ── */}
-        <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24">
+        {/* ── 4. VALORADOR DE INMUEBLES SIMPLIFICADO ORIENTADO A CONVERSIÓN ── */}
+        <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
           <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-          <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1240px] relative z-10 overflow-hidden text-[#0f172a] scroll-mt-14 sm:scroll-mt-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+          <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-[#0f172a]">
+            
+            {/* Header Kicker */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-100">
+              <div>
+                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl shadow-xs mb-2">
+                  <Star className="w-3.5 h-3.5 fill-white" />
+                  <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] tracking-tight leading-tight">
+                  {language === "ca" ? `¿Quant val el teu immoble a ${data.name}?` : language === "en" ? `How much is your property in ${data.name} worth?` : `¿Cuánto vale tu inmueble en ${data.name}?`}
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-sm leading-relaxed">
+                {language === "ca" 
+                  ? "Descobreix una estimació orientativa en menys d'un minut basada en dades de mercat reals." 
+                  : language === "en" 
+                  ? "Get an orientative estimation in less than a minute based on real market data." 
+                  : "Descubre una estimación orientativa en menos de un minuto basada en datos de mercado reales."}
+              </p>
+            </div>
+
+            {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
               
-              {/* LEFT COLUMN: Form */}
-              <div className="lg:col-span-7 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                  <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-xs font-black tracking-wider uppercase px-3.5 py-1.5 rounded-xl shadow-xs font-sans">
-                    <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
-                    <span>{t.valorador.tag}</span>
-                  </span>
+              {/* LEFT: FORM INPUTS & CALCULAR BUTTON */}
+              <div className="lg:col-span-6 flex flex-col justify-between bg-slate-50/70 border border-slate-200/80 rounded-2xl sm:rounded-3xl p-5 sm:p-6">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-slate-500 mb-4">
+                    {language === "ca" ? "DADES DE L'IMMOBLE" : language === "en" ? "PROPERTY DETAILS" : "DATOS DEL INMUEBLE"}
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
+                    {/* Select Barrio / Zona */}
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-slate-600 mb-1">
+                        {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
+                      </label>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 w-full min-w-0">
+                          <MapPin className="w-4 h-4 text-[#2563eb] shrink-0" />
+                          <select
+                            id="valuator-zona-select"
+                            aria-label="Seleccionar zona de la propiedad"
+                            value={valuatorData.zona}
+                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
+                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate"
+                          >
+                            {zonas.map(z => (
+                              <option key={z} value={z}>{formatLocation(z, language)}</option>
+                            ))}
+                          </select>
+                        </div>
+                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                      </div>
+                    </div>
+
+                    {/* Input Superficie estimada */}
+                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-slate-600 mb-1">
+                        {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <Ruler className="w-4 h-4 text-[#2563eb] shrink-0" />
+                        <input
+                          id="valuator-metros-input"
+                          type="number"
+                          min="20"
+                          max="600"
+                          placeholder="85"
+                          value={valuatorData.metros}
+                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
+                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 outline-none"
+                        />
+                        <span className="text-xs font-black text-slate-700 bg-slate-100 border border-slate-300 px-2 py-0.5 rounded-md shrink-0">
+                          m²
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-2.5 sm:mb-3.5 leading-[1.12] tracking-tight font-sans text-[#0f172a] flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span>{t.valorador.title}</span>
-                  <span className="bg-[#2563eb] text-white px-3 sm:px-4 py-0.5 sm:py-1 rounded-xl shadow-sm whitespace-nowrap">
-                    {t.valorador.titleAccent}
-                  </span>
-                </h2>
+                {/* Main Action Button */}
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleCalculateValuation}
+                    disabled={isCalculatingValuation}
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider disabled:opacity-75"
+                  >
+                    <Home className="w-4 h-4 text-white shrink-0" />
+                    <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
+                    <ArrowRight className="w-4 h-4 text-white shrink-0" />
+                  </button>
 
-                <p className="text-slate-600 text-base sm:text-lg md:text-xl max-w-xl mb-5 sm:mb-6 leading-relaxed font-bold font-sans">
-                  {t.valorador.subtitle}
-                </p>
-
-                <div className="w-full max-w-xl">
-                  <div className="w-full">
-                    {/* Inputs Row with crystal clear visual labels & m² suffix */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                      {/* Select Zona */}
-                      <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                        <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                          {language === "ca" ? "Zona o barri" : language === "en" ? "Area / Zone" : "Zona o barrio"}
-                        </label>
-                        <div className="flex items-center justify-between gap-2">
-                          <div className="flex items-center gap-2.5 w-full">
-                            <MapPin className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                            <select
-                              id="valuator-zona-select"
-                              aria-label="Seleccionar zona de la propiedad"
-                              value={valuatorData.zona}
-                              onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                              className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
-                            >
-                              <option value="" disabled hidden>{t.valorador.seleccionaZona}</option>
-                              {zonas.map(z => (
-                                <option key={z} value={z}>{formatLocation(z, language)}</option>
-                              ))}
-                            </select>
-                          </div>
-                          <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
-                        </div>
-                      </div>
-
-                      {/* Input Superficie (m²) */}
-                      <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
-                        <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-black mb-1 font-sans">
-                          {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
-                        </label>
-                        <div className="flex items-center gap-2.5">
-                          <Ruler className="w-4.5 h-4.5 text-[#2563eb] shrink-0" />
-                          <input
-                            id="valuator-metros-input"
-                            type="number"
-                            min="20"
-                            max="600"
-                            placeholder="85"
-                            value={valuatorData.metros}
-                            onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-extrabold text-[#0f172a] focus:ring-0 outline-none font-sans"
-                          />
-                          <span className="text-xs sm:text-sm font-black text-slate-900 bg-white border border-slate-900 px-2.5 py-0.5 rounded-md shrink-0">
-                            m²
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                      type="button"
-                      onClick={handleCalculateValuation}
-                      disabled={isCalculatingValuation}
-                      className="btn-lift w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 rounded-xl transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center justify-center gap-2 mb-3.5 font-sans disabled:opacity-75"
-                    >
-                      <Home className="w-4 h-4 text-white" />
-                      <span>{isCalculatingValuation ? t.valorador.calculando : t.valorador.calcularBtn}</span>
-                      <ArrowRight className="w-4 h-4 text-white" />
-                    </button>
-
-                    {/* Trust Badges - Horizontal row centered under button */}
-                    <div className="flex flex-row flex-nowrap sm:flex-wrap items-center justify-center gap-3 sm:gap-4 mt-2 w-full">
-                      <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                        <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#60a5fa] stroke-[3] shrink-0" />
-                        <span>{t.valorador.sinCompromiso}</span>
-                      </span>
-                      <span className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-xs text-xs sm:text-sm font-black font-sans whitespace-nowrap border border-slate-700/60 shrink-0">
-                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 shrink-0" />
-                        <span>{t.valorador.resultadoInmediato}</span>
-                      </span>
-                    </div>
+                  <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold mt-2.5 px-1">
+                    <span className="flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
+                      {t.valorador.sinCompromiso}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
+                      {t.valorador.resultadoInmediato}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: White Floating Result Card with Permanent Blue Border */}
-              <div className="lg:col-span-5 flex items-center justify-center lg:justify-end w-full">
-                <div className="bg-white text-[#0f172a] rounded-3xl p-5 sm:p-7 shadow-xl w-full max-w-[460px] border-2 border-[#2563eb] relative overflow-hidden text-center">
+              {/* RIGHT: CLEAN CONVERSION RESULT BOX */}
+              <div className="lg:col-span-6 flex flex-col justify-center">
+                <div className="bg-white border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[300px]">
                   
-                  {/* Spinner / Skeleton Loading Overlay with AnimatePresence */}
+                  {/* Spinner while recalculating */}
                   <AnimatePresence>
                     {isCalculatingValuation && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.15 }}
                         className="absolute inset-0 bg-white/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6"
                       >
-                        <div className="w-12 h-12 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-4" />
-                        <p className="text-sm font-black text-[#0f172a] font-sans">{t.valorador.calculando}</p>
-                        <p className="text-xs text-slate-500 font-bold mt-1 font-sans">{t.valorador.analizando} {formatLocation(valuatorData.zona, language) || "la zona"}...</p>
+                        <div className="w-10 h-10 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-3" />
+                        <p className="text-sm font-black text-[#0b214a]">{t.valorador.calculando}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
-                  {/* 1. "VALOR ESTIMADO" pill badge */}
-                  <div className="inline-flex items-center gap-2 bg-[#2563eb] text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider mb-3 shadow-md font-sans">
-                    <span>{t.valorador.valorEstimado} ({formatLocation(calculatedResult.zoneName, language)})</span>
-                  </div>
-
-                  {/* Main Estimated Value with animated Count-Up */}
-                  <div className="text-4xl sm:text-5xl font-black text-[#0f172a] mb-2 leading-none tracking-tight font-sans">
-                    <PriceCounter value={calculatedResult.estimatedValue} duration={1200} /> <span className="text-[#2563eb] font-black">€</span>
-                  </div>
-
-                  {/* 2. Rango estimado de mercado en una caja estilizada */}
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl py-2.5 px-3.5 mb-2 shadow-sm">
-                    <p className="text-xs sm:text-sm font-semibold text-slate-300 font-sans">
-                      {t.valorador.rangoEstimado}: <span className="font-extrabold text-white text-sm sm:text-base ml-1">{new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)}€ – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)}€</span>
-                    </p>
-                  </div>
-
-                  {/* Animated Range Progress Bar with Context Label */}
-                  <div className="mb-3">
-                    <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-slate-300">
-                      <motion.div
-                        key={`range-bar-${calculatedResult.estimatedValue}`}
-                        initial={shouldReduceMotion ? false : { width: "0%" }}
-                        animate={{ width: "70%" }}
-                        transition={{ duration: 1.2, ease: easeOut }}
-                        className="h-full bg-gradient-to-r from-blue-500 to-[#2563eb] rounded-full shadow-xs"
-                      />
-                    </div>
-                    <p className="text-xs sm:text-[13px] text-slate-700 font-bold mt-1.5 text-center font-sans">
-                      {language === "ca" 
-                        ? "Posició del valor estimat dins del rang de mercat" 
-                        : language === "en" 
-                        ? "Estimated value position within the market range" 
-                        : "Posición del valor estimado dentro del rango de mercado"}
-                    </p>
-                  </div>
-
-                  {/* Disclaimer box with neutral dark gray background and pure white text */}
-                  <div className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white mb-4 font-semibold py-2 px-3 rounded-xl bg-slate-700 border border-slate-600 shadow-xs text-center leading-snug">
-                    <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-200 shrink-0 self-center" />
-                    <span className="text-white font-medium text-balance leading-tight">{t.valorador.disclaimer}</span>
-                  </div>
-
-                  {/* 3. Sparkline Price Trend Chart Container */}
-                  <div className="pt-3.5 pb-2 px-3.5 bg-slate-50 rounded-2xl border border-slate-200 mb-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs sm:text-sm font-black text-[#0f172a] font-sans uppercase tracking-wider">
-                        {language === "ca" ? "Tendència de mercat" : language === "en" ? "Market trend" : "Tendencia de mercado"}
-                      </span>
-                      <span className="bg-[#2563eb] text-white px-3 py-1 rounded-full text-xs sm:text-sm font-black flex items-center gap-1.5 shadow-sm font-sans">
-                        <TrendingUp className="w-3.5 h-3.5 text-white stroke-[3]" /> +{calculatedResult.trendPct.toFixed(1)}%
-                      </span>
-                    </div>
-                    <div className="w-full h-20 sm:h-24 relative pt-1">
-                      {(() => {
-                        const spark = getSparklineData(calculatedResult.monthlyPrices);
-                        return (
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 250 80" fill="none">
-                            <defs>
-                              <linearGradient id="sparklineGradCity" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#2563eb" stopOpacity="0.35" />
-                                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.02" />
-                              </linearGradient>
-                            </defs>
-                            {/* Subdued horizontal guide lines */}
-                            <line x1="0" y1="20" x2="250" y2="20" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                            <line x1="0" y1="50" x2="250" y2="50" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
-                            
-                            {/* Fill area & Trend curve */}
-                            <path
-                              d={spark.areaPath}
-                              fill="url(#sparklineGradCity)"
-                            />
-                            <motion.path
-                              key={`trend-line-${calculatedResult.estimatedValue}-${calculatedResult.zoneName}`}
-                              d={spark.linePath} 
-                              fill="none" 
-                              stroke="#2563eb" 
-                              strokeWidth="3" 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round" 
-                              initial={shouldReduceMotion ? false : { pathLength: 0 }}
-                              animate={{ pathLength: 1 }}
-                              transition={{ duration: 1, ease: "easeInOut" }}
-                            />
-                            
-                            {/* Data Points */}
-                            {spark.points.map((pt, pIdx) => (
-                              <circle
-                                key={pIdx}
-                                cx={pt.cx}
-                                cy={pt.cy}
-                                r={pIdx === spark.points.length - 1 ? 4.5 : 3}
-                                fill={pIdx === spark.points.length - 1 ? "#2563eb" : "#ffffff"}
-                                stroke={pIdx === spark.points.length - 1 ? "#ffffff" : "#2563eb"}
-                                strokeWidth="2.5"
-                              />
-                            ))}
-                          </svg>
-                        );
-                      })()}
-                    </div>
-                    {/* X-Axis Month Labels */}
-                    <div className="flex justify-between items-center text-xs sm:text-[13px] font-bold text-[#0f172a] mt-1.5 px-1 font-sans border-t border-slate-200 pt-1.5">
-                      {(() => {
-                        const locale = language === "ca" ? "ca-ES" : language === "en" ? "en-US" : "es-ES";
-                        const now = new Date();
-                        const months = [];
-                        for (let i = 5; i >= 0; i--) {
-                          const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-                          const m = d.toLocaleDateString(locale, { month: "short" });
-                          months.push(m.charAt(0).toUpperCase() + m.slice(1).replace(".", ""));
-                        }
-                        return months.map((month, mIdx) => {
-                          const isCurrentMonth = mIdx === 5;
-                          return (
-                            <span
-                              key={mIdx}
-                              className={
-                                isCurrentMonth
-                                  ? "inline-flex items-center gap-1 text-[#2563eb] font-black underline underline-offset-4 decoration-2 decoration-[#2563eb]"
-                                  : "text-slate-600 font-semibold"
-                              }
-                            >
-                              {isCurrentMonth && (
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#2563eb] shrink-0" />
-                              )}
-                              <span>{month}</span>
-                            </span>
-                          );
-                        });
-                      })()}
-                    </div>
-                  </div>
-
-                  {/* Hyper-local Price Benchmark with Comparative Property Price/m² */}
-                  {(() => {
-                    const propertyPricePerM2 = calculatedResult.propertyPricePerM2;
-                    const neighborhoodPricePerM2 = calculatedResult.neighborhoodPricePerM2;
-                    const diffPrice = propertyPricePerM2 - neighborhoodPricePerM2;
-                    const diffPct = ((diffPrice / neighborhoodPricePerM2) * 100).toFixed(1);
-                    const isAbove = diffPrice > 0;
-                    const isEqual = diffPrice === 0;
-
-                    return (
-                      <div className="bg-[#0b214a] text-white rounded-2xl p-3.5 text-left shadow-sm mb-3 font-sans">
-                        <div className="divide-y divide-blue-900/60">
-                          {/* Line 1: Neighborhood average price */}
-                          <div className="flex items-center justify-between text-xs sm:text-sm pb-2.5">
-                            <span className="font-bold text-slate-300">
-                              {language === "ca" ? "Preu mitjà barri:" : language === "en" ? "Avg. neighborhood price:" : "Precio medio barrio:"}
-                            </span>
-                            <span className="font-black text-white text-sm sm:text-base">
-                              {new Intl.NumberFormat('es-ES').format(neighborhoodPricePerM2)} €/m²
-                            </span>
-                          </div>
-
-                          {/* Line 2: Property estimated price/m² and comparative indicator */}
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2 text-xs sm:text-sm pt-2.5">
-                            <div className="flex items-center gap-1.5 group/tip relative min-w-0">
-                              <span className="font-bold text-slate-300">
-                                {language === "ca" ? "Preu estimat immoble:" : language === "en" ? "Estimated property price:" : "Precio estimado inmueble:"}
-                              </span>
-                              <button
-                                type="button"
-                                aria-label={
-                                  language === "ca"
-                                    ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor total i la superfície indicada."
-                                    : language === "en"
-                                    ? "Estimated price per sq m for your home, calculated from total estimated value and specified area."
-                                    : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."
-                                }
-                                className="text-slate-400 hover:text-white cursor-pointer focus:outline-hidden shrink-0"
-                              >
-                                <Info className="w-3.5 h-3.5" />
-                              </button>
-                              {/* Hover/focus tooltip */}
-                              <div className="pointer-events-none absolute left-0 bottom-full mb-2 hidden w-56 sm:w-64 rounded-xl bg-slate-900/95 p-2.5 text-[11px] font-normal leading-snug text-slate-200 shadow-xl border border-slate-700 backdrop-blur-md z-50 group-hover/tip:block group-focus-within/tip:block transition-all">
-                                {language === "ca"
-                                  ? "Preu per m² estimat per al teu habitatge, calculat a partir del valor estimat total i la superfície indicada."
-                                  : language === "en"
-                                  ? "Estimated price per sq m for your home, calculated from the total estimated value and specified area."
-                                  : "Precio por m² estimado para tu vivienda, calculado a partir del valor estimado total y la superficie indicada."}
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-                              <span className="font-black text-white text-sm sm:text-base whitespace-nowrap">
-                                {new Intl.NumberFormat('es-ES').format(propertyPricePerM2)}&nbsp;€/m²
-                              </span>
-                              {!isEqual && (
-                                <span className={`text-[11px] font-black px-2 py-0.5 rounded-md shrink-0 shadow-sm text-white whitespace-nowrap ${
-                                  isAbove ? "bg-emerald-700 border border-emerald-600" : "bg-sky-700 border border-sky-600"
-                                }`}>
-                                  {isAbove ? `+${diffPct}%` : `${diffPct}%`}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Micro-note explaining comparison and percentage diff */}
-                        <div className="mt-2.5 pt-2 border-t border-blue-900/40 text-[11px] text-slate-400 text-center leading-tight">
-                          {language === "ca"
-                            ? "Compara el preu estimat del teu habitatge amb la mitjana de la zona."
-                            : language === "en"
-                            ? "Compares your estimated property price with the area average."
-                            : "Compara el precio estimado de tu vivienda con la media de la zona."}
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  {/* Bottom CTA Row: Direct WhatsApp button */}
+                  {/* 1. Header label */}
                   <div>
+                    <span className="inline-block text-xs font-black uppercase tracking-widest text-[#2563eb] bg-blue-50 px-3.5 py-1 rounded-full mb-3">
+                      {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
+                    </span>
+
+                    {/* 2. Dominant Price Number */}
+                    <div className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0b214a] leading-none tracking-tight my-2">
+                      <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
+                      <span className="text-[#2563eb] ml-1.5">€</span>
+                    </div>
+
+                    {/* 3. Secondary price per m² */}
+                    <p className="text-sm sm:text-base font-bold text-slate-600 mt-1 mb-2">
+                      ≈ {new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
+                    </p>
+
+                    {/* Optional small range */}
+                    <p className="text-xs text-slate-500 font-semibold mb-2">
+                      {language === "ca" ? "Rang orientatiu:" : language === "en" ? "Estimated range:" : "Rango orientativo:"}{" "}
+                      <span className="font-bold text-slate-700">
+                        {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)} € – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)} €
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* 4. Single Clear CTA oriented to conversion */}
+                  <div className="w-full mt-4 pt-4 border-t border-slate-100 flex flex-col items-center">
                     <a
                       href={`https://wa.me/34689438012?text=${encodeURIComponent(
                         language === "ca"
-                          ? `Hola Gesgrama, he valorat el meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) i voldria una valoració oficial gratuïta.`
+                          ? `Hola Gesgrama, he utilitzat la calculadora per al meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i voldria una valoració personalitzada.`
                           : language === "en"
-                          ? `Hello Gesgrama, I valuated my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) and would like an official appraisal.`
-                          : `Hola Gesgrama, he valorado mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}€) y me gustaría una valoración oficial gratuita.`
+                          ? `Hello Gesgrama, I used your valuation tool for my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like a personalized valuation.`
+                          : `Hola Gesgrama, he utilizado la calculadora para mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría una valoración personalizada.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#075E54] hover:bg-[#054c44] text-white font-black text-sm py-3.5 px-4 rounded-xl transition-all shadow-md flex items-center justify-center gap-2.5 group cursor-pointer hover:scale-[1.01]"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm py-3.5 px-6 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
                     >
-                      <WhatsAppBrandIcon className="w-5 h-5 fill-white shrink-0" />
-                      <span>WhatsApp</span>
+                      <span>
+                        {language === "ca" 
+                          ? "VULL UNA VALORACIÓ PERSONALITZADA" 
+                          : language === "en" 
+                          ? "I WANT A PERSONALIZED APPRAISAL" 
+                          : "QUIERO UNA VALORACIÓN PERSONALIZADA"}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-white shrink-0" />
                     </a>
+
+                    {/* Honest disclaimer */}
+                    <p className="text-[11px] text-slate-500 font-medium mt-2.5 leading-tight">
+                      {language === "ca"
+                        ? "Estimació orientativa basada en dades de mercat. No constitueix una taxació oficial."
+                        : language === "en"
+                        ? "Guidance estimation based on market data. Does not constitute an official appraisal."
+                        : "Estimación orientativa basada en datos de mercado. No constituye una tasación oficial."}
+                    </p>
                   </div>
+
                 </div>
               </div>
 
             </div>
+
           </div>
         </section>
 
@@ -3044,26 +2888,27 @@ function SantaColomaBarrioPage() {
             onClick={(e) => e.stopPropagation()}
             className="bg-white rounded-[28px] max-w-xl w-full shadow-2xl relative border-2 border-slate-200 max-h-[90vh] overflow-hidden my-auto text-[#0f172a] animate-in fade-in zoom-in-95 duration-200 flex flex-col"
           >
-            {/* Top Brand Color Banner */}
-            <div className="relative bg-gradient-to-r from-[#0b214a] via-[#1e3a6e] to-[#2563eb] p-6 sm:p-8 text-white">
+            {/* Top Brand Color Banner with Solid Navy Background and Clear Iconography */}
+            <div className="relative bg-[#0b214a] p-6 sm:p-8 text-white overflow-hidden">
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#60a5fa_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
               <button
                 type="button"
                 onClick={() => setSelectedServiceIndex(null)}
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs border border-white/20 hover:scale-105"
+                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition-all cursor-pointer border border-white/20 hover:scale-105 z-10"
                 aria-label="Cerrar modal"
               >
                 <X className="w-5 h-5 stroke-[2.5]" />
               </button>
 
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-lg border border-white/80">
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-white text-[#2563eb] flex items-center justify-center shrink-0 shadow-lg border border-white/90">
                   {selectedServiceIndex === 0 && <Building2 className="w-7 h-7 stroke-[2.2]" />}
                   {selectedServiceIndex === 1 && <TrendingUp className="w-7 h-7 stroke-[2.2]" />}
-                  {selectedServiceIndex === 2 && <Shield className="w-7 h-7 stroke-[2.2]" />}
-                  {selectedServiceIndex === 3 && <Paintbrush className="w-7 h-7 stroke-[2.2]" />}
+                  {selectedServiceIndex === 2 && <Scale className="w-7 h-7 stroke-[2.2]" />}
+                  {selectedServiceIndex === 3 && <Wrench className="w-7 h-7 stroke-[2.2]" />}
                 </div>
                 <div>
-                  <span className="inline-block bg-white/20 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1 border border-white/20 font-sans">
+                  <span className="inline-block bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-0.5 rounded-full mb-1 font-sans shadow-xs">
                     {t.servicios.tag}
                   </span>
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight font-sans tracking-tight">
@@ -3072,25 +2917,28 @@ function SantaColomaBarrioPage() {
                 </div>
               </div>
 
-              <p className="text-blue-100 text-xs sm:text-sm font-extrabold mt-3 font-sans leading-snug">
+              <p className="text-blue-100 text-xs sm:text-sm font-semibold mt-3 font-sans leading-snug relative z-10">
                 {t.serviceModal.items[selectedServiceIndex]?.tagline}
               </p>
             </div>
 
             {/* Content Body */}
             <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
-              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans">
+              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-medium font-sans">
                 {t.serviceModal.items[selectedServiceIndex]?.description}
               </p>
 
-              {/* Benefits with solid light-blue container and vibrant blue icons */}
-              <div className="bg-[#eff6ff] rounded-2xl p-4 sm:p-5 border-2 border-[#bfdbfe] space-y-3 shadow-xs">
-                <p className="text-xs font-black uppercase tracking-wider text-[#1e3a6e] mb-2 font-sans">
-                  {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
-                </p>
+              {/* Benefits with SOLID container and high contrast white title & distinct checkmarks */}
+              <div className="bg-[#0b214a] rounded-2xl p-5 sm:p-6 text-white space-y-3.5 shadow-md">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-2 h-2 rounded-full bg-[#38bdf8] shrink-0" />
+                  <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-white font-sans">
+                    {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
+                  </p>
+                </div>
                 {t.serviceModal.items[selectedServiceIndex]?.benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-extrabold text-[#0f172a] font-sans">
-                    <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                  <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-medium text-slate-100 font-sans">
+                    <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                       <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                     </div>
                     <span className="leading-snug pt-0.5">{benefit}</span>

@@ -316,7 +316,7 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-14 md:pb-16 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-10 sm:pb-18 md:pb-20 flex flex-col items-center text-center"
       >
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">

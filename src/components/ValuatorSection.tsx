@@ -86,9 +86,9 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/90 pt-8 pb-6 px-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-[#0f172a]">
         
         {/* Header Kicker */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
           <div className="flex flex-col items-start">
-            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs mb-3.5 font-sans">
+            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs mb-3 font-sans">
               <Star className="w-3.5 h-3.5 fill-white" />
               <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
             </span>
@@ -96,7 +96,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               {language === "ca" ? "¿Quant val el teu immoble?" : language === "en" ? "How much is your property worth?" : "¿Cuánto vale tu inmueble?"}
             </h2>
           </div>
-          <p className="text-sm sm:text-base text-[#0b214a] font-semibold max-w-md leading-snug">
+          <p className="text-sm sm:text-base text-[#0b214a] font-semibold max-w-md leading-snug md:pt-1">
             {language === "ca" 
               ? "Descobreix una estimació orientativa en menys d'un minut basada en dades de mercat reals." 
               : language === "en" 
@@ -114,11 +114,13 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#2563eb]" />
 
             <div>
-              <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
-                <h3 className="text-base sm:text-[17px] md:text-[18px] font-bold tracking-tight text-[#0b214a] font-sans">
-                  {language === "ca" ? "Dades de l'immoble" : language === "en" ? "Property Details" : "Datos del inmueble"}
-                </h3>
+              <div className="flex items-center justify-between mb-4 sm:mb-5 min-h-[30px]">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
+                  <h3 className="text-base sm:text-[17px] md:text-[18px] font-bold tracking-tight text-[#0b214a] font-sans">
+                    {language === "ca" ? "Dades de l'immoble" : language === "en" ? "Property Details" : "Datos del inmueble"}
+                  </h3>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5 sm:mb-6">

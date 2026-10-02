@@ -276,7 +276,13 @@ export default function HeroCarousel({
 
         {/* Fotografía de la pareja: ÚNICAMENTE visible en tablet/desktop (hidden en mobile) */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] hidden md:flex items-end justify-end pointer-events-none z-0">
-          <picture className="w-full h-full block">
+          <picture 
+            className="w-full h-full block"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, rgba(0, 0, 0, 0.4) 90%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 75%, rgba(0, 0, 0, 0.4) 90%, transparent 100%)'
+            }}
+          >
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img
               src={heroBgDesktop}
@@ -293,11 +299,11 @@ export default function HeroCarousel({
           {/* Difuminados perimetrales suaves que funden la foto con el fondo sin cortar a los protagonistas */}
           <div className="absolute inset-y-0 left-0 w-32 sm:w-56 md:w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent hidden sm:block" />
           <div className="absolute inset-x-0 top-0 h-28 sm:h-36 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
-          {/* Fade inferior ultra suave y progresivo: transición natural que elimina cualquier línea horizontal dura o franja lechosa */}
+          {/* Fade inferior de transición para fundido perfecto con el fondo de la sección */}
           <div 
             className="absolute inset-x-0 bottom-0 h-24 sm:h-32 pointer-events-none"
             style={{
-              background: 'linear-gradient(to top, #f8fafc 0%, rgba(248, 250, 252, 0.85) 20%, rgba(248, 250, 252, 0.40) 50%, rgba(248, 250, 252, 0.10) 80%, transparent 100%)'
+              background: 'linear-gradient(to top, #f8fafc 0%, rgba(248, 250, 252, 0.8) 40%, transparent 100%)'
             }}
           />
         </div>

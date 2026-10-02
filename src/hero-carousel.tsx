@@ -215,88 +215,94 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="hero relative text-slate-900 overflow-visible"
+      className="hero relative text-slate-900 overflow-visible bg-[#f8fafc]"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FONDO DE LA FAMILIA CON DIFUMINADO BLANCO QUE CUBRE TODA LA PÁGINA ── */}
+      {/* ── 1. FOTOGRAFÍA DE LA PAREJA COMPLETA + FONDO LUMINOSO CONTROLADO ── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        <picture className="w-full h-full block">
-          <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
-          <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
-          <img
-            src={heroBgDesktop}
-            alt="Familia feliz con Gesgrama en su nuevo hogar"
-            className="w-full h-full object-cover object-[center_20%] sm:object-[center_15%]"
-            loading="eager"
-            fetchPriority="high"
-            decoding="sync"
-            width={850}
-            height={1113}
-          />
-        </picture>
+        {/* Fondo base ultra limpio, luminoso y arquitectónico */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9]/70 to-[#e2e8f0]/40" />
 
-        {/* Capa de difuminado blanco que cubre toda la página con suavidad y calidez */}
-        <div className="absolute inset-0 bg-white/55 sm:bg-white/50" />
-        
-        {/* Difuminado blanco generoso que arropa el contenido central garantizando contraste óptimo */}
+        {/* Fotografía de la pareja: visible completa, posicionada elegantemente sin recortar cuerpo ni cabezas */}
+        <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none">
+          <picture className="w-full h-full block">
+            <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
+            <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
+            <img
+              src={heroBgDesktop}
+              alt="Familia sonriente en su nuevo hogar con Gesgrama"
+              className="w-full h-full object-contain object-right-bottom sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
+              loading="eager"
+              fetchPriority="high"
+              decoding="sync"
+              width={850}
+              height={1113}
+            />
+          </picture>
+
+          {/* Difuminado suave lateral y vertical para fundir la foto con el fondo claro sin tapar ni cortar a la pareja */}
+          <div className="absolute inset-y-0 left-0 w-32 sm:w-56 md:w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent hidden sm:block" />
+          <div className="absolute inset-x-0 top-0 h-32 sm:h-40 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
+        </div>
+
+        {/* Difuminado sutil central que asegura 100% de legibilidad en los textos y buscador */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden sm:block pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 85% 75% at 50% 32%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 45%, rgba(255,255,255,0.45) 80%, rgba(255,255,255,0.20) 100%)',
+              'radial-gradient(ellipse 70% 65% at 38% 38%, rgba(248,250,252,0.96) 0%, rgba(248,250,252,0.85) 50%, rgba(248,250,252,0.30) 80%, transparent 100%)',
           }}
         />
 
-        {/* Velos superior e inferior suaves para fundir bordes con navbar y franja de métricas */}
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white via-white/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/80 to-transparent" />
+        {/* En móvil: velo translúcido equilibrado que asegura nitidez total de texto y foto */}
+        <div className="absolute inset-0 bg-[#f8fafc]/80 sm:hidden" />
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-18 sm:pt-20 md:pt-22 pb-5 sm:pb-7 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-18 md:pb-20 flex flex-col items-center text-center"
       >
-        {/* ── 2. BLOQUE EDITORIAL CENTRADO SOBRE FONDO LIMPIO ── */}
+        {/* ── 2. BRANDING Y TITULAR ESTRICTAMENTE CENTRADOS CON MÁXIMA ELEGANCIA ── */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
           {/* Eyebrow / Kicker */}
-          <div className="mb-2 sm:mb-2.5">
-            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.14em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
+          <div className="mb-3 sm:mb-3.5">
+            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/90 shrink-0" />
               {customTag || L.tag}
             </span>
           </div>
 
-          {/* H1 — Titular con personalidad de Gesgrama: Navy + Azul en 2 líneas exactas */}
+          {/* H1 — Navy + Azul Gesgrama sobre el eje central exacto */}
           <h1
-            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-2 sm:mb-2.5 font-heading"
-            style={{ fontSize: 'clamp(2.3rem, 5.2vw, 4.2rem)' }}
+            className="font-black text-[#0b214a] tracking-tight leading-[1.04] mb-3 sm:mb-3.5 font-heading max-w-[760px] mx-auto"
+            style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}
           >
             {customHeadline ? (
               customHeadline
             ) : (
               <>
                 <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                <span className="text-[#2563eb] block mt-0.5">{L.titleLine2}</span>
+                <span className="text-[#2563eb] block mt-1">{L.titleLine2}</span>
               </>
             )}
           </h1>
 
-          {/* Texto de apoyo conciso y oscuro de 1-2 líneas sobre fondo naturalmente limpio */}
+          {/* Subtítulo: conciso, 1-2 líneas, oscuro y nítido */}
           <p
-            className="text-slate-800 font-bold leading-relaxed max-w-[580px] mx-auto text-balance"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.08rem)' }}
+            className="text-slate-700 font-bold leading-relaxed max-w-[600px] mx-auto text-balance text-sm sm:text-base md:text-lg mb-2"
           >
             {customSubtitle || L.subtitle}
           </p>
         </div>
 
-        {/* ── 3. BUSCADOR GEOMÉTRICAMENTE CENTRADO (CON SUFICIENTE AIRE INFERIOR) ── */}
+        {/* ── 3. BUSCADOR SEARCH-FIRST CENTRADO CON AIRE Y SOMBRA NATURAL ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto mt-2 sm:mt-3 mb-8 sm:mb-10"
+          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 mb-10 sm:mb-12"
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.14)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_24px_58px_rgba(37,99,235,0.18)] hover:border-blue-200"
+            className="bg-white rounded-2xl sm:rounded-full border border-slate-200/90 shadow-[0_22px_55px_rgba(15,23,42,0.12)] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all hover:shadow-[0_26px_65px_rgba(37,99,235,0.16)] hover:border-blue-200"
           >
             {/* Toggle Comprar / Alquilar */}
             <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
@@ -380,7 +386,7 @@ export default function HeroCarousel({
               </button>
             </div>
 
-            {/* Botón BUSCAR — icono alineado con precisión y centrado */}
+            {/* Botón BUSCAR */}
             <button
               type="button"
               onClick={handleSearch}
@@ -445,43 +451,51 @@ export default function HeroCarousel({
           document.body
         )}
 
-        {/* ── 4. MÉTRICAS: CAPA INFERIOR INTEGRADA EN EL HERO ── */}
-        <div className="w-full max-w-[1020px] mx-auto mt-2 sm:mt-3 pt-4 sm:pt-5 pb-2 border-t border-slate-200/80">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-center">
+        {/* ── 4. TRUST: ZONA DE CONTRASTE ESTABLE (CARD ELEGANTE TRASLÚCIDA DE ALTA LEGIBILIDAD) ── */}
+        <div className="w-full max-w-[1020px] mx-auto bg-white/90 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes */}
-            <div className="flex items-center justify-center gap-3">
-              <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3.5 p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+              </div>
               <div className="text-left min-w-0">
-                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#0b214a] leading-none">4.500+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción */}
-            <div className="flex items-center justify-center gap-3">
-              <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3.5 p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+              </div>
               <div className="text-left min-w-0">
-                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#2563eb] leading-none">98%</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">98%</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades */}
-            <div className="flex items-center justify-center gap-3">
-              <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3.5 p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+              </div>
               <div className="text-left min-w-0">
-                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#0b214a] leading-none">+300</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">+300</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años */}
-            <div className="flex items-center justify-center gap-3">
-              <User className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563eb] shrink-0 stroke-[2]" />
+            <div className="flex items-center justify-center gap-3.5 p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
+                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+              </div>
               <div className="text-left min-w-0">
-                <p className="text-lg sm:text-xl md:text-2xl font-black text-[#2563eb] leading-none">15+</p>
-                <p className="text-xs sm:text-[13px] font-semibold text-slate-700 mt-0.5 leading-tight">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">15+</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

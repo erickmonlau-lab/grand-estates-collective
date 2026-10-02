@@ -316,7 +316,7 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-6 sm:pb-10 md:pb-12 flex flex-col items-center text-center"
       >
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
@@ -365,7 +365,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1100px] mx-auto mt-4 sm:mt-5 mb-8 sm:mb-16 md:mb-20"
+          className="relative z-40 w-full max-w-[1100px] mx-auto mt-4 sm:mt-5 mb-6 sm:mb-10 md:mb-12"
           onClick={(e) => e.stopPropagation()}
         >
 

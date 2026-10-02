@@ -1747,11 +1747,11 @@ function SantaColomaBarrioPage() {
             {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
               
-              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Color sólido #F3F6FB, borde sólido, franja superior sólida 4px */}
+              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Fondo sólido #F7F9FC, borde sólido, franja superior sólida 4px */}
               <div 
                 className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden"
                 style={{ 
-                  backgroundColor: "#F3F6FB",
+                  backgroundColor: "#F7F9FC",
                   border: "2px solid #D0D9E8"
                 }}
               >
@@ -1760,7 +1760,7 @@ function SantaColomaBarrioPage() {
 
                 <div>
                   {/* Encabezado del panel: ● DATOS DE TU VIVIENDA */}
-                  <div className="flex items-center gap-2.5 mb-5 pt-1">
+                  <div className="flex items-center gap-2.5 mb-4 pt-1">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
                     <h3 className="text-lg sm:text-[19px] md:text-xl font-black uppercase tracking-wider text-[#0b214a] font-heading">
                       {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
@@ -1768,7 +1768,7 @@ function SantaColomaBarrioPage() {
                   </div>
 
                   {/* Campos: Barrio y Superficie — Blanco sólido con borde sólido 2px #D0D9E8 */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
                     {/* Select Barrio / Zona */}
                     <div 
                       className="rounded-xl p-3 sm:p-3.5 text-left transition-colors"
@@ -1825,7 +1825,7 @@ function SantaColomaBarrioPage() {
                         <span 
                           className="text-[13px] font-bold text-[#0b214a] px-2.5 py-0.5 rounded-md shrink-0 font-sans"
                           style={{ 
-                            backgroundColor: "#F3F6FB",
+                            backgroundColor: "#F7F9FC",
                             border: "1px solid #D0D9E8"
                           }}
                         >
@@ -1836,20 +1836,20 @@ function SantaColomaBarrioPage() {
                   </div>
                 </div>
 
-                {/* Main Action Button — Sólido azul Gesgrama */}
-                <div className="pt-1">
+                {/* Main Action Button & Checks — Compacto, sin hueco muerto */}
+                <div>
                   <button
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-[17px] py-4 px-6 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-[17px] py-3.5 sm:py-4 px-6 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
                   >
                     <Home className="w-5 h-5 text-white shrink-0" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
                     <ArrowRight className="w-5 h-5 text-white shrink-0" />
                   </button>
 
-                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold mt-4 px-1">
+                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold mt-3 px-1">
                     <span className="flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                       {t.valorador.sinCompromiso}
@@ -1862,17 +1862,17 @@ function SantaColomaBarrioPage() {
                 </div>
               </div>
 
-              {/* RIGHT: RESULT PANEL — Azul sólido claro #EAF1FF, borde 2px azul sólido #2563eb */}
+              {/* RIGHT: RESULT PANEL — NAVY GESGRAMA SÓLIDO (#0B1733), borde 2px azul sólido #2563eb */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <div 
-                  className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[350px]"
+                  className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[350px] text-white"
                   style={{
-                    backgroundColor: "#EAF1FF",
+                    backgroundColor: "#0B1733",
                     border: "2px solid #2563eb"
                   }}
                 >
                   
-                  {/* Spinner while recalculating — Fondo sólido #EAF1FF */}
+                  {/* Spinner while recalculating — Fondo sólido #0B1733 */}
                   <AnimatePresence>
                     {isCalculatingValuation && (
                       <motion.div
@@ -1881,36 +1881,36 @@ function SantaColomaBarrioPage() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
                         className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6"
-                        style={{ backgroundColor: "#EAF1FF" }}
+                        style={{ backgroundColor: "#0B1733" }}
                       >
                         <div className="w-10 h-10 border-4 border-[#2563eb] border-t-white rounded-full animate-spin mb-3" />
-                        <p className="text-sm font-black text-[#0b214a]">{t.valorador.calculando}</p>
+                        <p className="text-sm font-black text-white">{t.valorador.calculando}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
                   {/* 1. Header label — Badge azul sólido #2563eb con texto blanco */}
                   <div className="w-full">
-                    <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-6 py-2 rounded-full mb-3">
+                    <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-6 py-2 rounded-full mb-3 shadow-sm">
                       {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                     </span>
 
-                    {/* 2. Dominant Price Number: Navy sólido #0b214a + Euro azul sólido #2563eb */}
-                    <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-[#0b214a] leading-none tracking-tight my-3 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
+                    {/* 2. Dominant Price Number: Blanco puro #FFFFFF + Euro azul Gesgrama sólido #2563eb */}
+                    <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-3 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
                       <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
                       <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
                     </div>
 
-                    {/* 3. Secondary price per m² */}
-                    <p className="text-base sm:text-lg md:text-[19px] font-bold text-[#0b214a] mt-1 mb-1">
+                    {/* 3. Secondary price per m² — Blanco con ≈ en azul Gesgrama */}
+                    <p className="text-base sm:text-lg md:text-[19px] font-bold text-white mt-1 mb-1">
                       <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
                     </p>
                   </div>
 
-                  {/* 4. Single Clear CTA oriented to conversion — Divisor sólido azul claro #BFDBFE */}
+                  {/* 4. Single Clear CTA oriented to conversion — Divisor sólido azul #1D4ED8 */}
                   <div 
                     className="w-full mt-4 pt-4 flex flex-col items-center"
-                    style={{ borderTop: "1px solid #BFDBFE" }}
+                    style={{ borderTop: "1px solid #1D4ED8" }}
                   >
                     <a
                       href={`https://wa.me/34689438012?text=${encodeURIComponent(
@@ -1922,7 +1922,7 @@ function SantaColomaBarrioPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer shadow-sm"
                     >
                       <span>
                         {language === "ca" 
@@ -1934,13 +1934,27 @@ function SantaColomaBarrioPage() {
                       <ArrowRight className="w-4 h-4 text-white shrink-0" />
                     </a>
 
-                    {/* Honest disclaimer */}
-                    <p className="text-[12px] sm:text-[13px] text-[#0b214a] font-semibold mt-3 leading-snug">
-                      {language === "ca"
-                        ? "Estimació orientativa basada en dades de mercat. No constitueix una taxació oficial."
-                        : language === "en"
-                        ? "Guidance estimation based on market data. Does not constitute an official appraisal."
-                        : "Estimación orientativa basada en datos de mercado. No constituye una tasación oficial."}
+                    {/* Honest disclaimer — Blanco / gris muy claro sobre navy, 2 líneas exactas balanceadas sin huérfana 'oficial.' */}
+                    <p className="text-[12px] sm:text-[13px] text-slate-200 font-medium mt-3 leading-[1.35] text-center max-w-[460px]">
+                      {language === "ca" ? (
+                        <>
+                          <span>Estimació orientativa basada en dades de mercat.</span>
+                          <br className="hidden sm:inline" />{" "}
+                          <span className="sm:inline block">No constitueix una <span className="whitespace-nowrap">taxació oficial.</span></span>
+                        </>
+                      ) : language === "en" ? (
+                        <>
+                          <span>Guidance estimation based on market data.</span>
+                          <br className="hidden sm:inline" />{" "}
+                          <span className="sm:inline block">Does not constitute an <span className="whitespace-nowrap">official appraisal.</span></span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Estimación orientativa basada en datos de mercado.</span>
+                          <br className="hidden sm:inline" />{" "}
+                          <span className="sm:inline block">No constituye una <span className="whitespace-nowrap">tasación oficial.</span></span>
+                        </>
+                      )}
                     </p>
                   </div>
 

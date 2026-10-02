@@ -2087,11 +2087,11 @@ function SantaColomaBarrioPage() {
                   
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
                     {language === "ca" ? (
-                      <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span> a {data.name}?</>
+                      <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span> a {data.name}<span className="ml-0.5 inline-block">?</span></>
                     ) : language === "en" ? (
                       <>Let's talk about your <span className="text-[#2563eb]">community</span> in {data.name}</>
                     ) : (
-                      <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span> en {data.name}?</>
+                      <><span className="mr-0.5 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span> en {data.name}<span className="ml-0.5 inline-block">?</span></>
                     )}
                   </h2>
                   
@@ -2358,9 +2358,23 @@ function SantaColomaBarrioPage() {
                     {t.contacto.badge}
                   </span>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-3 leading-tight tracking-tight font-sans">
-                    {t.contacto.title1}{" "}
+                    {t.contacto.title1.startsWith("¿") ? (
+                      <>
+                        <span className="mr-0.5 inline-block">¿</span>
+                        {t.contacto.title1.slice(1)}
+                      </>
+                    ) : (
+                      t.contacto.title1
+                    )}{" "}
                     <span className="relative inline-block text-[#2563eb]">
-                      {t.contacto.title2}
+                      {t.contacto.title2.endsWith("?") ? (
+                        <>
+                          {t.contacto.title2.slice(0, -1)}
+                          <span className="ml-0.5 inline-block">?</span>
+                        </>
+                      ) : (
+                        t.contacto.title2
+                      )}
                       <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
                         <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                       </svg>
@@ -2676,11 +2690,18 @@ function SantaColomaBarrioPage() {
                   </span>
                   
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-2.5 leading-tight tracking-tight font-sans">
-                    {t.finalCta.title1}{" "}
+                    {t.finalCta.title1.startsWith("¿") ? (
+                      <>
+                        <span className="mr-1 inline-block">¿</span>
+                        {t.finalCta.title1.slice(1)}
+                      </>
+                    ) : (
+                      t.finalCta.title1
+                    )}{" "}
                     <span className="inline-block bg-[#2563eb] text-white px-3 py-1 rounded-xl shadow-xs">
                       {t.finalCta.title2}
                     </span>
-                    ?
+                    <span className="ml-1.5 inline-block">?</span>
                   </h2>
                   
                   <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">

@@ -93,7 +93,13 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-[#0b214a] tracking-tight leading-[1.1] font-heading">
-              {language === "ca" ? "¿Quant val el teu immoble?" : language === "en" ? "How much is your property worth?" : "¿Cuánto vale tu inmueble?"}
+              {language === "ca" ? (
+                <><span className="mr-0.5 inline-block">¿</span>Quant val el teu immoble<span className="ml-0.5 inline-block">?</span></>
+              ) : language === "en" ? (
+                "How much is your property worth?"
+              ) : (
+                <><span className="mr-0.5 inline-block">¿</span>Cuánto vale tu inmueble<span className="ml-0.5 inline-block">?</span></>
+              )}
             </h2>
           </div>
           <p className="text-base sm:text-lg md:text-[19px] text-[#0b214a] font-semibold max-w-lg leading-[1.4] md:pt-2">

@@ -976,11 +976,11 @@ function Index() {
                 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
                   {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span>?</>
+                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span><span className="ml-0.5 inline-block">?</span></>
                   ) : language === "en" ? (
                     <>Let's talk about your <span className="text-[#2563eb]">community</span></>
                   ) : (
-                    <>¿Hablamos de tu <span className="text-[#2563eb]">comunidad</span>?</>
+                    <><span className="mr-0.5 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span><span className="ml-0.5 inline-block">?</span></>
                   )}
                 </h2>
                 
@@ -1305,11 +1305,18 @@ function Index() {
                 </span>
                 
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-2.5 leading-tight tracking-tight font-sans">
-                  {t.finalCta.title1}{" "}
+                  {t.finalCta.title1.startsWith("¿") ? (
+                    <>
+                      <span className="mr-1 inline-block">¿</span>
+                      {t.finalCta.title1.slice(1)}
+                    </>
+                  ) : (
+                    t.finalCta.title1
+                  )}{" "}
                   <span className="inline-block bg-[#2563eb] text-white px-3 py-1 rounded-xl shadow-xs">
                     {t.finalCta.title2}
                   </span>
-                  ?
+                  <span className="ml-1.5 inline-block">?</span>
                 </h2>
                 
                 <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">

@@ -64,22 +64,18 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2.5 font-sans">
                 {t.contacto.title1.startsWith("¿") ? (
                   <>
-                    <span className="mr-0.5 inline-block">¿</span>
+                    <span className="mr-1 inline-block">¿</span>
                     {t.contacto.title1.slice(1)}
                   </>
                 ) : (
                   t.contacto.title1
                 )}<br />
-                <span className="text-[#2563eb] italic font-serif">
-                  {t.contacto.title2.endsWith("?") ? (
-                    <>
-                      {t.contacto.title2.slice(0, -1)}
-                      <span className="ml-0.5 inline-block not-italic">?</span>
-                    </>
-                  ) : (
-                    t.contacto.title2
-                  )}
+                <span className="text-[#2563eb] italic font-serif inline-block">
+                  {t.contacto.title2.endsWith("?") ? t.contacto.title2.slice(0, -1) : t.contacto.title2}
                 </span>
+                {t.contacto.title2.endsWith("?") && (
+                  <span className="ml-1.5 inline-block text-[#2563eb] not-italic font-sans">?</span>
+                )}
               </h2>
               
               <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-4 font-bold leading-snug font-sans">

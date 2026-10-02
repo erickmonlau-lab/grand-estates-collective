@@ -976,11 +976,11 @@ function Index() {
                 
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
                   {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span><span className="ml-0.5 inline-block">?</span></>
+                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span><span className="ml-1.5 inline-block">?</span></>
                   ) : language === "en" ? (
                     <>Let's talk about your <span className="text-[#2563eb]">community</span></>
                   ) : (
-                    <><span className="mr-0.5 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span><span className="ml-0.5 inline-block">?</span></>
+                    <><span className="mr-1 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span><span className="ml-1.5 inline-block">?</span></>
                   )}
                 </h2>
                 

@@ -2087,11 +2087,11 @@ function SantaColomaBarrioPage() {
                   
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
                     {language === "ca" ? (
-                      <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span> a {data.name}<span className="ml-0.5 inline-block">?</span></>
+                      <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span> a {data.name}<span className="ml-1.5 inline-block">?</span></>
                     ) : language === "en" ? (
                       <>Let's talk about your <span className="text-[#2563eb]">community</span> in {data.name}</>
                     ) : (
-                      <><span className="mr-0.5 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span> en {data.name}<span className="ml-0.5 inline-block">?</span></>
+                      <><span className="mr-1 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span> en {data.name}<span className="ml-1.5 inline-block">?</span></>
                     )}
                   </h2>
                   
@@ -2360,7 +2360,7 @@ function SantaColomaBarrioPage() {
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-3 leading-tight tracking-tight font-sans">
                     {t.contacto.title1.startsWith("¿") ? (
                       <>
-                        <span className="mr-0.5 inline-block">¿</span>
+                        <span className="mr-1 inline-block">¿</span>
                         {t.contacto.title1.slice(1)}
                       </>
                     ) : (
@@ -2370,7 +2370,7 @@ function SantaColomaBarrioPage() {
                       {t.contacto.title2.endsWith("?") ? (
                         <>
                           {t.contacto.title2.slice(0, -1)}
-                          <span className="ml-0.5 inline-block">?</span>
+                          <span className="ml-1.5 inline-block">?</span>
                         </>
                       ) : (
                         t.contacto.title2

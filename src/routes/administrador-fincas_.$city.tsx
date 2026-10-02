@@ -1744,30 +1744,33 @@ function SantaColomaBarrioPage() {
               </p>
             </div>
 
-            {/* 2-Column Split: INPUT Form on Left, RESULT on Right (items-stretch ensures same height) */}
+            {/* 2-Column Split: INPUT Form on Left, RESULT on Right — Estructura editorial unificada */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
               
-              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Compacto, sin hueco muerto, sans-serif para UI */}
+              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Panel editorial con cabecera azul sólida y cuerpo #F4F7FC */}
               <div 
-                className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden h-full"
+                className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl relative overflow-hidden h-full"
                 style={{ 
-                  backgroundColor: "#F7F9FC",
+                  backgroundColor: "#F4F7FC",
                   border: "2px solid #CBD6E5"
                 }}
               >
-                {/* Franja superior azul sólida de 4px */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#2563eb]" />
-
-                <div className="flex flex-col gap-4">
-                  {/* Encabezado del panel: ● DATOS DE TU VIVIENDA (Sans-serif funcional 18–20px) */}
-                  <div className="flex items-center gap-2.5 pt-0.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
-                    <h3 className="text-[17px] sm:text-[18px] md:text-[19px] font-extrabold uppercase tracking-wider text-[#0b214a] font-sans">
+                {/* Cabecera visual azul sólida: DATOS DE TU VIVIENDA */}
+                <div className="bg-[#2563eb] text-white px-5 sm:px-7 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-2 h-2 rounded-full bg-white shrink-0" />
+                    <h3 className="text-[15px] sm:text-[16px] font-extrabold uppercase tracking-widest text-white font-sans">
                       {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
                     </h3>
                   </div>
+                  <span className="text-[12px] font-bold text-white/90 uppercase tracking-wider font-sans">
+                    {language === "ca" ? "PAS 1" : language === "en" ? "STEP 1" : "PASO 1"}
+                  </span>
+                </div>
 
-                  {/* Campos: Barrio y Superficie — Blanco sólido con borde 2px #CBD6E5 y radio 16px */}
+                {/* Contenido formulario — Compacto y sin espacio muerto */}
+                <div className="p-5 sm:p-7 flex flex-col justify-between flex-1 gap-4">
+                  {/* Inputs Barrio y Superficie */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
                     {/* Select Barrio / Zona */}
                     <div 
@@ -1825,7 +1828,7 @@ function SantaColomaBarrioPage() {
                         <span 
                           className="text-[13px] font-bold text-[#0b214a] px-2.5 py-0.5 rounded-md shrink-0 font-sans"
                           style={{ 
-                            backgroundColor: "#F7F9FC",
+                            backgroundColor: "#F4F7FC",
                             border: "1px solid #CBD6E5"
                           }}
                         >
@@ -1835,7 +1838,7 @@ function SantaColomaBarrioPage() {
                     </div>
                   </div>
 
-                  {/* Botón Calcular — Justo después de los inputs, sin espacio muerto */}
+                  {/* Botón Calcular — Inmediatamente después de los inputs */}
                   <button
                     type="button"
                     onClick={handleCalculateValuation}
@@ -1847,8 +1850,8 @@ function SantaColomaBarrioPage() {
                     <ArrowRight className="w-5 h-5 text-white shrink-0" />
                   </button>
 
-                  {/* Trust Guarantees — Inmediatamente debajo del botón */}
-                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans px-1">
+                  {/* Trust Guarantees — Directamente debajo del botón */}
+                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans px-1 pt-0.5">
                     <span className="flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                       {t.valorador.sinCompromiso}
@@ -1888,9 +1891,9 @@ function SantaColomaBarrioPage() {
                     )}
                   </AnimatePresence>
 
-                  {/* 1. Header label + Price Block (Compactado armónicamente) */}
+                  {/* 1. Header label + Price Block */}
                   <div className="w-full flex flex-col items-center">
-                    <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-white bg-[#2563eb] px-6 py-1.5 rounded-full mb-2.5 font-sans">
+                    <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-white bg-[#2563eb] px-6 py-1.5 rounded-full mb-2 font-sans">
                       {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                     </span>
 
@@ -1908,7 +1911,7 @@ function SantaColomaBarrioPage() {
 
                   {/* 2. Divisor sólido azul + CTA + Nota Legal */}
                   <div 
-                    className="w-full mt-3.5 pt-3.5 flex flex-col items-center"
+                    className="w-full mt-3 pt-3.5 flex flex-col items-center"
                     style={{ borderTop: "1px solid #1D4ED8" }}
                   >
                     <a

@@ -1747,27 +1747,36 @@ function SantaColomaBarrioPage() {
             {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
               
-              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Perceptible soft blue background #F1F5FF, top 4px solid blue bar */}
+              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Color sólido #F3F6FB, borde sólido, franja superior sólida 4px */}
               <div 
-                className="lg:col-span-6 flex flex-col justify-between border-2 border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-sm relative overflow-hidden"
-                style={{ backgroundColor: "#F1F5FF" }}
+                className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl p-5 sm:p-7 relative overflow-hidden"
+                style={{ 
+                  backgroundColor: "#F3F6FB",
+                  border: "2px solid #D0D9E8"
+                }}
               >
-                {/* Top 4px solid Gesgrama blue line spanning the entire width */}
+                {/* Franja superior azul sólida de 4px */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-[#2563eb]" />
 
                 <div>
                   {/* Encabezado del panel: ● DATOS DE TU VIVIENDA */}
                   <div className="flex items-center gap-2.5 mb-5 pt-1">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0 shadow-xs" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#2563eb] shrink-0" />
                     <h3 className="text-lg sm:text-[19px] md:text-xl font-black uppercase tracking-wider text-[#0b214a] font-heading">
                       {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
                     </h3>
                   </div>
 
-                  {/* Campos: Barrio y Superficie — Pure White Cards with visible 2px border */}
+                  {/* Campos: Barrio y Superficie — Blanco sólido con borde sólido 2px #D0D9E8 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
                     {/* Select Barrio / Zona */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-xs transition-all text-left">
+                    <div 
+                      className="rounded-xl p-3 sm:p-3.5 text-left transition-colors"
+                      style={{ 
+                        backgroundColor: "#FFFFFF",
+                        border: "2px solid #D0D9E8"
+                      }}
+                    >
                       <label htmlFor="valuator-zona-select" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                         {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
                       </label>
@@ -1791,7 +1800,13 @@ function SantaColomaBarrioPage() {
                     </div>
 
                     {/* Input Superficie estimada */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-xs transition-all text-left">
+                    <div 
+                      className="rounded-xl p-3 sm:p-3.5 text-left transition-colors"
+                      style={{ 
+                        backgroundColor: "#FFFFFF",
+                        border: "2px solid #D0D9E8"
+                      }}
+                    >
                       <label htmlFor="valuator-metros-input" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                         {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                       </label>
@@ -1807,7 +1822,13 @@ function SantaColomaBarrioPage() {
                           onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
                           className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-black text-[#0b214a] focus:ring-0 outline-none font-sans"
                         />
-                        <span className="text-[13px] font-bold text-[#0b214a] bg-slate-100 border border-slate-300 px-2.5 py-0.5 rounded-md shrink-0 font-sans shadow-2xs">
+                        <span 
+                          className="text-[13px] font-bold text-[#0b214a] px-2.5 py-0.5 rounded-md shrink-0 font-sans"
+                          style={{ 
+                            backgroundColor: "#F3F6FB",
+                            border: "1px solid #D0D9E8"
+                          }}
+                        >
                           m²
                         </span>
                       </div>
@@ -1815,20 +1836,20 @@ function SantaColomaBarrioPage() {
                   </div>
                 </div>
 
-                {/* Main Action Button — Sólido azul Gesgrama, alto y con presencia */}
+                {/* Main Action Button — Sólido azul Gesgrama */}
                 <div className="pt-1">
                   <button
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-[17px] py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-[17px] py-4 px-6 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
                   >
                     <Home className="w-5 h-5 text-white shrink-0" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
                     <ArrowRight className="w-5 h-5 text-white shrink-0" />
                   </button>
 
-                  <div className="flex items-center justify-between text-[13px] sm:text-[14px] text-[#0b214a] font-bold mt-4 px-1">
+                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold mt-4 px-1">
                     <span className="flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                       {t.valorador.sinCompromiso}
@@ -1841,16 +1862,17 @@ function SantaColomaBarrioPage() {
                 </div>
               </div>
 
-              {/* RIGHT: CLEARLY BLUE-COLORED RESULT PANEL (Distinct gradient #EEF4FF → #DDE9FF + 2px solid blue border) */}
+              {/* RIGHT: RESULT PANEL — Azul sólido claro #EAF1FF, borde 2px azul sólido #2563eb */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <div 
-                  className="border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[350px]"
+                  className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[350px]"
                   style={{
-                    background: "linear-gradient(135deg, #EEF4FF 0%, #DDE9FF 100%)"
+                    backgroundColor: "#EAF1FF",
+                    border: "2px solid #2563eb"
                   }}
                 >
                   
-                  {/* Spinner while recalculating */}
+                  {/* Spinner while recalculating — Fondo sólido #EAF1FF */}
                   <AnimatePresence>
                     {isCalculatingValuation && (
                       <motion.div
@@ -1858,21 +1880,22 @@ function SantaColomaBarrioPage() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute inset-0 bg-[#EEF4FF]/95 backdrop-blur-xs z-30 flex flex-col items-center justify-center p-6"
+                        className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6"
+                        style={{ backgroundColor: "#EAF1FF" }}
                       >
-                        <div className="w-10 h-10 border-4 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin mb-3" />
+                        <div className="w-10 h-10 border-4 border-[#2563eb] border-t-white rounded-full animate-spin mb-3" />
                         <p className="text-sm font-black text-[#0b214a]">{t.valorador.calculando}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
-                  {/* 1. Header label — Badge azul sólido con texto blanco */}
+                  {/* 1. Header label — Badge azul sólido #2563eb con texto blanco */}
                   <div className="w-full">
-                    <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] shadow-md px-6 py-2 rounded-full mb-3">
+                    <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] px-6 py-2 rounded-full mb-3">
                       {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                     </span>
 
-                    {/* 2. Dominant Price Number: Navy muy oscuro + Euro azul Gesgrama (clamp 48px -> 70px) */}
+                    {/* 2. Dominant Price Number: Navy sólido #0b214a + Euro azul sólido #2563eb */}
                     <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-[#0b214a] leading-none tracking-tight my-3 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
                       <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
                       <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
@@ -1884,8 +1907,11 @@ function SantaColomaBarrioPage() {
                     </p>
                   </div>
 
-                  {/* 4. Single Clear CTA oriented to conversion — Subtle blue divider #bfdbfe */}
-                  <div className="w-full mt-4 pt-4 border-t border-[#bfdbfe] flex flex-col items-center">
+                  {/* 4. Single Clear CTA oriented to conversion — Divisor sólido azul claro #BFDBFE */}
+                  <div 
+                    className="w-full mt-4 pt-4 flex flex-col items-center"
+                    style={{ borderTop: "1px solid #BFDBFE" }}
+                  >
                     <a
                       href={`https://wa.me/34689438012?text=${encodeURIComponent(
                         language === "ca"
@@ -1896,7 +1922,7 @@ function SantaColomaBarrioPage() {
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
                     >
                       <span>
                         {language === "ca" 

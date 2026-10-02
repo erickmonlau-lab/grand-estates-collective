@@ -318,6 +318,23 @@ export default function HeroCarousel({
       <div
         className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
       >
+        {/* ── ISOTIPO OFICIAL GESGRAMA (CASITA) EN ZONA IZQUIERDA ── */}
+        {/* Desktop: Zona izquierda media-superior, visible y reconocible, opacidad calibrada 12-14%, fade sutil, detrás del texto */}
+        <div 
+          className="absolute left-2 sm:left-6 md:left-10 lg:left-12 xl:left-14 top-24 sm:top-28 md:top-32 w-28 sm:w-36 md:w-44 lg:w-48 pointer-events-none select-none z-0 opacity-[0.11] sm:opacity-[0.13] lg:opacity-[0.14] transition-opacity"
+          aria-hidden="true"
+        >
+          <img
+            src="/images/gesgrama-isotype.webp"
+            alt=""
+            width={469}
+            height={307}
+            className="w-full h-auto object-contain drop-shadow-sm"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
@@ -357,19 +374,6 @@ export default function HeroCarousel({
           className="relative z-40 w-full max-w-[1100px] mx-auto mt-4 sm:mt-5 mb-8 sm:mb-16 md:mb-20"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Subtle Brand Mark (Firma de marca Gesgrama sutil 7-8% opacidad integrada detrás del Search) */}
-          <div className="absolute left-1/2 -top-12 sm:-top-16 -translate-x-1/2 w-48 sm:w-64 md:w-80 h-auto pointer-events-none select-none -z-10 opacity-[0.07] sm:opacity-[0.08] mix-blend-multiply">
-            <img
-              src="/images/gesgrama-symbol-mark.webp"
-              alt=""
-              width={400}
-              height={262}
-              className="w-full h-auto object-contain filter grayscale contrast-125"
-              loading="eager"
-              decoding="async"
-              aria-hidden="true"
-            />
-          </div>
 
           <div
             className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-3 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"

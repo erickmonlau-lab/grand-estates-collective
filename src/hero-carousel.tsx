@@ -314,9 +314,9 @@ export default function HeroCarousel({
             )}
           </h1>
 
-          {/* Subtítulo: tipografía sans limpia, más legible, generoso line-height, max-w controlado */}
+          {/* Subtítulo: tipografía sans limpia, navy muy oscuro / negro (#0b214a), font-semibold (600), legible, generoso line-height */}
           <p
-            className="text-slate-600 font-sans font-medium text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-2"
+            className="text-[#0b214a] font-sans font-semibold text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-2"
           >
             {customSubtitle || L.subtitle}
           </p>
@@ -554,7 +554,7 @@ export default function HeroCarousel({
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
@@ -565,7 +565,7 @@ export default function HeroCarousel({
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
@@ -576,7 +576,7 @@ export default function HeroCarousel({
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
@@ -587,7 +587,7 @@ export default function HeroCarousel({
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xs sm:text-sm font-sans font-semibold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

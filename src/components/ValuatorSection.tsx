@@ -108,8 +108,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
         {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           
-          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Balanced, harmonious with right panel on desktop, compact on mobile) */}
-          <div className="lg:col-span-6 flex flex-col justify-between bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-xs relative overflow-hidden">
+          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Tight grouping, no vertical dead space, balanced with right panel) */}
+          <div className="lg:col-span-6 flex flex-col justify-center bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xs relative overflow-hidden">
             {/* Top subtle blue accent indicator line */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#2563eb]" />
 
@@ -167,31 +167,31 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Main Action Button — High Placement, Solid Gesgrama Blue */}
-            <div className="mt-2 sm:mt-4">
-              <button
-                type="button"
-                onClick={handleCalculateValuation}
-                disabled={isCalculatingValuation}
-                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider disabled:opacity-75"
-              >
-                <Home className="w-4 h-4 text-white shrink-0" />
-                <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
-                <ArrowRight className="w-4 h-4 text-white shrink-0" />
-              </button>
+              {/* Main Action Button — Immediately below fields, Solid Gesgrama Blue */}
+              <div>
+                <button
+                  type="button"
+                  onClick={handleCalculateValuation}
+                  disabled={isCalculatingValuation}
+                  className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider disabled:opacity-75"
+                >
+                  <Home className="w-4 h-4 text-white shrink-0" />
+                  <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
+                  <ArrowRight className="w-4 h-4 text-white shrink-0" />
+                </button>
 
-              {/* Trust Guarantees — Distinct & Highly Legible */}
-              <div className="flex items-center justify-between text-xs sm:text-[13px] text-[#0b214a] font-bold mt-4 px-2">
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                  {t.valorador.sinCompromiso}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                  {t.valorador.resultadoInmediato}
-                </span>
+                {/* Trust Guarantees — Distinct & Highly Legible */}
+                <div className="flex items-center justify-between text-xs sm:text-[13px] text-[#0b214a] font-bold mt-4 px-2">
+                  <span className="flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
+                    {t.valorador.sinCompromiso}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
+                    {t.valorador.resultadoInmediato}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -221,9 +221,9 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 )}
               </AnimatePresence>
 
-              {/* 1. Header label */}
+              {/* 1. Header label — Solid Gesgrama Blue Pill */}
               <div className="w-full">
-                <span className="inline-block text-xs font-black uppercase tracking-widest text-[#2563eb] bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full mb-3 shadow-2xs">
+                <span className="inline-block text-xs font-black uppercase tracking-widest text-white bg-[#2563eb] shadow-xs px-4 py-1.5 rounded-full mb-3">
                   {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                 </span>
 

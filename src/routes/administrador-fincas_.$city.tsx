@@ -1249,21 +1249,24 @@ function SantaColomaBarrioPage() {
                             })()}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                             
-                            {/* Floating Status & Type Pills */}
-                            <div className="absolute top-3.5 left-3.5 right-16 flex flex-wrap items-center gap-1.5 z-20 pointer-events-none">
-                              <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-ui-clean">
+                            {/* Floating Status & Type Pills — top row, never wrap */}
+                            <div className="absolute top-3.5 left-3.5 right-16 flex items-center gap-1.5 z-20 pointer-events-none overflow-hidden">
+                              <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
                                 <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                                 <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                               </span>
-                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-ui-clean">
+                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 max-w-[90px] truncate">
                                 {type}
                               </span>
-                              {property.status === "reservado" && (
+                            </div>
+                            {/* RESERVADO badge — always anchored independently, never pushed by Tipo length */}
+                            {property.status === "reservado" && (
+                              <div className="absolute top-[52px] left-3.5 z-20 pointer-events-none">
                                 <span className="inline-flex items-center bg-amber-400 text-amber-950 font-bold uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean">
                                   {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
                                 </span>
-                              )}
-                            </div>
+                              </div>
+                            )}
 
                             {/* Heart Favorite Button with micro-bounce */}
                             <motion.button

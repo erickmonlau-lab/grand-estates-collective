@@ -87,8 +87,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
         
         {/* Header Kicker */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 pb-6 border-b border-slate-200">
-          <div>
-            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-2.5">
+          <div className="flex flex-col items-start">
+            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs mb-3 font-sans">
               <Star className="w-3.5 h-3.5 fill-white" />
               <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
             </span>

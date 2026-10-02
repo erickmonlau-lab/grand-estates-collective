@@ -318,31 +318,25 @@ export default function HeroCarousel({
       <div
         className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
       >
-        {/* ── ISOTIPO OFICIAL GESGRAMA (CASITA) EN ZONA IZQUIERDA ── */}
-        {/* Desktop: Zona izquierda media-superior, visible y reconocible, opacidad calibrada 12-14%, fade sutil, detrás del texto */}
-        <div 
-          className="absolute left-2 sm:left-6 md:left-10 lg:left-12 xl:left-14 top-24 sm:top-28 md:top-32 w-28 sm:w-36 md:w-44 lg:w-48 pointer-events-none select-none z-0 opacity-[0.11] sm:opacity-[0.13] lg:opacity-[0.14] transition-opacity"
-          aria-hidden="true"
-        >
-          <img
-            src="/images/gesgrama-isotype.webp"
-            alt=""
-            width={469}
-            height={307}
-            className="w-full h-auto object-contain drop-shadow-sm"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
 
-          {/* Eyebrow / Kicker */}
+          {/* Eyebrow / Kicker con Isotipo de la Casa de Gesgrama integrado */}
           <div className="mb-3 sm:mb-3.5">
-            <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] px-4 sm:px-5 py-1.5 rounded-full font-sans shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/90 shrink-0" />
-              {customTag || L.tag}
+            <span className="inline-flex items-center gap-2 sm:gap-2.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] pl-2 sm:pl-2.5 pr-4 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30">
+              <span className="w-5 h-5 sm:w-6 sm:h-6 md:w-6.5 md:h-6.5 rounded-full bg-white/95 flex items-center justify-center shrink-0 p-0.5 shadow-xs">
+                <img
+                  src="/images/gesgrama-house-mark.webp"
+                  alt=""
+                  width={96}
+                  height={108}
+                  className="w-full h-full object-contain"
+                  loading="eager"
+                  decoding="async"
+                  aria-hidden="true"
+                />
+              </span>
+              <span>{customTag || L.tag}</span>
             </span>
           </div>
 

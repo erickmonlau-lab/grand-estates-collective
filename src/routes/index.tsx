@@ -584,7 +584,7 @@ function Index() {
               </div>
 
               {/* Right: Counter + Sort */}
-              <div className="flex items-center justify-between md:justify-end gap-3 sm:gap-4 shrink-0">
+              <div className="flex items-center justify-between md:justify-end gap-5 sm:gap-8 shrink-0">
                 <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0f172a] font-sans">
                   <span className="w-2 h-2 rounded-full bg-[#2563eb] inline-block shrink-0" />
                   <span>
@@ -592,7 +592,7 @@ function Index() {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
                   <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] font-sans hidden sm:inline">{t.properties.sortBy}:</span>
                   <button 
                     onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}

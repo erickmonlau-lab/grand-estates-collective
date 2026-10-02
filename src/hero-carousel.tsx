@@ -293,7 +293,7 @@ export default function HeroCarousel({
           {/* Difuminados perimetrales suaves que funden la foto con el fondo sin cortar a los protagonistas */}
           <div className="absolute inset-y-0 left-0 w-32 sm:w-56 md:w-80 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent hidden sm:block" />
           <div className="absolute inset-x-0 top-0 h-28 sm:h-36 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-14 sm:h-20 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
         </div>
 
         {/* Gradiente radial central en desktop que protege el 100% de la legibilidad tipográfica y del buscador */}

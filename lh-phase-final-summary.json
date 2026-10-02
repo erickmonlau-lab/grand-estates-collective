@@ -1,0 +1,186 @@
+{
+  "totalRuns": 10,
+  "scores": {
+    "min": 91,
+    "median": 91,
+    "mean": 91,
+    "max": 92
+  },
+  "fcp": {
+    "min": 2417,
+    "median": 2492,
+    "mean": 2485,
+    "p90": 2500,
+    "max": 2500
+  },
+  "lcp": {
+    "min": 2805,
+    "median": 2958,
+    "mean": 2949,
+    "p90": 3017,
+    "max": 3017
+  },
+  "renderDelay": {
+    "min": 183,
+    "median": 198,
+    "mean": 196,
+    "p90": 203,
+    "max": 203
+  },
+  "loadDelay": {
+    "min": 14,
+    "median": 20,
+    "mean": 21,
+    "p90": 30,
+    "max": 30
+  },
+  "loadDuration": {
+    "min": 36,
+    "median": 40,
+    "mean": 42,
+    "p90": 49,
+    "max": 49
+  },
+  "runs": [
+    {
+      "run": 1,
+      "score": 92,
+      "fcp": 2494.1618200000003,
+      "lcp": 2805.2970800000003,
+      "si": 2494.1618200000003,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 67.69999996948242,
+      "loadDelay": 15.452000030517578,
+      "loadDuration": 39.54100003051758,
+      "renderDelay": 201.38299996948243,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 2,
+      "score": 91,
+      "fcp": 2482.84472,
+      "lcp": 2946.5951600000008,
+      "si": 2482.84472,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 94.086,
+      "loadDelay": 15.655,
+      "loadDuration": 35.801,
+      "renderDelay": 199.909,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 3,
+      "score": 91,
+      "fcp": 2492.0189199999995,
+      "lcp": 2958.026259999999,
+      "si": 2492.0189199999995,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 120.395,
+      "loadDelay": 30.262,
+      "loadDuration": 40.25,
+      "renderDelay": 203.255,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 4,
+      "score": 91,
+      "fcp": 2485.69774,
+      "lcp": 2950.4859700000006,
+      "si": 2485.69774,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 82.947,
+      "loadDelay": 27.385,
+      "loadDuration": 45.927000030517576,
+      "renderDelay": 196.46499996948242,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 5,
+      "score": 91,
+      "fcp": 2494.3153800000005,
+      "lcp": 2961.189390000001,
+      "si": 2494.3153800000005,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 74.063,
+      "loadDelay": 14.196,
+      "loadDuration": 46.744000030517576,
+      "renderDelay": 184.89299996948242,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 6,
+      "score": 91,
+      "fcp": 2499.59604,
+      "lcp": 2966.0026199999998,
+      "si": 2499.59604,
+      "tbt": 11,
+      "cls": 0,
+      "ttfb": 75.92599996948242,
+      "loadDelay": 23.45600003051758,
+      "loadDuration": 48.69300003051758,
+      "renderDelay": 198.13999996948243,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 7,
+      "score": 91,
+      "fcp": 2490.75128,
+      "lcp": 2956.8943399999994,
+      "si": 2490.75128,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 81.529,
+      "loadDelay": 20.167,
+      "loadDuration": 39.406,
+      "renderDelay": 196.005,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 8,
+      "score": 91,
+      "fcp": 2499.5615999999995,
+      "lcp": 2967.139799999999,
+      "si": 2499.5615999999995,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 94.43,
+      "loadDelay": 16.7,
+      "loadDuration": 37.317,
+      "renderDelay": 195.544,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 9,
+      "score": 91,
+      "fcp": 2491.52396,
+      "lcp": 2957.5698800000005,
+      "si": 2491.52396,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 70.591,
+      "loadDelay": 19.362,
+      "loadDuration": 38.641,
+      "renderDelay": 199.703,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 10,
+      "score": 91,
+      "fcp": 2417.181,
+      "lcp": 3017.181,
+      "si": 2417.181,
+      "tbt": 10,
+      "cls": 0,
+      "ttfb": 76.368,
+      "loadDelay": 27.194,
+      "loadDuration": 43.415,
+      "renderDelay": 182.908,
+      "classification": "EXCELLENT (<500ms)"
+    }
+  ]
+}

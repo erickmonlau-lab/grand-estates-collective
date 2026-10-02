@@ -1,0 +1,186 @@
+{
+  "totalRuns": 10,
+  "scores": {
+    "min": 86,
+    "median": 91,
+    "mean": 91,
+    "max": 91
+  },
+  "fcp": {
+    "min": 2459,
+    "median": 2494,
+    "mean": 2514,
+    "p90": 2689,
+    "max": 2689
+  },
+  "lcp": {
+    "min": 2920,
+    "median": 2960,
+    "mean": 3016,
+    "p90": 3454,
+    "max": 3454
+  },
+  "renderDelay": {
+    "min": 183,
+    "median": 209,
+    "mean": 310,
+    "p90": 1253,
+    "max": 1253
+  },
+  "loadDelay": {
+    "min": 6,
+    "median": 18,
+    "mean": 16,
+    "p90": 21,
+    "max": 21
+  },
+  "loadDuration": {
+    "min": 28,
+    "median": 47,
+    "mean": 47,
+    "p90": 57,
+    "max": 57
+  },
+  "runs": [
+    {
+      "run": 1,
+      "score": 91,
+      "fcp": 2538.2368849999993,
+      "lcp": 2920.2572099999993,
+      "si": 2538.2368849999993,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 90.03999996948242,
+      "loadDelay": 18.716000030517577,
+      "loadDuration": 54.38899996948242,
+      "renderDelay": 183.36600003051757,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 2,
+      "score": 91,
+      "fcp": 2458.72844,
+      "lcp": 3070.9742799999995,
+      "si": 2458.72844,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 79.561,
+      "loadDelay": 17.56,
+      "loadDuration": 45.478,
+      "renderDelay": 213.612,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 3,
+      "score": 91,
+      "fcp": 2489.3592200000003,
+      "lcp": 2954.8339100000003,
+      "si": 2489.3592200000003,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 78.96100003051758,
+      "loadDelay": 21.13699996948242,
+      "loadDuration": 46.651999969482425,
+      "renderDelay": 209.06400003051758,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 4,
+      "score": 91,
+      "fcp": 2491.03398,
+      "lcp": 2956.9521900000004,
+      "si": 2491.03398,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 73.524,
+      "loadDelay": 13.235,
+      "loadDuration": 46.745,
+      "renderDelay": 196.913,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 5,
+      "score": 91,
+      "fcp": 2495.6481999999996,
+      "lcp": 2962.4745999999996,
+      "si": 2495.6481999999996,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 103.86199996948243,
+      "loadDelay": 6.406000030517578,
+      "loadDuration": 52.68799996948242,
+      "renderDelay": 194.06400003051758,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 6,
+      "score": 91,
+      "fcp": 2493.61576,
+      "lcp": 2959.86178,
+      "si": 2493.61576,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 84.77899996948243,
+      "loadDelay": 18.201000030517577,
+      "loadDuration": 57.02799996948242,
+      "renderDelay": 198.75800003051756,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 7,
+      "score": 91,
+      "fcp": 2505.1164599999993,
+      "lcp": 2973.5136299999986,
+      "si": 2505.1164599999993,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 82.40800003051758,
+      "loadDelay": 15.015999969482422,
+      "loadDuration": 28.023,
+      "renderDelay": 220.637,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 8,
+      "score": 91,
+      "fcp": 2483.9546200000004,
+      "lcp": 2948.546110000001,
+      "si": 2483.9546200000004,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 81.333,
+      "loadDelay": 17.034,
+      "loadDuration": 46.041,
+      "renderDelay": 205.465,
+      "classification": "EXCELLENT (<500ms)"
+    },
+    {
+      "run": 9,
+      "score": 86,
+      "fcp": 2689.168455,
+      "lcp": 3454.1015049999996,
+      "si": 3522.1379263240083,
+      "tbt": 3,
+      "cls": 0,
+      "ttfb": 121.238,
+      "loadDelay": 18.118,
+      "loadDuration": 45.613000030517576,
+      "renderDelay": 1253.4849999694825,
+      "classification": "OUTLIER (>1000ms)"
+    },
+    {
+      "run": 10,
+      "score": 91,
+      "fcp": 2493.0643200000004,
+      "lcp": 2959.3119600000005,
+      "si": 2493.0643200000004,
+      "tbt": 0,
+      "cls": 0,
+      "ttfb": 73.43799996948242,
+      "loadDelay": 12.801000030517578,
+      "loadDuration": 44.025000030517575,
+      "renderDelay": 222.8849999694824,
+      "classification": "EXCELLENT (<500ms)"
+    }
+  ]
+}

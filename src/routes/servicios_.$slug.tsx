@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Building2, TrendingUp, Shield, Paintbrush, Check, MessageCircle, ArrowLeft, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { Building2, TrendingUp, Scale, Wrench, Check, MessageCircle, ArrowLeft, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -141,7 +141,7 @@ const servicesData: Record<string, {
   "asesoria-juridica-fiscal": {
     id: "juridico",
     slug: "asesoria-juridica-fiscal",
-    icon: Shield,
+    icon: Scale,
     titleKey: "Asesoría Jurídica y Fiscal",
     taglineKey: "Especialistas en derecho inmobiliario, herencias y arrendamientos",
     metaTitle: "Asesoría Jurídica e Inmobiliaria en Santa Coloma de Gramenet | Gesgrama",
@@ -166,7 +166,7 @@ const servicesData: Record<string, {
   "obras-mantenimiento": {
     id: "obras",
     slug: "obras-mantenimiento",
-    icon: Paintbrush,
+    icon: Wrench,
     titleKey: "Obras y Mantenimiento",
     taglineKey: "Rehabilitación de edificios, reformas y gestión de ITE",
     metaTitle: "Obras, Mantenimiento e ITE en Santa Coloma de Gramenet | Gesgrama",

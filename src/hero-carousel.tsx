@@ -14,6 +14,10 @@ interface HeroCarouselProps {
   customSubtitle?: string;
   customTrustBadge?: string;
   customValuationHref?: string;
+  /** Pre-select a barrio on mount (used by neighbourhood pages) */
+  initialBarrio?: string;
+  /** Parent stores a reset function that restores hero to default state */
+  onRegisterReset?: (resetFn: () => void) => void;
 }
 
 const BARRIOS = [
@@ -67,6 +71,8 @@ export default function HeroCarousel({
   customTag,
   customHeadline,
   customSubtitle,
+  initialBarrio,
+  onRegisterReset,
 }: HeroCarouselProps) {
   const t = translations[language];
 
@@ -76,6 +82,27 @@ export default function HeroCarousel({
   const [precio, setPrecio] = useState("Cualquier precio");
   const [openDrop, setOpenDrop] = useState<"barrio" | "tipo" | "precio" | null>(null);
   const [dropCoords, setDropCoords] = useState<DropCoords | null>(null);
+
+  // Sync initialBarrio on mount (for neighbourhood pages)
+  useEffect(() => {
+    if (initialBarrio && BARRIOS.includes(initialBarrio)) {
+      setBarrio(initialBarrio);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialBarrio]);
+
+  // Register reset function so parent can call it when "Ver todos" is clicked
+  useEffect(() => {
+    if (onRegisterReset) {
+      onRegisterReset(() => {
+        setMode("comprar");
+        setBarrio("Todos los barrios");
+        setTipo("Cualquier tipo");
+        setPrecio("Cualquier precio");
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const barrioTriggerRef = useRef<HTMLButtonElement | null>(null);
   const tipoTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -211,7 +238,7 @@ export default function HeroCarousel({
     });
     const el = document.getElementById("propiedades");
     if (el) {
-      const navOffset = window.innerWidth < 768 ? 80 : 90;
+      const navOffset = window.innerWidth < 768 ? 90 : 130;
       const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
       window.history.replaceState(null, "", "#propiedades");

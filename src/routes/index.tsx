@@ -5,7 +5,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
@@ -374,6 +374,7 @@ function Index() {
   };
 
   const [liveProperties, setLiveProperties] = useState<ExtendedProperty[]>(() => getLocalProperties());
+  const heroResetRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const unsub = subscribeProperties((list) => {
@@ -462,25 +463,10 @@ function Index() {
     });
 
   let displayProperties = filteredProperties.slice(0, visibleCount);
-  let isFallback = false;
+  const isFallback = filteredProperties.length === 0 &&
+    searchParams.mode !== "favoritos" &&
+    (searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio");
 
-  if (filteredProperties.length === 0 && searchParams.mode !== "favoritos") {
-    isFallback = true;
-    let similarProperties = activeLiveProperties
-      .filter(p => searchParams.zona === 'Cualquier zona' ? true : (p.location && p.location.includes(searchParams.zona)))
-      .filter(p => (p.operation || "comprar") === searchParams.mode);
-
-    if (similarProperties.length === 0) {
-      similarProperties = activeLiveProperties
-        .filter(p => searchParams.tipo === 'Cualquier tipo' ? true : p.type === searchParams.tipo)
-        .filter(p => (p.operation || "comprar") === searchParams.mode);
-    }
-
-    if (similarProperties.length === 0) {
-      similarProperties = activeLiveProperties.filter(p => (p.operation || "comprar") === searchParams.mode);
-    }
-    displayProperties = similarProperties.slice(0, 3);
-  }
 
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
@@ -489,7 +475,11 @@ function Index() {
       {/* ── MAIN LANDMARK ── */}
       <main id="main-content">
         {/* ── 1. HERO SEARCH-FIRST COMPLETO ── */}
-        <HeroCarousel onPerformSearch={handleHeroSearch} language={language} />
+        <HeroCarousel
+          onPerformSearch={handleHeroSearch}
+          language={language}
+          onRegisterReset={(fn) => { heroResetRef.current = fn; }}
+        />
 
         {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (TRANSICIÓN VISUAL INMEDIATA) ── */}
         <MarqueeRibbon language={language} />
@@ -575,6 +565,43 @@ function Index() {
                 </div>
               </div>
             </div>
+
+            {/* ── ACTIVE FILTER CHIPS — only when non-default filters applied ── */}
+            {(searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio") && (
+              <div className="flex flex-wrap items-center gap-2 mb-4 py-2">
+                <span className="text-xs text-slate-500 font-semibold mr-1 shrink-0">
+                  {language === "ca" ? "Filtrant per:" : language === "en" ? "Filtering by:" : "Filtrando por:"}
+                </span>
+                {searchParams.zona !== "Cualquier zona" && (
+                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                    <MapPin className="w-3 h-3 shrink-0" />
+                    {searchParams.zona}
+                  </span>
+                )}
+                {searchParams.tipo !== "Cualquier tipo" && (
+                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                    <Home className="w-3 h-3 shrink-0" />
+                    {searchParams.tipo}
+                  </span>
+                )}
+                {searchParams.precio !== "Cualquier precio" && (
+                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                    {searchParams.precio}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                    setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                    heroResetRef.current?.();
+                  }}
+                  className="text-xs font-black text-slate-500 hover:text-[#2563eb] underline cursor-pointer ml-auto shrink-0"
+                >
+                  {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
+                </button>
+              </div>
+            )}
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
             {(() => {
@@ -817,8 +844,25 @@ function Index() {
                   </div>
 
                   {isFallback && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-amber-800 text-sm font-medium">
-                      {t.properties.fallbackMsg}
+                    <div className="flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 min-h-[52px]">
+                      <p className="text-sm font-semibold text-slate-600 leading-snug">
+                        {language === "ca"
+                          ? "No hi ha immobles que coincideixin amb aquests filtres."
+                          : language === "en"
+                          ? "No properties match these filters."
+                          : "No hay inmuebles que coincidan con estos filtros."}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                          setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                          heroResetRef.current?.();
+                        }}
+                        className="shrink-0 text-xs font-black text-[#2563eb] hover:underline cursor-pointer"
+                      >
+                        {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
+                      </button>
                     </div>
                   )}
 
@@ -862,6 +906,7 @@ function Index() {
                               precio: "Cualquier precio",
                               habitaciones: "Cualquier número"
                             });
+                            heroResetRef.current?.();
                             // Show all available properties by expanding visibleCount
                             setVisibleCount(999);
                             
@@ -1026,8 +1071,8 @@ function Index() {
               const icons = [
                 <Building2 key={0} className="w-5 h-5" />,
                 <TrendingUp key={1} className="w-5 h-5" />,
-                <Shield key={2} className="w-5 h-5" />,
-                <Paintbrush key={3} className="w-5 h-5" />
+                <Scale key={2} className="w-5 h-5" />,
+                <Wrench key={3} className="w-5 h-5" />
               ];
               const bgs = [
                 "/images/service-1.webp",
@@ -1042,29 +1087,31 @@ function Index() {
                     className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
                   >
                     
-                    {/* Thumbnail con icono Cyan superpuesto */}
-                    <div className="relative w-full sm:w-[110px] h-[85px] sm:h-[95px] rounded-lg sm:rounded-xl overflow-hidden shrink-0">
+                    {/* Thumbnail con imagen limpia sin tapar */}
+                    <div className="relative w-full sm:w-[120px] h-[95px] sm:h-[105px] rounded-lg sm:rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
                       <img 
                         src={bgs[i]} 
                         alt={item.title} 
                         loading="lazy" 
                         decoding="async"
-                        width={110}
-                        height={95}
+                        width={120}
+                        height={105}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                       />
-                      <div className="absolute top-1.5 left-1.5 w-7 h-7 rounded-full bg-[#0369a1] text-white shadow-xs flex items-center justify-center z-10">
-                        {icons[i]}
-                      </div>
                     </div>
 
-                    {/* Texto informativo + Botón Píldora Azul Cyan */}
+                    {/* Texto informativo + Icono integrado en título + Botón Píldora */}
                     <div className="flex-1 flex flex-col justify-between h-full py-0.5">
                       <div>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-black text-[#0f172a] mb-1.5 leading-snug group-hover:text-[#0369a1] transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-700 font-bold leading-relaxed mb-3">
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="w-7 h-7 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
+                            {icons[i]}
+                          </span>
+                          <h3 className="text-base sm:text-lg md:text-xl font-black text-[#0f172a] leading-snug group-hover:text-[#0369a1] transition-colors">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-3">
                           {item.desc}
                         </p>
                       </div>

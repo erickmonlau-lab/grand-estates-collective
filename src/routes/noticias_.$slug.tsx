@@ -365,9 +365,9 @@ function ArticleDetail() {
       {/* SHARED CANONICAL NAVY NAVBAR */}
       <Navbar language={language} setLanguage={changeLanguage} />
 
-      {/* MAIN ARTICLE CONTENT WRAPPED IN BUBBLE CONTAINER */}
-      <main className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4 sm:px-6 md:px-8 max-w-[1300px] mx-auto">
-        <div className="bg-white rounded-[28px] md:rounded-[36px] shadow-xl border border-slate-200/80 overflow-hidden p-6 sm:p-10 md:p-14">
+      {/* MAIN ARTICLE CONTENT WRAPPED IN EDITORIAL CONTAINER */}
+      <main className="pt-28 sm:pt-32 md:pt-36 pb-20 px-4 sm:px-6 max-w-[860px] mx-auto">
+        <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 overflow-hidden p-5 sm:p-8 md:p-11">
           
           {/* HEADER BACK BUTTON & SHARE ACTIONS INSIDE CONTENT CARD */}
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
@@ -447,13 +447,13 @@ function ArticleDetail() {
             </span>
           </div>
 
-          {/* TITLE (H1) - CLEAN FLUID HEADING WITH NO UNWANTED WORD DROPDOWNS */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-slate-900 leading-[1.2] sm:leading-[1.15] mb-6 font-sans">
+          {/* TITLE (H1) - EDITORIAL IMPACTFUL TITLE */}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-slate-900 leading-[1.22] mb-5 tracking-tight font-sans">
             {content.title}
           </h1>
 
-          {/* FEATURED HERO IMAGE WITH COMPACT ACCESSIBLE HEIGHT - POSITIONED ABOVE SUMMARY */}
-          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 shadow-md border border-slate-200/80 h-[220px] sm:h-[300px] md:h-[360px] lg:h-[420px]">
+          {/* FEATURED HERO IMAGE WITH COMPACT EDITORIAL RATIO */}
+          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-6 shadow-md border border-slate-200/80 aspect-[16/9] max-h-[380px] w-full bg-slate-100">
             <img
               src={article.image}
               alt={content.title}
@@ -463,27 +463,27 @@ function ArticleDetail() {
           </div>
 
           {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
-          <div className="mb-8 p-5 sm:p-7 rounded-2xl md:rounded-3xl bg-blue-50/90 border-l-8 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-4 sm:gap-5">
-            <div className="w-10 h-10 rounded-2xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md mt-0.5">
-              <BookOpen className="w-5 h-5" />
+          <div className="mb-7 p-4 sm:p-6 rounded-2xl bg-blue-50/90 border-l-4 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-3.5 sm:gap-4">
+            <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+              <BookOpen className="w-4.5 h-4.5" />
             </div>
             <div>
-              <span className="inline-block px-3.5 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-2 font-sans shadow-xs">
+              <span className="inline-block px-3 py-0.5 rounded-full bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider mb-1.5 font-sans shadow-xs">
                 {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
               </span>
-              <p className="text-base sm:text-lg md:text-xl font-extrabold text-slate-900 leading-relaxed font-sans">
+              <p className="text-sm sm:text-base md:text-[17px] font-extrabold text-slate-900 leading-relaxed font-sans">
                 {content.summary}
               </p>
             </div>
           </div>
 
           {/* INTRO SUMMARY CALLOUT */}
-          <div className="p-6 md:p-8 lg:p-10 rounded-2xl bg-slate-50 border-l-4 border-[#2563eb] text-slate-800 font-medium text-lg md:text-xl lg:text-2xl leading-relaxed mb-10 font-sans shadow-xs">
+          <div className="p-5 sm:p-7 rounded-2xl bg-slate-50 border-l-4 border-slate-400 text-slate-800 font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans shadow-xs">
             {highlightKeyText(content.intro)}
           </div>
 
           {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY FOR LIGHTHOUSE/PAGESPEED) */}
-          <div className="prose prose-lg max-w-none text-slate-700 space-y-10 font-sans">
+          <div className="prose prose-lg max-w-none text-slate-700 space-y-8 font-sans">
             {content.sections.map((sec, idx) => (
               <section key={idx} className="space-y-4">
                 {sec.level === "h2" ? (

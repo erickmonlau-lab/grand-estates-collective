@@ -1725,22 +1725,22 @@ function SantaColomaBarrioPage() {
           <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-[#0f172a]">
             
             {/* Header Kicker */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-200/90">
               <div>
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl shadow-xs mb-2">
                   <Star className="w-3.5 h-3.5 fill-white" />
                   <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] tracking-tight leading-tight">
-                  {language === "ca" ? `¿Quant val el teu immoble a ${data.name}?` : language === "en" ? `How much is your property in ${data.name} worth?` : `¿Cuánto vale tu inmueble en ${data.name}?`}
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] tracking-tight leading-tight font-heading">
+                  {language === "ca" ? `¿Quant val el teu habitatge a ${data.name}?` : language === "en" ? `How much is your home in ${data.name} worth?` : `¿Cuánto vale tu vivienda en ${data.name}?`}
                 </h2>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 font-medium max-w-sm leading-relaxed">
+              <p className="text-sm sm:text-base text-[#0b214a] font-medium max-w-sm leading-relaxed">
                 {language === "ca" 
-                  ? "Descobreix una estimació orientativa en menys d'un minut basada en dades de mercat reals." 
+                  ? "Descobreix una estimació orientativa de mercat en menys d'un minut." 
                   : language === "en" 
-                  ? "Get an orientative estimation in less than a minute based on real market data." 
-                  : "Descubre una estimación orientativa en menos de un minuto basada en datos de mercado reales."}
+                  ? "Discover an orientative market estimate in less than a minute." 
+                  : "Descubre una estimación orientativa de mercado en menos de un minuto."}
               </p>
             </div>
 
@@ -1748,16 +1748,16 @@ function SantaColomaBarrioPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
               
               {/* LEFT: FORM INPUTS & CALCULAR BUTTON */}
-              <div className="lg:col-span-6 flex flex-col justify-between bg-slate-50/70 border border-slate-200/80 rounded-2xl sm:rounded-3xl p-5 sm:p-6">
+              <div className="lg:col-span-6 flex flex-col justify-between bg-slate-50 border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-6">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-slate-500 mb-4">
-                    {language === "ca" ? "DADES DE L'IMMOBLE" : language === "en" ? "PROPERTY DETAILS" : "DATOS DEL INMUEBLE"}
+                  <p className="text-sm sm:text-base font-black uppercase tracking-wider text-[#0b214a] mb-3 font-heading">
+                    {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-4">
                     {/* Select Barrio / Zona */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-zona-select" className="block text-[11px] font-black uppercase tracking-wider text-slate-600 mb-1">
+                    <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-zona-select" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                         {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
                       </label>
                       <div className="flex items-center justify-between gap-2">
@@ -1768,24 +1768,24 @@ function SantaColomaBarrioPage() {
                             aria-label="Seleccionar zona de la propiedad"
                             value={valuatorData.zona}
                             onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate"
+                            className="w-full bg-transparent border-0 p-0 text-[15px] sm:text-[16px] font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
                           >
                             {zonas.map(z => (
                               <option key={z} value={z}>{formatLocation(z, language)}</option>
                             ))}
                           </select>
                         </div>
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                        <ChevronDown className="w-4 h-4 text-[#2563eb] shrink-0" />
                       </div>
                     </div>
 
                     {/* Input Superficie estimada */}
-                    <div className="bg-white border-2 border-slate-300 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 shadow-2xs transition-all text-left">
-                      <label htmlFor="valuator-metros-input" className="block text-[11px] font-black uppercase tracking-wider text-slate-600 mb-1">
+                    <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                      <label htmlFor="valuator-metros-input" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                         {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                       </label>
-                      <div className="flex items-center gap-2">
-                        <Ruler className="w-4 h-4 text-[#2563eb] shrink-0" />
+                      <div className="flex items-center gap-2.5">
+                        <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                         <input
                           id="valuator-metros-input"
                           type="number"
@@ -1794,9 +1794,9 @@ function SantaColomaBarrioPage() {
                           placeholder="85"
                           value={valuatorData.metros}
                           onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-transparent border-0 p-0 text-sm sm:text-base font-bold text-[#0b214a] focus:ring-0 outline-none"
+                          className="w-full bg-transparent border-0 p-0 text-[16px] sm:text-[17px] font-bold text-[#0b214a] focus:ring-0 outline-none font-sans"
                         />
-                        <span className="text-xs font-black text-slate-700 bg-slate-100 border border-slate-300 px-2 py-0.5 rounded-md shrink-0">
+                        <span className="text-[13px] font-bold text-[#0b214a] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md shrink-0 font-sans">
                           m²
                         </span>
                       </div>
@@ -1810,20 +1810,20 @@ function SantaColomaBarrioPage() {
                     type="button"
                     onClick={handleCalculateValuation}
                     disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider disabled:opacity-75"
+                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
                   >
-                    <Home className="w-4 h-4 text-white shrink-0" />
+                    <Home className="w-4.5 h-4.5 text-white shrink-0" />
                     <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
-                    <ArrowRight className="w-4 h-4 text-white shrink-0" />
+                    <ArrowRight className="w-4.5 h-4.5 text-white shrink-0" />
                   </button>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 font-semibold mt-2.5 px-1">
-                    <span className="flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
+                  <div className="flex items-center justify-between text-[13px] sm:text-[14px] text-[#0b214a] font-bold mt-4 px-1">
+                    <span className="flex items-center gap-1.5">
+                      <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                       {t.valorador.sinCompromiso}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-[#2563eb] stroke-[3]" />
+                    <span className="flex items-center gap-1.5">
+                      <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                       {t.valorador.resultadoInmediato}
                     </span>
                   </div>
@@ -1832,7 +1832,12 @@ function SantaColomaBarrioPage() {
 
               {/* RIGHT: CLEAN CONVERSION RESULT BOX */}
               <div className="lg:col-span-6 flex flex-col justify-center">
-                <div className="bg-white border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[300px]">
+                <div 
+                  className="bg-white border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[340px]"
+                  style={{
+                    backgroundImage: "radial-gradient(ellipse 90% 80% at 50% 15%, rgba(37, 99, 235, 0.10) 0%, rgba(37, 99, 235, 0.03) 50%, rgba(255, 255, 255, 0) 80%)"
+                  }}
+                >
                   
                   {/* Spinner while recalculating */}
                   <AnimatePresence>
@@ -1851,44 +1856,36 @@ function SantaColomaBarrioPage() {
                   </AnimatePresence>
 
                   {/* 1. Header label */}
-                  <div>
-                    <span className="inline-block text-xs font-black uppercase tracking-widest text-[#2563eb] bg-blue-50 px-3.5 py-1 rounded-full mb-3">
+                  <div className="w-full">
+                    <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] shadow-sm px-6 py-2 rounded-full mb-3">
                       {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                     </span>
 
                     {/* 2. Dominant Price Number */}
-                    <div className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0b214a] leading-none tracking-tight my-2">
+                    <div className="text-4xl sm:text-5xl md:text-[58px] font-black text-[#0b214a] leading-none tracking-tight my-2 font-heading">
                       <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
                       <span className="text-[#2563eb] ml-1.5">€</span>
                     </div>
 
                     {/* 3. Secondary price per m² */}
-                    <p className="text-sm sm:text-base font-bold text-slate-600 mt-1 mb-2">
-                      ≈ {new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
-                    </p>
-
-                    {/* Optional small range */}
-                    <p className="text-xs text-slate-500 font-semibold mb-2">
-                      {language === "ca" ? "Rang orientatiu:" : language === "en" ? "Estimated range:" : "Rango orientativo:"}{" "}
-                      <span className="font-bold text-slate-700">
-                        {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)} € – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)} €
-                      </span>
+                    <p className="text-base sm:text-lg font-bold text-[#0b214a] mt-1 mb-1">
+                      <span className="text-[#2563eb] font-black">≈</span> {new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
                     </p>
                   </div>
 
                   {/* 4. Single Clear CTA oriented to conversion */}
-                  <div className="w-full mt-4 pt-4 border-t border-slate-100 flex flex-col items-center">
+                  <div className="w-full mt-4 pt-4 border-t border-slate-200/90 flex flex-col items-center">
                     <a
                       href={`https://wa.me/34689438012?text=${encodeURIComponent(
                         language === "ca"
-                          ? `Hola Gesgrama, he utilitzat la calculadora per al meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i voldria una valoració personalitzada.`
+                          ? `Hola Gesgrama, he consultat la valoració d'un habitatge a ${formatLocation(calculatedResult.zoneName, "ca")} d'aproximadament ${calculatedResult.propertyM2} m² (estimació: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i m'agradaria rebre una valoració personalitzada.`
                           : language === "en"
-                          ? `Hello Gesgrama, I used your valuation tool for my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like a personalized valuation.`
-                          : `Hola Gesgrama, he utilizado la calculadora para mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría una valoración personalizada.`
+                          ? `Hello Gesgrama, I consulted the valuation of a home in ${formatLocation(calculatedResult.zoneName, "en")} of approximately ${calculatedResult.propertyM2} sq m (estimate: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like to receive a personalized appraisal.`
+                          : `Hola Gesgrama, he consultado la valoración de una vivienda en ${formatLocation(calculatedResult.zoneName, "es")} de aproximadamente ${calculatedResult.propertyM2} m² (estimación: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría recibir una valoración personalizada.`
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm py-3.5 px-6 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
+                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-xs sm:text-sm py-4 px-6 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer"
                     >
                       <span>
                         {language === "ca" 
@@ -1901,7 +1898,7 @@ function SantaColomaBarrioPage() {
                     </a>
 
                     {/* Honest disclaimer */}
-                    <p className="text-[11px] text-slate-500 font-medium mt-2.5 leading-tight">
+                    <p className="text-[12px] sm:text-[13px] text-[#0b214a] font-semibold mt-3 leading-snug">
                       {language === "ca"
                         ? "Estimació orientativa basada en dades de mercat. No constitueix una taxació oficial."
                         : language === "en"

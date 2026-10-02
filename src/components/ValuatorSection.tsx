@@ -74,65 +74,65 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
   const contactText = encodeURIComponent(
     language === "ca"
-      ? `Hola Gesgrama, he utilitzat la calculadora per al meu immoble a ${formatLocation(calculatedResult.zoneName, "ca")} (~${calculatedResult.propertyM2} m², estimació de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i voldria una valoració personalitzada.`
+      ? `Hola, he consultat la valoració d'un habitatge a ${formatLocation(calculatedResult.zoneName, "ca")} d'aproximadament ${calculatedResult.propertyM2} m² (estimació: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i m'agradaria rebre una valoració personalitzada.`
       : language === "en"
-      ? `Hello Gesgrama, I used your valuation tool for my property in ${formatLocation(calculatedResult.zoneName, "en")} (~${calculatedResult.propertyM2} sq m, estimated at ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like a personalized valuation.`
-      : `Hola Gesgrama, he utilizado la calculadora para mi inmueble en ${formatLocation(calculatedResult.zoneName, "es")} (~${calculatedResult.propertyM2} m², estimación de ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría una valoración personalizada.`
+      ? `Hello, I checked the valuation of a home in ${formatLocation(calculatedResult.zoneName, "en")} of approximately ${calculatedResult.propertyM2} sq m (estimate: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like to receive a personalized valuation.`
+      : `Hola, he consultado la valoración de una vivienda en ${formatLocation(calculatedResult.zoneName, "es")} de aproximadamente ${calculatedResult.propertyM2} m² (estimación: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría recibir una valoración personalizada.`
   );
 
   return (
     <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
       <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/90 pt-8 pb-6 px-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1100px] relative z-10 overflow-hidden text-[#0f172a]">
+      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-9 mx-3 sm:mx-4 md:mx-auto max-w-[1150px] relative z-10 overflow-hidden text-[#0f172a]">
         
         {/* Header Kicker */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8 pb-8 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-7 pb-6 border-b border-slate-200">
           <div className="flex flex-col items-start max-w-xl">
-            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[12px] font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-xs mb-3 font-sans">
+            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full shadow-xs mb-3 font-sans">
               <Star className="w-3.5 h-3.5 fill-white" />
               <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-[#0b214a] tracking-tight leading-[1.1] font-heading">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-[#0b214a] tracking-tight leading-[1.1] font-heading">
               {language === "ca" ? (
-                <><span className="mr-0.5 inline-block">¿</span>Quant val el teu immoble<span className="ml-0.5 inline-block">?</span></>
+                <><span className="mr-0.5 inline-block">¿</span>Quant val el teu habitatge<span className="ml-0.5 inline-block">?</span></>
               ) : language === "en" ? (
-                "How much is your property worth?"
+                "How much is your home worth?"
               ) : (
-                <><span className="mr-0.5 inline-block">¿</span>Cuánto vale tu inmueble<span className="ml-0.5 inline-block">?</span></>
+                <><span className="mr-0.5 inline-block">¿</span>Cuánto vale tu vivienda<span className="ml-0.5 inline-block">?</span></>
               )}
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-[19px] text-[#0b214a] font-semibold max-w-lg leading-[1.4] md:pt-2">
+          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-lg leading-[1.4] md:pt-2">
             {language === "ca" 
-              ? "Descobreix una estimació orientativa en menys d'un minut basada en dades de mercat reals." 
+              ? "Descobreix una estimació orientativa de mercat en menys d'un minut." 
               : language === "en" 
-              ? "Discover an orientative estimation in less than a minute based on real market data." 
-              : "Descubre una estimación orientativa en menos de un minuto basada en datos de mercado reales."}
+              ? "Discover an orientative market estimate in less than a minute." 
+              : "Descubre una estimación orientativa de mercado en menos de un minuto."}
           </p>
         </div>
 
         {/* 2-Column Split: INPUT Form on Left, RESULT on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Compact, structured grouping without dead space) */}
-          <div className="lg:col-span-6 flex flex-col bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xs relative overflow-hidden">
+          {/* LEFT: FORM INPUTS & CALCULAR BUTTON (Compact, elevated, no dead space) */}
+          <div className="lg:col-span-6 flex flex-col bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-xs relative overflow-hidden">
             {/* Top subtle blue accent indicator line */}
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#2563eb]" />
 
             <div>
-              {/* Encabezado del panel: Datos del inmueble */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-3.5 h-3.5 rounded-full bg-[#2563eb] shrink-0 shadow-sm" />
-                <h3 className="text-xl sm:text-2xl md:text-[25px] font-black tracking-tight text-[#0b214a] font-heading">
-                  {language === "ca" ? "Dades de l'immoble" : language === "en" ? "Property Details" : "Datos del inmueble"}
+              {/* Encabezado del panel: Datos de tu vivienda */}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-3 h-3 rounded-full bg-[#2563eb] shrink-0 shadow-xs" />
+                <h3 className="text-lg sm:text-xl md:text-[22px] font-black tracking-tight text-[#0b214a] font-heading">
+                  {language === "ca" ? "Dades del teu habitatge" : language === "en" ? "Property Details" : "Datos de tu vivienda"}
                 </h3>
               </div>
 
               {/* Campos: Barrio y Superficie */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
                 {/* Select Barrio / Zona */}
-                <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3.5 sm:p-4 shadow-xs transition-all text-left">
-                  <label htmlFor="valuator-zona-select" className="block text-[13px] sm:text-[14px] font-bold text-[#0b214a] mb-2 tracking-normal font-sans">
+                <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                  <label htmlFor="valuator-zona-select" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                     {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
                   </label>
                   <div className="flex items-center justify-between gap-2">
@@ -143,7 +143,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                         aria-label="Seleccionar zona de la propiedad"
                         value={valuatorData.zona}
                         onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                        className="w-full bg-transparent border-0 p-0 text-[17px] sm:text-[18px] font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
+                        className="w-full bg-transparent border-0 p-0 text-[16px] sm:text-[17px] font-bold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
                       >
                         {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
                       </select>
@@ -153,8 +153,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 </div>
 
                 {/* Input Superficie estimada */}
-                <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3.5 sm:p-4 shadow-xs transition-all text-left">
-                  <label htmlFor="valuator-metros-input" className="block text-[13px] sm:text-[14px] font-bold text-[#0b214a] mb-2 tracking-normal font-sans">
+                <div className="bg-white border-2 border-slate-200 hover:border-[#2563eb] focus-within:border-[#2563eb] focus-within:ring-2 focus-within:ring-[#2563eb]/20 rounded-xl p-3 sm:p-3.5 shadow-2xs transition-all text-left">
+                  <label htmlFor="valuator-metros-input" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                     {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                   </label>
                   <div className="flex items-center gap-2.5">
@@ -167,35 +167,35 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       placeholder="85"
                       value={valuatorData.metros}
                       onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                      className="w-full bg-transparent border-0 p-0 text-[17px] sm:text-[18px] font-bold text-[#0b214a] focus:ring-0 outline-none font-sans"
+                      className="w-full bg-transparent border-0 p-0 text-[16px] sm:text-[17px] font-bold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
-                    <span className="text-[13px] font-bold text-[#0b214a] bg-slate-100 border border-slate-200 px-2.5 py-0.5 rounded-md shrink-0 font-sans">
+                    <span className="text-[13px] font-bold text-[#0b214a] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md shrink-0 font-sans">
                       m²
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Main Action Button — Inmediatamente después de los campos (~28-30px) */}
+              {/* Main Action Button — Inmediatamente después de los campos */}
               <div>
                 <button
                   type="button"
                   onClick={handleCalculateValuation}
                   disabled={isCalculatingValuation}
-                  className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-base sm:text-[17px] py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
+                  className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm sm:text-base py-3.5 sm:py-4 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider disabled:opacity-75"
                 >
-                  <Home className="w-5 h-5 text-white shrink-0" />
+                  <Home className="w-4.5 h-4.5 text-white shrink-0" />
                   <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
-                  <ArrowRight className="w-5 h-5 text-white shrink-0" />
+                  <ArrowRight className="w-4.5 h-4.5 text-white shrink-0" />
                 </button>
 
-                {/* Trust Guarantees — Distinct & Highly Legible (~18-20px después del botón) */}
-                <div className="flex items-center justify-between text-[13px] sm:text-[14px] text-[#0b214a] font-bold mt-5 px-2">
-                  <span className="flex items-center gap-2">
+                {/* Trust Guarantees */}
+                <div className="flex items-center justify-between text-[13px] sm:text-[14px] text-[#0b214a] font-bold mt-4 px-1">
+                  <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                     {t.valorador.sinCompromiso}
                   </span>
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-1.5">
                     <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
                     {t.valorador.resultadoInmediato}
                   </span>
@@ -204,12 +204,12 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
             </div>
           </div>
 
-          {/* RIGHT: CLEAN CONVERSION RESULT BOX (Subtle Blue Atmosphere & Dominant Price) */}
+          {/* RIGHT: CLEAN CONVERSION RESULT BOX (Dominant Price & Direct CTA) */}
           <div className="lg:col-span-6 flex flex-col">
             <div 
-              className="bg-white border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[360px]"
+              className="bg-white border-2 border-[#2563eb] rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-xl text-center relative overflow-hidden flex flex-col items-center justify-between min-h-[340px]"
               style={{
-                backgroundImage: "radial-gradient(ellipse 90% 80% at 50% 15%, rgba(37, 99, 235, 0.12) 0%, rgba(37, 99, 235, 0.04) 50%, rgba(255, 255, 255, 0) 80%)"
+                backgroundImage: "radial-gradient(ellipse 90% 80% at 50% 15%, rgba(37, 99, 235, 0.10) 0%, rgba(37, 99, 235, 0.03) 50%, rgba(255, 255, 255, 0) 80%)"
               }}
             >
               
@@ -231,32 +231,24 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
               {/* 1. Header label — Cápsula azul sólida con presencia real */}
               <div className="w-full">
-                <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] shadow-sm px-6 py-2.5 rounded-full mb-3">
+                <span className="inline-block text-xs sm:text-[13px] font-black uppercase tracking-widest text-white bg-[#2563eb] shadow-sm px-6 py-2 rounded-full mb-3">
                   {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
                 </span>
 
                 {/* 2. Dominant Price Number */}
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0b214a] leading-none tracking-tight my-3 font-heading">
+                <div className="text-4xl sm:text-5xl md:text-[58px] font-black text-[#0b214a] leading-none tracking-tight my-2 font-heading">
                   <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
                   <span className="text-[#2563eb] ml-1.5">€</span>
                 </div>
 
                 {/* 3. Secondary price per m² */}
-                <p className="text-base sm:text-lg font-bold text-[#0b214a] mt-1 mb-2">
+                <p className="text-base sm:text-lg font-bold text-[#0b214a] mt-1 mb-1">
                   <span className="text-[#2563eb] font-black">≈</span> {new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
-                </p>
-
-                {/* Optional small range */}
-                <p className="text-xs sm:text-[13px] text-slate-700 font-medium mb-1">
-                  {language === "ca" ? "Rango orientatiu:" : language === "en" ? "Estimated range:" : "Rango orientativo:"}{" "}
-                  <span className="font-bold text-[#0b214a]">
-                    {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMin)} € – {new Intl.NumberFormat('es-ES').format(calculatedResult.rangeMax)} €
-                  </span>
                 </p>
               </div>
 
               {/* 4. Single Clear CTA oriented to conversion */}
-              <div className="w-full mt-5 pt-5 border-t border-slate-200/90 flex flex-col items-center">
+              <div className="w-full mt-4 pt-4 border-t border-slate-200/90 flex flex-col items-center">
                 <a
                   href={`https://wa.me/34689438012?text=${contactText}`}
                   target="_blank"

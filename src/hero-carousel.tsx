@@ -283,7 +283,7 @@ export default function HeroCarousel({
             <img
               src={heroBgDesktop}
               alt="Familia sonriente en su nuevo hogar con Gesgrama"
-              className="w-full h-full object-contain object-right-bottom sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
+              className="w-full h-full object-cover object-[center_15%] sm:object-cover sm:object-[center_12%] lg:object-contain lg:object-right-bottom opacity-85 sm:opacity-90 lg:opacity-95 transition-opacity"
               loading="eager"
               fetchPriority="high"
               decoding="sync"
@@ -308,12 +308,12 @@ export default function HeroCarousel({
         />
 
         {/* Velo en dispositivos móviles para máxima legibilidad */}
-        <div className="absolute inset-0 bg-[#f8fafc]/80 sm:hidden" />
+        <div className="absolute inset-0 bg-[#f8fafc]/30 sm:hidden" />
       </div>
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-8 sm:pb-16 md:pb-20 flex flex-col items-center text-center"
       >
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
@@ -349,9 +349,23 @@ export default function HeroCarousel({
           </p>
         </div>
 
+        {/* Mobile-only: photo strip — pareja visible en mobile para identidad de marca */}
+        <div className="sm:hidden w-full max-w-[300px] mx-auto mt-3 mb-0 rounded-2xl overflow-hidden relative shadow-sm" style={{height: '140px'}}>
+          <img
+            src={heroBgMobileLcp}
+            alt="Pareja en su nuevo hogar"
+            className="w-full h-full object-cover object-[center_15%]"
+            loading="eager"
+            decoding="sync"
+            width={300}
+            height={140}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent" />
+        </div>
+
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1060px] mx-auto mt-4 sm:mt-5 mb-14 sm:mb-16 md:mb-20"
+          className="relative z-40 w-full max-w-[1060px] mx-auto mt-4 sm:mt-5 mb-8 sm:mb-16 md:mb-20"
           onClick={(e) => e.stopPropagation()}
         >
           <div

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
-import livingRoomInterior from "@/assets/living_barcelona_interior_opt.webp";
+import livingRoomInterior from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -71,17 +71,21 @@ export default function HeroCarousel({
     const vpHeight = window.innerHeight;
     const vpWidth = window.innerWidth;
 
-    const spaceBelow = vpHeight - rect.bottom;
-    const spaceAbove = rect.top;
+    const spaceBelowVp = vpHeight - rect.bottom;
+    const spaceAboveVp = rect.top;
 
-    // Detect distance to bottom of hero or marquee ribbon if present
-    const heroEl = document.getElementById("hero");
-    const heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom : vpHeight;
-    const heroSpaceBelow = heroBottom - rect.bottom;
+    // Detect collision with TrustBar, Marquee, or bottom boundary of Hero
+    const trustBarEl = document.getElementById("hero-trust-bar");
+    const trustBarTop = trustBarEl ? trustBarEl.getBoundingClientRect().top : vpHeight;
 
-    const availableSpaceBelow = Math.min(spaceBelow, heroSpaceBelow);
-    // Menu content typically needs ~250px. If space below is restricted, flip UP
-    const placement = (availableSpaceBelow < 260 && spaceAbove > 200) ? "up" : "down";
+    const marqueeEl = document.querySelector(".animate-marquee")?.closest("div");
+    const marqueeTop = marqueeEl ? marqueeEl.getBoundingClientRect().top : vpHeight;
+
+    // Boundary for opening downwards without colliding with TrustBar, Marquee or viewport bottom
+    const barrierBelow = Math.min(spaceBelowVp, trustBarTop - rect.bottom - 12, marqueeTop - rect.bottom - 12);
+
+    // If space below before barrier is < 230px, flip UP where there is ample headroom
+    const placement: "up" | "down" = (barrierBelow < 230 && spaceAboveVp > 180) ? "up" : "down";
 
     // Set width aligned with trigger (minimum comfortable width on mobile/desktop)
     const minWidth = Math.min(vpWidth - 32, 280);
@@ -95,8 +99,8 @@ export default function HeroCarousel({
     if (left < 16) left = 16;
 
     const maxHeight = placement === "up" 
-      ? Math.min(270, spaceAbove - 24)
-      : Math.min(270, spaceBelow - 24);
+      ? Math.min(260, spaceAboveVp - 24)
+      : Math.min(260, Math.max(160, barrierBelow));
 
     return {
       top: placement === "down" ? rect.bottom + 8 : undefined,
@@ -280,7 +284,7 @@ export default function HeroCarousel({
       </div>
 
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-18 md:pb-20 flex flex-col items-center text-center"
+        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 pb-7 sm:pb-8 md:pb-9 flex flex-col items-center text-center"
       >
         {/* ── 2. BRANDING Y TITULAR ESTRICTAMENTE CENTRADOS CON MÁXIMA ELEGANCIA ── */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
@@ -318,7 +322,7 @@ export default function HeroCarousel({
 
         {/* ── 3. BUSCADOR SEARCH-FIRST CENTRADO CON AIRE Y SOMBRA NATURAL ── */}
         <div
-          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 mb-10 sm:mb-12"
+          className="relative z-40 w-full max-w-[1020px] mx-auto mt-4 sm:mt-5 mb-8 sm:mb-10"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -433,7 +437,7 @@ export default function HeroCarousel({
               maxHeight: `${dropCoords.maxHeight}px`,
               zIndex: 99999,
             }}
-            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_20px_45px_rgba(15,23,42,0.22)] py-2 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5"
+            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_22px_45px_rgba(15,23,42,0.18)] py-2 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5 dropdown-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             {openDrop === "zona" && ZONAS.map((z) => (
@@ -472,50 +476,50 @@ export default function HeroCarousel({
         )}
 
         {/* ── 4. TRUST: ZONA DE CONTRASTE ESTABLE (CARD ELEGANTE TRASLÚCIDA DE ALTA LEGIBILIDAD) ── */}
-        <div className="w-full max-w-[1020px] mx-auto bg-white/90 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
+        <div id="hero-trust-bar" className="w-full max-w-[1020px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            <div className="flex items-center justify-center gap-3.5 p-1.5 sm:p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50/90 flex items-center justify-center shrink-0 border border-blue-100">
+                <Users className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.3]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            <div className="flex items-center justify-center gap-3.5 p-1.5 sm:p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50/90 flex items-center justify-center shrink-0 border border-blue-100">
+                <ThumbsUp className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.3]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            <div className="flex items-center justify-center gap-3.5 p-1.5 sm:p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50/90 flex items-center justify-center shrink-0 border border-blue-100">
+                <Building2 className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.3]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años */}
-            <div className="flex items-center justify-center gap-3.5 p-2">
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100">
-                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.2]" />
+            <div className="flex items-center justify-center gap-3.5 p-1.5 sm:p-2">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50/90 flex items-center justify-center shrink-0 border border-blue-100">
+                <User className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-[#2563eb] stroke-[2.3]" />
               </div>
               <div className="text-left min-w-0">
                 <p className="text-xl sm:text-2xl md:text-3xl font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 
@@ -525,4 +529,4 @@ export default function HeroCarousel({
       </div>
     </section>
   );
-}
+}

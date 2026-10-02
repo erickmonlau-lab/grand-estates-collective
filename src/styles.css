@@ -372,3 +372,22 @@
   will-change: transform;
 }
 
+/* Subtle discreet dropdown scrollbar */
+.dropdown-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.dropdown-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dropdown-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dropdown-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dropdown-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+

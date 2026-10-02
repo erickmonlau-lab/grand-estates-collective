@@ -544,7 +544,7 @@ function Index() {
             </div>
 
             {/* Unified Results Controls Bar: Mode Pills + Counter + Sort Dropdown */}
-            <div className="mt-2.5 sm:mt-3 mb-3 flex flex-col md:flex-row md:items-center justify-between gap-3 w-full">
+            <div className="mt-2.5 sm:mt-3 mb-5 sm:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3 w-full">
               {/* Left: Compact tabs (secondary filter pills) */}
               <div className="inline-flex items-center bg-slate-100/90 p-1 rounded-xl border border-slate-200/90 self-start sm:self-auto gap-1">
                 <button
@@ -632,7 +632,7 @@ function Index() {
 
             {/* ── ACTIVE FILTER CHIPS — only when non-default filters applied ── */}
             {(searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio") && (
-              <div className="flex flex-wrap items-center gap-2 mb-3 py-1">
+              <div className="flex flex-wrap items-center gap-2 mb-4 py-1">
                 <span className="text-xs text-slate-500 font-semibold mr-1 shrink-0">
                   {language === "ca" ? "Filtrant per:" : language === "en" ? "Filtering by:" : "Filtrando por:"}
                 </span>
@@ -668,7 +668,7 @@ function Index() {
             )}
 
             {/* Single subtle divider line immediately before cards */}
-            <div className="w-full h-px bg-slate-200 mb-4 sm:mb-5" />
+            <div className="w-full h-px bg-slate-200 mb-5 sm:mb-6" />
 
             {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
             {(() => {

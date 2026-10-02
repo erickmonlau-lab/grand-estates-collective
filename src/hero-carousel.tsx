@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Search, MapPin, Home as HomeIcon, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import heroBgMobileLcp from "@/assets/family_barcelona_mobile_lcp.webp";
+import livingRoomInterior from "@/assets/living_barcelona_interior_opt.webp";
 import { translations } from './data/translations';
 
 interface HeroCarouselProps {
@@ -218,12 +219,31 @@ export default function HeroCarousel({
       className="hero relative text-slate-900 overflow-visible bg-[#f8fafc]"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. FOTOGRAFÍA DE LA PAREJA COMPLETA + FONDO LUMINOSO CONTROLADO ── */}
+      {/* ── 1. DUAL-IMAGE COMPOSITION: HOGAR (IZQUIERDA) + CENTRO LIMPIO + PERSONAS (DERECHA) ── */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
         {/* Fondo base ultra limpio, luminoso y arquitectónico */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9]/70 to-[#e2e8f0]/40" />
 
-        {/* Fotografía de la pareja: visible completa, posicionada elegantemente sin recortar cuerpo ni cabezas */}
+        {/* IMAGEN IZQUIERDA SECUNDARIA: Piso realista de Santa Coloma/Barcelona (salón luminoso con terraza) */}
+        {/* Oculta en móviles (sm:block), presencia ambiental suave (opacity ~35%), fade completo hacia el centro */}
+        <div className="absolute inset-y-0 left-0 w-[42%] xl:w-[46%] 2xl:w-[48%] hidden md:flex items-center justify-start pointer-events-none">
+          <img
+            src={livingRoomInterior}
+            alt="Interior luminoso de piso en Santa Coloma"
+            className="w-full h-full object-cover object-left opacity-[0.32] lg:opacity-[0.38] saturate-[0.85] contrast-[0.95] transition-opacity"
+            loading="lazy"
+            decoding="async"
+            width={960}
+            height={536}
+          />
+          {/* Difuminados perimetrales: fade suave hacia el centro, superior e inferior para evitar bordes duros */}
+          <div className="absolute inset-y-0 right-0 w-44 lg:w-64 xl:w-80 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/85 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
+          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#f8fafc] to-transparent" />
+        </div>
+
+        {/* IMAGEN DERECHA PROTAGONISTA: Pareja sonriente en su nuevo hogar completa */}
         <div className="absolute inset-y-0 right-0 w-full lg:w-[60%] xl:w-[55%] 2xl:w-[50%] flex items-end justify-end pointer-events-none">
           <picture className="w-full h-full block">
             <source media="(max-width: 640px)" srcSet={heroBgMobileLcp} width={360} height={554} />
@@ -246,12 +266,12 @@ export default function HeroCarousel({
           <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/90 to-transparent" />
         </div>
 
-        {/* Difuminado sutil central que asegura 100% de legibilidad en los textos y buscador */}
+        {/* Difuminado radial central que garantiza 100% de limpieza y contraste en titular y buscador */}
         <div
           className="absolute inset-0 hidden sm:block pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse 70% 65% at 38% 38%, rgba(248,250,252,0.96) 0%, rgba(248,250,252,0.85) 50%, rgba(248,250,252,0.30) 80%, transparent 100%)',
+              'radial-gradient(ellipse 65% 65% at 50% 38%, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.88) 45%, rgba(248,250,252,0.25) 80%, transparent 100%)',
           }}
         />
 

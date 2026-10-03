@@ -320,12 +320,12 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-10 sm:pb-18 md:pb-20'
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-20 md:pt-24 flex flex-col items-center text-center ${
+          compactBottom ? 'pb-5 sm:pb-7 md:pb-8' : 'pb-10 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
-        <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">
+        <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[960px]' : 'max-w-[840px]'}`}>
 
           {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
           <div className="mb-3 sm:mb-3.5">
@@ -349,9 +349,9 @@ export default function HeroCarousel({
           {/* H1 Principal */}
           <h1
             className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 ${
-              customHeadline ? 'max-w-[860px] leading-[1.06]' : 'max-w-[780px] leading-[1.06]'
+              customHeadline ? 'max-w-[960px] leading-[1.08]' : 'max-w-[780px] leading-[1.06]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(2.3rem, 5.2vw, 4.4rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(1.9rem, 4.2vw, 3.6rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -373,7 +373,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1100px] mx-auto mt-4 sm:mt-5 mb-7 sm:mb-12 md:mb-14"
+          className="relative z-40 w-full max-w-[1120px] mx-auto mt-3 sm:mt-4 mb-5 sm:mb-7 md:mb-8"
           onClick={(e) => e.stopPropagation()}
         >
 
@@ -416,20 +416,20 @@ export default function HeroCarousel({
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
 
             {/* Selector BARRIO */}
-            <div className="relative flex-[1.25] min-w-0">
+            <div className="relative flex-1 min-w-0">
               <button
                 ref={barrioTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "barrio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("barrio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3.5 sm:px-4 md:px-4.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "barrio"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"
                 }`}
               >
-                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
+                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-0.5">
                   <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
                     <span className="block text-xs sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
@@ -445,7 +445,7 @@ export default function HeroCarousel({
             </div>
 
             {/* Separador vertical sutil */}
-            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
+            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0">
@@ -455,13 +455,13 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "tipo"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3.5 sm:px-4 md:px-4.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "tipo"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"
                 }`}
               >
-                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
+                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-0.5">
                   <HomeIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
                     <span className="block text-xs sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
@@ -477,7 +477,7 @@ export default function HeroCarousel({
             </div>
 
             {/* Separador vertical sutil */}
-            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
+            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector PRECIO */}
             <div className="relative flex-1 min-w-0">
@@ -487,7 +487,7 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "precio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("precio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3.5 sm:px-4 md:px-4.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "precio"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"

@@ -792,7 +792,7 @@ function SantaColomaBarrioPage() {
           }
           customHeadline={
             <>
-              <span className="block text-[#0b214a]">
+              <span className="block text-[#0b214a] sm:whitespace-nowrap">
                 {language === "ca"
                   ? "Administració de Finques,"
                   : language === "en"

@@ -61,9 +61,8 @@ export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
         isScrolling ? "opacity-20 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
       }`}
       style={{
-        position: 'fixed',  // Ensure fixed positioning even before the main CSS loads
-        bottom: 'calc(5rem + env(safe-area-inset-bottom, 0px))',
-        right: 'calc(0.75rem + env(safe-area-inset-right, 0px))'
+        position: 'fixed',
+        zIndex: 40,
       }}
     >
       {/* Tooltip on hover */}

@@ -766,11 +766,14 @@ function SantaColomaBarrioPage() {
 
                 {/* Right: Counter + Sort */}
                 <div className="flex items-center justify-between sm:justify-end gap-5 sm:gap-6 shrink-0 self-stretch sm:self-center">
-                  <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0f172a] font-sans">
-                    <span className="w-2 h-2 rounded-full bg-[#2563eb] inline-block shrink-0" />
-                    <span>
-                      <strong className="text-[#2563eb] font-black">{filteredProperties.length}</strong> {t.properties.availableCount}
+                  <div
+                    className="flex items-center gap-2.5 font-sans"
+                    aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
+                  >
+                    <span className="inline-flex items-center justify-center min-w-[2rem] h-8 px-2 bg-[#2563eb] text-white text-sm font-black rounded-xl shadow-sm shrink-0 tabular-nums">
+                      {filteredProperties.length}
                     </span>
+                    <span className="text-xs sm:text-sm font-bold text-[#0b214a]">{t.properties.availableCount}</span>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
@@ -1049,51 +1052,58 @@ function SantaColomaBarrioPage() {
                     {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
                     {filteredProperties.length === 0 ? (
                       <div>
-                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
-                          <div className="flex items-center gap-3.5">
-                            <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
-                              {searchParams.mode === "favoritos" ? (
-                                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
-                              ) : (
-                                <Search className="w-5 h-5 text-[#2563eb]" />
-                              )}
-                            </div>
-                            <div>
-                              <p className="text-base font-bold text-[#0f172a] leading-snug">
-                                {searchParams.mode === "favoritos"
-                                  ? (language === "ca"
-                                      ? "Encara no tens cap immoble guardat a favorits."
-                                      : language === "en"
-                                      ? "You don't have any properties saved in favorites yet."
-                                      : "Aún no tienes ningún inmueble guardado en favoritos.")
-                                  : (language === "ca"
-                                      ? `No hi ha immobles directes a ${formatLocation(searchParams.zona, language)} amb aquests filtres.`
-                                      : language === "en"
-                                      ? `No properties found directly in ${formatLocation(searchParams.zona, language)} matching these filters.`
-                                      : `No hay inmuebles directamente en ${formatLocation(searchParams.zona, language)} con estos filtros.`)}
-                              </p>
-                              <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-                                {searchParams.mode === "favoritos"
-                                  ? (language === "ca"
-                                      ? "Fes clic a la icona del cor a les propietats que t'agradin per guardar-les aquí, o explora el catàleg a continuació."
-                                      : language === "en"
-                                      ? "Click the heart icon on any property to save it here, or explore the catalog below."
-                                      : "Haz clic en el corazón de las propiedades que te gusten para guardarlas aquí, o explora el catálogo a continuación.")
-                                  : (language === "ca"
-                                      ? "Pots consultar totes les oportunitats actives a Santa Coloma o prémer 'Veure tots'."
-                                      : language === "en"
-                                      ? "You can view other available properties in Santa Coloma or click 'See all'."
-                                      : "Puedes consultar otras oportunidades activas en Santa Coloma o pulsar 'Ver todos'.")}
-                              </p>
-                            </div>
+                        <div
+                          className="flex flex-col items-center justify-center text-center py-12 sm:py-14 px-6 sm:px-10 bg-slate-50 border border-slate-200 rounded-2xl mb-8"
+                          role="status"
+                          aria-live="polite"
+                        >
+                          {/* Icon */}
+                          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-5 shrink-0">
+                            {searchParams.mode === "favoritos" ? (
+                              <Heart className="w-7 h-7 text-red-500 fill-red-500" />
+                            ) : (
+                              <Search className="w-7 h-7 text-[#2563eb]" />
+                            )}
                           </div>
+
+                          {/* Main message */}
+                          <p className="text-lg sm:text-xl font-black text-[#0f172a] mb-2 leading-snug max-w-sm">
+                            {searchParams.mode === "favoritos"
+                              ? (language === "ca"
+                                  ? "Encara no tens cap immoble guardat."
+                                  : language === "en"
+                                  ? "No saved properties yet."
+                                  : "Aún no tienes inmuebles guardados.")
+                              : (language === "ca"
+                                  ? "No hem trobat immobles amb aquests filtres."
+                                  : language === "en"
+                                  ? "No properties found with these filters."
+                                  : "No encontramos inmuebles con estos filtros.")}
+                          </p>
+
+                          {/* Secondary message */}
+                          <p className="text-sm text-slate-500 font-medium mb-7 max-w-xs leading-relaxed">
+                            {searchParams.mode === "favoritos"
+                              ? (language === "ca"
+                                  ? "Fes clic al cor de qualsevol immoble per guardar-lo aquí."
+                                  : language === "en"
+                                  ? "Tap the heart on any property to save it here."
+                                  : "Pulsa el corazón de cualquier propiedad para guardarla aquí.")
+                              : (language === "ca"
+                                  ? "Prova una altra zona, tipus o rang de preu."
+                                  : language === "en"
+                                  ? "Try another zone, type or price range."
+                                  : "Prueba otra zona, tipo o rango de precio.")}
+                          </p>
+
+                          {/* CTA */}
                           <button
                             type="button"
                             onClick={() => {
                               setSearchParams({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                               heroResetRef.current?.();
                             }}
-                            className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer font-sans"
+                            className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-7 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer font-sans"
                           >
                             {language === "ca" ? "Veure catàleg" : language === "en" ? "View catalog" : "Ver catálogo"}
                           </button>

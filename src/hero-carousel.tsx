@@ -17,6 +17,8 @@ interface HeroCarouselProps {
   initialBarrio?: string;
   /** Parent stores a reset function that restores hero to default state */
   onRegisterReset?: (resetFn: () => void) => void;
+  /** Reduce bottom padding when an external MarqueeRibbon immediately follows the hero */
+  compactBottom?: boolean;
 }
 
 const BARRIOS = [
@@ -72,6 +74,7 @@ export default function HeroCarousel({
   customSubtitle,
   initialBarrio,
   onRegisterReset,
+  compactBottom = false,
 }: HeroCarouselProps) {
   const t = translations[language];
 
@@ -316,7 +319,9 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 pb-10 sm:pb-18 md:pb-20 flex flex-col items-center text-center"
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-10 sm:pb-18 md:pb-20'
+        }`}
       >
         {/* Bloque de marca y titular centrado */}
         <div className="relative z-10 w-full max-w-[840px] mx-auto flex flex-col items-center text-center">

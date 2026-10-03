@@ -647,9 +647,9 @@ function SantaColomaBarrioPage() {
       precio: p.precio,
       habitaciones: "Cualquier número"
     });
-    const el = document.getElementById("propiedades");
+    const el = document.getElementById("properties-results") || document.getElementById("propiedades");
     if (el) {
-      const navOffset = window.innerWidth < 768 ? 90 : 130;
+      const navOffset = window.innerWidth < 768 ? 70 : 80;
       const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
     }
@@ -813,6 +813,7 @@ function SantaColomaBarrioPage() {
               : `Cuidamos de tu comunidad en ${data.name} con criterio local, máxima transparencia y un equipo que responde.`
           }
           customValuationHref="#valuator-form"
+          compactBottom
         />
 
         {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (LÍMITE INFERIOR NATURAL DEL HERO CANÓNICO) ── */}
@@ -1478,6 +1479,7 @@ function SantaColomaBarrioPage() {
                     {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
                     <AnimatePresence mode="wait">
                       <motion.div
+                        id="properties-results"
                         key={searchParams.mode}
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}

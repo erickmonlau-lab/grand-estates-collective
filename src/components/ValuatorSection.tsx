@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Ruler, Home, ArrowRight, ChevronDown, Check, Star } from "lucide-react";
+import { MapPin, Ruler, Home, ArrowRight, ChevronDown, Check, Star, Zap, CheckCircle2 } from "lucide-react";
 import { formatLocation } from "@/data/properties";
 
 interface ValuatorSectionProps {
@@ -125,16 +125,13 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
             }}
           >
             {/* Cabecera visual azul sólida: DATOS DE TU VIVIENDA */}
-            <div className="bg-[#2563eb] text-white px-5 sm:px-7 py-3 flex items-center justify-between">
+            <div className="bg-[#2563eb] text-white px-5 sm:px-7 py-3.5 flex items-center">
               <div className="flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-white shrink-0" />
-                <h3 className="text-[15px] sm:text-[16px] font-extrabold uppercase tracking-widest text-white font-sans">
+                <Home className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
+                <h3 className="text-[17px] sm:text-[19px] font-extrabold tracking-wide text-white font-sans uppercase">
                   {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
                 </h3>
               </div>
-              <span className="text-[12px] font-bold text-white/90 uppercase tracking-wider font-sans">
-                {language === "ca" ? "PAS 1" : language === "en" ? "STEP 1" : "PASO 1"}
-              </span>
             </div>
 
             {/* Contenido formulario — Compacto y sin espacio muerto */}
@@ -180,7 +177,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   <label htmlFor="valuator-metros-input" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
                     {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
                   </label>
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-2">
                     <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                     <input
                       id="valuator-metros-input"
@@ -193,7 +190,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
                     <span 
-                      className="text-[13px] font-bold text-[#0b214a] px-2.5 py-0.5 rounded-md shrink-0 font-sans"
+                      className="text-[14px] font-black text-[#0b214a] px-2.5 py-1 rounded-[8px] shrink-0 font-sans tracking-tight"
                       style={{ 
                         backgroundColor: "#F4F7FC",
                         border: "1px solid #CBD6E5"
@@ -217,16 +214,37 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 <ArrowRight className="w-5 h-5 text-white shrink-0" />
               </button>
 
-              {/* Trust Guarantees — Directamente debajo del botón */}
-              <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans px-1 pt-0.5">
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                  {t.valorador.sinCompromiso}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                  {t.valorador.resultadoInmediato}
-                </span>
+              {/* Sellos de Beneficios Comerciales — Dos bloques destacados visualmente */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5">
+                <div 
+                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] shadow-xs"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #CBD6E5"
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#F4F7FC] border border-[#CBD6E5] flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
+                  </div>
+                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">
+                    {t.valorador.sinCompromiso}
+                  </span>
+                </div>
+
+                <div 
+                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] shadow-xs"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #CBD6E5"
+                  }}
+                >
+                  <div className="w-7 h-7 rounded-lg bg-[#F4F7FC] border border-[#CBD6E5] flex items-center justify-center shrink-0">
+                    <Zap className="w-4 h-4 text-[#2563eb] stroke-[2.5] fill-[#2563eb]" />
+                  </div>
+                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">
+                    {t.valorador.resultadoInmediato}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

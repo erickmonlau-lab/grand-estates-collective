@@ -200,6 +200,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://gesgrama.com/og-image.png" },
     ],
     links: [
+      // ── Critical font preloads: fetched before CSS is parsed ─────────────
+      { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
+      { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
+      // ── Hero LCP image preloads ───────────────────────────────────────────
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },

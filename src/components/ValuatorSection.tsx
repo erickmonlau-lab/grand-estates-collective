@@ -318,15 +318,26 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               <p className="text-sm sm:text-base font-bold text-white font-sans">
                 <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
               </p>
+
+              {/* Texto explicativo post-cálculo con tamaño legible */}
+              {hasCalculated && (
+                <p className="text-[13px] sm:text-[14px] text-sky-200 font-semibold font-sans mt-2.5">
+                  {language === "ca"
+                    ? "Estimació orientativa basada en la teva zona i superfície."
+                    : language === "en"
+                    ? "Indicative estimate based on your area and size."
+                    : "Estimación orientativa basada en tu zona y superficie."}
+                </p>
+              )}
             </div>
 
             {/* Bloque Inferior: Divisor Sólido + CTA Comercial + Cláusula Legal */}
-            <div className="w-full mt-3 pt-3 border-t border-[#1D4ED8] flex flex-col items-center">
+            <div className="w-full mt-3 pt-3.5 border-t border-[#1D4ED8] flex flex-col items-center">
               <a
                 href={`https://wa.me/34689438012?text=${contactText}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full max-w-[400px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans shadow-sm"
+                className="w-full max-w-[420px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm py-3.5 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans shadow-sm"
               >
                 <span>
                   {language === "ca" 
@@ -338,8 +349,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 <ArrowRight className="w-4 h-4 text-white shrink-0" />
               </a>
 
-              {/* Cláusula legal única de máximo 2 líneas */}
-              <p className="text-[11px] text-slate-300 font-medium font-sans mt-2 leading-tight text-center max-w-[400px] mx-auto">
+              {/* Cláusula legal con mayor tamaño y legibilidad (13px-14px) */}
+              <p className="text-[13px] sm:text-[13.5px] text-slate-200 font-medium font-sans mt-2.5 leading-snug text-center max-w-[440px] mx-auto">
                 {language === "ca" ? (
                   <>Estimació orientativa basada en dades de mercat.<br className="hidden sm:inline" /> No constitueix una taxació oficial.</>
                 ) : language === "en" ? (

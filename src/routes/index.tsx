@@ -487,8 +487,8 @@ function Index() {
         />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
-        <div id="catalogo-inmuebles" className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-5 sm:p-7 md:p-8 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 scroll-mt-20 md:scroll-mt-24">
+      <section id="seccion-propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400">
+        <div id="propiedades" className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-5 sm:p-7 md:p-8 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 scroll-mt-20 md:scroll-mt-24">
           <div>
             {/* Header: Badge + H2 + Description with balanced spacing */}
             <div className="mb-4 sm:mb-5">

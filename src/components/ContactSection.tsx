@@ -57,11 +57,11 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
           {/* LEFT COLUMN: Title & Image Overlay Card */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             <div className="w-full">
-              <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
+              <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-5 sm:mb-6 w-fit">
                 {t.contacto.badge}
               </span>
               
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2.5 font-sans">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-[1.2] sm:leading-[1.18] tracking-tight mb-5 sm:mb-6 font-sans">
                 {t.contacto.title1.startsWith("¿") ? (
                   <>
                     <span className="mr-1 inline-block">¿</span>
@@ -78,7 +78,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 )}
               </h2>
               
-              <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-4 font-bold leading-snug font-sans">
+              <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-7 sm:mb-8 font-bold leading-relaxed font-sans max-w-xl">
                 {t.contacto.subtitle}
               </p>
 

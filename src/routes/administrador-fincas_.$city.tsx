@@ -1807,10 +1807,10 @@ function SantaColomaBarrioPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
               <div className="lg:col-span-5 flex flex-col justify-center">
                 <Reveal>
-                  <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
+                  <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-5 sm:mb-6 w-fit">
                     {t.contacto.badge}
                   </span>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-3 leading-tight tracking-tight font-sans">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-5 sm:mb-6 leading-[1.2] sm:leading-[1.18] tracking-tight font-sans">
                     {t.contacto.title1.startsWith("¿") ? (
                       <>
                         <span className="mr-1 inline-block">¿</span>
@@ -1833,7 +1833,7 @@ function SantaColomaBarrioPage() {
                       </svg>
                     </span>
                   </h2>
-                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-bold font-sans mb-6">
+                  <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-bold font-sans mb-7 sm:mb-8 max-w-xl">
                     {language === "ca" 
                       ? `Necessites un gestor a ${data.name}? Deixa'ns les teves dades i t'atendrem immediatament.`
                       : language === "en"

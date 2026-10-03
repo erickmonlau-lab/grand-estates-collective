@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import { MapPin, MessageCircle, ArrowRight } from "lucide-react";
 import { formatLocation } from "@/data/properties";
 
@@ -59,19 +60,31 @@ export default function CoberturaSection({ language, t }: CoberturaSectionProps)
             </p>
             <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 max-w-lg">
               {[
-                "Centro",
-                "Singuerlín",
-                "Santa Rosa - Can Mariner",
-                "Fondo",
-                "Riera Alta - Llatí",
-                "El Raval",
-                "Riu Nord / Riu Sud",
-                "Oliveres - Can Serra"
+                { name: "Centro", slug: "centre" },
+                { name: "Singuerlín", slug: "singuerlin" },
+                { name: "Santa Rosa", slug: "santa-rosa" },
+                { name: "Can Mariner", slug: "can-mariner" },
+                { name: "Fondo", slug: "fondo" },
+                { name: "Riera Alta", slug: "riera-alta" },
+                { name: "Llatí", slug: "llati" },
+                { name: "El Raval", slug: "el-raval" },
+                { name: "Riu Nord", slug: "riu-nord" },
+                { name: "Riu Sud", slug: "riu-sud" },
+                { name: "Oliveres", slug: "les-oliveres" },
+                { name: "Can Franquesa", slug: "can-franquesa" },
+                { name: "La Guinardera", slug: "la-guinardera" },
+                { name: "Cementiri Vell", slug: "cementiri-vell" }
               ].map((barrio) => (
-                <span key={barrio} className="bg-white text-slate-950 text-[11px] sm:text-xs font-black px-2.5 sm:px-3 py-1 rounded-full border border-slate-300 shadow-2xs hover:border-white hover:bg-blue-50 transition-all flex items-center gap-1 cursor-default">
+                <Link
+                  key={barrio.slug}
+                  to="/administrador-fincas/$city"
+                  params={{ city: barrio.slug }}
+                  title={`Administrador de fincas en ${barrio.name}, Santa Coloma de Gramenet`}
+                  className="bg-white text-slate-950 text-[11px] sm:text-xs font-black px-2.5 sm:px-3 py-1 rounded-full border border-slate-300 shadow-2xs hover:border-[#2563eb] hover:bg-blue-50 transition-all flex items-center gap-1 cursor-pointer"
+                >
                   <MapPin className="w-3 h-3 text-[#2563eb] shrink-0" />
-                  <span>{formatLocation(barrio, language)}</span>
-                </span>
+                  <span>{formatLocation(barrio.name, language)}</span>
+                </Link>
               ))}
             </div>
 

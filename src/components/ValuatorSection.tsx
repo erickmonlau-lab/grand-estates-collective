@@ -86,7 +86,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-9 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
         
         {/* Header Kicker */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-7 pb-6 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-7 pb-6 border-b border-slate-200">
           <div className="flex flex-col items-start max-w-xl">
             <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full shadow-xs mb-3 font-sans">
               <Star className="w-3.5 h-3.5 fill-white" />
@@ -102,7 +102,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               )}
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-xl leading-[1.4] md:pt-2 [text-wrap:balance]">
+          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-xl leading-[1.4] md:pb-1.5 [text-wrap:balance]">
             {language === "ca" ? (
               <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
             ) : language === "en" ? (
@@ -190,10 +190,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
                     <span 
-                      className="text-[14px] font-black text-[#0b214a] px-2.5 py-1 rounded-[8px] shrink-0 font-sans tracking-tight"
+                      className="text-[14px] font-extrabold text-[#0b214a] px-2.5 py-1 rounded-[8px] shrink-0 font-sans tracking-tight"
                       style={{ 
-                        backgroundColor: "#F4F7FC",
-                        border: "1px solid #CBD6E5"
+                        backgroundColor: "#FFFFFF",
+                        border: "1.5px solid #CBD6E5"
                       }}
                     >
                       m²
@@ -223,7 +223,13 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                     border: "1px solid #CBD6E5"
                   }}
                 >
-                  <div className="w-7 h-7 rounded-lg bg-[#F4F7FC] border border-[#CBD6E5] flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "1.5px solid #CBD6E5"
+                    }}
+                  >
                     <CheckCircle2 className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
                   </div>
                   <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">
@@ -238,7 +244,13 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                     border: "1px solid #CBD6E5"
                   }}
                 >
-                  <div className="w-7 h-7 rounded-lg bg-[#F4F7FC] border border-[#CBD6E5] flex items-center justify-center shrink-0">
+                  <div 
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "1.5px solid #CBD6E5"
+                    }}
+                  >
                     <Zap className="w-4 h-4 text-[#2563eb] stroke-[2.5] fill-[#2563eb]" />
                   </div>
                   <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">

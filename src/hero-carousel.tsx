@@ -322,16 +322,16 @@ export default function HeroCarousel({
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
         className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-24 sm:pb-18 md:pb-20'
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-8 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
         <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[840px]'}`}>
 
           {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
-          <div className="mb-3 sm:mb-3.5">
-            <span className="inline-flex items-center gap-2 sm:gap-2.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-[0.16em] pl-1.5 sm:pl-2 pr-4 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30">
-              <span className="h-6 sm:h-7 md:h-7.5 w-auto px-1.5 py-0.5 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
+          <div className="mb-2.5 sm:mb-3.5">
+            <span className="inline-flex items-center gap-1.5 sm:gap-2.5 bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.14em] sm:tracking-[0.16em] pl-1.5 sm:pl-2 pr-3.5 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30 max-w-full">
+              <span className="h-5 sm:h-7 md:h-7.5 w-auto px-1.5 py-0.5 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
                 <img
                   src="/images/gesgrama-emblem-badge.webp"
                   alt="Gesgrama"
@@ -343,30 +343,30 @@ export default function HeroCarousel({
                   aria-hidden="true"
                 />
               </span>
-              <span>{customTag || L.tag}</span>
+              <span className="truncate">{customTag || L.tag}</span>
             </span>
           </div>
 
           {/* H1 Principal */}
           <h1
-            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 leading-[1.06] ${
+            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-2.5 sm:mb-3.5 leading-[1.02] sm:leading-[1.06] text-balance ${
               customHeadline ? 'max-w-[1000px]' : 'max-w-[780px]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(2.1rem, 4.8vw, 4.1rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(1.95rem, 4.8vw, 4.1rem)' : 'clamp(2.15rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
             ) : (
               <>
                 <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                <span className="text-[#2563eb] block mt-1">{L.titleLine2}</span>
+                <span className="text-[#2563eb] block mt-0.5 sm:mt-1">{L.titleLine2}</span>
               </>
             )}
           </h1>
 
           {/* Subtítulo: tipografía sans limpia, navy muy oscuro / negro (#0b214a), font-semibold (600), legible, generoso line-height */}
           <p
-            className="text-[#0b214a] font-sans font-semibold text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-2"
+            className="text-[#0b214a] font-sans font-semibold text-[15px] sm:text-lg md:text-[19px] leading-snug sm:leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-1 sm:mb-2"
           >
             {customSubtitle || L.subtitle}
           </p>
@@ -379,17 +379,17 @@ export default function HeroCarousel({
         >
 
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] grid grid-cols-2 sm:flex sm:flex-row sm:items-center p-2 sm:p-3 gap-1 sm:gap-0 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"
+            className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-3 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"
           >
-            {/* Toggle Comprar / Alquilar */}
-            <div className="col-span-2 flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
+            {/* Toggle Comprar / Alquilar (En móvil: ancho 100% equilibrado 50%/50%) */}
+            <div className="w-full sm:w-auto flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1 mb-2.5 sm:mb-0">
               <button
                 type="button"
                 onClick={() => {
                   setMode("comprar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`px-4 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`flex-1 sm:flex-none px-4 sm:px-6 md:px-7 py-2 sm:py-3 rounded-lg sm:rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none text-center whitespace-nowrap ${
                   mode === "comprar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-[#0b214a]"
@@ -403,7 +403,7 @@ export default function HeroCarousel({
                   setMode("alquilar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`px-4 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none whitespace-nowrap ${
+                className={`flex-1 sm:flex-none px-4 sm:px-6 md:px-7 py-2 sm:py-3 rounded-lg sm:rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none text-center whitespace-nowrap ${
                   mode === "alquilar"
                     ? "bg-[#2563eb] text-white shadow-sm"
                     : "text-slate-600 hover:text-[#0b214a]"
@@ -413,82 +413,82 @@ export default function HeroCarousel({
               </button>
             </div>
 
-            {/* Separador vertical sutil */}
+            {/* Separador vertical sutil para desktop */}
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
 
             {/* Selector BARRIO */}
-            <div className="relative sm:flex-1 min-w-0 border-r border-slate-200 sm:border-0">
+            <div className="relative flex-1 min-w-0 border-b border-slate-100 sm:border-b-0 pb-1.5 sm:pb-0 mb-1.5 sm:mb-0">
               <button
                 ref={barrioTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "barrio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("barrio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "barrio"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"
                 }`}
               >
-                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-0.5">
+                <div className="flex items-center gap-2.5 sm:gap-2.5 min-w-0 pr-1">
                   <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-xs sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
                       {L.neighborhood}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
                       {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : formatLocation(barrio, language || "es")}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
               </button>
             </div>
 
-            {/* Separador vertical sutil */}
+            {/* Separador vertical sutil para desktop */}
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector TIPO */}
-            <div className="relative sm:flex-1 min-w-0">
+            <div className="relative flex-1 min-w-0 border-b border-slate-100 sm:border-b-0 pb-1.5 sm:pb-0 mb-1.5 sm:mb-0">
               <button
                 ref={tipoTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "tipo"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "tipo"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"
                 }`}
               >
-                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 pr-0.5">
+                <div className="flex items-center gap-2.5 sm:gap-2.5 min-w-0 pr-1">
                   <HomeIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-xs sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
                       {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol" : language === "en" ? "Any" : "Cualquiera") : tipo}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
               </button>
             </div>
 
-            {/* Separador vertical sutil */}
+            {/* Separador vertical sutil para desktop */}
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector PRECIO */}
-            <div className="relative sm:flex-1 min-w-0 border-r border-slate-200 sm:border-0">
+            <div className="relative flex-1 min-w-0 mb-2.5 sm:mb-0">
               <button
                 ref={precioTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "precio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("precio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
                   openDrop === "precio"
                     ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
                     : "border-transparent hover:bg-slate-50/80"
@@ -497,23 +497,23 @@ export default function HeroCarousel({
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
                   <Tag className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
                   <div className="min-w-0">
-                    <span className="block text-xs sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
                       {L.price}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
                       {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquiera") : precio}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
               </button>
             </div>
 
-            {/* Botón BUSCAR */}
+            {/* Botón BUSCAR (100% en móvil, tamaño proporcional en desktop) */}
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-8 md:px-9 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-bold text-sm sm:text-[15px] md:text-base uppercase tracking-wider inline-flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
+              className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-8 md:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-bold text-sm sm:text-[15px] md:text-base uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
             >
               <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.5] text-white shrink-0" />
               <span className="leading-none">{L.search}</span>
@@ -592,11 +592,11 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-6 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-2 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
             <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
@@ -604,8 +604,8 @@ export default function HeroCarousel({
                 <Users className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
+                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
@@ -615,8 +615,8 @@ export default function HeroCarousel({
                 <ThumbsUp className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
+                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
@@ -626,8 +626,8 @@ export default function HeroCarousel({
                 <Building2 className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
+                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
@@ -637,8 +637,8 @@ export default function HeroCarousel({
                 <User className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
+                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

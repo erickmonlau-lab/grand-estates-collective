@@ -4,6 +4,7 @@ import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, Thumb
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
+import { formatLocation } from './data/properties';
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -348,9 +349,9 @@ export default function HeroCarousel({
           {/* H1 Principal */}
           <h1
             className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 ${
-              customHeadline ? 'max-w-[920px] leading-[1.1]' : 'max-w-[780px] leading-[1.06]'
+              customHeadline ? 'max-w-[860px] leading-[1.06]' : 'max-w-[780px] leading-[1.06]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(1.6rem, 3.4vw, 2.9rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(2.3rem, 5.2vw, 4.4rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -415,7 +416,7 @@ export default function HeroCarousel({
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
 
             {/* Selector BARRIO */}
-            <div className="relative flex-1 min-w-0">
+            <div className="relative flex-[1.25] min-w-0">
               <button
                 ref={barrioTriggerRef}
                 type="button"
@@ -435,7 +436,7 @@ export default function HeroCarousel({
                       {L.neighborhood}
                     </span>
                     <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-1">
-                      {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : barrio}
+                      {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : formatLocation(barrio, language || "es")}
                     </span>
                   </div>
                 </div>

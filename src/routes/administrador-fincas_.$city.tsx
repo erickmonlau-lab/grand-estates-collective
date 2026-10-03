@@ -792,7 +792,7 @@ function SantaColomaBarrioPage() {
           }
           customHeadline={
             <>
-              <span className="block">
+              <span className="block text-[#0b214a]">
                 {language === "ca"
                   ? "Administració de Finques,"
                   : language === "en"
@@ -800,8 +800,7 @@ function SantaColomaBarrioPage() {
                   : "Administración de Fincas,"}
               </span>
               <span className="text-[#2563eb] block mt-1">
-                {language === "ca" ? "a " : language === "en" ? "in " : "en "}
-                {data.name} · Santa&nbsp;Coloma
+                {language === "ca" ? `a ${data.name}.` : language === "en" ? `in ${data.name}.` : `en ${data.name}.`}
               </span>
             </>
           }

@@ -69,7 +69,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       });
       setIsCalculatingValuation(false);
       setHasCalculated(true);
-    }, 600);
+    }, 320);
   };
 
   const contactText = encodeURIComponent(
@@ -200,15 +200,21 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 </div>
               </div>
 
-              {/* Botón Calcular — Inmediatamente después de los inputs */}
+              {/* Botón Calcular / Actualizar */}
               <button
                 type="button"
                 onClick={handleCalculateValuation}
                 disabled={isCalculatingValuation}
-                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-base sm:text-[17px] py-4 px-6 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider font-sans disabled:opacity-75 shadow-xs"
+                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-base sm:text-[17px] py-4 px-6 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider font-sans disabled:opacity-85 shadow-xs select-none"
               >
                 <Home className="w-5 h-5 text-white shrink-0" />
-                <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
+                <span>
+                  {isCalculatingValuation
+                    ? (language === "ca" ? "CALCULANT..." : language === "en" ? "CALCULATING..." : "CALCULANDO...")
+                    : hasCalculated
+                    ? (language === "ca" ? "ACTUALITZAR VALORACIÓ" : language === "en" ? "UPDATE VALUATION" : "ACTUALIZAR VALORACIÓN")
+                    : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}
+                </span>
                 <ArrowRight className="w-5 h-5 text-white shrink-0" />
               </button>
 
@@ -238,38 +244,57 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
           {/* RIGHT: RESULT PANEL — NAVY GESGRAMA SÓLIDO (#0B1733), equilibrado verticalmente */}
           <div className="lg:col-span-6 flex flex-col justify-center">
             <div 
-              className="rounded-2xl sm:rounded-3xl p-6 sm:p-7 text-center relative overflow-hidden flex flex-col items-center justify-between h-full min-h-[340px] text-white"
+              className="rounded-2xl sm:rounded-3xl p-6 sm:p-7 text-center relative overflow-hidden flex flex-col items-center justify-between h-full min-h-[340px] text-white transition-all duration-300"
               style={{
                 backgroundColor: "#0B1733",
                 border: "2px solid #2563eb"
               }}
             >
               
-              {/* Spinner while recalculating — Fondo sólido #0B1733 */}
-              <AnimatePresence>
-                {isCalculatingValuation && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6"
-                    style={{ backgroundColor: "#0B1733" }}
-                  >
-                    <div className="w-10 h-10 border-4 border-[#2563eb] border-t-white rounded-full animate-spin mb-3" />
-                    <p className="text-sm font-bold text-white font-sans">{t.valorador.calculando}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* Calculating State Overlay — ligero, sin spinner gigante, discreto */}
+              {isCalculatingValuation && (
+                <div 
+                  className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1733]/90 backdrop-blur-[2px] transition-opacity duration-200"
+                >
+                  <div className="w-8 h-8 border-3 border-[#2563eb] border-t-white rounded-full animate-spin mb-2.5" />
+                  <span className="text-xs sm:text-sm font-extrabold text-white tracking-widest uppercase font-sans">
+                    {language === "ca" ? "CALCULANT..." : language === "en" ? "CALCULATING..." : "CALCULANDO..."}
+                  </span>
+                </div>
+              )}
 
               {/* 1. Header label + Price Block */}
               <div className="w-full flex flex-col items-center">
-                <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-white bg-[#2563eb] px-6 py-1.5 rounded-full mb-2 font-sans">
-                  {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
-                </span>
+                {/* Badge contextual: Estado Inicial vs Estado Calculado */}
+                {hasCalculated ? (
+                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-black uppercase tracking-wider text-white bg-[#2563eb] px-5 py-1.5 rounded-full mb-1.5 font-sans shadow-sm transition-all duration-300">
+                    <Check className="w-4 h-4 text-white stroke-[3.5]" />
+                    <span>{language === "ca" ? "VALORACIÓ CALCULADA" : language === "en" ? "VALUATION CALCULATED" : "VALORACIÓN CALCULADA"}</span>
+                  </span>
+                ) : (
+                  <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-slate-200 bg-[#2563eb]/30 border border-[#2563eb]/60 px-5 py-1.5 rounded-full mb-1.5 font-sans transition-all duration-300">
+                    {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
+                  </span>
+                )}
 
-                {/* Dominant Price Number */}
-                <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-2 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
+                {/* Subtítulo orientativo previo a calcular */}
+                {!hasCalculated && (
+                  <p className="text-[12px] sm:text-[13px] text-slate-300 font-semibold font-sans mb-1 transition-opacity duration-300">
+                    {language === "ca"
+                      ? "Calcula per obtenir la teva estimació"
+                      : language === "en"
+                      ? "Calculate to get your estimate"
+                      : "Calcula para obtener tu estimación"}
+                  </p>
+                )}
+
+                {/* Dominant Price Number with subtle smooth transition */}
+                <div 
+                  className={`text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-2 font-heading transition-opacity duration-200 ${
+                    isCalculatingValuation ? "opacity-30" : "opacity-100"
+                  }`} 
+                  style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}
+                >
                   <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
                   <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
                 </div>
@@ -278,6 +303,17 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 <p className="text-base sm:text-lg md:text-[19px] font-bold text-white font-sans mt-0.5">
                   <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
                 </p>
+
+                {/* Texto de resultado post-cálculo */}
+                {hasCalculated && (
+                  <p className="text-[12px] sm:text-[13px] text-sky-200 font-medium font-sans mt-2 transition-all duration-300">
+                    {language === "ca"
+                      ? "Estimació orientativa basada en la teva zona i superfície."
+                      : language === "en"
+                      ? "Indicative estimate based on your area and size."
+                      : "Estimación orientativa basada en tu zona y superficie."}
+                  </p>
+                )}
               </div>
 
               {/* 2. Divisor sólido azul + CTA + Nota Legal */}
@@ -289,7 +325,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   href={`https://wa.me/34689438012?text=${contactText}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full max-w-[420px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans"
+                  className="w-full max-w-[420px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans shadow-sm"
                 >
                   <span>
                     {language === "ca" 

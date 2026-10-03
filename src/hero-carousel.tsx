@@ -178,7 +178,12 @@ export default function HeroCarousel({
       setDropCoords(null);
     };
 
-    const handleScrollOrResize = () => {
+    const handleScroll = () => {
+      setOpenDrop(null);
+      setDropCoords(null);
+    };
+
+    const handleResize = () => {
       if (openDrop === "barrio" && barrioTriggerRef.current) {
         setDropCoords(calculateCoords(barrioTriggerRef.current));
       } else if (openDrop === "tipo" && tipoTriggerRef.current) {
@@ -193,14 +198,14 @@ export default function HeroCarousel({
 
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("scroll", handleScrollOrResize, { passive: true });
-    window.addEventListener("resize", handleScrollOrResize, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("scroll", handleScrollOrResize);
-      window.removeEventListener("resize", handleScrollOrResize);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, [openDrop]);
 

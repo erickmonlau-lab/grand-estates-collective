@@ -817,6 +817,9 @@ function SantaColomaBarrioPage() {
           customValuationHref="#valuator-form"
         />
 
+        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (LÍMITE INFERIOR NATURAL DEL HERO CANÓNICO) ── */}
+        <MarqueeRibbon language={language} />
+
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
         <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-28 md:scroll-mt-32">
           <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10">

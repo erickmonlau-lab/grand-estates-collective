@@ -812,7 +812,6 @@ function SantaColomaBarrioPage() {
               : `Cuidamos de tu comunidad en ${data.name} con criterio local, máxima transparencia y un equipo que responde.`
           }
           customValuationHref="#valuator-form"
-          compactBottom
         />
 
         {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (LÍMITE INFERIOR NATURAL DEL HERO CANÓNICO) ── */}

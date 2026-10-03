@@ -365,15 +365,15 @@ function ArticleDetail() {
       {/* SHARED CANONICAL NAVY NAVBAR */}
       <Navbar language={language} setLanguage={changeLanguage} />
 
-      {/* MAIN ARTICLE CONTENT WRAPPED IN EDITORIAL CONTAINER */}
-      <main className="pt-28 sm:pt-32 md:pt-36 pb-20 px-4 sm:px-6 max-w-[860px] mx-auto">
-        <div className="bg-white rounded-[24px] sm:rounded-[32px] shadow-xl border border-slate-200/80 overflow-hidden p-5 sm:p-8 md:p-11">
+      {/* MAIN ARTICLE CONTENT WRAPPED IN EDITORIAL CONTAINER UNIFIED WITH HOME (max-w-[1320px]) */}
+      <main className="pt-28 sm:pt-32 md:pt-36 pb-20 px-3 sm:px-4 md:px-0 max-w-[1320px] mx-auto">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 overflow-hidden p-5 sm:p-8 md:p-12 lg:p-14">
           
           {/* HEADER BACK BUTTON & SHARE ACTIONS INSIDE CONTENT CARD */}
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div className="mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5">
             <Link 
               to="/" 
-              className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 py-2.5 rounded-full shadow-md transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md transition-all duration-200 hover:scale-[1.02]"
             >
               <ArrowLeft className="w-4 h-4 text-white" /> {t.detail.back}
             </Link>
@@ -383,17 +383,17 @@ function ArticleDetail() {
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 py-2 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-4 py-2.5 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
                 title="Compartir por WhatsApp"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5 fill-white shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
                 <span className="hidden sm:inline">WhatsApp</span>
               </a>
 
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-4 sm:px-5 py-2 rounded-full border border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-4 sm:px-5 py-2.5 rounded-full border border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
                 title={t.detail.shareTitle}
               >
                 {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
@@ -447,13 +447,13 @@ function ArticleDetail() {
             </span>
           </div>
 
-          {/* TITLE (H1) - EDITORIAL IMPACTFUL TITLE */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-slate-900 leading-[1.22] mb-5 tracking-tight font-sans">
+          {/* TITLE (H1) - EDITORIAL IMPACTFUL TITLE LEVERAGING BUBBLE WIDTH */}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-black text-slate-900 leading-[1.2] mb-6 sm:mb-8 tracking-tight font-sans max-w-4xl">
             {content.title}
           </h1>
 
-          {/* FEATURED HERO IMAGE WITH COMPACT EDITORIAL RATIO */}
-          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-6 shadow-md border border-slate-200/80 aspect-[16/9] max-h-[380px] w-full bg-slate-100">
+          {/* FEATURED HERO IMAGE APROVECHANDO LA AMPLITUD DEL BUBBLE */}
+          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 sm:mb-10 shadow-md border border-slate-200/80 aspect-[16/9] max-h-[520px] w-full bg-slate-100">
             <img
               src={article.image}
               alt={content.title}
@@ -462,28 +462,30 @@ function ArticleDetail() {
             />
           </div>
 
-          {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
-          <div className="mb-7 p-4 sm:p-6 rounded-2xl bg-blue-50/90 border-l-4 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-3.5 sm:gap-4">
-            <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-              <BookOpen className="w-4.5 h-4.5" />
+          {/* CONTROLLED EDITORIAL READING COLUMN (780px - 820px) PARA MÁXIMO CONFORT DE LECTURA */}
+          <div className="max-w-[820px] mx-auto">
+            {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
+            <div className="mb-7 p-4 sm:p-6 rounded-2xl bg-blue-50/90 border-l-4 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <BookOpen className="w-4.5 h-4.5" />
+              </div>
+              <div>
+                <span className="inline-block px-3 py-0.5 rounded-full bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider mb-1.5 font-sans shadow-xs">
+                  {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
+                </span>
+                <p className="text-sm sm:text-base md:text-[17px] font-extrabold text-slate-900 leading-relaxed font-sans">
+                  {content.summary}
+                </p>
+              </div>
             </div>
-            <div>
-              <span className="inline-block px-3 py-0.5 rounded-full bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider mb-1.5 font-sans shadow-xs">
-                {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
-              </span>
-              <p className="text-sm sm:text-base md:text-[17px] font-extrabold text-slate-900 leading-relaxed font-sans">
-                {content.summary}
-              </p>
+
+            {/* INTRO SUMMARY CALLOUT */}
+            <div className="p-5 sm:p-7 rounded-2xl bg-slate-50 border-l-4 border-slate-400 text-slate-800 font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans shadow-xs">
+              {highlightKeyText(content.intro)}
             </div>
-          </div>
 
-          {/* INTRO SUMMARY CALLOUT */}
-          <div className="p-5 sm:p-7 rounded-2xl bg-slate-50 border-l-4 border-slate-400 text-slate-800 font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans shadow-xs">
-            {highlightKeyText(content.intro)}
-          </div>
-
-          {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY FOR LIGHTHOUSE/PAGESPEED) */}
-          <div className="prose prose-lg max-w-none text-slate-700 space-y-8 font-sans">
+            {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY FOR LIGHTHOUSE/PAGESPEED) */}
+            <div className="prose prose-lg max-w-none text-slate-700 space-y-8 font-sans">
             {content.sections.map((sec, idx) => (
               <section key={idx} className="space-y-4">
                 {sec.level === "h2" ? (
@@ -730,10 +732,11 @@ function ArticleDetail() {
               </a>
             </div>
           </div>
+          </div>
         </div>
 
         {/* BOTTOM NAVIGATION BLOCK TO KEEP EXPLORING THE WEBSITE */}
-        <div className="mt-12 bg-[#f5f6f8] rounded-[28px] md:rounded-[36px] p-6 sm:p-8 md:p-10 border border-slate-200/80 shadow-sm font-sans">
+        <div className="mt-12 bg-[#f5f6f8] rounded-[22px] md:rounded-[28px] p-6 sm:p-8 md:p-10 border border-slate-200/80 shadow-sm font-sans">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-3 shadow-xs">

@@ -102,15 +102,17 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               )}
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-xl leading-[1.4] md:pb-1.5 [text-wrap:balance]">
-            {language === "ca" ? (
-              <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
-            ) : language === "en" ? (
-              <>Discover an orientative market estimate in less than <span className="whitespace-nowrap">a minute.</span></>
-            ) : (
-              <>Descubre una estimación orientativa de mercado en menos de <span className="whitespace-nowrap">un minuto.</span></>
-            )}
-          </p>
+          <div className="md:max-w-lg md:self-end md:pb-1">
+            <p className="text-base sm:text-[17px] md:text-[18px] text-[#0b214a] font-semibold leading-[1.35] [text-wrap:balance]">
+              {language === "ca" ? (
+                <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
+              ) : language === "en" ? (
+                <>Discover an orientative market estimate in less than <span className="whitespace-nowrap">a minute.</span></>
+              ) : (
+                <>Descubre una estimación orientativa de mercado en menos de <span className="whitespace-nowrap">un minuto.</span></>
+              )}
+            </p>
+          </div>
         </div>
 
         {/* 2-Column Split: INPUT Form on Left, RESULT on Right — Estructura editorial unificada */}
@@ -190,11 +192,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
                     <span 
-                      className="text-[14px] font-extrabold text-[#0b214a] px-2.5 py-1 rounded-[8px] shrink-0 font-sans tracking-tight"
-                      style={{ 
-                        backgroundColor: "#FFFFFF",
-                        border: "1.5px solid #CBD6E5"
-                      }}
+                      className="text-[13px] sm:text-[14px] font-black text-white px-3 py-1 rounded-[8px] shrink-0 font-sans tracking-tight bg-[#2563eb]"
                     >
                       m²
                     </span>
@@ -214,46 +212,22 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 <ArrowRight className="w-5 h-5 text-white shrink-0" />
               </button>
 
-              {/* Sellos de Beneficios Comerciales — Dos bloques destacados visualmente */}
+              {/* Sellos de Beneficios Comerciales — Contenedor AZUL GESGRAMA SÓLIDO con icono BLANCO */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5">
-                <div 
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] shadow-xs"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #CBD6E5"
-                  }}
-                >
-                  <div 
-                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                    style={{
-                      backgroundColor: "#FFFFFF",
-                      border: "1.5px solid #CBD6E5"
-                    }}
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-[#2563eb] stroke-[2.5]" />
+                <div className="flex items-center gap-2.5 px-1 py-1">
+                  <div className="w-8 h-8 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
+                    <Check className="w-4 h-4 text-white stroke-[3.5]" />
                   </div>
-                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">
+                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans">
                     {t.valorador.sinCompromiso}
                   </span>
                 </div>
 
-                <div 
-                  className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] shadow-xs"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #CBD6E5"
-                  }}
-                >
-                  <div 
-                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                    style={{
-                      backgroundColor: "#FFFFFF",
-                      border: "1.5px solid #CBD6E5"
-                    }}
-                  >
-                    <Zap className="w-4 h-4 text-[#2563eb] stroke-[2.5] fill-[#2563eb]" />
+                <div className="flex items-center gap-2.5 px-1 py-1">
+                  <div className="w-8 h-8 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
+                    <Zap className="w-4 h-4 text-white fill-white stroke-[2.5]" />
                   </div>
-                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans truncate">
+                  <span className="text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans">
                     {t.valorador.resultadoInmediato}
                   </span>
                 </div>

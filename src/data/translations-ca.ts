@@ -272,7 +272,7 @@ nav: {
           features: ["Tramitació d'ITE i Informes Tècnics", "Gestió de subvencions NextGen", "Manteniment preventiu de finques"]
         }
       ],
-      saberMas: "Saber-ne més"
+      saberMas: "Veure servei"
     },
     testimonios: {
       tag: "Històries Reals",

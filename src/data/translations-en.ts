@@ -272,7 +272,7 @@ nav: {
           features: ["ITE processing & Technical Reports", "NextGen grant management", "Preventive building maintenance"]
         }
       ],
-      saberMas: "Learn more"
+      saberMas: "View service"
     },
     testimonios: {
       tag: "Real Stories",

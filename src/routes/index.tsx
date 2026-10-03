@@ -1090,48 +1090,48 @@ function Index() {
                 <Reveal key={i} delay={i * 0.1}>
                   <div 
                     onClick={() => setSelectedServiceIndex(i)}
-                    className="group bg-white text-[#0f172a] rounded-xl md:rounded-2xl p-3.5 md:p-4 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 h-full border-2 border-slate-100 hover:border-[#0284c7] cursor-pointer"
+                    className="group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-4.5 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 h-full border-2 border-slate-100 hover:border-[#2563eb] cursor-pointer relative"
                   >
                     
                     {/* Thumbnail con imagen limpia sin tapar */}
-                    <div className="relative w-full sm:w-[120px] h-[95px] sm:h-[105px] rounded-lg sm:rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
+                    <div className="relative w-full sm:w-[130px] md:w-[140px] h-[110px] sm:h-[120px] rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
                       <img 
                         src={bgs[i]} 
                         alt={item.title} 
                         loading="lazy" 
                         decoding="async"
-                        width={120}
-                        height={105}
+                        width={140}
+                        height={120}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                       />
                     </div>
 
-                    {/* Texto informativo + Icono integrado en título + Botón Píldora */}
-                    <div className="flex-1 flex flex-col justify-between h-full py-0.5">
+                    {/* Texto informativo + Icono integrado en título + Botón Píldora alineado */}
+                    <div className="flex-1 flex flex-col justify-between h-full min-h-[120px]">
                       <div>
-                        <div className="flex items-center gap-2 mb-1.5">
+                        <div className="flex items-center gap-2.5 mb-1.5">
                           <span className="w-7 h-7 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
                             {icons[i]}
                           </span>
-                          <h3 className="text-base sm:text-lg md:text-xl font-black text-[#0f172a] leading-snug group-hover:text-[#0369a1] transition-colors">
+                          <h3 className="text-base sm:text-lg font-bold text-[#0f172a] leading-snug group-hover:text-[#2563eb] transition-colors font-sans">
                             {item.title}
                           </h3>
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed mb-3">
+                        <p className="text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed mb-3 font-sans">
                           {item.desc}
                         </p>
                       </div>
-                      <div>
+                      <div className="mt-auto pt-1">
                         <button 
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedServiceIndex(i);
                           }}
-                          className="bg-[#0369a1] hover:bg-[#075985] text-white font-black text-xs sm:text-sm px-4.5 py-2 rounded-full transition-all duration-300 shadow-xs hover:shadow-md cursor-pointer flex items-center gap-2 w-fit font-sans"
+                          className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-[13px] px-4 py-1.5 sm:py-2 rounded-full transition-colors shadow-xs hover:shadow-md cursor-pointer flex items-center gap-1.5 w-fit font-sans uppercase tracking-wider"
                         >
                           <span>{t.servicios.saberMas}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+                          <ArrowRight className="w-3.5 h-3.5 text-white stroke-[2.5]" />
                         </button>
                       </div>
                     </div>
@@ -1191,18 +1191,18 @@ function Index() {
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4.5 sm:p-5 md:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
                       
                       {/* Top Accent Solid Bar (3.5px solid blue line) */}
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
                       <div className="relative z-10 flex-1 flex flex-col">
                         {/* Top Row: 5 Stars Left Aligned & Google Badge Right Aligned */}
-                        <div className="flex items-center justify-between gap-2 mb-3 h-6">
+                        <div className="flex items-center justify-between gap-2 mb-3.5 h-6">
                           {/* 5 Stars Rating Perfectly Aligned */}
                           <div className="flex items-center gap-1 text-amber-400">
                             {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 shrink-0" />
+                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
                             ))}
                           </div>
 
@@ -1213,23 +1213,23 @@ function Index() {
                           </div>
                         </div>
 
-                        {/* Quote Text */}
-                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4 flex-1">
+                        {/* Quote Text: Legibilidad superior en 15.5px mobile / 16.5px desktop con leading 1.55 y Navy oscuro */}
+                        <p className="text-[#0f172a] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[1.55] font-medium mb-5 flex-1 font-sans">
                           “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
+                      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
                             {initials[i % initials.length]}
                             <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
                               <Check className="w-2 h-2 text-white stroke-[3.5]" />
                             </div>
                           </div>
                           <div className="flex flex-col min-w-0">
-                            <strong className="font-bold text-xs sm:text-sm text-[#0f172a] tracking-tight leading-tight truncate">
+                            <strong className="font-bold text-xs sm:text-sm md:text-[14.5px] text-[#0f172a] tracking-tight leading-tight truncate">
                               {item.author}
                             </strong>
                             <span className="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5">

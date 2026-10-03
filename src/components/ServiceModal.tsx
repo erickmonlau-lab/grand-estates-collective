@@ -84,21 +84,21 @@ export default function ServiceModal({
             {currentItem?.description || t.servicios.items[selectedServiceIndex]?.desc}
           </p>
 
-          {/* Bloque Navy Compacto “Qué incluye el servicio” (4-5 puntos directos) */}
-          <div className="bg-[#0b214a] rounded-xl sm:rounded-2xl p-4 sm:p-4.5 text-white shadow-xs">
-            <div className="flex items-center gap-2 mb-2.5">
+          {/* Bloque Navy “Qué incluye el servicio” con espaciado equilibrado y respiración */}
+          <div className="bg-[#0b214a] rounded-xl sm:rounded-2xl p-5 sm:py-6 sm:px-6 text-white shadow-xs">
+            <div className="flex items-center gap-2 mb-3.5 sm:mb-4">
               <span className="w-2 h-2 rounded-full bg-[#38bdf8] shrink-0" />
-              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-100 font-sans">
+              <p className="text-[11.5px] sm:text-xs font-bold uppercase tracking-wider text-white font-sans">
                 {language === "ca" ? "Què inclou el servei:" : language === "en" ? "What's included:" : "Qué incluye el servicio:"}
               </p>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-3 sm:space-y-3.5">
               {(currentItem?.benefits || t.servicios.items[selectedServiceIndex]?.features || []).map((benefit: string, idx: number) => (
-                <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] font-normal text-slate-100 font-sans">
+                <div key={idx} className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-[13.5px] font-normal text-slate-100 font-sans">
                   <div className="w-4.5 h-4.5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3 h-3 text-white stroke-[3.5]" />
                   </div>
-                  <span className="leading-snug">{benefit}</span>
+                  <span className="leading-normal">{benefit}</span>
                 </div>
               ))}
             </div>

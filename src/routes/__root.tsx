@@ -77,11 +77,11 @@ function NotFoundComponent() {
         <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-center gap-2 text-xs sm:text-sm font-bold text-slate-400">
           <span>¿Necesitas ayuda directa?</span>
           <a
-            href="tel:933915500"
+            href="tel:934685656"
             className="text-white hover:text-blue-400 underline font-black inline-flex items-center gap-1.5"
           >
             <Phone className="w-3.5 h-3.5 text-[#2563eb]" />
-            <span>93 391 55 00</span>
+            <span>93 468 56 56</span>
           </a>
         </div>
       </div>
@@ -201,11 +201,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
-      { rel: "canonical", href: "https://gesgrama.com/" },
-      { rel: "alternate", hrefLang: "es", href: "https://gesgrama.com/" },
-      { rel: "alternate", hrefLang: "ca", href: "https://gesgrama.com/" },
-      { rel: "alternate", hrefLang: "en", href: "https://gesgrama.com/" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://gesgrama.com/" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },
       { rel: "icon", href: "/favicon-48x48.png?v=2027", type: "image/png", sizes: "48x48" },
@@ -217,12 +212,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "RealEstateAgent",
+          "@type": ["RealEstateAgent", "LocalBusiness"],
+          "@id": "https://gesgrama.com/#organization",
           "name": "Gesgrama",
           "alternateName": "Gesgrama Gestiones Inmobiliarias y Administración de Fincas",
-          "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana.",
+          "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana de Barcelona. Más de 15 años de experiencia y +300 comunidades gestionadas.",
           "url": "https://gesgrama.com",
-          "logo": "https://gesgrama.com/logo.png",
+          "logo": "https://gesgrama.com/images/logo-gesgrama-text-horizontal.webp",
           "image": "https://gesgrama.com/og-image.png",
           "telephone": "+34934685656",
           "email": "info@gesgrama.com",
@@ -237,8 +233,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 41.4511,
-            "longitude": 2.2144
+            "latitude": 41.4484,
+            "longitude": 2.2105
           },
           "areaServed": [
             "Santa Coloma de Gramenet",
@@ -263,9 +259,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "closes": "18:00"
             }
           ],
-          "hasCredential": "AICAT nº 5583",
+          "hasCredential": [
+            "AICAT nº 5583",
+            "API nº A10750",
+            "Peritos Judiciales Inmobiliarios PJI 2024",
+            "APIS - PERITOS nº 1639"
+          ],
           "sameAs": [
-            "https://gesgrama.com"
+            "https://habitatge.gencat.cat/ca/inici/",
+            "https://www.apicatalunya.com/"
           ]
         })
       }

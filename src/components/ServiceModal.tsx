@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Building2, TrendingUp, Scale, Wrench, X, Check, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Building2, TrendingUp, Scale, Wrench, X, Check, ArrowRight, ExternalLink } from "lucide-react";
 
 interface ServiceModalProps {
   selectedServiceIndex: number | null;
@@ -104,7 +105,7 @@ export default function ServiceModal({
             </div>
           </div>
 
-          {/* Action Buttons: Solicitar servicio + Cerrar */}
+          {/* Action Buttons: Solicitar servicio + Ver ficha completa + Cerrar */}
           <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
             <button
               type="button"
@@ -123,10 +124,30 @@ export default function ServiceModal({
               <span>{t.serviceModal?.contactBtn || "Solicitar este servicio"}</span>
               <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
             </button>
+            {(() => {
+              const serviceSlugs = [
+                "administracion-de-fincas",
+                "gestion-inmobiliaria",
+                "asesoria-juridica-fiscal",
+                "obras-mantenimiento"
+              ];
+              const slug = serviceSlugs[selectedServiceIndex] || "administracion-de-fincas";
+              return (
+                <Link
+                  to="/servicios/$slug"
+                  params={{ slug }}
+                  onClick={onClose}
+                  className="w-full sm:w-auto bg-blue-50 hover:bg-blue-100 text-[#2563eb] border border-blue-200 font-bold text-xs sm:text-sm py-3 px-5 rounded-full transition-colors flex items-center justify-center gap-1.5 font-sans uppercase tracking-wider cursor-pointer whitespace-nowrap"
+                >
+                  <span>{language === "ca" ? "Veure guia" : language === "en" ? "View guide" : "Ver guía"}</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-[#2563eb]" />
+                </Link>
+              );
+            })()}
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-[#0f172a] border border-slate-300 font-bold text-xs sm:text-sm py-3 px-6 rounded-full transition-colors cursor-pointer font-sans uppercase tracking-wider"
+              className="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-[#0f172a] border border-slate-300 font-bold text-xs sm:text-sm py-3 px-5 rounded-full transition-colors cursor-pointer font-sans uppercase tracking-wider"
             >
               {t.serviceModal?.close || "Cerrar"}
             </button>

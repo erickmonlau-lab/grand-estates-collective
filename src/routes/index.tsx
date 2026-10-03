@@ -32,6 +32,9 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Gestión experta de comunidades, compraventa de pisos y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana. +15 años de experiencia." },
       { property: "og:url", content: "https://gesgrama.com/" },
     ],
+    links: [
+      { rel: "canonical", href: "https://gesgrama.com/" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -1376,23 +1379,40 @@ function Index() {
                 </p>
               </div>
 
-              {/* Navegación rápida */}
+              {/* Navegación y Servicios Principales */}
               <div>
                 <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h3>
-                <ul className="space-y-3.5">
-                  {[
-                    { label: t.nav.propiedades, href: "#propiedades" },
-                    { label: t.nav.servicios, href: "#servicios" },
-                    { label: t.nav.nosotros, href: "#nosotros" },
-                    { label: t.nav.contacto, href: "#contacto" },
-                  ].map(link => (
-                    <li key={link.href}>
-                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "administracion-de-fincas" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Administración de Fincas
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "gestion-inmobiliaria" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Gestión Inmobiliaria
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "asesoria-juridica-fiscal" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Asesoría Jurídica y Fiscal
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "obras-mantenimiento" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Obras, ITE y Mantenimiento
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/noticias" className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      Blog & Noticias Inmobiliarias
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

@@ -2839,22 +2839,39 @@ function SantaColomaBarrioPage() {
 
               <div>
                 <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">
-                  {language === "ca" ? "Navegació" : language === "en" ? "Navigation" : "Navegación"}
+                  {language === "ca" ? "Serveis Principals" : language === "en" ? "Main Services" : "Servicios Principales"}
                 </h3>
-                <ul className="space-y-3.5">
-                  {[
-                    { label: language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio", href: "/" },
-                    { label: language === "ca" ? "Propietats" : language === "en" ? "Properties" : "Propiedades", href: "/#propiedades" },
-                    { label: language === "ca" ? "Serveis" : language === "en" ? "Services" : "Servicios", href: "/#servicios" },
-                    { label: language === "ca" ? "Contacte" : language === "en" ? "Contact" : "Contacto", href: "/#contacto" },
-                  ].map(link => (
-                    <li key={link.href}>
-                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "administracion-de-fincas" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      {language === "ca" ? "Administració de Finques" : language === "en" ? "Property Management" : "Administración de Fincas"}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "gestion-inmobiliaria" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      {language === "ca" ? "Gestió Immobiliària" : language === "en" ? "Real Estate Brokerage" : "Gestión Inmobiliaria"}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "asesoria-juridica-fiscal" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      {language === "ca" ? "Assessoria Jurídica i Fiscal" : language === "en" ? "Legal & Tax Advisory" : "Asesoría Jurídica y Fiscal"}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/servicios/$slug" params={{ slug: "obras-mantenimiento" }} className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      {language === "ca" ? "Obres, ITE i Manteniment" : language === "en" ? "Building Works & ITE" : "Obras, ITE y Mantenimiento"}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/noticias" className="text-sm sm:text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                      {language === "ca" ? "Blog i Notícies" : language === "en" ? "Blog & News" : "Blog y Noticias"}
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

@@ -322,7 +322,7 @@ export default function HeroCarousel({
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
         className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-14 sm:pb-18 md:pb-20'
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-24 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}

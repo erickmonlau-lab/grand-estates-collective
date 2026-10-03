@@ -1191,18 +1191,18 @@ function Index() {
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4.5 sm:p-5 md:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
                       
                       {/* Top Accent Solid Bar (3.5px solid blue line) */}
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
                       <div className="relative z-10 flex-1 flex flex-col">
                         {/* Top Row: 5 Stars Left Aligned & Google Badge Right Aligned */}
-                        <div className="flex items-center justify-between gap-2 mb-3 h-6">
+                        <div className="flex items-center justify-between gap-2 mb-3.5 h-6">
                           {/* 5 Stars Rating Perfectly Aligned */}
                           <div className="flex items-center gap-1 text-amber-400">
                             {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 shrink-0" />
+                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
                             ))}
                           </div>
 
@@ -1213,23 +1213,23 @@ function Index() {
                           </div>
                         </div>
 
-                        {/* Quote Text */}
-                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4 flex-1">
+                        {/* Quote Text: Legibilidad superior en 15.5px mobile / 16.5px desktop con leading 1.55 y Navy oscuro */}
+                        <p className="text-[#0f172a] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[1.55] font-medium mb-5 flex-1 font-sans">
                           “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
+                      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
                             {initials[i % initials.length]}
                             <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
                               <Check className="w-2 h-2 text-white stroke-[3.5]" />
                             </div>
                           </div>
                           <div className="flex flex-col min-w-0">
-                            <strong className="font-bold text-xs sm:text-sm text-[#0f172a] tracking-tight leading-tight truncate">
+                            <strong className="font-bold text-xs sm:text-sm md:text-[14.5px] text-[#0f172a] tracking-tight leading-tight truncate">
                               {item.author}
                             </strong>
                             <span className="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5">

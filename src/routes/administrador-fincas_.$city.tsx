@@ -2926,6 +2926,45 @@ function SantaColomaBarrioPage() {
             </div>
           </div>
 
+          {/* ── COBERTURA EN SANTA COLOMA DE GRAMENET ── */}
+          <div className="border-t border-white/10 pt-8 pb-2">
+            <h3 className="text-sm sm:text-base font-black text-[#38bdf8] uppercase tracking-wider mb-4 font-sans text-center md:text-left">
+              {language === "ca" ? "COBERTURA A SANTA COLOMA DE GRAMENET" : language === "en" ? "COVERAGE IN SANTA COLOMA DE GRAMENET" : "COBERTURA EN SANTA COLOMA DE GRAMENET"}
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-7 gap-2 sm:gap-2.5">
+              {[
+                { name: "Centre", slug: "centre" },
+                { name: "Santa Rosa", slug: "santa-rosa" },
+                { name: "Can Mariner", slug: "can-mariner" },
+                { name: "Fondo", slug: "fondo" },
+                { name: "Singuerlín", slug: "singuerlin" },
+                { name: "Riera Alta", slug: "riera-alta" },
+                { name: "Llatí", slug: "llati" },
+                { name: "El Raval", slug: "el-raval" },
+                { name: "Riu Nord", slug: "riu-nord" },
+                { name: "Riu Sud", slug: "riu-sud" },
+                { name: "Can Franquesa", slug: "can-franquesa" },
+                { name: "Les Oliveres", slug: "les-oliveres" },
+                { name: "La Guinardera", slug: "la-guinardera" },
+                { name: "Cementiri Vell", slug: "cementiri-vell" }
+              ].map(zone => (
+                <Link
+                  key={zone.slug}
+                  to="/administrador-fincas/$city"
+                  params={{ city: zone.slug }}
+                  className={`px-2.5 py-2.5 rounded-xl text-xs sm:text-xs xl:text-sm font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 text-center whitespace-nowrap ${
+                    zone.slug === city
+                      ? "bg-[#2563eb] text-white hover:bg-blue-600 hover:shadow-md hover:-translate-y-0.5"
+                      : "bg-white hover:bg-blue-50 text-slate-900 hover:text-[#2563eb] hover:shadow-md hover:-translate-y-0.5"
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${zone.slug === city ? "bg-white" : "bg-[#2563eb]"}`} />
+                  <span className="truncate">{zone.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <div className="border-t border-white/10 pt-8">
             <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
               {language === "ca" ? "ACREDITACIONS PROFESSIONALS OFICIALS" : language === "en" ? "OFFICIAL PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES OFICIALES"}

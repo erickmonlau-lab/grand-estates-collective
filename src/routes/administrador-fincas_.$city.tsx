@@ -23,6 +23,7 @@ import {
   Bath,
   Paintbrush,
   Loader2,
+  Search,
   X,
   Heart,
   Info
@@ -725,41 +726,12 @@ function SantaColomaBarrioPage() {
       return 0; // recientes / default order
     });
 
-  // ── RELEVANCE-FIRST CATALOG ──
-  // Exact matches always appear first. Remaining same-mode properties follow.
-  // Grid is NEVER empty — if 0 exact matches, show full same-mode catalog.
-  let isFallback = false;
-  let filteredProperties: typeof exactMatches;
-  let displayProperties: typeof exactMatches;
-
-  if (searchParams.mode === "favoritos") {
-    filteredProperties = exactMatches;
-    displayProperties = filteredProperties.slice(0, visibleCount);
-  } else {
-    const exactMatchIds = new Set(exactMatches.map(p => p.id));
-    const sameModeRest = liveProperties
-      .filter(p => {
-        const pOp = (p.operation || "comprar") as string;
-        const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
-        return matchesMode && !exactMatchIds.has(p.id);
-      })
-      .sort((a, b) => {
-        if (sortOption === "precio_asc") return a.price - b.price;
-        if (sortOption === "precio_desc") return b.price - a.price;
-        return 0;
-      });
-
-    if (exactMatches.length === 0) {
-      // 0 exact matches → show full same-mode catalog, flag fallback
-      isFallback = true;
-      filteredProperties = sameModeRest;
-      displayProperties = sameModeRest.slice(0, visibleCount);
-    } else {
-      // Some exact matches → exact first, rest appended
-      filteredProperties = exactMatches;
-      displayProperties = [...exactMatches, ...sameModeRest].slice(0, visibleCount);
-    }
-  }
+  // ── SINGLE SOURCE OF TRUTH ──
+  // Properties displayed proceed strictly from exactMatches.
+  // Count is ALWAYS filteredProperties.length.
+  // When count === 0, show empty state and 0 property cards.
+  const filteredProperties = exactMatches;
+  const displayProperties = filteredProperties.slice(0, visibleCount);
 
 
   // Available filter options
@@ -1448,15 +1420,30 @@ function SantaColomaBarrioPage() {
                       </div>
                     </div>
 
-                    {isFallback && (
-                      <div className="flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 min-h-[52px]">
-                        <p className="text-sm font-semibold text-slate-600 leading-snug">
-                          {language === "ca"
-                            ? "No hi ha immobles que coincideixin amb aquests filtres."
-                            : language === "en"
-                            ? "No properties match these filters."
-                            : "No hay inmuebles que coincidan con estos filtros."}
-                        </p>
+                    {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
+                    {filteredProperties.length === 0 ? (
+                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
+                        <div className="flex items-center gap-3.5">
+                          <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                            <Search className="w-5 h-5 text-[#2563eb]" />
+                          </div>
+                          <div>
+                            <p className="text-base font-bold text-[#0f172a] leading-snug">
+                              {language === "ca"
+                                ? "No hi ha immobles que coincideixin amb aquests filtres."
+                                : language === "en"
+                                ? "No properties match these filters."
+                                : "No hay inmuebles que coincidan con estos filtros."}
+                            </p>
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+                              {language === "ca"
+                                ? "Prova d'ajustar la cerca o consultar totes les propietats disponibles."
+                                : language === "en"
+                                ? "Try adjusting your search or view all available properties."
+                                : "Prueba a ajustar la búsqueda o consultar todas las propiedades disponibles."}
+                            </p>
+                          </div>
+                        </div>
                         <button
                           type="button"
                           onClick={() => {
@@ -1465,29 +1452,30 @@ function SantaColomaBarrioPage() {
                             setConsoleFilters({ zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                             heroResetRef.current?.();
                           }}
-                          className="shrink-0 text-xs font-black text-[#2563eb] hover:underline cursor-pointer"
+                          className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
                         >
                           {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
                         </button>
                       </div>
+                    ) : (
+                      /* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={searchParams.mode}
+                          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
+                          transition={{ duration: 0.28, ease: "easeOut" }}
+                          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
+                        >
+                          {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                        </motion.div>
+                      </AnimatePresence>
                     )}
 
-                    {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={searchParams.mode}
-                        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
-                        transition={{ duration: 0.28, ease: "easeOut" }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
-                      >
-                        {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                      </motion.div>
-                    </AnimatePresence>
-
                     {/* LOAD MORE BUTTON */}
-                    <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
+                    {filteredProperties.length > 0 && (
+                      <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
                       {visibleCount < filteredProperties.length ? (
                         <button 
                           type="button"
@@ -1544,9 +1532,10 @@ function SantaColomaBarrioPage() {
                         </div>
                       )}
                     </div>
-                  </div>
-                );
-              })()}
+                  )}
+                </div>
+              );
+            })()}
             </div>
           </div>
         </section>

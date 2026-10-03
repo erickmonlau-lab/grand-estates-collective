@@ -5,7 +5,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, CheckCircle2, Quote, Info, Key } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, CheckCircle2, Quote, Info, Key, Search } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
@@ -464,40 +464,14 @@ function Index() {
       return 0; // recientes / default order
     });
 
-  // ── RELEVANCE-FIRST CATALOG ──
-  // Exact matches always appear first. Remaining same-mode properties follow.
-  // The grid is NEVER empty — if 0 exact matches, we show the full same-mode catalog.
+  // ── SINGLE SOURCE OF TRUTH ──
+  // The cards displayed proceed exclusively from filteredProperties.
+  // Count is ALWAYS filteredProperties.length.
+  // When count === 0, show empty state and 0 property cards.
   const hasActiveFilters = searchParams.mode !== "favoritos" &&
     (searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio");
 
-  let displayProperties: typeof activeLiveProperties;
-  let isFallback = false;
-
-  if (!hasActiveFilters || searchParams.mode === "favoritos") {
-    displayProperties = filteredProperties.slice(0, visibleCount);
-  } else {
-    const exactMatchIds = new Set(filteredProperties.map(p => p.id));
-    const sameModeRest = activeLiveProperties
-      .filter(p => {
-        const pOp = (p.operation || "comprar") as string;
-        const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
-        return matchesMode && !exactMatchIds.has(p.id);
-      })
-      .sort((a, b) => {
-        if (sortOption === "precio_asc") return a.price - b.price;
-        if (sortOption === "precio_desc") return b.price - a.price;
-        return 0;
-      });
-
-    if (filteredProperties.length === 0) {
-      // 0 exact matches → show full same-mode catalog, flag fallback for the notice bar
-      isFallback = true;
-      displayProperties = sameModeRest.slice(0, visibleCount);
-    } else {
-      // Some exact matches → exact first, rest appended (user always sees more)
-      displayProperties = [...filteredProperties, ...sameModeRest].slice(0, visibleCount);
-    }
-  }
+  const displayProperties = filteredProperties.slice(0, visibleCount);
 
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
@@ -865,15 +839,30 @@ function Index() {
               return (
                 <div>
 
-                  {isFallback && (
-                    <div className="flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 min-h-[52px]">
-                      <p className="text-sm font-semibold text-slate-600 leading-snug">
-                        {language === "ca"
-                          ? "No hi ha immobles que coincideixin amb aquests filtres."
-                          : language === "en"
-                          ? "No properties match these filters."
-                          : "No hay inmuebles que coincidan con estos filtros."}
-                      </p>
+                  {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
+                  {filteredProperties.length === 0 ? (
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
+                      <div className="flex items-center gap-3.5">
+                        <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                          <Search className="w-5 h-5 text-[#2563eb]" />
+                        </div>
+                        <div>
+                          <p className="text-base font-bold text-[#0f172a] leading-snug">
+                            {language === "ca"
+                              ? "No hi ha immobles que coincideixin amb aquests filtres."
+                              : language === "en"
+                              ? "No properties match these filters."
+                              : "No hay inmuebles que coincidan con estos filtros."}
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+                            {language === "ca"
+                              ? "Prova d'ajustar la cerca o consultar totes les propietats disponibles."
+                              : language === "en"
+                              ? "Try adjusting your search or view all available properties."
+                              : "Prueba a ajustar la búsqueda o consultar todas las propiedades disponibles."}
+                          </p>
+                        </div>
+                      </div>
                       <button
                         type="button"
                         onClick={() => {
@@ -881,62 +870,64 @@ function Index() {
                           setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                           heroResetRef.current?.();
                         }}
-                        className="shrink-0 text-xs font-black text-[#2563eb] hover:underline cursor-pointer"
+                        className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
                       >
                         {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
                       </button>
                     </div>
+                  ) : (
+                    /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */
+                    <div
+                      key={searchParams.mode}
+                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
+                    >
+                      {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                    </div>
                   )}
 
-                  {/* PROPERTY CARDS GRID */}
-                  <div
-                    key={searchParams.mode}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
-                  >
-                    {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                  </div>
-
-                  {/* LOAD MORE BUTTON (INSIDE CARD BUBBLE) */}
-                  <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
-                    {visibleCount < filteredProperties.length ? (
-                      <button 
-                        type="button"
-                        onClick={() => setVisibleCount(prev => prev + 6)}
-                        className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
-                      >
-                        <span>{t.properties.verMas}</span>
-                        <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    ) : (
-                      <div className="flex flex-col items-center gap-3">
-                        <button
+                  {/* LOAD MORE BUTTON: Rendered only when there are filtered properties */}
+                  {filteredProperties.length > 0 && (
+                    <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
+                      {visibleCount < filteredProperties.length ? (
+                        <button 
                           type="button"
-                          onClick={() => {
-                            const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
-                            setSearchParams({ mode: currentMode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
-                            setConsoleFilters({ zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
-                            heroResetRef.current?.();
-                            setVisibleCount(999);
-                            const el = document.getElementById('propiedades');
-                            if (el) {
-                              const pos = el.getBoundingClientRect().top + window.scrollY - 130;
-                              window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
-                            }
-                          }}
+                          onClick={() => setVisibleCount(prev => prev + 6)}
                           className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
                         >
-                          <span>{t.properties.verTodas}</span>
+                          <span>{t.properties.verMas}</span>
                           <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                         </button>
-                        <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
-                          <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                          <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
-                            {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
-                          </p>
+                      ) : (
+                        <div className="flex flex-col items-center gap-3">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                              setSearchParams({ mode: currentMode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                              setConsoleFilters({ zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                              heroResetRef.current?.();
+                              setVisibleCount(999);
+                              const el = document.getElementById('propiedades');
+                              if (el) {
+                                const pos = el.getBoundingClientRect().top + window.scrollY - 130;
+                                window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
+                              }
+                            }}
+                            className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                          >
+                            <span>{t.properties.verTodas}</span>
+                            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                          </button>
+                          <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
+                            <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                            <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
+                              {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })()}

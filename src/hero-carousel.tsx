@@ -245,12 +245,12 @@ export default function HeroCarousel({
       tipo: tipo === "Cualquier tipo" ? "Cualquier tipo" : tipo,
       precio: precio === "Cualquier precio" ? "Cualquier precio" : precio,
     });
-    const el = document.getElementById("properties-results") || document.getElementById("propiedades");
+    const el = document.getElementById("propiedades") || document.getElementById("properties-results");
     if (el) {
-      const navOffset = window.innerWidth < 768 ? 75 : 85;
+      const navOffset = window.innerWidth < 768 ? 70 : 85;
       const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
-      window.history.replaceState(null, "", "#properties-results");
+      window.history.replaceState(null, "", "#propiedades");
     }
   };
 

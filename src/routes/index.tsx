@@ -20,7 +20,6 @@ const FaqSection = lazy(() => import('@/components/FaqSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 import { DeferredHydration } from "@/components/DeferredHydration";
-import MarqueeRibbon from "@/components/MarqueeRibbon";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -512,9 +511,6 @@ function Index() {
           language={language}
           onRegisterReset={(fn) => { heroResetRef.current = fn; }}
         />
-
-        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (TRANSICIÓN VISUAL INMEDIATA) ── */}
-        <MarqueeRibbon language={language} />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">

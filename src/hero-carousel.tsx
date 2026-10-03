@@ -5,6 +5,7 @@ import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 import { formatLocation } from './data/properties';
+import { MarqueeRibbon } from "@/components/MarqueeRibbon";
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -253,7 +254,7 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="hero relative text-slate-900 overflow-visible bg-[#f8fafc]"
+      className="hero relative text-slate-900 overflow-hidden bg-[#f8fafc]"
       onClick={() => setOpenDrop(null)}
     >
       {/* ── 1. BACKGROUND & PROTAGONIST PHOTOGRAPHY (RESTORED PRODUCTION COMPOSITION) ── */}
@@ -321,7 +322,7 @@ export default function HeroCarousel({
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
         className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-10 sm:pb-18 md:pb-20'
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-4 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
@@ -373,7 +374,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1120px] mx-auto mt-4 sm:mt-5 mb-7 sm:mb-12 md:mb-14"
+          className="relative z-40 w-full max-w-[1120px] mx-auto mt-4 sm:mt-5 mb-4 sm:mb-12 md:mb-14"
           onClick={(e) => e.stopPropagation()}
         >
 
@@ -591,7 +592,7 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
@@ -645,6 +646,11 @@ export default function HeroCarousel({
         </div>
 
       </div>
+
+      {/* ── 5. RIBBON: CIERRE VISUAL DEL HERO EN TODOS LOS BREAKPOINTS ── */}
+      {/* En flujo normal como último hijo — sin position:absolute ni margins artificiales */}
+      <MarqueeRibbon language={language} />
+
     </section>
   );
 }

@@ -39,7 +39,6 @@ import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroCarousel from "@/hero-carousel";
-import MarqueeRibbon from "@/components/MarqueeRibbon";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 const SITE_DOMAIN = "https://gesgrama.com";
@@ -813,9 +812,6 @@ function SantaColomaBarrioPage() {
           }
           customValuationHref="#valuator-form"
         />
-
-        {/* ── 2. CINTA DE GARANTÍAS Y ACREDITACIONES (LÍMITE INFERIOR NATURAL DEL HERO CANÓNICO) ── */}
-        <MarqueeRibbon language={language} />
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
         <section id="propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200 scroll-mt-28 md:scroll-mt-32">

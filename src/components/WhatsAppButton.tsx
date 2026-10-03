@@ -55,14 +55,14 @@ export function WhatsAppButton({ language = "es" }: WhatsAppButtonProps) {
 
   return (
     <div 
-      className={`fixed z-40 flex items-center gap-3 transition-all duration-300 right-3 sm:right-6 bottom-20 sm:bottom-24 ${
+      className={`fixed z-50 flex items-center gap-3 transition-all duration-300 right-3 sm:right-6 bottom-[72px] sm:bottom-24 ${
         isNearFooter ? "max-sm:opacity-0 max-sm:scale-75 max-sm:pointer-events-none sm:opacity-100 sm:scale-100" : ""
       } ${
         isScrolling ? "opacity-20 scale-90 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
       }`}
       style={{
         position: 'fixed',
-        zIndex: 40,
+        zIndex: 50,
       }}
     >
       {/* Tooltip on hover */}

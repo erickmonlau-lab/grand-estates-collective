@@ -321,7 +321,7 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
           compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-8 sm:pb-18 md:pb-20'
         }`}
       >
@@ -329,7 +329,7 @@ export default function HeroCarousel({
         <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[840px]'}`}>
 
           {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
-          <div className="mb-2.5 sm:mb-3.5">
+          <div className="mb-3.5 sm:mb-4">
             <span className="inline-flex items-center gap-1.5 sm:gap-2.5 bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.14em] sm:tracking-[0.16em] pl-1.5 sm:pl-2 pr-3.5 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30 max-w-full">
               <span className="h-5 sm:h-7 md:h-7.5 w-auto px-1.5 py-0.5 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
                 <img
@@ -349,7 +349,7 @@ export default function HeroCarousel({
 
           {/* H1 Principal */}
           <h1
-            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-2.5 sm:mb-3.5 leading-[1.02] sm:leading-[1.06] text-balance ${
+            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 leading-[1.04] sm:leading-[1.06] text-balance ${
               customHeadline ? 'max-w-[1000px]' : 'max-w-[780px]'
             }`}
             style={{ fontSize: customHeadline ? 'clamp(1.95rem, 4.8vw, 4.1rem)' : 'clamp(2.15rem, 5.6vw, 4.6rem)' }}
@@ -366,7 +366,7 @@ export default function HeroCarousel({
 
           {/* Subtítulo: tipografía sans limpia, navy muy oscuro / negro (#0b214a), font-semibold (600), legible, generoso line-height */}
           <p
-            className="text-[#0b214a] font-sans font-semibold text-[15px] sm:text-lg md:text-[19px] leading-snug sm:leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-1 sm:mb-2"
+            className="text-[#0b214a] font-sans font-semibold text-[15px] sm:text-lg md:text-[19px] leading-snug sm:leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-1.5 sm:mb-2"
           >
             {customSubtitle || L.subtitle}
           </p>
@@ -592,53 +592,53 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-2 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 mb-2 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2.5 sm:gap-x-6 gap-y-3.5 sm:gap-y-6 items-center">
 
             {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
               <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
                 <Users className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
+                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
               <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
                 <ThumbsUp className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
+                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
               <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
                 <Building2 className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
+                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
               <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
                 <User className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-[13px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
+                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

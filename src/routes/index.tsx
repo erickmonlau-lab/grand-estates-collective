@@ -544,7 +544,7 @@ function Index() {
             </div>
 
             {/* Unified Results Controls Bar: Mode Pills + Counter + Sort Dropdown on Shared Baseline */}
-            <div className="mt-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3.5 w-full">
+            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3.5 w-full">
               {/* Left: Compact tabs (secondary filter pills) */}
               <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-center gap-1">
                 <button
@@ -864,7 +864,7 @@ function Index() {
               };
 
               return (
-                <div id="properties-results" className="scroll-mt-32">
+                <div>
 
                   {isFallback && (
                     <div className="flex items-center justify-between gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 mb-4 min-h-[52px]">

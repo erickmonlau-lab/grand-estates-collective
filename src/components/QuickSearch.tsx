@@ -57,12 +57,12 @@ export default function QuickSearch({ onPerformSearch, language = "es" }: QuickS
 
   const handleSearch = () => {
     onPerformSearch?.({ mode, zona, tipo, precio });
-    const el = document.getElementById("propiedades");
+    const el = document.getElementById("properties-results") || document.getElementById("propiedades");
     if (el) {
-      const navOffset = window.innerWidth < 768 ? 90 : 100;
+      const navOffset = window.innerWidth < 768 ? 75 : 85;
       const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
-      window.history.replaceState(null, "", "#propiedades");
+      window.history.replaceState(null, "", "#properties-results");
     }
   };
 

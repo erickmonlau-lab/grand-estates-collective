@@ -1187,9 +1187,11 @@ function SantaColomaBarrioPage() {
                       habitaciones: consoleFilters.habitaciones,
                       precio: consoleFilters.precio
                     }));
-                    const el = document.getElementById('propiedades');
+                    const el = document.getElementById('properties-results') || document.getElementById('propiedades');
                     if (el) {
-                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      const navOffset = window.innerWidth < 768 ? 75 : 85;
+                      const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
+                      window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
                     }
                   }}
                   className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
@@ -1477,7 +1479,6 @@ function SantaColomaBarrioPage() {
                     {/* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */}
                     <AnimatePresence mode="wait">
                       <motion.div
-                        id="properties-results"
                         key={searchParams.mode}
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}

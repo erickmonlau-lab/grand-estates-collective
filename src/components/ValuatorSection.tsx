@@ -186,7 +186,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Zona o Barrio */}
                 <div className="bg-white rounded-xl p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] focus-within:border-[#2563eb] transition-colors">
-                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
                     {language === "ca" ? "ZONA O BARRI" : language === "en" ? "NEIGHBORHOOD" : "ZONA O BARRIO"}
                   </span>
                   <div className="flex items-center justify-between gap-1.5">
@@ -208,7 +208,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
                 {/* Superficie Estimada con cápsula m² sólida */}
                 <div className="bg-white rounded-xl p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] focus-within:border-[#2563eb] transition-colors">
-                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-800 mb-1 font-sans">
                     {language === "ca" ? "SUPERFÍCIE ESTIMADA" : language === "en" ? "ESTIMATED AREA" : "SUPERFICIE ESTIMADA"}
                   </span>
                   <div className="flex items-center gap-2">

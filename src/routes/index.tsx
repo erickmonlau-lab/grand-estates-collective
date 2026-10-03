@@ -602,19 +602,19 @@ function Index() {
                   {language === "ca" ? "Filtrant per:" : language === "en" ? "Filtering by:" : "Filtrando por:"}
                 </span>
                 {searchParams.zona !== "Cualquier zona" && (
-                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
                     <MapPin className="w-3 h-3 shrink-0" />
                     {searchParams.zona}
                   </span>
                 )}
                 {searchParams.tipo !== "Cualquier tipo" && (
-                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
                     <Home className="w-3 h-3 shrink-0" />
                     {searchParams.tipo}
                   </span>
                 )}
                 {searchParams.precio !== "Cualquier precio" && (
-                  <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
                     {searchParams.precio}
                   </span>
                 )}

@@ -515,16 +515,16 @@ function Index() {
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400 scroll-mt-28 md:scroll-mt-32">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-4 sm:p-6 md:p-7 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-5 sm:p-7 md:p-8 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10">
           <div>
-            {/* Header: Badge + H2 + Description */}
-            <div className="mb-3 sm:mb-4">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl shadow-xs mb-2 font-sans">
+            {/* Header: Badge + H2 + Description with balanced spacing */}
+            <div className="mb-4 sm:mb-5">
+              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
                 <Home className="w-3.5 h-3.5 text-white" />
                 <span>{language === "ca" ? "PROPIETATS DESTACADES" : language === "en" ? "FEATURED PROPERTIES" : "PROPIEDADES DESTACADAS"}</span>
               </span>
 
-              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-1.5 font-sans w-full">
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
                 {language === "ca" ? (
                   <>Descobreix les nostres <span className="text-[#2563eb] whitespace-nowrap inline-block">millors oportunitats.</span></>
                 ) : language === "en" ? (
@@ -543,14 +543,14 @@ function Index() {
               </p>
             </div>
 
-            {/* Unified Results Controls Bar: Mode Pills + Counter + Sort Dropdown */}
-            <div className="mt-2.5 sm:mt-3 mb-5 sm:mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3 w-full">
+            {/* Unified Results Controls Bar: Mode Pills + Counter + Sort Dropdown on Shared Baseline */}
+            <div className="mt-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3.5 w-full">
               {/* Left: Compact tabs (secondary filter pills) */}
-              <div className="inline-flex items-center bg-slate-100/90 p-1 rounded-xl border border-slate-200/90 self-start sm:self-auto gap-1">
+              <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-center gap-1">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
-                  className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
                     searchParams.mode === "comprar"
                       ? "bg-[#2563eb] text-white shadow-xs"
                       : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
@@ -561,7 +561,7 @@ function Index() {
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
-                  className={`px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
                     searchParams.mode === "alquilar"
                       ? "bg-[#2563eb] text-white shadow-xs"
                       : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
@@ -572,7 +572,7 @@ function Index() {
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
-                  className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
                     searchParams.mode === "favoritos"
                       ? "bg-red-600 text-white shadow-xs"
                       : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
@@ -584,7 +584,7 @@ function Index() {
               </div>
 
               {/* Right: Counter + Sort */}
-              <div className="flex items-center justify-between md:justify-end gap-5 sm:gap-8 shrink-0">
+              <div className="flex items-center justify-between md:justify-end gap-5 sm:gap-6 shrink-0 self-stretch md:self-center">
                 <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0f172a] font-sans">
                   <span className="w-2 h-2 rounded-full bg-[#2563eb] inline-block shrink-0" />
                   <span>
@@ -592,7 +592,7 @@ function Index() {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
                   <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] font-sans hidden sm:inline">{t.properties.sortBy}:</span>
                   <button 
                     onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}

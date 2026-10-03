@@ -256,7 +256,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                 </div>
                 <span className="text-xs sm:text-[13px] text-[#0b214a] font-bold font-sans">
-                  {t.valorador.sinCompromiso}
+                  {t?.valorador?.sinCompromiso || (language === "ca" ? "Sense compromís" : language === "en" ? "No obligation" : "Sin compromiso")}
                 </span>
               </div>
 
@@ -265,7 +265,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   <Zap className="w-3.5 h-3.5 text-white fill-white stroke-[2.5]" />
                 </div>
                 <span className="text-xs sm:text-[13px] text-[#0b214a] font-bold font-sans">
-                  {t.valorador.resultadoInmediato}
+                  {t?.valorador?.resultadoInmediato || (language === "ca" ? "Resultat immediat" : language === "en" ? "Instant result" : "Resultado inmediato")}
                 </span>
               </div>
             </div>

@@ -321,7 +321,7 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
           compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-4 sm:pb-18 md:pb-20'
         }`}
       >
@@ -379,10 +379,10 @@ export default function HeroCarousel({
         >
 
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-3 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"
+            className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] grid grid-cols-2 sm:flex sm:flex-row sm:items-center p-2 sm:p-3 gap-1 sm:gap-0 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"
           >
             {/* Toggle Comprar / Alquilar */}
-            <div className="flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
+            <div className="col-span-2 flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1">
               <button
                 type="button"
                 onClick={() => {
@@ -417,7 +417,7 @@ export default function HeroCarousel({
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
 
             {/* Selector BARRIO */}
-            <div className="relative flex-1 min-w-0">
+            <div className="relative sm:flex-1 min-w-0 border-r border-slate-200 sm:border-0">
               <button
                 ref={barrioTriggerRef}
                 type="button"
@@ -449,7 +449,7 @@ export default function HeroCarousel({
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector TIPO */}
-            <div className="relative flex-1 min-w-0">
+            <div className="relative sm:flex-1 min-w-0">
               <button
                 ref={tipoTriggerRef}
                 type="button"
@@ -481,7 +481,7 @@ export default function HeroCarousel({
             <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
 
             {/* Selector PRECIO */}
-            <div className="relative flex-1 min-w-0">
+            <div className="relative sm:flex-1 min-w-0 border-r border-slate-200 sm:border-0">
               <button
                 ref={precioTriggerRef}
                 type="button"
@@ -513,7 +513,7 @@ export default function HeroCarousel({
             <button
               type="button"
               onClick={handleSearch}
-              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-8 md:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-bold text-sm sm:text-[15px] md:text-base uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none mt-2 sm:mt-0"
+              className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-3 sm:px-8 md:px-9 py-2.5 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-bold text-sm sm:text-[15px] md:text-base uppercase tracking-wider inline-flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
             >
               <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.5] text-white shrink-0" />
               <span className="leading-none">{L.search}</span>
@@ -596,49 +596,49 @@ export default function HeroCarousel({
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 items-center">
 
             {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
-              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Users className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Users className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
+                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
-              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <ThumbsUp className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <ThumbsUp className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
+                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
             {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
-              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Building2 className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
+                <Building2 className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
+                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
             {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-center gap-3.5 sm:gap-4 p-1">
-              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <User className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            <div className="flex items-center justify-center gap-2 sm:gap-4 p-0">
+              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
+                <User className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-2xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-xs sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-xl sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
+                <p className="text-[10px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

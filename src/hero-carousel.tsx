@@ -322,7 +322,7 @@ export default function HeroCarousel({
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
         className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-8 sm:pb-18 md:pb-20'
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-14 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
@@ -592,7 +592,7 @@ export default function HeroCarousel({
         {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-2 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
+          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-6 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
             openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
           }`}
         >

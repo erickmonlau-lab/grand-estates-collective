@@ -245,10 +245,17 @@ export default function HeroCarousel({
       tipo: tipo === "Cualquier tipo" ? "Cualquier tipo" : tipo,
       precio: precio === "Cualquier precio" ? "Cualquier precio" : precio,
     });
-    const el = document.getElementById("propiedades") || document.getElementById("properties-results");
-    if (el) {
-      const navOffset = window.innerWidth < 768 ? 70 : 85;
-      const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
+    const target =
+      document.getElementById("catalogo-inmuebles") ||
+      document.querySelector("#propiedades > div") ||
+      document.getElementById("propiedades") ||
+      document.getElementById("properties-results");
+    if (target) {
+      // Navbar flotante: ~56px altura + top 10-14px = ~70px.
+      // Un offset de 75px en mobile y 85px en desktop sitúa el borde superior de la tarjeta blanca
+      // exactamente debajo de la barra de navegación, eliminando el corte del Hero/métricas.
+      const navOffset = window.innerWidth < 768 ? 75 : 85;
+      const pos = target.getBoundingClientRect().top + window.scrollY - navOffset;
       window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
       window.history.replaceState(null, "", "#propiedades");
     }

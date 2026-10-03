@@ -467,7 +467,7 @@ export default function HeroCarousel({
                       {L.type}
                     </span>
                     <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-1">
-                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Cualquier tipo") : tipo}
+                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol" : language === "en" ? "Any" : "Cualquiera") : tipo}
                     </span>
                   </div>
                 </div>

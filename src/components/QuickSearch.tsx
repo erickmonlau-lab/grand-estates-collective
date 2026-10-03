@@ -75,7 +75,7 @@ export default function QuickSearch({ onPerformSearch, language = "es" }: QuickS
     price: language === "ca" ? "Preu" : language === "en" ? "Price" : "Precio",
     search: language === "ca" ? "Cercar" : language === "en" ? "Search" : "Buscar",
     anyArea: language === "ca" ? "Qualsevol zona" : language === "en" ? "Any area" : "Cualquier zona",
-    anyType: language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Cualquier tipo",
+    anyType: language === "ca" ? "Qualsevol" : language === "en" ? "Any" : "Cualquiera",
     anyPrice: language === "ca" ? "Qualsevol preu" : language === "en" ? "Any price" : "Cualquier precio",
   };
 

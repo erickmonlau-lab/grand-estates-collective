@@ -343,9 +343,9 @@ export default function HeroCarousel({
           {/* H1 Principal */}
           <h1
             className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 ${
-              customHeadline ? 'max-w-[880px] leading-[1.08]' : 'max-w-[780px] leading-[1.06]'
+              customHeadline ? 'max-w-[920px] leading-[1.1]' : 'max-w-[780px] leading-[1.06]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(2.1rem, 4.5vw, 3.8rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(1.6rem, 3.4vw, 2.9rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline

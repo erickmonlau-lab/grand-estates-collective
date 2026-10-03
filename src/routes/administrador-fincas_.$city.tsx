@@ -799,11 +799,9 @@ function SantaColomaBarrioPage() {
                   ? "Property Management,"
                   : "Administración de Fincas,"}
               </span>
-              <span className="text-[#2563eb] inline-block mt-0.5 sm:mt-1">
+              <span className="text-[#2563eb] block mt-1">
                 {language === "ca" ? "a " : language === "en" ? "in " : "en "}
-                <span className="whitespace-nowrap">{data.name}</span>
-                {" · "}
-                <span className="whitespace-nowrap">Santa&nbsp;Coloma</span>
+                {data.name} · Santa&nbsp;Coloma
               </span>
             </>
           }

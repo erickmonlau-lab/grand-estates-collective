@@ -320,12 +320,12 @@ export default function HeroCarousel({
 
       {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
       <div
-        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-16 sm:pt-20 md:pt-24 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-5 sm:pb-7 md:pb-8' : 'pb-10 sm:pb-18 md:pb-20'
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-20 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
+          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-10 sm:pb-18 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
-        <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[960px]' : 'max-w-[840px]'}`}>
+        <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[840px]'}`}>
 
           {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
           <div className="mb-3 sm:mb-3.5">
@@ -348,10 +348,10 @@ export default function HeroCarousel({
 
           {/* H1 Principal */}
           <h1
-            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 ${
-              customHeadline ? 'max-w-[960px] leading-[1.08]' : 'max-w-[780px] leading-[1.06]'
+            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 leading-[1.06] ${
+              customHeadline ? 'max-w-[1000px]' : 'max-w-[780px]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(1.9rem, 4.2vw, 3.6rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(2.1rem, 4.8vw, 4.1rem)' : 'clamp(2.5rem, 5.6vw, 4.6rem)' }}
           >
             {customHeadline ? (
               customHeadline
@@ -373,7 +373,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
         <div
-          className="relative z-40 w-full max-w-[1120px] mx-auto mt-3 sm:mt-4 mb-5 sm:mb-7 md:mb-8"
+          className="relative z-40 w-full max-w-[1120px] mx-auto mt-4 sm:mt-5 mb-7 sm:mb-12 md:mb-14"
           onClick={(e) => e.stopPropagation()}
         >
 

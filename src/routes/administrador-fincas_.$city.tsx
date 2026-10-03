@@ -663,9 +663,8 @@ function SantaColomaBarrioPage() {
   const relatedProperties = activeLiveProperties
     .filter(p => {
       const pOp = (p.operation || "comprar") as string;
-      const matchesMode = searchParams.mode === "favoritos" 
-        ? favorites.includes(p.id) 
-        : (pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra"));
+      const targetMode = searchParams.mode === "favoritos" ? "comprar" : searchParams.mode;
+      const matchesMode = pOp === targetMode || (targetMode === "comprar" && pOp === "compra");
       return matchesMode;
     })
     .sort((a, b) => {
@@ -1053,35 +1052,50 @@ function SantaColomaBarrioPage() {
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
                           <div className="flex items-center gap-3.5">
                             <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
-                              <Search className="w-5 h-5 text-[#2563eb]" />
+                              {searchParams.mode === "favoritos" ? (
+                                <Heart className="w-5 h-5 text-red-500 fill-red-500" />
+                              ) : (
+                                <Search className="w-5 h-5 text-[#2563eb]" />
+                              )}
                             </div>
                             <div>
                               <p className="text-base font-bold text-[#0f172a] leading-snug">
-                                {language === "ca"
-                                  ? `No hi ha immobles directes a ${formatLocation(searchParams.zona, language)} amb aquests filtres.`
-                                  : language === "en"
-                                  ? `No properties found directly in ${formatLocation(searchParams.zona, language)} matching these filters.`
-                                  : `No hay inmuebles directamente en ${formatLocation(searchParams.zona, language)} con estos filtros.`}
+                                {searchParams.mode === "favoritos"
+                                  ? (language === "ca"
+                                      ? "Encara no tens cap immoble guardat a favorits."
+                                      : language === "en"
+                                      ? "You don't have any properties saved in favorites yet."
+                                      : "Aún no tienes ningún inmueble guardado en favoritos.")
+                                  : (language === "ca"
+                                      ? `No hi ha immobles directes a ${formatLocation(searchParams.zona, language)} amb aquests filtres.`
+                                      : language === "en"
+                                      ? `No properties found directly in ${formatLocation(searchParams.zona, language)} matching these filters.`
+                                      : `No hay inmuebles directamente en ${formatLocation(searchParams.zona, language)} con estos filtros.`)}
                               </p>
                               <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-                                {language === "ca"
-                                  ? "Pots consultar totes les oportunitats actives a Santa Coloma o prémer 'Veure tots'."
-                                  : language === "en"
-                                  ? "You can view other available properties in Santa Coloma or click 'See all'."
-                                  : "Puedes consultar otras oportunidades activas en Santa Coloma o pulsar 'Ver todos'."}
+                                {searchParams.mode === "favoritos"
+                                  ? (language === "ca"
+                                      ? "Fes clic a la icona del cor a les propietats que t'agradin per guardar-les aquí, o explora el catàleg a continuació."
+                                      : language === "en"
+                                      ? "Click the heart icon on any property to save it here, or explore the catalog below."
+                                      : "Haz clic en el corazón de las propiedades que te gusten para guardarlas aquí, o explora el catálogo a continuación.")
+                                  : (language === "ca"
+                                      ? "Pots consultar totes les oportunitats actives a Santa Coloma o prémer 'Veure tots'."
+                                      : language === "en"
+                                      ? "You can view other available properties in Santa Coloma or click 'See all'."
+                                      : "Puedes consultar otras oportunidades activas en Santa Coloma o pulsar 'Ver todos'.")}
                               </p>
                             </div>
                           </div>
                           <button
                             type="button"
                             onClick={() => {
-                              const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
-                              setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                              setSearchParams({ mode: "comprar", zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                               heroResetRef.current?.();
                             }}
                             className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer font-sans"
                           >
-                            {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
+                            {language === "ca" ? "Veure catàleg" : language === "en" ? "View catalog" : "Ver catálogo"}
                           </button>
                         </div>
 

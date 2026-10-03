@@ -682,17 +682,18 @@ function Index() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                           
                           {/* Floating Status, Type & Reservation Pills — single attractive line */}
-                          <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-1.5 z-20 pointer-events-none overflow-x-auto no-scrollbar">
+                          <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-2 sm:gap-2.5 z-20 pointer-events-none overflow-x-auto no-scrollbar">
                             <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
                               <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                               <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                             </span>
-                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
+                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
                               {type}
                             </span>
                             {property.status === "reservado" && (
-                              <span className="inline-flex items-center bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean shrink-0 whitespace-nowrap">
-                                {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
+                              <span className="inline-flex items-center gap-1.5 bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[10px] sm:text-[11px] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean shrink-0 whitespace-nowrap">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 shadow-xs" />
+                                <span>{language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}</span>
                               </span>
                             )}
                           </div>

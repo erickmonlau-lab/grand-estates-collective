@@ -132,18 +132,18 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
   );
 
   return (
-    <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
+    <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-9 scroll-mt-20 sm:scroll-mt-24 font-sans">
       <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[30px] shadow-xl border border-slate-200/90 p-5 sm:p-7 md:p-8 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
+      <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-lg border border-slate-300 p-4 sm:p-6 md:p-7 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
         
-        {/* Cabecera del Valorador: Título Editorial + Subtítulo Integrado */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-8 mb-6 pb-5 border-b border-slate-200">
+        {/* Cabecera Editorial Limpia */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-6 mb-5 pb-4 border-b border-slate-200">
           <div className="flex flex-col items-start max-w-xl">
-            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full shadow-xs mb-2.5 font-sans">
+            <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-full shadow-2xs mb-2 font-sans">
               <Star className="w-3.5 h-3.5 fill-white" />
               <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-[#0b214a] tracking-tight leading-[1.08] font-heading">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] tracking-tight leading-[1.08] font-heading">
               {language === "ca" ? (
                 <><span className="mr-0.5 inline-block">¿</span>Quant val el teu habitatge<span className="ml-0.5 inline-block">?</span></>
               ) : language === "en" ? (
@@ -153,8 +153,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               )}
             </h2>
           </div>
-          <div className="md:max-w-md md:self-end md:pb-1">
-            <p className="text-sm sm:text-base text-[#0b214a] font-semibold leading-snug">
+          <div className="md:max-w-md md:self-end md:pb-0.5">
+            <p className="text-sm sm:text-[15px] text-[#0b214a] font-semibold leading-snug">
               {language === "ca" ? (
                 <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
               ) : language === "en" ? (
@@ -166,44 +166,38 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
           </div>
         </div>
 
-        {/* 2-Column Split: INPUT (46%) → PROCESO → RESULTADO (54%) — Herramienta Continua Unificada */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+        {/* 2-Column Split Compacto y Equilibrado (Sin espacios vacíos) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
           
-          {/* PANEL IZQUIERDO: ENTRADA DE DATOS (5 cols en desktop con jerarquía pura y alta densidad) */}
-          <div 
-            className="lg:col-span-6 xl:col-span-5 flex flex-col justify-between rounded-2xl sm:rounded-[22px] relative overflow-hidden bg-[#F4F7FC] border-2 border-[#CBD6E5] h-full"
-          >
-            {/* Cabecera visual azul sólida: DATOS DE TU VIVIENDA */}
-            <div className="bg-[#2563eb] text-white px-5 sm:px-6 py-3.5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <Home className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
-                <h3 className="text-base sm:text-[17px] font-black tracking-wide text-white font-sans uppercase">
+          {/* PANEL IZQUIERDO: FLUJO COMPACTO (DATOS -> INPUTS -> CTA -> BENEFICIOS) */}
+          <div className="lg:col-span-6 flex flex-col justify-between rounded-2xl relative overflow-hidden bg-[#F4F7FC] border-2 border-[#CBD6E5] p-4 sm:p-5">
+            <div className="flex flex-col gap-3.5">
+              {/* Cabecera del Panel */}
+              <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
+                <div className="w-7 h-7 rounded-lg bg-[#2563eb] text-white flex items-center justify-center shrink-0">
+                  <Home className="w-4 h-4 text-white stroke-[2.5]" />
+                </div>
+                <h3 className="text-sm sm:text-base font-black text-[#0b214a] font-sans uppercase tracking-wider">
                   {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
                 </h3>
               </div>
-              <span className="text-[11px] font-extrabold text-blue-100 uppercase tracking-wider bg-blue-700/60 px-2.5 py-0.5 rounded-md">
-                {language === "ca" ? "PAS 1 DE 2" : language === "en" ? "STEP 1 OF 2" : "PASO 1 DE 2"}
-              </span>
-            </div>
 
-            {/* Formulario de Datos */}
-            <div className="p-4 sm:p-5 md:p-6 flex flex-col justify-between flex-1 gap-4">
-              {/* Inputs Zona y Superficie */}
-              <div className="flex flex-col gap-3">
-                {/* Select Barrio / Zona */}
-                <div className="bg-white rounded-[14px] p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] transition-colors focus-within:border-[#2563eb]">
-                  <label htmlFor="valuator-zona-select" className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+              {/* Inputs Estructurados en Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Zona o Barrio */}
+                <div className="bg-white rounded-xl p-2.5 sm:p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] focus-within:border-[#2563eb] transition-colors">
+                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-0.5 font-sans">
                     {language === "ca" ? "ZONA O BARRI" : language === "en" ? "NEIGHBORHOOD" : "ZONA O BARRIO"}
-                  </label>
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 w-full min-w-0">
+                  </span>
+                  <div className="flex items-center justify-between gap-1.5">
+                    <div className="flex items-center gap-2 w-full min-w-0">
                       <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                       <select
                         id="valuator-zona-select"
                         aria-label="Seleccionar zona de la propiedad"
                         value={valuatorData.zona}
                         onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                        className="w-full bg-white border-0 p-0 text-[16px] sm:text-[17px] font-extrabold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
+                        className="w-full bg-transparent border-0 p-0 text-[15px] sm:text-[16px] font-extrabold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
                       >
                         {zonas.map(z => <option key={z} value={z}>{formatLocation(z, language)}</option>)}
                       </select>
@@ -212,11 +206,11 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   </div>
                 </div>
 
-                {/* Input Superficie estimada */}
-                <div className="bg-white rounded-[14px] p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] transition-colors focus-within:border-[#2563eb]">
-                  <label htmlFor="valuator-metros-input" className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-500 mb-1 font-sans">
+                {/* Superficie Estimada con cápsula m² sólida */}
+                <div className="bg-white rounded-xl p-2.5 sm:p-3 border-2 border-[#CBD6E5] hover:border-[#2563eb] focus-within:border-[#2563eb] transition-colors">
+                  <span className="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-0.5 font-sans">
                     {language === "ca" ? "SUPERFÍCIE ESTIMADA" : language === "en" ? "ESTIMATED AREA" : "SUPERFICIE ESTIMADA"}
-                  </label>
+                  </span>
                   <div className="flex items-center gap-2">
                     <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
                     <input
@@ -227,21 +221,21 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       placeholder="85"
                       value={valuatorData.metros}
                       onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                      className="w-full bg-white border-0 p-0 text-[16px] sm:text-[17px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
+                      className="w-full bg-transparent border-0 p-0 text-[15px] sm:text-[16px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
-                    <span className="text-[12px] sm:text-[13px] font-black text-white px-3 py-1 rounded-[6px] shrink-0 font-sans tracking-tight bg-[#2563eb]">
+                    <span className="text-xs font-black text-white px-2.5 py-0.5 rounded-md shrink-0 font-sans tracking-tight bg-[#2563eb]">
                       m²
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Botón Acción Principal: CALCULAR / ACTUALIZAR */}
+              {/* Botón Calcular Inmediatamente Adosado */}
               <button
                 type="button"
                 onClick={handleCalculateValuation}
                 disabled={isCalculatingValuation}
-                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] active:scale-[0.99] text-white font-extrabold text-sm sm:text-base py-3.5 px-6 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider font-sans disabled:opacity-85 shadow-sm select-none"
+                className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] active:scale-[0.99] text-white font-extrabold text-sm sm:text-base py-3 px-5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 uppercase tracking-wider font-sans disabled:opacity-85 shadow-sm select-none"
               >
                 <Home className="w-4 h-4 text-white shrink-0" />
                 <span>
@@ -253,136 +247,109 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 </span>
                 <ArrowRight className="w-4 h-4 text-white shrink-0" />
               </button>
+            </div>
 
-              {/* Sellos de Beneficios Comerciales: Icono sólido azul + texto navy claro */}
-              <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200/80">
-                <div className="flex items-center gap-2 py-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
-                  </div>
-                  <span className="text-[12px] sm:text-[13px] text-[#0b214a] font-bold font-sans leading-tight">
-                    {t.valorador.sinCompromiso}
-                  </span>
+            {/* Beneficios Integrados Orgánicamente al CTA (Sin tarjetas blancas alrededor) */}
+            <div className="flex items-center justify-center gap-5 sm:gap-8 pt-3 mt-3 border-t border-slate-200">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
+                  <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                 </div>
+                <span className="text-xs sm:text-[13px] text-[#0b214a] font-bold font-sans">
+                  {t.valorador.sinCompromiso}
+                </span>
+              </div>
 
-                <div className="flex items-center gap-2 py-0.5">
-                  <div className="w-7 h-7 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
-                    <Zap className="w-3.5 h-3.5 text-white fill-white stroke-[2.5]" />
-                  </div>
-                  <span className="text-[12px] sm:text-[13px] text-[#0b214a] font-bold font-sans leading-tight">
-                    {t.valorador.resultadoInmediato}
-                  </span>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-[#2563eb] flex items-center justify-center shrink-0">
+                  <Zap className="w-3.5 h-3.5 text-white fill-white stroke-[2.5]" />
                 </div>
+                <span className="text-xs sm:text-[13px] text-[#0b214a] font-bold font-sans">
+                  {t.valorador.resultadoInmediato}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* PANEL DERECHO: RESULTADO ESTIMADO (7 cols en desktop con mayor presencia y protagonismo) */}
-          <div className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center">
-            <div 
-              className="rounded-2xl sm:rounded-[22px] p-5 sm:p-7 md:p-8 text-center relative overflow-hidden flex flex-col items-center justify-between h-full min-h-[350px] text-white bg-[#0B1733] border-2 border-[#2563eb]"
-            >
-              
-              {/* Calculating State Overlay — sobrio, fluido y sin spinners gigantes */}
-              {isCalculatingValuation && (
-                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1733] transition-opacity duration-200">
-                  <div className="w-8 h-8 border-3 border-[#2563eb] border-t-white rounded-full animate-spin mb-2.5" />
-                  <span className="text-xs sm:text-sm font-extrabold text-white tracking-widest uppercase font-sans">
-                    {language === "ca" ? "CALCULANT ESTIMACIÓ..." : language === "en" ? "CALCULATING ESTIMATE..." : "CALCULANDO ESTIMACIÓN..."}
-                  </span>
-                </div>
+          {/* PANEL DERECHO: RESULTADO PROTAGONISTA EN NAVY SÓLIDO (#0B1733) */}
+          <div className="lg:col-span-6 flex flex-col justify-between rounded-2xl relative overflow-hidden bg-[#0B1733] border-2 border-[#2563eb] p-5 sm:p-6 text-white text-center">
+            
+            {/* Overlay sutil mientras calcula */}
+            {isCalculatingValuation && (
+              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1733] transition-opacity duration-200">
+                <div className="w-7 h-7 border-3 border-[#2563eb] border-t-white rounded-full animate-spin mb-2" />
+                <span className="text-xs font-extrabold text-white tracking-widest uppercase font-sans">
+                  {language === "ca" ? "CALCULANT ESTIMACIÓ..." : language === "en" ? "CALCULATING ESTIMATE..." : "CALCULANDO ESTIMACIÓN..."}
+                </span>
+              </div>
+            )}
+
+            {/* Cabecera del Resultado */}
+            <div className="flex flex-col items-center">
+              {hasCalculated ? (
+                <span 
+                  className={`inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#2563eb] px-4 py-1 rounded-full mb-1 font-sans shadow-xs transition-all duration-200 transform ${
+                    badgeAnimatedIn ? "opacity-100 scale-100" : "opacity-85 scale-95"
+                  }`}
+                >
+                  <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
+                  <span>{language === "ca" ? "VALORACIÓ CALCULADA" : language === "en" ? "VALUATION CALCULATED" : "VALORACIÓN CALCULADA"}</span>
+                </span>
+              ) : (
+                <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-slate-200 bg-[#16274e] border border-blue-500/40 px-3.5 py-0.5 rounded-full mb-1 font-sans">
+                  {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
+                </span>
               )}
 
-              {/* Bloque Superior: Badge de Estado + Cifra Dominante + Relación €/m² */}
-              <div className="w-full flex flex-col items-center">
-                {/* Badge contextual de estado */}
-                {hasCalculated ? (
-                  <span 
-                    className={`inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-black uppercase tracking-wider text-white bg-[#2563eb] px-4 py-1 rounded-full mb-1.5 font-sans shadow-sm transition-all duration-200 transform ${
-                      badgeAnimatedIn ? "opacity-100 scale-100" : "opacity-80 scale-95"
-                    }`}
-                  >
-                    <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
-                    <span>{language === "ca" ? "VALORACIÓ CALCULADA" : language === "en" ? "VALUATION CALCULATED" : "VALORACIÓN CALCULADA"}</span>
-                  </span>
-                ) : (
-                  <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-slate-200 bg-[#16274e] border border-blue-500/40 px-4 py-1 rounded-full mb-1 font-sans">
-                    {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
-                  </span>
-                )}
-
-                {/* Subtítulo orientativo antes del cálculo */}
-                {!hasCalculated && (
-                  <p className="text-[12px] sm:text-[13px] text-slate-300 font-semibold font-sans mb-1">
-                    {language === "ca"
-                      ? "Calcula per obtenir la teva estimació"
-                      : language === "en"
-                      ? "Calculate to get your estimate"
-                      : "Calcula para obtener tu estimación"}
-                  </p>
-                )}
-
-                {/* Cifra de Precio Dominante con animación suave */}
-                <div 
-                  className={`text-5xl sm:text-6xl md:text-[68px] font-black text-white leading-none tracking-tight my-2 font-heading transition-opacity duration-200 ${
-                    isCalculatingValuation ? "opacity-25" : "opacity-100"
-                  }`} 
-                  style={{ fontSize: "clamp(46px, 5.4vw, 72px)" }}
-                >
-                  <span aria-live="polite" aria-atomic="true">
-                    {new Intl.NumberFormat('es-ES').format(displayPrice)}
-                  </span>
-                  <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
-                </div>
-
-                {/* Métrica secundaria: Precio por m² */}
-                <p className="text-sm sm:text-base md:text-[17px] font-bold text-white font-sans mt-0.5">
-                  <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
-                </p>
-
-                {/* Confirmación informativa post-cálculo */}
-                {hasCalculated && (
-                  <p className="text-[12px] sm:text-[13px] text-sky-200 font-medium font-sans mt-2">
-                    {language === "ca"
-                      ? "Estimació orientativa basada en la teva zona i superfície."
-                      : language === "en"
-                      ? "Indicative estimate based on your area and size."
-                      : "Estimación orientativa basada en tu zona y superficie."}
-                  </p>
-                )}
+              {/* Cifra de Precio Dominante */}
+              <div 
+                className={`text-5xl sm:text-6xl md:text-[62px] font-black text-white leading-none tracking-tight my-1.5 font-heading transition-opacity duration-200 ${
+                  isCalculatingValuation ? "opacity-25" : "opacity-100"
+                }`} 
+                style={{ fontSize: "clamp(42px, 5vw, 64px)" }}
+              >
+                <span aria-live="polite" aria-atomic="true">
+                  {new Intl.NumberFormat('es-ES').format(displayPrice)}
+                </span>
+                <span className="text-[#2563eb] ml-1 font-sans">€</span>
               </div>
 
-              {/* Bloque Inferior: Divisor Sólido + CTA Comercial + Cláusula Legal */}
-              <div className="w-full mt-4 pt-3.5 border-t border-[#1D4ED8] flex flex-col items-center">
-                <a
-                  href={`https://wa.me/34689438012?text=${contactText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full max-w-[420px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm md:text-[15px] py-3.5 sm:py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans shadow-sm"
-                >
-                  <span>
-                    {language === "ca" 
-                      ? "VULL UNA VALORACIÓ PERSONALITZADA" 
-                      : language === "en" 
-                      ? "I WANT A PERSONALIZED APPRAISAL" 
-                      : "QUIERO UNA VALORACIÓN PERSONALIZADA"}
-                  </span>
-                  <ArrowRight className="w-4 h-4 text-white shrink-0" />
-                </a>
-
-                {/* Cláusula legal en máximo 2 líneas exactas balanceadas */}
-                <p className="text-[11px] sm:text-[12px] text-slate-300 font-medium font-sans mt-2.5 leading-snug text-center max-w-[420px] mx-auto">
-                  {language === "ca" ? (
-                    <>Estimació orientativa basada en dades de mercat.<br className="hidden sm:inline" /> No constitueix una taxació oficial.</>
-                  ) : language === "en" ? (
-                    <>Guidance estimation based on market data.<br className="hidden sm:inline" /> Does not constitute an official appraisal.</>
-                  ) : (
-                    <>Estimación orientativa basada en datos de mercado.<br className="hidden sm:inline" /> No constituye una tasación oficial.</>
-                  )}
-                </p>
-              </div>
-
+              {/* Métrica secundaria €/m² */}
+              <p className="text-sm sm:text-base font-bold text-white font-sans">
+                <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
+              </p>
             </div>
+
+            {/* Bloque Inferior: Divisor Sólido + CTA Comercial + Cláusula Legal */}
+            <div className="w-full mt-3 pt-3 border-t border-[#1D4ED8] flex flex-col items-center">
+              <a
+                href={`https://wa.me/34689438012?text=${contactText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full max-w-[400px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans shadow-sm"
+              >
+                <span>
+                  {language === "ca" 
+                    ? "VULL UNA VALORACIÓ PERSONALITZADA" 
+                    : language === "en" 
+                    ? "I WANT A PERSONALIZED APPRAISAL" 
+                    : "QUIERO UNA VALORACIÓN PERSONALIZADA"}
+                </span>
+                <ArrowRight className="w-4 h-4 text-white shrink-0" />
+              </a>
+
+              {/* Cláusula legal única de máximo 2 líneas */}
+              <p className="text-[11px] text-slate-300 font-medium font-sans mt-2 leading-tight text-center max-w-[400px] mx-auto">
+                {language === "ca" ? (
+                  <>Estimació orientativa basada en dades de mercat.<br className="hidden sm:inline" /> No constitueix una taxació oficial.</>
+                ) : language === "en" ? (
+                  <>Guidance estimation based on market data.<br className="hidden sm:inline" /> Does not constitute an official appraisal.</>
+                ) : (
+                  <>Estimación orientativa basada en datos de mercado.<br className="hidden sm:inline" /> No constituye una tasación oficial.</>
+                )}
+              </p>
+            </div>
+
           </div>
 
         </div>

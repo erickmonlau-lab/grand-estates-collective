@@ -1052,20 +1052,20 @@ function Index() {
       {/* ── SERVICES SECTION (DISTINCT DARK NAVY & CYAN LOGO ACCENT INFORMATIVE LAYOUT) ── */}
       <section id="servicios" className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-7 scroll-mt-28 md:scroll-mt-32">
         <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white">
-          <div className="text-center mb-4 sm:mb-6">
+          <div className="text-center mb-5 sm:mb-7">
             <Reveal>
-              <span className="inline-flex items-center gap-1.5 bg-white text-[#0f172a] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl mb-2 shadow-xs border border-slate-200 font-sans">
-                <Building2 className="w-3.5 h-3.5 text-[#2563eb]" />
+              <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-[13px] sm:text-[14px] font-extrabold tracking-wider uppercase px-4 py-1.5 rounded-full mb-3 shadow-xs border border-slate-200 font-sans">
+                <Building2 className="w-4 h-4 text-[#2563eb]" />
                 <span>{t.servicios.tag}</span>
               </span>
             </Reveal>
             <Reveal>
-              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-1.5 tracking-tight font-sans">
+              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight text-white mb-2 tracking-tight font-sans">
                 {t.servicios.title1} <span className="text-[#38bdf8]">{t.servicios.title2}</span>
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-2">
+              <p className="text-white text-base sm:text-[17.5px] md:text-[18.5px] max-w-xl mx-auto font-medium leading-relaxed font-sans mt-2">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
@@ -1090,18 +1090,18 @@ function Index() {
                 <Reveal key={i} delay={i * 0.1}>
                   <div 
                     onClick={() => setSelectedServiceIndex(i)}
-                    className="group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-4.5 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 h-full border-2 border-slate-100 hover:border-[#2563eb] cursor-pointer relative"
+                    className="group bg-white text-[#0f172a] rounded-2xl p-4.5 sm:p-5 md:p-5.5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-stretch sm:items-center gap-4.5 h-full border-2 border-slate-100 hover:border-[#2563eb] cursor-pointer relative"
                   >
                     
                     {/* Thumbnail con imagen limpia sin tapar */}
-                    <div className="relative w-full sm:w-[130px] md:w-[140px] h-[110px] sm:h-[120px] rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
+                    <div className="relative w-full sm:w-[130px] md:w-[140px] h-[110px] sm:h-[125px] rounded-xl overflow-hidden shrink-0 bg-slate-100 shadow-xs">
                       <img 
                         src={bgs[i]} 
                         alt={item.title} 
                         loading="lazy" 
                         decoding="async"
                         width={140}
-                        height={120}
+                        height={125}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                       />
                     </div>
@@ -1109,15 +1109,15 @@ function Index() {
                     {/* Texto informativo + Icono integrado en título + Botón Píldora alineado */}
                     <div className="flex-1 flex flex-col justify-between h-full min-h-[120px]">
                       <div>
-                        <div className="flex items-center gap-2.5 mb-1.5">
-                          <span className="w-7 h-7 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <span className="w-7.5 h-7.5 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
                             {icons[i]}
                           </span>
-                          <h3 className="text-base sm:text-lg font-bold text-[#0f172a] leading-snug group-hover:text-[#2563eb] transition-colors font-sans">
+                          <h3 className="text-lg sm:text-[20px] md:text-[21px] font-bold text-[#0f172a] leading-snug group-hover:text-[#2563eb] transition-colors font-sans">
                             {item.title}
                           </h3>
                         </div>
-                        <p className="text-xs sm:text-[13.5px] text-slate-600 font-normal leading-relaxed mb-3 font-sans">
+                        <p className="text-[14.5px] sm:text-[15.5px] text-slate-600 font-normal leading-[1.5] mb-3 font-sans">
                           {item.desc}
                         </p>
                       </div>
@@ -1128,7 +1128,7 @@ function Index() {
                             e.stopPropagation();
                             setSelectedServiceIndex(i);
                           }}
-                          className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-[13px] px-4 py-1.5 sm:py-2 rounded-full transition-colors shadow-xs hover:shadow-md cursor-pointer flex items-center gap-1.5 w-fit font-sans uppercase tracking-wider"
+                          className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs sm:text-[13px] px-4.5 py-2 rounded-full transition-colors shadow-xs hover:shadow-md cursor-pointer flex items-center gap-1.5 w-fit font-sans uppercase tracking-wider"
                         >
                           <span>{t.servicios.saberMas}</span>
                           <ArrowRight className="w-3.5 h-3.5 text-white stroke-[2.5]" />

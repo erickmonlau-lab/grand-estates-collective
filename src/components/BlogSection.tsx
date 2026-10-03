@@ -48,10 +48,10 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
                   <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
                     <span className="text-slate-500 font-extrabold">{date}</span>
                   </div>
-                  <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans cursor-pointer">
+                  <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-3 min-h-[4.2rem] sm:min-h-[4.8rem] font-sans cursor-pointer">
                     {title}
                   </Link>
-                  <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
+                  <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3 min-h-[4.5rem]">
                     {summary}
                   </p>
                   <div className="mt-auto pt-3 border-t border-slate-100">

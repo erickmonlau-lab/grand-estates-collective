@@ -1150,33 +1150,33 @@ function Index() {
       </Suspense>
 
       {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
-      <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-12 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
+      <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-8 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
         <div id="testimonios" className="-top-32 relative block invisible" />
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-5 sm:p-7 md:p-10 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
+        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Subtle Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
           <div className="relative z-10">
             {/* Header */}
             <Reveal>
-              <div className="mb-6 md:mb-8 text-center">
-                <span className="inline-flex items-center gap-2 bg-[#0b214a] text-white text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-white/10 mb-2.5">
+              <div className="mb-4 md:mb-5 text-center">
+                <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 rounded-xl shadow-md border border-white/10 mb-2">
                   <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                   <span>{t.testimonios.tag}</span>
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-[#0f172a] tracking-tight mb-5 md:mb-6 font-sans">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black leading-tight text-[#0f172a] tracking-tight mb-2.5 font-sans">
                   {t.testimonios.title1}{" "}
-                  <span className="relative inline-block text-[#2563eb] pb-1.5">
+                  <span className="relative inline-block text-[#2563eb] pb-0.5">
                     {t.testimonios.title2}
-                    <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
+                    <svg className="absolute -bottom-1 left-0 w-full h-2 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
                       <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                     </svg>
                   </span>
                 </h2>
-                {/* Google Verified Reviews Subtitle Badge with spacious margin */}
-                <div className="flex items-center justify-center pt-2 sm:pt-3">
-                  <div className="inline-flex items-center gap-2.5 bg-white border-2 border-slate-200 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-sm hover:border-[#2563eb]/40 transition-colors">
-                    <GoogleIcon className="w-6 h-6 shrink-0" />
-                    <span className="text-base sm:text-lg font-black text-slate-800 tracking-tight">
+                {/* Google Verified Reviews Subtitle Badge closely connected */}
+                <div className="flex items-center justify-center pt-1">
+                  <div className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-1.5 sm:px-4 sm:py-1.5 rounded-full shadow-xs hover:border-[#2563eb]/40 transition-colors">
+                    <GoogleIcon className="w-5 h-5 shrink-0" />
+                    <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight">
                       {language === 'ca' ? 'Ressenyes verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas verificadas en Google'}
                     </span>
                   </div>
@@ -1185,76 +1185,61 @@ function Index() {
             </Reveal>
 
             {/* 3 Real Google Reviews Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 md:gap-4 items-stretch">
               {t.testimonios.items.map((item, i) => {
-                const cardMeta = [
-                  {
-                    category: language === 'ca' ? "Compra d'habitatge" : language === 'en' ? "Home purchase" : "Compra de vivienda",
-                    Icon: Home,
-                  },
-                  {
-                    category: language === 'ca' ? "Gestió de lloguer" : language === 'en' ? "Rental management" : "Gestión de alquiler",
-                    Icon: Key,
-                  },
-                  {
-                    category: language === 'ca' ? "Comunitat de veïns" : language === 'en' ? "HOA & Building" : "Comunidad de propietarios",
-                    Icon: Building2,
-                  }
-                ];
-                const meta = cardMeta[i % cardMeta.length];
                 const initials = ["F", "A", "C"];
 
                 return (
                   <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-[0_16px_28px_-8px_rgba(15,23,42,0.1)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
                       
-                      {/* Top Accent Solid Bar */}
+                      {/* Top Accent Solid Bar (3.5px solid blue line) */}
                       <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
 
                       <div className="relative z-10 flex-1 flex flex-col">
                         {/* Top Row: 5 Stars Left Aligned & Google Badge Right Aligned */}
-                        <div className="flex items-center justify-between gap-2 mb-4 h-7">
+                        <div className="flex items-center justify-between gap-2 mb-3 h-6">
                           {/* 5 Stars Rating Perfectly Aligned */}
                           <div className="flex items-center gap-1 text-amber-400">
                             {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                              <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 shrink-0" />
                             ))}
                           </div>
 
                           {/* Google Badge */}
-                          <div className="inline-flex items-center gap-1.5 bg-white border-2 border-slate-200 px-3 py-1 rounded-full text-xs font-black text-slate-800 shadow-2xs shrink-0">
-                            <GoogleIcon className="w-4 h-4 shrink-0" />
+                          <div className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-[11px] font-black text-slate-800 shadow-2xs shrink-0">
+                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
                             <span>Google</span>
                           </div>
                         </div>
 
                         {/* Quote Text */}
-                        <p className="text-slate-700 text-[14px] sm:text-[14.5px] leading-relaxed font-normal mb-5 flex-1">
+                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4 flex-1">
                           “{item.quote}”
                         </p>
                       </div>
 
                       {/* Author Row */}
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 mt-auto">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-10 h-10 rounded-full bg-[#0b214a] text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
+                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
                             {initials[i % initials.length]}
-                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
-                              <Check className="w-2.5 h-2.5 text-white stroke-[3.5]" />
+                            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
+                              <Check className="w-2 h-2 text-white stroke-[3.5]" />
                             </div>
                           </div>
-                          <div className="flex flex-col">
-                            <strong className="font-bold text-sm sm:text-base text-[#0f172a] tracking-tight leading-tight">
+                          <div className="flex flex-col min-w-0">
+                            <strong className="font-bold text-xs sm:text-sm text-[#0f172a] tracking-tight leading-tight truncate">
                               {item.author}
                             </strong>
-                            <span className="text-xs sm:text-[13px] text-slate-600 font-semibold mt-0.5">
+                            <span className="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5">
                               {item.time}
                             </span>
                           </div>
                         </div>
 
-                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-extrabold text-white bg-[#2563eb] px-3 py-1.5 rounded-full shadow-xs shrink-0">
-                          <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white stroke-[2.5]" />
+                        <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-extrabold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
+                          <CheckCircle2 className="w-3 h-3 text-white stroke-[2.5]" />
                           <span>{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                         </span>
                       </div>

@@ -1097,20 +1097,35 @@ function SantaColomaBarrioPage() {
                                   {language === "ca" ? "Immobles disponibles actualment" : language === "en" ? "Currently available properties" : "Inmuebles disponibles actualmente"}
                                 </h3>
                               </div>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
-                                  setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
-                                  heroResetRef.current?.();
-                                }}
-                                className="text-xs font-black text-[#2563eb] hover:underline cursor-pointer hidden sm:inline"
-                              >
-                                {language === "ca" ? "Veure tot el catàleg →" : language === "en" ? "View full catalog →" : "Ver todo el catálogo →"}
-                              </button>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                               {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
+                            </div>
+                            <div className="flex flex-col items-center justify-center pt-8 gap-3">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                                  setSearchParams({
+                                    mode: currentMode,
+                                    zona: "Cualquier zona",
+                                    tipo: "Cualquier tipo",
+                                    precio: "Cualquier precio",
+                                    habitaciones: "Cualquier número"
+                                  });
+                                  heroResetRef.current?.();
+                                  setVisibleCount(999);
+                                  const el = document.getElementById('propiedades');
+                                  if (el) {
+                                    const pos = el.getBoundingClientRect().top + window.scrollY - 130;
+                                    window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
+                                  }
+                                }}
+                                className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                              >
+                                <span>{t.properties.verTodas}</span>
+                                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                              </button>
                             </div>
                           </div>
                         )}

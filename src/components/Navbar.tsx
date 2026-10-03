@@ -18,9 +18,15 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
       const isHomePage = window.location.pathname === "/" || window.location.pathname === "";
       if (isHomePage) {
         e.preventDefault();
-        const el = document.getElementById(targetId);
+        const el =
+          targetId === "propiedades"
+            ? (document.getElementById("catalogo-inmuebles") || document.getElementById("propiedades"))
+            : document.getElementById(targetId);
         if (el) {
-          const navOffset = window.innerWidth < 768 ? 100 : 110;
+          const navOffset =
+            targetId === "propiedades"
+              ? (window.innerWidth < 768 ? 75 : 85)
+              : (window.innerWidth < 768 ? 100 : 110);
           const elementPosition = el.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.scrollY - navOffset;
           window.scrollTo({

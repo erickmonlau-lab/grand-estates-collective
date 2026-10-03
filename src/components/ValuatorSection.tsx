@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Ruler, Home, ArrowRight, ChevronDown, Check, Star, Zap, CheckCircle2 } from "lucide-react";
 import { formatLocation } from "@/data/properties";
@@ -30,6 +30,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
   });
   const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
   const [hasCalculated, setHasCalculated] = useState(false);
+  const [badgeAnimatedIn, setBadgeAnimatedIn] = useState(false);
 
   const [calculatedResult, setCalculatedResult] = useState(() => {
     const defaultStats = ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350 };
@@ -46,6 +47,17 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       propertyPricePerM2: propPricePerM2
     };
   });
+
+  // Animated display price
+  const [displayPrice, setDisplayPrice] = useState<number>(calculatedResult.estimatedValue);
+  const currentPriceRef = useRef<number>(calculatedResult.estimatedValue);
+  const animFrameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, []);
 
   const handleCalculateValuation = () => {
     setIsCalculatingValuation(true);
@@ -69,6 +81,45 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       });
       setIsCalculatingValuation(false);
       setHasCalculated(true);
+
+      // Number animation with ease-out
+      if (shouldReduceMotion) {
+        setDisplayPrice(exactValue);
+        currentPriceRef.current = exactValue;
+        setBadgeAnimatedIn(true);
+        return;
+      }
+
+      // Start value: 0 on first calculation, previous value on recalculation
+      const startValue = hasCalculated ? currentPriceRef.current : 0;
+      const targetValue = exactValue;
+      const duration = 850; // 850ms (within 700-1000ms target)
+      const startTime = performance.now();
+
+      setBadgeAnimatedIn(false);
+
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+
+      const animateStep = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        // Clean ease-out cubic curve: 1 - Math.pow(1 - progress, 3)
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentVal = Math.round(startValue + (targetValue - startValue) * easeOut);
+
+        setDisplayPrice(currentVal);
+
+        if (progress < 1) {
+          animFrameRef.current = requestAnimationFrame(animateStep);
+        } else {
+          setDisplayPrice(targetValue);
+          currentPriceRef.current = targetValue;
+          // Trigger subtle badge appearance
+          setBadgeAnimatedIn(true);
+        }
+      };
+
+      animFrameRef.current = requestAnimationFrame(animateStep);
     }, 320);
   };
 
@@ -267,7 +318,11 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               <div className="w-full flex flex-col items-center">
                 {/* Badge contextual: Estado Inicial vs Estado Calculado */}
                 {hasCalculated ? (
-                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-black uppercase tracking-wider text-white bg-[#2563eb] px-5 py-1.5 rounded-full mb-1.5 font-sans shadow-sm transition-all duration-300">
+                  <span 
+                    className={`inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-black uppercase tracking-wider text-white bg-[#2563eb] px-5 py-1.5 rounded-full mb-1.5 font-sans shadow-sm transition-all duration-200 transform ${
+                      badgeAnimatedIn ? "opacity-100 scale-100" : "opacity-80 scale-95"
+                    }`}
+                  >
                     <Check className="w-4 h-4 text-white stroke-[3.5]" />
                     <span>{language === "ca" ? "VALORACIÓ CALCULADA" : language === "en" ? "VALUATION CALCULATED" : "VALORACIÓN CALCULADA"}</span>
                   </span>
@@ -288,14 +343,16 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   </p>
                 )}
 
-                {/* Dominant Price Number with subtle smooth transition */}
+                {/* Dominant Price Number with smooth numerical transition */}
                 <div 
                   className={`text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-2 font-heading transition-opacity duration-200 ${
                     isCalculatingValuation ? "opacity-30" : "opacity-100"
                   }`} 
                   style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}
                 >
-                  <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
+                  <span aria-live="polite" aria-atomic="true">
+                    {new Intl.NumberFormat('es-ES').format(displayPrice)}
+                  </span>
                   <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
                 </div>
 

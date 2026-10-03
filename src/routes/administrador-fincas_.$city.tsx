@@ -1735,12 +1735,14 @@ function SantaColomaBarrioPage() {
                   {language === "ca" ? `¿Quant val el teu habitatge a ${data.name}?` : language === "en" ? `How much is your home in ${data.name} worth?` : `¿Cuánto vale tu vivienda en ${data.name}?`}
                 </h2>
               </div>
-              <p className="text-sm sm:text-base text-[#0b214a] font-medium max-w-sm leading-relaxed">
-                {language === "ca" 
-                  ? "Descobreix una estimació orientativa de mercat en menys d'un minut." 
-                  : language === "en" 
-                  ? "Discover an orientative market estimate in less than a minute." 
-                  : "Descubre una estimación orientativa de mercado en menos de un minuto."}
+              <p className="text-sm sm:text-base text-[#0b214a] font-medium max-w-md leading-relaxed [text-wrap:balance]">
+                {language === "ca" ? (
+                  <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
+                ) : language === "en" ? (
+                  <>Discover an orientative market estimate in less than <span className="whitespace-nowrap">a minute.</span></>
+                ) : (
+                  <>Descubre una estimación orientativa de mercado en menos de <span className="whitespace-nowrap">un minuto.</span></>
+                )}
               </p>
             </div>
 

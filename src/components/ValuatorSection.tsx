@@ -102,12 +102,14 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               )}
             </h2>
           </div>
-          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-lg leading-[1.4] md:pt-2">
-            {language === "ca" 
-              ? "Descobreix una estimació orientativa de mercat en menys d'un minut." 
-              : language === "en" 
-              ? "Discover an orientative market estimate in less than a minute." 
-              : "Descubre una estimación orientativa de mercado en menos de un minuto."}
+          <p className="text-base sm:text-lg md:text-[18px] text-[#0b214a] font-semibold max-w-xl leading-[1.4] md:pt-2 [text-wrap:balance]">
+            {language === "ca" ? (
+              <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
+            ) : language === "en" ? (
+              <>Discover an orientative market estimate in less than <span className="whitespace-nowrap">a minute.</span></>
+            ) : (
+              <>Descubre una estimación orientativa de mercado en menos de <span className="whitespace-nowrap">un minuto.</span></>
+            )}
           </p>
         </div>
 

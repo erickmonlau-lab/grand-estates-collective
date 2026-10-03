@@ -48,9 +48,11 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
     };
   });
 
-  // Animated display price
+  // Animated display price & price per m2
   const [displayPrice, setDisplayPrice] = useState<number>(calculatedResult.estimatedValue);
+  const [displayPricePerM2, setDisplayPricePerM2] = useState<number>(calculatedResult.propertyPricePerM2);
   const currentPriceRef = useRef<number>(calculatedResult.estimatedValue);
+  const currentPricePerM2Ref = useRef<number>(calculatedResult.propertyPricePerM2);
   const animFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -85,14 +87,18 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       // Number animation with ease-out
       if (shouldReduceMotion) {
         setDisplayPrice(exactValue);
+        setDisplayPricePerM2(propPricePerM2);
         currentPriceRef.current = exactValue;
+        currentPricePerM2Ref.current = propPricePerM2;
         setBadgeAnimatedIn(true);
         return;
       }
 
-      // Start value: 0 on first calculation, previous value on recalculation
+      // Start values: 0 on first calculation, previous values on recalculation
       const startValue = hasCalculated ? currentPriceRef.current : 0;
       const targetValue = exactValue;
+      const startM2Value = hasCalculated ? currentPricePerM2Ref.current : 0;
+      const targetM2Value = propPricePerM2;
       const duration = 850; // 850ms (within 700-1000ms target)
       const startTime = performance.now();
 
@@ -106,14 +112,18 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
         // Clean ease-out cubic curve: 1 - Math.pow(1 - progress, 3)
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const currentVal = Math.round(startValue + (targetValue - startValue) * easeOut);
+        const currentM2Val = Math.round(startM2Value + (targetM2Value - startM2Value) * easeOut);
 
         setDisplayPrice(currentVal);
+        setDisplayPricePerM2(currentM2Val);
 
         if (progress < 1) {
           animFrameRef.current = requestAnimationFrame(animateStep);
         } else {
           setDisplayPrice(targetValue);
+          setDisplayPricePerM2(targetM2Value);
           currentPriceRef.current = targetValue;
+          currentPricePerM2Ref.current = targetM2Value;
           // Trigger subtle badge appearance
           setBadgeAnimatedIn(true);
         }
@@ -316,7 +326,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
               {/* Métrica secundaria €/m² */}
               <p className="text-sm sm:text-base font-bold text-white font-sans mt-0.5">
-                <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
+                <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(displayPricePerM2)} €/m²
               </p>
             </div>
 

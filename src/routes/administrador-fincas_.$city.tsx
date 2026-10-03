@@ -1866,13 +1866,13 @@ function SantaColomaBarrioPage() {
 
                     {/* Dominant Price Number */}
                     <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-2 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
-                      <span>{new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)}</span>
+                      <PriceCounter value={calculatedResult.estimatedValue} duration={850} />
                       <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
                     </div>
 
                     {/* Secondary price per m² */}
                     <p className="text-base sm:text-lg md:text-[19px] font-bold text-white font-sans mt-0.5">
-                      <span className="text-[#2563eb] font-black mr-1">≈</span>{new Intl.NumberFormat('es-ES').format(calculatedResult.propertyPricePerM2)} €/m²
+                      <span className="text-[#2563eb] font-black mr-1">≈</span><PriceCounter value={calculatedResult.propertyPricePerM2} duration={850} /> €/m²
                     </p>
                   </div>
 

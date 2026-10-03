@@ -26,8 +26,10 @@ import {
   Search,
   X,
   Heart,
-  Info
+  Info,
+  Maximize2
 } from "lucide-react";
+import ValuatorSection from "@/components/ValuatorSection";
 import { SANTA_COLOMA_BARRIOS, type NeighborhoodDetail } from "@/data/geoLocations";
 import { getNeighborhoodFaqs } from "@/data/barrioFaqsI18n";
 import { properties, formatLocation } from "@/data/properties";
@@ -74,35 +76,6 @@ function WhatsAppBrandIcon({ className = "w-4 h-4 fill-current shrink-0" }: { cl
       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
     </svg>
   );
-}
-
-function PriceCounter({ value, duration = 1200 }: { value: number; duration?: number }) {
-  const [displayValue, setDisplayValue] = useState(value);
-  const prevRef = useRef(value);
-
-  useEffect(() => {
-    const start = prevRef.current;
-    const end = value;
-    prevRef.current = value;
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.round(start + (end - start) * easeProgress));
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [value, duration]);
-
-  return <span>{new Intl.NumberFormat('es-ES').format(displayValue)}</span>;
 }
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -573,71 +546,10 @@ function SantaColomaBarrioPage() {
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
   const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
 
-  // Valuator state pre-configured for this neighborhood
+  // Canonical zone for ValuatorSection
   const initialZoneName = Object.keys(ZONE_PRICE_PER_M2).find(
     z => z.toLowerCase().includes(data.name.toLowerCase()) || data.name.toLowerCase().includes(z.toLowerCase())
   ) || "Centre";
-
-  const [valuatorData, setValuatorData] = useState({
-    zona: initialZoneName,
-    metros: "85"
-  });
-  const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
-  const [calculatedResult, setCalculatedResult] = useState<{
-    estimatedValue: number;
-    rangeMin: number;
-    rangeMax: number;
-    zoneName: string;
-    trendPct: number;
-    monthlyPrices: number[];
-    propertyM2: number;
-    propertyPricePerM2: number;
-    neighborhoodPricePerM2: number;
-  }>(() => {
-    const stats = ZONE_MARKET_STATS[initialZoneName] || ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    const m2 = 85;
-    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
-    const propPricePerM2 = Math.round(stats.pricePerM2 * sizeFactor);
-    const exact = Math.round(m2 * propPricePerM2);
-    return {
-      estimatedValue: exact,
-      rangeMin: Math.round(exact * 0.93),
-      rangeMax: Math.round(exact * 1.07),
-      zoneName: initialZoneName,
-      trendPct: stats.trendPct,
-      monthlyPrices: stats.monthlyPrices,
-      propertyM2: m2,
-      propertyPricePerM2: propPricePerM2,
-      neighborhoodPricePerM2: stats.pricePerM2
-    };
-  });
-
-  const handleCalculateValuation = () => {
-    setIsCalculatingValuation(true);
-    const m2 = Math.max(20, Math.min(600, parseFloat(valuatorData.metros.replace(/[^\d]/g, "")) || 85));
-    const stats = ZONE_MARKET_STATS[valuatorData.zona] || ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350, trendPct: 4.8, monthlyPrices: [2240, 2260, 2285, 2305, 2330, 2350] };
-    
-    const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
-    const propPricePerM2 = Math.round(stats.pricePerM2 * sizeFactor);
-    const exactValue = Math.round(m2 * propPricePerM2);
-    const minVal = Math.round(exactValue * 0.93);
-    const maxVal = Math.round(exactValue * 1.07);
-
-    setTimeout(() => {
-      setCalculatedResult({
-        estimatedValue: exactValue,
-        rangeMin: minVal,
-        rangeMax: maxVal,
-        zoneName: valuatorData.zona || initialZoneName,
-        trendPct: stats.trendPct,
-        monthlyPrices: stats.monthlyPrices,
-        propertyM2: m2,
-        propertyPricePerM2: propPricePerM2,
-        neighborhoodPricePerM2: stats.pricePerM2
-      });
-      setIsCalculatingValuation(false);
-    }, 1200);
-  };
 
   const handleHeroSearch = (p: { mode: string; zona: string; tipo: string; precio: string }) => {
     setSearchParams({
@@ -698,6 +610,12 @@ function SantaColomaBarrioPage() {
     };
   }, []);
 
+  // Filter properties: exclude "vendido" and "alquilado" from the public listing
+  // "disponible" and "reservado" remain visible to visitors
+  const activeLiveProperties = liveProperties.filter(
+    (p) => p.status !== "vendido" && p.status !== "alquilado"
+  );
+
   // Filtered and sorted properties
   const matchesFilter = (prop: ExtendedProperty) => {
     if (searchParams.mode === "favoritos") {
@@ -707,7 +625,15 @@ function SantaColomaBarrioPage() {
     const matchesMode = pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra");
     if (!matchesMode) return false;
 
-    const matchesZone = searchParams.zona === "Cualquier zona" || (prop.location && prop.location.includes(searchParams.zona));
+    const normalizedSearch = (searchParams.zona || "").toLowerCase().trim();
+    const normalizedPropLoc = (prop.location || "").toLowerCase().trim();
+    const matchesZone = searchParams.zona === "Cualquier zona" ||
+      normalizedPropLoc.includes(normalizedSearch) ||
+      normalizedSearch.includes(normalizedPropLoc) ||
+      (normalizedSearch.startsWith("santa rosa") && normalizedPropLoc.startsWith("santa rosa")) ||
+      ((normalizedSearch === "centro" || normalizedSearch === "centre") && (normalizedPropLoc === "centro" || normalizedPropLoc === "centre")) ||
+      (normalizedSearch.startsWith("riu") && normalizedPropLoc.startsWith("riu"));
+
     const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
     const matchesPrice = isPriceValid(searchParams.precio, prop.price);
     const matchesBeds = searchParams.habitaciones === "Cualquier número" || !searchParams.habitaciones || (
@@ -718,7 +644,7 @@ function SantaColomaBarrioPage() {
     return matchesZone && matchesType && matchesPrice && matchesBeds;
   };
 
-  const exactMatches = liveProperties
+  const exactMatches = activeLiveProperties
     .filter(matchesFilter)
     .sort((a, b) => {
       if (sortOption === "precio_asc") return a.price - b.price;
@@ -788,365 +714,129 @@ function SantaColomaBarrioPage() {
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
         <section id="seccion-propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200">
           <div id="propiedades" className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200 p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 scroll-mt-20 md:scroll-mt-24">
-            <Reveal>
-              <div className="mb-4">
+            <div>
+              {/* Header: Badge + H2 + Description with balanced spacing */}
+              <div className="mb-4 sm:mb-5">
                 <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
                   <Home className="w-3.5 h-3.5 text-white" />
                   <span>{t.properties.tag}</span>
                 </span>
-                
+
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
                   {t.properties.title1} <span className="text-[#2563eb]">{t.properties.title2}</span>
                 </h2>
-                
-                <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold font-sans max-w-3xl text-balance">
+
+                <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans max-w-3xl text-balance">
                   {t.properties.subtitle}
                 </p>
               </div>
 
-              {/* Row for Fav Button + Stat Badge */}
-              <div className="mt-6 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 w-full">
-                {/* Favorites button */}
-                <div className="flex items-center">
+              {/* Unified Results Controls Bar: Fav Button + Counter + Sort Dropdown on Shared Baseline */}
+              <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 w-full">
+                {/* Left: Favoritos button */}
+                <div className="flex items-center self-start sm:self-center">
                   <button
                     type="button"
                     onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
-                    className={`px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans whitespace-nowrap shadow-xs border ${
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans whitespace-nowrap border shadow-xs ${
                       searchParams.mode === "favoritos"
-                        ? "bg-red-600 text-white shadow-md border-red-600 ring-2 ring-red-500/20"
-                        : "bg-white text-slate-800 hover:bg-slate-100 border-slate-300 hover:text-slate-950"
+                        ? "bg-red-600 text-white border-red-600 shadow-sm"
+                        : "bg-white text-[#0f172a] hover:bg-slate-50 border-slate-200"
                     }`}
                   >
-                    <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
+                    <Heart className={`w-3.5 h-3.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
                     <span>Fav ({favorites.length})</span>
                   </button>
                 </div>
 
-                {/* Stat Badge right above Search Console */}
-                <div className="hidden sm:flex bg-[#0f172a] text-white rounded-2xl px-6 py-3.5 items-center gap-3.5 shadow-lg border border-slate-700/80 shrink-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
-                    <Home className="w-5 h-5" />
+                {/* Right: Counter + Sort */}
+                <div className="flex items-center justify-between sm:justify-end gap-5 sm:gap-6 shrink-0 self-stretch sm:self-center">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0f172a] font-sans">
+                    <span className="w-2 h-2 rounded-full bg-[#2563eb] inline-block shrink-0" />
+                    <span>
+                      <strong className="text-[#2563eb] font-black">{filteredProperties.length}</strong> {t.properties.availableCount}
+                    </span>
                   </div>
-                  <div className="flex flex-col text-left">
-                    <div className="flex items-baseline gap-1.5 leading-none">
-                      <span className="text-2xl font-black text-white font-sans">{filteredProperties.length}</span>
-                      <span className="text-sm font-black text-blue-400 font-sans">{language === "ca" ? "propietats" : language === "en" ? "properties" : "propiedades"}</span>
-                    </div>
-                    <span className="text-xs font-bold text-slate-300 tracking-wide font-sans mt-0.5">{language === "ca" ? "disponibles ara" : language === "en" ? "available now" : "disponibles ahora"}</span>
+
+                  <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                    <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] font-sans hidden sm:inline">{t.properties.sortBy}:</span>
+                    <button 
+                      onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
+                      className="flex items-center gap-1.5 bg-white border border-slate-200 hover:border-[#2563eb] rounded-xl px-3 py-1.5 font-bold text-[#0f172a] hover:text-[#2563eb] transition-all shadow-2xs font-sans text-xs sm:text-sm cursor-pointer"
+                    >
+                      <span>{sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}</span>
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                    </button>
+
+                    {openDropdown === "ordenar" && (
+                      <div className="absolute top-full right-0 mt-1.5 w-56 bg-white border border-slate-200 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.12)] z-50 p-1.5 divide-y divide-slate-100">
+                        {[
+                          { label: t.properties.mostRecent, value: "recientes" },
+                          { label: t.properties.precioMenor, value: "precio_asc" },
+                          { label: t.properties.precioMayor, value: "precio_desc" }
+                        ].map(opt => (
+                          <div key={opt.value} className="py-0.5 first:pt-0 last:pb-0">
+                            <button
+                              onClick={() => {
+                                setSortOption(opt.value);
+                                setOpenDropdown(null);
+                              }}
+                              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
+                                sortOption === opt.value ? "bg-[#2563eb] text-white border-[#2563eb] shadow-xs" : "border-transparent hover:border-blue-100 text-slate-800 hover:bg-blue-50/50"
+                              }`}
+                            >
+                              <span className="leading-snug">{opt.label}</span>
+                              {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[2.5]" />}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </Reveal>
 
-            {/* FILTERS */}
-            {/* SINGLE SEARCH CONSOLE (4 FIELDS + BUSCAR BUTTON) */}
-            <div className="mt-8 mb-4">
-              <div className="bg-white border-2 border-slate-900 rounded-[20px] shadow-[0_10px_35px_rgba(0,0,0,0.12)] p-4 xl:p-3 flex flex-col xl:flex-row items-stretch xl:items-center gap-3 xl:gap-4 relative z-40">
-                
-                {/* Field 1: Tipo de Inmueble */}
-                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                  <button 
-                    onClick={() => setOpenDropdown(openDropdown === "tipo" ? null : "tipo")}
-                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                        <Building2 className="w-4 h-4 text-[#2563eb]" />
-                      </div>
-                      <div>
-                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.propertyType}</div>
-                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("tipo", consoleFilters.tipo)}</div>
-                      </div>
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                  </button>
-
-                  {openDropdown === "tipo" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                      {[
-                        { value: "Cualquier tipo" },
-                        { value: "Piso" },
-                        { value: "Apartamento" },
-                        { value: "Ático" },
-                        { value: "Chalet" },
-                        { value: "Local" },
-                        { value: "Oficina" },
-                        { value: "Aparcamiento" }
-                      ].map(opt => {
-                        const count = liveProperties.filter(p => {
-                          const matchesMode = p.operation === searchParams.mode;
-                          const matchesTipo = opt.value === "Cualquier tipo" ? true : p.type === opt.value;
-                          return matchesMode && matchesTipo;
-                        }).length;
-
-                        const isActive = consoleFilters.tipo === opt.value;
-                        const label = getTranslatedFilterLabel("tipo", opt.value);
-
-                        return (
-                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                            <button
-                              onClick={() => {
-                                setConsoleFilters(prev => ({ ...prev, tipo: opt.value }));
-                                setOpenDropdown(null);
-                              }}
-                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                {isActive ? (
-                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                ) : (
-                                  <span className="w-4 h-4 shrink-0" />
-                                )}
-                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                              </div>
-                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                              }`}>
-                                {count}
-                              </span>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+              {/* ── ACTIVE FILTER CHIPS — only when non-default filters applied ── */}
+              {(searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio") && (
+                <div className="flex flex-wrap items-center gap-2 mb-4 py-1">
+                  <span className="text-xs text-slate-500 font-semibold mr-1 shrink-0">
+                    {language === "ca" ? "Filtrant per:" : language === "en" ? "Filtering by:" : "Filtrando por:"}
+                  </span>
+                  {searchParams.zona !== "Cualquier zona" && (
+                    <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                      <MapPin className="w-3 h-3 shrink-0" />
+                      {searchParams.zona}
+                    </span>
                   )}
-                </div>
-
-                {/* Divider */}
-                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-                {/* Field 2: Zona */}
-                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                  <button 
-                    onClick={() => setOpenDropdown(openDropdown === "zona" ? null : "zona")}
-                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                        <MapPin className="w-4 h-4 text-[#2563eb]" />
-                      </div>
-                      <div>
-                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.zone}</div>
-                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("zona", consoleFilters.zona)}</div>
-                      </div>
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                  </button>
-
-                  {openDropdown === "zona" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                      {[
-                        { value: "Cualquier zona" },
-                        ...[...new Set(liveProperties.map(p => p.location))].filter(Boolean).map(loc => ({ value: loc }))
-                      ].map(opt => {
-                        const count = liveProperties.filter(p => {
-                          const matchesMode = p.operation === searchParams.mode;
-                          const matchesZona = opt.value === "Cualquier zona" ? true : p.location === opt.value;
-                          return matchesMode && matchesZona;
-                        }).length;
-
-                        const isActive = consoleFilters.zona === opt.value;
-                        const label = getTranslatedFilterLabel("zona", opt.value);
-
-                        return (
-                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                            <button
-                              onClick={() => {
-                                setConsoleFilters(prev => ({ ...prev, zona: opt.value }));
-                                setOpenDropdown(null);
-                              }}
-                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                {isActive ? (
-                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                ) : (
-                                  <span className="w-4 h-4 shrink-0" />
-                                )}
-                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                              </div>
-                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                              }`}>
-                                {count}
-                              </span>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+                  {searchParams.tipo !== "Cualquier tipo" && (
+                    <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                      <Home className="w-3 h-3 shrink-0" />
+                      {searchParams.tipo}
+                    </span>
                   )}
-                </div>
-
-                {/* Divider */}
-                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-                {/* Field 3: Habitaciones */}
-                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                  <button 
-                    onClick={() => setOpenDropdown(openDropdown === "habitaciones" ? null : "habitaciones")}
-                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                        <Home className="w-4 h-4 text-[#2563eb]" />
-                      </div>
-                      <div>
-                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.bedrooms}</div>
-                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("habitaciones", consoleFilters.habitaciones)}</div>
-                      </div>
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
-                  </button>
-
-                  {openDropdown === "habitaciones" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                      {[
-                        { value: "Cualquier número" },
-                        { value: "1+" },
-                        { value: "2+" },
-                        { value: "3+" },
-                        { value: "4+" }
-                      ].map(opt => {
-                        const count = liveProperties.filter(p => {
-                          const matchesMode = p.operation === searchParams.mode;
-                          if (!matchesMode) return false;
-                          if (opt.value === "Cualquier número") return true;
-                          const min = parseInt(opt.value.replace("+", ""), 10);
-                          return p.bedrooms >= min;
-                        }).length;
-
-                        const isActive = consoleFilters.habitaciones === opt.value;
-                        const label = getTranslatedFilterLabel("habitaciones", opt.value);
-
-                        return (
-                          <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                            <button
-                              onClick={() => {
-                                setConsoleFilters(prev => ({ ...prev, habitaciones: opt.value }));
-                                setOpenDropdown(null);
-                              }}
-                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                {isActive ? (
-                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                ) : (
-                                  <span className="w-4 h-4 shrink-0" />
-                                )}
-                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                              </div>
-                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                              }`}>
-                                {count}
-                              </span>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
+                  {searchParams.precio !== "Cualquier precio" && (
+                    <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full border border-blue-200">
+                      {searchParams.precio}
+                    </span>
                   )}
-                </div>
-
-                {/* Divider */}
-                <div className="hidden xl:block w-px h-10 bg-slate-200 shrink-0"></div>
-
-                {/* Field 4: Precio Máximo */}
-                <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
-                  <button 
-                    onClick={() => setOpenDropdown(openDropdown === "precio" ? null : "precio")}
-                    className="w-full flex items-center justify-between text-left px-4 py-3.5 rounded-xl hover:bg-blue-50/50 transition-colors group cursor-pointer"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                      setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                      heroResetRef.current?.();
+                    }}
+                    className="text-xs font-black text-slate-500 hover:text-[#2563eb] underline cursor-pointer ml-auto shrink-0"
                   >
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                        <span className="text-[#2563eb] text-xs font-black">€</span>
-                      </div>
-                      <div>
-                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1.5 font-sans">{t.properties.maxPrice}</div>
-                        <div className="text-sm sm:text-base font-extrabold text-[#0f172a] leading-none font-sans">{getTranslatedFilterLabel("precio", consoleFilters.precio)}</div>
-                      </div>
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#2563eb] transition-colors ml-4 shrink-0" />
+                    {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
                   </button>
-
-                  {openDropdown === "precio" && (
-                    <div className="absolute top-full left-0 mt-2 w-72 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                      {(searchParams.mode === "alquilar" 
-                        ? ["Cualquier precio", "Hasta 1.000 €", "Hasta 1.500 €", "Hasta 2.000 €"]
-                        : ["Cualquier precio", "Hasta 500.000 €", "Hasta 1.000.000 €", "Hasta 2.000.000 €"]
-                      ).map(opt => {
-                        const count = liveProperties.filter(p => {
-                          const matchesMode = p.operation === searchParams.mode;
-                          if (!matchesMode) return false;
-                          return isPriceValid(opt, p.price);
-                        }).length;
-
-                        const isActive = consoleFilters.precio === opt;
-                        const label = getTranslatedFilterLabel("precio", opt);
-
-                        return (
-                          <div key={opt} className="py-1 first:pt-0 last:pb-0">
-                            <button
-                              onClick={() => {
-                                setConsoleFilters(prev => ({ ...prev, precio: opt }));
-                                setOpenDropdown(null);
-                              }}
-                              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                isActive ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2.5">
-                                {isActive ? (
-                                  <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                ) : (
-                                  <span className="w-4 h-4 shrink-0" />
-                                )}
-                                <span className="font-medium text-[13.5px] leading-snug">{label}</span>
-                              </div>
-                              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow-xs transition-colors ${
-                                isActive ? "bg-white/20 text-white" : "bg-slate-100 text-slate-600 border border-slate-200/80"
-                              }`}>
-                                {count}
-                              </span>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
                 </div>
+              )}
 
-                {/* Buscar Button */}
-                <button 
-                  onClick={() => {
-                    setSearchParams(prev => ({
-                      ...prev,
-                      tipo: consoleFilters.tipo,
-                      zona: consoleFilters.zona,
-                      habitaciones: consoleFilters.habitaciones,
-                      precio: consoleFilters.precio
-                    }));
-                    const el = document.getElementById('properties-results') || document.getElementById('propiedades');
-                    if (el) {
-                      const navOffset = window.innerWidth < 768 ? 75 : 85;
-                      const pos = el.getBoundingClientRect().top + window.scrollY - navOffset;
-                      window.scrollTo({ top: Math.max(0, pos), behavior: "smooth" });
-                    }
-                  }}
-                  className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-black text-sm px-8 py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg shrink-0 cursor-pointer font-sans uppercase tracking-wider"
-                >
-                  {t.hero.buscarBtn}
-                </button>
-              </div>
+              {/* Single subtle divider line immediately before cards */}
+              <div className="w-full h-px bg-slate-200 mb-5 sm:mb-6" />
 
-              {/* RESULTS COUNT & SORTING */}
+              {/* RESULTS COUNT & SORTING (INSIDE CARD BUBBLE) */}
               {(() => {
                 const renderPropertyCard = (property: any, idx: number) => {
                   const isFav = favorites.includes(property.id);
@@ -1155,19 +845,13 @@ function SantaColomaBarrioPage() {
                   const type = pData.type || property.type || "Piso";
 
                   return (
-                    <motion.div
+                    <div
                       key={property.id}
-                      initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.1 }}
-                      transition={{ duration: 0.5, delay: (idx % 6) * 0.09, ease: easeOut }}
                       className="h-full"
                     >
                       <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                        <motion.div
-                          whileHover={shouldReduceMotion ? undefined : { y: -6 }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                          className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border border-slate-200/90 hover:border-[#2563eb] shadow-[0_4px_20px_rgba(15,23,42,0.06)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.12)] transition-all duration-300 overflow-hidden cursor-pointer"
+                        <div
+                          className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] hover:-translate-y-1.5 transition-all duration-300 overflow-hidden cursor-pointer"
                         >
                           {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
                           <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
@@ -1175,17 +859,17 @@ function SantaColomaBarrioPage() {
                               const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
                               const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
                               const srcSet = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=70 360w, ${baseUnsplash}?auto=format&fit=crop&w=500&q=75 500w, ${baseUnsplash}?auto=format&fit=crop&w=720&q=75 720w`
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=340&q=65 340w, ${baseUnsplash}?auto=format&fit=crop&w=480&q=68 480w, ${baseUnsplash}?auto=format&fit=crop&w=640&q=70 640w`
                                 : undefined;
                               const imgSrc = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=400&q=70`
+                                ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=65`
                                 : property.image;
 
                               return (
                                 <img 
                                   src={imgSrc}
                                   srcSet={srcSet}
-                                  sizes="(max-width: 640px) 340px, (max-width: 1024px) 360px, 380px"
+                                  sizes="(max-width: 640px) 320px, (max-width: 1024px) 340px, 360px"
                                   alt={pData.name} 
                                   loading="lazy" 
                                   decoding="async"
@@ -1207,7 +891,7 @@ function SantaColomaBarrioPage() {
                                 {type}
                               </span>
                             </div>
-                            {/* RESERVADO badge — always anchored independently, never pushed by Tipo length */}
+                            {/* RESERVADO badge — always anchored independently */}
                             {property.status === "reservado" && (
                               <div className="absolute top-[52px] left-3.5 z-20 pointer-events-none">
                                 <span className="inline-flex items-center bg-amber-400 text-amber-950 font-bold uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean">
@@ -1217,24 +901,22 @@ function SantaColomaBarrioPage() {
                             )}
 
                             {/* Heart Favorite Button with micro-bounce */}
-                            <motion.button
+                            <button
                               type="button"
-                              whileTap={{ scale: 1.25 }}
-                              transition={{ type: "spring", stiffness: 450, damping: 17 }}
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 toggleFavorite(property.id);
                               }}
                               aria-label="Guardar en favoritos"
-                              className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md z-20 ${
+                              className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center active:scale-125 transition-all duration-200 cursor-pointer shadow-md z-20 ${
                                 isFav 
                                   ? 'bg-red-500 text-white shadow-red-500/30' 
                                   : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
                               }`}
                             >
                               <Heart className="w-5 h-5 fill-current" />
-                            </motion.button>
+                            </button>
 
                             {/* Bottom-left Ref Badge directly over the image */}
                             <div className="absolute bottom-3 left-3.5 z-20">
@@ -1247,7 +929,7 @@ function SantaColomaBarrioPage() {
                           {/* Content Block */}
                           <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                             <div>
-                              {/* Location with Pin - Solid White Pill */}
+                              {/* Location with Pin - Solid White Pill (No Transparency) */}
                               <div className="mb-2.5">
                                 <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
                                   <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
@@ -1264,19 +946,19 @@ function SantaColomaBarrioPage() {
                               <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
                                 <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
                                   <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                  <span>{property.bedrooms > 0 ? property.bedrooms : "2"} {language === "en" ? "bd" : "hab"}</span>
+                                  <span>{property.bedrooms > 0 ? property.bedrooms : "0"} {language === "en" ? "bd" : "hab"}</span>
                                 </div>
                                 <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
                                   <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                   <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
                                 </div>
                                 <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                  <Ruler className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                                  <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
                                   <span>{property.surface} m²</span>
                                 </div>
                               </div>
 
-                              {/* Floor / Feature Highlight badge - Only shown if it provides non-redundant, relevant information */}
+                              {/* Floor / Feature Highlight badge - Only shown if non-redundant */}
                               {(() => {
                                 const isRedundant = (text: string) => {
                                   if (!text) return true;
@@ -1321,9 +1003,11 @@ function SantaColomaBarrioPage() {
                             {/* Price & Action Button */}
                             <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
                               <div className="flex flex-col min-w-0">
-                                {/* Blue Pill Badge for "PRECIO" / "PREU" - Identical to detail page */}
-                                <span className="inline-block self-start bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-xs mb-1 font-ui-clean">
-                                  {t.properties.priceLabel || (isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "PREU VENDA" : language === "en" ? "SALE PRICE" : "PRECIO"))}
+                                {/* Blue Pill Badge for "VENTA" / "ALQUILER" */}
+                                <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-ui-clean">
+                                  {isRent 
+                                    ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") 
+                                    : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}
                                 </span>
                                 <div className="flex items-baseline whitespace-nowrap">
                                   <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
@@ -1341,63 +1025,14 @@ function SantaColomaBarrioPage() {
                               </div>
                             </div>
                           </div>
-                        </motion.div>
+                        </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   );
                 };
 
                 return (
-                  <div id="properties-results" className="mt-6 scroll-mt-32">
-                    {/* Results Count & Sort directly below zones pills */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
-                      <div className="flex items-center gap-2.5">
-                        <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-xs font-black w-7 h-7 rounded-full shadow-sm">
-                          {filteredProperties.length}
-                        </span>
-                        <p className="text-sm sm:text-base font-black text-[#0f172a] font-sans">
-                          {t.properties.availableCount}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-3 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
-                        <span className="text-slate-600 font-black uppercase tracking-wider text-xs font-sans">{t.properties.sortBy}:</span>
-                        <button 
-                          onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                          className="flex items-center gap-2 bg-white border-2 border-slate-300 hover:border-[#2563eb] rounded-xl px-4 py-2 font-black text-[#0f172a] hover:text-[#2563eb] transition-all shadow-xs font-sans text-xs sm:text-sm cursor-pointer"
-                        >
-                          {sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent} 
-                          <ChevronDown className="w-4 h-4 text-slate-700 shrink-0" />
-                        </button>
-
-                        {openDropdown === "ordenar" && (
-                          <div className="absolute top-full right-0 mt-2 w-60 bg-white border-2 border-slate-900 rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] z-50 p-2.5 divide-y divide-slate-100 backdrop-blur-md">
-                            {[
-                              { label: t.properties.mostRecent, value: "recientes" },
-                              { label: t.properties.precioMenor, value: "precio_asc" },
-                              { label: t.properties.precioMayor, value: "precio_desc" }
-                            ].map(opt => (
-                              <div key={opt.value} className="py-1 first:pt-0 last:pb-0">
-                                <button
-                                  key={opt.value}
-                                  onClick={() => {
-                                    setSortOption(opt.value);
-                                    setOpenDropdown(null);
-                                  }}
-                                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                    sortOption === opt.value ? "bg-[#2563eb] text-white border-[#2563eb] shadow-sm" : "border-slate-100 hover:border-blue-200 text-slate-800 hover:bg-blue-50/40"
-                                  }`}
-                                >
-                                  <span className="font-medium text-[13.5px] leading-snug">{opt.label}</span>
-                                  {sortOption === opt.value && <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />}
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
+                  <div>
                     {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
                     {filteredProperties.length === 0 ? (
                       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
@@ -1427,7 +1062,6 @@ function SantaColomaBarrioPage() {
                           onClick={() => {
                             const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
                             setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
-                            setConsoleFilters({ zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                             heroResetRef.current?.();
                           }}
                           className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
@@ -1436,84 +1070,66 @@ function SantaColomaBarrioPage() {
                         </button>
                       </div>
                     ) : (
-                      /* PROPERTY CARDS GRID WITH CROSSFADE ON FILTER CHANGE */
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={searchParams.mode}
-                          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
-                          transition={{ duration: 0.28, ease: "easeOut" }}
-                          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8"
-                        >
-                          {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
-                        </motion.div>
-                      </AnimatePresence>
+                      /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */
+                      <div
+                        key={searchParams.mode}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
+                      >
+                        {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
+                      </div>
                     )}
 
                     {/* LOAD MORE BUTTON */}
                     {filteredProperties.length > 0 && (
                       <div className="flex flex-col items-center justify-center pt-6 border-t border-slate-100 gap-3">
-                      {visibleCount < filteredProperties.length ? (
-                        <button 
-                          type="button"
-                          onClick={() => setVisibleCount(prev => prev + 6)}
-                          className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
-                        >
-                          <span>{t.properties.verMas}</span>
-                          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                        </button>
-                      ) : (
-                        <div className="flex flex-col items-center gap-3">
+                        {visibleCount < filteredProperties.length ? (
                           <button 
                             type="button"
-                            onClick={() => {
-                              // Preserve active mode (comprar/alquilar) if valid, reset secondary filters to display all
-                              const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
-                              const resetParams = {
-                                mode: currentMode,
-                                zona: "Cualquier zona",
-                                tipo: "Cualquier tipo",
-                                precio: "Cualquier precio",
-                                habitaciones: "Cualquier número"
-                              };
-                              setSearchParams(resetParams);
-                              setConsoleFilters({
-                                zona: "Cualquier zona",
-                                tipo: "Cualquier tipo",
-                                precio: "Cualquier precio",
-                                habitaciones: "Cualquier número"
-                              });
-                              heroResetRef.current?.();
-                              // Show all available properties by expanding visibleCount
-                              setVisibleCount(999);
-                              
-                              // Smooth scroll directly to the property listings grid
-                              const el = document.getElementById('properties-results') || document.getElementById('propiedades');
-                              if (el) {
-                                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              } else {
-                                window.location.hash = "#propiedades";
-                              }
-                            }}
+                            onClick={() => setVisibleCount(prev => prev + 6)}
                             className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
                           >
-                            <span>{t.properties.verTodas}</span>
+                            <span>{t.properties.verMas}</span>
                             <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                           </button>
-                          <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
-                            <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                            <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
-                              {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
-                            </p>
+                        ) : (
+                          <div className="flex flex-col items-center gap-3">
+                            <button 
+                              type="button"
+                              onClick={() => {
+                                const currentMode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                                setSearchParams({
+                                  mode: currentMode,
+                                  zona: "Cualquier zona",
+                                  tipo: "Cualquier tipo",
+                                  precio: "Cualquier precio",
+                                  habitaciones: "Cualquier número"
+                                });
+                                heroResetRef.current?.();
+                                setVisibleCount(999);
+                                const el = document.getElementById('propiedades');
+                                if (el) {
+                                  const pos = el.getBoundingClientRect().top + window.scrollY - 130;
+                                  window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
+                                }
+                              }}
+                              className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                            >
+                              <span>{t.properties.verTodas}</span>
+                              <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                            </button>
+                            <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
+                              <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                              <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
+                                {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </section>
@@ -1685,255 +1301,13 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 4. VALORADOR DE INMUEBLES SIMPLIFICADO ORIENTADO A CONVERSIÓN ── */}
-        <section id="valuator-form" className="relative overflow-hidden bg-[#e2e8f0] text-[#0f172a] py-6 sm:py-8 md:py-10 scroll-mt-20 sm:scroll-mt-24 font-sans">
-          <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
-          <div id="valuator-card" className="bg-white rounded-[24px] sm:rounded-[28px] shadow-xl border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
-            
-            {/* Header Kicker */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-200/90">
-              <div>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-xl shadow-xs mb-2">
-                  <Star className="w-3.5 h-3.5 fill-white" />
-                  <span>{language === "ca" ? "VALORACIÓ GRATUÏTA" : language === "en" ? "FREE VALUATION" : "VALORACIÓN GRATUITA"}</span>
-                </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0b214a] tracking-tight leading-tight font-heading">
-                  {language === "ca" ? `¿Quant val el teu habitatge a ${data.name}?` : language === "en" ? `How much is your home in ${data.name} worth?` : `¿Cuánto vale tu vivienda en ${data.name}?`}
-                </h2>
-              </div>
-              <p className="text-sm sm:text-base text-[#0b214a] font-medium max-w-md leading-relaxed [text-wrap:balance]">
-                {language === "ca" ? (
-                  <>Descobreix una estimació orientativa de mercat en menys d&apos;<span className="whitespace-nowrap">un minut.</span></>
-                ) : language === "en" ? (
-                  <>Discover an orientative market estimate in less than <span className="whitespace-nowrap">a minute.</span></>
-                ) : (
-                  <>Descubre una estimación orientativa de mercado en menos de <span className="whitespace-nowrap">un minuto.</span></>
-                )}
-              </p>
-            </div>
-
-            {/* 2-Column Split: INPUT Form on Left, RESULT on Right — Estructura editorial unificada */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-              
-              {/* LEFT: FORM INPUTS & CALCULAR BUTTON — Panel editorial con cabecera azul sólida y cuerpo #F4F7FC */}
-              <div 
-                className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl relative overflow-hidden h-full"
-                style={{ 
-                  backgroundColor: "#F4F7FC",
-                  border: "2px solid #CBD6E5"
-                }}
-              >
-                {/* Cabecera visual azul sólida: DATOS DE TU VIVIENDA */}
-                <div className="bg-[#2563eb] text-white px-5 sm:px-7 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-white shrink-0" />
-                    <h3 className="text-[15px] sm:text-[16px] font-extrabold uppercase tracking-widest text-white font-sans">
-                      {language === "ca" ? "DADES DEL TEU HABITATGE" : language === "en" ? "YOUR HOME DETAILS" : "DATOS DE TU VIVIENDA"}
-                    </h3>
-                  </div>
-                  <span className="text-[12px] font-bold text-white/90 uppercase tracking-wider font-sans">
-                    {language === "ca" ? "PAS 1" : language === "en" ? "STEP 1" : "PASO 1"}
-                  </span>
-                </div>
-
-                {/* Contenido formulario — Compacto y sin espacio muerto */}
-                <div className="p-5 sm:p-7 flex flex-col justify-between flex-1 gap-4">
-                  {/* Inputs Barrio y Superficie */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
-                    {/* Select Barrio / Zona */}
-                    <div 
-                      className="rounded-[16px] p-3 sm:p-3.5 text-left transition-colors"
-                      style={{ 
-                        backgroundColor: "#FFFFFF",
-                        border: "2px solid #CBD6E5"
-                      }}
-                    >
-                      <label htmlFor="valuator-zona-select" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
-                        {language === "ca" ? "Zona o barri" : language === "en" ? "Neighborhood" : "Zona o barrio"}
-                      </label>
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2.5 w-full min-w-0">
-                          <MapPin className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                          <select
-                            id="valuator-zona-select"
-                            aria-label="Seleccionar zona de la propiedad"
-                            value={valuatorData.zona}
-                            onChange={e => setValuatorData(d => ({ ...d, zona: e.target.value }))}
-                            className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-extrabold text-[#0b214a] focus:ring-0 appearance-none cursor-pointer outline-none truncate font-sans"
-                          >
-                            {zonas.map(z => (
-                              <option key={z} value={z}>{formatLocation(z, language)}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <ChevronDown className="w-4 h-4 text-[#2563eb] shrink-0" />
-                      </div>
-                    </div>
-
-                    {/* Input Superficie estimada */}
-                    <div 
-                      className="rounded-[16px] p-3 sm:p-3.5 text-left transition-colors"
-                      style={{ 
-                        backgroundColor: "#FFFFFF",
-                        border: "2px solid #CBD6E5"
-                      }}
-                    >
-                      <label htmlFor="valuator-metros-input" className="block text-[14px] sm:text-[15px] font-bold text-[#0b214a] mb-1.5 tracking-normal font-sans">
-                        {language === "ca" ? "Superfície estimada" : language === "en" ? "Estimated area" : "Superficie estimada"}
-                      </label>
-                      <div className="flex items-center gap-2.5">
-                        <Ruler className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                        <input
-                          id="valuator-metros-input"
-                          type="number"
-                          min="20"
-                          max="600"
-                          placeholder="85"
-                          value={valuatorData.metros}
-                          onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
-                          className="w-full bg-white border-0 p-0 text-[17px] sm:text-[18px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
-                        />
-                        <span 
-                          className="text-[13px] font-bold text-[#0b214a] px-2.5 py-0.5 rounded-md shrink-0 font-sans"
-                          style={{ 
-                            backgroundColor: "#F4F7FC",
-                            border: "1px solid #CBD6E5"
-                          }}
-                        >
-                          m²
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Botón Calcular — Inmediatamente después de los inputs */}
-                  <button
-                    type="button"
-                    onClick={handleCalculateValuation}
-                    disabled={isCalculatingValuation}
-                    className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-base sm:text-[17px] py-4 px-6 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-2.5 uppercase tracking-wider font-sans disabled:opacity-75 shadow-xs"
-                  >
-                    <Home className="w-5 h-5 text-white shrink-0" />
-                    <span>{isCalculatingValuation ? t.valorador.calculando : (language === "ca" ? "CALCULAR VALORACIÓ" : language === "en" ? "CALCULATE VALUATION" : "CALCULAR VALORACIÓN")}</span>
-                    <ArrowRight className="w-5 h-5 text-white shrink-0" />
-                  </button>
-
-                  {/* Trust Guarantees — Directamente debajo del botón */}
-                  <div className="flex items-center justify-between text-[14px] sm:text-[15px] text-[#0b214a] font-bold font-sans px-1 pt-0.5">
-                    <span className="flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                      {t.valorador.sinCompromiso}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-[#2563eb] stroke-[3]" />
-                      {t.valorador.resultadoInmediato}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT: RESULT PANEL — NAVY GESGRAMA SÓLIDO (#0B1733), equilibrado verticalmente */}
-              <div className="lg:col-span-6 flex flex-col justify-center">
-                <div 
-                  className="rounded-2xl sm:rounded-3xl p-6 sm:p-7 text-center relative overflow-hidden flex flex-col items-center justify-between h-full min-h-[340px] text-white"
-                  style={{
-                    backgroundColor: "#0B1733",
-                    border: "2px solid #2563eb"
-                  }}
-                >
-                  
-                  {/* Spinner while recalculating — Fondo sólido #0B1733 */}
-                  <AnimatePresence>
-                    {isCalculatingValuation && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6"
-                        style={{ backgroundColor: "#0B1733" }}
-                      >
-                        <div className="w-10 h-10 border-4 border-[#2563eb] border-t-white rounded-full animate-spin mb-3" />
-                        <p className="text-sm font-bold text-white font-sans">{t.valorador.calculando}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* 1. Header label + Price Block */}
-                  <div className="w-full flex flex-col items-center">
-                    <span className="inline-block text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-white bg-[#2563eb] px-6 py-1.5 rounded-full mb-2 font-sans">
-                      {language === "ca" ? "VALOR ESTIMAT" : language === "en" ? "ESTIMATED VALUE" : "VALOR ESTIMADO"}
-                    </span>
-
-                    {/* Dominant Price Number */}
-                    <div className="text-5xl sm:text-6xl md:text-[64px] font-black text-white leading-none tracking-tight my-2 font-heading" style={{ fontSize: "clamp(46px, 5.2vw, 70px)" }}>
-                      <PriceCounter value={calculatedResult.estimatedValue} duration={850} />
-                      <span className="text-[#2563eb] ml-1.5 font-sans">€</span>
-                    </div>
-
-                    {/* Secondary price per m² */}
-                    <p className="text-base sm:text-lg md:text-[19px] font-bold text-white font-sans mt-0.5">
-                      <span className="text-[#2563eb] font-black mr-1">≈</span><PriceCounter value={calculatedResult.propertyPricePerM2} duration={850} /> €/m²
-                    </p>
-                  </div>
-
-                  {/* 2. Divisor sólido azul + CTA + Nota Legal */}
-                  <div 
-                    className="w-full mt-3 pt-3.5 flex flex-col items-center"
-                    style={{ borderTop: "1px solid #1D4ED8" }}
-                  >
-                    <a
-                      href={`https://wa.me/34689438012?text=${encodeURIComponent(
-                        language === "ca"
-                          ? `Hola Gesgrama, he consultat la valoració d'un habitatge a ${formatLocation(calculatedResult.zoneName, "ca")} d'aproximadament ${calculatedResult.propertyM2} m² (estimació: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) i m'agradaria rebre una valoració personalitzada.`
-                          : language === "en"
-                          ? `Hello Gesgrama, I consulted the valuation of a home in ${formatLocation(calculatedResult.zoneName, "en")} of approximately ${calculatedResult.propertyM2} sq m (estimate: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) and would like to receive a personalized appraisal.`
-                          : `Hola Gesgrama, he consultado la valoración de una vivienda en ${formatLocation(calculatedResult.zoneName, "es")} de aproximadamente ${calculatedResult.propertyM2} m² (estimación: ${new Intl.NumberFormat('es-ES').format(calculatedResult.estimatedValue)} €) y me gustaría recibir una valoración personalizada.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full max-w-[420px] bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-xs sm:text-sm md:text-[15px] py-4 px-6 rounded-full transition-colors flex items-center justify-center gap-2 uppercase tracking-wider cursor-pointer font-sans"
-                    >
-                      <span>
-                        {language === "ca" 
-                          ? "VULL UNA VALORACIÓ PERSONALITZADA" 
-                          : language === "en" 
-                          ? "I WANT A PERSONALIZED APPRAISAL" 
-                          : "QUIERO UNA VALORACIÓN PERSONALIZADA"}
-                      </span>
-                      <ArrowRight className="w-4 h-4 text-white shrink-0" />
-                    </a>
-
-                    {/* Cláusula legal en 2 líneas exactas balanceadas, centradas, max-w-[440px] */}
-                    <p className="text-[12px] sm:text-[13px] text-slate-200 font-medium font-sans mt-3 leading-[1.35] text-center max-w-[440px] mx-auto">
-                      {language === "ca" ? (
-                        <>
-                          <span>Estimació orientativa basada en dades de mercat.</span>
-                          <br className="hidden sm:inline" />{" "}
-                          <span className="sm:inline block">No constitueix una <span className="whitespace-nowrap">taxació oficial.</span></span>
-                        </>
-                      ) : language === "en" ? (
-                        <>
-                          <span>Guidance estimation based on market data.</span>
-                          <br className="hidden sm:inline" />{" "}
-                          <span className="sm:inline block">Does not constitute an <span className="whitespace-nowrap">official appraisal.</span></span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Estimación orientativa basada en datos de mercado.</span>
-                          <br className="hidden sm:inline" />{" "}
-                          <span className="sm:inline block">No constituye una <span className="whitespace-nowrap">tasación oficial.</span></span>
-                        </>
-                      )}
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
+        <ValuatorSection
+          language={language}
+          t={t}
+          zonas={zonas}
+          shouldReduceMotion={shouldReduceMotion}
+          initialZona={SLUG_TO_ZONE[rawSlug] || initialZoneName}
+        />
 
         {/* ── 5. ÁREA DE COBERTURA Y SEDE CENTRAL (MAPA CON PÍLDORAS DE BARRIOS) ── */}
         <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">

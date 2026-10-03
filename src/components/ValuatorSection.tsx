@@ -8,6 +8,7 @@ interface ValuatorSectionProps {
   t: any;
   zonas: string[];
   shouldReduceMotion: boolean | null;
+  initialZona?: string;
 }
 
 const ZONE_MARKET_STATS: Record<string, { pricePerM2: number }> = {
@@ -23,17 +24,42 @@ const ZONE_MARKET_STATS: Record<string, { pricePerM2: number }> = {
   "Oliveres - Can Serra": { pricePerM2: 1720 }
 };
 
-export default function ValuatorSection({ language, t, zonas, shouldReduceMotion }: ValuatorSectionProps) {
+export default function ValuatorSection({ language, t, zonas, shouldReduceMotion, initialZona }: ValuatorSectionProps) {
+  const effectiveInitialZona = initialZona && ZONE_MARKET_STATS[initialZona] ? initialZona : "Centre";
+
   const [valuatorData, setValuatorData] = useState({
-    zona: "Centre",
+    zona: effectiveInitialZona,
     metros: "85"
   });
   const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
   const [hasCalculated, setHasCalculated] = useState(false);
   const [badgeAnimatedIn, setBadgeAnimatedIn] = useState(false);
 
+  useEffect(() => {
+    if (initialZona && ZONE_MARKET_STATS[initialZona]) {
+      setValuatorData(prev => ({ ...prev, zona: initialZona }));
+      const defaultStats = ZONE_MARKET_STATS[initialZona];
+      const m2 = parseFloat(valuatorData.metros) || 85;
+      const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
+      const propPricePerM2 = Math.round(defaultStats.pricePerM2 * sizeFactor);
+      const exact = Math.round(m2 * propPricePerM2);
+      setCalculatedResult({
+        estimatedValue: exact,
+        rangeMin: Math.round(exact * 0.93),
+        rangeMax: Math.round(exact * 1.07),
+        zoneName: initialZona,
+        propertyM2: m2,
+        propertyPricePerM2: propPricePerM2
+      });
+      setDisplayPrice(exact);
+      setDisplayPricePerM2(propPricePerM2);
+      currentPriceRef.current = exact;
+      currentPricePerM2Ref.current = propPricePerM2;
+    }
+  }, [initialZona]);
+
   const [calculatedResult, setCalculatedResult] = useState(() => {
-    const defaultStats = ZONE_MARKET_STATS["Centre"] || { pricePerM2: 2350 };
+    const defaultStats = ZONE_MARKET_STATS[effectiveInitialZona] || { pricePerM2: 2350 };
     const m2 = 85;
     const sizeFactor = m2 < 65 ? 1.06 : m2 <= 90 ? 1.03 : m2 <= 120 ? 0.98 : 0.94;
     const propPricePerM2 = Math.round(defaultStats.pricePerM2 * sizeFactor);
@@ -42,7 +68,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       estimatedValue: exact,
       rangeMin: Math.round(exact * 0.93),
       rangeMax: Math.round(exact * 1.07),
-      zoneName: "Centre",
+      zoneName: effectiveInitialZona,
       propertyM2: m2,
       propertyPricePerM2: propPricePerM2
     };

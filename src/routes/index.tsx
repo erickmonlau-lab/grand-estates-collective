@@ -1054,7 +1054,7 @@ function Index() {
         <div className="bg-[#0f172a] rounded-[22px] md:rounded-[28px] shadow-xl border border-sky-500/20 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white">
           <div className="text-center mb-5 sm:mb-7">
             <Reveal>
-              <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-[13px] sm:text-[14px] font-extrabold tracking-wider uppercase px-4 py-1.5 rounded-full mb-3 shadow-xs border border-slate-200 font-sans">
+              <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-[14px] md:text-[15px] font-[800] leading-none tracking-[0.08em] uppercase px-5 py-2.5 rounded-full mb-3 shadow-xs border border-slate-200 font-sans">
                 <Building2 className="w-4 h-4 text-[#2563eb]" />
                 <span>{t.servicios.tag}</span>
               </span>
@@ -1065,7 +1065,7 @@ function Index() {
               </h2>
             </Reveal>
             <Reveal>
-              <p className="text-white text-base sm:text-[17.5px] md:text-[18.5px] max-w-xl mx-auto font-medium leading-relaxed font-sans mt-2">
+              <p className="text-white text-[16px] md:text-[18px] max-w-xl mx-auto font-medium leading-[1.5] font-sans mt-3">
                 {t.servicios.subtitle}
               </p>
             </Reveal>
@@ -1113,11 +1113,11 @@ function Index() {
                           <span className="w-7.5 h-7.5 rounded-lg bg-[#0b214a] text-white flex items-center justify-center shrink-0 shadow-xs">
                             {icons[i]}
                           </span>
-                          <h3 className="text-lg sm:text-[20px] md:text-[21px] font-bold text-[#0f172a] leading-snug group-hover:text-[#2563eb] transition-colors font-sans">
+                          <h3 className="text-[20px] md:text-[22px] font-extrabold text-[#0f172a] leading-snug group-hover:text-[#2563eb] transition-colors font-sans">
                             {item.title}
                           </h3>
                         </div>
-                        <p className="text-[14.5px] sm:text-[15.5px] text-slate-600 font-normal leading-[1.5] mb-3 font-sans">
+                        <p className="text-[15px] md:text-[16px] text-[#0f172a] font-medium leading-[1.5] mb-4 font-sans">
                           {item.desc}
                         </p>
                       </div>

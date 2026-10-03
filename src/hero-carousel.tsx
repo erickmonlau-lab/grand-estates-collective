@@ -355,7 +355,8 @@ export default function HeroCarousel({
                   height={157}
                   className="h-full w-auto object-contain"
                   loading="eager"
-                  decoding="async"
+                  fetchPriority="high"
+                  decoding="sync"
                   aria-hidden="true"
                 />
               </span>

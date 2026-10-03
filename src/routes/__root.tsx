@@ -203,7 +203,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // ── Critical font preloads: fetched before CSS is parsed ─────────────
       { rel: "preload", href: "/fonts/AGBookRounded-Medium.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
       { rel: "preload", href: "/fonts/AachenBT-Bold.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" as any },
-      // ── Hero LCP image preloads ───────────────────────────────────────────
+      // ── Hero image preloads ───────────────────────────────────────────────
+      // Emblem badge: first image rendered in hero eyebrow on ALL viewports (LCP candidate on mobile)
+      { rel: "preload", href: "/images/gesgrama-emblem-badge.webp", as: "image", type: "image/webp", fetchpriority: "high" as any },
+      // Desktop hero photo (hidden on mobile via CSS)
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },

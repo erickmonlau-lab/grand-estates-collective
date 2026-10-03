@@ -54,9 +54,9 @@ export function MarqueeRibbon({ language = "es", className = "" }: MarqueeRibbon
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Fixed Left Badge: NAVY con texto blanco y acento azul */}
-      <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#0b214a] shrink-0 border-r border-white/15 shadow-[8px_0_16px_rgba(11,33,74,0.95)]">
-        <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#38bdf8] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse shrink-0 border border-white/40" />
+      <div className="relative z-30 flex items-center h-full px-3.5 sm:px-6 bg-[#0b214a] shrink-0 border-r border-white/20 shadow-[8px_0_16px_rgba(11,33,74,0.95)]">
+        <span className="text-[10px] sm:text-xs font-black tracking-widest text-[#7dd3fc] uppercase font-sans whitespace-nowrap flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse shrink-0 border border-white/60" />
           {badge}
         </span>
       </div>

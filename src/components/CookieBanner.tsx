@@ -54,38 +54,38 @@ export default function CookieBanner({ language = "es" }: CookieBannerProps) {
 
   return (
     <div className="fixed bottom-5 left-4 right-4 md:left-6 md:right-auto md:max-w-md z-50 animate-in fade-in slide-in-from-bottom-5 duration-300">
-      <div className="bg-[#0f172a]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.4)] text-white relative">
+      <div className="bg-[#0f172a] border border-slate-700/80 rounded-2xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-white relative">
         {/* Close Icon */}
         <button
           onClick={handleReject}
-          className="absolute top-3 right-3 text-slate-400 hover:text-white transition-colors p-1"
-          aria-label="Close cookies"
+          className="absolute top-3 right-3 text-slate-300 hover:text-white transition-colors p-1"
+          aria-label="Cerrar aviso de cookies"
         >
           <X className="w-4 h-4" />
         </button>
 
         <div className="flex items-start gap-3.5 mb-3">
-          <div className="w-9 h-9 rounded-full bg-[#2563eb]/20 text-[#60a5fa] flex items-center justify-center shrink-0 mt-0.5">
+          <div className="w-9 h-9 rounded-full bg-[#1e40af] text-[#93c5fd] flex items-center justify-center shrink-0 mt-0.5">
             <Cookie className="w-5 h-5" />
           </div>
           <div>
             <h3 className="font-bold text-sm text-white mb-1">{t.title}</h3>
-            <p className="text-xs text-slate-300 leading-relaxed font-medium pr-4">
+            <p className="text-xs text-slate-100 leading-relaxed font-medium pr-4">
               {t.text}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 pt-2 border-t border-white/10">
+        <div className="flex items-center gap-2.5 pt-2 border-t border-slate-800">
           <button
             onClick={handleAccept}
-            className="flex-1 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
+            className="flex-1 bg-[#1d4ed8] hover:bg-[#1e40af] text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
           >
             {t.accept}
           </button>
           <button
             onClick={handleReject}
-            className="flex-1 bg-white/10 hover:bg-white/20 text-slate-200 font-bold text-xs py-2.5 rounded-xl transition-all cursor-pointer"
+            className="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs py-2.5 rounded-xl border border-slate-700 transition-all cursor-pointer"
           >
             {t.reject}
           </button>

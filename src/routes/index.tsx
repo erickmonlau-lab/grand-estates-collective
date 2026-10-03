@@ -516,39 +516,17 @@ function Index() {
               </p>
             </div>
 
-            {/* Unified Results Controls Bar: Mode Pills + Counter + Sort Dropdown on Shared Baseline */}
-            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col md:flex-row md:items-center justify-between gap-3.5 w-full">
-              {/* Left: Compact tabs (secondary filter pills) */}
-              <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 self-start md:self-center gap-1">
+            {/* Unified Results Controls Bar: Fav Button + Counter + Sort Dropdown on Shared Baseline */}
+            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 w-full">
+              {/* Left: Favoritos button */}
+              <div className="flex items-center self-start sm:self-center">
                 <button
                   type="button"
-                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "comprar" }))}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "comprar"
-                      ? "bg-[#2563eb] text-white shadow-xs"
-                      : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
-                  }`}
-                >
-                  {t.hero.comprar}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "alquilar" }))}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer font-sans text-center ${
-                    searchParams.mode === "alquilar"
-                      ? "bg-[#2563eb] text-white shadow-xs"
-                      : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
-                  }`}
-                >
-                  {t.hero.alquilar}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSearchParams(prev => ({ ...prev, mode: "favoritos" }))}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1 font-sans whitespace-nowrap ${
+                  onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans whitespace-nowrap border shadow-xs ${
                     searchParams.mode === "favoritos"
-                      ? "bg-red-600 text-white shadow-xs"
-                      : "bg-white text-[#0f172a] hover:bg-slate-50 border border-slate-200"
+                      ? "bg-red-600 text-white border-red-600 shadow-sm"
+                      : "bg-white text-[#0f172a] hover:bg-slate-50 border-slate-200"
                   }`}
                 >
                   <Heart className={`w-3.5 h-3.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
@@ -557,7 +535,7 @@ function Index() {
               </div>
 
               {/* Right: Counter + Sort */}
-              <div className="flex items-center justify-between md:justify-end gap-5 sm:gap-6 shrink-0 self-stretch md:self-center">
+              <div className="flex items-center justify-between sm:justify-end gap-5 sm:gap-6 shrink-0 self-stretch sm:self-center">
                 <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#0f172a] font-sans">
                   <span className="w-2 h-2 rounded-full bg-[#2563eb] inline-block shrink-0" />
                   <span>

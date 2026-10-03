@@ -223,8 +223,8 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                       onChange={e => setValuatorData(d => ({ ...d, metros: e.target.value }))}
                       className="w-full bg-transparent border-0 p-0 text-[15px] sm:text-[16px] font-extrabold text-[#0b214a] focus:ring-0 outline-none font-sans"
                     />
-                    <span className="text-xs font-black text-white px-2.5 py-1 rounded-md shrink-0 font-sans tracking-tight bg-[#2563eb]">
-                      m²
+                    <span className="text-xs font-black text-white px-2.5 py-1 rounded-md shrink-0 font-sans bg-[#2563eb] inline-flex items-center">
+                      m<span className="ml-0.5">²</span>
                     </span>
                   </div>
                 </div>

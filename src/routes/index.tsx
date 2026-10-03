@@ -5,7 +5,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, CheckCircle2, Quote, Info, Key, Search } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
@@ -473,6 +473,21 @@ function Index() {
 
   const displayProperties = filteredProperties.slice(0, visibleCount);
 
+  // Fallback properties in same mode when specific filter combination yields 0
+  const relatedProperties = activeLiveProperties
+    .filter(p => {
+      const pOp = (p.operation || "comprar") as string;
+      return searchParams.mode === "favoritos" 
+        ? favorites.includes(p.id) 
+        : (pOp === searchParams.mode || (searchParams.mode === "comprar" && pOp === "compra"));
+    })
+    .sort((a, b) => {
+      if (sortOption === "precio_asc") return a.price - b.price;
+      if (sortOption === "precio_desc") return b.price - a.price;
+      return 0;
+    })
+    .slice(0, 6);
+
   return (
     <div className="bg-white text-onyx font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
       <Navbar language={language} setLanguage={setLanguage} />
@@ -666,24 +681,21 @@ function Index() {
                           })()}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
                           
-                          {/* Floating Status & Type Pills — top row, never wrap */}
-                          <div className="absolute top-3.5 left-3.5 right-16 flex items-center gap-1.5 z-20 pointer-events-none overflow-hidden">
-                            <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
+                          {/* Floating Status, Type & Reservation Pills — single attractive line */}
+                          <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-1.5 z-20 pointer-events-none overflow-x-auto no-scrollbar">
+                            <span className="inline-flex items-center gap-1.5 bg-[#0b214a]/95 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
                               <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
                               <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
                             </span>
-                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
+                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
                               {type}
                             </span>
-                          </div>
-                          {/* RESERVADO badge — always anchored bottom-left, independent of top row */}
-                          {property.status === "reservado" && (
-                            <div className="absolute top-[52px] left-3.5 z-20 pointer-events-none">
-                              <span className="inline-flex items-center bg-amber-400 text-amber-950 font-bold uppercase tracking-wider text-[11px] px-2.5 py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean">
+                            {property.status === "reservado" && (
+                              <span className="inline-flex items-center bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl shadow-md border border-amber-500/40 font-ui-clean shrink-0 whitespace-nowrap">
                                 {language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}
                               </span>
-                            </div>
-                          )}
+                            )}
+                          </div>
 
                           {/* Heart Favorite Button with micro-bounce */}
                           <button
@@ -819,39 +831,72 @@ function Index() {
 
                   {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
                   {filteredProperties.length === 0 ? (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
-                          <Search className="w-5 h-5 text-[#2563eb]" />
+                    <div>
+                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 mb-8 text-center sm:text-left">
+                        <div className="flex items-center gap-3.5">
+                          <div className="w-10 h-10 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                            <Search className="w-5 h-5 text-[#2563eb]" />
+                          </div>
+                          <div>
+                            <p className="text-base font-bold text-[#0f172a] leading-snug">
+                              {language === "ca"
+                                ? "No hi ha immobles que coincideixin amb aquests filtres exactes."
+                                : language === "en"
+                                ? "No properties match these exact filters."
+                                : "No hay inmuebles que coincidan con estos filtros exactos."}
+                            </p>
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+                              {language === "ca"
+                                ? "Pots consultar altres oportunitats disponibles a continuació o prémer 'Veure tots'."
+                                : language === "en"
+                                ? "You can explore other available properties below or click 'See all'."
+                                : "Puedes consultar otras oportunidades disponibles a continuación o pulsar 'Ver todos'."}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-base font-bold text-[#0f172a] leading-snug">
-                            {language === "ca"
-                              ? "No hi ha immobles que coincideixin amb aquests filtres."
-                              : language === "en"
-                              ? "No properties match these filters."
-                              : "No hay inmuebles que coincidan con estos filtros."}
-                          </p>
-                          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-                            {language === "ca"
-                              ? "Prova d'ajustar la cerca o consultar totes les propietats disponibles."
-                              : language === "en"
-                              ? "Try adjusting your search or view all available properties."
-                              : "Prueba a ajustar la búsqueda o consultar todas las propiedades disponibles."}
-                          </p>
-                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                            setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                            heroResetRef.current?.();
+                          }}
+                          className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer font-sans"
+                        >
+                          {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
-                          setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
-                          heroResetRef.current?.();
-                        }}
-                        className="shrink-0 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer"
-                      >
-                        {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
-                      </button>
+
+                      {/* Showcase active properties in Santa Coloma */}
+                      {relatedProperties.length > 0 && (
+                        <div className="mb-10">
+                          <div className="flex items-center justify-between gap-3 mb-5 pb-3 border-b border-slate-200">
+                            <div>
+                              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#2563eb] mb-1">
+                                <Sparkles className="w-3.5 h-3.5" />
+                                <span>{language === "ca" ? "Altres immobles a Santa Coloma" : language === "en" ? "Other properties in Santa Coloma" : "Otros inmuebles en Santa Coloma"}</span>
+                              </span>
+                              <h3 className="text-lg sm:text-xl font-black text-[#0f172a] tracking-tight">
+                                {language === "ca" ? "Oportunitats destacades que et poden interessar" : language === "en" ? "Featured opportunities you might like" : "Oportunidades destacadas que te pueden interesar"}
+                              </h3>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const mode = searchParams.mode === "alquilar" ? "alquilar" : "comprar";
+                                setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
+                                heroResetRef.current?.();
+                              }}
+                              className="text-xs font-black text-[#2563eb] hover:underline cursor-pointer hidden sm:inline"
+                            >
+                              {language === "ca" ? "Veure tot el catàleg →" : language === "en" ? "View full catalog →" : "Ver todo el catálogo →"}
+                            </button>
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                            {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */

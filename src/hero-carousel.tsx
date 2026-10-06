@@ -351,12 +351,12 @@ export default function HeroCarousel({
                 <img
                   src="/images/gesgrama-emblem-badge.webp"
                   alt="Gesgrama"
-                  width={240}
-                  height={157}
+                  width={92}
+                  height={60}
                   className="h-full w-auto object-contain"
                   loading="eager"
-                  fetchPriority="high"
-                  decoding="sync"
+                  fetchPriority="low"
+                  decoding="async"
                   aria-hidden="true"
                 />
               </span>

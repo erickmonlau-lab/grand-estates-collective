@@ -65,7 +65,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminDashboard
 });
 
-const DEFAULT_ADMIN_PIN = "gesgrama2026";
+const DEFAULT_ADMIN_PIN = "gesgrama2013";
 
 // Client-side image compression helper (optimizes photos from iPhone/Camera to ~150KB web quality)
 async function processImageFile(file: File): Promise<string> {
@@ -486,7 +486,7 @@ function AdminDashboard() {
                   type="password"
                   value={pinInput}
                   onChange={(e) => setPinInput(e.target.value)}
-                  placeholder="Introduce tu clave (ej: gesgrama2026)"
+                  placeholder="Introduce tu clave de acceso"
                   className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3.5 pl-11 text-base font-bold text-[#0f172a] focus:border-[#2563eb] outline-none transition-colors"
                   autoFocus
                 />

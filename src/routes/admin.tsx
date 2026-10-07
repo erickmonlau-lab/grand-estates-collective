@@ -181,7 +181,8 @@ function AdminDashboard() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput.trim() === DEFAULT_ADMIN_PIN) {
+    const entered = pinInput.trim();
+    if (entered.toLowerCase() === DEFAULT_ADMIN_PIN.toLowerCase() || entered === DEFAULT_ADMIN_PIN) {
       setIsAuthenticated(true);
       sessionStorage.setItem("gesgrama_admin_auth", "true");
       setAuthError("");
@@ -486,7 +487,7 @@ function AdminDashboard() {
                   type="password"
                   value={pinInput}
                   onChange={(e) => setPinInput(e.target.value)}
-                  placeholder="Introduce tu clave de acceso"
+                  placeholder="Introduce tu clave (ej: gesgrama1234)"
                   className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3.5 pl-11 text-base font-bold text-[#0f172a] focus:border-[#2563eb] outline-none transition-colors"
                   autoFocus
                 />

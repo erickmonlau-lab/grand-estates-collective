@@ -23,10 +23,10 @@ const ServiceModal = lazy(() => import('@/components/ServiceModal'));
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" },
+      { title: "Gesgrama · Inmobiliaria y Fincas en Santa Coloma de Gramenet" },
       { name: "description", content: "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet. Valoración online gratuita, compraventa de pisos y gestión de comunidades. Llámanos al 93 468 56 56." },
       { name: "keywords", content: "gesgrama, administrador de fincas santa coloma de gramenet, inmobiliaria santa coloma de gramenet, administracion comunidades barcelona, vender piso santa coloma, valoracion inmueble santa coloma" },
-      { property: "og:title", content: "Gesgrama — Inmobiliaria y Administración de Fincas en Santa Coloma de Gramenet" },
+      { property: "og:title", content: "Gesgrama · Inmobiliaria y Fincas en Santa Coloma de Gramenet" },
       { property: "og:description", content: "Gestión experta de comunidades, compraventa de pisos y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana. +15 años de experiencia." },
       { property: "og:url", content: "https://gesgrama.com/" },
     ],

@@ -83,6 +83,12 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.nosotros}</span>
           </a>
+          <Link
+            to="/noticias"
+            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+          >
+            <span className="relative z-10 text-white font-extrabold">{language === "ca" ? "Blog" : language === "en" ? "Blog" : "Blog"}</span>
+          </Link>
           <a
             href="/#contacto"
             onClick={(e) => handleNavClick(e, "contacto")}
@@ -189,13 +195,21 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
               <span className="group-hover:translate-x-1 transition-transform">{t.nav.nosotros}</span>
               <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">04</span>
             </a>
+            <Link
+              to="/noticias"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform">{language === 'ca' ? 'Blog' : language === 'en' ? 'Blog' : 'Blog'}</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">05</span>
+            </Link>
             <a
               href="/#contacto"
               onClick={(e) => handleNavClick(e, "contacto")}
               className="flex items-center justify-between text-[15px] font-extrabold text-slate-100 hover:text-white hover:bg-slate-800/60 py-3 px-3.5 rounded-xl transition-all group"
             >
               <span className="group-hover:translate-x-1 transition-transform">{t.nav.contacto}</span>
-              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">05</span>
+              <span className="text-[11px] font-black text-[#60a5fa] bg-[#2563eb]/20 border border-[#2563eb]/40 px-2 py-0.5 rounded-lg tracking-wider font-mono shadow-[0_0_12px_rgba(37,99,235,0.2)]">06</span>
             </a>
           </div>
           

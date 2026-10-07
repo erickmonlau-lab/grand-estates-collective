@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { properties, formatLocation } from "../data/properties";
 import { findPropertyBySlugOrId, getLocalProperties, fetchProperties, subscribeProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
@@ -31,9 +31,18 @@ const SITE_DOMAIN = "https://gesgrama.com";
 export const Route = createFileRoute("/inmobiliaria_/$slug")({
   loader: async ({ params }) => {
     // Attempt to preload properties if not present
-    const existing = findPropertyBySlugOrId(params.slug);
+    let existing = findPropertyBySlugOrId(params.slug);
     if (!existing) {
       await fetchProperties().catch(() => {});
+      existing = findPropertyBySlugOrId(params.slug);
+    }
+    // Permanent 301 redirect if requested via legacy slug alias
+    if (existing && existing.slug && existing.slug !== params.slug) {
+      throw redirect({
+        to: "/inmobiliaria/$slug",
+        params: { slug: existing.slug },
+        statusCode: 301,
+      });
     }
     return { slug: params.slug };
   },

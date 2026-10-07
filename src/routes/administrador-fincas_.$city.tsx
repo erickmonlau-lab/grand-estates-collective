@@ -35,7 +35,7 @@ import { getNeighborhoodFaqs } from "@/data/barrioFaqsI18n";
 import { properties, formatLocation } from "@/data/properties";
 import { subscribeProperties, fetchProperties, getLocalProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
-import { homeArticles as articles } from "@/data/homeArticles";
+import { articles } from "@/data/articles";
 import { translations, loadLanguage } from "@/data/translations";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 import { Navbar } from "@/components/Navbar";
@@ -1660,48 +1660,76 @@ function SantaColomaBarrioPage() {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
-              {articles.slice(0, 4).map((art, i) => {
-                const title = art.title[language];
-                const summary = art.summary[language];
-                const date = art.date;
-                return (
-                  <Reveal key={art.id} delay={i * 0.1}>
-                    <div className="bg-white rounded-2xl sm:rounded-3xl p-5 flex flex-col h-full border-2 border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                      <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/8] overflow-hidden rounded-xl mb-3.5 bg-slate-100 cursor-pointer">
-                        <img
-                          src={art.image}
-                          alt={title}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </Link>
-                      <div className="flex flex-col flex-1">
-                        <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
-                          <span className="text-slate-500 font-extrabold">{date}</span>
-                        </div>
-                        <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-3 min-h-[4.2rem] sm:min-h-[4.8rem] font-sans cursor-pointer">
-                          {title}
-                        </Link>
-                        <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3 min-h-[4.5rem]">
-                          {summary}
-                        </p>
-                        <div className="mt-auto pt-3 border-t border-slate-100">
-                          <Link
-                            to="/noticias/$slug"
-                            params={{ slug: art.slug }}
-                            className="inline-flex items-center gap-2 text-sm sm:text-base font-black text-[#2563eb] hover:text-[#1d4ed8] transition-all font-sans cursor-pointer"
-                          >
-                            <span>{t.noticias.seguirLeyendo}</span>
-                            <ArrowRight className="w-4 h-4 text-[#2563eb]" />
+            {(() => {
+              const barrioArticleMap: Record<string, string> = {
+                "fondo": "ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+                "santa-rosa": "ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+                "can-mariner": "ite-rehabilitacion-edificios-fondo-santa-rosa-can-mariner",
+                "riera-alta": "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+                "llati": "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+                "el-raval": "plusvalia-municipal-gastos-vender-piso-riera-alta-llati-el-raval",
+                "riu-nord": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+                "riu-sud": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+                "les-oliveres": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+                "can-franquesa": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
+                "singuerlin": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+                "centre": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+              };
+              const prioritizedSlug = barrioArticleMap[rawSlug];
+              let list = articles;
+              if (prioritizedSlug) {
+                const primary = articles.find((a) => a.slug === prioritizedSlug);
+                const others = articles.filter((a) => a.slug !== prioritizedSlug);
+                list = primary ? [primary, ...others] : articles;
+              }
+              const displayList = list.slice(0, 4);
+
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                  {displayList.map((art, i) => {
+                    const artContent = (art as any)[language] || (art as any).es;
+                    const title = artContent?.title || "";
+                    const summary = artContent?.summary || "";
+                    const date = artContent?.date || "";
+                    return (
+                      <Reveal key={art.id} delay={i * 0.1}>
+                        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 flex flex-col h-full border-2 border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                          <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/8] overflow-hidden rounded-xl mb-3.5 bg-slate-100 cursor-pointer">
+                            <img
+                              src={art.image}
+                              alt={title}
+                              loading="lazy"
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
                           </Link>
+                          <div className="flex flex-col flex-1">
+                            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
+                              <span className="text-slate-500 font-extrabold">{date}</span>
+                            </div>
+                            <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-3 min-h-[4.2rem] sm:min-h-[4.8rem] font-sans cursor-pointer">
+                              {title}
+                            </Link>
+                            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3 min-h-[4.5rem]">
+                              {summary}
+                            </p>
+                            <div className="mt-auto pt-3 border-t border-slate-100">
+                              <Link
+                                to="/noticias/$slug"
+                                params={{ slug: art.slug }}
+                                className="inline-flex items-center gap-2 text-sm sm:text-base font-black text-[#2563eb] hover:text-[#1d4ed8] transition-all font-sans cursor-pointer"
+                              >
+                                <span>{t.noticias.seguirLeyendo}</span>
+                                <ArrowRight className="w-4 h-4 text-[#2563eb]" />
+                              </Link>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
+                      </Reveal>
+                    );
+                  })}
+                </div>
+              );
+            })()}
 
             <Reveal delay={0.3}>
               <div className="text-center mt-6">

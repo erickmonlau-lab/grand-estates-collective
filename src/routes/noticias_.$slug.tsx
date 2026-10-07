@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { articles } from "../data/articles";
 
 import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle, Share2, Check } from "lucide-react";
@@ -27,6 +27,18 @@ const ARTICLE_ALIASES: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/noticias_/$slug")({
+  loader: ({ params }) => {
+    const rawSlug = params.slug as string;
+    const resolvedSlug = ARTICLE_ALIASES[rawSlug];
+    if (resolvedSlug) {
+      throw redirect({
+        to: "/noticias/$slug",
+        params: { slug: resolvedSlug },
+        statusCode: 301,
+      });
+    }
+    return { slug: rawSlug };
+  },
   head: ({ params }) => {
     const rawSlug = params.slug as string;
     const resolvedSlug = ARTICLE_ALIASES[rawSlug] || rawSlug;
@@ -732,6 +744,73 @@ function ArticleDetail() {
               </a>
             </div>
           </div>
+          </div>
+        </div>
+
+        {/* ── RELATED ARTICLES (SEO INTERNAL LINKING) ── */}
+        <div className="mt-12 bg-white rounded-[22px] md:rounded-[28px] p-6 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm font-sans">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-100 pb-5">
+            <div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-2.5 shadow-xs">
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>{language === "ca" ? "Articles Recomanats" : language === "en" ? "Recommended Articles" : "Artículos Recomendados"}</span>
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#0f172a] font-sans tracking-tight">
+                {language === "ca" ? "Altres guies que et poden interessar" : language === "en" ? "Other guides you might like" : "Otras guías que te pueden interesar"}
+              </h3>
+            </div>
+            <Link
+              to="/noticias"
+              className="text-xs sm:text-sm font-black text-[#2563eb] hover:text-[#1d4ed8] hover:underline flex items-center gap-1.5 shrink-0"
+            >
+              <span>{language === "ca" ? "Veure tots els articles" : language === "en" ? "View all articles" : "Ver todos los artículos"}</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {articles
+              .filter((a) => a.slug !== article.slug)
+              .slice(0, 3)
+              .map((relArt) => {
+                const relContent = relArt[language] || relArt.es;
+                return (
+                  <article key={relArt.id} className="bg-slate-50/70 rounded-2xl p-4 sm:p-5 flex flex-col h-full border border-slate-200/80 hover:shadow-md transition-all group">
+                    <Link to="/noticias/$slug" params={{ slug: relArt.slug }} className="block aspect-[16/10] overflow-hidden rounded-xl mb-3.5 bg-slate-200">
+                      <img
+                        src={relArt.image}
+                        alt={relContent.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </Link>
+                    <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-2 font-sans">
+                      <Calendar className="w-3.5 h-3.5 text-[#2563eb]" />
+                      <span>{relContent.date}</span>
+                    </div>
+                    <Link
+                      to="/noticias/$slug"
+                      params={{ slug: relArt.slug }}
+                      className="block font-black text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans"
+                    >
+                      {relContent.title}
+                    </Link>
+                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
+                      {relContent.summary}
+                    </p>
+                    <div className="mt-auto pt-2">
+                      <Link
+                        to="/noticias/$slug"
+                        params={{ slug: relArt.slug }}
+                        className="inline-flex items-center gap-1.5 text-xs font-black text-[#2563eb] group-hover:text-[#1d4ed8] uppercase tracking-wider"
+                      >
+                        <span>{language === "ca" ? "Llegir guia" : language === "en" ? "Read guide" : "Leer guía"}</span>
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
           </div>
         </div>
 

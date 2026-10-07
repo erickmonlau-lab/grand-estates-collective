@@ -75,6 +75,10 @@ export function findPropertyBySlugOrId(slugOrId: string): ExtendedProperty | und
   // Alias map for legacy URLs
   const SLUG_ALIASES: Record<string, string> = {
     "casa-unifamiliar-singuerlin": "apartamento-exterior-singuerlin",
+    "atico-con-terraza-centre-santa-coloma": "atico-duplex-centro-santa-coloma",
+    "atico-con-terraza-centro-santa-coloma": "atico-duplex-centro-santa-coloma",
+    "atico-terraza-centre-santa-coloma": "atico-duplex-centro-santa-coloma",
+    "atico-terraza-centro-santa-coloma": "atico-duplex-centro-santa-coloma",
   };
   if (SLUG_ALIASES[normRaw] || SLUG_ALIASES[normDecoded]) {
     const targetSlug = SLUG_ALIASES[normRaw] || SLUG_ALIASES[normDecoded];

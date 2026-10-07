@@ -19,7 +19,6 @@ const BlogSection = lazy(() => import('@/components/BlogSection'));
 const FaqSection = lazy(() => import('@/components/FaqSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
-import { DeferredHydration } from "@/components/DeferredHydration";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -994,8 +993,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ── DEFERRED HYDRATION FOR BELOW-THE-FOLD SECTIONS (VALUATOR, SERVICES, TESTIMONIALS, ETC.) ── */}
-      <DeferredHydration rootMargin="200px" fallback={<div className="min-h-[400px] bg-[#e2e8f0]" />}>
       {/* ── 5. VALORADOR DE INMUEBLES ── */}
       <Suspense fallback={<div className="h-96 bg-[#e2e8f0]" />}>
         <ValuatorSection language={language} t={t} zonas={zonas} shouldReduceMotion={false} />
@@ -1604,7 +1601,6 @@ function Index() {
           </div>
         </div>
       </footer>
-      </DeferredHydration>
       </main>
 
       {/* Floating Utilities */}

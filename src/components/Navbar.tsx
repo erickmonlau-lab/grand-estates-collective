@@ -43,7 +43,6 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
     <>
       <nav
         className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6"
-        style={{ opacity: 1, transform: 'none' }}
       >
         <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
           <img

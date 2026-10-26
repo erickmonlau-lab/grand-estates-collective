@@ -1,6 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Building2, TrendingUp, Scale, Wrench, Check, MessageCircle, ArrowLeft, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import { 
+  Building2, 
+  TrendingUp, 
+  Scale, 
+  Wrench, 
+  Check, 
+  ArrowRight, 
+  MapPin, 
+  Phone, 
+  Calculator, 
+  ShieldCheck, 
+  FileText, 
+  ChevronRight,
+  HelpCircle,
+  Home
+} from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { FooterMascot } from "@/components/FooterMascot";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -8,12 +23,131 @@ import { AccreditationBadges } from "@/components/AccreditationBadges";
 
 const SITE_DOMAIN = "https://gesgrama.com";
 
+// 14 BARRIS OFICIALS DE SANTA COLOMA DE GRAMENET (100% EXCLUSIVO)
+const SANTA_COLOMA_14_BARRIOS = [
+  { slug: "centre", name: "Centre", cp: "08921" },
+  { slug: "santa-rosa", name: "Santa Rosa", cp: "08923" },
+  { slug: "can-mariner", name: "Can Mariner", cp: "08923" },
+  { slug: "fondo", name: "Fondo", cp: "08922" },
+  { slug: "singuerlin", name: "Singuerlín", cp: "08924" },
+  { slug: "riera-alta", name: "Riera Alta", cp: "08924" },
+  { slug: "llati", name: "Llatí", cp: "08921" },
+  { slug: "el-raval", name: "El Raval", cp: "08923" },
+  { slug: "riu-nord", name: "Riu Nord", cp: "08921" },
+  { slug: "riu-sud", name: "Riu Sud", cp: "08921" },
+  { slug: "can-franquesa", name: "Can Franquesa", cp: "08924" },
+  { slug: "les-oliveres", name: "Les Oliveres", cp: "08924" },
+  { slug: "la-guinardera", name: "La Guinardera", cp: "08924" },
+  { slug: "cementiri-vell", name: "Cementiri Vell", cp: "08921" }
+] as const;
+
 export const Route = createFileRoute("/servicios_/$slug")({
   head: ({ params }) => {
     const slug = params.slug as string;
     const service = servicesData[slug] || servicesData["administracion-de-fincas"];
     const canonicalUrl = `${SITE_DOMAIN}/servicios/${service.slug}`;
     const ogImage = "https://gesgrama.com/og-image.png";
+
+    // Mapeo dinámico del proveedor semántico especializado según servicio
+    const providerType = service.providerSchemaType || "RealEstateAgent";
+
+    // 14 Objetos Place hiperlocales correspondientes a los 14 barrios oficiales de Santa Coloma de Gramenet
+    const areaServedPlaces = [
+      {
+        "@type": "City",
+        "name": "Santa Coloma de Gramenet",
+        "sameAs": "https://es.wikipedia.org/wiki/Santa_Coloma_de_Gramanet"
+      },
+      ...SANTA_COLOMA_14_BARRIOS.map(barrio => ({
+        "@type": "Place",
+        "name": `Barrio ${barrio.name}, Santa Coloma de Gramenet`,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santa Coloma de Gramenet",
+          "postalCode": barrio.cp,
+          "addressRegion": "Barcelona",
+          "addressCountry": "ES"
+        }
+      }))
+    ];
+
+    // Schema Service
+    const serviceSchema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": service.titleKey,
+      "description": service.metaDesc,
+      "url": canonicalUrl,
+      "provider": {
+        "@type": providerType,
+        "name": "Gesgrama",
+        "url": SITE_DOMAIN,
+        "image": ogImage,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. dels Banús, 49",
+          "addressLocality": "Santa Coloma de Gramenet",
+          "postalCode": "08923",
+          "addressRegion": "Barcelona",
+          "addressCountry": "ES"
+        },
+        "telephone": "+34934685656"
+      },
+      "areaServed": areaServedPlaces,
+      "serviceType": service.titleKey,
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": `Servicios de ${service.titleKey} en Santa Coloma de Gramenet`,
+        "itemListElement": service.details.map((detail, idx) => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": detail
+          },
+          "position": idx + 1
+        }))
+      }
+    };
+
+    // Schema FAQPage
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": service.faqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    };
+
+    // Schema HowTo
+    const howToSchema = {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": `Cómo se gestiona el servicio de ${service.titleKey} en Santa Coloma de Gramenet con Gesgrama`,
+      "description": `Metodología paso a paso para la contratación y ejecución de ${service.titleKey} en Santa Coloma de Gramenet.`,
+      "step": service.steps.map((st, idx) => ({
+        "@type": "HowToStep",
+        "position": idx + 1,
+        "name": st.title,
+        "text": st.desc
+      }))
+    };
+
+    // Schema BreadcrumbList
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE_DOMAIN },
+        { "@type": "ListItem", "position": 2, "name": "Servicios", "item": `${SITE_DOMAIN}/#servicios` },
+        { "@type": "ListItem", "position": 3, "name": service.titleKey, "item": canonicalUrl }
+      ]
+    };
+
     return {
       meta: [
         { title: service.metaTitle },
@@ -25,48 +159,39 @@ export const Route = createFileRoute("/servicios_/$slug")({
         { property: "og:url", content: canonicalUrl },
         { property: "og:image", content: ogImage },
         { property: "og:site_name", content: "Gesgrama" },
+        { property: "og:locale", content: "es_ES" },
+        { property: "og:locale:alternate", content: "ca_ES" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: service.metaTitle },
         { name: "twitter:description", content: service.metaDesc },
         { name: "twitter:image", content: ogImage },
+        { name: "geo.region", content: "ES-CT" },
+        { name: "geo.placename", content: "Santa Coloma de Gramenet" },
+        { name: "geo.position", content: "41.4516;2.2081" },
+        { name: "ICBM", content: "41.4516, 2.2081" }
       ],
       links: [
         { rel: "canonical", href: canonicalUrl },
+        { rel: "alternate", hrefLang: "es", href: canonicalUrl },
+        { rel: "alternate", hrefLang: "ca", href: canonicalUrl },
+        { rel: "alternate", hrefLang: "x-default", href: canonicalUrl }
       ],
       scripts: [
         {
           type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": service.titleKey,
-            "description": service.metaDesc,
-            "url": canonicalUrl,
-            "provider": {
-              "@type": "RealEstateAgent",
-              "name": "Gesgrama",
-              "url": SITE_DOMAIN,
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Av. dels Banús, 49",
-                "addressLocality": "Santa Coloma de Gramenet",
-                "postalCode": "08923",
-                "addressRegion": "Barcelona",
-                "addressCountry": "ES"
-              },
-              "telephone": "+34934685656"
-            },
-            "areaServed": "Santa Coloma de Gramenet y área metropolitana",
-            "serviceType": service.titleKey,
-            "breadcrumb": {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE_DOMAIN },
-                { "@type": "ListItem", "position": 2, "name": "Servicios", "item": `${SITE_DOMAIN}/#servicios` },
-                { "@type": "ListItem", "position": 3, "name": service.titleKey, "item": canonicalUrl }
-              ]
-            }
-          })
+          children: JSON.stringify(serviceSchema)
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(faqSchema)
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(howToSchema)
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(breadcrumbSchema)
         }
       ]
     };
@@ -74,7 +199,7 @@ export const Route = createFileRoute("/servicios_/$slug")({
   component: ServiceDetail,
 });
 
-const servicesData: Record<string, {
+interface ServiceItem {
   id: string;
   slug: string;
   icon: any;
@@ -83,67 +208,77 @@ const servicesData: Record<string, {
   metaTitle: string;
   metaDesc: string;
   intro: string;
+  providerSchemaType: "RealEstateAgent" | "LegalService" | "GeneralContractor";
   details: string[];
   benefits: string[];
   image: string;
   asuntoOption: string;
+  barrioTitleContext: string;
   steps: { number: string; title: string; desc: string }[];
   faqs: { q: string; a: string }[];
-}> = {
+}
+
+const servicesData: Record<string, ServiceItem> = {
   "administracion-de-fincas": {
     id: "fincas",
     slug: "administracion-de-fincas",
     icon: Building2,
+    providerSchemaType: "RealEstateAgent",
     titleKey: "Administración de Fincas",
-    taglineKey: "Gestión transparente e integral de comunidades en Santa Coloma de Gramenet",
-    metaTitle: "Administración de Fincas en Santa Coloma de Gramenet | Gesgrama",
-    metaDesc: "Administradores de fincas colegiados en Santa Coloma de Gramenet. Gestión eficiente de comunidades, control de morosidad y resolución de incidencias.",
-    intro: "En Gesgrama llevamos más de 15 años administrando comunidades de propietarios en Santa Coloma de Gramenet y comarca. Ofrecemos un servicio cercano, transparente y orientado al ahorro real de la comunidad.",
+    taglineKey: "Administració de finques i gestió de comunitats a Santa Coloma de Gramenet",
+    metaTitle: "Administrador de Fincas en Santa Coloma de Gramenet | Colegiados Gesgrama",
+    metaDesc: "Administradores de fincas colegiados en Santa Coloma de Gramenet. Gestión integral según el Libro V del Código Civil de Cataluña, auditoría contable y control de morosidad.",
+    intro: "En Gesgrama somos administradores de fincas colegiados especializados exclusivamente en Santa Coloma de Gramenet. Aplicamos con rigor el régimen de propiedad horizontal catalana (Libro V del Código Civil de Cataluña), garantizando transparencia contable 24/7, mediación vecinal resolutiva y un ahorro directo en los costes comunitarios de la escalera.",
     details: [
-      "Coordinación y soporte en reuniones de vecinos ordinarias y extraordinarias con moderación profesional.",
-      "Redacción, legalización y custodia de actas y libro de actas oficial de la comunidad.",
-      "Liquidación contable anual clara, desglosada y comprensible para todos los vecinos.",
-      "Gestión ágil de cobro de recibos y reclamación extrajudicial de morosidad sin sobrecostes ocultos.",
-      "Atención y resolución urgente de averías con industriales locales de confianza en Santa Coloma.",
-      "Asesoramiento técnico para la obtención de subvenciones para rehabilitación energética de edificios."
+      "Aplicación experta del Libro V del Código Civil de Cataluña (Llei 5/2006 de propietat horitzontal catalana) y cómputo exacto de mayorías simples y cualificadas.",
+      "Convocatoria, moderación profesional y redacción inmediata de actas en juntas ordinarias y extraordinarias de propietarios.",
+      "Auditoría contable y liquidación económica anual comprensible, con acceso digital y extractos bancarios conciliados céntimo a céntimo.",
+      "Reclamación ágil de vecinos morosos mediante requerimiento fehaciente y activación de procedimiento monitorio judicial comunitario sin recargos desproporcionados.",
+      "Optimización de contratos comunitarios: negociación de tarifas de luz de escalera, mantenimiento de ascensores, limpieza y seguros multirriesgo de la finca.",
+      "Atención urgente 24 horas y resolución in situ de averías con industriales homologados de Santa Coloma de Gramenet."
     ],
     benefits: [
-      "Transparencia contable garantizada con acceso digital a las cuentas.",
-      "Reducción directa de costes en contratos de mantenimiento y seguros.",
-      "Administradores colegiados con seguro oficial de responsabilidad civil.",
-      "Atención presencial en nuestra oficina local para cualquier propietario."
+      "Administradores colegiados con seguro oficial de responsabilidad civil y caución comunitaria.",
+      "Traspaso de administración 100% gratuito y sin molestias: gestionamos la recogida documental con el administrador saliente en 48 horas.",
+      "Reducción demostrada de entre un 15% y un 30% en los gastos fijos ordinarios de la comunidad.",
+      "Atención presencial en nuestra sede de Av. dels Banús, 49 para cualquier consulta vecinal."
     ],
     image: "/images/art8_comunidad_propietarios.webp",
     asuntoOption: "Administración de Fincas",
+    barrioTitleContext: "Administración de fincas y comunidades en los 14 barrios de Santa Coloma",
     steps: [
       {
         number: "01",
-        title: "Auditoría inicial de la comunidad",
-        desc: "Revisamos los contratos vigentes, suministros, seguros y estado de cuentas para identificar ahorros inmediatos y regularizar cualquier situación pendiente."
+        title: "Auditoría inicial del edificio y contratos",
+        desc: "Examinamos las pólizas de seguro comunitario, contratos de ascensor, suministros de luz y estado de morosidad para planificar ahorros inmediatos en las cuotas."
       },
       {
         number: "02",
-        title: "Traspaso ágil y sin molestias",
-        desc: "Nos encargamos de toda la gestión documental con el administrador saliente o la junta anterior, garantizando continuidad absoluta en servicios y pagos."
+        title: "Aprobación y traspaso integral sin coste",
+        desc: "Guiamos a la presidencia para incluir el punto en la junta. Nos personamos ante el administrador anterior para custodiar libros de actas, claves bancarias y expedientes sin conflicto."
       },
       {
         number: "03",
-        title: "Gestión continua y comunicación directa",
-        desc: "Asignamos un gestor dedicado con teléfono directo, respuesta rápida a incidencias y emisión puntual de estados contables transparentes."
+        title: "Gestión transparente y mediación continua",
+        desc: "Asignamos gestor colegiado con teléfono directo, supervisamos averías en tiempo real y publicamos balances claros sin letra pequeña."
       }
     ],
     faqs: [
       {
-        q: "¿Cómo se aprueba el cambio de administrador en la comunidad?",
-        a: "Solo se requiere incluir el punto en el orden del día de una junta ordinaria o extraordinaria y obtener el voto favorable de la mayoría simple de propietarios presentes y representados."
+        q: "¿Qué mayoría se necesita para cambiar de administrador de fincas en Santa Coloma?",
+        a: "Conforme a la normativa catalana (Libro V del Código Civil de Cataluña), basta con el acuerdo de la mayoría simple de los propietarios presentes y representados (que sumen la mayoría de cuotas) en una junta ordinaria o extraordinaria debidamente convocada."
       },
       {
-        q: "¿Qué coste tiene el cambio de administración para los vecinos?",
-        a: "El trámite de transición y traspaso de documentación no tiene ningún coste añadido. Además, en la mayoría de casos conseguimos reducir la cuota mensual optimizando los contratos de limpieza, ascensor y seguros."
+        q: "¿Tiene algún coste o penalización cambiar a Gesgrama como administrador?",
+        a: "Ninguno. El proceso de transición, auditoría inicial y recepción de la documentación comunitaria es 100% gratuito. Además, revisamos los contratos de mantenimiento existentes para rebajar el presupuesto de la escalera."
       },
       {
-        q: "¿Cómo se gestiona la morosidad en una finca administrada por Gesgrama?",
-        a: "Actuamos desde el primer mes de retraso mediante requerimientos amistosos documentados. Si persiste, preparamos la liquidación de deuda certificada para el procedimiento monitorio judicial con pleno respaldo legal."
+        q: "¿Cómo actúa Gesgrama ante un vecino moroso en la comunidad?",
+        a: "Iniciamos de inmediato la mediación amistosa y el requerimiento fehaciente con desglose contable. Si no hay acuerdo, la junta aprueba la liquidación certificada y nuestro departamento legal interpone el procedimiento monitorio de reclamación judicial."
+      },
+      {
+        q: "¿Gestionáis también comunidades de parking o mancomunidades en Santa Coloma?",
+        a: "Sí. Administramos garajes comunitarios, mancomunidades de propietarios y complejos residenciales con vados y zonas comunes en todos los barrios colomenses."
       }
     ]
   },
@@ -151,56 +286,62 @@ const servicesData: Record<string, {
     id: "inmobiliaria",
     slug: "gestion-inmobiliaria",
     icon: TrendingUp,
+    providerSchemaType: "RealEstateAgent",
     titleKey: "Gestión Inmobiliaria",
-    taglineKey: "Compra, venta y alquiler seguro de viviendas en Santa Coloma de Gramenet",
-    metaTitle: "Gestión Inmobiliaria en Santa Coloma de Gramenet | Gesgrama",
-    metaDesc: "Agencia inmobiliaria especialista en Santa Coloma de Gramenet. Valoración gratuita de inmuebles, filtro riguroso de inquilinos y gestión total de la venta.",
-    intro: "Si deseas vender o alquilar tu piso en Santa Coloma de Gramenet, en Gesgrama garantizamos el máximo valor real de mercado con absoluta tranquilidad, rigor y seguridad jurídica.",
+    taglineKey: "Agència immobiliària AICAT, compravenda i lloguer segur a Santa Coloma",
+    metaTitle: "Inmobiliaria en Santa Coloma de Gramenet | Venta y Alquiler Seguro Gesgrama",
+    metaDesc: "Agencia inmobiliaria en Santa Coloma de Gramenet registrada en AICAT. Valoración gratuita por m², venta al mejor precio de mercado y alquiler seguro con seguro de impago.",
+    intro: "Somos agentes inmobiliarios inscritos en el Registre d'Agents Immobiliaris de Catalunya (AICAT). Si quieres vender o alquilar tu piso en Santa Coloma de Gramenet, te aseguramos el valor real máximo de mercado con total solvencia, filtro exhaustivo de inquilinos y blindaje legal en cada contrato.",
     details: [
-      "Valoración profesional precisa de mercado basada en escrituras y operaciones reales de la zona.",
-      "Estrategia de marketing multicanal (Idealista, Fotocasa, escaparate en calle transitada y red directa de compradores).",
-      "Filtro riguroso de solvencia económica y scoring de inquilinos con seguro de impago garantizado.",
-      "Redacción minuciosa de contratos de compraventa y arrendamiento conforme a la normativa vigente en Cataluña.",
-      "Tramitación completa de cédulas de habitabilidad y certificados de eficiencia energética (CEE).",
-      "Acompañamiento integral, liquidación de plusvalía y asistencia en Notaría hasta la firma definitiva."
+      "Valoración y tasación precisa por m² basada en compraventas reales cerradas en el barrio exacto de Santa Coloma.",
+      "Estrategia comercial multicanal: reportaje fotográfico profesional, publicación en portales líderes (Idealista, Fotocasa) y escaparate físico en zona de alto tránsito peatonal.",
+      "Gestión de alquiler seguro (lloguer segur): análisis de solvencia financiera, ratio de endeudamiento y contratación de seguro de impago de rentas.",
+      "Cumplimiento riguroso de la legislación de contención de rentas y aplicación del Índice de Referencia de Precios de Alquiler en zona tensionada.",
+      "Tramitación urgente de la Cédula de Habitabilidad de segunda ocupación y Certificado de Eficiencia Energética (CEE) con arquitecto técnico.",
+      "Redacción de contratos de arras penitenciales (Art. 621-8 del Código Civil de Cataluña), certificado de comunidad al corriente de pago y acompañamiento a Notaría."
     ],
     benefits: [
-      "Sin comisiones ocultas y con informe de valoración gratuito sin compromiso.",
-      "Amplia cartera de compradores e inversores cualificados de Santa Coloma y Barcelona.",
-      "Agentes Inmobiliarios Registrados de Cataluña (AICAT homologado).",
-      "Reportaje fotográfico profesional y tour virtual para maximizar el atractivo del inmueble."
+      "Agentes colegiados AICAT: máxima seguridad jurídica y custodia de fianzas e importes en Notaría.",
+      "Valoración comparativa gratuita y sin compromiso de tu vivienda en Santa Coloma.",
+      "Garantía de cobro del 100% de las mensualidades en alquiler mediante pólizas con cobertura jurídica completa.",
+      "Base de datos activa de compradores cualificados listos para adquirir piso en el municipio."
     ],
     image: "/images/interior_santacoloma_opt.webp",
     asuntoOption: "Gestión Inmobiliaria",
+    barrioTitleContext: "Agencia inmobiliaria especialista en los 14 barrios de Santa Coloma",
     steps: [
       {
         number: "01",
-        title: "Valoración y plan comercial",
-        desc: "Visitamos la vivienda, analizamos el mercado real de Santa Coloma (Centro, Singuerlín, Fondo, Santa Rosa) y fijamos el precio óptimo de salida."
+        title: "Valoración inmobiliaria por m² y plan de venta",
+        desc: "Inspeccionamos la vivienda y comparamos las transacciones reales en el barrio (Centre, Fondo, Singuerlín, Santa Rosa, etc.) para definir el precio óptimo y maximizar tu rentabilidad."
       },
       {
         number: "02",
-        title: "Difusión y selección de candidatos",
-        desc: "Presentación profesional de la vivienda, filtrado previo de solvencia financiera y coordinación personalizada de visitas sin molestias para ti."
+        title: "Comercialización, filtro y selección de candidatos",
+        desc: "Difusión publicitaria premium, filtrado riguroso de compradores solventes o verificación de nóminas/estabilidad laboral en arrendatarios."
       },
       {
         number: "03",
-        title: "Cierre, contratos y firma en notaría",
-        desc: "Redactamos arras o contratos de arrendamiento, gestionamos la documentación registral y te acompañamos hasta el cobro final en notaría."
+        title: "Firma de arras, documentación y Notaría",
+        desc: "Redactamos contratos jurídicamente blindados, gestionamos CEE y cédula, y te asistimos presencialmente hasta el otorgamiento de la escritura pública."
       }
     ],
     faqs: [
       {
-        q: "¿Cuánto tiempo se tarda en vender un piso en Santa Coloma con Gesgrama?",
-        a: "Fijando un precio de mercado realista con nuestro estudio comparativo, el tiempo medio de cierre suele situarse entre 30 y 60 días gracias a nuestra base de compradores activos."
+        q: "¿Cuánto tiempo se tarda en vender un piso en Santa Coloma de Gramenet con Gesgrama?",
+        a: "Con una valoración ajustada a las transacciones notariales recientes, el tiempo medio de venta en Gesgrama oscila entre 30 y 60 días, gracias a nuestra red directa de compradores e inversores locales."
       },
       {
-        q: "¿Qué documentación necesito para poner mi piso en venta o alquiler?",
-        a: "Necesitas la escritura de propiedad, DNI/NIE de los titulares, último IBI pagado, cédula de habitabilidad vigente y certificado de eficiencia energética. Si te falta alguno, nosotros lo tramitamos."
+        q: "¿Qué documentación obligatoria necesito para vender o alquilar en Santa Coloma?",
+        a: "Se exige título de propiedad (escritura), DNI de los titulares, última cuota de IBI, certificado de eficiencia energética (CEE), cédula de habitabilidad vigente y el certificado de la comunidad conforme está al corriente de pago."
       },
       {
-        q: "¿Cómo garantizáis el cobro en los contratos de alquiler?",
-        a: "Efectuamos un estudio de riesgo exhaustivo a través de aseguradoras líderes. Ofrecemos pólizas de impago de alquiler que aseguran el cobro mensual y la defensa jurídica completa del propietario."
+        q: "¿Cómo funciona el seguro de impago de alquiler en Santa Coloma?",
+        a: "Realizamos un scoring previo de solvencia del candidato. Una vez aprobado, la aseguradora garantiza el abono continuado de las rentas mensuales impagadas, asume los costes judiciales de desahucio y cubre actos vandálicos."
+      },
+      {
+        q: "¿Cómo afecta la declaración de Santa Coloma como zona de mercado residencial tensionado?",
+        a: "Aplicamos el Índice de Referencia de Precios de Alquiler de Cataluña y la ley estatal de vivienda para determinar el tope de renta aplicable según contratos previos y tipología del arrendador (gran tenedor o pequeño tenedor)."
       }
     ]
   },
@@ -208,56 +349,62 @@ const servicesData: Record<string, {
     id: "juridico",
     slug: "asesoria-juridica-fiscal",
     icon: Scale,
+    providerSchemaType: "LegalService",
     titleKey: "Asesoría Jurídica y Fiscal",
-    taglineKey: "Especialistas en derecho inmobiliario, herencias y plusvalías en Santa Coloma",
-    metaTitle: "Asesoría Jurídica e Inmobiliaria en Santa Coloma de Gramenet | Gesgrama",
-    metaDesc: "Abogados y asesores en derecho inmobiliario en Santa Coloma. Herencias, contratos de alquiler, desahucios y reclamaciones tributarias.",
-    intro: "Prestamos asesoramiento legal y fiscal especializado en derecho inmobiliario y patrimonial para resolver con total seguridad cualquier trámite sucesorio, contractual o tributario.",
+    taglineKey: "Dret immobiliari, successions, herències i plusvàlua a Santa Coloma",
+    metaTitle: "Abogados Inmobiliarios y Asesoría Fiscal en Santa Coloma | Gesgrama",
+    metaDesc: "Asesoría jurídica y fiscal en Santa Coloma de Gramenet. Tramitación de herencias y sucesiones, cálculo mínimo de Plusvalía Municipal (IIVTNU) y desahucios.",
+    intro: "Prestamos asesoramiento jurídico y tributario especializado en derecho inmobiliario, patrimonial y sucesorio en Santa Coloma de Gramenet. Resolvemos particiones de herencias complejas, optimizamos impuestos municipales y autonómicos, y blindamos contratos ante cualquier eventualidad legal.",
     details: [
-      "Gestión integral de herencias, declaraciones de herederos y adjudicación de inmuebles.",
-      "Optimización fiscal del Impuesto sobre el Incremento del Valor de los Terrenos (Plusvalía municipal) e IRPF.",
-      "Resolución de controversias arrendaticias, resolución de contratos y desahucios por impago.",
-      "Redacción y blindaje legal de contratos de arras, opciones de compra y permutas.",
-      "Asesoramiento y defensa en impugnación de acuerdos de juntas de propietarios.",
-      "Tramitación de expedientes notariales, registrales y subsanación de discrepancias catastrales."
+      "Tramitación integral de herencias y sucesiones con bienes inmuebles en Santa Coloma: aceptación, declaración de herederos, adjudicación de bienes, legítima catalana y usufructos.",
+      "Liquidación del Impuesto de Sucesiones y Donaciones (ISD) ante la Agència Tributària de Catalunya (ATC), aplicando todas las deducciones por parentesco y vivienda habitual.",
+      "Cálculo, optimización y liquidación del Impuesto sobre el Incremento de Valor de los Terrenos (Plusvalía Municipal IIVTNU) en el Ayuntamiento de Santa Coloma de Gramenet.",
+      "Comparativa técnica de Plusvalía: método objetivo vs plusvalía real para liquidar la cuota mínima legal, o reclamación de no sujeción si hubo pérdidas económicas.",
+      "Resolución de litigios arrendaticios: procedimiento judicial de desahucio por falta de pago o fin de contrato, reclamación de rentas y extinción de condominio.",
+      "Asesoramiento en la ganancia patrimonial del IRPF por venta de inmuebles, con análisis de exenciones por reinversión o transmisión por mayores de 65 años."
     ],
     benefits: [
-      "Atención directa por letrados y fiscalistas especializados en patrimonio inmobiliario.",
-      "Enfoque preventivo para evitar litigios prolongados y costes judiciales innecesarios.",
-      "Presupuesto cerrado por escrito antes de iniciar cualquier actuación.",
-      "Conocimiento exhaustivo de las ordenanzas fiscales del Ayuntamiento de Santa Coloma."
+      "Abogados colegiados y fiscalistas expertos en el marco tributario de Cataluña y las ordenanzas de Santa Coloma.",
+      "Presupuesto cerrado por escrito desde la primera sesión informativa, sin costes imprevistos.",
+      "Ahorro tributario real acreditado en liquidaciones de plusvalía municipal y sucesiones.",
+      "Atención cercana y presencial en nuestro despacho local para revisar escrituras y documentación."
     ],
     image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=75&w=800&auto=format&fit=crop",
     asuntoOption: "Asesoría Jurídica",
+    barrioTitleContext: "Asesoramiento jurídico e inmobiliario en todos los barrios de Santa Coloma",
     steps: [
       {
         number: "01",
-        title: "Consulta y diagnóstico jurídico",
-        desc: "Analizamos tu caso con detalle, revisamos escrituras, contratos o requerimientos y determinamos la mejor vía legal o fiscal a seguir."
+        title: "Diagnóstico legal y fiscal del expediente",
+        desc: "Estudiamos testamentos, títulos de propiedad, notas simples registrales y certificados de defunción para definir la hoja de ruta jurídica más eficiente."
       },
       {
         number: "02",
-        title: "Estrategia y redacción documental",
-        desc: "Elaboramos contratos, recursos o cuadernos particionales adaptados para maximizar bonificaciones fiscales y proteger tu patrimonio."
+        title: "Cuaderno particional y redacción documental",
+        desc: "Redactamos la partición de herencia, contratos de arras blindados o demandas judiciales garantizando el cumplimiento de plazos para bonificaciones tributarias."
       },
       {
         number: "03",
-        title: "Gestión notarial, tributaria o judicial",
-        desc: "Te representamos ante notarías, liquidamos los impuestos correspondientes en los plazos reglamentarios y defendemos tus derechos ante los tribunales si es necesario."
+        title: "Gestión notarial, liquidación y Registro",
+        desc: "Te acompañamos a la Notaría, liquidamos los tributos (ATC e IIVTNU municipal) y formalizamos la inscripción en el Registro de la Propiedad."
       }
     ],
     faqs: [
       {
-        q: "¿Cómo se calcula la plusvalía municipal tras vender o heredar en Santa Coloma?",
-        a: "Se puede calcular mediante el método objetivo (coeficientes sobre el valor catastral del suelo) o por la ganancia real demostrada. Calculamos ambas opciones para que tributes siempre por la cantidad menor permitida por ley."
+        q: "¿Cómo se calcula la Plusvalía Municipal (IIVTNU) en el Ayuntamiento de Santa Coloma?",
+        a: "Calculamos obligatoriamente las dos fórmulas legales: el método objetivo (coeficiente sobre el valor catastral del suelo) y el método real (ganancia patrimonial efectiva entre compra y venta/herencia). Elegimos la vía de menor coste impositivo. Si vendes a pérdidas, tramitamos la exención total."
       },
       {
-        q: "¿Qué plazo hay para tramitar y liquidar una herencia con inmuebles?",
-        a: "El plazo general para el Impuesto de Sucesiones y la Plusvalía municipal es de 6 meses desde el fallecimiento, prorrogable por otros 6 meses si se solicita dentro de los primeros 5 meses."
+        q: "¿Qué plazo hay para tramitar una herencia con un piso en Santa Coloma de Gramenet?",
+        a: "El plazo legal para liquidar el Impuesto de Sucesiones y la Plusvalía municipal es de 6 meses desde el fallecimiento. Si se solicita dentro de los 5 primeros meses, podemos tramitar una prórroga de otros 6 meses adicionales."
       },
       {
-        q: "¿Puedo pedir presupuesto sin compromiso para una consulta jurídica?",
-        a: "Sí. Ofrecemos una primera valoración informativa de tu expediente para explicarte los pasos a dar y facilitarte un presupuesto cerrado y detallado sin sorpresas."
+        q: "¿Qué puedo hacer si uno de los herederos se niega a vender o alquilar el piso?",
+        a: "Asesoramos en procedimientos de extinción de condominio o división de cosa común. Buscamos primero la mediación amistosa para la compra de partes o subasta voluntaria antes de judicializar el conflicto."
+      },
+      {
+        q: "¿Cuánto tarda un procedimiento de desahucio por impago de alquiler?",
+        a: "Depende de la carga de los Juzgados de Santa Coloma de Gramenet, pero habitualmente oscila entre 4 y 8 meses. Interponemos la demanda con solicitud inmediata de fecha de lanzamiento para reducir al mínimo el perjuicio económico."
       }
     ]
   },
@@ -265,56 +412,62 @@ const servicesData: Record<string, {
     id: "obras",
     slug: "obras-mantenimiento",
     icon: Wrench,
+    providerSchemaType: "GeneralContractor",
     titleKey: "Obras y Mantenimiento",
-    taglineKey: "Rehabilitación de edificios residenciales, fachadas e ITE en Santa Coloma",
-    metaTitle: "Obras, Mantenimiento e ITE en Santa Coloma de Gramenet | Gesgrama",
-    metaDesc: "Supervisión técnica de obras, reformas, ITE e Inspección Técnica de Edificios en Santa Coloma. Tramitación de subvenciones de rehabilitación.",
-    intro: "Ofrecemos soporte técnico experto para la conservación, rehabilitación energética y mantenimiento integral de fincas urbanas y edificios de viviendas en Santa Coloma de Gramenet.",
+    taglineKey: "Rehabilitació d'edificis, façanes, ascensors a cota zero i ITE a Santa Coloma",
+    metaTitle: "Rehabilitación de Edificios, Obras e ITE en Santa Coloma | Gesgrama",
+    metaDesc: "Especialistas en ITE obligatoria en Santa Coloma de Gramenet, rehabilitación de fachadas, cubiertas e instalación de ascensores a cota cero con subvenciones.",
+    intro: "Ofrecemos dirección y supervisión técnica integral para la conservación, rehabilitación y eficiencia de edificios residenciales plurifamiliares en Santa Coloma de Gramenet. Especialistas en superar la ITE, rehabilitar fachadas y patios, e instalar ascensores a cota cero gestionando ayudas públicas.",
     details: [
-      "Gestión integral de la Inspección Técnica de Edificios (ITE) y tramitación del Certificado de Aptitud ante la Generalitat.",
-      "Proyectos de rehabilitación de fachadas urbanas, balcones, cornisas, cubiertas y patios de luces.",
-      "Eliminación de barreras arquitectónicas: bajada a cota cero e instalación de ascensores en fincas antiguas.",
-      "Tramitación y justificación de subvenciones públicas y fondos europeos de eficiencia energética.",
-      "Comparativa ciega de presupuestos de industriales homologados para garantizar el mejor precio.",
-      "Coordinación de seguridad y salud, y dirección técnica facultativa durante toda la ejecución de obra."
+      "Tramitación obligatoria de la Inspección Técnica de Edificios (ITE) para fincas de más de 45 años y expedición del Certificado de Aptitud ante la Agència de l'Habitatge de Catalunya.",
+      "Rehabilitación integral de fachadas principales y patios de luces: saneamiento de revocos, reparación de cornisas, balcones y tratamiento de carbonatación del hormigón.",
+      "Eliminación de barreras arquitectónicas: bajada de ascensor a cota cero en portales antiguos e instalación de ascensores exteriores/interiores en fincas que no disponen de elevador.",
+      "Impermeabilización de cubiertas planas, tejados comunitarios, terrados transitables y sustitución de bajantes de saneamiento.",
+      "Gestión integral de subvenciones públicas: tramitación de Fondos Europeos Next Generation y convocatorias municipales de rehabilitación energética.",
+      "Concurso de presupuestos ciegos entre 3 constructoras homologadas de la zona, dirección facultativa y control riguroso de certificaciones de obra y plazos."
     ],
     benefits: [
-      "Ahorro de hasta el 80% del coste total mediante la gestión de subvenciones públicas.",
-      "Control exhaustivo de plazos, certificaciones y calidades con firmas especializadas.",
-      "Empresas e industriales locales con amplia experiencia en la arquitectura de Santa Coloma.",
-      "Tranquilidad total para la junta de vecinos al delegar la supervisión en técnicos cualificados."
+      "Ahorro de hasta el 80% del coste total mediante la consecución y justificación de subvenciones públicas de rehabilitación.",
+      "Eliminación del riesgo de derramas imprevistas mediante contratos de obra con precio cerrado y penalización por retraso.",
+      "Constructores e industriales de confianza contrastada en el parque inmobiliario de Santa Coloma de Gramenet.",
+      "Garantía decenal y entrega del Libro del Edificio actualizado."
     ],
     image: "/images/art6_ite_rehabilitacion.webp",
     asuntoOption: "Obras y Reformas",
+    barrioTitleContext: "Rehabilitación de edificios, obras e ITE en los 14 barrios de Santa Coloma",
     steps: [
       {
         number: "01",
-        title: "Diagnóstico técnico y dictamen ITE",
-        desc: "Un arquitecto técnico colegiado realiza una inspección exhaustiva de la finca para evaluar la estructura, fachadas, saneamiento y eficiencia energética."
+        title: "Inspección técnica in situ y dictamen ITE",
+        desc: "Un arquitecto técnico visita la finca, analiza la estructura, fachadas, saneamiento y accesibilidad, emitiendo el informe de deficiencias y prioridades."
       },
       {
         number: "02",
-        title: "Licitación transparente y ayudas",
-        desc: "Redactamos el pliego de condiciones técnicas, solicitamos 3 o más presupuestos a industriales cualificados y solicitamos las subvenciones disponibles."
+        title: "Licitación comparativa y solicitud de ayudas",
+        desc: "Elaboramos el pliego de condiciones, comparamos presupuestos de 3 empresas homologadas y solicitamos las subvenciones disponibles en el Ayuntamiento y la Generalitat."
       },
       {
         number: "03",
-        title: "Dirección de obra y recepción final",
-        desc: "Supervisamos la correcta ejecución, controlamos los pagos por certificación de obra terminada y gestionamos las licencias y garantías con el Ayuntamiento."
+        title: "Dirección de obra y recepción con garantías",
+        desc: "Controlamos las calidades, coordinamos la seguridad laboral y expedimos el Certificado Final de Obra con todas las garantías legales."
       }
     ],
     faqs: [
       {
-        q: "¿Cuándo es obligatorio pasar la ITE en Santa Coloma de Gramenet?",
-        a: "Los edificios residenciales de más de 45 años de antigüedad tienen la obligación legal de pasar la Inspección Técnica de Edificios. No realizarla conlleva sanciones y problemas para contratar seguros o vender viviendas."
+        q: "¿Cuándo es obligatoria la ITE en Santa Coloma de Gramenet?",
+        a: "La Inspección Técnica del Edificio es obligatoria por ley para todos los edificios plurifamiliares con más de 45 años de antigüedad. No realizarla acarrea sanciones administrativas e impide contratar seguros o vender viviendas."
       },
       {
-        q: "¿Qué subvenciones existen actualmente para rehabilitar un edificio?",
-        a: "Existen líneas de ayudas públicas municipales, autonómicas y fondos europeos destinadas al aislamiento de fachadas (SATE), cubiertas, accesibilidad (ascensores) y mejora de eficiencia energética que pueden cubrir entre el 40% y el 80% de la inversión."
+        q: "¿Qué ayudas existen para instalar ascensor o rehabilitar fachadas en Santa Coloma?",
+        a: "Gestionamos los Fondos Next Generation EU y las ayudas de la Agència de l'Habitatge para accesibilidad y eficiencia energética, con coberturas que oscilan entre el 40% y el 80% de la inversión total."
       },
       {
-        q: "¿Cómo se organiza la derrama para una obra en la comunidad de propietarios?",
-        a: "Calculamos el plan de pagos por cuota de participación o acuerdo de junta, coordinamos posibles aplazamientos de pago con los constructores y gestionamos opciones de financiación bancaria específica para comunidades."
+        q: "¿Cómo se aprueba en junta de propietarios la bajada de ascensor a cota cero?",
+        a: "Según la LPH y la normativa catalana de accesibilidad, si la obra es solicitada por un propietario mayor de 70 años o con discapacidad, la comunidad está obligada a su ejecución siempre que el coste anual no exceda de 12 cuotas ordinarias."
+      },
+      {
+        q: "¿Cómo evita Gesgrama sobrecostes en las obras de la comunidad?",
+        a: "Trabajamos con pliegos técnicos cerrados donde cualquier partida imprevista debe ser previamente visada por la dirección facultativa. Además, los pagos se liberan exclusivamente por certificaciones de obra realmente ejecutada."
       }
     ]
   }
@@ -354,8 +507,10 @@ function ServiceDetail() {
     };
   }, [slug]);
 
-
   const IconComp = service.icon;
+
+  // Servicios relacionados para cross-selling interno
+  const relatedServices = Object.values(servicesData).filter(s => s.slug !== service.slug);
 
   return (
     <div className="bg-[#f8fafc] text-[#0f172a] min-h-screen font-sans selection:bg-[#2563eb]/20 overflow-x-clip">
@@ -363,27 +518,48 @@ function ServiceDetail() {
       <Navbar language={language} setLanguage={setLanguage} />
 
       {/* Main Container */}
-      <main className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-12">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-6">
-          <Link to="/" className="hover:text-[#2563eb]">Inicio</Link>
-          <span>/</span>
-          <span className="text-[#2563eb]">Servicios</span>
-          <span>/</span>
-          <span className="text-slate-900 font-extrabold">{service.titleKey}</span>
-        </div>
+      <main className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-12">
+        {/* Breadcrumb con microdatos semánticos */}
+        <nav aria-label="Migas de pan" className="mb-6">
+          <ol className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500" itemScope itemType="https://schema.org/BreadcrumbList">
+            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+              <Link to="/" itemProp="item" className="hover:text-[#2563eb] transition-colors">
+                <span itemProp="name">Inicio</span>
+              </Link>
+              <meta itemProp="position" content="1" />
+            </li>
+            <li className="text-slate-400">/</li>
+            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+              <a href="/#servicios" itemProp="item" className="hover:text-[#2563eb] transition-colors text-[#2563eb]">
+                <span itemProp="name">Servicios</span>
+              </a>
+              <meta itemProp="position" content="2" />
+            </li>
+            <li className="text-slate-400">/</li>
+            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+              <span itemProp="name" className="text-slate-900 font-extrabold">{service.titleKey}</span>
+              <meta itemProp="position" content="3" />
+            </li>
+          </ol>
+        </nav>
 
         {/* Hero Banner for Service */}
         <div className="bg-[#0f172a] rounded-3xl p-6 sm:p-10 md:p-14 text-white shadow-2xl overflow-hidden relative mb-12 border border-slate-800">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black uppercase px-4 py-2 rounded-full mb-4 shadow-sm">
-                <IconComp className="w-4 h-4" />
-                Servicio Especializado
-              </span>
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-xs font-black uppercase px-4 py-1.5 rounded-full shadow-sm">
+                  <IconComp className="w-4 h-4" />
+                  Servicio Especializado
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-slate-800 text-[#38bdf8] text-xs font-bold px-3 py-1.5 rounded-full border border-slate-700">
+                  <MapPin className="w-3.5 h-3.5" />
+                  100% Santa Coloma de Gramenet
+                </span>
+              </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4 font-sans">
-                {service.titleKey}
+                {service.titleKey} en Santa Coloma de Gramenet
               </h1>
 
               <p className="text-[#38bdf8] text-base md:text-xl font-bold mb-4">
@@ -399,7 +575,7 @@ function ServiceDetail() {
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
                   className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-7 rounded-full shadow-lg transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Solicitar este servicio</span>
+                  <span>Solicitar presupuesto sin compromiso</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
@@ -418,7 +594,14 @@ function ServiceDetail() {
 
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl aspect-[4/3]">
-                <img src={service.image} alt={service.titleKey} className="w-full h-full object-cover" />
+                <img 
+                  src={service.image} 
+                  alt={`${service.titleKey} en Santa Coloma de Gramenet`} 
+                  className="w-full h-full object-cover" 
+                  width={600}
+                  height={450}
+                  loading="eager"
+                />
               </div>
             </div>
           </div>
@@ -458,74 +641,213 @@ function ServiceDetail() {
               <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-800">
                 <img
                   src="/images/gesgrama_office.webp"
-                  alt="Oficina Gesgrama Santa Coloma"
+                  alt="Oficina Gesgrama en Santa Coloma de Gramenet"
                   className="w-full h-full object-cover object-center brightness-90 contrast-105"
                   loading="lazy"
+                  width={400}
+                  height={192}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent" />
                 <span className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 bg-[#2563eb]/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/10">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Atención en Santa Coloma de Gramenet
+                  Atención presencial: Av. dels Banús, 49
                 </span>
               </div>
               <div className="p-6 md:p-7">
                 <h3 className="text-lg font-bold mb-2 text-white">¿Necesitas asesoramiento inmediato?</h3>
                 <p className="text-xs text-slate-300 mb-5 font-medium leading-relaxed">
-                  Visítanos en nuestra oficina física en Santa Coloma o contáctanos directamente por teléfono y WhatsApp sin intermediarios.
+                  Te atendemos en persona en nuestra oficina de Santa Coloma o te llamamos al instante sin compromiso ni esperas.
                 </p>
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
                   className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-extrabold text-sm py-3.5 px-6 rounded-full text-center block transition-colors shadow-sm cursor-pointer"
                 >
-                  Solicitar presupuesto sin compromiso
+                  Solicitar consulta personalizada
                 </a>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── SECCIÓN ENRIQUECIDA: PROCESO PASO A PASO ── */}
-        <section className="mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        {/* ── SECCIÓN ENRIQUECIDA: PROCESO PASO A PASO (HOWTO SEMÁNTICO) ── */}
+        <section 
+          className="mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm"
+          itemScope 
+          itemType="https://schema.org/HowTo"
+        >
           <div className="max-w-3xl mb-8">
             <span className="text-[#2563eb] font-extrabold text-xs uppercase tracking-wider block mb-2">Metodología transparente</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">¿Cómo trabajamos paso a paso?</h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 font-medium">
-              Un proceso claro, sin letra pequeña y con comunicación continua en cada fase del servicio.
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]" itemProp="name">
+              ¿Cómo trabajamos paso a paso en {service.titleKey}?
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base mt-2 font-medium" itemProp="description">
+              Un proceso riguroso, trazable y adaptado a la legislación de Cataluña y las normativas municipales de Santa Coloma de Gramenet.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {service.steps.map((st, i) => (
-              <div key={i} className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 relative flex flex-col justify-between">
+              <div 
+                key={i} 
+                className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 relative flex flex-col justify-between"
+                itemScope 
+                itemProp="step" 
+                itemType="https://schema.org/HowToStep"
+              >
                 <div>
                   <span className="text-3xl font-black text-[#2563eb]/40 font-mono block mb-3">{st.number}</span>
-                  <h3 className="text-base font-bold text-[#0f172a] mb-2">{st.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">{st.desc}</p>
+                  <meta itemProp="position" content={String(i + 1)} />
+                  <h3 className="text-base font-bold text-[#0f172a] mb-2" itemProp="name">{st.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed" itemProp="text">{st.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── SECCIÓN ENRIQUECIDA: PREGUNTAS FRECUENTES (FAQ) ── */}
-        <section className="mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        {/* ── SECCIÓN ENRIQUECIDA: PREGUNTAS FRECUENTES (FAQPage SEMÁNTICO) ── */}
+        <section 
+          className="mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm"
+          itemScope 
+          itemType="https://schema.org/FAQPage"
+        >
           <div className="max-w-3xl mb-8">
             <span className="text-[#2563eb] font-extrabold text-xs uppercase tracking-wider block mb-2">Resolvemos tus dudas</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">Preguntas frecuentes sobre {service.titleKey}</h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">
+              Preguntas frecuentes sobre {service.titleKey} en Santa Coloma
+            </h2>
           </div>
 
           <div className="space-y-4">
             {service.faqs.map((faq, i) => (
-              <div key={i} className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
-                <h3 className="text-sm sm:text-base font-bold text-[#0f172a] mb-2 flex items-start gap-2.5">
+              <div 
+                key={i} 
+                className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50"
+                itemScope 
+                itemProp="mainEntity" 
+                itemType="https://schema.org/Question"
+              >
+                <h3 className="text-sm sm:text-base font-bold text-[#0f172a] mb-2 flex items-start gap-2.5" itemProp="name">
                   <span className="text-[#2563eb] font-mono shrink-0">Q.</span>
                   <span>{faq.q}</span>
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed pl-6">
-                  {faq.a}
-                </p>
+                <div 
+                  itemScope 
+                  itemProp="acceptedAnswer" 
+                  itemType="https://schema.org/Answer"
+                  className="pl-6"
+                >
+                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed" itemProp="text">
+                    {faq.a}
+                  </p>
+                </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── SECCIÓN CROSS-SELLING: OTROS SERVICIOS + HERRAMIENTA VALORACIÓN M² ── */}
+        <section className="mb-16 bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-800 text-white shadow-xl">
+          <div className="max-w-3xl mb-8">
+            <span className="text-[#38bdf8] font-extrabold text-xs uppercase tracking-wider block mb-2">Ecosistema integral Gesgrama</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-white">Servicios complementarios en Santa Coloma</h2>
+            <p className="text-slate-300 text-sm sm:text-base mt-2 font-medium">
+              Conectamos administración de comunidades, gestión inmobiliaria, departamento legal y reformas técnicas en un único interlocutor.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+            {relatedServices.map((rel) => {
+              const RelIcon = rel.icon;
+              return (
+                <Link
+                  key={rel.slug}
+                  to="/servicios_/$slug"
+                  params={{ slug: rel.slug }}
+                  className="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-[#2563eb] rounded-2xl p-5 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="w-10 h-10 rounded-xl bg-[#2563eb]/20 text-[#38bdf8] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                      <RelIcon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-base font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-2">
+                      {rel.titleKey}
+                    </h3>
+                    <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed font-medium">
+                      {rel.taglineKey}
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-700/50 flex items-center justify-between text-xs font-bold text-[#38bdf8]">
+                    <span>Ver servicio completo</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Banner Valorador de Viviendas */}
+          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] rounded-2xl p-5 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-6 border border-blue-400/30">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
+                <Calculator className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="text-lg font-black text-white">¿Quieres saber el valor exacto de un piso en Santa Coloma?</h4>
+                <p className="text-xs sm:text-sm text-blue-100 font-medium">Calcula en 1 minuto el precio medio por m² real según el barrio y tipología.</p>
+              </div>
+            </div>
+            <a
+              href="/#valorador"
+              className="bg-white hover:bg-slate-100 text-[#0f172a] font-extrabold text-sm py-3 px-6 rounded-full transition-all shrink-0 shadow-md flex items-center gap-2 cursor-pointer"
+            >
+              <span>Calcular valoración gratuita</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </section>
+
+        {/* ── SECCIÓN INTERLINKING HIPERLOCAL: LOS 14 BARRIOS DE SANTA COLOMA DE GRAMENET ── */}
+        <section className="mb-16 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+          <div className="max-w-3xl mb-8">
+            <span className="text-[#2563eb] font-extrabold text-xs uppercase tracking-wider block mb-2">
+              Cobertura 100% municipal
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a]">
+              {service.barrioTitleContext}
+            </h2>
+            <p className="text-slate-600 text-sm sm:text-base mt-2 font-medium">
+              Gesgrama opera de forma presencial y exclusiva en Santa Coloma de Gramenet. Consulta la información técnica de cada uno de los 14 barrios oficiales del municipio:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
+            {SANTA_COLOMA_14_BARRIOS.map((barrio) => (
+              <a
+                key={barrio.slug}
+                href={`/administrador-fincas/${barrio.slug}`}
+                className="bg-slate-50 hover:bg-[#2563eb] border border-slate-200 hover:border-[#2563eb] rounded-2xl p-3.5 transition-all text-center flex flex-col items-center justify-center group cursor-pointer"
+                title={`${service.titleKey} en el barrio de ${barrio.name}, Santa Coloma de Gramenet`}
+              >
+                <span className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:bg-white mb-1.5 transition-colors" />
+                <span className="text-xs sm:text-sm font-black text-[#0f172a] group-hover:text-white transition-colors block">
+                  {barrio.name}
+                </span>
+                <span className="text-[10px] text-slate-500 group-hover:text-blue-100 font-mono transition-colors">
+                  CP {barrio.cp}
+                </span>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-6 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-slate-500">
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-[#2563eb]" />
+              Sede central: Av. dels Banús, 49 · Santa Coloma de Gramenet (08923)
+            </span>
+            <span className="text-slate-400">
+              Cobertura exclusiva: 08921 · 08922 · 08923 · 08924
+            </span>
           </div>
         </section>
       </main>
@@ -578,16 +900,10 @@ function ServiceDetail() {
                   </li>
                   <li>
                     <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current shrink-0">
                         <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
                       </svg>
                       WhatsApp: 601 25 94 24
-                    </a>
-                  </li>
-                  <li>
-                    <a href="mailto:info@gesgrama.com" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
-                      <Mail className="w-5 h-5 text-[#2563eb] shrink-0" />
-                      info@gesgrama.com
                     </a>
                   </li>
                 </ul>
@@ -596,72 +912,38 @@ function ServiceDetail() {
               <div>
                 <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Legal</h3>
                 <ul className="space-y-3.5">
-                  <li>
-                    <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Aviso Legal
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Política de Privacidad
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      Política de Cookies
-                    </Link>
-                  </li>
+                  {[
+                    { label: "Aviso Legal", href: "/aviso-legal" },
+                    { label: "Política de Privacidad", href: "/politica-privacidad" },
+                    { label: "Política de Cookies", href: "/politica-cookies" },
+                  ].map(link => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
+                        <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
 
-            {/* Mascot on Mobile (<768px): Prominent and clear mascot presentation */}
-            <div className="w-full md:hidden flex justify-center items-center pt-4 pb-4">
-              <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
-            </div>
-
-            <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
-              <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
+            <div className="hidden lg:flex flex-col items-center justify-center shrink-0 pl-4 border-l border-white/10">
+              <FooterMascot />
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-8">
-            <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
-              ACREDITACIONES PROFESIONALES OFICIALES
-            </h3>
-            <AccreditationBadges language={language} />
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 bg-[#060c18] pb-6 sm:pb-5">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-5 sm:py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4 sm:gap-6">
-            <div className="flex flex-col items-center sm:items-start gap-1">
-              <p className="text-xs sm:text-sm md:text-base text-slate-200 font-extrabold tracking-wide">
-                © 2026 Gesgrama. Todos los derechos reservados.
-              </p>
-              <p className="text-[11px] sm:text-xs text-slate-400 font-semibold">
-                Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="text-white underline hover:text-blue-300 font-bold">Kovia</a>
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs sm:text-sm md:text-base text-slate-300 font-extrabold">
-              <Link to="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</Link>
-              <span className="text-slate-600">·</span>
-              <Link to="/politica-privacidad" className="hover:text-white transition-colors">Privacidad</Link>
-              <span className="text-slate-600">·</span>
-              <Link to="/politica-cookies" className="hover:text-white transition-colors">Cookies</Link>
-              <span className="text-slate-600">·</span>
-              <Link to="/admin" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
+          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-bold">
+            <p>© {new Date().getFullYear()} Gesgrama. Todos los derechos reservados. Santa Coloma de Gramenet.</p>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>Agente Registrado AICAT · Administradores de Fincas Colegiados</span>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Floating Utilities */}
-      <WhatsAppButton language={language} />
+      <WhatsAppButton />
     </div>
   );
 }

@@ -636,8 +636,17 @@ function ServiceDetail() {
               </ul>
             </div>
 
-            {/* Direct Contact Card with Real Office Photo */}
-            <div className="bg-[#0f172a] text-white rounded-3xl overflow-hidden shadow-lg border border-slate-800 flex flex-col">
+            {/* Direct Contact Card with Real Office Photo & Local Business Microdata */}
+            <div 
+              className="bg-[#0f172a] text-white rounded-3xl overflow-hidden shadow-lg border border-slate-800 flex flex-col"
+              itemScope
+              itemType="https://schema.org/LocalBusiness"
+            >
+              <meta itemProp="name" content="Gesgrama - Santa Coloma de Gramenet" />
+              <meta itemProp="image" content="https://gesgrama.com/images/gesgrama_office.webp" />
+              <meta itemProp="telephone" content="+34934685656" />
+              <meta itemProp="url" content="https://gesgrama.com" />
+
               <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-800">
                 <img
                   src="/images/gesgrama_office.webp"
@@ -646,11 +655,23 @@ function ServiceDetail() {
                   loading="lazy"
                   width={400}
                   height={192}
+                  itemProp="image"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent" />
-                <span className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 bg-[#2563eb]/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/10">
+                <span 
+                  className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 bg-[#2563eb]/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/10"
+                  itemProp="address"
+                  itemScope
+                  itemType="https://schema.org/PostalAddress"
+                >
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  Atención presencial: Av. dels Banús, 49
+                  <span>
+                    Atención presencial: <span itemProp="streetAddress">Av. dels Banús, 49</span>
+                  </span>
+                  <meta itemProp="postalCode" content="08923" />
+                  <meta itemProp="addressLocality" content="Santa Coloma de Gramenet" />
+                  <meta itemProp="addressRegion" content="Barcelona" />
+                  <meta itemProp="addressCountry" content="ES" />
                 </span>
               </div>
               <div className="p-6 md:p-7">
@@ -887,13 +908,32 @@ function ServiceDetail() {
 
               <div>
                 <h3 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">Contacto Directo</h3>
-                <ul className="space-y-4 text-base text-slate-300 font-bold">
-                  <li className="flex items-start gap-3">
+                <ul 
+                  className="space-y-4 text-base text-slate-300 font-bold"
+                  itemScope 
+                  itemType="https://schema.org/LocalBusiness"
+                >
+                  <meta itemProp="name" content="Gesgrama Santa Coloma de Gramenet" />
+                  <meta itemProp="url" content="https://gesgrama.com" />
+                  <li 
+                    className="flex items-start gap-3"
+                    itemProp="address" 
+                    itemScope 
+                    itemType="https://schema.org/PostalAddress"
+                  >
                     <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
-                    <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
+                    <span className="text-slate-300">
+                      <span itemProp="streetAddress">Av. dels Banús, 49</span><br />
+                      <span itemProp="postalCode">08923</span> <span itemProp="addressLocality">Sta. Coloma de Gramenet</span> (<span itemProp="addressRegion">Barcelona</span>)
+                      <meta itemProp="addressCountry" content="ES" />
+                    </span>
                   </li>
                   <li>
-                    <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
+                    <a 
+                      href="tel:+34934685656" 
+                      className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap"
+                      itemProp="telephone"
+                    >
                       <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
                       Oficina: 93 468 56 56
                     </a>

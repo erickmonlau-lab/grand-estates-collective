@@ -270,39 +270,42 @@ export default function HeroCarousel({
   return (
     <section
       id="hero"
-      className="hero relative text-slate-900 overflow-hidden bg-[#f8fafc]"
+      className="hero relative text-[#111111] overflow-hidden bg-[#FAF9FC] border-b-2 border-[#111111]"
       onClick={() => setOpenDrop(null)}
     >
-      {/* ── 1. BACKGROUND & PROTAGONIST PHOTOGRAPHY (RESTORED PRODUCTION COMPOSITION) ── */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-        {/* Fondo base arquitectónico ultra limpio */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9]/70 to-[#e2e8f0]/40" />
+      {/* ── 1. BACKGROUND & PROTAGONIST ARCHITECTURAL BASE ── */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 bg-[#FAF9FC]">
+        {/* Grilla sutil neo-brutalist arquitectónica de fondo */}
+        <div 
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: 'linear-gradient(#111111 1px, transparent 1px), linear-gradient(90deg, #111111 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}
+        />
 
         {/* Fotografía secundaria sutil de interior urbano realista (lado izquierdo) */}
         <div className="absolute inset-y-0 left-0 w-[42%] lg:w-[38%] xl:w-[35%] hidden md:flex items-center justify-start pointer-events-none z-0">
           <img
             src={interiorLeftBg}
             alt="Interior luminoso de vivienda en Santa Coloma"
-            className="w-full h-full object-cover object-center opacity-[0.28] filter saturate-[0.80] contrast-[0.92] transition-opacity duration-500"
+            className="w-full h-full object-cover object-center opacity-[0.16] filter grayscale contrast-[1.1] transition-opacity duration-500"
             loading="lazy"
             decoding="async"
             width={720}
             height={480}
           />
-          {/* Difuminados perimetrales suaves que integran el interior con el fondo sin bordes de card */}
-          <div className="absolute inset-y-0 right-0 w-36 lg:w-48 bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/40 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-36 lg:w-48 bg-gradient-to-l from-[#FAF9FC] to-transparent" />
         </div>
 
-        {/* Fotografía de la pareja: ÚNICAMENTE visible en tablet/desktop (hidden en mobile) */}
+        {/* Fotografía de la pareja: ÚNICAMENTE visible en tablet/desktop */}
         <div className="absolute inset-y-0 right-0 w-[48%] lg:w-[45%] xl:w-[42%] hidden md:flex items-end justify-end pointer-events-none z-0">
           <picture className="w-full h-full block">
             <source media="(min-width: 641px)" srcSet={heroBgDesktop} width={850} height={1113} />
             <img
               src={heroBgDesktop}
-              alt="Familia sonriente en su nuevo hogar con Gesgrama"
-              className="w-full h-full object-cover object-[center_15%] opacity-[0.38] filter saturate-[0.85] contrast-[0.95] transition-opacity duration-500"
+              alt="Familia en su nuevo hogar con Gesgrama"
+              className="w-full h-full object-cover object-[center_15%] opacity-[0.22] filter grayscale contrast-[1.05] transition-opacity duration-500"
               loading="eager"
               fetchPriority="high"
               decoding="sync"
@@ -310,44 +313,23 @@ export default function HeroCarousel({
               height={1113}
             />
           </picture>
-
-          {/* Difuminados perimetrales suaves simétricos al lado izquierdo que integran la foto con el fondo sin cortes */}
-          <div className="absolute inset-y-0 left-0 w-36 lg:w-48 bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#f8fafc] via-[#f8fafc]/70 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc]/80 to-transparent" />
+          <div className="absolute inset-y-0 left-0 w-36 lg:w-48 bg-gradient-to-r from-[#FAF9FC] to-transparent" />
         </div>
-
-        {/* Gradiente radial central en desktop que protege el 100% de la legibilidad tipográfica y del buscador */}
-        <div
-          className="absolute inset-0 hidden sm:block pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse 65% 65% at 50% 38%, rgba(248,250,252,0.98) 0%, rgba(248,250,252,0.88) 45%, rgba(248,250,252,0.25) 80%, transparent 100%)',
-          }}
-        />
-
-        {/* Fondo móvil: Limpio, luminoso y elegante con sutil halo radial azul Gesgrama (cero imágenes, máxima legibilidad y ligereza) */}
-        <div 
-          className="absolute inset-0 sm:hidden pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 80% 50% at 50% 25%, rgba(37, 99, 235, 0.05) 0%, rgba(248, 250, 252, 0.95) 70%, #f8fafc 100%)'
-          }}
-        />
       </div>
 
-      {/* ── 2. HERO CONTENT: EJE CENTRADO CON ALTURA GENEROSA Y ESPACIO RESERVADO ── */}
+      {/* ── 2. HERO CONTENT: EJE EDITORIAL NEO-BRUTALIST ── */}
       <div
-        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-24 sm:pt-28 md:pt-32 flex flex-col items-center text-center ${
-          compactBottom ? 'pb-6 sm:pb-8 md:pb-10' : 'pb-8 sm:pb-18 md:pb-20'
+        className={`relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 md:px-10 xl:px-12 pt-28 sm:pt-32 md:pt-36 flex flex-col items-center text-center ${
+          compactBottom ? 'pb-8 sm:pb-10' : 'pb-12 sm:pb-16 md:pb-20'
         }`}
       >
         {/* Bloque de marca y titular centrado */}
-        <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[840px]'}`}>
+        <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[880px]'}`}>
 
-          {/* Eyebrow / Kicker con Emblema oficial de Gesgrama integrado */}
-          <div className="mb-3.5 sm:mb-4">
-            <span className="inline-flex items-center gap-1.5 sm:gap-2.5 bg-[#2563eb] text-white text-[10px] sm:text-xs font-black uppercase tracking-[0.14em] sm:tracking-[0.16em] pl-1.5 sm:pl-2 pr-3.5 sm:pr-5 py-1 sm:py-1.5 rounded-full font-sans shadow-sm border border-blue-400/30 max-w-full">
-              <span className="h-5 sm:h-7 md:h-7.5 w-auto px-1.5 py-0.5 rounded-full bg-white flex items-center justify-center shrink-0 shadow-xs">
+          {/* Eyebrow / Kicker Neo-Brutalist rectangular con borde 2px */}
+          <div className="mb-4 sm:mb-5">
+            <span className="inline-flex items-center gap-2 sm:gap-3 bg-[#111111] text-white text-xs sm:text-[13px] font-headline font-black uppercase tracking-[0.14em] pl-2 pr-4 py-1.5 sm:py-2 border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5]">
+              <span className="h-5 sm:h-6 w-auto px-1.5 py-0.5 bg-white border border-[#111111] flex items-center justify-center shrink-0">
                 <img
                   src="/images/gesgrama-emblem-badge.webp"
                   alt="Gesgrama"
@@ -364,52 +346,51 @@ export default function HeroCarousel({
             </span>
           </div>
 
-          {/* H1 Principal */}
+          {/* H1 Principal: Space Grotesk, negro puro #111111 y azul corporativo sólido #2860F5 */}
           <h1
-            className={`font-bold text-[#0b214a] tracking-normal font-heading mx-auto mb-3 sm:mb-3.5 leading-[1.04] sm:leading-[1.06] text-balance ${
-              customHeadline ? 'max-w-[1000px]' : 'max-w-[780px]'
+            className={`font-headline font-black text-[#111111] tracking-tight mx-auto mb-4 sm:mb-5 leading-[1.05] sm:leading-[1.02] text-balance ${
+              customHeadline ? 'max-w-[1000px]' : 'max-w-[840px]'
             }`}
-            style={{ fontSize: customHeadline ? 'clamp(1.95rem, 4.8vw, 4.1rem)' : 'clamp(2.15rem, 5.6vw, 4.6rem)' }}
+            style={{ fontSize: customHeadline ? 'clamp(2.1rem, 5vw, 4.2rem)' : 'clamp(2.35rem, 5.8vw, 4.75rem)' }}
           >
             {customHeadline ? (
               customHeadline
             ) : (
               <>
-                <span className="block text-[#0b214a]">{L.titleLine1}</span>
-                <span className="text-[#2563eb] block mt-0.5 sm:mt-1">{L.titleLine2}</span>
+                <span className="block text-[#111111]">{L.titleLine1}</span>
+                <span className="text-[#2860F5] block mt-1">{L.titleLine2}</span>
               </>
             )}
           </h1>
 
-          {/* Subtítulo: tipografía sans limpia, navy muy oscuro / negro (#0b214a), font-semibold (600), legible, generoso line-height */}
+          {/* Subtítulo: Inter font-medium/semibold, negro sólido #111111, tamaño generoso */}
           <p
-            className="text-[#0b214a] font-sans font-semibold text-[15px] sm:text-lg md:text-[19px] leading-snug sm:leading-relaxed max-w-[580px] mx-auto text-balance tracking-normal mb-1.5 sm:mb-2"
+            className="text-[#111111] font-sans font-medium text-base sm:text-xl md:text-[21px] leading-snug sm:leading-relaxed max-w-[640px] mx-auto text-balance tracking-normal mb-2 sm:mb-3"
           >
             {customSubtitle || L.subtitle}
           </p>
         </div>
 
-        {/* ── 3. QUICK SEARCH CENTRADO: BARRIO / TIPO / PRECIO / BUSCAR ── */}
+        {/* ── 3. QUICK SEARCH CENTRADO NEO-BRUTALIST: RECTANGULAR, 2PX BORDER, HARD SHADOW ── */}
         <div
-          className="relative z-40 w-full max-w-[1120px] mx-auto mt-4 sm:mt-5 mb-4 sm:mb-12 md:mb-14"
+          className="relative z-40 w-full max-w-[1140px] mx-auto mt-5 sm:mt-7 mb-6 sm:mb-12 md:mb-14"
           onClick={(e) => e.stopPropagation()}
         >
-
           <div
-            className="bg-white rounded-2xl sm:rounded-full border border-[#D5DDEA] shadow-[0_12px_40px_rgba(11,33,74,0.08)] flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-3 transition-all hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] hover:border-[#bfdbfe]"
+            className="bg-white border-2 border-[#111111] shadow-[6px_6px_0px_#111111] flex flex-col sm:flex-row items-stretch sm:items-center p-3 sm:p-3.5 transition-all"
           >
-            {/* Toggle Comprar / Alquilar (En móvil: ancho 100% equilibrado 50%/50%) */}
-            <div className="w-full sm:w-auto flex bg-[#f1f5f9] rounded-xl sm:rounded-full shrink-0 p-1 mb-2.5 sm:mb-0">
+            {/* Toggle Comprar / Alquilar: Botones rectangulares neo-brutalist */}
+            <div className="w-full sm:w-auto flex bg-[#FAF9FC] border-2 border-[#111111] shrink-0 p-1 mb-3 sm:mb-0 gap-1">
               <button
                 type="button"
                 onClick={() => {
                   setMode("comprar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`flex-1 sm:flex-none px-4 sm:px-6 md:px-7 py-2 sm:py-3 rounded-lg sm:rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none text-center whitespace-nowrap ${
+                className={`flex-1 sm:flex-none px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 text-sm sm:text-[15px] md:text-base font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
                   mode === "comprar"
-                    ? "bg-[#2563eb] text-white shadow-sm"
-                    : "text-slate-600 hover:text-[#0b214a]"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_2px_0px_#111111]"
+                    : "bg-transparent text-[#111111] border-transparent hover:bg-slate-200"
                 }`}
               >
                 {L.buy}
@@ -420,125 +401,131 @@ export default function HeroCarousel({
                   setMode("alquilar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`flex-1 sm:flex-none px-4 sm:px-6 md:px-7 py-2 sm:py-3 rounded-lg sm:rounded-full text-sm sm:text-[15px] md:text-base font-sans font-bold transition-all cursor-pointer select-none text-center whitespace-nowrap ${
+                className={`flex-1 sm:flex-none px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 text-sm sm:text-[15px] md:text-base font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
                   mode === "alquilar"
-                    ? "bg-[#2563eb] text-white shadow-sm"
-                    : "text-slate-600 hover:text-[#0b214a]"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_2px_0px_#111111]"
+                    : "bg-transparent text-[#111111] border-transparent hover:bg-slate-200"
                 }`}
               >
                 {L.rent}
               </button>
             </div>
 
-            {/* Separador vertical sutil para desktop */}
-            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1.5" />
+            {/* Separador vertical sólido para desktop */}
+            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
 
             {/* Selector BARRIO */}
-            <div className="relative flex-1 min-w-0 border-b border-slate-100 sm:border-b-0 pb-1.5 sm:pb-0 mb-1.5 sm:mb-0">
+            <div className="relative flex-1 min-w-0 border-b-2 sm:border-b-0 border-[#111111] pb-2 sm:pb-0 mb-2 sm:mb-0">
               <button
                 ref={barrioTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "barrio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("barrio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 transition-all cursor-pointer border-2 ${
                   openDrop === "barrio"
-                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
-                    : "border-transparent hover:bg-slate-50/80"
+                    ? "bg-[#FAF9FC] border-[#111111] shadow-[3px_3px_0px_#2860F5]"
+                    : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
-                <div className="flex items-center gap-2.5 sm:gap-2.5 min-w-0 pr-1">
-                  <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
+                  <div className="w-8 h-8 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-white stroke-[2.5]" />
+                  </div>
                   <div className="min-w-0">
-                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12px] font-headline font-black text-[#111111] uppercase tracking-wider leading-none">
                       {L.neighborhood}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16px] font-sans font-bold text-[#111111] truncate mt-1">
                       {barrio === "Todos los barrios" ? (language === "ca" ? "Tots els barris" : language === "en" ? "All areas" : "Todos") : formatLocation(barrio, language || "es")}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "barrio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "barrio" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
-            {/* Separador vertical sutil para desktop */}
-            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
+            {/* Separador vertical sólido para desktop */}
+            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
 
             {/* Selector TIPO */}
-            <div className="relative flex-1 min-w-0 border-b border-slate-100 sm:border-b-0 pb-1.5 sm:pb-0 mb-1.5 sm:mb-0">
+            <div className="relative flex-1 min-w-0 border-b-2 sm:border-b-0 border-[#111111] pb-2 sm:pb-0 mb-2 sm:mb-0">
               <button
                 ref={tipoTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "tipo"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 transition-all cursor-pointer border-2 ${
                   openDrop === "tipo"
-                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
-                    : "border-transparent hover:bg-slate-50/80"
+                    ? "bg-[#FAF9FC] border-[#111111] shadow-[3px_3px_0px_#2860F5]"
+                    : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
-                <div className="flex items-center gap-2.5 sm:gap-2.5 min-w-0 pr-1">
-                  <HomeIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
+                  <div className="w-8 h-8 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                    <HomeIcon className="w-4 h-4 text-white stroke-[2.5]" />
+                  </div>
                   <div className="min-w-0">
-                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12px] font-headline font-black text-[#111111] uppercase tracking-wider leading-none">
                       {L.type}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16px] font-sans font-bold text-[#111111] truncate mt-1">
                       {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol" : language === "en" ? "Any" : "Cualquiera") : tipo}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "tipo" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "tipo" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
-            {/* Separador vertical sutil para desktop */}
-            <div className="hidden sm:block w-[1px] h-10 bg-[#e2e8f0] shrink-0 mx-1" />
+            {/* Separador vertical sólido para desktop */}
+            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
 
             {/* Selector PRECIO */}
-            <div className="relative flex-1 min-w-0 mb-2.5 sm:mb-0">
+            <div className="relative flex-1 min-w-0 mb-3 sm:mb-0">
               <button
                 ref={precioTriggerRef}
                 type="button"
                 aria-expanded={openDrop === "precio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("precio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-3.5 py-1.5 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border ${
+                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 transition-all cursor-pointer border-2 ${
                   openDrop === "precio"
-                    ? "bg-blue-50/90 border-[#2563eb] ring-1 ring-[#2563eb]/30 shadow-xs"
-                    : "border-transparent hover:bg-slate-50/80"
+                    ? "bg-[#FAF9FC] border-[#111111] shadow-[3px_3px_0px_#2860F5]"
+                    : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-1">
-                  <Tag className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0 text-[#2563eb]" />
+                  <div className="w-8 h-8 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                    <Tag className="w-4 h-4 text-white stroke-[2.5]" />
+                  </div>
                   <div className="min-w-0">
-                    <span className="block text-[11px] sm:text-[12.5px] font-sans font-bold text-[#0b214a] uppercase tracking-wider leading-none">
+                    <span className="block text-[11px] sm:text-[12px] font-headline font-black text-[#111111] uppercase tracking-wider leading-none">
                       {L.price}
                     </span>
-                    <span className="block text-sm sm:text-base md:text-[16.5px] font-sans font-semibold text-[#0b214a] truncate mt-0.5 sm:mt-1">
+                    <span className="block text-sm sm:text-base md:text-[16px] font-sans font-bold text-[#111111] truncate mt-1">
                       {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquiera") : precio}
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-4 sm:h-4 shrink-0 transition-all ${openDrop === "precio" ? "rotate-180 text-[#2563eb]" : "text-slate-400"}`} />
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "precio" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
-            {/* Botón BUSCAR (100% en móvil, tamaño proporcional en desktop) */}
+            {/* Botón BUSCAR Neo-Brutalist: Rectangular, azul sólido #2860F5, texto Space Grotesk blanco */}
             <button
               type="button"
               onClick={handleSearch}
-              className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 sm:px-8 md:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-sans font-bold text-sm sm:text-[15px] md:text-base uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all shrink-0 select-none"
+              className="w-full sm:w-auto bg-[#2860F5] hover:bg-[#111111] text-white px-7 sm:px-8 md:px-9 py-3.5 sm:py-4 border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-sm sm:text-base uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer transition-all shrink-0 select-none"
             >
-              <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5 stroke-[2.5] text-white shrink-0" />
+              <Search className="w-5 h-5 stroke-[3] text-white shrink-0" />
               <span className="leading-none">{L.search}</span>
             </button>
           </div>
         </div>
 
-        {/* ── DROPDOWNS: SIEMPRE HACIA ABAJO CON PORTAL Y SCROLL INTERNO DISCRETO ── */}
+        {/* ── DROPDOWNS: RECTANGULARES CON BORDES DE 2PX Y SOMBRA DURA ── */}
         {openDrop && dropCoords && typeof document !== "undefined" && createPortal(
           <div
             ref={dropdownMenuRef}
@@ -552,7 +539,7 @@ export default function HeroCarousel({
               maxHeight: `${dropCoords.maxHeight}px`,
               zIndex: 99999,
             }}
-            className="bg-white border border-slate-200/90 rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.14)] py-1.5 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-150 ring-1 ring-black/5 dropdown-scrollbar font-sans"
+            className="bg-white border-2 border-[#111111] shadow-[6px_6px_0px_#111111] py-2 overflow-y-auto text-left animate-in fade-in zoom-in-95 duration-100 font-sans"
             onClick={(e) => e.stopPropagation()}
           >
             {openDrop === "barrio" && BARRIOS.map((b) => (
@@ -562,12 +549,12 @@ export default function HeroCarousel({
                 role="option"
                 aria-selected={barrio === b}
                 onClick={() => { setBarrio(b); setOpenDrop(null); setDropCoords(null); }}
-                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                  barrio === b ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-bold flex items-center justify-between transition-colors cursor-pointer border-b border-slate-100 last:border-b-0 ${
+                  barrio === b ? "bg-[#2860F5] text-white" : "text-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
                 <span className="truncate">{b}</span>
-                {barrio === b && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                {barrio === b && <Check className="w-4 h-4 text-white stroke-[3] shrink-0" />}
               </button>
             ))}
 
@@ -578,12 +565,12 @@ export default function HeroCarousel({
                 role="option"
                 aria-selected={tipo === tItem}
                 onClick={() => { setTipo(tItem); setOpenDrop(null); setDropCoords(null); }}
-                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                  tipo === tItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-bold flex items-center justify-between transition-colors cursor-pointer border-b border-slate-100 last:border-b-0 ${
+                  tipo === tItem ? "bg-[#2860F5] text-white" : "text-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
                 <span className="truncate">{tItem}</span>
-                {tipo === tItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                {tipo === tItem && <Check className="w-4 h-4 text-white stroke-[3] shrink-0" />}
               </button>
             ))}
 
@@ -594,68 +581,68 @@ export default function HeroCarousel({
                 role="option"
                 aria-selected={precio === pItem}
                 onClick={() => { setPrecio(pItem); setOpenDrop(null); setDropCoords(null); }}
-                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                  precio === pItem ? "bg-blue-50 text-[#2563eb]" : "text-slate-700 hover:bg-slate-50"
+                className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-sans font-bold flex items-center justify-between transition-colors cursor-pointer border-b border-slate-100 last:border-b-0 ${
+                  precio === pItem ? "bg-[#2860F5] text-white" : "text-[#111111] hover:bg-[#FAF9FC]"
                 }`}
               >
                 <span className="truncate">{pItem}</span>
-                {precio === pItem && <Check className="w-4 h-4 text-[#2563eb] shrink-0" />}
+                {precio === pItem && <Check className="w-4 h-4 text-white stroke-[3] shrink-0" />}
               </button>
             ))}
           </div>,
           document.body
         )}
 
-        {/* ── 4. TRUST: BANDA UNIFICADA CON ICONOS AZUL GESGRAMA PURO Y MÁXIMA LEGIBILIDAD ── */}
+        {/* ── 4. TRUST BAR: RECTANGULAR, 4 CAJAS NEO-BRUTALIST CON JETBRAINS MONO Y SPACE GROTESK ── */}
         <div
           id="hero-trust-bar"
-          className={`w-full max-w-[1100px] mx-auto bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 mb-2 sm:mb-0 shadow-[0_12px_36px_rgba(15,23,42,0.06)] transition-all duration-300 ${
-            openDrop ? "opacity-35 scale-[0.99] pointer-events-none" : "opacity-100"
+          className={`w-full max-w-[1140px] mx-auto bg-white border-2 border-[#111111] shadow-[6px_6px_0px_#111111] p-4 sm:p-6 mb-2 sm:mb-0 transition-all duration-200 ${
+            openDrop ? "opacity-30 pointer-events-none" : "opacity-100"
           }`}
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2.5 sm:gap-x-6 gap-y-3.5 sm:gap-y-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-stretch">
 
-            {/* Métrica 1: Clientes (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
-              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Users className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            {/* Métrica 1: Clientes */}
+            <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 bg-[#FAF9FC] border-2 border-[#111111]">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.5]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">4.500+</p>
-                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.clientesLabel}</p>
+                <p className="text-2xl sm:text-3xl font-data-mono font-black text-[#111111] leading-none">4.500+</p>
+                <p className="text-xs sm:text-sm font-headline font-bold text-[#111111] uppercase tracking-wide mt-1 truncate">{t.heroCarousel.stats.clientesLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 2: Satisfacción (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
-              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <ThumbsUp className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            {/* Métrica 2: Satisfacción */}
+            <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 bg-[#FAF9FC] border-2 border-[#111111]">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                <ThumbsUp className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.5]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">98%</p>
-                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.satisfaccionLabel}</p>
+                <p className="text-2xl sm:text-3xl font-data-mono font-black text-[#2860F5] leading-none">98%</p>
+                <p className="text-xs sm:text-sm font-headline font-bold text-[#111111] uppercase tracking-wide mt-1 truncate">{t.heroCarousel.stats.satisfaccionLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 3: Comunidades (Icono Marino #0b214a, Número #0b214a) */}
-            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
-              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#0b214a] flex items-center justify-center shrink-0 shadow-xs">
-                <Building2 className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            {/* Métrica 3: Comunidades */}
+            <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 bg-[#FAF9FC] border-2 border-[#111111]">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.5]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#0b214a] leading-tight font-heading">+300</p>
-                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.comunidadesLabel}</p>
+                <p className="text-2xl sm:text-3xl font-data-mono font-black text-[#111111] leading-none">+300</p>
+                <p className="text-xs sm:text-sm font-headline font-bold text-[#111111] uppercase tracking-wide mt-1 truncate">{t.heroCarousel.stats.comunidadesLabel}</p>
               </div>
             </div>
 
-            {/* Métrica 4: Años (Icono Azul Royal #2563eb, Número #2563eb) */}
-            <div className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 p-0">
-              <div className="w-9 h-9 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-[#2563eb] flex items-center justify-center shrink-0 shadow-xs">
-                <User className="w-4.5 h-4.5 sm:w-6.5 sm:h-6.5 text-white stroke-[2.4]" />
+            {/* Métrica 4: Años */}
+            <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 bg-[#FAF9FC] border-2 border-[#111111]">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0">
+                <User className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[2.5]" />
               </div>
               <div className="text-left min-w-0">
-                <p className="text-[22px] xs:text-[24px] sm:text-3xl md:text-[32px] font-black text-[#2563eb] leading-tight font-heading">15+</p>
-                <p className="text-[12px] sm:text-sm md:text-[15px] font-sans font-bold text-[#0b214a] mt-0.5 leading-snug truncate sm:whitespace-normal">{t.heroCarousel.stats.anosLabel}</p>
+                <p className="text-2xl sm:text-3xl font-data-mono font-black text-[#2860F5] leading-none">15+</p>
+                <p className="text-xs sm:text-sm font-headline font-bold text-[#111111] uppercase tracking-wide mt-1 truncate">{t.heroCarousel.stats.anosLabel}</p>
               </div>
             </div>
 

@@ -278,23 +278,26 @@ export default function ValuatorSection({
 
               {/* 2. Superficie m² con Slider y Controles */}
               <div>
-                <div className="flex items-center justify-between mb-2.5">
-                  <label htmlFor="valuator-m2-input" className="text-[15px] sm:text-[18px] md:text-[19px] font-headline font-black uppercase tracking-wider text-[#111111] flex items-center gap-2 truncate">
-                    <Ruler className="w-4 h-4 text-[#2860F5]" />
-                    <span>{isCa ? "SUPERFÍCIE CONSTRUÏDA" : "SUPERFICIE CONSTRUIDA"}</span>
+                <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 mb-3">
+                  <label htmlFor="valuator-m2-input" className="text-[17px] sm:text-[19px] md:text-[20px] font-headline font-black uppercase tracking-wider text-[#111111] flex items-center gap-2.5">
+                    <span className="w-8 h-8 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border-2 border-[#111111] shadow-[1px_1px_0px_#111111]">
+                      <Ruler className="w-4 h-4 text-white stroke-[2.5]" />
+                    </span>
+                    <span className="whitespace-nowrap">{isCa ? "SUPERFÍCIE" : "SUPERFICIE"}</span>
+                    <span className="whitespace-nowrap">{isCa ? "CONSTRUÏDA" : "CONSTRUIDA"}</span>
                   </label>
                   
-                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
                     <button
                       type="button"
                       onClick={() => handleSliderChange(Math.max(30, metros - 5))}
-                      className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FFFFFF] hover:bg-slate-100 text-[#111111] border-2 border-[#111111] neo-shadow-sm font-black flex items-center justify-center cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-xl sm:text-2xl"
+                      className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FFFFFF] hover:bg-slate-100 text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] font-headline font-black flex items-center justify-center cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-xl sm:text-2xl"
                       aria-label="Restar 5 metros"
                     >
                       -
                     </button>
                     
-                    <div className="bg-[#FFFFFF] border-2 border-[#111111] neo-shadow-sm px-2 sm:px-3 py-1 flex items-center gap-1 min-w-[76px] sm:min-w-[88px] justify-center">
+                    <div className="bg-[#FFFFFF] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] px-2 sm:px-3 py-1 flex items-center gap-1 min-w-[74px] sm:min-w-[84px] justify-center">
                       <input
                         id="valuator-m2-input"
                         type="number"
@@ -302,7 +305,7 @@ export default function ValuatorSection({
                         max="250"
                         value={metros}
                         onChange={(e) => handleSliderChange(Math.max(20, Math.min(300, parseInt(e.target.value) || 30)))}
-                        className="w-12 sm:w-14 text-center text-[18px] sm:text-[21px] font-data-mono font-black text-[#111111] border-none p-0 focus:ring-0 outline-none"
+                        className="w-10 sm:w-12 text-center text-[19px] sm:text-[21px] font-data-mono font-black text-[#111111] border-none p-0 focus:ring-0 outline-none"
                       />
                       <span className="text-[15px] font-headline font-bold text-[#2860F5]">m²</span>
                     </div>
@@ -310,7 +313,7 @@ export default function ValuatorSection({
                     <button
                       type="button"
                       onClick={() => handleSliderChange(Math.min(250, metros + 5))}
-                      className="w-10 h-10 sm:w-12 sm:h-12 bg-[#FFFFFF] hover:bg-slate-100 text-[#111111] border-2 border-[#111111] neo-shadow-sm font-black flex items-center justify-center cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-xl sm:text-2xl"
+                      className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FFFFFF] hover:bg-slate-100 text-[#111111] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] font-headline font-black flex items-center justify-center cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all text-xl sm:text-2xl"
                       aria-label="Sumar 5 metros"
                     >
                       +
@@ -318,23 +321,49 @@ export default function ValuatorSection({
                   </div>
                 </div>
 
-                {/* Range Slider estilo técnico */}
-                <div className="mt-3">
-                  <input
-                    type="range"
-                    min="30"
-                    max="220"
-                    step="5"
-                    value={metros}
-                    onChange={(e) => handleSliderChange(parseInt(e.target.value))}
-                    className="w-full h-3 bg-[#FAF9FC] border-2 border-[#111111] appearance-none cursor-pointer accent-[#2860F5]"
-                  />
-                  <div className="flex justify-between text-[11px] font-data-mono font-bold text-slate-600 mt-1.5 px-0.5">
-                    <span>30 m²</span>
-                    <span>75 m²</span>
-                    <span>120 m²</span>
-                    <span>160 m²</span>
-                    <span>220+ m²</span>
+                {/* Range Slider estilo técnico con barra gruesa y referencias 16-18px */}
+                <div className="mt-3.5 mb-1">
+                  <div className="relative flex items-center py-1">
+                    <input
+                      type="range"
+                      min="30"
+                      max="220"
+                      step="5"
+                      value={metros}
+                      onChange={(e) => handleSliderChange(parseInt(e.target.value))}
+                      style={{
+                        background: `linear-gradient(to right, #2860F5 0%, #2860F5 ${Math.min(100, Math.max(0, ((metros - 30) / (220 - 30)) * 100))}%, #E3E0E8 ${Math.min(100, Math.max(0, ((metros - 30) / (220 - 30)) * 100))}%, #E3E0E8 100%)`
+                      }}
+                      className="neo-range-slider"
+                      aria-label="Superficie construida en metros cuadrados"
+                    />
+                  </div>
+
+                  {/* Referencias: tamaño 16px mínimo, negro #111111, JetBrains Mono tabular, activo 18px en azul corporativo */}
+                  <div className="flex justify-between items-center text-[15px] sm:text-[16px] font-data-mono font-bold text-[#111111] mt-2 px-0.5 select-none">
+                    {[
+                      { val: 30, label: "30 m²" },
+                      { val: 75, label: "75 m²" },
+                      { val: 120, label: "120 m²" },
+                      { val: 160, label: "160 m²" },
+                      { val: 220, label: "220+ m²" }
+                    ].map((step) => {
+                      const isClosest = Math.abs(metros - step.val) <= (step.val === 220 ? 30 : 20);
+                      return (
+                        <button
+                          key={step.val}
+                          type="button"
+                          onClick={() => handleSliderChange(step.val)}
+                          className={`cursor-pointer transition-all ${
+                            isClosest
+                              ? "text-[17px] sm:text-[18px] font-black text-[#2860F5] underline decoration-2 underline-offset-4"
+                              : "text-[#111111] hover:text-[#2860F5]"
+                          }`}
+                        >
+                          {step.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -438,11 +467,16 @@ export default function ValuatorSection({
                 className="w-full h-[60px] sm:h-[64px] neo-btn-primary font-headline font-black text-[18px] sm:text-[19px] px-6 cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wider disabled:opacity-80 shadow-[3px_3px_0px_#111111]"
               >
                 <Sparkles className="w-5 h-5 text-white shrink-0" />
-                <span>
-                  {isCalculatingValuation
-                    ? isCa ? "CALCULANT ESTIMACIÓ..." : "CALCULANDO ESTIMACIÓN..."
-                    : isCa ? "CALCULAR VALORACIÓ ARA →" : "CALCULAR VALORACIÓN AHORA →"}
-                </span>
+                <div className="flex items-center justify-center gap-3 w-full">
+                  <span>
+                    {isCalculatingValuation
+                      ? isCa ? "CALCULANT ESTIMACIÓ..." : "CALCULANDO ESTIMACIÓN..."
+                      : isCa ? "CALCULAR VALORACIÓ ARA" : "CALCULAR VALORACIÓN AHORA"}
+                  </span>
+                  {!isCalculatingValuation && (
+                    <ArrowRight className="w-6 h-6 text-white shrink-0 stroke-[2.5]" />
+                  )}
+                </div>
               </button>
             </div>
           </div>
@@ -545,10 +579,12 @@ export default function ValuatorSection({
                 href={`https://wa.me/34689438012?text=${contactText}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-[66px] sm:h-[70px] neo-btn-secondary font-headline font-black text-[18px] sm:text-[20px] px-6 transition-all flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer shadow-[4px_4px_0px_#111111]"
+                className="w-full min-h-[64px] sm:h-[66px] bg-[#FFFFFF] hover:bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[16px] sm:text-[17px] md:text-[17.5px] px-4 sm:px-6 transition-all flex items-center justify-between uppercase tracking-wider cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
               >
-                <span>{isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}</span>
-                <ArrowRight className="w-5 h-5 text-[#2860F5] shrink-0 stroke-[3]" />
+                <span className="flex-1 text-center whitespace-normal sm:whitespace-nowrap">
+                  {isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}
+                </span>
+                <ArrowRight className="w-6 h-6 text-[#2860F5] shrink-0 stroke-[2.5] ml-2" />
               </a>
 
               <div className="flex items-center justify-center gap-2.5 text-white text-[14px] sm:text-[15px] font-bold pt-1.5 leading-snug text-center">

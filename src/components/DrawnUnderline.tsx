@@ -11,7 +11,7 @@ export function DrawnUnderline({
 }: DrawnUnderlineProps) {
   return (
     <svg
-      className={`absolute -bottom-2 left-0 w-full h-3 pointer-events-none overflow-visible ${className}`}
+      className={`absolute -bottom-3 sm:-bottom-4 left-0 w-full h-3.5 sm:h-4 pointer-events-none overflow-visible ${className}`}
       viewBox="0 0 120 12"
       preserveAspectRatio="none"
       fill="none"

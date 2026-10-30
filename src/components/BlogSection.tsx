@@ -25,7 +25,7 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
-              {t.noticias.title1} <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{t.noticias.title2}</span>
+              <>{t.noticias.title1} <span className="relative inline-block text-[#2860F5] whitespace-nowrap">{t.noticias.title2}<DrawnUnderline color="#2860F5" /></span></>
             </h2>
           </div>
           

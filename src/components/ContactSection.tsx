@@ -123,7 +123,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 <span>SEDE CENTRAL SANTA COLOMA</span>
               </h3>
 
-              <ul className="space-y-3 font-headline text-[14px] sm:text-[15px]">
+              <ul className="space-y-3.5 font-headline text-[15px] sm:text-[16px]">
                 <li className="flex items-start gap-2.5">
                   <span className="w-7 h-7 rounded-lg bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white mt-0.5 shadow-sm">
                     <MapPin className="w-3.5 h-3.5 text-white" />
@@ -213,7 +213,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {/* Nombre */}
                     <div>
-                      <label htmlFor="contacto-nombre-input" className="block text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1">
+                      <label htmlFor="contacto-nombre-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
                         {formLabels.nombre || "Nombre completo"} *
                       </label>
                       <input
@@ -222,14 +222,14 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                         value={contactForm.nombre}
                         onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })}
                         placeholder="Tu nombre y apellidos"
-                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[15px] sm:text-[16px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
                       />
                       {contactErrors.nombre && <p className="text-red-600 text-[11px] font-bold mt-0.5">{contactErrors.nombre}</p>}
                     </div>
 
                     {/* Teléfono */}
                     <div>
-                      <label htmlFor="contacto-telefono-input" className="block text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1">
+                      <label htmlFor="contacto-telefono-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
                         {formLabels.telefono || "Teléfono de contacto"} *
                       </label>
                       <input
@@ -238,7 +238,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                         value={contactForm.telefono}
                         onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })}
                         placeholder="600 000 000"
-                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-data-mono font-bold text-[15px] sm:text-[16px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-data-mono font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
                       />
                       {contactErrors.telefono && <p className="text-red-600 text-[11px] font-bold mt-0.5">{contactErrors.telefono}</p>}
                     </div>
@@ -247,7 +247,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     {/* Email */}
                     <div>
-                      <label htmlFor="contacto-email-input" className="block text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1">
+                      <label htmlFor="contacto-email-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
                         {formLabels.email || "Correo electrónico"} *
                       </label>
                       <input
@@ -256,21 +256,21 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                         value={contactForm.email}
                         onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
                         placeholder="ejemplo@correo.com"
-                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[15px] sm:text-[16px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
                       />
                       {contactErrors.email && <p className="text-red-600 text-[11px] font-bold mt-0.5">{contactErrors.email}</p>}
                     </div>
 
                     {/* Asunto */}
                     <div>
-                      <label htmlFor="contacto-asunto-select" className="block text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1">
+                      <label htmlFor="contacto-asunto-select" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
                         {formLabels.asunto || "Tipo de consulta"}
                       </label>
                       <select
                         id="contacto-asunto-select"
                         value={contactForm.asunto}
                         onChange={(e) => setContactForm({ ...contactForm, asunto: e.target.value })}
-                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[15px] sm:text-[16px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all cursor-pointer"
+                        className="w-full h-[48px] sm:h-[50px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-3.5 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all cursor-pointer"
                       >
                         <option value="Gestión de Comunidades">{isCa ? "Administració de Comunitats" : "Gestión de Comunidades"}</option>
                         <option value="Vender un piso">{isCa ? "Vendre un pis" : "Vender un piso"}</option>
@@ -283,7 +283,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
 
                   {/* Mensaje (110-120px) */}
                   <div>
-                    <label htmlFor="contacto-mensaje-textarea" className="block text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1">
+                    <label htmlFor="contacto-mensaje-textarea" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
                       {formLabels.mensaje || "Mensaje o detalles de su consulta"}
                     </label>
                     <textarea
@@ -292,7 +292,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                       value={contactForm.mensaje}
                       onChange={(e) => setContactForm({ ...contactForm, mensaje: e.target.value })}
                       placeholder="Explícanos tu consulta o las características de tu finca..."
-                      className="w-full h-[115px] min-h-[110px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl p-3 font-headline font-bold text-[15px] sm:text-[16px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400 resize-none leading-relaxed"
+                      className="w-full h-[115px] min-h-[110px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl p-3 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400 resize-none leading-relaxed"
                     ></textarea>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                       onChange={(e) => setContactForm({ ...contactForm, privacidad: e.target.checked })}
                       className="w-5 h-5 sm:w-5.5 sm:h-5.5 accent-[#2860F5] border-2 border-[#111111] rounded cursor-pointer shrink-0"
                     />
-                    <label htmlFor="contacto-privacidad-check" className="text-[13px] sm:text-[14px] text-[#111111] font-bold leading-tight cursor-pointer select-none">
+                    <label htmlFor="contacto-privacidad-check" className="text-[15px] sm:text-[16px] text-[#111111] font-bold leading-tight cursor-pointer select-none">
                       {isCa ? (
                         <>He llegit i accepto la <Link to="/politica-privacidad" className="underline text-[#2860F5] hover:text-[#111111]">política de privacitat</Link> i el tractament de dades.</>
                       ) : (
@@ -322,7 +322,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 <button
                   type="submit"
                   disabled={isSubmittingContact}
-                  className="w-full h-[56px] sm:h-[58px] bg-[#2860F5] hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-[16px] sm:text-[17px] px-6 cursor-pointer flex items-center justify-between uppercase tracking-wider disabled:opacity-80 transition-all select-none"
+                  className="w-full h-[56px] sm:h-[58px] bg-[#2860F5] hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-[17px] sm:text-[18px] px-6 cursor-pointer flex items-center justify-between uppercase tracking-wider disabled:opacity-80 transition-all select-none"
                 >
                   {isSubmittingContact ? (
                     <div className="w-full flex items-center justify-center gap-2.5">
@@ -340,7 +340,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
 
                 {/* 5. Alternativas de Contacto Directo Compactas */}
                 <div className="pt-2 border-t border-[#E3E0E8]">
-                  <p className="text-[12px] font-headline font-black uppercase tracking-wider text-slate-500 mb-2 text-center sm:text-left">
+                  <p className="text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider text-[#111111] mb-2.5 text-center sm:text-left">
                     {isCa ? "¿Prefereixes contactar directament?" : isEn ? "Prefer direct contact?" : "¿Prefieres contactar directamente?"}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -352,7 +352,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                         <Phone className="w-3.5 h-3.5 text-white stroke-[2.5]" />
                       </div>
                       <div className="min-w-0">
-                        <span className="block text-[10px] font-headline font-black uppercase tracking-wider text-slate-500 leading-none">
+                        <span className="block text-[12px] font-headline font-black uppercase tracking-wider text-[#111111] leading-none">
                           {isCa ? "Trucada directa" : "Llamada directa"}
                         </span>
                         <span className="block text-[14px] font-data-mono font-bold text-[#111111] group-hover:text-[#2860F5] transition-colors truncate mt-0.5">
@@ -369,7 +369,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                         <Mail className="w-3.5 h-3.5 text-white stroke-[2.5]" />
                       </div>
                       <div className="min-w-0">
-                        <span className="block text-[10px] font-headline font-black uppercase tracking-wider text-slate-500 leading-none">
+                        <span className="block text-[12px] font-headline font-black uppercase tracking-wider text-[#111111] leading-none">
                           {isCa ? "Correu electrònic" : "Correo electrónico"}
                         </span>
                         <span className="block text-[14px] font-headline font-bold text-[#111111] group-hover:text-[#2860F5] transition-colors truncate mt-0.5">

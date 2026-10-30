@@ -968,11 +968,11 @@ function Index() {
                 
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight text-[#111111] mb-4 tracking-tight">
                   {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">comunitat</span>?</>
+                    <>Parlem de la teva <span className="relative inline-block text-[#2860F5] whitespace-nowrap">comunitat?<DrawnUnderline color="#2860F5" /></span></>
                   ) : language === "en" ? (
-                    <>Let's talk about your <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">community</span></>
+                    <>Let's talk about your <span className="relative inline-block text-[#2860F5] whitespace-nowrap">community<DrawnUnderline color="#2860F5" /></span></>
                   ) : (
-                    <>¿Hablamos de tu <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">comunidad</span>?</>
+                    <>¿Hablamos de tu <span className="relative inline-block text-[#2860F5] whitespace-nowrap">comunidad?<DrawnUnderline color="#2860F5" /></span></>
                   )}
                 </h2>
                 

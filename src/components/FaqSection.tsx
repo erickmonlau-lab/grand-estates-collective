@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HelpCircle, ArrowRight } from "lucide-react";
+import { HelpCircle, ArrowRight, Plus, X } from "lucide-react";
 import { DrawnUnderline } from "@/components/DrawnUnderline";
 
 interface FaqSectionProps {
@@ -56,13 +56,17 @@ export default function FaqSection({ t }: FaqSectionProps) {
                     </h3>
                   </div>
                   
-                  {/* Botón de Expansión Circular / Redondeado Azul Sólido */}
+                  {/* Botón de Expansión Circular SVG Azul Sólido (#2860F5 con + / #2860F5 o #111111 con X centrada) */}
                   <div 
-                    className={`w-9 h-9 bg-[#2860F5] text-white border-2 border-[#111111] rounded-full flex items-center justify-center shrink-0 font-black text-xl transition-transform duration-200 shadow-sm ${
-                      isActive ? "rotate-45 bg-[#111111]" : ""
+                    className={`w-9 h-9 border-2 border-[#111111] rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-sm ${
+                      isActive ? "bg-[#2860F5] text-white" : "bg-[#2860F5] text-white hover:bg-[#111111]"
                     }`}
                   >
-                    +
+                    {isActive ? (
+                      <X className="w-5 h-5 text-white stroke-[3]" />
+                    ) : (
+                      <Plus className="w-5 h-5 text-white stroke-[3]" />
+                    )}
                   </div>
                 </div>
 

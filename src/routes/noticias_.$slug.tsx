@@ -378,13 +378,13 @@ function ArticleDetail() {
 
       {/* MAIN ARTICLE CONTENT WRAPPED IN EDITORIAL CONTAINER UNIFIED WITH HOME (max-w-[1320px]) */}
       <main className="pt-28 sm:pt-32 md:pt-36 pb-20 px-3 sm:px-4 md:px-0 max-w-[1320px] mx-auto">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 overflow-hidden p-5 sm:p-8 md:p-12 lg:p-14">
+        <div className="bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-9 md:p-12 lg:p-14">
           
           {/* HEADER BACK BUTTON & SHARE ACTIONS INSIDE CONTENT CARD */}
           <div className="mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5">
             <Link 
               to="/" 
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-md transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] neo-shadow-sm px-5 sm:px-6 py-2.5 sm:py-3 transition-all cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 text-white" /> {t.detail.back}
             </Link>
@@ -394,7 +394,7 @@ function ArticleDetail() {
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-4 py-2.5 rounded-full transition-all shadow-sm hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#16A34A] border-2 border-[#111111] neo-shadow-sm px-4 py-2.5 transition-all cursor-pointer"
                 title="Compartir por WhatsApp"
               >
                 <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
@@ -404,7 +404,7 @@ function ArticleDetail() {
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-4 sm:px-5 py-2.5 rounded-full border border-blue-900 transition-all shadow-sm hover:scale-102 cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] neo-shadow-sm px-4 sm:px-5 py-2.5 transition-all cursor-pointer"
                 title={t.detail.shareTitle}
               >
                 {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
@@ -430,7 +430,7 @@ function ArticleDetail() {
 
           {/* ARTICLE META BADGES - SPACED & ENLARGED */}
           <div className="flex flex-wrap items-center gap-3.5 sm:gap-6 my-6 sm:my-8 text-xs sm:text-sm border-y border-slate-100 py-3.5 sm:py-4">
-            <span className={`text-white font-extrabold uppercase tracking-wider px-4 sm:px-5 py-2 rounded-full shadow-xs text-xs sm:text-sm ${
+            <span className={`text-white font-extrabold uppercase tracking-wider px-4 sm:px-5 py-2 border-2 border-[#111111] neo-shadow-sm text-xs sm:text-sm font-headline ${
               content.category.toLowerCase().includes("inmobiliari") ? "bg-[#2563eb]" :
               content.category.toLowerCase().includes("finca") || content.category.toLowerCase().includes("comunidad") ? "bg-[#0f172a]" : "bg-slate-700"
             }`}>
@@ -464,7 +464,7 @@ function ArticleDetail() {
           </h1>
 
           {/* FEATURED HERO IMAGE APROVECHANDO LA AMPLITUD DEL BUBBLE */}
-          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden mb-8 sm:mb-10 shadow-md border border-slate-200/80 aspect-[16/9] max-h-[520px] w-full bg-slate-100">
+          <div className="relative border-2 border-[#111111] neo-shadow-lg mb-8 sm:mb-10 aspect-[16/9] max-h-[520px] w-full bg-slate-100 overflow-hidden">
             <img
               src={article.image}
               alt={content.title}
@@ -476,7 +476,7 @@ function ArticleDetail() {
           {/* CONTROLLED EDITORIAL READING COLUMN (780px - 820px) PARA MÁXIMO CONFORT DE LECTURA */}
           <div className="max-w-[820px] mx-auto">
             {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
-            <div className="mb-7 p-4 sm:p-6 rounded-2xl bg-blue-50/90 border-l-4 border-[#2563eb] border-y border-r border-blue-200/80 shadow-xs flex items-start gap-3.5 sm:gap-4">
+            <div className="mb-7 p-4 sm:p-6 bg-[#FAF9FC] border-2 border-[#111111] border-l-8 border-l-[#2860F5] neo-shadow flex items-start gap-3.5 sm:gap-4">
               <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
                 <BookOpen className="w-4.5 h-4.5" />
               </div>
@@ -491,7 +491,7 @@ function ArticleDetail() {
             </div>
 
             {/* INTRO SUMMARY CALLOUT */}
-            <div className="p-5 sm:p-7 rounded-2xl bg-slate-50 border-l-4 border-slate-400 text-slate-800 font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans shadow-xs">
+            <div className="p-5 sm:p-7 bg-white border-2 border-[#111111] border-l-8 border-l-[#111111] text-[#111111] font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans neo-shadow-sm p-6">
               {highlightKeyText(content.intro)}
             </div>
 
@@ -747,7 +747,7 @@ function ArticleDetail() {
         </div>
 
         {/* ── RELATED ARTICLES (SEO INTERNAL LINKING) ── */}
-        <div className="mt-12 bg-white rounded-[22px] md:rounded-[28px] p-6 sm:p-8 md:p-10 border border-slate-200/90 shadow-sm font-sans">
+        <div className="mt-12 bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 md:p-10 font-sans">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-100 pb-5">
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-2.5 shadow-xs">
@@ -774,8 +774,8 @@ function ArticleDetail() {
               .map((relArt) => {
                 const relContent = relArt[language] || relArt.es;
                 return (
-                  <article key={relArt.id} className="bg-slate-50/70 rounded-2xl p-4 sm:p-5 flex flex-col h-full border border-slate-200/80 hover:shadow-md transition-all group">
-                    <Link to="/noticias/$slug" params={{ slug: relArt.slug }} className="block aspect-[16/10] overflow-hidden rounded-xl mb-3.5 bg-slate-200">
+                  <article key={relArt.id} className="bg-white border-2 border-[#111111] neo-shadow hover:shadow-[5px_5px_0px_#111111] p-4 sm:p-5 flex flex-col h-full transition-all group hover:translate-x-[-2px] hover:translate-y-[-2px]">
+                    <Link to="/noticias/$slug" params={{ slug: relArt.slug }} className="block aspect-[16/10] overflow-hidden border-2 border-[#111111] mb-3.5 bg-slate-200">
                       <img
                         src={relArt.image}
                         alt={relContent.title}
@@ -814,7 +814,7 @@ function ArticleDetail() {
         </div>
 
         {/* BOTTOM NAVIGATION BLOCK TO KEEP EXPLORING THE WEBSITE */}
-        <div className="mt-12 bg-[#f5f6f8] rounded-[22px] md:rounded-[28px] p-6 sm:p-8 md:p-10 border border-slate-200/80 shadow-sm font-sans">
+        <div className="mt-12 bg-[#FAF9FC] border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 md:p-10 font-sans">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-3 shadow-xs">

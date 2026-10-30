@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Footer } from '@/components/Footer';
 import { articles } from "../data/articles";
 import { useState, useEffect } from "react";
 import { Calendar, ArrowRight, Menu, X, MessageCircle } from "lucide-react";
@@ -131,17 +132,7 @@ function NoticiasCatalogComponent() {
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-[#0b1221] text-white py-12 border-t border-white/10">
-        <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama" width={424} height={104} className="h-10 w-auto brightness-0 invert" />
-          <p className="text-slate-400 text-sm font-medium font-sans">© {new Date().getFullYear()} Gesgrama Inmobiliaria. Todos los derechos reservados. · <span className="inline-block whitespace-nowrap">Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="underline hover:text-blue-300">Kovia</a></span></p>
-          <div className="flex gap-6 text-sm text-slate-300 font-bold font-sans">
-            <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
-            <Link to="/politica-privacidad" className="hover:text-white">Privacidad</Link>
-            <Link to="/politica-cookies" className="hover:text-white">Cookies</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer language="es" />
     </div>
   );
 }

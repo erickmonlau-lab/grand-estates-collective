@@ -113,7 +113,7 @@ export const articles: Article[] = [
           ]
         }
       ],
-      conclusion: "Contar con un asesor inmobiliario de confianza en Santa Coloma de Gramenet no es un gasto, es una decisión estratégica que protege el valor de tu patrimonio, reduce el tiempo de la operación y te da la tranquilidad de saber que cada detalle legal, fiscal y comercial está correctamente gestionado. En Gesgrama llevamos más de tres décadas siendo ese aliado de confianza."
+      conclusion: "Contar con un asesor inmobiliario de confianza en Santa Coloma de Gramenet no es un gasto, es una decisión estratégica que protege el valor de tu patrimonio, reduce el tiempo de la operación y te da la tranquilidad de saber que cada detalle legal, fiscal y comercial está correctamente gestionado. En Gesgrama llevamos 15+ años de experiencia siendo ese aliado de confianza."
     },
     ca: {
       title: "Què és un assessor immobiliari i per què podries necessitar-ho?",
@@ -183,7 +183,7 @@ export const articles: Article[] = [
           ]
         }
       ],
-      conclusion: "Comptar amb un assessor immobiliari de confiança a Santa Coloma de Gramenet no és una despesa, és una decisió estratègica que protegeix el valor del teu patrimoni, redueix el temps de l'operació i et dona la tranquil·litat de saber que cada detall legal, fiscal i comercial està correctament gestionat. A Gesgrama portem més de tres dècades sent aquest aliat de confiança."
+      conclusion: "Comptar amb un assessor immobiliari de confiança a Santa Coloma de Gramenet no és una despesa, és una decisió estratègica que protegeix el valor del teu patrimoni, redueix el temps de l'operació i et dona la tranquil·litat de saber que cada detall legal, fiscal i comercial està correctament gestionat. A Gesgrama portem 15+ anys d'experiència sent aquest aliat de confiança."
     },
     en: {
       title: "What is a real estate advisor and why might you need one?",
@@ -1392,7 +1392,7 @@ export const articles: Article[] = [
           ]
         }
       ],
-      conclusion: "Una administración de fincas profesional no es un gasto para la comunidad: es la inversión que garantiza que el edificio esté correctamente mantenido, que las cuentas sean transparentes, que los morosos paguen y que los vecinos vivan en paz. En Gesgrama llevamos décadas siendo el administrador de confianza de comunidades de propietarios en Riu Nord, Riu Sud, Oliveres-Can Serra y el resto de barrios de Santa Coloma de Gramenet."
+      conclusion: "Una administración de fincas profesional no es un gasto para la comunidad: es la inversión que garantiza que el edificio esté correctamente mantenido, que las cuentas sean transparentes, que los morosos paguen y que los vecinos vivan en paz. En Gesgrama llevamos 15+ años de experiencia siendo el administrador de confianza de comunidades de propietarios en Riu Nord, Riu Sud, Oliveres-Can Serra y el resto de barrios de Santa Coloma de Gramenet."
     },
     ca: {
       title: "Claus per administrar la teva comunitat a Riu Nord, Riu Sud i Oliveres",
@@ -1453,7 +1453,7 @@ export const articles: Article[] = [
           ]
         }
       ],
-      conclusion: "Una administració de finques professional no és una despesa per a la comunitat: és la inversió que garanteix que l'edifici estigui correctament mantingut, que els comptes siguin transparents, que els morosos paguin i que els veïns visquin en pau. A Gesgrama portem dècades sent l'administrador de confiança a Riu Nord, Riu Sud, Oliveres-Can Serra i la resta de barris de Santa Coloma de Gramenet."
+      conclusion: "Una administració de finques professional no és una despesa per a la comunitat: és la inversió que garanteix que l'edifici estigui correctament mantingut, que els comptes siguin transparents, que els morosos paguin i que els veïns visquin en pau. A Gesgrama portem 15+ anys d'experiència sent l'administrador de confiança a Riu Nord, Riu Sud, Oliveres-Can Serra i la resta de barris de Santa Coloma de Gramenet."
     },
     en: {
       title: "Keys to managing your HOA in Riu Nord, Riu Sud and Oliveres",

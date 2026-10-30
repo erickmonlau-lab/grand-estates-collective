@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { Footer } from '@/components/Footer';
 import { properties, formatLocation } from "../data/properties";
 import { findPropertyBySlugOrId, getLocalProperties, fetchProperties, subscribeProperties, type ExtendedProperty } from "@/lib/propertyStore";
 import { getTranslatedProperty } from "@/lib/translateProperty";
@@ -193,9 +194,7 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
           </div>
         </main>
 
-        <footer className="bg-[#0b1221] text-white py-8 px-6 text-center text-xs text-slate-400 border-t border-slate-800">
-          <p>© {new Date().getFullYear()} Gesgrama. Todos los derechos reservados.</p>
-        </footer>
+        <Footer language={language} />
       </div>
     );
   },

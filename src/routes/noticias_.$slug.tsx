@@ -1,4 +1,5 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { Footer } from '@/components/Footer';
 import { articles } from "../data/articles";
 
 import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle, Share2, Check } from "lucide-react";
@@ -205,9 +206,7 @@ function ArticleDetail() {
           </div>
         </main>
 
-        <footer className="bg-[#0b1221] text-white py-8 px-6 text-center text-xs text-slate-400 border-t border-slate-800">
-          <p>© {new Date().getFullYear()} Gesgrama. {t.footer.rights}</p>
-        </footer>
+        <Footer language={language} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, ArrowRight, Check, Loader2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 interface ContactSectionProps {
@@ -53,10 +54,10 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const errs: typeof contactErrors = {};
-    if (!contactForm.nombre.trim()) errs.nombre = "Nombre obligatorio";
-    if (!contactForm.telefono.trim()) errs.telefono = "Teléfono obligatorio";
-    if (!contactForm.email.trim()) errs.email = "Email obligatorio";
-    if (!contactForm.privacidad) errs.privacidad = "Debes aceptar la privacidad";
+    if (!contactForm.nombre.trim()) errs.nombre = isCa ? "Nom obligatori" : "Nombre obligatorio";
+    if (!contactForm.telefono.trim()) errs.telefono = isCa ? "Telèfon obligatori" : "Teléfono obligatorio";
+    if (!contactForm.email.trim()) errs.email = isCa ? "Email obligatori" : "Email obligatorio";
+    if (!contactForm.privacidad) errs.privacidad = isCa ? "Has d'acceptar la privacitat" : "Debes aceptar la privacidad";
 
     if (Object.keys(errs).length > 0) {
       setContactErrors(errs);
@@ -81,14 +82,17 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
         {/* Cabecera Editorial */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
           <div>
-            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#2860F5] mb-4">
-              <span className="w-2 h-2 bg-[#2860F5]" />
+            <div className="inline-flex items-center gap-2 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full shadow-[2px_2px_0px_#2860F5] mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#2860F5]" />
               <span>{c.badge || "CONTACTO"}</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
               {c.title1 || "¿Hablamos de"}{" "}
-              <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{c.title2 || "tu comunidad?"}</span>
+              <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                {c.title2 || "tu comunidad?"}
+                <DrawnUnderline color="#2860F5" />
+              </span>
             </h2>
           </div>
           
@@ -105,8 +109,8 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
           {/* BLOQUE IZQUIERDO: Información, Fotografía y Datos de Oficina */}
           <div className="lg:col-span-5 bg-[#111111] text-white border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#2860F5] p-6 sm:p-8 flex flex-col justify-between">
             <div>
-              {/* Fotografía rectangular del despacho */}
-              <div className="relative aspect-[16/10] overflow-hidden border-2 border-white rounded-xl mb-6">
+              {/* Fotografía rectangular del despacho con bordes redondeados */}
+              <div className="relative aspect-[16/10] overflow-hidden border-2 border-white rounded-xl mb-6 shadow-[2px_2px_0px_rgba(255,255,255,0.2)]">
                 <img
                   src={gesgramaOffice}
                   alt="Oficina principal Gesgrama en Santa Coloma de Gramenet"
@@ -114,14 +118,14 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 />
               </div>
 
-              <h3 className="text-2xl font-headline font-black text-white uppercase tracking-wider mb-4 flex items-center gap-2.5">
-                <span className="w-3 h-3 bg-[#2860F5]" />
+              <h3 className="text-2xl font-headline font-black text-white uppercase tracking-wider mb-5 flex items-center gap-2.5">
+                <span className="w-3 h-3 rounded-full bg-[#2860F5]" />
                 <span>SEDE CENTRAL SANTA COLOMA</span>
               </h3>
 
               <ul className="space-y-4 font-headline text-[15px] sm:text-[16px]">
                 <li className="flex items-start gap-3">
-                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white mt-0.5">
+                  <span className="w-8 h-8 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white mt-0.5 shadow-sm">
                     <MapPin className="w-4 h-4 text-white" />
                   </span>
                   <span>
@@ -131,16 +135,16 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                  <span className="w-8 h-8 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white shadow-sm">
                     <Phone className="w-4 h-4 text-white" />
                   </span>
                   <a href="tel:934685656" className="text-white hover:text-[#2860F5] font-data-mono font-black text-[17px] transition-colors">
-                    93 468 56 56
+                    934 68 56 56
                   </a>
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                  <span className="w-8 h-8 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white shadow-sm">
                     <Mail className="w-4 h-4 text-white" />
                   </span>
                   <a href="mailto:info@gesgrama.com" className="text-white hover:text-[#2860F5] font-bold transition-colors">
@@ -149,11 +153,11 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 </li>
 
                 <li className="flex items-center gap-3">
-                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                  <span className="w-8 h-8 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white shadow-sm">
                     <Clock className="w-4 h-4 text-white" />
                   </span>
-                  <span className="text-slate-200">
-                    Lun - Vie: 9:00 - 14:00 y 16:00 - 19:30
+                  <span className="text-[#E3E0E8]">
+                    Lun - Vie: 9:30 - 13:30 y 16:30 - 19:30
                   </span>
                 </li>
               </ul>
@@ -161,154 +165,220 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
 
             {/* Aviso de Compromiso Colegiado */}
             <div className="mt-8 pt-6 border-t-2 border-white/20">
-              <p className="text-xs sm:text-sm text-slate-300 font-bold leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#E3E0E8] font-bold leading-relaxed">
                 ✓ Despacho oficial adherido al Col·legi d'Administradors de Finques de Barcelona-Lleida (CAFBL) y Colegiados AICAT Nº 5583.
               </p>
             </div>
           </div>
 
           {/* BLOQUE DERECHO: Formulario Blanco Sólido con Bordes Negros de 2px */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] p-6 sm:p-8 md:p-10">
+          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] p-6 sm:p-8 md:p-10 flex flex-col justify-between">
             {isSubmittedSuccess ? (
-              <div className="py-12 text-center flex flex-col items-center">
-                <div className="w-16 h-16 bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] flex items-center justify-center mb-4">
+              <div className="py-16 text-center flex flex-col items-center justify-center h-full">
+                <div className="w-16 h-16 bg-[#2860F5] text-white border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] flex items-center justify-center mb-5">
                   <Check className="w-8 h-8 stroke-[3]" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-headline font-black mb-2">
+                <h3 className="text-2xl sm:text-3xl font-headline font-black mb-3">
                   ¡SOLICITUD RECIBIDA CON ÉXITO!
                 </h3>
-                <p className="text-[17px] font-bold text-slate-700 max-w-md mb-6">
+                <p className="text-[17px] font-bold text-slate-700 max-w-md mb-8">
                   Un asesor técnico o administrador colegiado de Gesgrama se pondrá en contacto contigo a la mayor brevedad.
                 </p>
                 <button
                   type="button"
                   onClick={() => setIsSubmittedSuccess(false)}
-                  className="bg-[#111111] hover:bg-[#2860F5] text-white px-6 py-3 border-2 border-[#111111] font-headline font-black uppercase text-sm"
+                  className="bg-[#111111] hover:bg-[#2860F5] text-white px-8 py-3.5 border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black uppercase text-sm cursor-pointer transition-all"
                 >
                   Enviar otra consulta
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" id="formulario-contacto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Nombre */}
+              <form onSubmit={handleSubmit} className="space-y-6 flex flex-col justify-between h-full" id="formulario-contacto">
+                {/* 1. Cabecera del formulario */}
+                <div className="border-b-2 border-[#E3E0E8] pb-4">
+                  <h3 className="text-2xl sm:text-[27px] font-headline font-black text-[#111111] leading-tight mb-1.5">
+                    {isCa ? "Explica'ns què necessites" : isEn ? "Tell us what you need" : "Cuéntanos qué necesitas"}
+                  </h3>
+                  <p className="text-[15px] sm:text-[16px] text-slate-700 font-bold leading-normal">
+                    {isCa
+                      ? "Estem aquí per ajudar-te. Envia'ns la teva consulta i ens posarem en contacte amb tu."
+                      : isEn
+                      ? "We are here to help. Send us your inquiry and our team will get in touch."
+                      : "Estamos aquí para ayudarte. Envíanos tu consulta y nos pondremos en contacto contigo."}
+                  </p>
+                </div>
+
+                {/* 2. Campos de contacto */}
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Nombre */}
+                    <div>
+                      <label htmlFor="contacto-nombre-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                        {formLabels.nombre || "Nombre completo"} *
+                      </label>
+                      <input
+                        id="contacto-nombre-input"
+                        type="text"
+                        value={contactForm.nombre}
+                        onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })}
+                        placeholder="Tu nombre y apellidos"
+                        className="w-full h-[56px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-4 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                      />
+                      {contactErrors.nombre && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.nombre}</p>}
+                    </div>
+
+                    {/* Teléfono */}
+                    <div>
+                      <label htmlFor="contacto-telefono-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                        {formLabels.telefono || "Teléfono de contacto"} *
+                      </label>
+                      <input
+                        id="contacto-telefono-input"
+                        type="tel"
+                        value={contactForm.telefono}
+                        onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })}
+                        placeholder="600 000 000"
+                        className="w-full h-[56px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-4 font-data-mono font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                      />
+                      {contactErrors.telefono && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.telefono}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Email */}
+                    <div>
+                      <label htmlFor="contacto-email-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                        {formLabels.email || "Correo electrónico"} *
+                      </label>
+                      <input
+                        id="contacto-email-input"
+                        type="email"
+                        value={contactForm.email}
+                        onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                        placeholder="ejemplo@correo.com"
+                        className="w-full h-[56px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-4 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400"
+                      />
+                      {contactErrors.email && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.email}</p>}
+                    </div>
+
+                    {/* Asunto */}
+                    <div>
+                      <label htmlFor="contacto-asunto-select" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                        {formLabels.asunto || "Tipo de consulta"}
+                      </label>
+                      <select
+                        id="contacto-asunto-select"
+                        value={contactForm.asunto}
+                        onChange={(e) => setContactForm({ ...contactForm, asunto: e.target.value })}
+                        className="w-full h-[56px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl px-4 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all cursor-pointer"
+                      >
+                        <option value="Gestión de Comunidades">{isCa ? "Administració de Comunitats" : "Gestión de Comunidades"}</option>
+                        <option value="Vender un piso">{isCa ? "Vendre un pis" : "Vender un piso"}</option>
+                        <option value="Alquilar un piso">{isCa ? "Llogar un pis" : "Alquilar un piso"}</option>
+                        <option value="Asesoría Jurídica">{isCa ? "Assessoria Jurídica" : "Asesoría Jurídica"}</option>
+                        <option value="Obras y Mantenimiento">{isCa ? "Obres i Manteniment" : "Obras y Mantenimiento"}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Mensaje */}
                   <div>
-                    <label htmlFor="contacto-nombre-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {formLabels.nombre || "Nombre completo"} *
+                    <label htmlFor="contacto-mensaje-textarea" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                      {formLabels.mensaje || "Mensaje o detalles de su consulta"}
                     </label>
+                    <textarea
+                      id="contacto-mensaje-textarea"
+                      rows={5}
+                      value={contactForm.mensaje}
+                      onChange={(e) => setContactForm({ ...contactForm, mensaje: e.target.value })}
+                      placeholder="Explícanos tu consulta o las características de tu finca..."
+                      className="w-full min-h-[150px] bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-xl p-4 font-headline font-bold text-[16px] sm:text-[17px] focus:border-[#2860F5] focus:shadow-[2px_2px_0px_#2860F5] outline-none transition-all placeholder:text-slate-400 resize-y"
+                    ></textarea>
+                  </div>
+                </div>
+
+                {/* 3. Checkbox y Privacidad */}
+                <div className="pt-1">
+                  <div className="flex items-start gap-3">
                     <input
-                      id="contacto-nombre-input"
-                      type="text"
-                      value={contactForm.nombre}
-                      onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })}
-                      placeholder="Tu nombre y apellidos"
-                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
+                      id="contacto-privacidad-check"
+                      type="checkbox"
+                      checked={contactForm.privacidad}
+                      onChange={(e) => setContactForm({ ...contactForm, privacidad: e.target.checked })}
+                      className="w-5 h-5 sm:w-6 sm:h-6 mt-0.5 accent-[#2860F5] border-2 border-[#111111] rounded cursor-pointer shrink-0"
                     />
-                    {contactErrors.nombre && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.nombre}</p>}
-                  </div>
-
-                  {/* Teléfono */}
-                  <div>
-                    <label htmlFor="contacto-telefono-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {formLabels.telefono || "Teléfono de contacto"} *
+                    <label htmlFor="contacto-privacidad-check" className="text-[14px] sm:text-[15px] text-[#111111] font-bold leading-snug cursor-pointer select-none">
+                      {isCa ? (
+                        <>He llegit i accepto la <Link to="/politica-privacidad" className="underline text-[#2860F5] hover:text-[#111111]">política de privacitat</Link> i autoritzo el tractament de les meves dades per respondre a aquesta sol·licitud.</>
+                      ) : (
+                        <>He leído y acepto la <Link to="/politica-privacidad" className="underline text-[#2860F5] hover:text-[#111111]">política de privacidad</Link> y autorizo el tratamiento de mis datos de contacto para responder a esta solicitud.</>
+                      )}
                     </label>
-                    <input
-                      id="contacto-telefono-input"
-                      type="tel"
-                      value={contactForm.telefono}
-                      onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })}
-                      placeholder="600 000 000"
-                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-data-mono font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
-                    />
-                    {contactErrors.telefono && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.telefono}</p>}
                   </div>
+                  {contactErrors.privacidad && <p className="text-red-600 text-xs font-bold mt-1.5 ml-8">{contactErrors.privacidad}</p>}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="contacto-email-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {formLabels.email || "Correo electrónico"} *
-                    </label>
-                    <input
-                      id="contacto-email-input"
-                      type="email"
-                      value={contactForm.email}
-                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                      placeholder="ejemplo@correo.com"
-                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
-                    />
-                    {contactErrors.email && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.email}</p>}
-                  </div>
-
-                  {/* Asunto */}
-                  <div>
-                    <label htmlFor="contacto-asunto-select" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {formLabels.asunto || "Tipo de consulta"}
-                    </label>
-                    <select
-                      id="contacto-asunto-select"
-                      value={contactForm.asunto}
-                      onChange={(e) => setContactForm({ ...contactForm, asunto: e.target.value })}
-                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors cursor-pointer"
-                    >
-                      <option value="Gestión de Comunidades">{isCa ? "Administració de Comunitats" : "Gestión de Comunidades"}</option>
-                      <option value="Vender un piso">{isCa ? "Vendre un pis" : "Vender un piso"}</option>
-                      <option value="Alquilar un piso">{isCa ? "Llogar un pis" : "Alquilar un piso"}</option>
-                      <option value="Asesoría Jurídica">{isCa ? "Assessoria Jurídica" : "Asesoría Jurídica"}</option>
-                      <option value="Obras y Mantenimiento">{isCa ? "Obres i Manteniment" : "Obras y Mantenimiento"}</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Mensaje */}
-                <div>
-                  <label htmlFor="contacto-mensaje-textarea" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                    {formLabels.mensaje || "Mensaje o detalles de su consulta"}
-                  </label>
-                  <textarea
-                    id="contacto-mensaje-textarea"
-                    rows={4}
-                    value={contactForm.mensaje}
-                    onChange={(e) => setContactForm({ ...contactForm, mensaje: e.target.value })}
-                    placeholder="Explícanos tu consulta o las características de tu finca..."
-                    className="w-full bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] p-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
-                  ></textarea>
-                </div>
-
-                {/* Checkbox Privacidad */}
-                <div className="flex items-start gap-3 pt-1">
-                  <input
-                    id="contacto-privacidad-check"
-                    type="checkbox"
-                    checked={contactForm.privacidad}
-                    onChange={(e) => setContactForm({ ...contactForm, privacidad: e.target.checked })}
-                    className="w-5 h-5 mt-0.5 accent-[#2860F5] border-2 border-[#111111] rounded-none cursor-pointer"
-                  />
-                  <label htmlFor="contacto-privacidad-check" className="text-xs sm:text-sm text-slate-700 font-bold leading-tight cursor-pointer">
-                    {formLabels.privacidad || "He leído y acepto la política de privacidad y autorizo el tratamiento de mis datos de contacto para responder a esta solicitud."}
-                  </label>
-                </div>
-                {contactErrors.privacidad && <p className="text-red-600 text-xs font-bold">{contactErrors.privacidad}</p>}
-
-                {/* Botón de Envío */}
+                {/* 4. Botón Enviar Solicitud */}
                 <button
                   type="submit"
                   disabled={isSubmittingContact}
-                  className="w-full h-[60px] sm:h-[64px] neo-btn-primary font-headline font-black text-[18px] px-8 cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wider disabled:opacity-80"
+                  className="w-full h-[62px] sm:h-[66px] bg-[#2860F5] hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-[17px] sm:text-[18px] px-6 sm:px-8 cursor-pointer flex items-center justify-between uppercase tracking-wider disabled:opacity-80 transition-all select-none"
                 >
                   {isSubmittingContact ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                    <div className="w-full flex items-center justify-center gap-3">
+                      <Loader2 className="w-5 h-5 animate-spin text-white" />
                       <span>{formLabels.enviando || "ENVIANDO CONSULTA..."}</span>
-                    </>
+                    </div>
                   ) : (
                     <>
-                      <span>{formLabels.botonEnviar || "ENVIAR SOLICITUD"}</span>
-                      <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+                      <span className="w-6 sm:w-8" aria-hidden="true" />
+                      <span className="flex-1 text-center">{formLabels.botonEnviar || "ENVIAR SOLICITUD"}</span>
+                      <ArrowRight className="w-6 h-6 stroke-[2.5] text-white shrink-0" />
                     </>
                   )}
                 </button>
+
+                {/* 5. Alternativas de Contacto Directo */}
+                <div className="pt-2 border-t-2 border-[#E3E0E8]">
+                  <p className="text-[13px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-slate-600 mb-3 text-center sm:text-left">
+                    {isCa ? "¿Prefereixes contactar directament?" : isEn ? "Prefer direct contact?" : "¿Prefieres contactar directamente?"}
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <a
+                      href="tel:934685656"
+                      className="flex items-center gap-3.5 p-3 sm:p-3.5 bg-[#FAF9FC] hover:bg-[#FFFFFF] border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] hover:shadow-[3px_3px_0px_#2860F5] transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                        <Phone className="w-4 h-4 text-white stroke-[2.5]" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="block text-[11px] font-headline font-black uppercase tracking-wider text-slate-500">
+                          {isCa ? "Trucada directa" : "Llamada directa"}
+                        </span>
+                        <span className="block text-[15px] sm:text-[16px] font-data-mono font-bold text-[#111111] group-hover:text-[#2860F5] transition-colors truncate">
+                          934 68 56 56
+                        </span>
+                      </div>
+                    </a>
+
+                    <a
+                      href="mailto:info@gesgrama.com"
+                      className="flex items-center gap-3.5 p-3 sm:p-3.5 bg-[#FAF9FC] hover:bg-[#FFFFFF] border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] hover:shadow-[3px_3px_0px_#2860F5] transition-all group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                        <Mail className="w-4 h-4 text-white stroke-[2.5]" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="block text-[11px] font-headline font-black uppercase tracking-wider text-slate-500">
+                          {isCa ? "Correu electrònic" : "Correo electrónico"}
+                        </span>
+                        <span className="block text-[15px] sm:text-[16px] font-headline font-bold text-[#111111] group-hover:text-[#2860F5] transition-colors truncate">
+                          info@gesgrama.com
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </form>
             )}
           </div>

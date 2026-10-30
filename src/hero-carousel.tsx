@@ -373,11 +373,11 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO NEO-BRUTALIST: RECTANGULAR, 2PX BORDER, HARD SHADOW ── */}
         <div
-          className="relative z-40 w-full max-w-[1140px] mx-auto mt-5 sm:mt-7 mb-6 sm:mb-12 md:mb-14"
+          className="relative z-40 w-full max-w-[1240px] mx-auto mt-5 sm:mt-7 mb-6 sm:mb-12 md:mb-14"
           onClick={(e) => e.stopPropagation()}
         >
           <div
-            className="bg-white border-2 border-[#111111] rounded-[24px] sm:rounded-full shadow-[4px_4px_0px_#111111] flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-3 transition-all"
+            className="bg-white border-2 border-[#111111] rounded-[24px] sm:rounded-full shadow-[4px_4px_0px_#111111] flex flex-col sm:flex-row items-stretch sm:items-center p-2 sm:p-2.5 transition-all"
           >
             {/* Toggle Comprar / Alquilar: Botones rectangulares neo-brutalist */}
             <div className="w-full sm:w-auto flex bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl sm:rounded-full shrink-0 p-1 mb-2.5 sm:mb-0 gap-1">
@@ -387,7 +387,7 @@ export default function HeroCarousel({
                   setMode("comprar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`flex-1 sm:flex-none px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-sm sm:text-[15px] md:text-base font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
+                className={`flex-1 sm:flex-none px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm md:text-[14px] font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
                   mode === "comprar"
                     ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_2px_0px_#111111]"
                     : "bg-transparent text-[#111111] border-transparent hover:bg-slate-200"
@@ -401,7 +401,7 @@ export default function HeroCarousel({
                   setMode("alquilar");
                   setPrecio("Cualquier precio");
                 }}
-                className={`flex-1 sm:flex-none px-5 sm:px-6 md:px-7 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-sm sm:text-[15px] md:text-base font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
+                className={`flex-1 sm:flex-none px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm md:text-[14px] font-headline font-black uppercase tracking-wider transition-all cursor-pointer select-none text-center whitespace-nowrap border-2 ${
                   mode === "alquilar"
                     ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_2px_0px_#111111]"
                     : "bg-transparent text-[#111111] border-transparent hover:bg-slate-200"
@@ -412,7 +412,7 @@ export default function HeroCarousel({
             </div>
 
             {/* Separador vertical sólido para desktop */}
-            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
+            <div className="hidden sm:block w-[1.5px] h-10 bg-[#111111] shrink-0 mx-1.5" />
 
             {/* Selector BARRIO */}
             <div className="relative flex-1 min-w-0 border-b-2 sm:border-b-0 border-[#111111] pb-2 sm:pb-0 mb-2 sm:mb-0">
@@ -422,7 +422,7 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "barrio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("barrio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
+                className={`w-full flex items-center justify-between text-left px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
                   openDrop === "barrio"
                     ? "bg-[#FAF9FC] border-[#111111] shadow-[2px_2px_0px_#2860F5]"
                     : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
@@ -441,12 +441,12 @@ export default function HeroCarousel({
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "barrio" ? "rotate-180 text-[#2860F5]" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "barrio" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
             {/* Separador vertical sólido para desktop */}
-            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
+            <div className="hidden sm:block w-[1.5px] h-10 bg-[#111111] shrink-0 mx-1.5" />
 
             {/* Selector TIPO */}
             <div className="relative flex-1 min-w-0 border-b-2 sm:border-b-0 border-[#111111] pb-2 sm:pb-0 mb-2 sm:mb-0">
@@ -456,7 +456,7 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "tipo"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("tipo", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
+                className={`w-full flex items-center justify-between text-left px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
                   openDrop === "tipo"
                     ? "bg-[#FAF9FC] border-[#111111] shadow-[2px_2px_0px_#2860F5]"
                     : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
@@ -475,12 +475,12 @@ export default function HeroCarousel({
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "tipo" ? "rotate-180 text-[#2860F5]" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "tipo" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
             {/* Separador vertical sólido para desktop */}
-            <div className="hidden sm:block w-[2px] h-12 bg-[#111111] shrink-0 mx-2" />
+            <div className="hidden sm:block w-[1.5px] h-10 bg-[#111111] shrink-0 mx-1.5" />
 
             {/* Selector PRECIO */}
             <div className="relative flex-1 min-w-0 mb-3 sm:mb-0">
@@ -490,7 +490,7 @@ export default function HeroCarousel({
                 aria-expanded={openDrop === "precio"}
                 aria-haspopup="listbox"
                 onClick={(e) => handleToggleDrop("precio", e.currentTarget)}
-                className={`w-full flex items-center justify-between text-left px-3 sm:px-3 md:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
+                className={`w-full flex items-center justify-between text-left px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl sm:rounded-full transition-all cursor-pointer border-2 ${
                   openDrop === "precio"
                     ? "bg-[#FAF9FC] border-[#111111] shadow-[2px_2px_0px_#2860F5]"
                     : "border-transparent hover:border-[#111111] hover:bg-[#FAF9FC]"
@@ -509,7 +509,7 @@ export default function HeroCarousel({
                     </span>
                   </div>
                 </div>
-                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "precio" ? "rotate-180 text-[#2860F5]" : ""}`} />
+                <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-all text-[#111111] stroke-[2.5] ${openDrop === "precio" ? "rotate-180 text-[#2860F5]" : ""}`} />
               </button>
             </div>
 
@@ -517,7 +517,7 @@ export default function HeroCarousel({
             <button
               type="button"
               onClick={handleSearch}
-              className="w-full sm:w-auto bg-[#2860F5] hover:bg-[#111111] text-white px-7 sm:px-8 md:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-full border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-sm sm:text-base uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer transition-all shrink-0 select-none"
+              className="w-full sm:w-auto bg-[#2860F5] hover:bg-[#111111] text-white px-6 sm:px-7 md:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-full border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[2px] hover:translate-y-[2px] font-headline font-black text-xs sm:text-sm uppercase tracking-wider inline-flex items-center justify-center gap-2.5 cursor-pointer transition-all shrink-0 select-none"
             >
               <Search className="w-5 h-5 stroke-[3] text-white shrink-0" />
               <span className="leading-none">{L.search}</span>

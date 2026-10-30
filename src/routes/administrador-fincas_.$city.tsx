@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer } from '@/components/Footer';
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -2204,10 +2205,10 @@ function SantaColomaBarrioPage() {
                     ) : (
                       t.finalCta.title1
                     )}{" "}
-                    <span className="inline-block bg-[#2563eb] text-white px-3 py-1 rounded-xl shadow-xs">
-                      {t.finalCta.title2}
+                    <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                      {t.finalCta.title2}?
+                      <DrawnUnderline color="#2860F5" />
                     </span>
-                    <span className="ml-1.5 inline-block">?</span>
                   </h2>
                   
                   <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">

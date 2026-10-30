@@ -471,7 +471,7 @@ export default function HeroCarousel({
                       {L.type}
                     </span>
                     <span className="block text-sm sm:text-[15px] font-sans font-bold text-[#111111] whitespace-nowrap mt-0.5">
-                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol" : language === "en" ? "Any" : "Cualquiera") : tipo}
+                      {tipo === "Cualquier tipo" ? (language === "ca" ? "Qualsevol tipus" : language === "en" ? "Any type" : "Cualquier tipo") : tipo}
                     </span>
                   </div>
                 </div>
@@ -505,7 +505,7 @@ export default function HeroCarousel({
                       {L.price}
                     </span>
                     <span className="block text-sm sm:text-[15px] font-sans font-bold text-[#111111] whitespace-nowrap mt-0.5">
-                      {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquiera") : precio}
+                      {precio === "Cualquier precio" ? (language === "ca" ? "Sense límit" : language === "en" ? "Any price" : "Cualquier precio") : precio}
                     </span>
                   </div>
                 </div>

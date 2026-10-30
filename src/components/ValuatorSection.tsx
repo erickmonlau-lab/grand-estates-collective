@@ -221,11 +221,11 @@ export default function ValuatorSection({
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-headline font-black text-[#111111] tracking-tight leading-[1.1]">
               {isCa ? (
-                <>¿Quant val el teu habitatge a <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">Santa Coloma</span>?</>
+                <>¿Quant val el teu habitatge a <span className="relative inline-block text-[#2860F5] whitespace-nowrap">Santa Coloma?<DrawnUnderline color="#2860F5" /></span></>
               ) : isEn ? (
-                <>How much is your home worth in <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">Santa Coloma</span>?</>
+                <>How much is your home worth in <span className="relative inline-block text-[#2860F5] whitespace-nowrap">Santa Coloma?<DrawnUnderline color="#2860F5" /></span></>
               ) : (
-                <>¿Cuánto vale tu vivienda en <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">Santa Coloma</span>?</>
+                <>¿Cuánto vale tu vivienda en <span className="relative inline-block text-[#2860F5] whitespace-nowrap">Santa Coloma?<DrawnUnderline color="#2860F5" /></span></>
               )}
             </h2>
           </div>

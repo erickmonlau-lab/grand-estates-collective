@@ -1159,10 +1159,10 @@ function Index() {
                   ) : (
                     t.finalCta.title1
                   )}{" "}
-                  <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">
-                    {t.finalCta.title2}
+                  <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                    {t.finalCta.title2}?
+                    <DrawnUnderline color="#2860F5" />
                   </span>
-                  <span>?</span>
                 </h2>
                 
                 <p className="text-[17px] sm:text-[18px] text-[#111111] font-bold leading-relaxed mb-8 max-w-xl">

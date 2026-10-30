@@ -14,7 +14,8 @@ import {
   Clock, 
   Calculator,
   ChevronDown,
-  HelpCircle
+  HelpCircle,
+  ShieldCheck
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -267,7 +268,7 @@ const servicesData: Record<string, ServiceConfig> = {
         desc: "Despacho a pie de calle en Av. dels Banús, 49. Nos personamos en tu comunidad cuando lo necesites, sin filtros de call center."
       }
     ],
-    image: "/images/art8_comunidad_propietarios.webp",
+    image: "/images/santa_coloma_fincas.webp",
     asuntoOption: "Administración de Fincas",
     barrioTitleContext: "Administración de fincas y comunidades en los 14 barrios de Santa Coloma",
     steps: [
@@ -641,81 +642,82 @@ function ServicioSlugPage() {
   const relatedServices = Object.values(servicesData).filter(s => s.slug !== service.slug);
 
   return (
-    <div className="bg-white text-[#111C35] min-h-screen font-sans selection:bg-[#2563EB] selection:text-white overflow-x-clip">
+    <div className="bg-[#F8FAFC] text-[#0f172a] min-h-screen font-sans selection:bg-[#2563EB] selection:text-white overflow-x-clip">
       {/* ── NAVBAR CORPORATIVO OFICIAL ── */}
       <Navbar language={language} setLanguage={setLanguage} />
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 1: HERO DEL SERVICIO -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          SECCIÓN 1: HERO DEL SERVICIO -> CONTENEDOR VELLUM CLARO ESTILO APPLE
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#0A192F] text-white pt-28 sm:pt-36 pb-20 border-b-4 border-[#1E293B]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="pt-28 sm:pt-36 pb-6 sm:pb-8">
+        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
-          {/* Top Breadcrumb & Return Link */}
+          {/* Top Breadcrumb & Return Link con FONDOS SÓLIDOS BIEN CONTRASTADOS */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
             <Link
               to="/"
               hash="servicios"
-              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white bg-[#1E293B] hover:bg-[#2563EB] border border-slate-700 hover:border-[#2563EB] px-5 py-2.5 rounded-full transition-all duration-200 cursor-pointer group shadow-md"
+              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0F172A] hover:bg-[#2563EB] border border-[#0F172A] hover:border-[#2563EB] px-5 py-2.5 rounded-full transition-all duration-200 cursor-pointer group shadow-sm"
             >
               <ArrowLeft className="w-4 h-4 text-[#60A5FA] group-hover:text-white group-hover:-translate-x-1 transition-all" />
               <span>Volver a Servicios</span>
             </Link>
 
             <nav aria-label="Migas de pan">
-              <ol className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" itemScope itemType="https://schema.org/BreadcrumbList">
+              <ol className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500" itemScope itemType="https://schema.org/BreadcrumbList">
                 <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                  <Link to="/" itemProp="item" className="hover:text-white transition-colors">
+                  <Link to="/" itemProp="item" className="hover:text-[#2563EB] transition-colors">
                     <span itemProp="name">Inicio</span>
                   </Link>
                   <meta itemProp="position" content="1" />
                 </li>
-                <li className="text-slate-600">/</li>
+                <li className="text-slate-300">/</li>
                 <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                  <Link to="/" hash="servicios" itemProp="item" className="text-[#60A5FA] hover:text-white transition-colors font-bold">
+                  <Link to="/" hash="servicios" itemProp="item" className="text-[#2563EB] hover:underline transition-colors font-bold">
                     <span itemProp="name">Servicios</span>
                   </Link>
                   <meta itemProp="position" content="2" />
                 </li>
-                <li className="text-slate-600">/</li>
+                <li className="text-slate-300">/</li>
                 <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                  <span itemProp="name" className="text-white font-extrabold">{service.titleKey}</span>
+                  <span itemProp="name" className="text-[#0f172a] font-extrabold">{service.titleKey}</span>
                   <meta itemProp="position" content="3" />
                 </li>
               </ol>
             </nav>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Columna Izquierda: Información */}
             <div className="lg:col-span-7">
               <div className="flex flex-wrap items-center gap-2.5 mb-5">
-                <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm">
+                <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-xs">
                   <IconComp className="w-4 h-4 text-white" />
                   Servicio Especializado
                 </span>
-                <span className="inline-flex items-center gap-1.5 bg-[#1E293B] text-[#60A5FA] text-xs font-bold px-3.5 py-1.5 rounded-full border border-slate-700">
+                {/* Etiqueta sólida Santa Coloma de Gramenet */}
+                <span className="inline-flex items-center gap-1.5 bg-[#0F172A] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-xs">
                   <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" />
                   Santa Coloma de Gramenet
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] leading-tight mb-4 tracking-tight">
                 {service.titleKey}
               </h1>
 
-              <p className="text-[#60A5FA] text-lg sm:text-xl font-bold mb-4 leading-snug">
+              <p className="text-[#2563EB] text-lg sm:text-xl font-bold mb-4 leading-snug">
                 {service.taglineKey}
               </p>
 
-              <p className="text-[#E2E8F0] text-base sm:text-lg leading-relaxed max-w-2xl font-normal mb-8">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl font-normal mb-8">
                 {service.intro}
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-                  className="bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-lg transition-all flex items-center gap-3 cursor-pointer"
+                  className="bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-md transition-all flex items-center gap-3 cursor-pointer"
                 >
                   <span>Solicitar presupuesto gratuito</span>
                   <ArrowRight className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
@@ -724,7 +726,7 @@ function ServicioSlugPage() {
                   href="https://wa.me/34601259424"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-7 rounded-xl shadow-lg transition-all flex items-center gap-3 cursor-pointer"
+                  className="bg-[#EFF6FF] hover:bg-blue-100 text-[#0f172a] border border-blue-200 font-black text-sm sm:text-base py-4 px-7 rounded-xl shadow-xs transition-all flex items-center gap-3 cursor-pointer"
                 >
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#16A34A] shrink-0">
                     <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
@@ -734,9 +736,9 @@ function ServicioSlugPage() {
               </div>
             </div>
 
-            {/* Columna Derecha: Fotografía Grande con Borde Sólido y Tarjeta Inferior */}
+            {/* Columna Derecha: Fotografía Real Local con Tarjeta Inferior de Sede Central */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden border-4 border-[#1E293B] shadow-2xl bg-[#1E293B]">
+              <div className="relative rounded-3xl overflow-hidden border-2 border-slate-200 shadow-xl bg-slate-100">
                 <img 
                   src={service.image} 
                   alt={`${service.titleKey} en Santa Coloma de Gramenet`} 
@@ -745,16 +747,16 @@ function ServicioSlugPage() {
                   height={400}
                   loading="eager"
                 />
-                {/* Tarjeta flotante inferior en Blanco Puro Sólido */}
-                <div className="absolute bottom-4 left-4 right-4 bg-[#FFFFFF] text-[#0A192F] p-4 rounded-2xl shadow-xl flex items-center gap-3.5 border-2 border-[#E2E8F0]">
+                {/* Tarjeta flotante inferior en Azul Marino Sólido #0F172A */}
+                <div className="absolute bottom-4 left-4 right-4 bg-[#0F172A] text-white p-4 rounded-2xl shadow-xl flex items-center gap-3.5 border border-slate-700">
                   <div className="w-10 h-10 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-black uppercase tracking-wider text-[#2563EB] block">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#60A5FA] block">
                       Sede Central en Santa Coloma
                     </span>
-                    <p className="text-xs sm:text-sm font-extrabold text-[#0A192F] leading-tight">
+                    <p className="text-xs sm:text-sm font-extrabold text-white leading-tight">
                       Av. dels Banús, 49 · Atención Presencial
                     </p>
                   </div>
@@ -767,18 +769,18 @@ function ServicioSlugPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 2: "¿QUÉ INCLUYE?" -> FONDO BLANCO PURO (#FFFFFF)
+          SECCIÓN 2: "¿QUÉ INCLUYE?" -> CONTENEDOR VELLUM CLARO ESTILO APPLE
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-6 sm:py-8">
+        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
           {/* Cabecera centrada */}
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
               <FileText className="w-4 h-4 text-white" />
               Alcance del Servicio
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
               ¿Qué incluye nuestro servicio de {service.titleKey}?
             </h2>
             <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
@@ -786,19 +788,19 @@ function ServicioSlugPage() {
             </p>
           </div>
 
-          {/* Grid Bento Simétrico de 3 Columnas (6 tarjetas 100% sólidas) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {/* Grid Bento Simétrico de 3 Columnas (Tarjetas Azul Claro Sólido #EFF6FF) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {service.features.map((feat, idx) => (
               <div 
                 key={idx}
-                className="bg-[#F8FAFC] border-2 border-[#E2E8F0] hover:border-[#2563EB] rounded-2xl p-7 transition-all duration-200 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group"
+                className="bg-[#EFF6FF] border-2 border-blue-200/80 hover:border-[#2563EB] rounded-2xl p-7 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between group"
               >
                 <div>
                   {/* Cuadrado sólido azul intenso 48x48 */}
-                  <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mb-5 shadow-md group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mb-5 shadow-xs group-hover:scale-105 transition-transform">
                     <Check className="w-6 h-6 text-white stroke-[3]" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-black text-[#111C35] mb-3 leading-snug group-hover:text-[#2563EB] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563EB] transition-colors">
                     {feat.title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
@@ -809,13 +811,13 @@ function ServicioSlugPage() {
             ))}
           </div>
 
-          {/* Banner Horizontal de Contacto Directo (Azul Marino Sólido #0A192F) */}
-          <div className="bg-[#0A192F] rounded-3xl p-6 sm:p-8 md:p-10 border-4 border-[#1E293B] shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
+          {/* Banner Horizontal de Contacto Directo en Azul Marino Sólido #0F172A */}
+          <div className="bg-[#0F172A] rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-700 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
             <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
               <img
                 src="/images/gesgrama_office.webp"
                 alt="Despacho Gesgrama Santa Coloma"
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-white/20 shrink-0 shadow-md"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-slate-700 shrink-0 shadow-md"
                 width={112}
                 height={112}
                 loading="lazy"
@@ -835,7 +837,7 @@ function ServicioSlugPage() {
 
             <a
               href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-lg transition-all shrink-0 flex items-center gap-2.5 cursor-pointer"
+              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0f172a] font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-md transition-all shrink-0 flex items-center gap-2.5 cursor-pointer"
             >
               <span>Solicitar consulta personalizada</span>
               <ArrowRight className="w-5 h-5 text-[#2563EB] stroke-[2.5]" />
@@ -846,38 +848,38 @@ function ServicioSlugPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 3: "¿POR QUÉ ELEGIR A GESGRAMA?" + METODOLOGÍA -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          SECCIÓN 3: "¿POR QUÉ ELEGIR A GESGRAMA?" + METODOLOGÍA -> CONTENEDOR VELLUM CLARO
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#0A192F] py-20 text-white border-b-4 border-[#1E293B]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-6 sm:py-8">
+        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
           {/* Bloque A: ¿Por qué elegir a Gesgrama en Santa Coloma? */}
           <div className="mb-16">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
                 <Award className="w-4 h-4 text-white" />
                 Ventajas Gesgrama
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
                 ¿Por qué elegir a Gesgrama en Santa Coloma?
               </h2>
-              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
+              <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
                 Solvencia técnica colegiada, transparencia contable garantizada y cercanía física en cada gestión.
               </p>
             </div>
 
-            {/* 4 Tarjetas en Blanco Puro Sólido (#FFFFFF) sobre fondo oscuro */}
+            {/* 4 Tarjetas en Azul Claro Sólido (#EFF6FF) con texto oscuro */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {service.values.map((v, i) => (
                 <div 
                   key={i}
-                  className="bg-[#FFFFFF] text-[#0A192F] border-2 border-[#E2E8F0] rounded-2xl p-6 flex flex-col justify-between shadow-xl hover:-translate-y-1 transition-all"
+                  className="bg-[#EFF6FF] text-[#0f172a] border-2 border-blue-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:-translate-y-1 hover:border-[#2563EB] transition-all"
                 >
                   <div>
                     <span className="text-2xl sm:text-3xl font-black text-[#2563EB] block font-mono mb-3">
                       {v.metric}
                     </span>
-                    <h3 className="text-lg font-black text-[#0A192F] mb-2 leading-snug">
+                    <h3 className="text-lg font-black text-[#0f172a] mb-2 leading-snug">
                       {v.title}
                     </h3>
                     <p className="text-sm text-slate-700 font-medium leading-relaxed">
@@ -889,47 +891,48 @@ function ServicioSlugPage() {
             </div>
           </div>
 
-          {/* Línea divisoria sólida */}
-          <div className="w-full h-1 bg-[#1E293B] rounded-full my-16" />
+          {/* Línea divisoria suave */}
+          <div className="w-full h-px bg-slate-200 my-16" />
 
-          {/* Bloque B: "Cómo trabajamos paso a paso" (Timeline Visual de 3 Pasos) */}
+          {/* Bloque B: "Cómo trabajamos paso a paso" (Tarjetas en Azul Claro #EFF6FF con texto oscuro) */}
           <div itemScope itemType="https://schema.org/HowTo">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
                 <Clock className="w-4 h-4 text-white" />
                 Metodología
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4" itemProp="name">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4" itemProp="name">
                 Cómo trabajamos paso a paso
               </h2>
-              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed" itemProp="description">
+              <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed" itemProp="description">
                 Un proceso riguroso, trazable y adaptado a la legislación de Cataluña y normativas de Santa Coloma de Gramenet.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               {service.steps.map((st, i) => (
                 <div 
                   key={i}
-                  className="bg-[#1E293B] border-2 border-[#3B82F6] rounded-2xl p-7 flex flex-col justify-between shadow-xl relative"
+                  className="bg-[#EFF6FF] border-2 border-blue-200/80 hover:border-[#2563EB] rounded-2xl p-7 flex flex-col justify-between shadow-xs transition-all"
                   itemScope 
                   itemProp="step" 
                   itemType="https://schema.org/HowToStep"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-5">
-                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-lg bg-[#2563EB] text-white text-sm font-black font-mono shadow-sm">
+                      {/* Etiqueta PASO con fondo azul sólido */}
+                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-xl bg-[#2563EB] text-white text-sm font-black font-mono shadow-xs">
                         PASO {st.number}
                       </span>
-                      <span className="text-xs font-bold text-[#60A5FA] uppercase tracking-wider font-mono">
+                      <span className="text-xs font-black text-[#2563EB] uppercase tracking-wider font-mono">
                         Fase 0{i + 1}
                       </span>
                     </div>
                     <meta itemProp="position" content={String(i + 1)} />
-                    <h3 className="text-lg sm:text-xl font-black text-white mb-3 leading-snug" itemProp="name">
+                    <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-3 leading-snug" itemProp="name">
                       {st.title}
                     </h3>
-                    <p className="text-sm text-slate-300 font-medium leading-relaxed" itemProp="text">
+                    <p className="text-sm text-slate-700 font-medium leading-relaxed" itemProp="text">
                       {st.desc}
                     </p>
                   </div>
@@ -942,17 +945,17 @@ function ServicioSlugPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) -> FONDO BLANCO PURO (#FFFFFF)
+          SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) -> CONTENEDOR VELLUM CLARO
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]" itemScope itemType="https://schema.org/FAQPage">
-        <div className="max-w-[960px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-6 sm:py-8" itemScope itemType="https://schema.org/FAQPage">
+        <div className="max-w-[960px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
               <HelpCircle className="w-4 h-4 text-white" />
               Resolvemos tus Dudas
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
               Preguntas frecuentes sobre {service.titleKey}
             </h2>
             <p className="text-slate-600 text-base font-medium">
@@ -967,7 +970,7 @@ function ServicioSlugPage() {
                 <div 
                   key={i}
                   className={`border-2 rounded-2xl transition-all overflow-hidden ${
-                    isOpen ? "border-[#2563EB] bg-[#F8FAFC] shadow-md" : "border-[#CBD5E1] bg-[#F8FAFC]"
+                    isOpen ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs" : "border-slate-200 bg-[#F8FAFC]"
                   }`}
                   itemScope 
                   itemProp="mainEntity" 
@@ -978,9 +981,9 @@ function ServicioSlugPage() {
                     onClick={() => setOpenFaqIndex(isOpen ? null : i)}
                     className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
                   >
-                    <h3 className="text-base sm:text-lg font-black text-[#111C35] flex items-center gap-3.5" itemProp="name">
+                    <h3 className="text-base sm:text-lg font-black text-[#0f172a] flex items-center gap-3.5" itemProp="name">
                       <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black shrink-0 transition-colors ${
-                        isOpen ? "bg-[#2563EB] text-white" : "bg-[#101A30] text-white"
+                        isOpen ? "bg-[#2563EB] text-white" : "bg-[#0F172A] text-white"
                       }`}>
                         ?
                       </span>
@@ -998,7 +1001,7 @@ function ServicioSlugPage() {
                       itemScope 
                       itemProp="acceptedAnswer" 
                       itemType="https://schema.org/Answer"
-                      className="px-5 sm:px-6 pb-6 pt-2 border-t-2 border-[#E2E8F0]"
+                      className="px-5 sm:px-6 pb-6 pt-2 border-t-2 border-blue-200/60"
                     >
                       <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed pl-11" itemProp="text">
                         {faq.a}
@@ -1014,38 +1017,38 @@ function ServicioSlugPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 5: SERVICIOS COMPLEMENTARIOS -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          SECCIÓN 5: SERVICIOS COMPLEMENTARIOS -> CONTENEDOR VELLUM CLARO
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#0A192F] py-20 text-white border-b-4 border-[#1E293B]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-6 sm:py-8">
+        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
               <Building2 className="w-4 h-4 text-white" />
               Ecosistema Integral Gesgrama
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
               Servicios complementarios en Santa Coloma
             </h2>
-            <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
+            <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
               Conectamos administración de fincas, comercialización inmobiliaria, asesoría jurídica y obras con un único interlocutor directo.
             </p>
           </div>
 
-          {/* 3 Tarjetas en Blanco Puro Sólido (#FFFFFF) con textos en azul marino */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+          {/* 3 Tarjetas en Azul Claro Sólido (#EFF6FF) con botones destacados */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12">
             {relatedServices.map((rel) => {
               const RelIcon = rel.icon;
               return (
                 <div
                   key={rel.slug}
-                  className="bg-[#FFFFFF] text-[#0A192F] border-2 border-[#E2E8F0] rounded-2xl p-7 flex flex-col justify-between shadow-xl"
+                  className="bg-[#EFF6FF] text-[#0f172a] border-2 border-blue-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs hover:border-[#2563EB] transition-all"
                 >
                   <div>
-                    <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center mb-5 shadow-md">
+                    <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center mb-5 shadow-xs">
                       <RelIcon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-black text-[#0A192F] mb-3 leading-snug">
+                    <h3 className="text-xl font-black text-[#0f172a] mb-3 leading-snug">
                       {rel.titleKey}
                     </h3>
                     <p className="text-sm text-slate-700 font-medium leading-relaxed mb-6">
@@ -1056,7 +1059,7 @@ function ServicioSlugPage() {
                   <Link
                     to="/servicios/$slug"
                     params={{ slug: rel.slug }}
-                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-3.5 px-5 rounded-xl font-black text-sm text-center block transition-all shadow-md cursor-pointer"
+                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-3.5 px-5 rounded-xl font-black text-sm text-center block transition-all shadow-xs cursor-pointer"
                   >
                     Ver servicio completo →
                   </Link>
@@ -1065,17 +1068,17 @@ function ServicioSlugPage() {
             })}
           </div>
 
-          {/* Banner Valorador en Azul Real Sólido (#1D4ED8) con botón en Blanco Puro Sólido (#FFFFFF) */}
-          <div className="bg-[#1D4ED8] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border-4 border-blue-400 shadow-2xl">
+          {/* Banner Valorador en Azul Marino Sólido #0F172A con botón blanco */}
+          <div className="bg-[#0F172A] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-700 shadow-xl text-white">
             <div className="flex items-center gap-5 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-[#FFFFFF] text-[#1D4ED8] flex items-center justify-center shrink-0 shadow-lg">
+              <div className="w-14 h-14 rounded-2xl bg-white text-[#2563EB] flex items-center justify-center shrink-0 shadow-md">
                 <Calculator className="w-8 h-8 stroke-[2.5]" />
               </div>
               <div>
                 <h4 className="text-xl sm:text-2xl font-black text-white leading-snug">
                   ¿Quieres saber el valor exacto de un piso en Santa Coloma?
                 </h4>
-                <p className="text-sm sm:text-base text-blue-100 font-medium mt-1">
+                <p className="text-sm sm:text-base text-slate-300 font-medium mt-1">
                   Calcula en 1 minuto la horquilla real de mercado según barrio y tipología sin registro obligatorio.
                 </p>
               </div>
@@ -1083,7 +1086,7 @@ function ServicioSlugPage() {
             
             <a
               href="/#valorador"
-              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-8 rounded-xl transition-all shrink-0 shadow-lg flex items-center gap-3 cursor-pointer"
+              className="bg-white hover:bg-[#F8FAFC] text-[#0f172a] font-black text-sm sm:text-base py-4 px-8 rounded-xl transition-all shrink-0 shadow-md flex items-center gap-3 cursor-pointer"
             >
               <span>Calcular valoración gratuita</span>
               <ArrowRight className="w-5 h-5 text-[#2563EB] stroke-[2.5]" />
@@ -1094,17 +1097,17 @@ function ServicioSlugPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          SECCIÓN 6: LOS 14 BARRIOS DE SANTA COLOMA -> FONDO BLANCO PURO (#FFFFFF)
+          SECCIÓN 6: LOS 14 BARRIOS DE SANTA COLOMA -> CONTENEDOR VELLUM CLARO
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+      <section className="py-6 sm:py-8">
+        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
           
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
               <MapPin className="w-4 h-4 text-white" />
               Cobertura 100% Municipal
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
               {service.barrioTitleContext}
             </h2>
             <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
@@ -1118,11 +1121,11 @@ function ServicioSlugPage() {
               <a
                 key={barrio.slug}
                 href={`/administrador-fincas/${barrio.slug}`}
-                className="bg-[#F8FAFC] hover:bg-[#2563EB] text-[#111C35] hover:text-white border-2 border-[#E2E8F0] hover:border-[#2563EB] rounded-2xl p-4.5 flex items-center justify-between transition-all duration-200 shadow-sm hover:shadow-xl hover:-translate-y-1 group cursor-pointer"
+                className="bg-[#EFF6FF] hover:bg-[#2563EB] text-[#0f172a] hover:text-white border-2 border-blue-200/80 hover:border-[#2563EB] rounded-2xl p-4.5 flex items-center justify-between transition-all duration-200 shadow-xs hover:shadow-lg hover:-translate-y-1 group cursor-pointer"
                 title={`${service.titleKey} en el barrio de ${barrio.name}, Santa Coloma de Gramenet`}
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-[#2563EB] group-hover:bg-[#FFFFFF] text-white group-hover:text-[#2563EB] flex items-center justify-center shrink-0 transition-colors shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-[#2563EB] group-hover:bg-white text-white group-hover:text-[#2563EB] flex items-center justify-center shrink-0 transition-colors shadow-xs">
                     <MapPin className="w-5 h-5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0">
@@ -1142,13 +1145,13 @@ function ServicioSlugPage() {
             ))}
           </div>
 
-          {/* Footer de cobertura municipal */}
-          <div className="p-6 bg-[#F8FAFC] border-2 border-[#E2E8F0] rounded-2xl flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-bold text-slate-700">
+          {/* Footer de cobertura municipal con SEDE CENTRAL en Azul Marino Sólido #0F172A */}
+          <div className="p-5 sm:p-6 bg-[#0F172A] text-white border border-slate-700 rounded-2xl flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-bold shadow-md">
             <span className="flex items-center gap-2.5">
-              <MapPin className="w-5 h-5 text-[#2563EB] shrink-0" />
-              <span>Sede central: <strong className="text-[#0A192F]">Av. dels Banús, 49</strong> · Santa Coloma de Gramenet (08923)</span>
+              <MapPin className="w-5 h-5 text-[#60A5FA] shrink-0" />
+              <span>Sede central: <strong className="text-white">Av. dels Banús, 49</strong> · Santa Coloma de Gramenet (08923)</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-[#FFFFFF] text-[#2563EB] px-3.5 py-1.5 rounded-full border border-[#CBD5E1] font-mono text-xs font-black shadow-xs">
+            <span className="inline-flex items-center gap-1.5 bg-[#2563EB] text-white px-3.5 py-1.5 rounded-full font-mono text-xs font-black shadow-xs">
               Códigos postales cubiertos: 08921 · 08922 · 08923 · 08924
             </span>
           </div>

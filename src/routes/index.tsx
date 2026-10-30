@@ -1001,8 +1001,8 @@ function Index() {
       </Suspense>
 
       {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
-      <section className="py-5 md:py-8 bg-[#e2e8f0] text-onyx">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200/80 p-5 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
+      <section className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx">
+        <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-6 sm:p-9 md:p-12 mx-4 sm:mx-6 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
           <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
             
             {/* Left Content */}
@@ -1105,9 +1105,9 @@ function Index() {
       </Suspense>
 
       {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
-      <section id="nosotros" className="relative overflow-hidden bg-[#edf2f7] text-onyx py-6 md:py-8 border-t-2 border-slate-300/80 scroll-mt-28 md:scroll-mt-32">
+      <section id="nosotros" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx scroll-mt-28 md:scroll-mt-32 font-sans">
         <div id="testimonios" className="-top-32 relative block invisible" />
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-lg border border-slate-200 p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
+        <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-6 sm:p-8 md:p-10 mx-4 sm:mx-6 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
           {/* Subtle Dot Pattern Overlay */}
           <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
           <div className="relative z-10">

@@ -8,9 +8,9 @@ import {
   Check, 
   Star, 
   Sparkles, 
-  TrendingUp, 
   ShieldCheck,
-  Building2
+  Calculator,
+  TrendingUp
 } from "lucide-react";
 import { formatLocation } from "@/data/properties";
 
@@ -22,7 +22,7 @@ interface ValuatorSectionProps {
   initialZona?: string;
 }
 
-// 14 barrios oficiales de Santa Coloma de Gramenet con datos de mercado basados en registro notarial y portal
+// 14 barrios oficiales de Santa Coloma de Gramenet con datos reales de mercado
 const SANTA_COLOMA_14_BARRIOS = [
   { name: "Centre", pricePerM2: 2350, demand: "Alta", variation: "+4.2%" },
   { name: "Santa Rosa", pricePerM2: 1910, demand: "Muy alta", variation: "+5.1%" },
@@ -48,67 +48,72 @@ ZONE_STATS_MAP["Centro"] = ZONE_STATS_MAP["Centre"];
 ZONE_STATS_MAP["Santa Rosa - Can Mariner"] = ZONE_STATS_MAP["Santa Rosa"];
 ZONE_STATS_MAP["Riera Alta - Llatí"] = ZONE_STATS_MAP["Riera Alta"];
 ZONE_STATS_MAP["Riu"] = ZONE_STATS_MAP["Riu Nord"];
-ZONE_STATS_MAP["Riu Nord / Riu Sud"] = ZONE_STATS_MAP["Riu Nord"];
-ZONE_STATS_MAP["Oliveres - Can Serra"] = ZONE_STATS_MAP["Les Oliveres"];
-ZONE_STATS_MAP["Oliveres"] = ZONE_STATS_MAP["Les Oliveres"];
 
-export default function ValuatorSection({ language, t, zonas, shouldReduceMotion, initialZona }: ValuatorSectionProps) {
+export default function ValuatorSection({
+  language,
+  t,
+  zonas,
+  shouldReduceMotion,
+  initialZona = "Centre"
+}: ValuatorSectionProps) {
   const isCa = language === "ca";
   const isEn = language === "en";
 
-  const effectiveInitialZona = initialZona && ZONE_STATS_MAP[initialZona] ? initialZona : "Centre";
-
-  // Form State
-  const [zona, setZona] = useState(effectiveInitialZona);
-  const [metros, setMetros] = useState(85);
-  const [habitaciones, setHabitaciones] = useState("3");
+  const [zona, setZona] = useState<string>(() => {
+    if (initialZona && ZONE_STATS_MAP[initialZona]) return initialZona;
+    return "Centre";
+  });
+  const [metros, setMetros] = useState<number>(75);
+  const [habitaciones, setHabitaciones] = useState<string>("3");
   const [estado, setEstado] = useState<"reformar" | "bueno" | "reformado">("bueno");
-  const [extras, setExtras] = useState<{ ascensor: boolean; terraza: boolean; parking: boolean; exterior: boolean }>({
+  const [extras, setExtras] = useState({
     ascensor: true,
     terraza: false,
     parking: false,
     exterior: true
   });
 
-  const [isCalculatingValuation, setIsCalculatingValuation] = useState(false);
+  const [isCalculatingValuation, setIsCalculatingValuation] = useState<boolean>(false);
 
-  // Lógica de cálculo auditada y rigurosa basada en el precio base del barrio
-  const calculateResultValues = (
+  const calculateValuation = (
     targetZona: string,
     targetMetros: number,
     targetHabitaciones: string,
     targetEstado: "reformar" | "bueno" | "reformado",
     targetExtras: { ascensor: boolean; terraza: boolean; parking: boolean; exterior: boolean }
   ) => {
-    const stats = ZONE_STATS_MAP[targetZona] || ZONE_STATS_MAP["Centre"];
+    const stats = ZONE_STATS_MAP[targetZona] || { pricePerM2: 1950, demand: "Alta", variation: "+3.8%" };
     let basePricePerM2 = stats.pricePerM2;
 
-    // Coeficiente por escala de superficie
-    const sizeFactor = targetMetros < 60 ? 1.07 : targetMetros <= 85 ? 1.03 : targetMetros <= 120 ? 0.98 : 0.93;
+    if (targetMetros < 50) basePricePerM2 *= 1.08;
+    else if (targetMetros > 120) basePricePerM2 *= 0.94;
 
-    // Ajuste por estado de conservación (A reformar -15%, Buen estado base, Reformado +12%)
-    let estadoFactor = 1.0;
-    if (targetEstado === "reformar") estadoFactor = 0.85;
-    if (targetEstado === "reformado") estadoFactor = 1.12;
+    if (targetHabitaciones === "1") basePricePerM2 *= 0.97;
+    else if (targetHabitaciones === "2") basePricePerM2 *= 0.99;
+    else if (targetHabitaciones === "3") basePricePerM2 *= 1.0;
+    else if (targetHabitaciones === "4+") basePricePerM2 *= 1.04;
 
-    // Ajuste por extras (Ascensor +5%, Terraza +4%, Parking +5%, Exterior +3%)
-    let extrasFactor = 1.0;
-    if (targetExtras.ascensor) extrasFactor += 0.05;
-    if (targetExtras.terraza) extrasFactor += 0.04;
-    if (targetExtras.parking) extrasFactor += 0.05;
-    if (targetExtras.exterior) extrasFactor += 0.03;
+    if (targetEstado === "reformar") basePricePerM2 *= 0.85;
+    else if (targetEstado === "bueno") basePricePerM2 *= 1.0;
+    else if (targetEstado === "reformado") basePricePerM2 *= 1.12;
 
-    const finalPricePerM2 = Math.round(basePricePerM2 * sizeFactor * estadoFactor * extrasFactor);
-    const estimatedValue = Math.round(targetMetros * finalPricePerM2);
-    const rangeMin = Math.round(estimatedValue * 0.94);
-    const rangeMax = Math.round(estimatedValue * 1.06);
+    let extrasMultiplier = 1.0;
+    if (targetExtras.ascensor) extrasMultiplier += 0.05;
+    if (targetExtras.terraza) extrasMultiplier += 0.04;
+    if (targetExtras.parking) extrasMultiplier += 0.05;
+    if (targetExtras.exterior) extrasMultiplier += 0.03;
+
+    const finalPricePerM2 = Math.round(basePricePerM2 * extrasMultiplier);
+    const estimatedValue = Math.round(finalPricePerM2 * targetMetros);
+
+    const rangeMin = Math.round((estimatedValue * 0.94) / 100) * 100;
+    const rangeMax = Math.round((estimatedValue * 1.06) / 100) * 100;
 
     return {
       estimatedValue,
       rangeMin,
       rangeMax,
       pricePerM2: finalPricePerM2,
-      basePricePerM2: stats.pricePerM2,
       demand: stats.demand,
       variation: stats.variation,
       zoneName: targetZona
@@ -116,7 +121,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
   };
 
   const [result, setResult] = useState(() =>
-    calculateResultValues(effectiveInitialZona, 85, "3", "bueno", { ascensor: true, terraza: false, parking: false, exterior: true })
+    calculateValuation(zona, metros, habitaciones, estado, extras)
   );
 
   const [displayMin, setDisplayMin] = useState<number>(result.rangeMin);
@@ -125,26 +130,19 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
   const animFrameRef = useRef<number | null>(null);
 
-  const triggerCalculation = (
-    newZona = zona,
-    newMetros = metros,
-    newHabitaciones = habitaciones,
-    newEstado = estado,
-    newExtras = extras
-  ) => {
-    setIsCalculatingValuation(true);
-    const calculated = calculateResultValues(newZona, newMetros, newHabitaciones, newEstado, newExtras);
+  useEffect(() => {
+    triggerCalculation(false);
+  }, [zona, metros, habitaciones, estado, extras]);
+
+  const triggerCalculation = (showSpinner = true) => {
+    if (showSpinner) {
+      setIsCalculatingValuation(true);
+    }
 
     setTimeout(() => {
+      const calculated = calculateValuation(zona, metros, habitaciones, estado, extras);
       setResult(calculated);
       setIsCalculatingValuation(false);
-
-      if (shouldReduceMotion) {
-        setDisplayMin(calculated.rangeMin);
-        setDisplayMax(calculated.rangeMax);
-        setDisplayPricePerM2(calculated.pricePerM2);
-        return;
-      }
 
       const startMin = displayMin;
       const targetMin = calculated.rangeMin;
@@ -153,7 +151,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       const startM2 = displayPricePerM2;
       const targetM2 = calculated.pricePerM2;
 
-      const duration = 450;
+      const duration = 400;
       const startTime = performance.now();
 
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
@@ -177,7 +175,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
       };
 
       animFrameRef.current = requestAnimationFrame(step);
-    }, 180);
+    }, showSpinner ? 180 : 0);
   };
 
   const handleSliderChange = (val: number) => {
@@ -190,37 +188,40 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
   const contactText = encodeURIComponent(
     isCa
-      ? `Hola Gesgrama, he consultat la valoració d'un habitatge a ${formatLocation(result.zoneName, "ca")} de ${metros} m² (${result.demand} demanda, rang estimat: ${new Intl.NumberFormat("es-ES").format(result.rangeMin)} € - ${new Intl.NumberFormat("es-ES").format(result.rangeMax)} €). M'agradaria sol·licitar una valoració exacta i presencial sense compromís.`
+      ? `Hola Gesgrama, he consultat la valoració d'un habitatge a ${formatLocation(result.zoneName, "ca")} de ${metros} m² (rang estimat: ${new Intl.NumberFormat("es-ES").format(result.rangeMin)} € - ${new Intl.NumberFormat("es-ES").format(result.rangeMax)} €). M'agradaria sol·licitar una valoració exacta i presencial sense compromís.`
       : isEn
       ? `Hello Gesgrama, I calculated the valuation for a property in ${formatLocation(result.zoneName, "en")} of ${metros} sq m (range: ${new Intl.NumberFormat("es-ES").format(result.rangeMin)} € - ${new Intl.NumberFormat("es-ES").format(result.rangeMax)} €). I would like to request an exact appraisal.`
       : `Hola Gesgrama, he consultado la valoración de una vivienda en ${formatLocation(result.zoneName, "es")} de ${metros} m² (horquilla: ${new Intl.NumberFormat("es-ES").format(result.rangeMin)} € - ${new Intl.NumberFormat("es-ES").format(result.rangeMax)} €). Me gustaría solicitar una valoración exacta y presencial sin compromiso.`
   );
 
   return (
-    <section id="valuator-form" className="relative overflow-hidden bg-[#101A30] text-white py-14 sm:py-16 md:py-20 scroll-mt-20 font-sans">
+    <section id="valuator-form" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-[#0f172a] scroll-mt-20 font-sans">
       <div id="valorador" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
       
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+      {/* ── CONTENEDOR VELLUM ESTILO APPLE (Burbuja Flotante) ── */}
+      <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
         
-        {/* Cabecera Principal con Tipografía Extra Grande (46-52px) */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-white/15">
-          <div className="flex flex-col items-start max-w-2xl">
-            <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[14px] sm:text-[15px] font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-md mb-3 font-sans">
-              <Star className="w-4 h-4 fill-white" />
+        {/* Cabecera de la Herramienta */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-10 pb-6 sm:pb-8 border-b border-slate-100">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs sm:text-sm font-black tracking-wider uppercase px-4 py-1.5 rounded-full shadow-xs mb-3">
+              <Calculator className="w-4 h-4 text-white" />
               <span>{isCa ? "VALORACIÓ DE MERCAT" : isEn ? "REAL ESTATE VALUATION" : "VALORACIÓN DE MERCADO"}</span>
-            </span>
-            <h2 className="text-[36px] sm:text-[44px] lg:text-[48px] xl:text-[52px] font-black text-white tracking-tight leading-[1.06] font-sans">
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black text-[#0f172a] tracking-tight leading-[1.12]">
               {isCa ? (
-                <>¿Quant val el teu habitatge a Santa Coloma?</>
+                <>¿Quant val el teu habitatge a <span className="text-[#2563EB]">Santa Coloma</span>?</>
               ) : isEn ? (
-                "How much is your home worth in Santa Coloma?"
+                <>How much is your home worth in <span className="text-[#2563EB]">Santa Coloma</span>?</>
               ) : (
-                <>¿Cuánto vale tu vivienda en Santa Coloma?</>
+                <>¿Cuánto vale tu vivienda en <span className="text-[#2563EB]">Santa Coloma</span>?</>
               )}
             </h2>
           </div>
-          <div className="lg:max-w-md lg:self-end">
-            <p className="text-[16px] sm:text-[17px] text-slate-200 font-medium leading-relaxed">
+
+          <div className="lg:max-w-md">
+            <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
               {isCa
                 ? "Calcula en 1 minut l'estimació real de mercat basada en transaccions notarials recents als 14 barris oficials de la ciutat."
                 : "Calcula en 1 minuto la estimación real de mercado basada en transacciones notariales recientes en los 14 barrios oficiales de la ciudad."}
@@ -228,58 +229,63 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
           </div>
         </div>
 
-        {/* Composición en 2 Columnas Sólidas (58% Izquierda / 42% Derecha) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-7 items-stretch">
+        {/* ── MÓDULO UNIFICADO EN UNA SOLA SÚPER-TARJETA FLOTANTE ── */}
+        <div className="bg-[#EFF6FF] border-2 border-blue-200/80 rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 md:p-10 shadow-sm">
           
-          {/* PANEL IZQUIERDO: Formulario de Datos (58% aprox -> lg:col-span-7) */}
-          <div className="lg:col-span-7 flex flex-col justify-between rounded-[24px] bg-white text-[#111C35] p-6 sm:p-8 shadow-2xl border-2 border-slate-200">
-            <div className="space-y-5 sm:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+            
+            {/* COLUMNA IZQUIERDA: Formulario Interactivo (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
               
               {/* 1. Selector de Barrio de Santa Coloma */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="valuator-zona-select" className="text-[16px] sm:text-[17px] font-black uppercase tracking-wider text-[#111C35] font-sans flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-[#2860F5]" />
+                  <label htmlFor="valuator-zona-select" className="text-sm sm:text-base font-black uppercase tracking-wider text-[#0f172a] flex items-center gap-2">
+                    <MapPin className="w-4.5 h-4.5 text-[#2563EB]" />
                     <span>{isCa ? "BARRI DE SANTA COLOMA" : "BARRIO DE SANTA COLOMA"}</span>
                   </label>
-                  <span className="text-[14px] sm:text-[15px] font-extrabold text-[#2860F5] bg-blue-50 px-3 py-0.5 rounded-full border border-blue-200">
+                  {/* Etiqueta sólida bien contrastada */}
+                  <span className="text-xs sm:text-sm font-black text-white bg-[#0F172A] px-3.5 py-1 rounded-full shadow-xs">
                     14 barrios oficiales
                   </span>
                 </div>
-                <div className="relative bg-[#f8fafc] rounded-2xl border-2 border-slate-300 hover:border-[#2860F5] focus-within:border-[#2860F5] transition-colors p-3.5 flex items-center justify-between">
+                
+                <div className="relative bg-white rounded-2xl border-2 border-slate-300 hover:border-[#2563EB] focus-within:border-[#2563EB] transition-colors p-3.5 flex items-center justify-between shadow-xs">
                   <select
                     id="valuator-zona-select"
                     value={zona}
                     onChange={(e) => setZona(e.target.value)}
-                    className="w-full bg-transparent border-0 p-0 text-[18px] sm:text-[19px] font-black text-[#111C35] focus:ring-0 appearance-none cursor-pointer outline-none font-sans"
+                    className="w-full bg-transparent border-0 p-0 text-base sm:text-lg font-black text-[#0f172a] focus:ring-0 appearance-none cursor-pointer outline-none"
                   >
                     {SANTA_COLOMA_14_BARRIOS.map((b) => (
                       <option key={b.name} value={b.name} className="py-1">
-                        {b.name} — {b.pricePerM2} €/m² (Demanda {b.demand})
+                        {b.name} — {b.pricePerM2} €/m² ({b.demand} demanda)
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="w-6 h-6 text-[#2860F5] pointer-events-none shrink-0 stroke-[2.5]" />
+                  <ChevronDown className="w-5 h-5 text-[#2563EB] pointer-events-none shrink-0 stroke-[2.5]" />
                 </div>
               </div>
 
-              {/* 2. Superficie m² con Slider y Controles Sólidos */}
+              {/* 2. Superficie m² con Slider y Controles */}
               <div>
                 <div className="flex items-center justify-between mb-2.5">
-                  <label htmlFor="valuator-m2-input" className="text-[16px] sm:text-[17px] font-black uppercase tracking-wider text-[#111C35] font-sans flex items-center gap-2">
-                    <Ruler className="w-5 h-5 text-[#2860F5]" />
+                  <label htmlFor="valuator-m2-input" className="text-sm sm:text-base font-black uppercase tracking-wider text-[#0f172a] flex items-center gap-2">
+                    <Ruler className="w-4.5 h-4.5 text-[#2563EB]" />
                     <span>{isCa ? "SUPERFÍCIE CONSTRUÏDA" : "SUPERFICIE CONSTRUIDA"}</span>
                   </label>
+                  
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => handleSliderChange(Math.max(30, metros - 5))}
-                      className="w-10 h-10 rounded-xl bg-[#2860F5] hover:bg-[#1e4ed8] text-white font-black flex items-center justify-center cursor-pointer active:scale-95 transition-all text-xl shadow-xs"
-                      aria-label="Restar 5 metros cuadrados"
+                      className="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 text-[#0f172a] border border-slate-300 font-black flex items-center justify-center cursor-pointer active:scale-95 transition-all text-lg shadow-xs"
+                      aria-label="Restar 5 metros"
                     >
                       -
                     </button>
-                    <div className="bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-1.5 flex items-center gap-1.5 min-w-[90px] justify-center">
+                    
+                    <div className="bg-white border-2 border-[#2563EB] rounded-xl px-3.5 py-1 flex items-center gap-1.5 min-w-[90px] justify-center shadow-xs">
                       <input
                         id="valuator-m2-input"
                         type="number"
@@ -287,20 +293,22 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                         max="250"
                         value={metros}
                         onChange={(e) => handleSliderChange(Math.max(20, Math.min(300, parseInt(e.target.value) || 30)))}
-                        className="w-14 text-center text-[20px] font-black text-[#111C35] border-none p-0 focus:ring-0 outline-none"
+                        className="w-12 text-center text-lg sm:text-xl font-black text-[#0f172a] border-none p-0 focus:ring-0 outline-none"
                       />
-                      <span className="text-[17px] font-black text-[#2860F5]">m²</span>
+                      <span className="text-base font-black text-[#2563EB]">m²</span>
                     </div>
+
                     <button
                       type="button"
                       onClick={() => handleSliderChange(Math.min(250, metros + 5))}
-                      className="w-10 h-10 rounded-xl bg-[#2860F5] hover:bg-[#1e4ed8] text-white font-black flex items-center justify-center cursor-pointer active:scale-95 transition-all text-xl shadow-xs"
-                      aria-label="Sumar 5 metros cuadrados"
+                      className="w-9 h-9 rounded-xl bg-white hover:bg-slate-100 text-[#0f172a] border border-slate-300 font-black flex items-center justify-center cursor-pointer active:scale-95 transition-all text-lg shadow-xs"
+                      aria-label="Sumar 5 metros"
                     >
                       +
                     </button>
                   </div>
                 </div>
+
                 <input
                   type="range"
                   min="30"
@@ -308,9 +316,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   step="1"
                   value={metros}
                   onChange={(e) => handleSliderChange(parseInt(e.target.value, 10))}
-                  className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2860F5]"
+                  className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
                 />
-                <div className="flex justify-between text-[14px] sm:text-[15px] font-extrabold text-slate-500 mt-1.5">
+                
+                <div className="flex justify-between text-xs sm:text-sm font-bold text-slate-500 mt-1.5">
                   <span>30 m²</span>
                   <span>90 m²</span>
                   <span>150 m²</span>
@@ -319,10 +328,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </div>
 
               {/* 3. Habitaciones y Estado de la Vivienda */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Habitaciones */}
                 <div>
-                  <span className="block text-[16px] sm:text-[17px] font-black uppercase tracking-wider text-[#111C35] mb-2 font-sans">
+                  <span className="block text-sm sm:text-base font-black uppercase tracking-wider text-[#0f172a] mb-2">
                     {isCa ? "HABITACIONS" : "HABITACIONES"}
                   </span>
                   <div className="grid grid-cols-4 gap-2">
@@ -333,10 +342,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                           key={h}
                           type="button"
                           onClick={() => setHabitaciones(h)}
-                          className={`py-3 px-2 rounded-xl text-[17px] sm:text-[18px] font-black transition-all cursor-pointer border-2 text-center shadow-xs ${
+                          className={`py-2.5 rounded-xl text-base font-black transition-all cursor-pointer border-2 text-center shadow-xs ${
                             isSelected
-                              ? "bg-[#2860F5] text-white border-[#2860F5] shadow-md"
-                              : "bg-white text-slate-800 border-slate-300 hover:border-slate-400"
+                              ? "bg-[#2563EB] text-white border-[#2563EB] shadow-md"
+                              : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
                           }`}
                         >
                           {h}
@@ -348,7 +357,7 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
 
                 {/* Estado del Inmueble */}
                 <div>
-                  <span className="block text-[16px] sm:text-[17px] font-black uppercase tracking-wider text-[#111C35] mb-2 font-sans">
+                  <span className="block text-sm sm:text-base font-black uppercase tracking-wider text-[#0f172a] mb-2">
                     {isCa ? "ESTAT DEL PIS" : "ESTADO DEL PISO"}
                   </span>
                   <div className="grid grid-cols-3 gap-2">
@@ -363,10 +372,10 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                           key={item.key}
                           type="button"
                           onClick={() => setEstado(item.key as any)}
-                          className={`py-3 px-1.5 rounded-xl text-[15px] sm:text-[16px] font-black transition-all cursor-pointer border-2 text-center shadow-xs leading-tight ${
+                          className={`py-2.5 px-1 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer border-2 text-center shadow-xs leading-tight ${
                             isSelected
-                              ? "bg-[#2860F5] text-white border-[#2860F5] shadow-md"
-                              : "bg-white text-slate-800 border-slate-300 hover:border-slate-400"
+                              ? "bg-[#2563EB] text-white border-[#2563EB] shadow-md"
+                              : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
                           }`}
                         >
                           {item.label}
@@ -377,9 +386,9 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                 </div>
               </div>
 
-              {/* 4. Extras de la Vivienda con Fondo Sólido Azul al Seleccionar */}
+              {/* 4. Extras de la Vivienda */}
               <div>
-                <span className="block text-[16px] sm:text-[17px] font-black uppercase tracking-wider text-[#111C35] mb-2 font-sans">
+                <span className="block text-sm sm:text-base font-black uppercase tracking-wider text-[#0f172a] mb-2">
                   {isCa ? "EXTRES DE L'HABITATGE" : "EXTRAS DE LA VIVIENDA"}
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -395,14 +404,14 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                         key={chip.key}
                         type="button"
                         onClick={() => toggleExtra(chip.key as keyof typeof extras)}
-                        className={`py-3 px-3 rounded-xl text-[16px] sm:text-[17px] font-black border-2 transition-all cursor-pointer flex items-center justify-between shadow-xs ${
+                        className={`py-2.5 px-3 rounded-xl text-xs sm:text-sm font-black border-2 transition-all cursor-pointer flex items-center justify-between shadow-xs ${
                           isChecked
-                            ? "bg-[#2860F5] text-white border-[#2860F5] shadow-md"
-                            : "bg-white text-slate-800 border-slate-300 hover:border-slate-400"
+                            ? "bg-[#2563EB] text-white border-[#2563EB] shadow-md"
+                            : "bg-white text-slate-800 border-slate-200 hover:border-slate-300"
                         }`}
                       >
                         <span>{chip.label}</span>
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[12px] font-black ${isChecked ? "bg-white text-[#2860F5]" : "bg-slate-200 text-slate-600"}`}>
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-black ${isChecked ? "bg-white text-[#2563EB]" : "bg-slate-100 text-slate-600"}`}>
                           {isChecked ? "✓" : "+"}
                         </span>
                       </button>
@@ -410,139 +419,111 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
                   })}
                 </div>
               </div>
+
             </div>
 
-            {/* Botón Principal Sólido «CALCULAR VALORACIÓN AHORA» */}
-            <div className="pt-6 mt-6 border-t-2 border-slate-100">
-              <button
-                type="button"
-                onClick={() => triggerCalculation()}
-                disabled={isCalculatingValuation}
-                className="w-full bg-[#2860F5] hover:bg-[#1e4ed8] active:scale-[0.99] text-white font-black text-[18px] sm:text-[19px] py-4 px-6 rounded-xl shadow-lg transition-all cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wider font-sans select-none disabled:opacity-80"
-              >
-                <Sparkles className="w-6 h-6 text-white shrink-0" />
-                <span>
-                  {isCalculatingValuation
-                    ? isCa ? "CALCULANT ESTIMACIÓ..." : "CALCULANDO ESTIMACIÓN..."
-                    : isCa ? "CALCULAR VALORACIÓ ARA →" : "CALCULAR VALORACIÓN AHORA →"}
-                </span>
-              </button>
-            </div>
-          </div>
-
-          {/* PANEL DERECHO: VALORACIÓN DE MERCADO PROTAGONISTA (42% aprox -> lg:col-span-5) */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-[24px] bg-[#0B1730] border border-slate-800 p-6 sm:p-7 text-white shadow-2xl relative overflow-hidden">
-            
-            {/* Loading Overlay */}
-            {isCalculatingValuation && (
-              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1730] transition-opacity duration-200">
-                <div className="w-10 h-10 border-4 border-[#2860F5] border-t-white rounded-full animate-spin mb-3" />
-                <span className="text-[15px] font-black text-white tracking-widest uppercase font-sans">
-                  {isCa ? "ACTUALITZANT VALORACIÓ..." : "ACTUALIZANDO VALORACIÓN..."}
-                </span>
-              </div>
-            )}
-
-            {/* Contenido Principal */}
-            <div className="space-y-4 sm:space-y-5">
+            {/* COLUMNA DERECHA: Resultado Integrado en Tarjeta Blanca Luminosa (5 cols) */}
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 border-2 border-blue-200 shadow-md flex flex-col justify-between h-full">
               
-              {/* 6. Cabecera */}
-              <div className="flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] font-black uppercase tracking-wider text-white bg-[#2860F5] px-4 py-2 rounded-xl shadow-sm">
-                  <Check className="w-4 h-4 text-white stroke-[3.5]" />
-                  <span>{isCa ? "ESTIMACIÓ DE MERCAT" : "ESTIMACIÓN DE MERCADO"}</span>
-                </span>
-                <span className="text-[15px] sm:text-[16px] font-black text-[#60A5FA] flex items-center gap-1.5 font-sans">
-                  <MapPin className="w-4 h-4 text-[#60A5FA] shrink-0" />
-                  <span>{result.zoneName}</span>
-                </span>
-              </div>
+              <div>
+                {/* Cabecera del Resultado */}
+                <div className="flex items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
+                  <span className="inline-flex items-center gap-1.5 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-xs">
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
+                    <span>{isCa ? "VALORACIÓ EN VIVO" : "VALORACIÓN EN VIVO"}</span>
+                  </span>
+                  
+                  <span className="text-xs sm:text-sm font-black text-[#0f172a] flex items-center gap-1">
+                    <MapPin className="w-4 h-4 text-[#2563EB]" />
+                    <span>{result.zoneName}</span>
+                  </span>
+                </div>
 
-              {/* 1 & 2. Valor Estimado de Venta: Superficie sólida #172B50 sin segundo borde llamativo */}
-              <div className="bg-[#172B50] rounded-2xl p-5 sm:p-6 text-center">
-                <p className="text-[14px] sm:text-[15px] font-black uppercase tracking-wider text-slate-300 mb-4 font-sans">
-                  {isCa ? "VALOR ESTIMAT DE VENDA" : "VALOR ESTIMADO DE VENTA"}
-                </p>
-                
-                {/* Tabla/Grid DESDE - HASTA equilibrada con Tabular Numbers y sin salto de línea en cantidades */}
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 items-center">
-                  <div className="flex flex-col items-center justify-center bg-[#0B1730] rounded-xl py-3 px-2 sm:px-3">
-                    <span className="text-[12px] sm:text-[13px] font-black uppercase tracking-wider text-[#60A5FA] mb-1 font-sans">
-                      {isCa ? "DES DE" : "DESDE"}
+                {/* Bloque Principal de Valor Estimado */}
+                <div className="bg-[#F8FAFC] border-2 border-slate-200 rounded-2xl p-5 sm:p-6 text-center mb-5">
+                  <p className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-500 mb-3">
+                    {isCa ? "VALOR ESTIMAT DE VENDA" : "VALOR ESTIMADO DE VENTA"}
+                  </p>
+                  
+                  {/* Rango Desde - Hasta con Tabular Numbers */}
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 items-center mb-3">
+                    <div className="bg-white border border-slate-200 rounded-xl py-3 px-2 shadow-xs">
+                      <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 block mb-0.5">
+                        {isCa ? "DES DE" : "DESDE"}
+                      </span>
+                      <span className="text-xl sm:text-2xl font-black text-[#0f172a] font-mono tabular-nums whitespace-nowrap">
+                        {new Intl.NumberFormat("es-ES").format(displayMin)}&nbsp;€
+                      </span>
+                    </div>
+
+                    <div className="bg-white border border-slate-200 rounded-xl py-3 px-2 shadow-xs">
+                      <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 block mb-0.5">
+                        {isCa ? "FINS A" : "HASTA"}
+                      </span>
+                      <span className="text-xl sm:text-2xl font-black text-[#2563EB] font-mono tabular-nums whitespace-nowrap">
+                        {new Intl.NumberFormat("es-ES").format(displayMax)}&nbsp;€
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-slate-600 font-bold">
+                    {metros} m² · {habitaciones} {isCa ? "habitacions" : "habitaciones"} · {estado === "reformado" ? "Reformado" : estado === "reformar" ? "A reformar" : "Buen estado"}
+                  </p>
+                </div>
+
+                {/* 3 Indicadores de Mercado en Tarjetas Claras */}
+                <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-6">
+                  <div className="bg-[#F8FAFC] border border-slate-200 rounded-xl p-3 text-center">
+                    <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider block">
+                      {isCa ? "PREU M²" : "PRECIO M²"}
                     </span>
-                    <span className="text-[20px] sm:text-[24px] xl:text-[28px] font-black text-white font-sans font-mono tabular-nums whitespace-nowrap">
-                      {new Intl.NumberFormat("es-ES").format(displayMin)}&nbsp;€
+                    <span className="text-base sm:text-lg font-black text-[#0f172a] font-mono tabular-nums mt-0.5 block whitespace-nowrap">
+                      {displayPricePerM2}&nbsp;€
                     </span>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center bg-[#0B1730] rounded-xl py-3 px-2 sm:px-3">
-                    <span className="text-[12px] sm:text-[13px] font-black uppercase tracking-wider text-[#60A5FA] mb-1 font-sans">
-                      {isCa ? "FINS A" : "HASTA"}
+                  <div className="bg-[#F8FAFC] border border-slate-200 rounded-xl p-3 text-center">
+                    <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider block">
+                      {isCa ? "DEMANDA" : "DEMANDA"}
                     </span>
-                    <span className="text-[20px] sm:text-[24px] xl:text-[28px] font-black text-white font-sans font-mono tabular-nums whitespace-nowrap">
-                      {new Intl.NumberFormat("es-ES").format(displayMax)}&nbsp;€
+                    <span className="text-base sm:text-lg font-black text-[#2563EB] mt-0.5 block">
+                      {result.demand}
+                    </span>
+                  </div>
+
+                  <div className="bg-[#F8FAFC] border border-slate-200 rounded-xl p-3 text-center">
+                    <span className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider block">
+                      {isCa ? "VARIACIÓ" : "VARIACIÓN"}
+                    </span>
+                    <span className="text-base sm:text-lg font-black text-emerald-600 mt-0.5 block">
+                      {result.variation}
                     </span>
                   </div>
                 </div>
-
-                {/* Resumen Inmueble */}
-                <p className="text-[14px] sm:text-[15px] text-slate-300 mt-3.5 font-bold">
-                  {metros} m² · {habitaciones} {isCa ? "habitacions" : "habitaciones"} · {estado === "reformado" ? "Reformado" : estado === "reformar" ? "A reformar" : "Buen estado"}
-                </p>
               </div>
 
-              {/* 4. Indicadores de Mercado: 3 bloques iguales con fondo sólido #172B50, sin bordes innecesarios */}
-              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
-                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
-                    {isCa ? "PREU M²" : "PRECIO M²"}
-                  </span>
-                  <span className="text-[20px] sm:text-[22px] font-black text-white mt-1 font-sans font-mono tabular-nums whitespace-nowrap">
-                    {displayPricePerM2}&nbsp;€
-                  </span>
-                </div>
+              {/* Botón de Acción Principal y Sello de Confianza */}
+              <div className="space-y-3 pt-4 border-t border-slate-100">
+                <a
+                  href={`https://wa.me/34689438012?text=${contactText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-14 bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-black text-sm sm:text-base px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2.5 uppercase tracking-wider cursor-pointer"
+                >
+                  <span>{isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}</span>
+                  <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
+                </a>
 
-                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
-                    {isCa ? "DEMANDA" : "DEMANDA"}
-                  </span>
-                  <span className="text-[20px] sm:text-[22px] font-black text-[#60A5FA] mt-1 font-sans">
-                    {result.demand}
-                  </span>
-                </div>
-
-                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
-                    {isCa ? "VARIACIÓ" : "VARIACIÓN"}
-                  </span>
-                  <span className="text-[20px] sm:text-[22px] font-black text-emerald-400 mt-1 font-sans">
-                    {result.variation}
-                  </span>
+                <div className="flex items-center justify-center gap-2 text-center">
+                  <ShieldCheck className="w-4 h-4 text-[#2563EB] shrink-0" />
+                  <p className="text-xs text-slate-600 font-bold">
+                    {isCa
+                      ? "Taxació presencial gratuïta per agents AICAT 5583 · Sense compromís"
+                      : "Tasación presencial gratuita por agentes AICAT 5583 · Sin compromiso"}
+                  </p>
                 </div>
               </div>
 
-            </div>
-
-            {/* 7. Botón de Valoración Exacta y Nota de Confianza */}
-            <div className="pt-5 mt-5 border-t border-slate-800 space-y-3">
-              <a
-                href={`https://wa.me/34689438012?text=${contactText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full h-[58px] sm:h-[62px] bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#101A30] font-black text-[17px] sm:text-[18px] px-6 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer shadow-lg active:scale-[0.99] font-sans"
-              >
-                <span>{isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}</span>
-                <ArrowRight className="w-5 h-5 text-[#2860F5] shrink-0 stroke-[3]" />
-              </a>
-
-              <div className="flex items-center justify-center gap-2 text-center pt-0.5">
-                <ShieldCheck className="w-4 h-4 text-[#60A5FA] shrink-0" />
-                <p className="text-[14px] sm:text-[15px] text-slate-300 font-bold font-sans">
-                  {isCa
-                    ? "Taxació presencial gratuïta per agents AICAT 5583 · Sense compromís"
-                    : "Tasación presencial gratuita por agentes AICAT 5583 · Sin compromiso"}
-                </p>
-              </div>
             </div>
 
           </div>

@@ -50,8 +50,8 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
   const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
 
   return (
-    <section id="contacto" className="py-5 md:py-8 bg-[#e2e8f0] text-onyx scroll-mt-28 md:scroll-mt-32">
-      <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-sm border border-slate-200/80 p-4 sm:p-7 md:p-9 mx-4 md:mx-auto max-w-[1320px] relative z-10">
+    <section id="contacto" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx scroll-mt-28 md:scroll-mt-32">
+      <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-4 md:mx-auto max-w-[1320px] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           {/* LEFT COLUMN: Title & Image Overlay Card */}
@@ -94,22 +94,22 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                 />
                 
-                {/* Floating Office Badge */}
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:left-3 sm:right-auto bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-lg border border-slate-100 max-w-[260px] z-20">
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                      <MapPin className="w-4 h-4 text-white stroke-[2.5]" />
+                {/* Floating Office Badge: Sede Central en Azul Marino Solido */}
+                <div className="absolute bottom-3 left-3 right-3 sm:left-3 sm:right-auto bg-[#0F172A] text-white rounded-2xl p-4 shadow-xl border border-slate-700 max-w-[280px] z-20">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                      <MapPin className="w-4.5 h-4.5 text-white stroke-[2.5]" />
                     </div>
                     <div>
-                      <div className="font-black text-[10px] sm:text-xs text-[#0f172a] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
-                      <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
+                      <div className="font-black text-[11px] text-[#60A5FA] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
+                      <div className="text-sm text-white font-black leading-snug mt-0.5 font-sans">
                         Av. dels Banús, 49
                       </div>
-                      <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
+                      <div className="text-xs text-slate-300 font-medium font-sans">
                         08923 Santa Coloma de Gramenet
                       </div>
-                      <a href="tel:+34934685656" className="inline-flex items-center gap-1 text-[#2563eb] font-black text-xs sm:text-sm mt-1 font-sans">
-                        <Phone className="w-3 h-3 text-[#2563eb]" /> 93 468 56 56
+                      <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#60A5FA] hover:text-white transition-colors font-bold text-xs mt-1 font-sans">
+                        <Phone className="w-3 h-3 text-[#60A5FA]" /> 93 468 56 56
                       </a>
                     </div>
                   </div>

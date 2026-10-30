@@ -85,20 +85,20 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
     : "grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch";
 
   return (
-    <section id="servicios" className="relative overflow-hidden bg-[#0a1529] text-white py-12 md:py-16 scroll-mt-24 font-sans">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+    <section id="servicios" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-[#0f172a] scroll-mt-24 font-sans">
+      <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
         
         {/* Cabecera de Sección Sólida */}
         <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[12px] sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-md">
+          <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[12px] sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
             <Building2 className="w-4 h-4 text-white" />
             <span>{t?.servicios?.tag || (isCa ? "Solucions Integrals" : "Soluciones Integrales")}</span>
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black leading-tight text-white mb-3 tracking-tight font-sans">
+          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black leading-tight text-[#0f172a] mb-3 tracking-tight font-sans">
             {t?.servicios?.title1 || (isCa ? "Serveis especialitzats a" : "Servicios especializados en")}{" "}
-            <span className="text-[#38bdf8]">Santa Coloma</span>
+            <span className="text-[#2563eb]">Santa Coloma</span>
           </h2>
-          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base md:text-lg font-medium leading-relaxed">
             {isCa
               ? "Guia completa i atenció directa a cada àrea amb el nostre equip d'advocats, administradors i agents immobiliaris col·legiats."
               : "Guía completa y atención directa en cada área con nuestro equipo de abogados, administradores de fincas y agentes colegiados."}

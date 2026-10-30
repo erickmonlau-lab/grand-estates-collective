@@ -85,20 +85,20 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
     : "grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch";
 
   return (
-    <section id="servicios" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-[#0f172a] scroll-mt-24 font-sans">
-      <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
+    <section id="servicios" className="py-12 sm:py-16 bg-[#FAF9FC] text-[#111111] scroll-mt-24 font-sans border-b-2 border-[#111111]">
+      <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] shadow-[5px_5px_0px_#111111] p-6 sm:p-10 md:p-14 relative z-10">
         
         {/* Cabecera de Sección Sólida */}
         <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-2 bg-[#2563eb] text-white text-[12px] sm:text-[13px] font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
+          <span className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider px-4 py-2 mb-4 border border-[#111111] neo-shadow-sm">
             <Building2 className="w-4 h-4 text-white" />
             <span>{t?.servicios?.tag || (isCa ? "Solucions Integrals" : "Soluciones Integrales")}</span>
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-[42px] font-black leading-tight text-[#0f172a] mb-3 tracking-tight font-sans">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black leading-tight text-[#111111] mb-4 tracking-tight">
             {t?.servicios?.title1 || (isCa ? "Serveis especialitzats a" : "Servicios especializados en")}{" "}
             <span className="text-[#2563eb]">Santa Coloma</span>
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base md:text-lg font-medium leading-relaxed">
+          <p className="text-[#111111] text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
             {isCa
               ? "Guia completa i atenció directa a cada àrea amb el nostre equip d'advocats, administradors i agents immobiliaris col·legiats."
               : "Guía completa y atención directa en cada área con nuestro equipo de abogados, administradores de fincas y agentes colegiados."}
@@ -112,10 +112,10 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
             return (
               <div
                 key={srv.slug}
-                className="bg-white text-[#0f172a] rounded-[22px] overflow-hidden shadow-xl border border-slate-200 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group"
+                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] flex flex-col justify-between transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#111111] group"
               >
                 {/* 1. ZONA SUPERIOR: Banner Fotográfico Real (110-120px) */}
-                <div className="relative h-[115px] sm:h-[120px] w-full overflow-hidden bg-slate-100">
+                <div className="relative h-[160px] sm:h-[180px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
                   <img
                     src={srv.image}
                     alt={srv.title}
@@ -137,13 +137,13 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
                       <div className="w-12 h-12 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-md">
                         <SrvIcon className="w-6 h-6 text-white stroke-[2.4]" />
                       </div>
-                      <h3 className="text-[22px] sm:text-[24px] font-extrabold text-[#0f172a] leading-tight group-hover:text-[#2563eb] transition-colors font-sans tracking-tight">
+                      <h3 className="text-[24px] sm:text-[28px] font-headline font-black text-[#111111] leading-tight group-hover:text-[#2860F5] transition-colors tracking-tight">
                         {srv.title}
                       </h3>
                     </div>
 
                     {/* Descripción con buena legibilidad (16-17px) */}
-                    <p className="text-[15px] sm:text-[16px] text-slate-700 font-medium leading-relaxed mb-5">
+                    <p className="text-[17px] sm:text-[18px] text-[#111111] font-medium leading-relaxed mb-6">
                       {srv.desc}
                     </p>
 
@@ -151,9 +151,9 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
                     <div className="border-t border-slate-100 pt-4 mb-5">
                       <ul className="space-y-2.5">
                         {srv.bullets.map((bullet, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-[14px] sm:text-[15px] font-bold text-slate-800">
+                          <li key={idx} className="flex items-start gap-3.5 text-[16px] sm:text-[17px] font-bold text-[#111111]">
                             {/* Tick Sólido Azul con Símbolo Blanco */}
-                            <div className="w-5 h-5 rounded-full bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                            <div className="w-6 h-6 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 mt-0.5 shadow-xs font-bold">
                               <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                             </div>
                             <span className="leading-snug pt-0.5">{bullet}</span>
@@ -168,7 +168,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
                     <Link
                       to="/servicios/$slug"
                       params={{ slug: srv.slug }}
-                      className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] active:scale-[0.99] text-white font-extrabold text-[15px] sm:text-[16px] py-3.5 px-6 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 uppercase tracking-wider cursor-pointer font-sans"
+                      className="w-full h-[58px] neo-btn-primary font-headline font-black text-[16px] sm:text-[18px] px-6 flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer"
                     >
                       <span>{isCa ? "EXPLORAR SERVEI" : isEn ? "EXPLORE SERVICE" : "EXPLORAR SERVICIO"}</span>
                       <ArrowRight className="w-4.5 h-4.5 text-white shrink-0 stroke-[2.8]" />

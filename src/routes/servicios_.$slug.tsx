@@ -702,22 +702,22 @@ function ServicioSlugPage() {
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] leading-tight mb-4 tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] leading-[1.08] mb-5 tracking-tight">
                 {service.titleKey}
               </h1>
 
-              <p className="text-[#2860F5] text-lg sm:text-xl font-headline font-bold mb-4 leading-snug">
+              <p className="text-[#2860F5] text-xl sm:text-2xl font-headline font-bold mb-5 leading-snug">
                 {service.taglineKey}
               </p>
 
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl font-normal mb-8">
+              <p className="text-[#111111] text-lg sm:text-xl leading-relaxed max-w-2xl font-medium mb-8">
                 {service.intro}
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-                  className="neo-btn-primary font-headline font-black text-sm sm:text-base py-4 px-7 flex items-center gap-3 cursor-pointer"
+                  className="neo-btn-primary font-headline font-black text-base sm:text-lg py-4.5 px-8 flex items-center gap-3.5 cursor-pointer shadow-[4px_4px_0px_#111111]"
                 >
                   <span>Solicitar presupuesto gratuito</span>
                   <ArrowRight className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
@@ -726,7 +726,7 @@ function ServicioSlugPage() {
                   href="https://wa.me/34601259424"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="neo-btn-secondary font-headline font-black text-sm sm:text-base py-4 px-7 flex items-center gap-3 cursor-pointer"
+                  className="neo-btn-secondary font-headline font-black text-base sm:text-lg py-4.5 px-8 flex items-center gap-3.5 cursor-pointer shadow-[4px_4px_0px_#111111]"
                 >
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#16A34A] shrink-0">
                     <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
@@ -780,10 +780,10 @@ function ServicioSlugPage() {
               <FileText className="w-4 h-4 text-white" />
               Alcance del Servicio
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-5">
               ¿Qué incluye nuestro servicio de {service.titleKey}?
             </h2>
-            <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
+            <p className="text-[#111111] text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
               Desglose detallado de actuaciones jurídicas, técnicas y administrativas incluidas en nuestra tarifa sin sobrecostes.
             </p>
           </div>
@@ -800,10 +800,10 @@ function ServicioSlugPage() {
                   <div className="w-10 h-10 bg-[#2860F5] text-white border-2 border-[#111111] neo-shadow-sm flex items-center justify-center shrink-0 mb-5">
                     <Check className="w-6 h-6 text-white stroke-[3]" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-headline font-black text-[#111111] mb-2 leading-snug group-hover:text-[#2860F5] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-headline font-black text-[#111111] mb-3 leading-snug group-hover:text-[#2860F5] transition-colors">
                     {feat.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
+                  <p className="text-base sm:text-lg text-[#111111] font-medium leading-relaxed">
                     {feat.desc}
                   </p>
                 </div>
@@ -860,7 +860,7 @@ function ServicioSlugPage() {
                 <Award className="w-4 h-4 text-white" />
                 Ventajas Gesgrama
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-5">
                 ¿Por qué elegir a Gesgrama en Santa Coloma?
               </h2>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
@@ -876,13 +876,13 @@ function ServicioSlugPage() {
                   className="bg-white text-[#111111] border-2 border-[#111111] neo-shadow p-6 flex flex-col justify-between transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#111111]"
                 >
                   <div>
-                    <span className="text-2xl sm:text-3xl font-data-mono font-black text-[#2860F5] block mb-2">
+                    <span className="text-3xl sm:text-4xl font-data-mono font-black text-[#2860F5] block mb-2.5">
                       {v.metric}
                     </span>
-                    <h3 className="text-lg font-headline font-bold text-[#111111] mb-2 leading-snug">
+                    <h3 className="text-xl font-headline font-black text-[#111111] mb-2.5 leading-snug">
                       {v.title}
                     </h3>
-                    <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                    <p className="text-base text-[#111111] font-medium leading-relaxed">
                       {v.desc}
                     </p>
                   </div>
@@ -901,7 +901,7 @@ function ServicioSlugPage() {
                 <Clock className="w-4 h-4 text-white" />
                 Metodología
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4" itemProp="name">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-5" itemProp="name">
                 Cómo trabajamos paso a paso
               </h2>
               <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed" itemProp="description">
@@ -932,7 +932,7 @@ function ServicioSlugPage() {
                     <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-3 leading-snug" itemProp="name">
                       {st.title}
                     </h3>
-                    <p className="text-sm text-slate-700 font-medium leading-relaxed" itemProp="text">
+                    <p className="text-base text-[#111111] font-medium leading-relaxed" itemProp="text">
                       {st.desc}
                     </p>
                   </div>
@@ -955,7 +955,7 @@ function ServicioSlugPage() {
               <HelpCircle className="w-4 h-4 text-white" />
               Resolvemos tus Dudas
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-5">
               Preguntas frecuentes sobre {service.titleKey}
             </h2>
             <p className="text-slate-600 text-base font-medium">
@@ -981,7 +981,7 @@ function ServicioSlugPage() {
                     onClick={() => setOpenFaqIndex(isOpen ? null : i)}
                     className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
                   >
-                    <h3 className="text-base sm:text-lg font-black text-[#0f172a] flex items-center gap-3.5" itemProp="name">
+                    <h3 className="text-lg sm:text-xl font-headline font-black text-[#111111] flex items-center gap-3.5" itemProp="name">
                       <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black shrink-0 transition-colors ${
                         isOpen ? "bg-[#2563EB] text-white" : "bg-[#0F172A] text-white"
                       }`}>
@@ -1003,7 +1003,7 @@ function ServicioSlugPage() {
                       itemType="https://schema.org/Answer"
                       className="px-5 sm:px-6 pb-6 pt-2 border-t-2 border-blue-200/60"
                     >
-                      <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed pl-11" itemProp="text">
+                      <p className="text-base sm:text-lg text-[#111111] font-medium leading-relaxed pl-11" itemProp="text">
                         {faq.a}
                       </p>
                     </div>
@@ -1027,7 +1027,7 @@ function ServicioSlugPage() {
               <Building2 className="w-4 h-4 text-white" />
               Ecosistema Integral Gesgrama
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-5">
               Servicios complementarios en Santa Coloma
             </h2>
             <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">

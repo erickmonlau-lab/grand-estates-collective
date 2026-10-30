@@ -506,24 +506,42 @@ function Index() {
       <section id="seccion-propiedades" className="relative overflow-hidden bg-[#FAF9FC] text-onyx py-8 md:py-12 border-t-2 border-[#111111]">
         <div id="propiedades" className="bg-white rounded-[24px] shadow-[4px_4px_0px_#111111] border-2 border-[#111111] p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1360px] relative z-10 scroll-mt-20 md:scroll-mt-24">
           <div>
-            {/* Header: Badge + H2 + Description with balanced spacing */}
-            <div className="mb-4 sm:mb-5">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 border border-[#111111] shadow-[2px_2px_0px_#2860F5] mb-3 font-headline">
-                <Home className="w-3.5 h-3.5 text-white" />
-                <span>{language === "ca" ? "PROPIETATS DESTACADES" : language === "en" ? "FEATURED PROPERTIES" : "PROPIEDADES DESTACADAS"}</span>
-              </span>
+            {/* Header: Encabezado Editorial Limpio + H2 con Drawn Underline + Descripción Compactada */}
+            <div className="mb-6 sm:mb-8">
+              {/* Encabezado editorial: INMOBILIARIA · SANTA COLOMA en azul corporativo, sin botón, sin borde negro rectangular, sin sombra dura */}
+              <div className="flex items-center gap-2 text-[#2860F5] text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase mb-2">
+                <Home className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
+                <span>{language === "ca" ? "IMMOBILIÀRIA · SANTA COLOMA" : language === "en" ? "REAL ESTATE · SANTA COLOMA" : "INMOBILIARIA · SANTA COLOMA"}</span>
+              </div>
 
-              <h2 key={language} className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
+              {/* Titular principal: Space Grotesk, 42-46px, peso 700-800, azul #2860F5 con trazo orgánico Drawn */}
+              <h2 key={language} className="text-3xl sm:text-4xl md:text-[44px] font-headline font-extrabold text-[#111111] leading-[1.15] tracking-tight mb-3 w-full" style={{ textWrap: "balance" }}>
                 {language === "ca" ? (
-                  <>Descobreix les nostres <span className="text-[#2563eb] whitespace-nowrap inline-block">millors oportunitats.</span></>
+                  <>Descobreix les nostres{" "}
+                    <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                      millors oportunitats.
+                      <DrawnUnderline color="#2860F5" />
+                    </span>
+                  </>
                 ) : language === "en" ? (
-                  <>Discover our <span className="text-[#2563eb] whitespace-nowrap inline-block">best properties.</span></>
+                  <>Discover our{" "}
+                    <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                      best properties.
+                      <DrawnUnderline color="#2860F5" />
+                    </span>
+                  </>
                 ) : (
-                  <>Descubre nuestras <span className="text-[#2563eb] whitespace-nowrap inline-block">mejores oportunidades.</span></>
+                  <>Descubre nuestras{" "}
+                    <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                      mejores oportunidades.
+                      <DrawnUnderline color="#2860F5" />
+                    </span>
+                  </>
                 )}
               </h2>
 
-              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans max-w-3xl text-balance">
+              {/* Descripción: 16-18px Inter / Sans font-medium text-[#111111] max-w-3xl */}
+              <p className="text-[#333333] text-base sm:text-[17px] leading-relaxed font-sans font-medium max-w-3xl">
                 {language === "ca"
                   ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
                   : language === "en"
@@ -532,67 +550,67 @@ function Index() {
               </p>
             </div>
 
-            {/* Unified Results Controls Bar: Fav Button + Counter + Sort Dropdown on Shared Baseline */}
-            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 w-full">
-              {/* Left: Favoritos button */}
-              <div className="flex items-center self-start sm:self-center">
+            {/* Unified Results Controls Bar: Barra integrada sólida y redondeada */}
+            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-2 mb-6 p-2 sm:p-2.5 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
+              {/* Left: Favoritos button sólido y redondeado */}
+              <div className="flex items-center">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans whitespace-nowrap border shadow-xs ${
+                  className={`h-[44px] px-4 rounded-xl text-sm font-headline font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap border-2 border-[#111111] shadow-[2px_2px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[1px] hover:translate-y-[1px] ${
                     searchParams.mode === "favoritos"
-                      ? "bg-red-600 text-white border-red-600 shadow-sm"
-                      : "bg-white text-[#0f172a] hover:bg-slate-50 border-slate-200"
+                      ? "bg-red-500 text-white"
+                      : "bg-[#FFFFFF] text-[#111111] hover:bg-[#FAF9FC]"
                   }`}
                 >
-                  <Heart className={`w-3.5 h-3.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
-                  <span>Fav ({favorites.length})</span>
+                  <Heart className={`w-4 h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
+                  <span>Favoritos ({favorites.length})</span>
                 </button>
               </div>
 
-              {/* Right: Counter + Sort */}
-              <div className="flex items-center justify-between sm:justify-end gap-5 sm:gap-6 shrink-0 self-stretch sm:self-center">
+              {/* Right: Counter + Sort en bloque integrado */}
+              <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-4 shrink-0">
                 <div
-                  className="flex items-center gap-2.5 font-sans"
+                  className="flex items-center gap-2 bg-[#FFFFFF] border-2 border-[#111111] rounded-xl px-3.5 h-[44px] shadow-[2px_2px_0px_#111111]"
                   aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
                 >
-                  <span className="inline-flex items-center justify-center min-w-[2rem] h-8 px-2 bg-[#2563eb] text-white text-sm font-black rounded-xl shadow-sm shrink-0 tabular-nums">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2860F5] shrink-0" />
+                  <span className="text-sm font-headline font-black text-[#111111] tabular-nums">
                     {filteredProperties.length}
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-[#0b214a]">{t.properties.availableCount}</span>
+                  <span className="text-xs sm:text-sm font-headline font-bold text-[#111111]">{t.properties.availableCount}</span>
                 </div>
 
                 <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
-                  <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] font-sans hidden sm:inline">{t.properties.sortBy}:</span>
                   <button 
                     onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                    className="flex items-center gap-1.5 bg-white border border-slate-200 hover:border-[#2563eb] rounded-xl px-3 py-1.5 font-bold text-[#0f172a] hover:text-[#2563eb] transition-all shadow-2xs font-sans text-xs sm:text-sm cursor-pointer"
+                    className="h-[44px] flex items-center gap-2 bg-[#FFFFFF] border-2 border-[#111111] hover:border-[#2860F5] rounded-xl px-3.5 py-1.5 font-headline font-bold text-[#111111] hover:text-[#2860F5] transition-all shadow-[2px_2px_0px_#111111] text-xs sm:text-sm cursor-pointer"
                   >
+                    <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] hidden sm:inline">{t.properties.sortBy}:</span>
                     <span>{sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-[#111111] shrink-0 stroke-[2.5]" />
                   </button>
 
                   {openDropdown === "ordenar" && (
-                    <div className="absolute top-full right-0 mt-1.5 w-56 bg-white border border-slate-200 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.12)] z-50 p-1.5 divide-y divide-slate-100">
+                    <div className="absolute top-full right-0 mt-2 w-56 bg-white border-2 border-[#111111] rounded-xl shadow-[4px_4px_0px_#111111] z-50 p-2 space-y-1">
                       {[
                         { label: t.properties.mostRecent, value: "recientes" },
                         { label: t.properties.precioMenor, value: "precio_asc" },
                         { label: t.properties.precioMayor, value: "precio_desc" }
                       ].map(opt => (
-                        <div key={opt.value} className="py-0.5 first:pt-0 last:pb-0">
-                          <button
-                            onClick={() => {
-                              setSortOption(opt.value);
-                              setOpenDropdown(null);
-                            }}
-                            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                              sortOption === opt.value ? "bg-[#2563eb] text-white border-[#2563eb] shadow-xs" : "border-transparent hover:border-blue-100 text-slate-800 hover:bg-blue-50/50"
-                            }`}
-                          >
-                            <span className="leading-snug">{opt.label}</span>
-                            {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[2.5]" />}
-                          </button>
-                        </div>
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSortOption(opt.value);
+                            setOpenDropdown(null);
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-headline font-bold text-left transition-all cursor-pointer border ${
+                            sortOption === opt.value ? "bg-[#2860F5] text-white border-[#111111] shadow-xs" : "border-transparent hover:border-[#111111] text-[#111111] hover:bg-[#FAF9FC]"
+                          }`}
+                        >
+                          <span className="leading-snug">{opt.label}</span>
+                          {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[2.5]" />}
+                        </button>
                       ))}
                     </div>
                   )}
@@ -872,7 +890,7 @@ function Index() {
                     /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */
                     <div
                       key={searchParams.mode}
-                      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
+                      className={`grid grid-cols-1 ${displayProperties.length === 1 ? 'max-w-xl mx-auto' : displayProperties.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 md:gap-8 mb-8 transition-opacity duration-300`}
                     >
                       {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
                     </div>
@@ -911,10 +929,12 @@ function Index() {
                             <span>{t.properties.verTodas}</span>
                             <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
                           </button>
-                          <div className="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 px-4 py-1.5 rounded-full shadow-2xs">
-                            <CheckCircle2 className="w-4 h-4 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                            <p className="text-xs sm:text-sm font-black text-[#0f172a] font-sans tracking-tight">
-                              {t.properties.showingAll} <span className="text-[#2563eb]">({filteredProperties.length})</span>
+                          <div className="inline-flex items-center gap-2.5 bg-[#FFFFFF] border-2 border-[#111111] px-5 py-2.5 rounded-2xl shadow-[3px_3px_0px_#111111]">
+                            <div className="w-5 h-5 rounded-full bg-[#2860F5] text-white flex items-center justify-center shrink-0">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
+                            </div>
+                            <p className="text-xs sm:text-sm font-headline font-black text-[#111111] tracking-tight">
+                              {t.properties.showingAll} <span className="text-[#2860F5] font-data-mono font-black">({filteredProperties.length})</span>
                             </p>
                           </div>
                         </div>

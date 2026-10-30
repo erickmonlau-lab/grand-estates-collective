@@ -1054,82 +1054,112 @@ function Index() {
         <CoberturaSection language={language} t={t} />
       </Suspense>
 
-      {/* ── 9. TESTIMONIOS / NOSOTROS EDITORIAL NEO-BRUTALIST ── */}
-      <section id="nosotros" className="py-14 sm:py-20 bg-[#FFFFFF] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
+            {/* ── 9. TESTIMONIOS / NOSOTROS EDITORIAL NEO-BRUTALIST ── */}
+      <section id="nosotros" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
         <div id="testimonios" className="-top-32 relative block invisible" />
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
           
-          {/* Cabecera Editorial */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
+          {/* Cabecera Editorial Limpia */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b-2 border-[#111111]">
             <div>
-              <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
-                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                <span>{t.testimonios.tag}</span>
+              {/* Etiqueta azul sólida redondeada con estrella */}
+              <div className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[12px] sm:text-[13px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full border-2 border-[#111111] shadow-[2px_2px_0px_#111111] mb-3">
+                <Star className="w-3.5 h-3.5 text-white fill-white" />
+                <span>{language === 'ca' ? 'OPINIONS DE CLIENTS' : language === 'en' ? 'CLIENT REVIEWS' : 'OPINIONES DE CLIENTES'}</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
-                {t.testimonios.title1}{" "}
-                <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{t.testimonios.title2}</span>
+
+              {/* Titular grande con detalle Drawn orgánico */}
+              <h2 className="text-3xl sm:text-4xl md:text-[44px] font-headline font-black text-[#111111] tracking-tight leading-tight mb-2">
+                <span>{language === 'ca' ? 'El que diuen els nostres ' : language === 'en' ? 'What our clients ' : 'Lo que dicen nuestros '}</span>
+                <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                  {language === 'ca' ? 'clients.' : language === 'en' ? 'say.' : 'clientes.'}
+                  <DrawnUnderline color="#2860F5" />
+                </span>
               </h2>
+              
+              <p className="text-[15px] sm:text-[16px] font-sans font-medium text-slate-700 max-w-xl">
+                {t.testimonios.subtitle}
+              </p>
             </div>
 
-            {/* Google Verified Reviews Badge Sólido */}
-            <div className="lg:max-w-md">
-              <div className="inline-flex items-center gap-3 bg-[#FAF9FC] border-2 border-[#111111] rounded-full shadow-[2px_2px_0px_#111111] px-5 py-2.5">
+            {/* Acreditación de Google integrada en cabecera */}
+            <div className="lg:max-w-md shrink-0">
+              <div className="inline-flex items-center gap-3 bg-[#FFFFFF] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] px-5 py-3">
                 <GoogleIcon className="w-6 h-6 shrink-0" />
-                <span className="text-[15px] sm:text-[16px] font-headline font-black text-[#111111] tracking-wide">
-                  {language === 'ca' ? 'Ressenyes 100% verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas 100% verificadas en Google'}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-[14px] sm:text-[15px] font-headline font-black text-[#111111] leading-none">
+                    {language === 'ca' ? 'Ressenyes verificades' : language === 'en' ? 'Verified reviews' : 'Reseñas verificadas'}
+                  </span>
+                  <span className="text-[12px] font-headline font-bold text-[#2860F5] mt-0.5">
+                    Google Business Profile
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* 3 Real Google Reviews Cards en Bloques Blancos Sólidos con Bordes de 2px */}
+          {/* 3 Opiniones con Jerarquía: Central/Destacada en Azul #2860F5 + Complementarias Blancas */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {t.testimonios.items.map((item, i) => {
               const initials = ["F", "A", "C"];
+              // Destacamos la tarjeta del medio (i === 1) o la primera para aportar jerarquía visual
+              const isFeatured = i === 1;
 
               return (
                 <div 
                   key={item.author} 
-                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] p-6 flex flex-col justify-between transition-all duration-200 group"
+                  className={`rounded-2xl border-2 border-[#111111] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 ${
+                    isFeatured
+                      ? "bg-[#2860F5] text-white shadow-[4px_4px_0px_#111111] md:-translate-y-1.5"
+                      : "bg-[#FFFFFF] text-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[4px_4px_0px_#2860F5]"
+                  }`}
                 >
                   <div>
-                    {/* Top Row: Stars + Google Badge */}
-                    <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b-2 border-[#111111]">
-                      <div className="flex items-center gap-1 text-amber-400">
+                    {/* Top Row: Stars + Google Badge Integrado */}
+                    <div className={`flex items-center justify-between gap-2 mb-4 pb-3 border-b-2 ${isFeatured ? "border-white/30" : "border-[#111111]"}`}>
+                      <div className="flex items-center gap-1">
                         {[...Array(5)].map((_, s) => (
                           <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
                         ))}
                       </div>
-                      <div className="inline-flex items-center gap-1.5 bg-[#111111] text-white px-2.5 py-0.5 text-[11px] font-headline font-black tracking-wider uppercase">
+                      <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-headline font-black tracking-wider uppercase rounded-lg border ${
+                        isFeatured ? "bg-white text-[#111111] border-white" : "bg-[#111111] text-white border-[#111111]"
+                      }`}>
                         <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
                         <span>Google</span>
                       </div>
                     </div>
 
-                    {/* Texto de Reseña Grande y Legible */}
-                    <p className="text-[#111111] text-[16px] sm:text-[17px] font-medium leading-relaxed mb-6">
+                    {/* Texto de Reseña de 16-17px */}
+                    <p className={`text-[16px] sm:text-[17px] font-medium leading-relaxed mb-6 ${isFeatured ? "text-white" : "text-[#111111]"}`}>
                       “{item.quote}”
                     </p>
                   </div>
 
                   {/* Fila de Autor y Verificación */}
-                  <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between gap-3 mt-auto">
+                  <div className={`pt-4 border-t-2 ${isFeatured ? "border-white/30" : "border-[#111111]"} flex items-center justify-between gap-3 mt-auto`}>
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 bg-[#111111] text-white border-2 border-[#111111] rounded-full font-headline font-black text-sm flex items-center justify-center shrink-0">
+                      <div className={`w-10 h-10 rounded-full font-headline font-black text-sm flex items-center justify-center shrink-0 border-2 ${
+                        isFeatured ? "bg-white text-[#2860F5] border-white" : "bg-[#2860F5] text-white border-[#111111]"
+                      }`}>
                         {initials[i % initials.length]}
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <strong className="font-headline font-black text-[15px] sm:text-[16px] text-[#111111] truncate">
+                        <strong className={`font-headline font-black text-[15px] sm:text-[16px] truncate ${isFeatured ? "text-white" : "text-[#111111]"}`}>
                           {item.author}
                         </strong>
-                        <span className="text-[12px] font-data-mono font-bold text-slate-600">
+                        <span className={`text-[12px] font-data-mono font-bold ${isFeatured ? "text-blue-100" : "text-slate-500"}`}>
                           {item.time}
                         </span>
                       </div>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 text-[12px] font-headline font-black text-white bg-[#16A34A] border border-[#111111] rounded-full px-2.5 py-1 shrink-0">
+                    {/* Indicador azul sólido corporativo de verificación */}
+                    <span className={`inline-flex items-center gap-1 text-[11px] sm:text-[12px] font-headline font-black border rounded-full px-2.5 py-1 shrink-0 ${
+                      isFeatured
+                        ? "bg-white text-[#2860F5] border-white"
+                        : "bg-[#2860F5] text-white border-[#111111]"
+                    }`}>
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                       <span>{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                     </span>

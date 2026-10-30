@@ -151,10 +151,10 @@ export function Footer({ language = "es" }: FooterProps) {
             </h3>
             <p className="text-sm leading-relaxed text-slate-300 font-medium mb-4">
               {isCa
-                ? "Col·legiats oficials amb cobertura jurídica, assegurança de responsabilitat civil i atenció d'urgències 24/7."
+                ? "Col·legiats oficials amb cobertura jurídica, assegurança de responsabilitat civil i resposta àgil i prioritària a incidències."
                 : isEn
-                ? "Official chartered members with legal coverage, civil liability insurance and 24/7 emergency support."
-                : "Colegiados oficiales con cobertura jurídica, seguro de responsabilidad civil y atención de urgencias 24/7."}
+                ? "Official chartered members with legal coverage, civil liability insurance and agile priority incident response."
+                : "Colegiados oficiales con cobertura jurídica, seguro de responsabilidad civil y respuesta ágil y prioritaria ante incidencias."}
             </p>
             <div className="bg-[#131d33] border border-white/10 rounded-xl p-3.5 space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-white">

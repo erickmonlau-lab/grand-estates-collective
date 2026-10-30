@@ -19,14 +19,14 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
       icon: Building2,
       image: "/images/service-1.webp", // Edificio residencial moderno en Santa Coloma
       desc: isCa
-        ? "Gestió integral de comunitats de veïns, transparència comptable 24/7, mediació i reducció de despeses de subministraments."
+        ? "Gestió integral de comunitats de veïns, transparència comptable permanent, mediació i reducció de despeses de subministraments."
         : isEn
-        ? "Comprehensive community management, 24/7 accounting transparency, mediation and utility cost optimization."
-        : "Gestión integral de comunidades de vecinos, transparencia contable 24/7, mediación vecinal y reducción de costes en suministros de la escalera.",
+        ? "Comprehensive community management, ongoing accounting transparency, mediation and utility cost optimization."
+        : "Gestión integral de comunidades de vecinos, transparencia contable continua, mediación vecinal y reducción de costes en suministros de la escalera.",
       bullets: [
         isCa ? "Auditoria de comptes i reducció de quotes" : "Auditoría contable y reducción de cuotas",
         isCa ? "Gestió de morositat sense bestreta" : "Reclamación judicial de morosos sin anticipos",
-        isCa ? "Atenció d'urgències comunitàries 24/7" : "Atención y resolución de urgencias 24/7"
+        isCa ? "Gestió àgil i resolutiva d'incidències" : "Gestión ágil y resolutiva de incidencias"
       ]
     },
     {

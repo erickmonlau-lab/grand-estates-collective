@@ -8,17 +8,13 @@ import {
   Check, 
   ArrowRight, 
   ArrowLeft, 
-  Phone, 
   MapPin, 
-  ShieldCheck, 
-  ChevronRight, 
-  HelpCircle, 
   Award, 
   FileText, 
-  CheckCircle2, 
   Clock, 
   Calculator,
-  ChevronDown
+  ChevronDown,
+  HelpCircle
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -182,6 +178,17 @@ const SANTA_COLOMA_14_BARRIOS = [
   { name: "Cementiri Vell", slug: "cementiri-vell", cp: "08921" }
 ];
 
+interface FeatureCard {
+  title: string;
+  desc: string;
+}
+
+interface ValueCard {
+  metric: string;
+  title: string;
+  desc: string;
+}
+
 interface ServiceConfig {
   id: string;
   slug: string;
@@ -192,8 +199,8 @@ interface ServiceConfig {
   metaTitle: string;
   metaDesc: string;
   intro: string;
-  details: string[];
-  benefits: string[];
+  features: FeatureCard[];
+  values: ValueCard[];
   image: string;
   asuntoOption: string;
   barrioTitleContext: string;
@@ -211,20 +218,54 @@ const servicesData: Record<string, ServiceConfig> = {
     taglineKey: "Administració de finques i gestió de comunitats a Santa Coloma de Gramenet",
     metaTitle: "Administrador de Fincas en Santa Coloma de Gramenet | Colegiados Gesgrama",
     metaDesc: "Administradores de fincas colegiados en Santa Coloma de Gramenet. Gestión integral según el Libro V del Código Civil de Cataluña, auditoría contable y control de morosidad.",
-    intro: "En Gesgrama somos administradores de fincas colegiados especializados exclusivamente en Santa Coloma de Gramenet. Aplicamos con rigor el régimen de propiedad horizontal catalana (Libro V del Código Civil de Cataluña), garantizando transparencia contable 24/7, mediación vecinal resolutiva y un ahorro directo en los costes comunitarios de la escalera.",
-    details: [
-      "Aplicación experta del Libro V del Código Civil de Cataluña (Llei 5/2006 de propietat horitzontal catalana) y cómputo exacto de mayorías simples y cualificadas.",
-      "Convocatoria, moderación profesional y redacción inmediata de actas en juntas ordinarias y extraordinarias de propietarios.",
-      "Auditoría contable y liquidación económica anual comprensible, con acceso digital y extractos bancarios conciliados céntimo a céntimo.",
-      "Reclamación ágil de vecinos morosos mediante requerimiento fehaciente y activación de procedimiento monitorio judicial comunitario sin recargos desproporcionados.",
-      "Optimización de contratos comunitarios: negociación de tarifas de luz de escalera, mantenimiento de ascensores, limpieza y seguros multirriesgo de la finca.",
-      "Atención urgente 24 horas y resolución in situ de averías con industriales homologados de Santa Coloma de Gramenet."
+    intro: "En Gesgrama somos administradores de fincas colegiados especializados exclusivamente en Santa Coloma de Gramenet. Aplicamos con rigor el régimen de propiedad horizontal catalana (Libro V del Código Civil de Cataluña), garantizando transparencia contable permanente, mediación vecinal resolutiva y un ahorro directo en los costes comunitarios de la escalera.",
+    features: [
+      {
+        title: "1. Rigor Legal (Código Civil Catalán)",
+        desc: "Aplicación experta del Libro V (Llei 5/2006 de propietat horitzontal catalana) y cómputo de mayorías cualificadas sin errores jurídicos."
+      },
+      {
+        title: "2. Juntas y Actas Inmediatas",
+        desc: "Convocatoria ordenada, moderación profesional de asambleas y redacción ágil de actas con entrega directa a cada propietario."
+      },
+      {
+        title: "3. Contabilidad 100% Clara",
+        desc: "Liquidaciones económicas transparentes con acceso digital permanente a facturas originales y extractos bancarios conciliados céntimo a céntimo."
+      },
+      {
+        title: "4. Control de Morosidad",
+        desc: "Reclamación amistosa fehaciente y activación de procedimiento monitorio judicial comunitario con máxima rapidez y sin adelanto de honorarios."
+      },
+      {
+        title: "5. Ahorro en Proveedores",
+        desc: "Revisión y optimización continua de contratos de luz de escalera, ascensores, limpieza y pólizas comunitarias multirriesgo con un ahorro medio del 20%."
+      },
+      {
+        title: "6. Gestión Ágil de Averías",
+        desc: "Canal prioritario para incidencias comunitarias y derivación in situ con técnicos e industriales homologados en Santa Coloma de Gramenet."
+      }
     ],
-    benefits: [
-      "Administradores colegiados con seguro oficial de responsabilidad civil y caución comunitaria.",
-      "Traspaso de administración 100% gratuito y sin molestias: gestionamos la recogida documental con el administrador saliente en 48 horas.",
-      "Reducción demostrada de entre un 15% y un 30% en los gastos fijos ordinarios de la comunidad.",
-      "Atención presencial en nuestra sede de Av. dels Banús, 49 para cualquier consulta vecinal."
+    values: [
+      {
+        metric: "COL. 5583",
+        title: "Colegiación Oficial",
+        desc: "Administradores colegiados con seguro de responsabilidad civil profesional y caución colegial que protegen los fondos de tu finca."
+      },
+      {
+        metric: "48 horas",
+        title: "Traspaso 100% Gratis",
+        desc: "Gestionamos la recogida de libros, llaves y contabilidad con el administrador saliente sin molestias para la presidencia ni costes extra."
+      },
+      {
+        metric: "-20% medio",
+        title: "Ahorro en Gastos Fijos",
+        desc: "Reducción demostrada en las cuotas ordinarias de la escalera auditando contratos de mantenimiento, seguros y tarifas energéticas."
+      },
+      {
+        metric: "100% Local",
+        title: "Atención Presencial",
+        desc: "Despacho a pie de calle en Av. dels Banús, 49. Nos personamos en tu comunidad cuando lo necesites, sin filtros de call center."
+      }
     ],
     image: "/images/art8_comunidad_propietarios.webp",
     asuntoOption: "Administración de Fincas",
@@ -233,7 +274,7 @@ const servicesData: Record<string, ServiceConfig> = {
       {
         number: "01",
         title: "Auditoría inicial del edificio y contratos",
-        desc: "Examinamos las pólizas de seguro comunitario, contratos de ascensor, suministros de luz y estado de morosidad para planificar ahorros inmediatos en las cuotas."
+        desc: "Examinamos pólizas de seguros comunitarios, contratos de ascensor, suministros de luz y estado de morosidad para planificar ahorros inmediatos en las cuotas."
       },
       {
         number: "02",
@@ -275,19 +316,53 @@ const servicesData: Record<string, ServiceConfig> = {
     metaTitle: "Inmobiliaria en Santa Coloma de Gramenet | Venta y Alquiler Seguro Gesgrama",
     metaDesc: "Agencia inmobiliaria en Santa Coloma de Gramenet registrada en AICAT. Valoración gratuita por m², venta al mejor precio de mercado y alquiler seguro con seguro de impago.",
     intro: "Somos agentes inmobiliarios inscritos en el Registre d'Agents Immobiliaris de Catalunya (AICAT). Si quieres vender o alquilar tu piso en Santa Coloma de Gramenet, te aseguramos el valor real máximo de mercado con total solvencia, filtro exhaustivo de inquilinos y blindaje legal en cada contrato.",
-    details: [
-      "Valoración y tasación precisa por m² basada en compraventas reales cerradas en el barrio exacto de Santa Coloma.",
-      "Estrategia comercial multicanal: reportaje fotográfico profesional, publicación en portales líderes (Idealista, Fotocasa) y escaparate físico en zona de alto tránsito peatonal.",
-      "Gestión de alquiler seguro (lloguer segur): análisis de solvencia financiera, ratio de endeudamiento y contratación de seguro de impago de rentas.",
-      "Cumplimiento riguroso de la legislación de contención de rentas y aplicación del Índice de Referencia de Precios de Alquiler en zona tensionada.",
-      "Tramitación urgente de la Cédula de Habitabilidad de segunda ocupación y Certificado de Eficiencia Energética (CEE) con arquitecto técnico.",
-      "Redacción de contratos de arras penitenciales (Art. 621-8 del Código Civil de Cataluña), certificado de comunidad al corriente de pago y acompañamiento a Notaría."
+    features: [
+      {
+        title: "1. Valoración Precisa por m²",
+        desc: "Tasación analítica basada en compraventas notariales reales y demanda vigente en el barrio específico de Santa Coloma."
+      },
+      {
+        title: "2. Difusión Multicanal Premium",
+        desc: "Reportaje fotográfico profesional, publicación destacada en Idealista y Fotocasa, y presencia activa en escaparate a pie de calle."
+      },
+      {
+        title: "3. Alquiler Seguro (Lloguer Segur)",
+        desc: "Análisis riguroso de solvencia crediticia, scoring financiero del arrendatario y cobertura del 100% de rentas con póliza de impago."
+      },
+      {
+        title: "4. Control Legal de Rentas",
+        desc: "Aplicación exacta del Índice de Referencia de Precios de Alquiler de Cataluña en zona tensionada para evitar sanciones."
+      },
+      {
+        title: "5. Cédulas y Certificados CEE",
+        desc: "Tramitación ágil de la Cédula de Habitabilidad y Certificado de Eficiencia Energética con arquitecto técnico propio."
+      },
+      {
+        title: "6. Arras y Notaría Blindadas",
+        desc: "Redacción de contratos de arras según el Art. 621-8 del Código Civil Catalán y acompañamiento presencial hasta la firma notarial."
+      }
     ],
-    benefits: [
-      "Agentes colegiados AICAT: máxima seguridad jurídica y custodia de fianzas e importes en Notaría.",
-      "Valoración comparativa gratuita y sin compromiso de tu vivienda en Santa Coloma.",
-      "Garantía de cobro del 100% de las mensualidades en alquiler mediante pólizas con cobertura jurídica completa.",
-      "Base de datos activa de compradores cualificados listos para adquirir piso en el municipio."
+    values: [
+      {
+        metric: "AICAT 5583",
+        title: "Garantía Registrada",
+        desc: "Agentes acreditados en el Registro Oficial de la Generalitat de Catalunya con seguro de caución y responsabilidad civil."
+      },
+      {
+        metric: "30-45 días",
+        title: "Plazo Medio de Venta",
+        desc: "Compradores cualificados e inversores locales activos que agilizan el cierre al valor óptimo de mercado."
+      },
+      {
+        metric: "100% Cobro",
+        title: "Garantía de Alquiler",
+        desc: "Pólizas integrales de impago que cubren defensa jurídica, desahucio y cobro de rentas desde el primer impago."
+      },
+      {
+        metric: "0€ Coste",
+        title: "Valoración Inicial",
+        desc: "Estudio comparativo de mercado presencial y sin compromiso para conocer el valor real de tu piso en Santa Coloma."
+      }
     ],
     image: "/images/interior_santacoloma_opt.webp",
     asuntoOption: "Gestión Inmobiliaria",
@@ -301,7 +376,7 @@ const servicesData: Record<string, ServiceConfig> = {
       {
         number: "02",
         title: "Comercialización, filtro y selección de candidatos",
-        desc: "Difusión publicitaria premium, filtrado riguroso de compradores solventes o verificación de nóminas/estabilidad laboral en arrendatarios."
+        desc: "Difusión publicitaria premium, filtrado riguroso de compradores solventes o verificación de nóminas y estabilidad laboral en arrendatarios."
       },
       {
         number: "03",
@@ -338,19 +413,53 @@ const servicesData: Record<string, ServiceConfig> = {
     metaTitle: "Abogados Inmobiliarios y Asesoría Fiscal en Santa Coloma | Gesgrama",
     metaDesc: "Asesoría jurídica y fiscal en Santa Coloma de Gramenet. Tramitación de herencias y sucesiones, cálculo mínimo de Plusvalía Municipal (IIVTNU) y desahucios.",
     intro: "Prestamos asesoramiento jurídico y tributario especializado en derecho inmobiliario, patrimonial y sucesorio en Santa Coloma de Gramenet. Resolvemos particiones de herencias complejas, optimizamos impuestos municipales y autonómicos, y blindamos contratos ante cualquier eventualidad legal.",
-    details: [
-      "Tramitación integral de herencias y sucesiones con bienes inmuebles en Santa Coloma: aceptación, declaración de herederos, adjudicación de bienes, legítima catalana y usufructos.",
-      "Liquidación del Impuesto de Sucesiones y Donaciones (ISD) ante la Agència Tributària de Catalunya (ATC), aplicando todas las deducciones por parentesco y vivienda habitual.",
-      "Cálculo, optimización y liquidación del Impuesto sobre el Incremento de Valor de los Terrenos (Plusvalía Municipal IIVTNU) en el Ayuntamiento de Santa Coloma de Gramenet.",
-      "Comparativa técnica de Plusvalía: método objetivo vs plusvalía real para liquidar la cuota mínima legal, o reclamación de no sujeción si hubo pérdidas económicas.",
-      "Resolución de litigios arrendaticios: procedimiento judicial de desahucio por falta de pago o fin de contrato, reclamación de rentas y extinción de condominio.",
-      "Asesoramiento en la ganancia patrimonial del IRPF por venta de inmuebles, con análisis de exenciones por reinversión o transmisión por mayores de 65 años."
+    features: [
+      {
+        title: "1. Herencias y Sucesiones",
+        desc: "Tramitación integral de herencias con bienes inmuebles: aceptación, declaración de herederos, legítima catalana y adjudicación notarial."
+      },
+      {
+        title: "2. Impuesto de Sucesiones (ATC)",
+        desc: "Liquidación ante la Agència Tributària de Catalunya aplicando todas las reducciones legales por parentesco y transmisión de vivienda habitual."
+      },
+      {
+        title: "3. Mínima Plusvalía (IIVTNU)",
+        desc: "Cálculo comparativo entre método objetivo y plusvalía real en el Ayuntamiento de Santa Coloma para abonar la menor cuota legal."
+      },
+      {
+        title: "4. Reclamación de Pérdidas",
+        desc: "Tramitación de exención o no sujeción si el valor del suelo decreció entre la adquisición y la venta o adjudicación hereditaria."
+      },
+      {
+        title: "5. Litigios y Desahucios",
+        desc: "Interposición de demandas de desahucio por falta de pago o expiración de plazo y resolución de extinciones de condominio entre coherederos."
+      },
+      {
+        title: "6. Asesoría en IRPF Inmobiliario",
+        desc: "Optimización de la ganancia patrimonial en renta por transmisión de fincas con estudio de exención por reinversión en mayores de 65 años."
+      }
     ],
-    benefits: [
-      "Abogados colegiados y fiscalistas expertos en el marco tributario de Cataluña y las ordenanzas de Santa Coloma.",
-      "Presupuesto cerrado por escrito desde la primera sesión informativa, sin costes imprevistos.",
-      "Ahorro tributario real acreditado en liquidaciones de plusvalía municipal y sucesiones.",
-      "Atención cercana y presencial en nuestro despacho local para revisar escrituras y documentación."
+    values: [
+      {
+        metric: "15+ Años",
+        title: "Especialización Civil",
+        desc: "Abogados y fiscalistas con dominio absoluto de la normativa catalana y ordenanzas fiscales de Santa Coloma de Gramenet."
+      },
+      {
+        metric: "0 Sorpresas",
+        title: "Presupuesto Cerrado",
+        desc: "Propuesta económica por escrito desde la primera sesión de asesoramiento, con honorarios claros y sin gastos imprevistos."
+      },
+      {
+        metric: "Máximo",
+        title: "Ahorro Fiscal Legal",
+        desc: "Elegimos siempre la alternativa tributaria más beneficiosa para reducir la factura impositiva de sucesiones y plusvalías."
+      },
+      {
+        metric: "Presencial",
+        title: "Estudio Documental",
+        desc: "Revisamos escrituras, notas registrales y recibos en persona en nuestra sede local para asegurar la máxima tranquilidad jurídica."
+      }
     ],
     image: "/images/art7_plusvalia_fiscal.webp",
     asuntoOption: "Asesoría Jurídica",
@@ -401,19 +510,53 @@ const servicesData: Record<string, ServiceConfig> = {
     metaTitle: "Rehabilitación de Edificios, Obras e ITE en Santa Coloma | Gesgrama",
     metaDesc: "Especialistas en ITE obligatoria en Santa Coloma de Gramenet, rehabilitación de fachadas, cubiertas e instalación de ascensores a cota cero con subvenciones.",
     intro: "Ofrecemos dirección y supervisión técnica integral para la conservación, rehabilitación y eficiencia de edificios residenciales plurifamiliares en Santa Coloma de Gramenet. Especialistas en superar la ITE, rehabilitar fachadas y patios, e instalar ascensores a cota cero gestionando ayudas públicas.",
-    details: [
-      "Tramitación obligatoria de la Inspección Técnica de Edificios (ITE) para fincas de más de 45 años y expedición del Certificado de Aptitud ante la Agència de l'Habitatge de Catalunya.",
-      "Rehabilitación integral de fachadas principales y patios de luces: saneamiento de revocos, reparación de cornisas, balcones y tratamiento de carbonatación del hormigón.",
-      "Eliminación de barreras arquitectónicas: bajada de ascensor a cota cero en portales antiguos e instalación de ascensores exteriores/interiores en fincas que no disponen de elevador.",
-      "Impermeabilización de cubiertas planas, tejados comunitarios, terrados transitables y sustitución de bajantes de saneamiento.",
-      "Gestión integral de subvenciones públicas: tramitación de Fondos Europeos Next Generation y convocatorias municipales de rehabilitación energética.",
-      "Concurso de presupuestos ciegos entre 3 constructoras homologadas de la zona, dirección facultativa y control riguroso de certificaciones de obra y plazos."
+    features: [
+      {
+        title: "1. Dictamen ITE Obligatoria",
+        desc: "Inspección técnica para edificios de más de 45 años, emisión de dictamen y obtención del Certificado de Aptitud ante la Generalitat."
+      },
+      {
+        title: "2. Fachadas y Patios de Luces",
+        desc: "Saneamiento de revocos, reparación de cornisas, balcones de hormigón y aplicación de revestimientos técnicos protectores."
+      },
+      {
+        title: "3. Ascensor a Cota Cero",
+        desc: "Eliminación de barreras arquitectónicas en portales e instalación de elevadores interiores o exteriores en comunidades sin ascensor."
+      },
+      {
+        title: "4. Cubiertas y Bajantes",
+        desc: "Impermeabilización garantizada de terrados comunitarios, tejados y sustitución completa de bajantes de fecales y pluviales."
+      },
+      {
+        title: "5. Subvenciones NextGen",
+        desc: "Tramitación y justificación completa de fondos europeos y ayudas metropolitanas para rehabilitación con hasta un 80% de subvención."
+      },
+      {
+        title: "6. Licitación y Precio Cerrado",
+        desc: "Concurso ciego entre constructoras de confianza, dirección facultativa y cláusulas de penalización por retrasos sin derramas sorpresa."
+      }
     ],
-    benefits: [
-      "Ahorro de hasta el 80% del coste total mediante la consecución y justificación de subvenciones públicas de rehabilitación.",
-      "Eliminación del riesgo de derramas imprevistas mediante contratos de obra con precio cerrado y penalización por retraso.",
-      "Constructores e industriales de confianza contrastada en el parque inmobiliario de Santa Coloma de Gramenet.",
-      "Garantía decenal y entrega del Libro del Edificio actualizado."
+    values: [
+      {
+        metric: "Hasta 80%",
+        title: "Subvenciones Públicas",
+        desc: "Gestión integral de Fondos Europeos Next Generation y ayudas del Consorci Metropolità para financiar la rehabilitación de tu finca."
+      },
+      {
+        metric: "0 Derramas",
+        title: "Precio y Plazo Cerrado",
+        desc: "Contratos de ejecución estrictos con penalizaciones por día de retraso y mediciones auditadas por arquitecto técnico."
+      },
+      {
+        metric: "10 Años",
+        title: "Garantía Oficial",
+        desc: "Rehabilitaciones con cobertura técnica decenal y entrega de Libro del Edificio conforme a las normativas de la Generalitat."
+      },
+      {
+        metric: "Técnicos",
+        title: "Equipo Propio Homologado",
+        desc: "Arquitectos técnicos colegiados con amplia experiencia en las particularidades estructurales de Santa Coloma de Gramenet."
+      }
     ],
     image: "/images/art6_ite_rehabilitacion.webp",
     asuntoOption: "Obras y Reformas",
@@ -472,7 +615,6 @@ function ServicioSlugPage() {
     return "es";
   });
 
-  const [activeTab, setActiveTab] = useState<"que-incluye" | "ventajas" | "metodologia" | "faqs">("que-incluye");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
@@ -498,108 +640,93 @@ function ServicioSlugPage() {
   const IconComp = service.icon;
   const relatedServices = Object.values(servicesData).filter(s => s.slug !== service.slug);
 
-  const scrollToSection = (id: string, tab: "que-incluye" | "ventajas" | "metodologia" | "faqs") => {
-    setActiveTab(tab);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 140;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
-
   return (
-    <div className="bg-[#f8fafc] text-[#111C35] min-h-screen font-sans selection:bg-[#2860F5]/20 overflow-x-clip">
+    <div className="bg-white text-[#111C35] min-h-screen font-sans selection:bg-[#2563EB] selection:text-white overflow-x-clip">
       {/* ── NAVBAR CORPORATIVO OFICIAL ── */}
       <Navbar language={language} setLanguage={setLanguage} />
 
-      {/* Main Container */}
-      <main className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-16">
-        
-        {/* Top Navigation: Volver + Breadcrumbs */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <Link
-            to="/"
-            hash="servicios"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white hover:text-white bg-[#101A30] hover:bg-[#2860F5] border border-slate-700 hover:border-[#2860F5] px-5 py-2.5 rounded-full shadow-md transition-all duration-200 cursor-pointer group"
-          >
-            <ArrowLeft className="w-4 h-4 text-[#38bdf8] group-hover:text-white group-hover:-translate-x-1 transition-all" />
-            <span>Volver a Servicios</span>
-          </Link>
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 1: HERO DEL SERVICIO -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#0A192F] text-white pt-28 sm:pt-36 pb-20 border-b-4 border-[#1E293B]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          {/* Top Breadcrumb & Return Link */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <Link
+              to="/"
+              hash="servicios"
+              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-white bg-[#1E293B] hover:bg-[#2563EB] border border-slate-700 hover:border-[#2563EB] px-5 py-2.5 rounded-full transition-all duration-200 cursor-pointer group shadow-md"
+            >
+              <ArrowLeft className="w-4 h-4 text-[#60A5FA] group-hover:text-white group-hover:-translate-x-1 transition-all" />
+              <span>Volver a Servicios</span>
+            </Link>
 
-          <nav aria-label="Migas de pan">
-            <ol className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500" itemScope itemType="https://schema.org/BreadcrumbList">
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <Link to="/" itemProp="item" className="hover:text-[#2860F5] transition-colors">
-                  <span itemProp="name">Inicio</span>
-                </Link>
-                <meta itemProp="position" content="1" />
-              </li>
-              <li className="text-slate-400">/</li>
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <Link to="/" hash="servicios" itemProp="item" className="hover:text-[#2860F5] transition-colors text-[#2860F5]">
-                  <span itemProp="name">Servicios</span>
-                </Link>
-                <meta itemProp="position" content="2" />
-              </li>
-              <li className="text-slate-400">/</li>
-              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-                <span itemProp="name" className="text-slate-900 font-extrabold">{service.titleKey}</span>
-                <meta itemProp="position" content="3" />
-              </li>
-            </ol>
-          </nav>
-        </div>
+            <nav aria-label="Migas de pan">
+              <ol className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400" itemScope itemType="https://schema.org/BreadcrumbList">
+                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <Link to="/" itemProp="item" className="hover:text-white transition-colors">
+                    <span itemProp="name">Inicio</span>
+                  </Link>
+                  <meta itemProp="position" content="1" />
+                </li>
+                <li className="text-slate-600">/</li>
+                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <Link to="/" hash="servicios" itemProp="item" className="text-[#60A5FA] hover:text-white transition-colors font-bold">
+                    <span itemProp="name">Servicios</span>
+                  </Link>
+                  <meta itemProp="position" content="2" />
+                </li>
+                <li className="text-slate-600">/</li>
+                <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <span itemProp="name" className="text-white font-extrabold">{service.titleKey}</span>
+                  <meta itemProp="position" content="3" />
+                </li>
+              </ol>
+            </nav>
+          </div>
 
-        {/* ── A. CABECERA DEL SERVICIO (ESTILO SHOPIFY: LIMPIA, SÓLIDA Y EQUILIBRADA) ── */}
-        <div className="bg-[#101A30] rounded-3xl p-6 sm:p-10 md:p-12 text-white shadow-xl overflow-hidden relative mb-8 border border-slate-800">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Columna Izquierda: Información */}
             <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-2.5 mb-4">
-                <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm">
+              <div className="flex flex-wrap items-center gap-2.5 mb-5">
+                <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm">
                   <IconComp className="w-4 h-4 text-white" />
                   Servicio Especializado
                 </span>
-                <span className="inline-flex items-center gap-1.5 bg-slate-800 text-[#38bdf8] text-[11px] sm:text-xs font-bold px-3 py-1.5 rounded-full border border-slate-700">
-                  <MapPin className="w-3.5 h-3.5 text-[#38bdf8]" />
+                <span className="inline-flex items-center gap-1.5 bg-[#1E293B] text-[#60A5FA] text-xs font-bold px-3.5 py-1.5 rounded-full border border-slate-700">
+                  <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" />
                   Santa Coloma de Gramenet
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-[42px] font-black text-white leading-tight mb-3 font-sans tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4 tracking-tight">
                 {service.titleKey}
               </h1>
 
-              <p className="text-[#38bdf8] text-base md:text-lg font-bold mb-4 leading-snug">
+              <p className="text-[#60A5FA] text-lg sm:text-xl font-bold mb-4 leading-snug">
                 {service.taglineKey}
               </p>
 
-              <p className="text-slate-200 text-sm md:text-base leading-relaxed max-w-xl font-medium mb-8">
+              <p className="text-[#E2E8F0] text-base sm:text-lg leading-relaxed max-w-2xl font-normal mb-8">
                 {service.intro}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3.5">
+              <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-                  className="bg-[#2860F5] hover:bg-[#1e4ed8] active:scale-[0.99] text-white font-extrabold text-sm py-3.5 px-7 rounded-xl shadow-md transition-all flex items-center gap-2.5 cursor-pointer font-sans"
+                  className="bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-lg transition-all flex items-center gap-3 cursor-pointer"
                 >
                   <span>Solicitar presupuesto gratuito</span>
-                  <ArrowRight className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
+                  <ArrowRight className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
                 </a>
                 <a
                   href="https://wa.me/34601259424"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white hover:bg-slate-100 text-[#101A30] font-extrabold text-sm py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center gap-2.5 cursor-pointer font-sans"
+                  className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-7 rounded-xl shadow-lg transition-all flex items-center gap-3 cursor-pointer"
                 >
-                  <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-[#25D366] shrink-0">
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#16A34A] shrink-0">
                     <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
                   </svg>
                   <span>Consultar por WhatsApp</span>
@@ -607,248 +734,240 @@ function ServicioSlugPage() {
               </div>
             </div>
 
+            {/* Columna Derecha: Fotografía Grande con Borde Sólido y Tarjeta Inferior */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl aspect-[4/3]">
+              <div className="relative rounded-3xl overflow-hidden border-4 border-[#1E293B] shadow-2xl bg-[#1E293B]">
                 <img 
                   src={service.image} 
                   alt={`${service.titleKey} en Santa Coloma de Gramenet`} 
-                  className="w-full h-full object-cover" 
+                  className="w-full h-[360px] sm:h-[400px] object-cover" 
                   width={600}
-                  height={450}
+                  height={400}
                   loading="eager"
                 />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── B. NAVEGACIÓN INTERNA STICKY DEL SERVICIO (ESTILO SHOPIFY) ── */}
-        <div className="sticky top-20 sm:top-24 z-30 mb-10 bg-white/95 backdrop-blur-md rounded-2xl p-2 border-2 border-slate-200 shadow-md">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
-            {[
-              { id: "que-incluye", key: "que-incluye" as const, label: "¿Qué incluye?" },
-              { id: "ventajas", key: "ventajas" as const, label: "Ventajas Gesgrama" },
-              { id: "como-trabajamos", key: "metodologia" as const, label: "Metodología (3 Pasos)" },
-              { id: "preguntas-frecuentes", key: "faqs" as const, label: "Preguntas Frecuentes" }
-            ].map((tab) => {
-              const isActive = activeTab === tab.key;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => scrollToSection(tab.id, tab.key)}
-                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all cursor-pointer font-sans ${
-                    isActive
-                      ? "bg-[#2860F5] text-white shadow-sm"
-                      : "bg-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ── C. CONTENIDO PRINCIPAL: QUÉ INCLUYE + ATENCIÓN PRESENCIAL ── */}
-        <section id="que-incluye" className="mb-14 scroll-mt-36">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Columna Izquierda: Qué incluye en Bento Grid Limpio */}
-            <div className="lg:col-span-8 bg-white rounded-3xl p-7 sm:p-9 border-2 border-slate-200 shadow-sm">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 shadow-xs">
-                  <FileText className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <span className="text-[11px] font-black uppercase tracking-wider text-[#2860F5] block font-sans">
-                    Alcance del Servicio
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-black text-[#111C35] font-sans tracking-tight">
-                    ¿Qué incluye nuestro servicio de {service.titleKey}?
-                  </h2>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
-                {service.details.map((detail, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-[#f8fafc] border border-slate-200/90 rounded-2xl p-4.5 flex items-start gap-3.5 hover:border-[#2860F5] transition-colors"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-[#2860F5] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                      <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
-                    </div>
-                    <p className="text-[14px] sm:text-[15px] text-slate-800 font-semibold leading-relaxed">
-                      {detail}
+                {/* Tarjeta flotante inferior en Blanco Puro Sólido */}
+                <div className="absolute bottom-4 left-4 right-4 bg-[#FFFFFF] text-[#0A192F] p-4 rounded-2xl shadow-xl flex items-center gap-3.5 border-2 border-[#E2E8F0]">
+                  <div className="w-10 h-10 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#2563EB] block">
+                      Sede Central en Santa Coloma
+                    </span>
+                    <p className="text-xs sm:text-sm font-extrabold text-[#0A192F] leading-tight">
+                      Av. dels Banús, 49 · Atención Presencial
                     </p>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Columna Derecha: Tarjeta de Despacho y Contacto Directo */}
-            <div className="lg:col-span-4 space-y-6">
-              <div 
-                className="bg-[#101A30] text-white rounded-3xl overflow-hidden shadow-xl border border-slate-800 flex flex-col"
-                itemScope
-                itemType="https://schema.org/LocalBusiness"
-              >
-                <meta itemProp="name" content="Gesgrama - Santa Coloma de Gramenet" />
-                <meta itemProp="image" content="https://gesgrama.com/images/gesgrama_office.webp" />
-                <meta itemProp="telephone" content="+34934685656" />
-                <meta itemProp="url" content="https://gesgrama.com" />
-
-                <div className="relative h-44 w-full overflow-hidden bg-slate-800">
-                  <img
-                    src="/images/gesgrama_office.webp"
-                    alt="Oficina Gesgrama en Santa Coloma de Gramenet"
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                    width={400}
-                    height={176}
-                    itemProp="image"
-                  />
-                  <div className="absolute inset-0 bg-[#101A30]/40" />
-                  <span 
-                    className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 bg-[#2860F5] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-sm"
-                    itemProp="address"
-                    itemScope
-                    itemType="https://schema.org/PostalAddress"
-                  >
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Sede Central: Av. dels Banús, 49</span>
-                  </span>
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-lg font-black mb-2 text-white font-sans">
-                    Atención técnica presencial
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 mb-5 font-medium leading-relaxed">
-                    Te recibimos en persona en nuestro despacho de Santa Coloma o gestionamos tu consulta por teléfono o WhatsApp de inmediato.
-                  </p>
-                  <a
-                    href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-                    className="w-full bg-[#2860F5] hover:bg-[#1e4ed8] active:scale-[0.99] text-white font-black text-xs sm:text-sm py-3 px-5 rounded-xl text-center block transition-all shadow-md cursor-pointer uppercase tracking-wider font-sans"
-                  >
-                    Solicitar consulta personalizada
-                  </a>
                 </div>
               </div>
             </div>
-
           </div>
-        </section>
 
-        {/* ── D. VENTAJAS Y GARANTÍAS (FORMATO VISUAL COMÚN, AZUL CORPORATIVO SÓLIDO) ── */}
-        <section id="ventajas" className="mb-14 scroll-mt-36">
-          <div className="bg-white rounded-3xl p-7 sm:p-10 border-2 border-slate-200 shadow-sm">
-            <div className="max-w-2xl mb-8">
-              <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full mb-2.5">
-                <Award className="w-3.5 h-3.5 text-white" />
-                Garantías Gesgrama
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-[#111C35] font-sans tracking-tight">
-                ¿Por qué elegir a Gesgrama en Santa Coloma?
-              </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-medium mt-1.5 leading-relaxed">
-                Máxima solvencia técnica, colegiación oficial y cobertura integral con más de 15 años de trayectoria local.
-              </p>
-            </div>
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              {service.benefits.map((b, i) => (
-                <div 
-                  key={i} 
-                  className="bg-[#f8fafc] border-2 border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-[#2860F5] transition-all"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#2860F5] text-white flex items-center justify-center shrink-0 mb-3.5 shadow-xs">
-                    <ShieldCheck className="w-5 h-5 text-white stroke-[2.4]" />
-                  </div>
-                  <p className="text-[14px] sm:text-[15px] font-bold text-[#111C35] leading-snug">
-                    {b}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── E. METODOLOGÍA PASO A PASO (TIMELINE HORIZONTAL VISUAL Y ORDENADO) ── */}
-        <section 
-          id="como-trabajamos" 
-          className="mb-14 scroll-mt-36 bg-white rounded-3xl p-7 sm:p-10 border-2 border-slate-200 shadow-sm"
-          itemScope 
-          itemType="https://schema.org/HowTo"
-        >
-          <div className="max-w-3xl mb-8">
-            <span className="text-[#2860F5] font-black text-xs uppercase tracking-wider block mb-2 font-sans">
-              Metodología Transparente
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 2: "¿QUÉ INCLUYE?" -> FONDO BLANCO PURO (#FFFFFF)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          {/* Cabecera centrada */}
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <FileText className="w-4 h-4 text-white" />
+              Alcance del Servicio
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#111C35] font-sans tracking-tight" itemProp="name">
-              ¿Cómo trabajamos paso a paso en {service.titleKey}?
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
+              ¿Qué incluye nuestro servicio de {service.titleKey}?
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 font-medium" itemProp="description">
-              Un proceso riguroso, trazable y adaptado a la legislación de Cataluña y las normativas municipales de Santa Coloma de Gramenet.
+            <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
+              Desglose detallado de actuaciones jurídicas, técnicas y administrativas incluidas en nuestra tarifa sin sobrecostes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {service.steps.map((st, i) => (
+          {/* Grid Bento Simétrico de 3 Columnas (6 tarjetas 100% sólidas) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {service.features.map((feat, idx) => (
               <div 
-                key={i} 
-                className="bg-[#f8fafc] border-2 border-slate-200 rounded-2xl p-6 relative flex flex-col justify-between shadow-xs hover:border-[#2860F5] transition-colors"
-                itemScope 
-                itemProp="step" 
-                itemType="https://schema.org/HowToStep"
+                key={idx}
+                className="bg-[#F8FAFC] border-2 border-[#E2E8F0] hover:border-[#2563EB] rounded-2xl p-7 transition-all duration-200 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#2860F5] text-white text-base font-black font-mono shadow-xs">
-                      {st.number}
-                    </span>
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
-                      Fase 0{i + 1}
-                    </span>
+                  {/* Cuadrado sólido azul intenso 48x48 */}
+                  <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mb-5 shadow-md group-hover:scale-105 transition-transform">
+                    <Check className="w-6 h-6 text-white stroke-[3]" />
                   </div>
-                  <meta itemProp="position" content={String(i + 1)} />
-                  <h3 className="text-base sm:text-lg font-black text-[#111C35] mb-2 font-sans leading-snug" itemProp="name">
-                    {st.title}
+                  <h3 className="text-lg sm:text-xl font-black text-[#111C35] mb-3 leading-snug group-hover:text-[#2563EB] transition-colors">
+                    {feat.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed" itemProp="text">
-                    {st.desc}
+                  <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
+                    {feat.desc}
                   </p>
                 </div>
               </div>
             ))}
           </div>
-        </section>
 
-        {/* ── F. PREGUNTAS FRECUENTES (ACORDEÓN INTERACTIVO FUNCIONAL CON FONDOS SÓLIDOS) ── */}
-        <section 
-          id="preguntas-frecuentes" 
-          className="mb-14 scroll-mt-36 bg-white rounded-3xl p-7 sm:p-10 border-2 border-slate-200 shadow-sm"
-          itemScope 
-          itemType="https://schema.org/FAQPage"
-        >
-          <div className="max-w-3xl mb-8">
-            <span className="text-[#2860F5] font-black text-xs uppercase tracking-wider block mb-2 font-sans">
-              Resolvemos tus Dudas
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#111C35] font-sans tracking-tight">
-              Preguntas frecuentes sobre {service.titleKey}
-            </h2>
+          {/* Banner Horizontal de Contacto Directo (Azul Marino Sólido #0A192F) */}
+          <div className="bg-[#0A192F] rounded-3xl p-6 sm:p-8 md:p-10 border-4 border-[#1E293B] shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
+            <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+              <img
+                src="/images/gesgrama_office.webp"
+                alt="Despacho Gesgrama Santa Coloma"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-white/20 shrink-0 shadow-md"
+                width={112}
+                height={112}
+                loading="lazy"
+              />
+              <div>
+                <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full mb-2">
+                  Atención en Despacho
+                </span>
+                <h4 className="text-xl sm:text-2xl font-black text-white leading-snug">
+                  Atención técnica presencial en nuestro despacho de Santa Coloma
+                </h4>
+                <p className="text-sm sm:text-base text-slate-300 font-medium mt-1">
+                  Visítanos en Av. dels Banús, 49 o concierta una reunión con nuestros administradores y abogados.
+                </p>
+              </div>
+            </div>
+
+            <a
+              href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
+              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-lg transition-all shrink-0 flex items-center gap-2.5 cursor-pointer"
+            >
+              <span>Solicitar consulta personalizada</span>
+              <ArrowRight className="w-5 h-5 text-[#2563EB] stroke-[2.5]" />
+            </a>
           </div>
 
-          <div className="space-y-3.5">
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 3: "¿POR QUÉ ELEGIR A GESGRAMA?" + METODOLOGÍA -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#0A192F] py-20 text-white border-b-4 border-[#1E293B]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          {/* Bloque A: ¿Por qué elegir a Gesgrama en Santa Coloma? */}
+          <div className="mb-16">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+                <Award className="w-4 h-4 text-white" />
+                Ventajas Gesgrama
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                ¿Por qué elegir a Gesgrama en Santa Coloma?
+              </h2>
+              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
+                Solvencia técnica colegiada, transparencia contable garantizada y cercanía física en cada gestión.
+              </p>
+            </div>
+
+            {/* 4 Tarjetas en Blanco Puro Sólido (#FFFFFF) sobre fondo oscuro */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {service.values.map((v, i) => (
+                <div 
+                  key={i}
+                  className="bg-[#FFFFFF] text-[#0A192F] border-2 border-[#E2E8F0] rounded-2xl p-6 flex flex-col justify-between shadow-xl hover:-translate-y-1 transition-all"
+                >
+                  <div>
+                    <span className="text-2xl sm:text-3xl font-black text-[#2563EB] block font-mono mb-3">
+                      {v.metric}
+                    </span>
+                    <h3 className="text-lg font-black text-[#0A192F] mb-2 leading-snug">
+                      {v.title}
+                    </h3>
+                    <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                      {v.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Línea divisoria sólida */}
+          <div className="w-full h-1 bg-[#1E293B] rounded-full my-16" />
+
+          {/* Bloque B: "Cómo trabajamos paso a paso" (Timeline Visual de 3 Pasos) */}
+          <div itemScope itemType="https://schema.org/HowTo">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+                <Clock className="w-4 h-4 text-white" />
+                Metodología
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4" itemProp="name">
+                Cómo trabajamos paso a paso
+              </h2>
+              <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed" itemProp="description">
+                Un proceso riguroso, trazable y adaptado a la legislación de Cataluña y normativas de Santa Coloma de Gramenet.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {service.steps.map((st, i) => (
+                <div 
+                  key={i}
+                  className="bg-[#1E293B] border-2 border-[#3B82F6] rounded-2xl p-7 flex flex-col justify-between shadow-xl relative"
+                  itemScope 
+                  itemProp="step" 
+                  itemType="https://schema.org/HowToStep"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-lg bg-[#2563EB] text-white text-sm font-black font-mono shadow-sm">
+                        PASO {st.number}
+                      </span>
+                      <span className="text-xs font-bold text-[#60A5FA] uppercase tracking-wider font-mono">
+                        Fase 0{i + 1}
+                      </span>
+                    </div>
+                    <meta itemProp="position" content={String(i + 1)} />
+                    <h3 className="text-lg sm:text-xl font-black text-white mb-3 leading-snug" itemProp="name">
+                      {st.title}
+                    </h3>
+                    <p className="text-sm text-slate-300 font-medium leading-relaxed" itemProp="text">
+                      {st.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) -> FONDO BLANCO PURO (#FFFFFF)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]" itemScope itemType="https://schema.org/FAQPage">
+        <div className="max-w-[960px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <HelpCircle className="w-4 h-4 text-white" />
+              Resolvemos tus Dudas
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
+              Preguntas frecuentes sobre {service.titleKey}
+            </h2>
+            <p className="text-slate-600 text-base font-medium">
+              Respuestas directas y claras a las consultas más comunes de propietarios y comunidades en Santa Coloma.
+            </p>
+          </div>
+
+          <div className="space-y-4">
             {service.faqs.map((faq, i) => {
               const isOpen = openFaqIndex === i;
               return (
                 <div 
-                  key={i} 
+                  key={i}
                   className={`border-2 rounded-2xl transition-all overflow-hidden ${
-                    isOpen ? "border-[#2860F5] bg-[#f8fafc]" : "border-slate-200 bg-white"
+                    isOpen ? "border-[#2563EB] bg-[#F8FAFC] shadow-md" : "border-[#CBD5E1] bg-[#F8FAFC]"
                   }`}
                   itemScope 
                   itemProp="mainEntity" 
@@ -859,13 +978,19 @@ function ServicioSlugPage() {
                     onClick={() => setOpenFaqIndex(isOpen ? null : i)}
                     className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
                   >
-                    <h3 className="text-[15px] sm:text-base font-black text-[#111C35] font-sans flex items-center gap-3" itemProp="name">
-                      <span className="w-6 h-6 rounded-full bg-[#2860F5] text-white text-xs font-black flex items-center justify-center shrink-0">
+                    <h3 className="text-base sm:text-lg font-black text-[#111C35] flex items-center gap-3.5" itemProp="name">
+                      <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black shrink-0 transition-colors ${
+                        isOpen ? "bg-[#2563EB] text-white" : "bg-[#101A30] text-white"
+                      }`}>
                         ?
                       </span>
                       <span>{faq.q}</span>
                     </h3>
-                    <ChevronDown className={`w-5 h-5 text-[#2860F5] shrink-0 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                      isOpen ? "bg-[#2563EB] text-white rotate-180" : "bg-slate-200 text-slate-700"
+                    }`}>
+                      <ChevronDown className="w-5 h-5 stroke-[3]" />
+                    </div>
                   </button>
                   
                   {isOpen && (
@@ -873,9 +998,9 @@ function ServicioSlugPage() {
                       itemScope 
                       itemProp="acceptedAnswer" 
                       itemType="https://schema.org/Answer"
-                      className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 border-t border-slate-200/80"
+                      className="px-5 sm:px-6 pb-6 pt-2 border-t-2 border-[#E2E8F0]"
                     >
-                      <p className="text-sm sm:text-[15px] text-slate-700 font-medium leading-relaxed pl-9" itemProp="text">
+                      <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed pl-11" itemProp="text">
                         {faq.a}
                       </p>
                     </div>
@@ -884,118 +1009,152 @@ function ServicioSlugPage() {
               );
             })}
           </div>
-        </section>
 
-        {/* ── G. CROSS-SELLING INTERNO: OTROS SERVICIOS + ACCESO AL VALORADOR M² ── */}
-        <section className="mb-14 bg-[#101A30] rounded-3xl p-7 sm:p-10 border border-slate-800 text-white shadow-xl">
-          <div className="max-w-3xl mb-8">
-            <span className="text-[#38bdf8] font-black text-xs uppercase tracking-wider block mb-2 font-sans">
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 5: SERVICIOS COMPLEMENTARIOS -> FONDO AZUL MARINO SÓLIDO (#0A192F)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#0A192F] py-20 text-white border-b-4 border-[#1E293B]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#1D4ED8] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <Building2 className="w-4 h-4 text-white" />
               Ecosistema Integral Gesgrama
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
               Servicios complementarios en Santa Coloma
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base mt-2 font-medium">
-              Conectamos administración de fincas, comercialización inmobiliaria, asesoría jurídica y obras con un único interlocutor.
+            <p className="text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
+              Conectamos administración de fincas, comercialización inmobiliaria, asesoría jurídica y obras con un único interlocutor directo.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+          {/* 3 Tarjetas en Blanco Puro Sólido (#FFFFFF) con textos en azul marino */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
             {relatedServices.map((rel) => {
               const RelIcon = rel.icon;
               return (
-                <Link
+                <div
                   key={rel.slug}
-                  to="/servicios/$slug"
-                  params={{ slug: rel.slug }}
-                  className="bg-[#172545] hover:bg-[#1e325c] border-2 border-slate-700 hover:border-[#2860F5] rounded-2xl p-5 transition-all flex flex-col justify-between group cursor-pointer"
+                  className="bg-[#FFFFFF] text-[#0A192F] border-2 border-[#E2E8F0] rounded-2xl p-7 flex flex-col justify-between shadow-xl"
                 >
                   <div>
-                    <div className="w-10 h-10 rounded-xl bg-[#2860F5] text-white flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-xs">
-                      <RelIcon className="w-5 h-5 text-white" />
+                    <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center mb-5 shadow-md">
+                      <RelIcon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-base font-bold text-white group-hover:text-[#38bdf8] transition-colors mb-2 font-sans">
+                    <h3 className="text-xl font-black text-[#0A192F] mb-3 leading-snug">
                       {rel.titleKey}
                     </h3>
-                    <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed font-medium">
+                    <p className="text-sm text-slate-700 font-medium leading-relaxed mb-6">
                       {rel.taglineKey}
                     </p>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-slate-700/80 flex items-center justify-between text-xs font-bold text-[#38bdf8]">
-                    <span>Ver servicio completo</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
+                  
+                  <Link
+                    to="/servicios/$slug"
+                    params={{ slug: rel.slug }}
+                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-3.5 px-5 rounded-xl font-black text-sm text-center block transition-all shadow-md cursor-pointer"
+                  >
+                    Ver servicio completo →
+                  </Link>
+                </div>
               );
             })}
           </div>
 
-          {/* Banner Valorador de Viviendas */}
-          <div className="bg-[#2860F5] rounded-2xl p-5 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-6 border border-blue-400/40 shadow-lg">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-white text-[#2860F5] flex items-center justify-center shrink-0 shadow-md">
-                <Calculator className="w-6 h-6 stroke-[2.5]" />
+          {/* Banner Valorador en Azul Real Sólido (#1D4ED8) con botón en Blanco Puro Sólido (#FFFFFF) */}
+          <div className="bg-[#1D4ED8] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border-4 border-blue-400 shadow-2xl">
+            <div className="flex items-center gap-5 text-left">
+              <div className="w-14 h-14 rounded-2xl bg-[#FFFFFF] text-[#1D4ED8] flex items-center justify-center shrink-0 shadow-lg">
+                <Calculator className="w-8 h-8 stroke-[2.5]" />
               </div>
               <div>
-                <h4 className="text-lg font-black text-white font-sans">¿Quieres saber el valor exacto de un piso en Santa Coloma?</h4>
-                <p className="text-xs sm:text-sm text-blue-100 font-medium">Calcula en 1 minuto la horquilla de mercado según barrio y tipología.</p>
+                <h4 className="text-xl sm:text-2xl font-black text-white leading-snug">
+                  ¿Quieres saber el valor exacto de un piso en Santa Coloma?
+                </h4>
+                <p className="text-sm sm:text-base text-blue-100 font-medium mt-1">
+                  Calcula en 1 minuto la horquilla real de mercado según barrio y tipología sin registro obligatorio.
+                </p>
               </div>
             </div>
+            
             <a
               href="/#valorador"
-              className="bg-white hover:bg-slate-100 text-[#101A30] font-extrabold text-sm py-3 px-6 rounded-xl transition-all shrink-0 shadow-md flex items-center gap-2 cursor-pointer font-sans"
+              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0A192F] font-black text-sm sm:text-base py-4 px-8 rounded-xl transition-all shrink-0 shadow-lg flex items-center gap-3 cursor-pointer"
             >
               <span>Calcular valoración gratuita</span>
-              <ArrowRight className="w-4 h-4 text-[#2860F5]" />
+              <ArrowRight className="w-5 h-5 text-[#2563EB] stroke-[2.5]" />
             </a>
           </div>
-        </section>
 
-        {/* ── H. INTERLINKING HIPERLOCAL: LOS 14 BARRIOS DE SANTA COLOMA DE GRAMENET ── */}
-        <section className="mb-14 bg-white rounded-3xl p-7 sm:p-10 border-2 border-slate-200 shadow-sm">
-          <div className="max-w-3xl mb-8">
-            <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full mb-3 shadow-xs">
-              <MapPin className="w-3.5 h-3.5 text-white" />
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════════
+          SECCIÓN 6: LOS 14 BARRIOS DE SANTA COLOMA -> FONDO BLANCO PURO (#FFFFFF)
+          ══════════════════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#FFFFFF] py-20 border-b-4 border-[#E2E8F0]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-12">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-sm">
+              <MapPin className="w-4 h-4 text-white" />
               Cobertura 100% Municipal
             </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#111C35] font-sans tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111C35] tracking-tight leading-tight mb-4">
               {service.barrioTitleContext}
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2 font-medium leading-relaxed">
-              Gesgrama opera de forma presencial y exclusiva en Santa Coloma de Gramenet. Consulta la información técnica de cada uno de los 14 barrios oficiales del municipio:
+            <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
+              Gesgrama opera de forma presencial y exclusiva en Santa Coloma de Gramenet. Selecciona tu barrio para consultar información técnica y comunitaria especializada:
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5 sm:gap-3">
+          {/* Grid de Píldoras Interactivas Sólidas de Alto Contraste */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
             {SANTA_COLOMA_14_BARRIOS.map((barrio) => (
               <a
                 key={barrio.slug}
                 href={`/administrador-fincas/${barrio.slug}`}
-                className="bg-[#f8fafc] hover:bg-[#101A30] border-2 border-slate-200 hover:border-[#101A30] rounded-xl p-3.5 transition-all duration-200 text-center flex flex-col items-center justify-center group cursor-pointer shadow-xs hover:-translate-y-0.5"
+                className="bg-[#F8FAFC] hover:bg-[#2563EB] text-[#111C35] hover:text-white border-2 border-[#E2E8F0] hover:border-[#2563EB] rounded-2xl p-4.5 flex items-center justify-between transition-all duration-200 shadow-sm hover:shadow-xl hover:-translate-y-1 group cursor-pointer"
                 title={`${service.titleKey} en el barrio de ${barrio.name}, Santa Coloma de Gramenet`}
               >
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2860F5] group-hover:bg-[#38bdf8] mb-2 transition-colors" />
-                <span className="text-xs sm:text-sm font-black text-[#111C35] group-hover:text-white transition-colors block font-sans">
-                  {barrio.name}
-                </span>
-                <span className="text-[10px] text-slate-500 group-hover:text-slate-300 font-bold font-mono transition-colors mt-0.5">
-                  CP {barrio.cp}
-                </span>
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#2563EB] group-hover:bg-[#FFFFFF] text-white group-hover:text-[#2563EB] flex items-center justify-center shrink-0 transition-colors shadow-xs">
+                    <MapPin className="w-5 h-5 stroke-[2.5]" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-base font-black truncate block leading-snug">
+                      {barrio.name}
+                    </span>
+                    <span className="text-xs font-bold font-mono text-slate-500 group-hover:text-blue-100 transition-colors">
+                      CP {barrio.cp}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-full bg-white group-hover:bg-[#1D4ED8] text-[#2563EB] group-hover:text-white flex items-center justify-center shrink-0 border border-slate-200 group-hover:border-transparent transition-all shadow-xs">
+                  <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+                </div>
               </a>
             ))}
           </div>
 
-          <div className="mt-8 pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-slate-600">
-            <span className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#2860F5] shrink-0" />
-              <span>Sede central: <strong>Av. dels Banús, 49</strong> · Santa Coloma de Gramenet (08923)</span>
+          {/* Footer de cobertura municipal */}
+          <div className="p-6 bg-[#F8FAFC] border-2 border-[#E2E8F0] rounded-2xl flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-bold text-slate-700">
+            <span className="flex items-center gap-2.5">
+              <MapPin className="w-5 h-5 text-[#2563EB] shrink-0" />
+              <span>Sede central: <strong className="text-[#0A192F]">Av. dels Banús, 49</strong> · Santa Coloma de Gramenet (08923)</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 px-3 py-1 rounded-full border border-slate-200">
+            <span className="inline-flex items-center gap-1.5 bg-[#FFFFFF] text-[#2563EB] px-3.5 py-1.5 rounded-full border border-[#CBD5E1] font-mono text-xs font-black shadow-xs">
               Códigos postales cubiertos: 08921 · 08922 · 08923 · 08924
             </span>
           </div>
-        </section>
-      </main>
+
+        </div>
+      </section>
 
       {/* ── FOOTER GLOBAL UNIFICADO ── */}
       <Footer language={language} />

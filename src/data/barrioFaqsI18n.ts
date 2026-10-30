@@ -19,7 +19,7 @@ export const BARRIO_FAQS_CA: Record<string, BarrioFaqItem[]> = {
     },
     {
       question: "Quin control i accés tenen els veïns als comptes bancaris de la comunitat?",
-      answer: "Transparència absoluta: lliurem balanços periòdics clars on cada cèntim està justificat amb la seva factura original i extracte bancari digital accessible 24/7 sense comissions opaques ni lletra petita."
+      answer: "Transparència absoluta: lliurem balanços periòdics clars on cada cèntim està justificat amb la seva factura original i extracte bancari digital accessible amb accés digital permanent sense comissions opaques ni lletra petita."
     }
   ],
   "santa-rosa": [
@@ -200,7 +200,7 @@ export const BARRIO_FAQS_CA: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "Com contactar amb Gesgrama en cas d'avaria durant el cap de setmana?",
-      "answer": "Mitjançant la nostra línia directa d'emergències 24/7 que mobilitza els tècnics homologats de guàrdia de manera immediata sense esperes."
+      "answer": "Mitjançant la nostra línia directa d'emergències prioritària que mobilitza els tècnics homologats de guàrdia de manera immediata sense esperes."
     }
   ],
   "les-oliveres": [
@@ -275,7 +275,7 @@ export const BARRIO_FAQS_EN: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "What access and oversight do homeowners have regarding community bank accounts?",
-      "answer": "Total transparency: we deliver clear periodic statements where every cent is backed by original invoices and 24/7 digital bank statement access with no hidden fees."
+      "answer": "Total transparency: we deliver clear periodic statements where every cent is backed by original invoices and permanent digital bank statement access with no hidden fees."
     }
   ],
   "santa-rosa": [
@@ -325,7 +325,7 @@ export const BARRIO_FAQS_EN: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "What solutions do you provide for recurring pipe and drainage issues in older Fondo properties?",
-      "answer": "We partner with licensed 24/7 emergency plumbers. We negotiate fixed annual rates that drastically reduce costs compared to emergency callouts."
+      "answer": "We partner with licensed emergency plumbers with fast response. We negotiate fixed annual rates that drastically reduce costs compared to emergency callouts."
     },
     {
       "question": "Why choose Gesgrama for a building in the Fondo neighborhood?",
@@ -383,7 +383,7 @@ export const BARRIO_FAQS_EN: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "How are out-of-hours emergency repairs handled in El Llatí?",
-      "answer": "We operate a 24/7, 365-day emergency hotline that immediately dispatches certified local technicians across Santa Coloma."
+      "answer": "We operate a direct priority emergency hotline that immediately dispatches certified local technicians across Santa Coloma."
     }
   ],
   "el-raval": [
@@ -455,7 +455,7 @@ export const BARRIO_FAQS_EN: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "How can we reach Gesgrama for emergencies over the weekend?",
-      "answer": "Via our direct 24/7 emergency hotline, which mobilizes vetted on-duty technicians immediately without delays."
+      "answer": "Via our direct priority emergency hotline, which mobilizes vetted on-duty technicians immediately without delays."
     }
   ],
   "les-oliveres": [

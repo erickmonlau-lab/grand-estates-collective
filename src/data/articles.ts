@@ -1508,7 +1508,7 @@ export const articles: Article[] = [
           level: "h3",
           content: [
             "Property management has evolved significantly. 21st-century property owners expect far more than basic bookkeeping. At Gesgrama, HOA administration in Riu Nord, Riu Sud, and Oliveres-Can Serra includes:",
-            "24/7 digital portal access enabling every owner to review community accounts, meeting minutes, paid invoices, and maintenance tickets in real time.",
+            "Permanent digital portal access enabling every owner to review community accounts, meeting minutes, paid invoices, and maintenance tickets in real time.",
             "Rapid-response emergency maintenance services for critical building installations (elevators, plumbing, electrical).",
             "Proactive advisory on available building renovation subsidies and end-to-end grant application management."
           ]

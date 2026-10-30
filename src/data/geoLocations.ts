@@ -69,7 +69,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       },
       {
         question: "¿Qué control y acceso tienen los vecinos a las cuentas bancarias de la comunidad?",
-        answer: "Transparencia absoluta: entregamos balances periódicos claros donde cada céntimo está justificado con su factura original y extracto bancario digital accesible 24/7 sin comisiones opacas ni letra pequeña."
+        answer: "Transparencia absoluta: entregamos balances periódicos claros donde cada céntimo está justificado con su factura original y extracto bancario digital accesible con acceso digital permanente sin comisiones opacas ni letra pequeña."
       }
     ]
   },
@@ -199,7 +199,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       },
       {
         question: "¿Qué solución aplicáis a las averías recurrentes de bajantes e instalaciones viejas en Fondo?",
-        answer: "Trabajamos con lampistas y fontaneros homologados con servicio de desatasco urgente 24h. Negociamos tarifas fijas anuales que abaratan el coste por intervención frente a avisos particulares de urgencia."
+        answer: "Trabajamos con lampistas y fontaneros homologados con servicio de desatasco urgente y prioritario. Negociamos tarifas fijas anuales que abaratan el coste por intervención frente a avisos particulares de urgencia."
       },
       {
         question: "¿Por qué elegir Gesgrama para una comunidad en el barrio de Fondo?",
@@ -336,7 +336,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       },
       {
         question: "¿Cómo se tramita una avería urgente fuera de horario de oficina en el Llatí?",
-        answer: "Disponemos de un teléfono y canal de emergencias activo las 24 horas y los 365 días del año con derivación inmediata a industriales homologados de Santa Coloma."
+        answer: "Disponemos de un teléfono y canal de emergencias de respuesta ágil y prioritaria para incidencias con derivación inmediata a industriales homologados de Santa Coloma."
       }
     ]
   },
@@ -399,7 +399,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
     metaTitle: "Administrador de Fincas en Riu Nord (Santa Coloma) · Gesgrama",
     metaDescription: "Gestión de comunidades en Riu Nord, Santa Coloma de Gramenet. Auditoría energética, mantenimiento de zonas comunes y gestión transparente.",
     heroHeadline: "Administrador de Fincas en Riu Nord (Santa Coloma de Gramenet)",
-    heroSubtitle: "Gestión profesional y transparente para las comunidades del Riu Nord. Optimización de contratos colectivos, mantenimiento de zonas comunes y app 24/7 para propietarios.",
+    heroSubtitle: "Gestión profesional y transparente para las comunidades del Riu Nord. Optimización de contratos colectivos, mantenimiento de zonas comunes y app digital permanent para propietarios.",
     geo: { latitude: 41.4482, longitude: 2.2031 },
     emergencyResponseMinutes: 10,
     testimonial: {
@@ -412,7 +412,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
     faqs: [
       {
         question: "¿Tienen los vecinos acceso a las facturas y extractos bancarios de Riu Nord?",
-        answer: "Sí, a través de nuestra plataforma online y app móvil exclusiva, accesible 24 horas al día, 365 días al año."
+        answer: "Sí, a través de nuestra plataforma online y app móvil exclusiva, accesible de forma continua y permanente."
       },
       {
         question: "¿Qué mantenimiento preventivo necesitan los garajes y pasajes en Riu Nord?",
@@ -512,7 +512,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       },
       {
         question: "¿Cómo contactar con Gesgrama en caso de avería durante el fin de semana?",
-        answer: "A través de nuestra línea directa de emergencias 24/7 que moviliza a los técnicos homologados de guardia de manera inmediata sin esperas."
+        answer: "A través de nuestra línea directa de emergencias prioritaria que moviliza a los técnicos homologados de guardia de manera inmediata sin esperas."
       }
     ]
   },

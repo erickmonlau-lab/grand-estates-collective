@@ -648,60 +648,39 @@ function Index() {
                 const type = pData.type || property.type || "Piso";
 
                 return (
-                  <div
-                    key={property.id}
-                    className="h-full"
-                  >
+                  <div key={property.id} className="h-full">
                     <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                      <div
-                        className="group bg-white rounded-[26px] sm:rounded-[28px] flex flex-col h-full border-2 border-slate-900/80 hover:border-[#2563eb] shadow-[0_6px_24px_rgba(15,23,42,0.12)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.18)] hover:-translate-y-1.5 transition-all duration-300 overflow-hidden cursor-pointer"
-                      >
-                        {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
-                        <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
-                          {(() => {
-                            const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
-                            const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
-                            const srcSet = isUnsplash
-                              ? `${baseUnsplash}?auto=format&fit=crop&w=340&q=65 340w, ${baseUnsplash}?auto=format&fit=crop&w=480&q=68 480w, ${baseUnsplash}?auto=format&fit=crop&w=640&q=70 640w`
-                              : undefined;
-                            const imgSrc = isUnsplash
-                              ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=65`
-                              : property.image;
-
-                            return (
-                              <img 
-                                src={imgSrc}
-                                srcSet={srcSet}
-                                sizes="(max-width: 640px) 320px, (max-width: 1024px) 340px, 360px"
-                                alt={pData.name} 
-                                loading="lazy" 
-                                decoding="async"
-                                width={360}
-                                height={235}
-                                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
-                              />
-                            );
-                          })()}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
+                      <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] hover:shadow-[6px_6px_0px_#2860F5] hover:border-[#2860F5] flex flex-col h-full transition-all duration-200 group cursor-pointer">
+                        
+                        {/* 1. ZONA FOTOGRÁFICA EDITORIAL */}
+                        <div className="relative h-[220px] sm:h-[240px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
+                          <img 
+                            src={property.image}
+                            alt={pData.name} 
+                            loading="lazy" 
+                            decoding="async"
+                            width={400}
+                            height={240}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          />
                           
-                          {/* Floating Status, Type & Reservation Pills — single attractive line */}
-                          <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-1.5 sm:gap-2 z-20 pointer-events-none overflow-hidden no-scrollbar">
-                            <span className="inline-flex items-center gap-1 bg-[#0b214a]/95 backdrop-blur-md text-white text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
-                              <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
-                              <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
+                          {/* Badges Rectangulares Sólidos */}
+                          <div className="absolute top-3 left-3 flex items-center gap-1.5 z-20">
+                            <span className="inline-flex items-center gap-1.5 bg-[#111111] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
+                              <span className={`w-2 h-2 ${isRent ? 'bg-amber-400' : 'bg-[#2860F5]'}`} />
+                              <span>{isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}</span>
                             </span>
-                            <span className="inline-flex items-center bg-[#2563eb] text-white text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
+                            <span className="inline-flex items-center bg-[#2860F5] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
                               {type}
                             </span>
                             {property.status === "reservado" && (
-                              <span className="inline-flex items-center gap-1 bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[9.5px] sm:text-[10.5px] px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md border border-amber-500/40 font-ui-clean shrink-0 whitespace-nowrap">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 shadow-xs" />
-                                <span>{language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}</span>
+                              <span className="inline-flex items-center bg-amber-400 text-black font-headline font-black uppercase tracking-wider text-[11px] px-2 py-1 border border-black">
+                                {language === "ca" ? "RESERVAT" : "RESERVADO"}
                               </span>
                             )}
                           </div>
 
-                          {/* Heart Favorite Button with micro-bounce */}
+                          {/* Botón Favorito Rectangular Sólido */}
                           <button
                             type="button"
                             onClick={(e) => {
@@ -710,119 +689,72 @@ function Index() {
                               toggleFavorite(property.id);
                             }}
                             aria-label="Guardar en favoritos"
-                            className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center active:scale-125 transition-all duration-200 cursor-pointer shadow-md z-20 ${
-                              isFav 
-                                ? 'bg-red-500 text-white shadow-red-500/30' 
-                                : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
+                            className={`absolute top-3 right-3 w-9 h-9 border-2 border-[#111111] flex items-center justify-center transition-all z-20 cursor-pointer ${
+                              isFav ? 'bg-red-500 text-white shadow-[2px_2px_0px_#111111]' : 'bg-white text-[#111111] hover:bg-slate-100 shadow-[2px_2px_0px_#111111]'
                             }`}
                           >
-                            <Heart className="w-5 h-5 fill-current" />
+                            <Heart className="w-4 h-4 fill-current" />
                           </button>
 
-                          {/* Bottom-left Ref Badge directly over the image */}
-                          <div className="absolute bottom-3 left-3.5 z-20">
-                            <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                          {/* Ref Badge en JetBrains Mono */}
+                          <div className="absolute bottom-2.5 left-3 z-20">
+                            <span className="inline-flex items-center text-[11px] font-data-mono font-black text-white bg-[#111111] px-2 py-0.5 border border-white">
                               Ref: {property.ref || "PJ2024"}
                             </span>
                           </div>
                         </div>
 
-                        {/* Content Block */}
+                        {/* 2. ZONA INFORMATIVA ESTRUCTURADA */}
                         <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            {/* Location with Pin - Solid White Pill (No Transparency) */}
-                            <div className="mb-2.5">
-                              <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
-                                <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
+                            {/* Barrio con Icono */}
+                            <div className="mb-2">
+                              <span className="inline-flex items-center gap-1.5 text-[13px] sm:text-[14px] font-headline font-black text-[#2860F5] uppercase tracking-wider">
+                                <MapPin className="w-3.5 h-3.5 text-[#2860F5] stroke-[2.5]" />
                                 <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
                               </span>
                             </div>
 
-                            {/* Main Title */}
-                            <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
+                            {/* Título Inmueble */}
+                            <h3 className="text-[19px] sm:text-[20px] font-headline font-black text-[#111111] mb-4 leading-snug group-hover:text-[#2860F5] transition-colors line-clamp-1">
                               {pData.name}
                             </h3>
 
-                            {/* Features Micro-Boxes */}
-                            <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
-                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                <span>{property.bedrooms > 0 ? property.bedrooms : "0"} {language === "en" ? "bd" : "hab"}</span>
+                            {/* Rejilla de Características en JetBrains Mono y Bordes */}
+                            <div className="grid grid-cols-3 gap-2 mb-4">
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Habs</span>
+                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bedrooms > 0 ? property.bedrooms : "0"}</span>
                               </div>
-                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">{language === "ca" ? "Banys" : "Baños"}</span>
+                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bathrooms > 0 ? property.bathrooms : "1"}</span>
                               </div>
-                              <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                <span>{property.surface} m²</span>
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Sup.</span>
+                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.surface} m²</span>
                               </div>
                             </div>
-
-                            {/* Floor / Feature Highlight badge - Only shown if it provides non-redundant, relevant information */}
-                            {(() => {
-                              const isRedundant = (text: string) => {
-                                if (!text) return true;
-                                const lower = text.toLowerCase();
-                                return (
-                                  lower.includes("dormitori") ||
-                                  lower.includes("habitación") ||
-                                  lower.includes("habitacion") ||
-                                  lower.includes("bedroom") ||
-                                  lower.includes("bany") ||
-                                  lower.includes("baño") ||
-                                  lower.includes("bathroom") ||
-                                  lower.includes("verificat") ||
-                                  lower.includes("verified") ||
-                                  lower.includes("verificado")
-                                );
-                              };
-
-                              let relevantFeature = "";
-                              if (pData.floor && !isRedundant(pData.floor)) {
-                                relevantFeature = pData.floor;
-                              } else if (pData.features && pData.features.length > 0) {
-                                const found = pData.features.find((f: string) => !isRedundant(f));
-                                if (found) relevantFeature = found;
-                              }
-
-                              if (!relevantFeature) return null;
-
-                              return (
-                                <div className="mt-3">
-                                  <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold shadow-xs max-w-full">
-                                    <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
-                                    <span className="truncate">{relevantFeature}</span>
-                                  </div>
-                                </div>
-                              );
-                            })()}
                           </div>
 
-                          {/* Price & Action Button */}
-                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
-                            <div className="flex flex-col min-w-0">
-                              {/* Blue Pill Badge for "VENTA" / "ALQUILER" */}
-                              <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-ui-clean">
-                                {isRent 
-                                  ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") 
-                                  : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}
-                              </span>
+                          {/* 3. PRECIO DESTACADO & ACCIÓN EDITORIAL */}
+                          <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between gap-3">
+                            <div className="flex flex-col">
+                              <span className="text-[11px] font-headline font-black uppercase text-slate-600">Precio</span>
                               <div className="flex items-baseline whitespace-nowrap">
-                                <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
-                                  {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
+                                <span className="text-2xl sm:text-[26px] font-data-mono font-black text-[#111111] leading-none">
+                                  {new Intl.NumberFormat('es-ES').format(property.price)}&nbsp;€
                                 </span>
-                                {isRent && (
-                                  <span className="text-[11px] font-black text-slate-500 font-sans ml-1">/mes</span>
-                                )}
+                                {isRent && <span className="text-[12px] font-bold text-slate-600 ml-1">/mes</span>}
                               </div>
                             </div>
 
-                            <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb] font-ui-clean">
-                              <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
-                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                            <div className="h-[44px] px-4 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center gap-2 font-headline font-black text-[13px] uppercase tracking-wider transition-all">
+                              <span>{t.properties.verDetalles || "Ficha"}</span>
+                              <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </Link>
@@ -1001,29 +933,29 @@ function Index() {
       </Suspense>
 
       {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
-      <section className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx">
-        <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-6 sm:p-9 md:p-12 mx-4 sm:mx-6 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
-            
-            {/* Left Content */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center">
-              <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
-                  <Building2 className="w-3.5 h-3.5" />
+      <section className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+          <div className="bg-[#FFFFFF] border-2 border-[#111111] shadow-[5px_5px_0px_#111111] p-6 sm:p-10 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              
+              {/* Left Content (7 cols) */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4 w-fit">
+                  <Building2 className="w-4 h-4 text-[#2860F5]" />
                   <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
-                </span>
+                </div>
                 
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight text-[#111111] mb-4 tracking-tight">
                   {language === "ca" ? (
-                    <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span><span className="ml-1.5 inline-block">?</span></>
+                    <>Parlem de la teva <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">comunitat</span>?</>
                   ) : language === "en" ? (
-                    <>Let's talk about your <span className="text-[#2563eb]">community</span></>
+                    <>Let's talk about your <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">community</span></>
                   ) : (
-                    <><span className="mr-1 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span><span className="ml-1.5 inline-block">?</span></>
+                    <>¿Hablamos de tu <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">comunidad</span>?</>
                   )}
                 </h2>
                 
-                <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
+                <p className="text-[17px] sm:text-[18px] text-[#111111] font-bold leading-relaxed mb-6 max-w-xl">
                   {language === "ca" 
                     ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
                     : language === "en" 
@@ -1031,7 +963,8 @@ function Index() {
                     : "Administración transparente, respuesta ágil y optimización de costes garantizada para tu finca."}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                {/* Acciones principales */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8">
                   <a 
                     href="#formulario-contacto" 
                     onClick={(e) => {
@@ -1043,56 +976,52 @@ function Index() {
                         if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
                       }
                     }}
-                    className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                    className="h-[56px] px-6 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Phone className="w-4 h-4 text-white" />
                     <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
-                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
                   </a>
                   <a 
                     href="https://wa.me/34601259424" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                    className="h-[56px] px-6 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" className="w-4 h-4 fill-white group-hover:scale-110 transition-transform">
+                    <svg width="18" height="18" viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
                       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
                     </svg>
                     <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
                   </a>
                 </div>
 
-                {/* Stats Grid */}
-                <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
+                {/* Métricas destacadas en 3 bloques con fondos sólidos */}
+                <div className="grid grid-cols-3 gap-3 pt-6 border-t-2 border-[#111111]">
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                    <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">Nº 5583</p>
+                    <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
                   </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                    <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">+15 AÑOS</p>
+                    <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                   </div>
-                  <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                    <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
-                    <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                    <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">100%</p>
+                    <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
                   </div>
                 </div>
-              </Reveal>
-            </div>
+              </div>
 
-            {/* Right Image (Left in desktop) */}
-            <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
-              <Reveal delay={0.2} className="w-full h-full">
+              {/* Right Image (5 cols) */}
+              <div className="lg:col-span-5 h-[280px] sm:h-[340px] md:h-[400px] relative border-2 border-[#111111] shadow-[4px_4px_0px_#111111] overflow-hidden">
                 <img 
                   src={gesgramaOffice} 
                   alt="Oficina principal Gesgrama" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover object-center" 
+                  className="w-full h-full object-cover" 
                 />
-              </Reveal>
-            </div>
+              </div>
 
+            </div>
           </div>
         </div>
       </section>
@@ -1104,106 +1033,91 @@ function Index() {
         <CoberturaSection language={language} t={t} />
       </Suspense>
 
-      {/* ── 9. TESTIMONIOS / NOSOTROS (DISTINCT CLEAN CONTRAST) ── */}
-      <section id="nosotros" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx scroll-mt-28 md:scroll-mt-32 font-sans">
+      {/* ── 9. TESTIMONIOS / NOSOTROS EDITORIAL NEO-BRUTALIST ── */}
+      <section id="nosotros" className="py-14 sm:py-20 bg-[#FFFFFF] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
         <div id="testimonios" className="-top-32 relative block invisible" />
-        <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-6 sm:p-8 md:p-10 mx-4 sm:mx-6 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-[#0f172a]">
-          {/* Subtle Dot Pattern Overlay */}
-          <div className="absolute inset-0 bg-dot-pattern opacity-40 pointer-events-none z-0" />
-          <div className="relative z-10">
-            {/* Header */}
-            <Reveal>
-              <div className="mb-4 md:mb-5 text-center">
-                <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 rounded-xl shadow-md border border-white/10 mb-2">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  <span>{t.testimonios.tag}</span>
-                </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black leading-tight text-[#0f172a] tracking-tight mb-2.5 font-sans">
-                  {t.testimonios.title1}{" "}
-                  <span className="relative inline-block text-[#2563eb] pb-0.5">
-                    {t.testimonios.title2}
-                    <svg className="absolute -bottom-1 left-0 w-full h-2 text-[#2563eb]" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none">
-                      <path d="M0,7 Q25,0 50,7 T100,7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                    </svg>
-                  </span>
-                </h2>
-                {/* Google Verified Reviews Subtitle Badge closely connected */}
-                <div className="flex items-center justify-center pt-1">
-                  <div className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-1.5 sm:px-4 sm:py-1.5 rounded-full shadow-xs hover:border-[#2563eb]/40 transition-colors">
-                    <GoogleIcon className="w-5 h-5 shrink-0" />
-                    <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight">
-                      {language === 'ca' ? 'Ressenyes verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas verificadas en Google'}
-                    </span>
-                  </div>
-                </div>
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+          
+          {/* Cabecera Editorial */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
+            <div>
+              <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
+                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                <span>{t.testimonios.tag}</span>
               </div>
-            </Reveal>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
+                {t.testimonios.title1}{" "}
+                <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{t.testimonios.title2}</span>
+              </h2>
+            </div>
 
-            {/* 3 Real Google Reviews Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 md:gap-4 items-stretch">
-              {t.testimonios.items.map((item, i) => {
-                const initials = ["F", "A", "C"];
+            {/* Google Verified Reviews Badge Sólido */}
+            <div className="lg:max-w-md">
+              <div className="inline-flex items-center gap-3 bg-[#FAF9FC] border-2 border-[#111111] shadow-[3px_3px_0px_#111111] px-5 py-3">
+                <GoogleIcon className="w-6 h-6 shrink-0" />
+                <span className="text-[15px] sm:text-[16px] font-headline font-black text-[#111111] tracking-wide">
+                  {language === 'ca' ? 'Ressenyes 100% verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas 100% verificadas en Google'}
+                </span>
+              </div>
+            </div>
+          </div>
 
-                return (
-                  <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="group bg-white text-[#0f172a] rounded-2xl p-4.5 sm:p-5 md:p-6 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] hover:shadow-[0_12px_24px_-6px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
-                      
-                      {/* Top Accent Solid Bar (3.5px solid blue line) */}
-                      <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
+          {/* 3 Real Google Reviews Cards en Bloques Blancos Sólidos con Bordes de 2px */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {t.testimonios.items.map((item, i) => {
+              const initials = ["F", "A", "C"];
 
-                      <div className="relative z-10 flex-1 flex flex-col">
-                        {/* Top Row: 5 Stars Left Aligned & Google Badge Right Aligned */}
-                        <div className="flex items-center justify-between gap-2 mb-3.5 h-6">
-                          {/* 5 Stars Rating Perfectly Aligned */}
-                          <div className="flex items-center gap-1 text-amber-400">
-                            {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
-                            ))}
-                          </div>
-
-                          {/* Google Badge */}
-                          <div className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-[11px] font-black text-slate-800 shadow-2xs shrink-0">
-                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
-                            <span>Google</span>
-                          </div>
-                        </div>
-
-                        {/* Quote Text: Legibilidad superior en 15.5px mobile / 16.5px desktop con leading 1.55 y Navy oscuro */}
-                        <p className="text-[#0f172a] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[1.55] font-medium mb-5 flex-1 font-sans">
-                          “{item.quote}”
-                        </p>
+              return (
+                <div 
+                  key={item.author} 
+                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] hover:shadow-[6px_6px_0px_#2860F5] hover:border-[#2860F5] p-6 flex flex-col justify-between transition-all duration-200 group"
+                >
+                  <div>
+                    {/* Top Row: Stars + Google Badge */}
+                    <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b-2 border-[#111111]">
+                      <div className="flex items-center gap-1 text-amber-400">
+                        {[...Array(5)].map((_, s) => (
+                          <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                        ))}
                       </div>
+                      <div className="inline-flex items-center gap-1.5 bg-[#111111] text-white px-2.5 py-0.5 text-[11px] font-headline font-black tracking-wider uppercase">
+                        <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                        <span>Google</span>
+                      </div>
+                    </div>
 
-                      {/* Author Row */}
-                      <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200 relative">
-                            {initials[i % initials.length]}
-                            <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#2563eb] rounded-full border-2 border-white flex items-center justify-center">
-                              <Check className="w-2 h-2 text-white stroke-[3.5]" />
-                            </div>
-                          </div>
-                          <div className="flex flex-col min-w-0">
-                            <strong className="font-bold text-xs sm:text-sm md:text-[14.5px] text-[#0f172a] tracking-tight leading-tight truncate">
-                              {item.author}
-                            </strong>
-                            <span className="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5">
-                              {item.time}
-                            </span>
-                          </div>
-                        </div>
+                    {/* Texto de Reseña Grande y Legible */}
+                    <p className="text-[#111111] text-[16px] sm:text-[17px] font-medium leading-relaxed mb-6">
+                      “{item.quote}”
+                    </p>
+                  </div>
 
-                        <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-extrabold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-white stroke-[2.5]" />
-                          <span>{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
+                  {/* Fila de Autor y Verificación */}
+                  <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between gap-3 mt-auto">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 bg-[#111111] text-white border-2 border-[#111111] font-headline font-black text-sm flex items-center justify-center shrink-0">
+                        {initials[i % initials.length]}
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <strong className="font-headline font-black text-[15px] sm:text-[16px] text-[#111111] truncate">
+                          {item.author}
+                        </strong>
+                        <span className="text-[12px] font-data-mono font-bold text-slate-600">
+                          {item.time}
                         </span>
                       </div>
                     </div>
-                  </Reveal>
-                );
-              })}
-            </div>
+
+                    <span className="inline-flex items-center gap-1 text-[12px] font-headline font-black text-white bg-[#16A34A] border border-[#111111] px-2.5 py-1 shrink-0">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <span>{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
@@ -1222,45 +1136,46 @@ function Index() {
         <ContactSection language={language} t={t} />
       </Suspense>
 
-      {/* ── FINAL CLOSING CTA BANNER ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
-      <section id="final-cta" className="py-4 md:py-8 bg-[#e2e8f0] text-[#0f172a]">
-        <div className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border border-slate-200/80 p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
-            
-            {/* Left Content (Title, Subtitle & Buttons) */}
-            <div className="w-full lg:w-7/12 text-left py-0 lg:py-1">
-              <Reveal>
-                <span className="inline-flex items-center gap-1.5 bg-[#0f172a] text-white text-[11px] font-black tracking-wider uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-3">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+      {/* ── FINAL CLOSING CTA BANNER NEO-BRUTALIST EDITORIAL ── */}
+      <section id="final-cta" className="py-14 sm:py-20 bg-[#111111] text-white border-b-2 border-[#111111]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+          <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[6px_6px_0px_#2860F5] p-6 sm:p-10 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Content */}
+              <div className="lg:col-span-7 text-left">
+                <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
+                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
                   <span>{t.finalCta.tag}</span>
-                </span>
+                </div>
                 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-2.5 leading-tight tracking-tight font-sans">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] mb-4 leading-tight tracking-tight">
                   {t.finalCta.title1.startsWith("¿") ? (
                     <>
-                      <span className="mr-1 inline-block">¿</span>
+                      <span>¿</span>
                       {t.finalCta.title1.slice(1)}
                     </>
                   ) : (
                     t.finalCta.title1
                   )}{" "}
-                  <span className="inline-block bg-[#2563eb] text-white px-3 py-1 rounded-xl shadow-xs">
+                  <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">
                     {t.finalCta.title2}
                   </span>
-                  <span className="ml-1.5 inline-block">?</span>
+                  <span>?</span>
                 </h2>
                 
-                <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans text-balance">
+                <p className="text-[17px] sm:text-[18px] text-[#111111] font-bold leading-relaxed mb-8 max-w-xl">
                   {t.finalCta.subtitle}
                 </p>
                 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5 max-w-lg mb-2 sm:mb-4">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                   <a
-                    href="#valuator-form"
-                    className="w-full sm:w-auto bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer font-sans"
+                    href="#calculadora-valoracion"
+                    className="h-[58px] px-8 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Home className="w-4 h-4 text-white shrink-0" />
-                    <span className="whitespace-nowrap">{t.finalCta.btnValuate}</span>
+                    <span>{t.finalCta.btnValuate}</span>
+                    <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
                   </a>
                   <a
                     href="#formulario-contacto"
@@ -1273,42 +1188,30 @@ function Index() {
                         if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
                       }
                     }}
-                    className="w-full sm:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer font-sans"
+                    className="h-[58px] px-8 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Phone className="w-4 h-4 text-white shrink-0" />
-                    <span className="whitespace-nowrap">{t.finalCta.btnContact}</span>
+                    <span>{t.finalCta.btnContact}</span>
                   </a>
                 </div>
-              </Reveal>
-            </div>
-
-            {/* Right Side: Cut-out Advisors Image with smooth blended edges (left, right, bottom) */}
-            <div className="w-full lg:w-5/12 flex justify-center lg:justify-end items-end self-end mt-2 lg:mt-0 relative">
-              <div 
-                className="relative w-full max-w-[480px] overflow-hidden"
-                style={{
-                  WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
-                  WebkitMaskComposite: "destination-in",
-                  maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%), linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
-                  maskComposite: "intersect"
-                }}
-              >
-                <img 
-                  src="/images/cta_advisors_closed_laptop.jpg" 
-                  alt="Asesores inmobiliarios Gesgrama" 
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-auto object-contain block -mb-1"
-                />
               </div>
-              {/* Fallback smooth gradients directly matching card background (#ffffff) */}
-              <div className="absolute inset-y-0 left-0 w-12 sm:w-16 bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none z-10" />
-              <div className="absolute inset-y-0 right-0 w-12 sm:w-16 bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none z-10" />
-              <div className="absolute bottom-0 inset-x-0 h-10 sm:h-14 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
-            </div>
 
+              {/* Right Side: Advisors Image rectangular con marco sólido */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                <div className="w-full max-w-[420px] aspect-[4/3] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] overflow-hidden bg-slate-100">
+                  <img 
+                    src="/images/cta_advisors_closed_laptop.jpg" 
+                    alt="Asesores inmobiliarios Gesgrama" 
+                    width={800}
+                    height={600}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>

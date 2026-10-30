@@ -1,107 +1,93 @@
 import { useState } from "react";
-import { HelpCircle, ArrowRight } from "lucide-react";
+import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
 
 interface FaqSectionProps {
   t: any;
 }
 
 export default function FaqSection({ t }: FaqSectionProps) {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
 
   return (
     <section 
       id="faq" 
-      className="relative overflow-hidden bg-[#e2e8f0] text-onyx py-4 md:py-6 scroll-mt-28 md:scroll-mt-32"
+      className="py-14 sm:py-20 bg-[#111111] text-white border-b-2 border-[#111111] scroll-mt-24"
     >
-      <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white flex flex-col items-center">
-        <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
-          <div className="text-center mb-6 flex flex-col items-center">
-            {/* White Badge with Icon next to Text */}
-            <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-3 font-sans">
-              <HelpCircle className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-              <span>{t.faq.tag}</span>
-            </span>
-
-            {/* Title */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white tracking-tight font-sans mb-2">
-              <span className="bg-[#2563eb] text-white px-3 py-1 rounded-xl inline-block shadow-md">
-                {t.faq.title1}
-              </span>{" "}
-              {t.faq.title2}
-            </h2>
-
-            <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-1.5">
-              {t.faq.subtitle}
-            </p>
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+        
+        {/* Cabecera FAQ Sólida */}
+        <div className="text-center mb-12 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 border border-white mb-4">
+            <HelpCircle className="w-4 h-4 text-white" />
+            <span>{t.faq.tag}</span>
           </div>
 
-          {/* Accordion Cards - Visual Cards with Index Badges & Balanced Text */}
-          <div className="w-full flex flex-col gap-3 mb-6">
-            {t.faq.items.map((item: any, i: number) => {
-              const isActive = activeFaq === i;
-              return (
-                <div 
-                  key={i}
-                  onClick={() => setActiveFaq(isActive ? null : i)}
-                  className={`cursor-pointer rounded-2xl p-4 sm:p-5 transition-all duration-300 group border ${
-                    isActive 
-                      ? 'bg-white shadow-lg border-blue-500/40 ring-1 ring-blue-500/20' 
-                      : 'bg-slate-100/95 hover:bg-white border-slate-200/90 hover:border-blue-400/50 shadow-xs'
-                  }`}
-                >
-                  <div className="flex justify-between items-center gap-3.5">
-                    <div className="flex items-start sm:items-center gap-3 min-w-0">
-                      <span className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors duration-200 font-sans ${
-                        isActive ? 'bg-[#2563eb] text-white shadow-xs' : 'bg-slate-200 text-slate-700 group-hover:bg-blue-100 group-hover:text-[#2563eb]'
-                      }`}>
-                        0{i + 1}
-                      </span>
-                      <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg font-sans leading-snug text-balance">
-                        {item.q}
-                      </h3>
-                    </div>
-                    <div 
-                      className={`${isActive ? 'rotate-45' : ''} w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
-                        isActive ? 'bg-[#1d4ed8] text-white shadow-sm' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'
-                      }`}
-                    >
-                      <span className="text-xl font-black leading-none select-none">+</span>
-                    </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight text-white tracking-tight mb-4">
+            <span>{t.faq.title1} </span>
+            <span className="text-[#2860F5] underline decoration-white decoration-4 underline-offset-4">{t.faq.title2}</span>
+          </h2>
+
+          <p className="text-slate-300 text-[16px] sm:text-[18px] font-bold leading-relaxed max-w-xl mx-auto">
+            {t.faq.subtitle}
+          </p>
+        </div>
+
+        {/* Acordeón Neo-Brutalist: Preguntas blancas sólidas con bordes negros, numeración JetBrains Mono y botón expansor azul geométrico */}
+        <div className="max-w-4xl mx-auto flex flex-col gap-3.5 mb-10">
+          {t.faq.items.map((item: any, i: number) => {
+            const isActive = activeFaq === i;
+            return (
+              <div 
+                key={i}
+                onClick={() => setActiveFaq(isActive ? null : i)}
+                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] p-5 sm:p-6 transition-all cursor-pointer"
+              >
+                <div className="flex justify-between items-center gap-4">
+                  <div className="flex items-center gap-3.5 min-w-0">
+                    <span className="w-8 h-8 bg-[#111111] text-white text-[14px] font-data-mono font-black flex items-center justify-center shrink-0 border border-[#111111]">
+                      0{i + 1}
+                    </span>
+                    <h3 className="font-headline font-black text-[#111111] text-[17px] sm:text-[19px] leading-snug">
+                      {item.q}
+                    </h3>
                   </div>
-                  <div className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${isActive ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`} aria-hidden={!isActive}>
-                    <div className="overflow-hidden">
-                      <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
-                          {item.a}
-                        </p>
-                    </div>
+                  
+                  {/* Botón de Expansión Geométrico Azul Sólido */}
+                  <div 
+                    className={`w-9 h-9 bg-[#2860F5] text-white border-2 border-[#111111] flex items-center justify-center shrink-0 font-black text-xl transition-transform duration-200 ${
+                      isActive ? "rotate-45 bg-[#111111]" : ""
+                    }`}
+                  >
+                    +
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Bottom Eye-Catching Blue CTA Button */}
-          <div className="text-center">
-            <a 
-              href="#formulario-contacto" 
-              onClick={(e) => {
-                e.preventDefault();
-                const formEl = document.getElementById("formulario-contacto");
-                if (formEl) {
-                  formEl.scrollIntoView({ behavior: "smooth", block: "center" });
-                  const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
-                  if (inputEl) {
-                    setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
-                  }
-                }
-              }}
-              className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
-            >
-              <span>{t.faq.askDoubt}</span>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </a>
-          </div>
+                {isActive && (
+                  <div className="pt-4 mt-4 border-t-2 border-[#111111]">
+                    <p className="text-[#111111] text-[16px] sm:text-[17px] font-medium leading-relaxed">
+                      {item.a}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
+
+        {/* Bloque CTA inferior de ayuda */}
+        <div className="text-center pt-2">
+          <p className="text-slate-300 font-headline font-bold text-sm sm:text-base mb-4">
+            ¿Tienes otra duda o consulta sobre tu vivienda o comunidad?
+          </p>
+          <a
+            href="#contacto"
+            className="inline-flex items-center gap-3 bg-[#2860F5] hover:bg-white hover:text-[#111111] text-white px-8 py-3.5 border-2 border-white shadow-[3px_3px_0px_#FFFFFF] text-sm sm:text-base font-headline font-black uppercase tracking-wider transition-all cursor-pointer"
+          >
+            <span>CONSULTAR CON UN EXPERTO</span>
+            <ArrowRight className="w-5 h-5 stroke-[2.5]" />
+          </a>
+        </div>
+
       </div>
     </section>
   );

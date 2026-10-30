@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Phone, ArrowRight, Check, Loader2, ChevronDown } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight, Check, Loader2 } from "lucide-react";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 interface ContactSectionProps {
@@ -8,9 +7,10 @@ interface ContactSectionProps {
   t: any;
 }
 
-const easeOut = [0.16, 1, 0.3, 1] as const;
-
 export default function ContactSection({ language, t }: ContactSectionProps) {
+  const isCa = language === "ca";
+  const isEn = language === "en";
+
   const [contactForm, setContactForm] = useState(() => {
     let initialAsunto = "Gestión de Comunidades";
     if (typeof window !== "undefined") {
@@ -49,387 +49,268 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
   const [isSubmittedSuccess, setIsSubmittedSuccess] = useState(false);
 
-  return (
-    <section id="contacto" className="py-6 sm:py-10 md:py-12 bg-[#F8FAFC] text-onyx scroll-mt-28 md:scroll-mt-32">
-      <div className="bg-white rounded-[28px] sm:rounded-[32px] shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 p-5 sm:p-8 md:p-10 mx-4 md:mx-auto max-w-[1320px] relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-          
-          {/* LEFT COLUMN: Title & Image Overlay Card */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
-            <div className="w-full">
-              <span className="inline-flex items-center justify-center bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-5 sm:mb-6 w-fit">
-                {t.contacto.badge}
-              </span>
-              
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0f172a] leading-[1.2] sm:leading-[1.18] tracking-tight mb-5 sm:mb-6 font-sans">
-                {t.contacto.title1.startsWith("¿") ? (
-                  <>
-                    <span className="mr-1 inline-block">¿</span>
-                    {t.contacto.title1.slice(1)}
-                  </>
-                ) : (
-                  t.contacto.title1
-                )}<br />
-                <span className="text-[#2563eb] italic font-serif inline-block">
-                  {t.contacto.title2.endsWith("?") ? t.contacto.title2.slice(0, -1) : t.contacto.title2}
-                </span>
-                {t.contacto.title2.endsWith("?") && (
-                  <span className="ml-1.5 inline-block text-[#2563eb] not-italic font-sans">?</span>
-                )}
-              </h2>
-              
-              <p className="text-slate-600 text-sm sm:text-base md:text-lg mb-7 sm:mb-8 font-bold leading-relaxed font-sans max-w-xl">
-                {t.contacto.subtitle}
-              </p>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs: typeof contactErrors = {};
+    if (!contactForm.nombre.trim()) errs.nombre = "Nombre obligatorio";
+    if (!contactForm.telefono.trim()) errs.telefono = "Teléfono obligatorio";
+    if (!contactForm.email.trim()) errs.email = "Email obligatorio";
+    if (!contactForm.privacidad) errs.privacidad = "Debes aceptar la privacidad";
 
-              {/* Storefront Image Card with Central Office Overlay */}
-              <div className="relative rounded-2xl overflow-hidden shadow-md border border-slate-200/80 aspect-[16/10] group">
-                <img 
-                  src={gesgramaOffice} 
-                  alt="Gesgrama oficina principal en Santa Coloma" 
-                  loading="lazy"
-                  decoding="async"
-                  width={480}
-                  height={300}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+    if (Object.keys(errs).length > 0) {
+      setContactErrors(errs);
+      return;
+    }
+
+    setContactErrors({});
+    setIsSubmittingContact(true);
+    setTimeout(() => {
+      setIsSubmittingContact(false);
+      setIsSubmittedSuccess(true);
+    }, 600);
+  };
+
+  return (
+    <section id="contacto" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+        
+        {/* Cabecera Editorial */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
+          <div>
+            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
+              <span className="w-2 h-2 bg-[#2860F5]" />
+              <span>{t.contacto.badge}</span>
+            </div>
+            
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
+              {t.contacto.title1}{" "}
+              <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{t.contacto.title2}</span>
+            </h2>
+          </div>
+          
+          <div className="lg:max-w-md">
+            <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FFFFFF] p-4 border-2 border-[#111111] shadow-[2px_2px_0px_#111111]">
+              {t.contacto.subtitle}
+            </p>
+          </div>
+        </div>
+
+        {/* Dos Bloques Diferenciados Neo-Brutalist: Izquierda Información & Despacho, Derecha Formulario Sólido */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* BLOQUE IZQUIERDO: Información, Fotografía y Datos de Oficina */}
+          <div className="lg:col-span-5 bg-[#111111] text-white border-2 border-[#111111] shadow-[4px_4px_0px_#2860F5] p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              {/* Fotografía rectangular del despacho */}
+              <div className="relative aspect-[16/10] overflow-hidden border-2 border-white mb-6">
+                <img
+                  src={gesgramaOffice}
+                  alt="Oficina principal Gesgrama en Santa Coloma de Gramenet"
+                  className="w-full h-full object-cover"
                 />
-                
-                {/* Floating Office Badge: Sede Central en Azul Marino Solido */}
-                <div className="absolute bottom-3 left-3 right-3 sm:left-3 sm:right-auto bg-[#0F172A] text-white rounded-2xl p-4 shadow-xl border border-slate-700 max-w-[280px] z-20">
-                  <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                      <MapPin className="w-4.5 h-4.5 text-white stroke-[2.5]" />
-                    </div>
-                    <div>
-                      <div className="font-black text-[11px] text-[#60A5FA] uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</div>
-                      <div className="text-sm text-white font-black leading-snug mt-0.5 font-sans">
-                        Av. dels Banús, 49
-                      </div>
-                      <div className="text-xs text-slate-300 font-medium font-sans">
-                        08923 Santa Coloma de Gramenet
-                      </div>
-                      <a href="tel:+34934685656" className="inline-flex items-center gap-1.5 text-[#60A5FA] hover:text-white transition-colors font-bold text-xs mt-1 font-sans">
-                        <Phone className="w-3 h-3 text-[#60A5FA]" /> 93 468 56 56
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </div>
+
+              <h3 className="text-2xl font-headline font-black text-white uppercase tracking-wider mb-4 flex items-center gap-2.5">
+                <span className="w-3 h-3 bg-[#2860F5]" />
+                <span>SEDE CENTRAL SANTA COLOMA</span>
+              </h3>
+
+              <ul className="space-y-4 font-headline text-[15px] sm:text-[16px]">
+                <li className="flex items-start gap-3">
+                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white mt-0.5">
+                    <MapPin className="w-4 h-4 text-white" />
+                  </span>
+                  <span>
+                    <strong>Av. dels Banús, 49</strong><br />
+                    08923 Santa Coloma de Gramenet (Barcelona)
+                  </span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                    <Phone className="w-4 h-4 text-white" />
+                  </span>
+                  <a href="tel:934685656" className="text-white hover:text-[#2860F5] font-data-mono font-black text-[17px] transition-colors">
+                    93 468 56 56
+                  </a>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                    <Mail className="w-4 h-4 text-white" />
+                  </span>
+                  <a href="mailto:info@gesgrama.com" className="text-white hover:text-[#2860F5] font-bold transition-colors">
+                    info@gesgrama.com
+                  </a>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <span className="w-7 h-7 bg-[#2860F5] text-white flex items-center justify-center shrink-0 border border-white">
+                    <Clock className="w-4 h-4 text-white" />
+                  </span>
+                  <span className="text-slate-200">
+                    Lun - Vie: 9:00 - 14:00 y 16:00 - 19:30
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Aviso de Compromiso Colegiado */}
+            <div className="mt-8 pt-6 border-t-2 border-white/20">
+              <p className="text-xs sm:text-sm text-slate-300 font-bold leading-relaxed">
+                ✓ Despacho oficial adherido al Col·legi d'Administradors de Finques de Barcelona-Lleida (CAFBL) y Colegiados AICAT Nº 5583.
+              </p>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Contact Form Card */}
-          <div className="lg:col-span-7">
-            <div id="formulario-contacto" className="bg-white border-2 border-[#757989] p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-28 md:scroll-mt-32">
-              <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">{t.contacto.form.formTitle}</h3>
-              
-              <form 
-                key={language} 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const errors: typeof contactErrors = {};
-                  if (!contactForm.nombre.trim()) {
-                    errors.nombre = language === "ca" ? "El nom és obligatori" : language === "en" ? "Name is required" : "El nombre es obligatorio";
-                  }
-                  if (!contactForm.telefono.trim()) {
-                    errors.telefono = language === "ca" ? "El telèfon és obligatori" : language === "en" ? "Phone is required" : "El teléfono es obligatorio";
-                  }
-                  if (!contactForm.email.trim()) {
-                    errors.email = language === "ca" ? "L'email és obligatori" : language === "en" ? "Email is required" : "El email es obligatorio";
-                  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email)) {
-                    errors.email = language === "ca" ? "Format d'email invàlid" : language === "en" ? "Invalid email format" : "Formato de correo no válido";
-                  }
-                  if (!contactForm.privacidad) {
-                    errors.privacidad = language === "ca" ? "Has d'acceptar la política de privacitat" : language === "en" ? "You must accept privacy policy" : "Debes aceptar la política de privacidad";
-                  }
-
-                  setContactErrors(errors);
-                  if (Object.keys(errors).length > 0) return;
-
-                  setIsSubmittingContact(true);
-
-                  const payload = {
-                    _subject: `📋 Solicitud Web Gesgrama: ${contactForm.asunto || "Consulta General"} (${contactForm.nombre})`,
-                    _template: "table",
-                    _captcha: "false",
-                    "Nombre y Apellidos": contactForm.nombre,
-                    "Teléfono / WhatsApp": contactForm.telefono,
-                    "Correo Electrónico": contactForm.email,
-                    "Motivo de Contacto": contactForm.asunto,
-                    "Mensaje": contactForm.mensaje || "Sin mensaje adicional",
-                    "Página de Origen": typeof window !== "undefined" ? window.location.href : "https://gesgrama.com/",
-                    "Fecha de Envío": new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
-                  };
-
-                  const web3Payload = {
-                    access_key: "29166dd1-5523-42cd-b759-6875c7977d14",
-                    subject: `📋 Solicitud Web Gesgrama: ${contactForm.asunto || "Consulta General"} (${contactForm.nombre})`,
-                    from_name: "Web Gesgrama",
-                    name: contactForm.nombre,
-                    phone: contactForm.telefono,
-                    email: contactForm.email,
-                    asunto: contactForm.asunto,
-                    mensaje: contactForm.mensaje || "Sin mensaje adicional",
-                    pagina_origen: typeof window !== "undefined" ? window.location.href : "https://gesgrama.com/",
-                    fecha_envio: new Date().toLocaleString("es-ES", { timeZone: "Europe/Madrid" })
-                  };
-
-                  const resetFormSuccess = () => {
-                    setIsSubmittedSuccess(true);
-                    setContactForm({
-                      nombre: "",
-                      telefono: "",
-                      email: "",
-                      asunto: "Gestión de Comunidades",
-                      mensaje: "",
-                      privacidad: false
-                    });
-                    setTimeout(() => {
-                      setIsSubmittedSuccess(false);
-                    }, 4000);
-                  };
-
-                  const triggerWhatsAppFallback = () => {
-                    const fallbackMsg = `Hola Gesgrama, os contacto desde la web:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Consulta general"}`;
-                    window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
-                  };
-
-                  // 1er intento: Web3Forms (Alta disponibilidad Cloudflare/AWS)
-                  fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      "Accept": "application/json"
-                    },
-                    body: JSON.stringify(web3Payload)
-                  })
-                    .then(async (res) => {
-                      const data = await res.json().catch(() => ({}));
-                      if (res.ok && (data.success === true || data.success === "true")) {
-                        resetFormSuccess();
-                      } else {
-                        // 2do intento: FormSubmit si falla Web3Forms
-                        fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                          body: JSON.stringify(payload)
-                        })
-                          .then(async (res2) => {
-                            const data2 = await res2.json().catch(() => ({}));
-                            if (res2.ok && (data2.success === true || data2.success === "true")) {
-                              resetFormSuccess();
-                            } else {
-                              triggerWhatsAppFallback();
-                            }
-                          })
-                          .catch(() => triggerWhatsAppFallback());
-                      }
-                    })
-                    .catch(() => {
-                      fetch("https://formsubmit.co/ajax/info@gesgrama.com", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                        body: JSON.stringify(payload)
-                      })
-                        .then(async (res2) => {
-                          const data2 = await res2.json().catch(() => ({}));
-                          if (res2.ok && (data2.success === true || data2.success === "true")) {
-                            resetFormSuccess();
-                          } else {
-                            triggerWhatsAppFallback();
-                          }
-                        })
-                        .catch(() => triggerWhatsAppFallback());
-                    })
-                    .finally(() => {
-                      setIsSubmittingContact(false);
-                    });
-                }} 
-                className="space-y-4"
-              >
-                {/* Row 1: Nombre & Teléfono */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          {/* BLOQUE DERECHO: Formulario Blanco Sólido con Bordes Negros de 2px */}
+          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] p-6 sm:p-8 md:p-10">
+            {isSubmittedSuccess ? (
+              <div className="py-12 text-center flex flex-col items-center">
+                <div className="w-16 h-16 bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] flex items-center justify-center mb-4">
+                  <Check className="w-8 h-8 stroke-[3]" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-headline font-black mb-2">
+                  ¡SOLICITUD RECIBIDA CON ÉXITO!
+                </h3>
+                <p className="text-[17px] font-bold text-slate-700 max-w-md mb-6">
+                  Un asesor técnico o administrador colegiado de Gesgrama se pondrá en contacto contigo a la mayor brevedad.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsSubmittedSuccess(false)}
+                  className="bg-[#111111] hover:bg-[#2860F5] text-white px-6 py-3 border-2 border-[#111111] font-headline font-black uppercase text-sm"
+                >
+                  Enviar otra consulta
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5" id="formulario-contacto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Nombre */}
                   <div>
-                    <label htmlFor="contacto-nombre-input" className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.nombre.toUpperCase()}</label>
-                    <input 
+                    <label htmlFor="contacto-nombre-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                      {t.contacto.nombre} *
+                    </label>
+                    <input
                       id="contacto-nombre-input"
-                      type="text" 
-                      placeholder={t.contacto.form.nombrePlaceholder} 
+                      type="text"
                       value={contactForm.nombre}
-                      onChange={e => {
-                        setContactForm(f => ({ ...f, nombre: e.target.value }));
-                        if (contactErrors.nombre) setContactErrors(err => ({ ...err, nombre: undefined }));
-                      }}
-                      className={`w-full bg-[#f8fafc] border-2 ${contactErrors.nombre ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
+                      onChange={(e) => setContactForm({ ...contactForm, nombre: e.target.value })}
+                      placeholder="Tu nombre y apellidos"
+                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
                     />
-                    <AnimatePresence>
-                      {contactErrors.nombre && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.2 }}
-                          className="text-xs text-red-600 font-black mt-1 font-sans"
-                        >
-                          {contactErrors.nombre}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    {contactErrors.nombre && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.nombre}</p>}
                   </div>
+
+                  {/* Teléfono */}
                   <div>
-                    <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.telefono.toUpperCase()}</label>
-                    <input 
-                      type="text" 
-                      placeholder={t.contacto.form.telefonoPlaceholder} 
+                    <label htmlFor="contacto-telefono-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                      {t.contacto.telefono} *
+                    </label>
+                    <input
+                      id="contacto-telefono-input"
+                      type="tel"
                       value={contactForm.telefono}
-                      onChange={e => {
-                        setContactForm(f => ({ ...f, telefono: e.target.value }));
-                        if (contactErrors.telefono) setContactErrors(err => ({ ...err, telefono: undefined }));
-                      }}
-                      className={`w-full bg-[#f8fafc] border-2 ${contactErrors.telefono ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
+                      onChange={(e) => setContactForm({ ...contactForm, telefono: e.target.value })}
+                      placeholder="600 000 000"
+                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-data-mono font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
                     />
-                    <AnimatePresence>
-                      {contactErrors.telefono && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.2 }}
-                          className="text-xs text-red-600 font-black mt-1 font-sans"
-                        >
-                          {contactErrors.telefono}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    {contactErrors.telefono && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.telefono}</p>}
                   </div>
                 </div>
-                
-                {/* Row 2: Correo & Tipo de Consulta en 2 columnas horizontales */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Email */}
                   <div>
-                    <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.email.toUpperCase()}</label>
-                    <input 
-                      type="email" 
-                      placeholder={t.contacto.form.emailPlaceholder} 
+                    <label htmlFor="contacto-email-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                      {t.contacto.email} *
+                    </label>
+                    <input
+                      id="contacto-email-input"
+                      type="email"
                       value={contactForm.email}
-                      onChange={e => {
-                        setContactForm(f => ({ ...f, email: e.target.value }));
-                        if (contactErrors.email) setContactErrors(err => ({ ...err, email: undefined }));
-                      }}
-                      className={`w-full bg-[#f8fafc] border-2 ${contactErrors.email ? 'border-red-500' : 'border-slate-300'} rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out font-sans placeholder:text-slate-400`} 
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                      placeholder="ejemplo@correo.com"
+                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
                     />
-                    <AnimatePresence>
-                      {contactErrors.email && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.2 }}
-                          className="text-xs text-red-600 font-black mt-1 font-sans"
-                        >
-                          {contactErrors.email}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    {contactErrors.email && <p className="text-red-600 text-xs font-bold mt-1">{contactErrors.email}</p>}
                   </div>
 
+                  {/* Asunto */}
                   <div>
-                    <label htmlFor="contacto-asunto-select" className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.asunto.toUpperCase()}</label>
-                    <div className="relative">
-                      <select 
-                        id="contacto-asunto-select" 
-                        aria-label="Seleccionar motivo o tipo de consulta" 
-                        value={contactForm.asunto}
-                        onChange={e => setContactForm(f => ({ ...f, asunto: e.target.value }))}
-                        className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out appearance-none pr-8 cursor-pointer truncate font-sans"
-                      >
-                        <option>{t.contacto.form.asuntoOpciones.comunidad}</option>
-                        <option>{t.contacto.form.asuntoOpciones.venta}</option>
-                        <option>{t.contacto.form.asuntoOpciones.juridico}</option>
-                        <option>{t.contacto.form.asuntoOpciones.otro}</option>
-                      </select>
-                      <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                    </div>
+                    <label htmlFor="contacto-asunto-select" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                      {t.contacto.asunto}
+                    </label>
+                    <select
+                      id="contacto-asunto-select"
+                      value={contactForm.asunto}
+                      onChange={(e) => setContactForm({ ...contactForm, asunto: e.target.value })}
+                      className="w-full h-[52px] sm:h-[56px] bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] px-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors cursor-pointer"
+                    >
+                      <option value="Gestión de Comunidades">{isCa ? "Administració de Comunitats" : "Gestión de Comunidades"}</option>
+                      <option value="Vender un piso">{isCa ? "Vendre un pis" : "Vender un piso"}</option>
+                      <option value="Alquilar un piso">{isCa ? "Llogar un pis" : "Alquilar un piso"}</option>
+                      <option value="Asesoría Jurídica">{isCa ? "Assessoria Jurídica" : "Asesoría Jurídica"}</option>
+                      <option value="Obras y Mantenimiento">{isCa ? "Obres i Manteniment" : "Obras y Mantenimiento"}</option>
+                    </select>
                   </div>
                 </div>
 
-                {/* Row 3: Mensaje */}
+                {/* Mensaje */}
                 <div>
-                  <label className="text-[#0f172a] font-black uppercase tracking-wider block mb-1 text-xs sm:text-sm font-sans">{t.contacto.form.mensaje.toUpperCase()}</label>
-                  <textarea 
-                    rows={2} 
-                    placeholder={t.contacto.form.mensajePlaceholder} 
+                  <label htmlFor="contacto-mensaje-textarea" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
+                    {t.contacto.mensaje}
+                  </label>
+                  <textarea
+                    id="contacto-mensaje-textarea"
+                    rows={4}
                     value={contactForm.mensaje}
-                    onChange={e => setContactForm(f => ({ ...f, mensaje: e.target.value }))}
-                    className="w-full bg-[#f8fafc] border-2 border-slate-300 rounded-xl px-3.5 py-2.5 text-sm sm:text-base font-bold text-[#0f172a] focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 outline-none transition-all duration-200 ease-out resize-none font-sans placeholder:text-slate-400" 
-                  />
+                    onChange={(e) => setContactForm({ ...contactForm, mensaje: e.target.value })}
+                    placeholder="Explícanos tu consulta o las características de tu finca..."
+                    className="w-full bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] p-4 font-headline font-bold text-[16px] focus:bg-white focus:border-[#2860F5] outline-none transition-colors"
+                  ></textarea>
                 </div>
 
                 {/* Checkbox Privacidad */}
-                <div>
-                  <div className="flex items-center gap-2.5 pt-1">
-                    <input 
-                      type="checkbox" 
-                      id="privacy" 
-                      checked={contactForm.privacidad}
-                      onChange={e => {
-                        setContactForm(f => ({ ...f, privacidad: e.target.checked }));
-                        if (contactErrors.privacidad) setContactErrors(err => ({ ...err, privacidad: undefined }));
-                      }}
-                      className="w-4.5 h-4.5 rounded text-[#2563eb] focus:ring-[#2563eb] cursor-pointer" 
-                    />
-                    <label htmlFor="privacy" className="text-sm sm:text-base text-[#0f172a] font-bold cursor-pointer font-sans select-none">{t.contacto.form.privacidad}</label>
-                  </div>
-                  <AnimatePresence>
-                    {contactErrors.privacidad && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-xs text-red-600 font-black mt-1 font-sans"
-                      >
-                        {contactErrors.privacidad}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                <div className="flex items-start gap-3 pt-1">
+                  <input
+                    id="contacto-privacidad-check"
+                    type="checkbox"
+                    checked={contactForm.privacidad}
+                    onChange={(e) => setContactForm({ ...contactForm, privacidad: e.target.checked })}
+                    className="w-5 h-5 mt-0.5 accent-[#2860F5] border-2 border-[#111111] rounded-none cursor-pointer"
+                  />
+                  <label htmlFor="contacto-privacidad-check" className="text-xs sm:text-sm text-slate-700 font-bold leading-tight cursor-pointer">
+                    He leído y acepto la política de privacidad y autorizo el tratamiento de mis datos de contacto para responder a esta solicitud.
+                  </label>
                 </div>
+                {contactErrors.privacidad && <p className="text-red-600 text-xs font-bold">{contactErrors.privacidad}</p>}
 
-                {/* Submit Button with Loading & Success micro-animation */}
+                {/* Botón de Envío */}
                 <button
                   type="submit"
                   disabled={isSubmittingContact}
-                  className={`w-full text-white py-4 rounded-xl text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer font-sans disabled:opacity-80 ${
-                    isSubmittedSuccess ? "bg-[#0b214a] hover:bg-[#0f172a]" : "bg-[#2563eb] hover:bg-[#1d4ed8]"
-                  }`}
+                  className="w-full h-[60px] sm:h-[64px] neo-btn-primary font-headline font-black text-[18px] px-8 cursor-pointer flex items-center justify-center gap-3 uppercase tracking-wider disabled:opacity-80"
                 >
                   {isSubmittingContact ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>{language === "ca" ? "Enviant..." : language === "en" ? "Sending..." : "Enviando..."}</span>
+                      <span>ENVIANDO CONSULTA...</span>
                     </>
-                  ) : isSubmittedSuccess ? (
-                    <motion.div 
-                      initial={{ scale: 0.7, opacity: 0 }}
-                      animate={{ scale: [0.7, 1.2, 1], opacity: 1 }}
-                      transition={{ duration: 0.4, ease: easeOut }}
-                      className="flex items-center gap-2"
-                    >
-                      <Check className="w-5 h-5 stroke-[3] text-white" />
-                      <span>{language === "ca" ? "Missatge enviat!" : language === "en" ? "Message sent!" : "¡Mensaje enviado!"}</span>
-                    </motion.div>
                   ) : (
                     <>
-                      <span>{t.contacto.form.botonEnviar}</span>
-                      <ArrowRight className="w-4 h-4 text-white" />
+                      <span>{t.contacto.enviar}</span>
+                      <ArrowRight className="w-5 h-5 stroke-[2.5]" />
                     </>
                   )}
                 </button>
               </form>
-            </div>
+            )}
           </div>
 
         </div>
+
       </div>
     </section>
   );

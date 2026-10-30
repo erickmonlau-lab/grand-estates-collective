@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, ArrowRight, Check, Loader2 } from "lucide-react";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
@@ -80,7 +81,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
         {/* Cabecera Editorial */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
           <div>
-            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
+            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#2860F5] mb-4">
               <span className="w-2 h-2 bg-[#2860F5]" />
               <span>{c.badge || "CONTACTO"}</span>
             </div>
@@ -92,7 +93,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
           </div>
           
           <div className="lg:max-w-md">
-            <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FFFFFF] p-4 border-2 border-[#111111] shadow-[2px_2px_0px_#111111]">
+            <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FFFFFF] p-4 border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111]">
               {c.subtitle || "Estamos aquí para ayudarte a gestionar tu patrimonio con transparencia y profesionalidad."}
             </p>
           </div>
@@ -102,10 +103,10 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* BLOQUE IZQUIERDO: Información, Fotografía y Datos de Oficina */}
-          <div className="lg:col-span-5 bg-[#111111] text-white border-2 border-[#111111] shadow-[4px_4px_0px_#2860F5] p-6 sm:p-8 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-[#111111] text-white border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#2860F5] p-6 sm:p-8 flex flex-col justify-between">
             <div>
               {/* Fotografía rectangular del despacho */}
-              <div className="relative aspect-[16/10] overflow-hidden border-2 border-white mb-6">
+              <div className="relative aspect-[16/10] overflow-hidden border-2 border-white rounded-xl mb-6">
                 <img
                   src={gesgramaOffice}
                   alt="Oficina principal Gesgrama en Santa Coloma de Gramenet"
@@ -167,7 +168,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
           </div>
 
           {/* BLOQUE DERECHO: Formulario Blanco Sólido con Bordes Negros de 2px */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] p-6 sm:p-8 md:p-10">
+          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] p-6 sm:p-8 md:p-10">
             {isSubmittedSuccess ? (
               <div className="py-12 text-center flex flex-col items-center">
                 <div className="w-16 h-16 bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] flex items-center justify-center mb-4">

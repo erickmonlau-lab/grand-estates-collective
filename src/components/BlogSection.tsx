@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { Link } from "@tanstack/react-router";
 import { Calendar, ArrowRight } from "lucide-react";
 import { homeArticles as articles } from "@/data/homeArticles";
@@ -18,7 +19,7 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
         {/* Cabecera Editorial */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
           <div>
-            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
+            <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#2860F5] mb-4">
               <span className="w-2 h-2 bg-[#2860F5]" />
               <span>{t.noticias.tag}</span>
             </div>
@@ -29,7 +30,7 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
           </div>
           
           <div className="lg:max-w-md">
-            <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FAF9FC] p-4 border-2 border-[#111111] shadow-[2px_2px_0px_#111111]">
+            <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FAF9FC] p-4 border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111]">
               {t.noticias.subtitle}
             </p>
           </div>
@@ -44,7 +45,7 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
             return (
               <div 
                 key={art.id} 
-                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] transition-all flex flex-col justify-between group cursor-pointer"
+                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] transition-all flex flex-col justify-between group cursor-pointer overflow-hidden"
               >
                 <div>
                   <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/10] overflow-hidden bg-slate-100 border-b-2 border-[#111111]">

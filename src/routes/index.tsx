@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import HeroCarousel from '../hero-carousel';
 import { properties, formatLocation } from "../data/properties";
@@ -502,8 +503,8 @@ function Index() {
         />
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
-      <section id="seccion-propiedades" className="relative overflow-hidden bg-[#cbd5e1] text-onyx py-6 md:py-8 border-t-2 border-slate-400">
-        <div id="propiedades" className="bg-white rounded-[22px] md:rounded-[28px] shadow-xl border-2 border-slate-300 p-5 sm:p-7 md:p-8 mx-3 sm:mx-4 md:mx-auto max-w-[1320px] relative z-10 scroll-mt-20 md:scroll-mt-24">
+      <section id="seccion-propiedades" className="relative overflow-hidden bg-[#FAF9FC] text-onyx py-8 md:py-12 border-t-2 border-[#111111]">
+        <div id="propiedades" className="bg-white rounded-[24px] shadow-[4px_4px_0px_#111111] border-2 border-[#111111] p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1360px] relative z-10 scroll-mt-20 md:scroll-mt-24">
           <div>
             {/* Header: Badge + H2 + Description with balanced spacing */}
             <div className="mb-4 sm:mb-5">
@@ -650,7 +651,7 @@ function Index() {
                 return (
                   <div key={property.id} className="h-full">
                     <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                      <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] hover:shadow-[6px_6px_0px_#2860F5] hover:border-[#2860F5] flex flex-col h-full transition-all duration-200 group cursor-pointer">
+                      <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] flex flex-col h-full transition-all duration-200 group cursor-pointer overflow-hidden">
                         
                         {/* 1. ZONA FOTOGRÁFICA EDITORIAL */}
                         <div className="relative h-[220px] sm:h-[240px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
@@ -722,15 +723,15 @@ function Index() {
 
                             {/* Rejilla de Características en JetBrains Mono y Bordes */}
                             <div className="grid grid-cols-3 gap-2 mb-4">
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
                                 <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Habs</span>
                                 <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bedrooms > 0 ? property.bedrooms : "0"}</span>
                               </div>
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
                                 <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">{language === "ca" ? "Banys" : "Baños"}</span>
                                 <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bathrooms > 0 ? property.bathrooms : "1"}</span>
                               </div>
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] py-2 px-1 flex flex-col items-center justify-center text-center">
+                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
                                 <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Sup.</span>
                                 <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.surface} m²</span>
                               </div>
@@ -749,7 +750,7 @@ function Index() {
                               </div>
                             </div>
 
-                            <div className="h-[44px] px-4 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center gap-2 font-headline font-black text-[13px] uppercase tracking-wider transition-all">
+                            <div className="h-[44px] px-4 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] flex items-center justify-center gap-2 font-headline font-black text-[13px] uppercase tracking-wider transition-all">
                               <span>{t.properties.verDetalles || "Ficha"}</span>
                               <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
                             </div>
@@ -935,7 +936,7 @@ function Index() {
       {/* ── 6. ADMINISTRACIÓN DE FINCAS (GESTIÓ DE COMUNITATS) ── */}
       <section className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
-          <div className="bg-[#FFFFFF] border-2 border-[#111111] shadow-[5px_5px_0px_#111111] p-6 sm:p-10 md:p-12">
+          <div className="bg-[#FFFFFF] border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               
               {/* Left Content (7 cols) */}
@@ -976,7 +977,7 @@ function Index() {
                         if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
                       }
                     }}
-                    className="h-[56px] px-6 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="h-[56px] px-6 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Phone className="w-4 h-4 text-white" />
                     <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
@@ -986,7 +987,7 @@ function Index() {
                     href="https://wa.me/34601259424" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-[56px] px-6 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="h-[56px] px-6 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
                       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
@@ -997,15 +998,15 @@ function Index() {
 
                 {/* Métricas destacadas en 3 bloques con fondos sólidos */}
                 <div className="grid grid-cols-3 gap-3 pt-6 border-t-2 border-[#111111]">
-                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
                     <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">Nº 5583</p>
                     <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
                   </div>
-                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
                     <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">+15 AÑOS</p>
                     <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                   </div>
-                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] shadow-[2px_2px_0px_#2860F5] text-center">
+                  <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
                     <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">100%</p>
                     <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
                   </div>
@@ -1013,7 +1014,7 @@ function Index() {
               </div>
 
               {/* Right Image (5 cols) */}
-              <div className="lg:col-span-5 h-[280px] sm:h-[340px] md:h-[400px] relative border-2 border-[#111111] shadow-[4px_4px_0px_#111111] overflow-hidden">
+              <div className="lg:col-span-5 h-[280px] sm:h-[340px] md:h-[400px] relative border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] overflow-hidden">
                 <img 
                   src={gesgramaOffice} 
                   alt="Oficina principal Gesgrama" 
@@ -1053,7 +1054,7 @@ function Index() {
 
             {/* Google Verified Reviews Badge Sólido */}
             <div className="lg:max-w-md">
-              <div className="inline-flex items-center gap-3 bg-[#FAF9FC] border-2 border-[#111111] shadow-[3px_3px_0px_#111111] px-5 py-3">
+              <div className="inline-flex items-center gap-3 bg-[#FAF9FC] border-2 border-[#111111] rounded-full shadow-[2px_2px_0px_#111111] px-5 py-2.5">
                 <GoogleIcon className="w-6 h-6 shrink-0" />
                 <span className="text-[15px] sm:text-[16px] font-headline font-black text-[#111111] tracking-wide">
                   {language === 'ca' ? 'Ressenyes 100% verificades a Google' : language === 'en' ? 'Verified Google Reviews' : 'Reseñas 100% verificadas en Google'}
@@ -1070,7 +1071,7 @@ function Index() {
               return (
                 <div 
                   key={item.author} 
-                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] hover:shadow-[6px_6px_0px_#2860F5] hover:border-[#2860F5] p-6 flex flex-col justify-between transition-all duration-200 group"
+                  className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] p-6 flex flex-col justify-between transition-all duration-200 group"
                 >
                   <div>
                     {/* Top Row: Stars + Google Badge */}
@@ -1095,7 +1096,7 @@ function Index() {
                   {/* Fila de Autor y Verificación */}
                   <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between gap-3 mt-auto">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 bg-[#111111] text-white border-2 border-[#111111] font-headline font-black text-sm flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 bg-[#111111] text-white border-2 border-[#111111] rounded-full font-headline font-black text-sm flex items-center justify-center shrink-0">
                         {initials[i % initials.length]}
                       </div>
                       <div className="flex flex-col min-w-0">
@@ -1108,7 +1109,7 @@ function Index() {
                       </div>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 text-[12px] font-headline font-black text-white bg-[#16A34A] border border-[#111111] px-2.5 py-1 shrink-0">
+                    <span className="inline-flex items-center gap-1 text-[12px] font-headline font-black text-white bg-[#16A34A] border border-[#111111] rounded-full px-2.5 py-1 shrink-0">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                       <span>{language === 'ca' ? 'Verificat' : language === 'en' ? 'Verified' : 'Verificado'}</span>
                     </span>
@@ -1137,9 +1138,9 @@ function Index() {
       </Suspense>
 
       {/* ── FINAL CLOSING CTA BANNER NEO-BRUTALIST EDITORIAL ── */}
-      <section id="final-cta" className="py-14 sm:py-20 bg-[#111111] text-white border-b-2 border-[#111111]">
+      <section id="final-cta" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
-          <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[6px_6px_0px_#2860F5] p-6 sm:p-10 md:p-12">
+          <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               {/* Left Content */}
@@ -1171,7 +1172,7 @@ function Index() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                   <a
                     href="#calculadora-valoracion"
-                    className="h-[58px] px-8 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="h-[56px] px-8 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Home className="w-4 h-4 text-white shrink-0" />
                     <span>{t.finalCta.btnValuate}</span>
@@ -1188,7 +1189,7 @@ function Index() {
                         if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
                       }
                     }}
-                    className="h-[58px] px-8 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="h-[56px] px-8 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] sm:text-[16px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <Phone className="w-4 h-4 text-white shrink-0" />
                     <span>{t.finalCta.btnContact}</span>
@@ -1198,7 +1199,7 @@ function Index() {
 
               {/* Right Side: Advisors Image rectangular con marco sólido */}
               <div className="lg:col-span-5 flex justify-center lg:justify-end">
-                <div className="w-full max-w-[420px] aspect-[4/3] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] overflow-hidden bg-slate-100">
+                <div className="w-full max-w-[420px] aspect-[4/3] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] overflow-hidden bg-slate-100">
                   <img 
                     src="/images/cta_advisors_closed_laptop.jpg" 
                     alt="Asesores inmobiliarios Gesgrama" 

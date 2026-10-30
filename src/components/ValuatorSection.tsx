@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { useState, useEffect, useRef } from "react";
 import { 
   MapPin, 
@@ -382,7 +383,7 @@ export default function ValuatorSection({
                         key={h}
                         type="button"
                         onClick={() => setHabitaciones(h)}
-                        className={`h-[58px] sm:h-[60px] border-2 border-[#111111] font-headline font-black text-[19px] sm:text-[20px] transition-all cursor-pointer flex items-center justify-center ${
+                        className={`h-[58px] sm:h-[60px] border-2 border-[#111111] rounded-xl font-headline font-black text-[19px] sm:text-[20px] transition-all cursor-pointer flex items-center justify-center ${
                           habitaciones === h
                             ? "bg-[#2860F5] text-white neo-shadow-sm translate-x-[-1px] translate-y-[-1px]"
                             : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-100"
@@ -409,7 +410,7 @@ export default function ValuatorSection({
                         key={st.key}
                         type="button"
                         onClick={() => setEstado(st.key as any)}
-                        className={`h-[58px] sm:h-[60px] px-2 border-2 border-[#111111] font-headline font-black text-[16px] sm:text-[17px] transition-all cursor-pointer flex items-center justify-center text-center leading-tight ${
+                        className={`h-[58px] sm:h-[60px] px-2 border-2 border-[#111111] rounded-xl font-headline font-black text-[16px] sm:text-[17px] transition-all cursor-pointer flex items-center justify-center text-center leading-tight ${
                           estado === st.key
                             ? "bg-[#2860F5] text-white neo-shadow-sm translate-x-[-1px] translate-y-[-1px]"
                             : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-100"
@@ -440,7 +441,7 @@ export default function ValuatorSection({
                         key={chip.key}
                         type="button"
                         onClick={() => toggleExtra(chip.key as keyof typeof extras)}
-                        className={`h-[58px] px-3.5 sm:px-4 border-2 border-[#111111] text-[16px] sm:text-[17px] font-headline font-black transition-all cursor-pointer flex items-center justify-between ${
+                        className={`h-[58px] px-3.5 sm:px-4 border-2 border-[#111111] rounded-xl text-[16px] sm:text-[17px] font-headline font-black transition-all cursor-pointer flex items-center justify-between ${
                           isChecked
                             ? "bg-[#2860F5] text-white neo-shadow-sm translate-x-[-1px] translate-y-[-1px]"
                             : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-100"
@@ -482,7 +483,7 @@ export default function ValuatorSection({
           </div>
 
             {/* PANEL DERECHO: RESULTADO (Fondo Azul Corporativo Sólido #2860F5 -> 42% -> lg:col-span-5) */}
-            <div className="lg:col-span-5 bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] p-4 sm:p-7 flex flex-col justify-between relative overflow-hidden">
+            <div className="lg:col-span-5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] p-5 sm:p-7 flex flex-col justify-between relative overflow-hidden">
             
             {/* Loading Overlay */}
             {isCalculatingValuation && (
@@ -515,7 +516,7 @@ export default function ValuatorSection({
               {/* Precio Estimado: Dos columnas limpias DESDE - HASTA */}
               <div className="mb-6">
                 <div className="grid grid-cols-2 gap-3 sm:gap-4 items-start">
-                  <div className="bg-white text-[#111111] border-2 border-[#111111] p-2.5 sm:p-3.5 neo-shadow-sm min-w-0 overflow-hidden">
+                  <div className="bg-white text-[#111111] border-2 border-[#111111] rounded-xl p-2.5 sm:p-3.5 neo-shadow-sm min-w-0 overflow-hidden">
                     <span className="text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider text-slate-700 block mb-1 text-center">
                       {isCa ? "DES DE" : "DESDE"}
                     </span>
@@ -524,7 +525,7 @@ export default function ValuatorSection({
                     </span>
                   </div>
 
-                  <div className="bg-white text-[#111111] border-2 border-[#111111] p-2.5 sm:p-3.5 neo-shadow-sm min-w-0 overflow-hidden">
+                  <div className="bg-white text-[#111111] border-2 border-[#111111] rounded-xl p-2.5 sm:p-3.5 neo-shadow-sm min-w-0 overflow-hidden">
                     <span className="text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider text-slate-700 block mb-1 text-center">
                       {isCa ? "FINS A" : "HASTA"}
                     </span>
@@ -535,7 +536,7 @@ export default function ValuatorSection({
                 </div>
 
                 {/* Resumen Inmueble Exactamente Sincronizado */}
-                <div className="mt-4 p-3 bg-[#111111] text-white border border-white/20">
+                <div className="mt-4 p-3 bg-[#111111] text-white border-2 border-[#111111] rounded-xl">
                   <p className="text-[15px] sm:text-[16px] font-headline font-black leading-snug text-center">
                     {metros} m² · {habitaciones} {isCa ? "habs" : "habs"} · {estado === "reformado" ? "Reformado" : estado === "reformar" ? "A reformar" : "Buen estado"} · {result.zoneName}
                   </p>
@@ -544,7 +545,7 @@ export default function ValuatorSection({
 
               {/* Indicadores de Mercado: Superficies Técnicas con Bordes y Mono */}
               <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-6">
-                <div className="bg-white text-[#111111] border-2 border-[#111111] p-1.5 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
+                <div className="bg-white text-[#111111] border-2 border-[#111111] rounded-xl p-2 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
                   <span className="text-[11px] sm:text-[14px] font-headline font-black text-slate-700 uppercase tracking-wider block truncate">
                     {isCa ? "PREU M²" : "PRECIO M²"}
                   </span>
@@ -553,7 +554,7 @@ export default function ValuatorSection({
                   </span>
                 </div>
 
-                <div className="bg-white text-[#111111] border-2 border-[#111111] p-1.5 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
+                <div className="bg-white text-[#111111] border-2 border-[#111111] rounded-xl p-2 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
                   <span className="text-[11px] sm:text-[14px] font-headline font-black text-slate-700 uppercase tracking-wider block truncate">
                     {isCa ? "DEMANDA" : "DEMANDA"}
                   </span>
@@ -562,7 +563,7 @@ export default function ValuatorSection({
                   </span>
                 </div>
 
-                <div className="bg-white text-[#111111] border-2 border-[#111111] p-1.5 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
+                <div className="bg-white text-[#111111] border-2 border-[#111111] rounded-xl p-2 sm:p-3 text-center flex flex-col items-center justify-center neo-shadow-sm min-w-0 overflow-hidden">
                   <span className="text-[11px] sm:text-[14px] font-headline font-black text-slate-700 uppercase tracking-wider block truncate">
                     {isCa ? "VARIACIÓ" : "VARIACIÓN"}
                   </span>
@@ -579,7 +580,7 @@ export default function ValuatorSection({
                 href={`https://wa.me/34689438012?text=${contactText}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full min-h-[64px] sm:h-[66px] bg-[#FFFFFF] hover:bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_#111111] font-headline font-black text-[16px] sm:text-[17px] md:text-[17.5px] px-4 sm:px-6 transition-all flex items-center justify-between uppercase tracking-wider cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+                className="w-full min-h-[64px] sm:h-[66px] bg-[#FFFFFF] hover:bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[16px] sm:text-[17px] md:text-[17.5px] px-4 sm:px-6 transition-all flex items-center justify-between uppercase tracking-wider cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
               >
                 <span className="flex-1 text-center whitespace-normal sm:whitespace-nowrap">
                   {isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}

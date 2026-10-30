@@ -507,7 +507,7 @@ function Index() {
           <div>
             {/* Header: Badge + H2 + Description with balanced spacing */}
             <div className="mb-4 sm:mb-5">
-              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
+              <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 border border-[#111111] shadow-[2px_2px_0px_#2860F5] mb-3 font-headline">
                 <Home className="w-3.5 h-3.5 text-white" />
                 <span>{language === "ca" ? "PROPIETATS DESTACADES" : language === "en" ? "FEATURED PROPERTIES" : "PROPIEDADES DESTACADAS"}</span>
               </span>
@@ -858,7 +858,7 @@ function Index() {
                                   window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
                                 }
                               }}
-                              className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                              className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[4px_4px_0px_#2860F5] font-headline font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                             >
                               <span>{t.properties.verTodas}</span>
                               <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
@@ -884,7 +884,7 @@ function Index() {
                         <button 
                           type="button"
                           onClick={() => setVisibleCount(prev => prev + 6)}
-                          className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                          className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[4px_4px_0px_#2860F5] font-headline font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                         >
                           <span>{t.properties.verMas}</span>
                           <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
@@ -905,7 +905,7 @@ function Index() {
                                 window.scrollTo({ top: Math.max(0, pos), behavior: 'smooth' });
                               }
                             }}
-                            className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer font-sans select-none"
+                            className="btn-lift active:scale-95 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3.5 border-2 border-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[4px_4px_0px_#2860F5] font-headline font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                           >
                             <span>{t.properties.verTodas}</span>
                             <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />

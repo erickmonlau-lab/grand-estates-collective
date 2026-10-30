@@ -669,7 +669,7 @@ function ServiceDetail() {
                   height={192}
                   itemProp="image"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent" />
+                <div className="absolute inset-0 bg-[#0f172a]/40" />
                 <span 
                   className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 bg-[#2563eb]/90 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1 rounded-full border border-white/10"
                   itemProp="address"
@@ -722,13 +722,13 @@ function ServiceDetail() {
             {service.steps.map((st, i) => (
               <div 
                 key={i} 
-                className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 relative flex flex-col justify-between"
+                className="bg-[#f8fafc] border-2 border-slate-200 rounded-2xl p-6 relative flex flex-col justify-between shadow-xs"
                 itemScope 
                 itemProp="step" 
                 itemType="https://schema.org/HowToStep"
               >
                 <div>
-                  <span className="text-3xl font-black text-[#2563eb]/40 font-mono block mb-3">{st.number}</span>
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-[#2563eb] text-white text-base font-black font-mono mb-4 shadow-xs">{st.number}</span>
                   <meta itemProp="position" content={String(i + 1)} />
                   <h3 className="text-base font-bold text-[#0f172a] mb-2" itemProp="name">{st.title}</h3>
                   <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed" itemProp="text">{st.desc}</p>
@@ -755,7 +755,7 @@ function ServiceDetail() {
             {service.faqs.map((faq, i) => (
               <div 
                 key={i} 
-                className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50"
+                className="border-2 border-slate-200 rounded-2xl p-6 bg-[#f8fafc] shadow-xs"
                 itemScope 
                 itemProp="mainEntity" 
                 itemType="https://schema.org/Question"
@@ -797,7 +797,7 @@ function ServiceDetail() {
                   key={rel.slug}
                   to="/servicios_/$slug"
                   params={{ slug: rel.slug }}
-                  className="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-[#2563eb] rounded-2xl p-5 transition-all flex flex-col justify-between group"
+                  className="bg-[#1e293b] hover:bg-[#0f172a] border-2 border-slate-700 hover:border-[#2563eb] rounded-2xl p-5 transition-all flex flex-col justify-between group"
                 >
                   <div>
                     <div className="w-10 h-10 rounded-xl bg-[#2563eb]/20 text-[#38bdf8] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -820,7 +820,7 @@ function ServiceDetail() {
           </div>
 
           {/* Banner Valorador de Viviendas */}
-          <div className="bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] rounded-2xl p-5 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-6 border border-blue-400/30">
+          <div className="bg-[#1e40af] rounded-2xl p-5 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-6 border border-blue-400/30">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
                 <Calculator className="w-6 h-6 text-white" />
@@ -860,7 +860,7 @@ function ServiceDetail() {
               <a
                 key={barrio.slug}
                 href={`/administrador-fincas/${barrio.slug}`}
-                className="bg-[#f8fafc] hover:bg-[#0f172a] border border-slate-300 hover:border-[#0f172a] rounded-2xl p-4 transition-all duration-200 text-center flex flex-col items-center justify-center group cursor-pointer shadow-xs hover:shadow-md hover:-translate-y-0.5"
+                className="bg-white hover:bg-[#0f172a] border-2 border-slate-200 hover:border-[#0f172a] rounded-2xl p-4 transition-all duration-200 text-center flex flex-col items-center justify-center group cursor-pointer shadow-xs hover:shadow-md hover:-translate-y-0.5"
                 title={`${service.titleKey} en el barrio de ${barrio.name}, Santa Coloma de Gramenet`}
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:bg-[#38bdf8] mb-2 transition-colors ring-4 ring-blue-100 group-hover:ring-slate-700" />

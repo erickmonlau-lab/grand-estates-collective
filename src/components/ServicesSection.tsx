@@ -1,3 +1,4 @@
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Building2, TrendingUp, Scale, Wrench, Check, ArrowRight } from "lucide-react";
@@ -86,11 +87,11 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
 
   return (
     <section id="servicios" className="py-12 sm:py-16 bg-[#FAF9FC] text-[#111111] scroll-mt-24 font-sans border-b-2 border-[#111111]">
-      <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] shadow-[5px_5px_0px_#111111] p-6 sm:p-10 md:p-14 relative z-10">
+      <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-14 relative z-10">
         
         {/* Cabecera de Sección Sólida */}
         <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider px-4 py-2 mb-4 border border-[#111111] neo-shadow-sm">
+          <span className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[14px] sm:text-[15px] font-headline font-black uppercase tracking-wider px-4 py-2 mb-4 rounded-full border-2 border-[#111111] neo-shadow-sm">
             <Building2 className="w-4 h-4 text-white" />
             <span>{t?.servicios?.tag || (isCa ? "Solucions Integrals" : "Soluciones Integrales")}</span>
           </span>
@@ -112,7 +113,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
             return (
               <div
                 key={srv.slug}
-                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] flex flex-col justify-between transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#111111] group"
+                className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] flex flex-col justify-between transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] group overflow-hidden"
               >
                 {/* 1. ZONA SUPERIOR: Banner Fotográfico Real (110-120px) */}
                 <div className="relative h-[160px] sm:h-[180px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
@@ -153,7 +154,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
                         {srv.bullets.map((bullet, idx) => (
                           <li key={idx} className="flex items-start gap-3.5 text-[16px] sm:text-[17px] font-bold text-[#111111]">
                             {/* Tick Sólido Azul con Símbolo Blanco */}
-                            <div className="w-6 h-6 bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 mt-0.5 shadow-xs font-bold">
+                            <div className="w-6 h-6 bg-[#2860F5] text-white border border-[#111111] rounded-lg flex items-center justify-center shrink-0 mt-0.5 shadow-xs font-bold">
                               <Check className="w-3.5 h-3.5 text-white stroke-[3.5]" />
                             </div>
                             <span className="leading-snug pt-0.5">{bullet}</span>
@@ -168,7 +169,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
                     <Link
                       to="/servicios/$slug"
                       params={{ slug: srv.slug }}
-                      className="w-full h-[58px] neo-btn-primary font-headline font-black text-[16px] sm:text-[18px] px-6 flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer"
+                      className="w-full h-[58px] neo-btn-primary rounded-xl font-headline font-black text-[16px] sm:text-[18px] px-6 flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer"
                     >
                       <span>{isCa ? "EXPLORAR SERVEI" : isEn ? "EXPLORE SERVICE" : "EXPLORAR SERVICIO"}</span>
                       <ArrowRight className="w-4.5 h-4.5 text-white shrink-0 stroke-[2.8]" />

@@ -239,10 +239,12 @@ export default function ValuatorSection({
         </div>
 
         {/* ── DOS BLOQUES DIFERENCIADOS NEO-BRUTALIST (58% Blanco / 42% Azul #2860F5) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-          
-          {/* PANEL IZQUIERDO: FORMULARIO TÉCNICO (58% -> lg:col-span-7) */}
-          <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 flex flex-col justify-between">
+        {/* ── CONTENEDOR INTEGRADO ÚNICO NEO-BRUTALIST (MARCO BLANCO 2PX NEGRO + SOMBRA 4PX) ── */}
+        <div className="bg-[#FFFFFF] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] p-4 sm:p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            
+            {/* PANEL IZQUIERDO: FORMULARIO TÉCNICO (58% -> lg:col-span-7) */}
+            <div className="lg:col-span-7 bg-[#FFFFFF] text-[#111111] flex flex-col justify-between pr-0 lg:pr-2">
             <div className="space-y-6">
               
               {/* 1. Selector de Barrio de Santa Coloma */}
@@ -445,8 +447,8 @@ export default function ValuatorSection({
             </div>
           </div>
 
-          {/* PANEL DERECHO: RESULTADO (Fondo Azul Corporativo Sólido #2860F5 -> 42% -> lg:col-span-5) */}
-          <div className="lg:col-span-5 bg-[#2860F5] text-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+            {/* PANEL DERECHO: RESULTADO (Fondo Azul Corporativo Sólido #2860F5 -> 42% -> lg:col-span-5) */}
+            <div className="lg:col-span-5 bg-[#2860F5] text-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden">
             
             {/* Loading Overlay */}
             {isCalculatingValuation && (
@@ -559,8 +561,8 @@ export default function ValuatorSection({
               </div>
             </div>
 
+            </div>
           </div>
-
         </div>
 
       </div>

@@ -70,6 +70,9 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
     }, 600);
   };
 
+  const c = t?.contacto || {};
+  const formLabels = c?.form || {};
+
   return (
     <section id="contacto" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
@@ -79,18 +82,18 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
           <div>
             <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4">
               <span className="w-2 h-2 bg-[#2860F5]" />
-              <span>{t.contacto.badge}</span>
+              <span>{c.badge || "CONTACTO"}</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
-              {t.contacto.title1}{" "}
-              <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{t.contacto.title2}</span>
+              {c.title1 || "¿Hablamos de"}{" "}
+              <span className="text-[#2860F5] underline decoration-[#111111] decoration-4 underline-offset-4">{c.title2 || "tu comunidad?"}</span>
             </h2>
           </div>
           
           <div className="lg:max-w-md">
             <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FFFFFF] p-4 border-2 border-[#111111] shadow-[2px_2px_0px_#111111]">
-              {t.contacto.subtitle}
+              {c.subtitle || "Estamos aquí para ayudarte a gestionar tu patrimonio con transparencia y profesionalidad."}
             </p>
           </div>
         </div>
@@ -190,7 +193,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   {/* Nombre */}
                   <div>
                     <label htmlFor="contacto-nombre-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {t.contacto.nombre} *
+                      {formLabels.nombre || "Nombre completo"} *
                     </label>
                     <input
                       id="contacto-nombre-input"
@@ -206,7 +209,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   {/* Teléfono */}
                   <div>
                     <label htmlFor="contacto-telefono-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {t.contacto.telefono} *
+                      {formLabels.telefono || "Teléfono de contacto"} *
                     </label>
                     <input
                       id="contacto-telefono-input"
@@ -224,7 +227,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   {/* Email */}
                   <div>
                     <label htmlFor="contacto-email-input" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {t.contacto.email} *
+                      {formLabels.email || "Correo electrónico"} *
                     </label>
                     <input
                       id="contacto-email-input"
@@ -240,7 +243,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   {/* Asunto */}
                   <div>
                     <label htmlFor="contacto-asunto-select" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                      {t.contacto.asunto}
+                      {formLabels.asunto || "Tipo de consulta"}
                     </label>
                     <select
                       id="contacto-asunto-select"
@@ -260,7 +263,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                 {/* Mensaje */}
                 <div>
                   <label htmlFor="contacto-mensaje-textarea" className="block text-[15px] sm:text-[16px] font-headline font-black uppercase tracking-wider text-[#111111] mb-1.5">
-                    {t.contacto.mensaje}
+                    {formLabels.mensaje || "Mensaje o detalles de su consulta"}
                   </label>
                   <textarea
                     id="contacto-mensaje-textarea"
@@ -282,7 +285,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                     className="w-5 h-5 mt-0.5 accent-[#2860F5] border-2 border-[#111111] rounded-none cursor-pointer"
                   />
                   <label htmlFor="contacto-privacidad-check" className="text-xs sm:text-sm text-slate-700 font-bold leading-tight cursor-pointer">
-                    He leído y acepto la política de privacidad y autorizo el tratamiento de mis datos de contacto para responder a esta solicitud.
+                    {formLabels.privacidad || "He leído y acepto la política de privacidad y autorizo el tratamiento de mis datos de contacto para responder a esta solicitud."}
                   </label>
                 </div>
                 {contactErrors.privacidad && <p className="text-red-600 text-xs font-bold">{contactErrors.privacidad}</p>}
@@ -296,11 +299,11 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   {isSubmittingContact ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>ENVIANDO CONSULTA...</span>
+                      <span>{formLabels.enviando || "ENVIANDO CONSULTA..."}</span>
                     </>
                   ) : (
                     <>
-                      <span>{t.contacto.enviar}</span>
+                      <span>{formLabels.botonEnviar || "ENVIAR SOLICITUD"}</span>
                       <ArrowRight className="w-5 h-5 stroke-[2.5]" />
                     </>
                   )}

@@ -205,6 +205,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
       // Desktop hero photo (hidden on mobile via CSS)
       { rel: "preload", href: heroBgDesktop, as: "image", type: "image/webp", media: "(min-width: 641px)", fetchpriority: "high" as any },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" as any },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700;800;900&display=swap" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/favicon.ico?v=2027", sizes: "any" },
       { rel: "icon", href: "/favicon-48x48.png?v=2027", type: "image/png", sizes: "48x48" },

@@ -42,7 +42,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
   return (
     <>
       <nav
-        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 rounded-full bg-[#0f172a]/95 backdrop-blur-md border border-slate-700/80 shadow-[0_12px_40px_rgba(15,23,42,0.4)] text-white gap-3 lg:gap-6"
+        className="fixed top-2.5 sm:top-3.5 left-1/2 -translate-x-1/2 w-[calc(100%-20px)] sm:w-[95%] max-w-[1360px] z-[100] flex items-center justify-between py-2 sm:py-2.5 md:py-3 px-3.5 sm:px-5 md:px-7 lg:px-8 bg-[#111111] border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5] text-white gap-3 lg:gap-6"
       >
         <Link to="/" className="hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2 pr-2">
           <img
@@ -54,51 +54,51 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
           />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-black text-white tracking-widest uppercase font-sans shrink">
+        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-xs sm:text-sm font-headline font-bold text-white tracking-wider uppercase shrink">
           <Link
             to="/"
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio"}</span>
           </Link>
           <a
             href="/#propiedades"
             onClick={(e) => handleNavClick(e, "propiedades")}
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.propiedades}</span>
           </a>
           <a
             href="/#servicios"
             onClick={(e) => handleNavClick(e, "servicios")}
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.servicios}</span>
           </a>
           <a
             href="/#nosotros"
             onClick={(e) => handleNavClick(e, "nosotros")}
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.nosotros}</span>
           </a>
           <Link
             to="/noticias"
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{language === "ca" ? "Blog" : language === "en" ? "Blog" : "Blog"}</span>
           </Link>
           <a
             href="/#contacto"
             onClick={(e) => handleNavClick(e, "contacto")}
-            className="relative px-4 py-2 rounded-full text-white font-black hover:text-white transition-all duration-300 group hover:bg-[#2563eb] hover:shadow-[0_4px_20px_rgba(37,99,235,0.5)] cursor-pointer whitespace-nowrap"
+            className="relative px-3.5 py-1.5 text-white font-headline font-bold hover:bg-[#2860F5] hover:text-white transition-all cursor-pointer whitespace-nowrap"
           >
             <span className="relative z-10 text-white font-extrabold">{t.nav.contacto}</span>
           </a>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-          <div className="flex items-center bg-slate-800 border border-slate-700 rounded-full p-0.5 text-xs font-black tracking-wider">
+          <div className="flex items-center bg-[#111111] border-2 border-white/40 p-0.5 text-xs font-headline font-bold tracking-wider">
             {(["es", "ca", "en"] as const).map((lang, idx) => (
               <div key={lang} className="flex items-center">
                 <button
@@ -111,7 +111,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
                     }
                   }}
                   className={`px-2 sm:px-2.5 py-1 rounded-full transition-all duration-200 cursor-pointer ${
-                    language === lang ? "bg-[#2563eb] text-white shadow-xs" : "text-slate-200 hover:text-white"
+                    language === lang ? "bg-[#2860F5] text-white" : "text-slate-200 hover:text-white"
                   }`}
                 >
                   {lang.toUpperCase()}
@@ -153,7 +153,7 @@ export function Navbar({ language, setLanguage }: NavbarProps) {
         />
         {/* Menu panel with lightweight CSS transitions */}
         <div
-          className={`fixed left-3 right-3 sm:left-[5%] sm:right-[5%] top-[70px] sm:top-[76px] bg-[#0f172a] text-white rounded-3xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/80 flex flex-col gap-1.5 z-[100] lg:hidden transition-all duration-200 origin-top ${
+          className={`fixed left-3 right-3 sm:left-[5%] sm:right-[5%] top-[70px] sm:top-[76px] bg-[#111111] text-white border-2 border-white/60 p-4 sm:p-5 neo-shadow-lg flex flex-col gap-1.5 z-[100] lg:hidden transition-all duration-200 origin-top ${
             mobileMenuOpen
               ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
               : "opacity-0 scale-95 -translate-y-3 pointer-events-none"

@@ -642,7 +642,7 @@ function ServicioSlugPage() {
   const relatedServices = Object.values(servicesData).filter(s => s.slug !== service.slug);
 
   return (
-    <div className="bg-[#F8FAFC] text-[#0f172a] min-h-screen font-sans selection:bg-[#2563EB] selection:text-white overflow-x-clip">
+    <div className="bg-[#FAF9FC] text-[#111111] min-h-screen font-sans selection:bg-[#2860F5] selection:text-white overflow-x-clip">
       {/* ── NAVBAR CORPORATIVO OFICIAL ── */}
       <Navbar language={language} setLanguage={setLanguage} />
 
@@ -650,14 +650,14 @@ function ServicioSlugPage() {
           SECCIÓN 1: HERO DEL SERVICIO -> CONTENEDOR VELLUM CLARO ESTILO APPLE
           ══════════════════════════════════════════════════════════════════════════ */}
       <section className="pt-28 sm:pt-36 pb-6 sm:pb-8">
-        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
+        <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-9 md:p-12 relative z-10">
           
           {/* Top Breadcrumb & Return Link con FONDOS SÓLIDOS BIEN CONTRASTADOS */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
             <Link
               to="/"
               hash="servicios"
-              className="inline-flex items-center gap-2.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0F172A] hover:bg-[#2563EB] border border-[#0F172A] hover:border-[#2563EB] px-5 py-2.5 rounded-full transition-all duration-200 cursor-pointer group shadow-sm"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-bold uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] neo-shadow-sm px-4 py-2 transition-all cursor-pointer group"
             >
               <ArrowLeft className="w-4 h-4 text-[#60A5FA] group-hover:text-white group-hover:-translate-x-1 transition-all" />
               <span>Volver a Servicios</span>
@@ -691,22 +691,22 @@ function ServicioSlugPage() {
             {/* Columna Izquierda: Información */}
             <div className="lg:col-span-7">
               <div className="flex flex-wrap items-center gap-2.5 mb-5">
-                <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-xs">
+                <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-xs font-headline font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#111111] neo-shadow-sm">
                   <IconComp className="w-4 h-4 text-white" />
                   Servicio Especializado
                 </span>
                 {/* Etiqueta sólida Santa Coloma de Gramenet */}
-                <span className="inline-flex items-center gap-1.5 bg-[#0F172A] text-white text-xs font-black px-4 py-1.5 rounded-full shadow-xs">
+                <span className="inline-flex items-center gap-1.5 bg-[#111111] text-white text-xs font-headline font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#111111] neo-shadow-sm">
                   <MapPin className="w-3.5 h-3.5 text-[#60A5FA]" />
                   Santa Coloma de Gramenet
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] leading-tight mb-4 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] leading-tight mb-4 tracking-tight">
                 {service.titleKey}
               </h1>
 
-              <p className="text-[#2563EB] text-lg sm:text-xl font-bold mb-4 leading-snug">
+              <p className="text-[#2860F5] text-lg sm:text-xl font-headline font-bold mb-4 leading-snug">
                 {service.taglineKey}
               </p>
 
@@ -717,7 +717,7 @@ function ServicioSlugPage() {
               <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-                  className="bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-md transition-all flex items-center gap-3 cursor-pointer"
+                  className="neo-btn-primary font-headline font-black text-sm sm:text-base py-4 px-7 flex items-center gap-3 cursor-pointer"
                 >
                   <span>Solicitar presupuesto gratuito</span>
                   <ArrowRight className="w-5 h-5 text-white shrink-0 stroke-[2.5]" />
@@ -726,7 +726,7 @@ function ServicioSlugPage() {
                   href="https://wa.me/34601259424"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#EFF6FF] hover:bg-blue-100 text-[#0f172a] border border-blue-200 font-black text-sm sm:text-base py-4 px-7 rounded-xl shadow-xs transition-all flex items-center gap-3 cursor-pointer"
+                  className="neo-btn-secondary font-headline font-black text-sm sm:text-base py-4 px-7 flex items-center gap-3 cursor-pointer"
                 >
                   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#16A34A] shrink-0">
                     <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
@@ -738,7 +738,7 @@ function ServicioSlugPage() {
 
             {/* Columna Derecha: Fotografía Real Local con Tarjeta Inferior de Sede Central */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden border-2 border-slate-200 shadow-xl bg-slate-100">
+              <div className="relative overflow-hidden border-2 border-[#111111] neo-shadow-lg bg-slate-100">
                 <img 
                   src={service.image} 
                   alt={`${service.titleKey} en Santa Coloma de Gramenet`} 
@@ -748,7 +748,7 @@ function ServicioSlugPage() {
                   loading="eager"
                 />
                 {/* Tarjeta flotante inferior en Azul Marino Sólido #0F172A */}
-                <div className="absolute bottom-4 left-4 right-4 bg-[#0F172A] text-white p-4 rounded-2xl shadow-xl flex items-center gap-3.5 border border-slate-700">
+                <div className="absolute bottom-4 left-4 right-4 bg-[#111111] text-white p-4 neo-shadow-sm flex items-center gap-3.5 border-2 border-[#111111]">
                   <div className="w-10 h-10 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
@@ -772,7 +772,7 @@ function ServicioSlugPage() {
           SECCIÓN 2: "¿QUÉ INCLUYE?" -> CONTENEDOR VELLUM CLARO ESTILO APPLE
           ══════════════════════════════════════════════════════════════════════════ */}
       <section className="py-6 sm:py-8">
-        <div className="max-w-[1320px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
+        <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-9 md:p-12 relative z-10">
           
           {/* Cabecera centrada */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
@@ -780,7 +780,7 @@ function ServicioSlugPage() {
               <FileText className="w-4 h-4 text-white" />
               Alcance del Servicio
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4">
               ¿Qué incluye nuestro servicio de {service.titleKey}?
             </h2>
             <p className="text-slate-600 text-base sm:text-lg font-medium leading-relaxed">
@@ -793,14 +793,14 @@ function ServicioSlugPage() {
             {service.features.map((feat, idx) => (
               <div 
                 key={idx}
-                className="bg-[#EFF6FF] border-2 border-blue-200/80 hover:border-[#2563EB] rounded-2xl p-7 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between group"
+                className="bg-[#FAF9FC] border-2 border-[#111111] neo-shadow p-6 sm:p-7 transition-all flex flex-col justify-between group hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#111111]"
               >
                 <div>
                   {/* Cuadrado sólido azul intenso 48x48 */}
-                  <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center shrink-0 mb-5 shadow-xs group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 bg-[#2860F5] text-white border-2 border-[#111111] neo-shadow-sm flex items-center justify-center shrink-0 mb-5">
                     <Check className="w-6 h-6 text-white stroke-[3]" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563EB] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-headline font-black text-[#111111] mb-2 leading-snug group-hover:text-[#2860F5] transition-colors">
                     {feat.title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
@@ -812,7 +812,7 @@ function ServicioSlugPage() {
           </div>
 
           {/* Banner Horizontal de Contacto Directo en Azul Marino Sólido #0F172A */}
-          <div className="bg-[#0F172A] rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-700 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
+          <div className="bg-[#111111] p-6 sm:p-8 md:p-10 border-2 border-[#111111] neo-shadow-lg flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
             <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
               <img
                 src="/images/gesgrama_office.webp"
@@ -837,7 +837,7 @@ function ServicioSlugPage() {
 
             <a
               href={`/?asunto=${encodeURIComponent(service.asuntoOption)}#formulario-contacto`}
-              className="bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#0f172a] font-black text-sm sm:text-base py-4 px-8 rounded-xl shadow-md transition-all shrink-0 flex items-center gap-2.5 cursor-pointer"
+              className="neo-btn-secondary font-headline font-black text-sm sm:text-base py-4 px-8 shrink-0 flex items-center gap-2.5 cursor-pointer"
             >
               <span>Solicitar consulta personalizada</span>
               <ArrowRight className="w-5 h-5 text-[#2563EB] stroke-[2.5]" />
@@ -873,13 +873,13 @@ function ServicioSlugPage() {
               {service.values.map((v, i) => (
                 <div 
                   key={i}
-                  className="bg-[#EFF6FF] text-[#0f172a] border-2 border-blue-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:-translate-y-1 hover:border-[#2563EB] transition-all"
+                  className="bg-white text-[#111111] border-2 border-[#111111] neo-shadow p-6 flex flex-col justify-between transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#111111]"
                 >
                   <div>
-                    <span className="text-2xl sm:text-3xl font-black text-[#2563EB] block font-mono mb-3">
+                    <span className="text-2xl sm:text-3xl font-data-mono font-black text-[#2860F5] block mb-2">
                       {v.metric}
                     </span>
-                    <h3 className="text-lg font-black text-[#0f172a] mb-2 leading-snug">
+                    <h3 className="text-lg font-headline font-bold text-[#111111] mb-2 leading-snug">
                       {v.title}
                     </h3>
                     <p className="text-sm text-slate-700 font-medium leading-relaxed">
@@ -913,7 +913,7 @@ function ServicioSlugPage() {
               {service.steps.map((st, i) => (
                 <div 
                   key={i}
-                  className="bg-[#EFF6FF] border-2 border-blue-200/80 hover:border-[#2563EB] rounded-2xl p-7 flex flex-col justify-between shadow-xs transition-all"
+                  className="bg-[#FAF9FC] border-2 border-[#111111] neo-shadow p-6 sm:p-7 flex flex-col justify-between transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_#111111]"
                   itemScope 
                   itemProp="step" 
                   itemType="https://schema.org/HowToStep"
@@ -921,10 +921,10 @@ function ServicioSlugPage() {
                   <div>
                     <div className="flex items-center justify-between mb-5">
                       {/* Etiqueta PASO con fondo azul sólido */}
-                      <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-xl bg-[#2563EB] text-white text-sm font-black font-mono shadow-xs">
+                      <span className="inline-flex items-center justify-center px-3.5 py-1 bg-[#111111] text-white text-xs font-headline font-black tracking-wider uppercase border border-[#111111]">
                         PASO {st.number}
                       </span>
-                      <span className="text-xs font-black text-[#2563EB] uppercase tracking-wider font-mono">
+                      <span className="text-xs font-data-mono font-bold text-[#2860F5] uppercase tracking-wider">
                         Fase 0{i + 1}
                       </span>
                     </div>
@@ -948,7 +948,7 @@ function ServicioSlugPage() {
           SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) -> CONTENEDOR VELLUM CLARO
           ══════════════════════════════════════════════════════════════════════════ */}
       <section className="py-6 sm:py-8" itemScope itemType="https://schema.org/FAQPage">
-        <div className="max-w-[960px] mx-4 sm:mx-6 md:mx-auto bg-white rounded-[28px] sm:rounded-[32px] p-6 sm:p-9 md:p-12 shadow-[0_12px_40px_rgba(15,23,42,0.06)] border border-slate-200/90 relative z-10">
+        <div className="max-w-[960px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-9 md:p-12 relative z-10">
           
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
             <span className="inline-flex items-center gap-2 bg-[#2563EB] text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full mb-3 shadow-xs">
@@ -970,7 +970,7 @@ function ServicioSlugPage() {
                 <div 
                   key={i}
                   className={`border-2 rounded-2xl transition-all overflow-hidden ${
-                    isOpen ? "border-[#2563EB] bg-[#EFF6FF] shadow-xs" : "border-slate-200 bg-[#F8FAFC]"
+                    isOpen ? "border-[#111111] bg-[#FAF9FC] neo-shadow-sm" : "border-[#111111] bg-white"
                   }`}
                   itemScope 
                   itemProp="mainEntity" 
@@ -1042,10 +1042,10 @@ function ServicioSlugPage() {
               return (
                 <div
                   key={rel.slug}
-                  className="bg-[#EFF6FF] text-[#0f172a] border-2 border-blue-200/80 rounded-2xl p-7 flex flex-col justify-between shadow-xs hover:border-[#2563EB] transition-all"
+                  className="bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] neo-shadow p-6 sm:p-7 flex flex-col justify-between transition-all"
                 >
                   <div>
-                    <div className="w-12 h-12 rounded-xl bg-[#2563EB] text-white flex items-center justify-center mb-5 shadow-xs">
+                    <div className="w-10 h-10 bg-[#2860F5] text-white border-2 border-[#111111] neo-shadow-sm flex items-center justify-center mb-5">
                       <RelIcon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-black text-[#0f172a] mb-3 leading-snug">
@@ -1059,7 +1059,7 @@ function ServicioSlugPage() {
                   <Link
                     to="/servicios/$slug"
                     params={{ slug: rel.slug }}
-                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white py-3.5 px-5 rounded-xl font-black text-sm text-center block transition-all shadow-xs cursor-pointer"
+                    className="w-full neo-btn-primary py-3 px-4 font-headline font-black text-sm text-center block transition-all cursor-pointer"
                   >
                     Ver servicio completo →
                   </Link>
@@ -1069,9 +1069,9 @@ function ServicioSlugPage() {
           </div>
 
           {/* Banner Valorador en Azul Marino Sólido #0F172A con botón blanco */}
-          <div className="bg-[#0F172A] rounded-3xl p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-700 shadow-xl text-white">
+          <div className="bg-[#2860F5] p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border-2 border-[#111111] neo-shadow-lg text-white">
             <div className="flex items-center gap-5 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-white text-[#2563EB] flex items-center justify-center shrink-0 shadow-md">
+              <div className="w-12 h-12 bg-white text-[#111111] border-2 border-[#111111] neo-shadow-sm flex items-center justify-center shrink-0">
                 <Calculator className="w-8 h-8 stroke-[2.5]" />
               </div>
               <div>

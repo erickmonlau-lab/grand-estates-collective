@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as PoliticaPrivacidadRouteImport } from './routes/politica-privacidad'
 import { Route as PoliticaCookiesRouteImport } from './routes/politica-cookies'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -22,6 +23,11 @@ import { Route as NoticiasSlugRouteImport } from './routes/noticias_.$slug'
 import { Route as InmobiliariaSlugRouteImport } from './routes/inmobiliaria_.$slug'
 import { Route as AdministradorFincasCityRouteImport } from './routes/administrador-fincas_.$city'
 
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PoliticaPrivacidadRoute = PoliticaPrivacidadRouteImport.update({
   id: '/politica-privacidad',
   path: '/politica-privacidad',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/servicios': typeof ServiciosRoute
   '/administrador-fincas/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/servicios': typeof ServiciosRoute
   '/administrador-fincas/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria/$slug': typeof InmobiliariaSlugRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/politica-cookies': typeof PoliticaCookiesRoute
   '/politica-privacidad': typeof PoliticaPrivacidadRoute
+  '/servicios': typeof ServiciosRoute
   '/administrador-fincas_/$city': typeof AdministradorFincasCityRoute
   '/inmobiliaria_/$slug': typeof InmobiliariaSlugRoute
   '/noticias_/$slug': typeof NoticiasSlugRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/servicios'
     | '/administrador-fincas/$city'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/servicios'
     | '/administrador-fincas/$city'
     | '/inmobiliaria/$slug'
     | '/noticias/$slug'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/politica-cookies'
     | '/politica-privacidad'
+    | '/servicios'
     | '/administrador-fincas_/$city'
     | '/inmobiliaria_/$slug'
     | '/noticias_/$slug'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   PoliticaCookiesRoute: typeof PoliticaCookiesRoute
   PoliticaPrivacidadRoute: typeof PoliticaPrivacidadRoute
+  ServiciosRoute: typeof ServiciosRoute
   AdministradorFincasCityRoute: typeof AdministradorFincasCityRoute
   InmobiliariaSlugRoute: typeof InmobiliariaSlugRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
@@ -189,6 +202,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/politica-privacidad': {
       id: '/politica-privacidad'
       path: '/politica-privacidad'
@@ -283,6 +303,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   PoliticaCookiesRoute: PoliticaCookiesRoute,
   PoliticaPrivacidadRoute: PoliticaPrivacidadRoute,
+  ServiciosRoute: ServiciosRoute,
   AdministradorFincasCityRoute: AdministradorFincasCityRoute,
   InmobiliariaSlugRoute: InmobiliariaSlugRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,

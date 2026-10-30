@@ -431,11 +431,11 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
           </div>
 
           {/* PANEL DERECHO: VALORACIÓN DE MERCADO PROTAGONISTA (42% aprox -> lg:col-span-5) */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-[24px] bg-[#0B1730] border-2 border-[#2860F5] p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden">
+          <div className="lg:col-span-5 flex flex-col justify-between rounded-[24px] bg-[#0B1730] border border-slate-800 p-6 sm:p-7 text-white shadow-2xl relative overflow-hidden">
             
             {/* Loading Overlay */}
             {isCalculatingValuation && (
-              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1730]/95 backdrop-blur-xs transition-opacity duration-200">
+              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#0B1730] transition-opacity duration-200">
                 <div className="w-10 h-10 border-4 border-[#2860F5] border-t-white rounded-full animate-spin mb-3" />
                 <span className="text-[15px] font-black text-white tracking-widest uppercase font-sans">
                   {isCa ? "ACTUALITZANT VALORACIÓ..." : "ACTUALIZANDO VALORACIÓN..."}
@@ -443,80 +443,101 @@ export default function ValuatorSection({ language, t, zonas, shouldReduceMotion
               </div>
             )}
 
-            {/* A. Encabezado de Valoración Sólido */}
-            <div className="space-y-5">
-              <div className="flex items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] font-black uppercase tracking-wider text-white bg-[#2860F5] px-4 py-1.5 rounded-full shadow-sm">
+            {/* Contenido Principal */}
+            <div className="space-y-4 sm:space-y-5">
+              
+              {/* 6. Cabecera */}
+              <div className="flex items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 text-[14px] sm:text-[15px] font-black uppercase tracking-wider text-white bg-[#2860F5] px-4 py-2 rounded-xl shadow-sm">
                   <Check className="w-4 h-4 text-white stroke-[3.5]" />
                   <span>{isCa ? "ESTIMACIÓ DE MERCAT" : "ESTIMACIÓN DE MERCADO"}</span>
                 </span>
-                <span className="text-[15px] sm:text-[16px] font-extrabold text-[#38bdf8] flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#38bdf8] shrink-0" />
+                <span className="text-[15px] sm:text-[16px] font-black text-[#60A5FA] flex items-center gap-1.5 font-sans">
+                  <MapPin className="w-4 h-4 text-[#60A5FA] shrink-0" />
                   <span>{result.zoneName}</span>
                 </span>
               </div>
 
-              {/* B. Valor Estimado con Rango Protagonista (40-46px) */}
-              <div className="bg-[#122244] rounded-2xl p-5 sm:p-6 border-2 border-blue-500/30 text-center shadow-inner">
-                <p className="text-[14px] sm:text-[15px] font-extrabold uppercase tracking-wider text-slate-300 mb-2">
+              {/* 1 & 2. Valor Estimado de Venta: Superficie sólida #172B50 sin segundo borde llamativo */}
+              <div className="bg-[#172B50] rounded-2xl p-5 sm:p-6 text-center">
+                <p className="text-[14px] sm:text-[15px] font-black uppercase tracking-wider text-slate-300 mb-4 font-sans">
                   {isCa ? "VALOR ESTIMAT DE VENDA" : "VALOR ESTIMADO DE VENTA"}
                 </p>
-                <div className="text-[28px] sm:text-[36px] xl:text-[42px] font-black text-white leading-tight tracking-tight font-sans">
-                  <span>{new Intl.NumberFormat("es-ES").format(displayMin)} €</span>
-                  <span className="text-[#38bdf8] mx-2 font-light">–</span>
-                  <br className="sm:hidden" />
-                  <span>{new Intl.NumberFormat("es-ES").format(displayMax)} €</span>
+                
+                {/* Tabla/Grid DESDE - HASTA equilibrada con Tabular Numbers y sin salto de línea en cantidades */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 items-center">
+                  <div className="flex flex-col items-center justify-center bg-[#0B1730] rounded-xl py-3 px-2 sm:px-3">
+                    <span className="text-[12px] sm:text-[13px] font-black uppercase tracking-wider text-[#60A5FA] mb-1 font-sans">
+                      {isCa ? "DES DE" : "DESDE"}
+                    </span>
+                    <span className="text-[20px] sm:text-[24px] xl:text-[28px] font-black text-white font-sans font-mono tabular-nums whitespace-nowrap">
+                      {new Intl.NumberFormat("es-ES").format(displayMin)}&nbsp;€
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col items-center justify-center bg-[#0B1730] rounded-xl py-3 px-2 sm:px-3">
+                    <span className="text-[12px] sm:text-[13px] font-black uppercase tracking-wider text-[#60A5FA] mb-1 font-sans">
+                      {isCa ? "FINS A" : "HASTA"}
+                    </span>
+                    <span className="text-[20px] sm:text-[24px] xl:text-[28px] font-black text-white font-sans font-mono tabular-nums whitespace-nowrap">
+                      {new Intl.NumberFormat("es-ES").format(displayMax)}&nbsp;€
+                    </span>
+                  </div>
                 </div>
-                {/* C. Información Resumen de la Vivienda */}
-                <p className="text-[15px] sm:text-[16px] text-blue-200 mt-2 font-bold">
+
+                {/* Resumen Inmueble */}
+                <p className="text-[14px] sm:text-[15px] text-slate-300 mt-3.5 font-bold">
                   {metros} m² · {habitaciones} {isCa ? "habitacions" : "habitaciones"} · {estado === "reformado" ? "Reformado" : estado === "reformar" ? "A reformar" : "Buen estado"}
                 </p>
               </div>
 
-              {/* D. Indicadores de Mercado Sólidos con Valores de 22-26px */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="bg-[#122244] border-2 border-slate-700 rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[14px] sm:text-[15px] font-extrabold text-slate-300 uppercase tracking-wider">
+              {/* 4. Indicadores de Mercado: 3 bloques iguales con fondo sólido #172B50, sin bordes innecesarios */}
+              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
+                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
                     {isCa ? "PREU M²" : "PRECIO M²"}
                   </span>
-                  <span className="text-[22px] sm:text-[24px] font-black text-white mt-1 font-sans">
-                    {displayPricePerM2} €
+                  <span className="text-[20px] sm:text-[22px] font-black text-white mt-1 font-sans font-mono tabular-nums whitespace-nowrap">
+                    {displayPricePerM2}&nbsp;€
                   </span>
                 </div>
-                <div className="bg-[#122244] border-2 border-slate-700 rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[14px] sm:text-[15px] font-extrabold text-slate-300 uppercase tracking-wider">
+
+                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
+                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
                     {isCa ? "DEMANDA" : "DEMANDA"}
                   </span>
-                  <span className="text-[22px] sm:text-[24px] font-black text-[#38bdf8] mt-1 font-sans">
+                  <span className="text-[20px] sm:text-[22px] font-black text-[#60A5FA] mt-1 font-sans">
                     {result.demand}
                   </span>
                 </div>
-                <div className="bg-[#122244] border-2 border-slate-700 rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
-                  <span className="text-[14px] sm:text-[15px] font-extrabold text-slate-300 uppercase tracking-wider">
+
+                <div className="bg-[#172B50] rounded-xl p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
+                  <span className="text-[13px] sm:text-[14px] font-extrabold text-slate-300 uppercase tracking-wider font-sans">
                     {isCa ? "VARIACIÓ" : "VARIACIÓN"}
                   </span>
-                  <span className="text-[22px] sm:text-[24px] font-black text-emerald-400 mt-1 font-sans">
+                  <span className="text-[20px] sm:text-[22px] font-black text-emerald-400 mt-1 font-sans">
                     {result.variation}
                   </span>
                 </div>
               </div>
+
             </div>
 
             {/* 7. Botón de Valoración Exacta y Nota de Confianza */}
-            <div className="pt-6 mt-6 border-t-2 border-slate-700/80 space-y-3">
+            <div className="pt-5 mt-5 border-t border-slate-800 space-y-3">
               <a
                 href={`https://wa.me/34689438012?text=${contactText}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-white hover:bg-slate-100 text-[#0B1730] font-black text-[17px] sm:text-[18px] py-4 px-6 rounded-xl transition-all flex items-center justify-center gap-2.5 uppercase tracking-wider cursor-pointer shadow-xl hover:shadow-2xl active:scale-[0.99] font-sans"
+                className="w-full h-[58px] sm:h-[62px] bg-[#FFFFFF] hover:bg-[#F8FAFC] text-[#101A30] font-black text-[17px] sm:text-[18px] px-6 rounded-xl transition-all flex items-center justify-center gap-3 uppercase tracking-wider cursor-pointer shadow-lg active:scale-[0.99] font-sans"
               >
                 <span>{isCa ? "VULL UNA VALORACIÓ EXACTA" : "QUIERO UNA VALORACIÓN EXACTA"}</span>
                 <ArrowRight className="w-5 h-5 text-[#2860F5] shrink-0 stroke-[3]" />
               </a>
 
-              <div className="flex items-center justify-center gap-2 text-center pt-1">
-                <ShieldCheck className="w-5 h-5 text-[#38bdf8] shrink-0" />
-                <p className="text-[14px] sm:text-[15px] text-slate-200 font-bold font-sans">
+              <div className="flex items-center justify-center gap-2 text-center pt-0.5">
+                <ShieldCheck className="w-4 h-4 text-[#60A5FA] shrink-0" />
+                <p className="text-[14px] sm:text-[15px] text-slate-300 font-bold font-sans">
                   {isCa
                     ? "Taxació presencial gratuïta per agents AICAT 5583 · Sense compromís"
                     : "Tasación presencial gratuita por agentes AICAT 5583 · Sin compromiso"}

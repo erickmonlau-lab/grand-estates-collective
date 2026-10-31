@@ -829,7 +829,7 @@ function ServicioSlugPage() {
                 <h4 className="text-xl sm:text-2xl font-black text-white leading-snug">
                   Atención técnica presencial en nuestro despacho de Santa Coloma
                 </h4>
-                <p className="text-sm sm:text-base text-slate-300 font-medium mt-1">
+                <p className="text-base sm:text-[17px] text-white font-bold mt-1.5 leading-relaxed">
                   Visítanos en Av. dels Banús, 49 o concierta una reunión con nuestros administradores y abogados.
                 </p>
               </div>
@@ -1074,7 +1074,7 @@ function ServicioSlugPage() {
                 <h4 className="text-xl sm:text-2xl font-black text-white leading-snug">
                   ¿Quieres saber el valor exacto de un piso en Santa Coloma?
                 </h4>
-                <p className="text-sm sm:text-base text-slate-300 font-medium mt-1">
+                <p className="text-base sm:text-[17px] text-white font-bold mt-1.5 leading-relaxed">
                   Calcula en 1 minuto la horquilla real de mercado según barrio y tipología sin registro obligatorio.
                 </p>
               </div>

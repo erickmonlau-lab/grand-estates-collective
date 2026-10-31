@@ -31,7 +31,7 @@ export default function FaqSection({ t }: FaqSectionProps) {
             </span>
           </h2>
 
-          <p className="text-slate-700 text-[16px] sm:text-[18px] font-bold leading-relaxed max-w-xl mx-auto">
+          <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
             {t.faq.subtitle}
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function FaqSection({ t }: FaqSectionProps) {
 
         {/* Bloque CTA inferior de ayuda */}
         <div className="text-center pt-2">
-          <p className="text-slate-700 font-headline font-bold text-sm sm:text-base mb-4">
+          <p className="text-[#111111] font-headline font-medium text-[16px] sm:text-[17px] mb-4">
             ¿Tienes otra duda o consulta sobre tu vivienda o comunidad?
           </p>
           <a

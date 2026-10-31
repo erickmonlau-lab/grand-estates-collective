@@ -99,7 +99,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
             {t?.servicios?.title1 || (isCa ? "Serveis especialitzats a" : "Servicios especializados en")}{" "}
             <span className="text-[#2563eb]">Santa Coloma</span>
           </h2>
-          <p className="text-[#111111] text-lg sm:text-xl font-medium leading-relaxed max-w-3xl mx-auto">
+          <p className="text-[#111111] text-[19px] sm:text-[20px] font-medium leading-relaxed max-w-3xl mx-auto">
             {isCa
               ? "Guia completa i atenció directa a cada àrea amb el nostre equip d'advocats, administradors i agents immobiliaris col·legiats."
               : "Guía completa y atención directa en cada área con nuestro equipo de abogados, administradores de fincas y agentes colegiados."}

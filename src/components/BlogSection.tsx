@@ -71,7 +71,7 @@ export default function BlogSection({ language, t }: BlogSectionProps) {
                       {title}
                     </Link>
 
-                    <p className="text-[15px] sm:text-[16px] text-slate-700 font-medium leading-relaxed line-clamp-3">
+                    <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed line-clamp-3">
                       {summary}
                     </p>
                   </div>

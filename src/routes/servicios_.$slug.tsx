@@ -1562,7 +1562,7 @@ function ServicioSlugPage() {
                 {tagline}
               </p>
 
-              <p className="text-[#111111] text-base sm:text-[17px] leading-relaxed max-w-2xl font-medium mb-8">
+              <p className="text-[#111111] text-[18px] sm:text-[19px] leading-relaxed max-w-2xl font-medium mb-8">
                 {intro}
               </p>
 
@@ -1635,7 +1635,7 @@ function ServicioSlugPage() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]">
               {includesTitle}
             </h2>
-            <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+            <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
               {includesSubtitle}
             </p>
           </div>
@@ -1663,7 +1663,7 @@ function ServicioSlugPage() {
                     <h3 className="text-lg sm:text-[20px] font-headline font-black text-[#111111] mb-2.5 leading-snug group-hover:text-[#2860F5] transition-colors">
                       {feat.title[langKey]}
                     </h3>
-                    <p className="text-[15px] sm:text-base text-[#111111] font-medium leading-relaxed">
+                    <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed">
                       {feat.desc[langKey]}
                     </p>
                   </div>
@@ -1728,7 +1728,7 @@ function ServicioSlugPage() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]">
                 {whyTitle}
               </h2>
-              <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+              <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
                 {whySubtitle}
               </p>
             </div>
@@ -1755,7 +1755,7 @@ function ServicioSlugPage() {
                       <h3 className="text-lg font-headline font-black text-[#111111] mb-2 leading-snug">
                         {v.title[langKey]}
                       </h3>
-                      <p className="text-[15px] text-[#111111] font-medium leading-relaxed">
+                      <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed">
                         {v.desc[langKey]}
                       </p>
                     </div>
@@ -1778,7 +1778,7 @@ function ServicioSlugPage() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]" itemProp="name">
                 {processTitle}
               </h2>
-              <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto" itemProp="description">
+              <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto" itemProp="description">
                 {processSubtitle}
               </p>
             </div>
@@ -1805,7 +1805,7 @@ function ServicioSlugPage() {
                     <h3 className="text-lg sm:text-[19px] font-headline font-black text-[#111111] mb-2.5 leading-snug [text-wrap:balance]" itemProp="name">
                       {st.title}
                     </h3>
-                    <p className="text-[15px] sm:text-base text-[#111111] font-medium leading-relaxed" itemProp="text">
+                    <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed" itemProp="text">
                       {st.desc}
                     </p>
                   </div>
@@ -1831,7 +1831,7 @@ function ServicioSlugPage() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]">
               {faqTitle}
             </h2>
-            <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+            <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
               {faqSubtitle}
             </p>
           </div>
@@ -1899,7 +1899,7 @@ function ServicioSlugPage() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]">
               {relatedTitle}
             </h2>
-            <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+            <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
               {relatedSubtitle}
             </p>
           </div>
@@ -1920,7 +1920,7 @@ function ServicioSlugPage() {
                     <h3 className="text-xl font-headline font-black text-[#111111] mb-2.5 leading-snug">
                       {rel.titleKey[langKey]}
                     </h3>
-                    <p className="text-[15px] text-[#111111] font-medium leading-relaxed mb-6">
+                    <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed mb-6">
                       {rel.taglineKey[langKey]}
                     </p>
                   </div>
@@ -1979,7 +1979,7 @@ function ServicioSlugPage() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight mb-4 [text-wrap:balance]">
               {barrioTitle}
             </h2>
-            <p className="text-[#111111] text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
+            <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
               {coverageSubtitle}
             </p>
           </div>

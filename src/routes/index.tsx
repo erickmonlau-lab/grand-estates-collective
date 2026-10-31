@@ -541,7 +541,7 @@ function Index() {
               </h2>
 
               {/* Descripción: 16-18px Inter / Sans font-medium text-[#111111] max-w-3xl */}
-              <p className="text-[#333333] text-base sm:text-[17px] leading-relaxed font-sans font-medium max-w-3xl">
+              <p className="text-[#111111] text-[18px] sm:text-[19px] leading-relaxed font-sans font-medium max-w-3xl">
                 {language === "ca"
                   ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
                   : language === "en"
@@ -976,7 +976,7 @@ function Index() {
                   )}
                 </h2>
                 
-                <p className="text-[17px] sm:text-[18px] text-[#111111] font-bold leading-relaxed mb-6 max-w-xl">
+                <p className="text-[18px] sm:text-[19px] text-[#111111] font-medium leading-relaxed mb-6 max-w-xl">
                   {language === "ca" 
                     ? "Administració transparent, resposta àgil i optimització de costos garantida per a la teva finca." 
                     : language === "en" 
@@ -1069,7 +1069,7 @@ function Index() {
               </div>
 
               {/* Titular grande con detalle Drawn orgánico */}
-              <h2 className="text-3xl sm:text-4xl md:text-[44px] font-headline font-black text-[#111111] tracking-tight leading-tight mb-2">
+              <h2 className="text-3xl sm:text-4xl md:text-[44px] font-headline font-black text-[#111111] tracking-tight leading-tight mb-4">
                 <span>{language === 'ca' ? 'El que diuen els nostres ' : language === 'en' ? 'What our clients ' : 'Lo que dicen nuestros '}</span>
                 <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
                   {language === 'ca' ? 'clients.' : language === 'en' ? 'say.' : 'clientes.'}
@@ -1077,7 +1077,7 @@ function Index() {
                 </span>
               </h2>
               
-              <p className="text-[15px] sm:text-[16px] font-sans font-medium text-slate-700 max-w-xl">
+              <p className="text-[18px] sm:text-[19px] font-sans font-medium text-[#111111] leading-relaxed max-w-xl pt-1">
                 {t.testimonios.subtitle}
               </p>
             </div>
@@ -1215,7 +1215,7 @@ function Index() {
                   </span>
                 </h2>
                 
-                <p className="text-[17px] sm:text-[18px] text-[#111111] font-bold leading-relaxed mb-8 max-w-xl">
+                <p className="text-[18px] sm:text-[19px] text-[#111111] font-medium leading-relaxed mb-8 max-w-xl">
                   {t.finalCta.subtitle}
                 </p>
                 

@@ -76,7 +76,7 @@ export function AccreditationBadges({ language }: AccreditationBadgesProps) {
           </div>
           
           {/* Registration number below card in JetBrains Mono / Space Grotesk */}
-          <span className="text-white text-sm sm:text-base font-data-mono font-black tracking-widest text-center mt-2.5 group-hover:text-[#2860F5] transition-colors">
+          <span className="text-[#111111] text-sm sm:text-base font-data-mono font-black tracking-wider text-center mt-2.5 group-hover:text-[#2860F5] transition-colors">
             {b.number}
           </span>
         </a>

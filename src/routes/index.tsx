@@ -947,11 +947,11 @@ function Index() {
                                     <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
                                       <IconComponent className="w-6 h-6 text-white stroke-[2.5]" />
                                     </div>
-                                    <span className="text-[14px] sm:text-[15px] font-headline font-bold text-[#111111] uppercase tracking-wider block truncate w-full">
+                                    <span className="text-[11px] sm:text-[12px] font-headline font-bold text-[#111111] uppercase tracking-wider block truncate w-full">
                                       {item.label}
                                     </span>
                                     <span
-                                      className={`${item.isNumericOnly ? 'text-[22px] sm:text-[26px]' : 'text-[18px] sm:text-[22px]'} font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap`}
+                                      className={`${item.isNumericOnly ? 'text-[18px] sm:text-[22px]' : 'text-[14px] sm:text-[16px]'} font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap`}
                                       dangerouslySetInnerHTML={{ __html: item.value }}
                                     />
                                   </div>
@@ -963,13 +963,13 @@ function Index() {
                           {/* 3. PRECIO DESTACADO (MAYOR PROTAGONISMO) & ACCIÓN EDITORIAL */}
                           <div className="pt-4 border-t-2 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div className="flex flex-col min-w-0">
-                              <span className="text-[14px] sm:text-[15px] font-headline font-bold uppercase tracking-wider text-[#111111]">
+                              <span className="text-[11px] sm:text-[12px] font-headline font-bold uppercase tracking-wider text-slate-500">
                                 {isRent
                                   ? (language === "ca" ? "PREU DE LLOGUER" : language === "en" ? "RENTAL PRICE" : "PRECIO DE ALQUILER")
                                   : (language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA")}
                               </span>
                               <div className="flex items-baseline whitespace-nowrap mt-0.5">
-                                <span className="text-[30px] sm:text-[34px] font-data-mono font-extrabold text-[#111111] leading-none tracking-tight">
+                                <span className="text-[24px] sm:text-[28px] font-data-mono font-extrabold text-[#111111] leading-none tracking-tight">
                                   {new Intl.NumberFormat('es-ES').format(property.price)}&nbsp;€
                                 </span>
                                 {isRent && (
@@ -1076,7 +1076,7 @@ function Index() {
                               ? "max-w-xl mx-auto"
                               : relatedProperties.length === 2
                               ? "md:grid-cols-2"
-                              : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                              : "md:grid-cols-2 lg:grid-cols-3"
                           } gap-6 md:gap-8`}>
                             {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
                           </div>

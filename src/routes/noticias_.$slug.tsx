@@ -1,14 +1,29 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { Footer } from '@/components/Footer';
+import { Footer } from "@/components/Footer";
 import { articles } from "../data/articles";
-
-import { ArrowLeft, Calendar, Clock, User, ChevronRight, BookOpen, Menu, X, Home, Building2, Phone, MapPin, Mail, AlertTriangle, MessageCircle, Share2, Check } from "lucide-react";
-import logoImg from "@/assets/logo.webp";
+import { 
+  ArrowLeft, 
+  ArrowRight,
+  Calendar, 
+  Clock, 
+  User, 
+  ChevronRight, 
+  BookOpen, 
+  Home, 
+  Building2, 
+  Phone, 
+  MapPin, 
+  Mail, 
+  AlertTriangle, 
+  Share2, 
+  Check, 
+  Sparkles,
+  ArrowUpRight
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { translations, loadLanguage } from "../data/translations";
-import { FooterMascot } from "@/components/FooterMascot";
 import { Navbar } from "@/components/Navbar";
-import { AccreditationBadges } from "@/components/AccreditationBadges";
+import { DrawnUnderline } from "@/components/DrawnUnderline";
 
 function WhatsAppIcon({ className = "w-4 h-4 fill-white shrink-0" }: { className?: string }) {
   return (
@@ -52,7 +67,7 @@ export const Route = createFileRoute("/noticias_/$slug")({
         ],
       };
     }
-    const content = article.es; // Default to ES for SSR head
+    const content = article.es;
     const canonicalUrl = `${SITE_DOMAIN}/noticias/${article.slug}`;
     const ogImageUrl = typeof article.image === "string" && article.image.startsWith("http")
       ? article.image
@@ -100,7 +115,7 @@ export const Route = createFileRoute("/noticias_/$slug")({
               "@type": "BreadcrumbList",
               "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE_DOMAIN },
-                { "@type": "ListItem", "position": 2, "name": "Noticias", "item": `${SITE_DOMAIN}/#noticias` },
+                { "@type": "ListItem", "position": 2, "name": "Noticias", "item": `${SITE_DOMAIN}/noticias` },
                 { "@type": "ListItem", "position": 3, "name": content.title, "item": canonicalUrl }
               ]
             }
@@ -125,7 +140,6 @@ function ArticleDetail() {
     }
     return "es";
   });
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const changeLanguage = (lang: "es" | "en" | "ca") => {
     if (lang === "es") {
@@ -175,23 +189,21 @@ function ArticleDetail() {
 
   const t = translations[language];
 
-  // 404 NOT FOUND STATE WITH FULL UI BRANDING & BUBBLE LAYOUT
+  // 404 NOT FOUND STATE WITH SOLID UI
   if (!article) {
     return (
-      <div className="bg-slate-50 text-onyx font-sans min-h-screen flex flex-col justify-between">
-        {/* SHARED CANONICAL NAVY NAVBAR */}
+      <div className="bg-[#FAF9FC] text-[#111111] font-sans min-h-screen flex flex-col justify-between">
         <Navbar language={language} setLanguage={changeLanguage} />
 
-        {/* BUBBLE 404 CARD */}
         <main className="pt-32 pb-16 px-4 md:px-8 flex-1 flex items-center justify-center">
-          <div className="max-w-2xl w-full bg-white rounded-[28px] md:rounded-[36px] p-8 md:p-12 text-center shadow-xl border border-slate-100">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-red-50 text-red-600 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="max-w-2xl w-full bg-white rounded-2xl p-8 md:p-12 text-center shadow-[4px_4px_0px_#111111] border-2 border-[#111111]">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#111111] text-white text-xs font-black uppercase tracking-wider mb-4 border border-[#111111]">
               Error 404
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-onyx mb-4">
+            <h1 className="text-3xl md:text-4xl font-headline font-black text-[#111111] mb-4">
               {language === "ca" ? "Article no trobat" : language === "en" ? "Article Not Found" : "Artículo no encontrado"}
             </h1>
-            <p className="text-onyx/60 text-base md:text-lg mb-8 leading-relaxed">
+            <p className="text-[#111111] text-base md:text-lg mb-8 leading-relaxed font-medium">
               {language === "ca" 
                 ? "El contingut que estàs buscant no existeix o ha estat traslladat." 
                 : language === "en" 
@@ -199,8 +211,8 @@ function ArticleDetail() {
                 : "El artículo que estás buscando no existe o ha sido trasladado a otra dirección."}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/" className="w-full sm:w-auto bg-[#2563eb] text-white px-8 py-3.5 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#1d4ed8] transition-colors shadow-md">
-                {t.detail.backHome}
+              <Link to="/noticias" className="neo-btn-primary px-8 py-3.5 rounded-xl font-headline font-black uppercase tracking-wider text-xs">
+                {language === "ca" ? "Tornar al Blog" : language === "en" ? "Back to Blog" : "Volver al Blog"}
               </Link>
             </div>
           </div>
@@ -211,7 +223,7 @@ function ArticleDetail() {
     );
   }
 
-  const content = article[language];
+  const content = article[language] || article.es;
   const canonicalUrl = `${SITE_DOMAIN}/noticias/${article.slug}`;
 
   const [copiedLink, setCopiedLink] = useState(false);
@@ -221,7 +233,6 @@ function ArticleDetail() {
     const shareTitle = `${content.title} — Gesgrama`;
     const shareText = content.summary || content.title;
 
-    // 1. Web Share API
     if (typeof navigator !== "undefined" && navigator.share) {
       try {
         await navigator.share({
@@ -239,7 +250,6 @@ function ArticleDetail() {
       }
     }
 
-    // 2. Clipboard API
     let copied = false;
     if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
       try {
@@ -250,7 +260,6 @@ function ArticleDetail() {
       }
     }
 
-    // 3. Document execCommand fallback
     if (!copied && typeof document !== "undefined") {
       try {
         const textarea = document.createElement("textarea");
@@ -272,38 +281,10 @@ function ArticleDetail() {
     }
   };
 
-  // Structured Data (JSON-LD) for Article
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": content.title,
-    "description": content.summary,
-    "image": [article.image],
-    "datePublished": "2025-03-09T08:00:00+01:00",
-    "dateModified": "2025-03-09T08:00:00+01:00",
-    "author": [{
-      "@type": "Organization",
-      "name": content.author,
-      "url": SITE_DOMAIN
-    }],
-    "publisher": {
-      "@type": "Organization",
-      "name": "Gesgrama",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE_DOMAIN}/logo.webp`
-      }
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": canonicalUrl
-    }
-  };
-
-  // Get 3 related articles
+  // Get 3 related articles (single consolidated recommended section)
   const relatedArticles = articles.filter((a) => a.id !== article.id).slice(0, 3);
 
-  // Helper function to highlight key data (dates, percentages, exemptions, deadlines) inside text
+  // Helper function to highlight key data cleanly without pastel washes
   const highlightKeyText = (text: string, isDarkBg: boolean = false) => {
     const keyPatterns = [
       /(\b30 días hábiles\b|\b30 dies hàbils\b|\b30 working days\b)/gi,
@@ -316,7 +297,6 @@ function ArticleDetail() {
       /(\b10%\b|\b4%\b|\b1,5%\b|\b80%\b|\b70%\b|\b5%\b|\b7%\b|\b15%\b|\b80-90%\b|\b5% a 7%\b|\b4% y un 8%\b|\b4% i un 8%\b|\b4% to 8%\b)/g
     ];
 
-    // Replace matching patterns with styled elements
     let parts: (string | React.ReactNode)[] = [text];
 
     keyPatterns.forEach((pattern) => {
@@ -340,21 +320,21 @@ function ArticleDetail() {
           }
           if (isDarkBg) {
             newParts.push(
-              <span 
+              <strong 
                 key={`${matchIndex}-${matchIdx}`} 
-                className="font-black text-[#60a5fa]"
+                className="font-black text-[#60A5FA]"
               >
                 {matchString}
-              </span>
+              </strong>
             );
           } else {
             newParts.push(
-              <span 
+              <strong 
                 key={`${matchIndex}-${matchIdx}`} 
-                className="font-black rounded px-2 py-0.5 inline-block bg-blue-100/90 text-blue-950 border border-blue-300/80 shadow-2xs"
+                className="font-black text-[#2860F5] bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200"
               >
                 {matchString}
-              </span>
+              </strong>
             );
           }
           lastIndex = matchIndex + matchString.length;
@@ -370,31 +350,43 @@ function ArticleDetail() {
   };
 
   return (
-    <div className="bg-slate-100 text-onyx font-sans min-h-screen">
-      {/* JSON-LD now served via Route.head() for SSR — removed from JSX */}
-
-      {/* SHARED CANONICAL NAVY NAVBAR */}
+    <div className="bg-[#FAF9FC] text-[#111111] font-sans selection:bg-[#2860F5] selection:text-white min-h-screen">
+      {/* NAVBAR */}
       <Navbar language={language} setLanguage={changeLanguage} />
 
-      {/* MAIN ARTICLE CONTENT WRAPPED IN EDITORIAL CONTAINER UNIFIED WITH HOME (max-w-[1320px]) */}
-      <main className="pt-28 sm:pt-32 md:pt-36 pb-20 px-3 sm:px-4 md:px-0 max-w-[1320px] mx-auto">
-        <div className="bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-9 md:p-12 lg:p-14">
+      {/* MAIN ARTICLE CONTAINER */}
+      <main className="pt-28 sm:pt-36 pb-20 px-4 sm:px-6 md:px-8 max-w-[1360px] mx-auto">
+        <div className="bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-9 md:p-12 lg:p-14 relative z-10">
           
-          {/* HEADER BACK BUTTON & SHARE ACTIONS INSIDE CONTENT CARD */}
-          <div className="mb-6 sm:mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-5">
-            <Link 
-              to="/" 
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] neo-shadow-sm px-5 sm:px-6 py-2.5 sm:py-3 transition-all cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4 text-white" /> {t.detail.back}
-            </Link>
+          {/* 1. CABECERA INTEGRADA: REGRESO, BREADCRUMB Y ACCIONES */}
+          <div className="mb-8 pb-6 border-b-2 border-slate-100 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Link 
+                to="/noticias" 
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] px-4 py-2 transition-all cursor-pointer group"
+              >
+                <ArrowLeft className="w-4 h-4 text-[#60A5FA] group-hover:text-white group-hover:-translate-x-1 transition-all" />
+                <span>{language === "ca" ? "Tornar al Blog" : language === "en" ? "Back to Blog" : "Volver al Blog"}</span>
+              </Link>
 
-            <div className="flex items-center gap-2">
+              <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-500 font-sans">
+                <Link to="/" className="hover:text-[#2860F5] transition-colors">
+                  {language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio"}
+                </Link>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <Link to="/noticias" className="text-slate-500 hover:text-[#2860F5] transition-colors">
+                  {language === "ca" ? "Notícies" : language === "en" ? "News" : "Noticias"}
+                </Link>
+              </nav>
+            </div>
+
+            {/* Acciones de Compartir y WhatsApp Integradas */}
+            <div className="flex items-center gap-2.5">
               <a
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#16A34A] border-2 border-[#111111] neo-shadow-sm px-4 py-2.5 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#16A34A] hover:bg-[#15803d] border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] px-3.5 py-2 transition-all cursor-pointer"
                 title="Compartir por WhatsApp"
               >
                 <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
@@ -404,7 +396,7 @@ function ArticleDetail() {
               <button
                 type="button"
                 onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] neo-shadow-sm px-4 sm:px-5 py-2.5 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-headline font-black uppercase tracking-wider text-white bg-[#111111] hover:bg-[#2860F5] border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] px-3.5 py-2 transition-all cursor-pointer"
                 title={t.detail.shareTitle}
               >
                 {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
@@ -413,230 +405,134 @@ function ArticleDetail() {
             </div>
           </div>
 
-          {/* BREADCRUMB - FULL UNTRUNCATED WITHOUT UNDERLINE */}
-          <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8 flex items-center flex-wrap gap-1.5 sm:gap-2.5 text-xs sm:text-sm font-semibold text-slate-500 font-sans">
-            <Link to="/" className="hover:text-[#2563eb] transition-colors">
-              {language === "ca" ? "Inici" : language === "en" ? "Home" : "Inicio"}
-            </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <a href="/#noticias" className="text-slate-500 hover:text-[#2563eb] transition-colors">
-              {language === "ca" ? "Notícies" : language === "en" ? "News" : "Noticias"}
-            </a>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="font-bold text-[#2563eb] break-words text-xs sm:text-sm leading-snug">
-              {content.title}
-            </span>
-          </nav>
-
-          {/* ARTICLE META BADGES - SPACED & ENLARGED */}
-          <div className="flex flex-wrap items-center gap-3.5 sm:gap-6 my-6 sm:my-8 text-xs sm:text-sm border-y border-slate-100 py-3.5 sm:py-4">
-            <span className={`text-white font-extrabold uppercase tracking-wider px-4 sm:px-5 py-2 border-2 border-[#111111] neo-shadow-sm text-xs sm:text-sm font-headline ${
-              content.category.toLowerCase().includes("inmobiliari") ? "bg-[#2563eb]" :
-              content.category.toLowerCase().includes("finca") || content.category.toLowerCase().includes("comunidad") ? "bg-[#0f172a]" : "bg-slate-700"
-            }`}>
+          {/* 2. CATEGORÍA Y METADATOS INTEGRADOS */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-5">
+            <span className="inline-flex items-center gap-1.5 bg-[#2860F5] text-white text-xs font-headline font-black uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#111111] rounded-lg shadow-[2px_2px_0px_#111111]">
               {content.category}
             </span>
-            <span className="flex items-center gap-2 text-slate-600 font-semibold">
-              <Calendar className="w-4 h-4 text-[#2563eb]" />
+            <span className="flex items-center gap-1.5 text-xs sm:text-sm font-data-mono font-bold text-[#111111]">
+              <Calendar className="w-3.5 h-3.5 text-[#2860F5]" />
               {content.date}
             </span>
-            <span className="flex items-center gap-2 text-slate-600 font-semibold">
-              <Clock className="w-4 h-4 text-[#2563eb]" />
-              {(() => {
-                const totalWords = [
-                  content.intro,
-                  ...content.sections.flatMap(s => s.content),
-                  ...(content.sections.flatMap(s => s.bulletPoints || []))
-                ].join(" ").split(/\s+/).filter(Boolean).length;
-                const minutes = Math.max(3, Math.ceil(totalWords / 180));
-                return `${minutes} ${language === "ca" ? "min de lectura" : language === "en" ? "min read" : "min de lectura"}`;
-              })()}
+            <span className="text-slate-400">•</span>
+            <span className="flex items-center gap-1.5 text-xs sm:text-sm font-data-mono font-bold text-[#111111]">
+              <Clock className="w-3.5 h-3.5 text-[#2860F5]" />
+              {content.readTime}
             </span>
-            <span className="flex items-center gap-2 text-slate-600 font-semibold ml-auto hidden sm:flex">
-              <User className="w-4 h-4 text-[#2563eb]" />
+            <span className="text-slate-400 hidden sm:inline">•</span>
+            <span className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-headline font-bold text-[#111111]">
+              <User className="w-3.5 h-3.5 text-[#2860F5]" />
               {content.author}
             </span>
           </div>
 
-          {/* TITLE (H1) - EDITORIAL IMPACTFUL TITLE LEVERAGING BUBBLE WIDTH */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-black text-slate-900 leading-[1.2] mb-6 sm:mb-8 tracking-tight font-sans max-w-4xl">
+          {/* 3. TÍTULO PRINCIPAL (H1) DE IMPACTO EDITORIAL */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] leading-[1.15] mb-6 tracking-tight [text-wrap:balance]">
             {content.title}
           </h1>
 
-          {/* FEATURED HERO IMAGE APROVECHANDO LA AMPLITUD DEL BUBBLE */}
-          <div className="relative border-2 border-[#111111] neo-shadow-lg mb-8 sm:mb-10 aspect-[16/9] max-h-[520px] w-full bg-slate-100 overflow-hidden">
+          {/* 4. ENTRADILLA / RESUMEN CLAVE (18-19px, #111111) */}
+          <div className="mb-8 p-5 sm:p-7 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#2860F5] text-white border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center shrink-0 mt-0.5">
+              <BookOpen className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#111111] text-white text-[11px] font-headline font-black uppercase tracking-wider mb-2">
+                {language === "ca" ? "Idea Clau" : language === "en" ? "Key Takeaway" : "Idea Clave"}
+              </span>
+              <p className="text-[17px] sm:text-[19px] font-headline font-black text-[#111111] leading-relaxed">
+                {content.summary}
+              </p>
+            </div>
+          </div>
+
+          {/* 5. FOTOGRAFÍA PRINCIPAL DE ALTA RESOLUCIÓN */}
+          <div className="relative border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] mb-10 aspect-[16/9] max-h-[520px] w-full bg-slate-100 overflow-hidden">
             <img
               src={article.image}
               alt={content.title}
               loading="eager"
-              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+              className="w-full h-full object-cover"
             />
           </div>
 
-          {/* CONTROLLED EDITORIAL READING COLUMN (780px - 820px) PARA MÁXIMO CONFORT DE LECTURA */}
-          <div className="max-w-[820px] mx-auto">
-            {/* 1. RESUMEN INICIAL REUTILIZABLE CON FONDO CLARO DIFERENCIADO */}
-            <div className="mb-7 p-4 sm:p-6 bg-[#FAF9FC] border-2 border-[#111111] border-l-8 border-l-[#2860F5] neo-shadow flex items-start gap-3.5 sm:gap-4">
-              <div className="w-9 h-9 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-                <BookOpen className="w-4.5 h-4.5" />
-              </div>
-              <div>
-                <span className="inline-block px-3 py-0.5 rounded-full bg-[#2563eb] text-white text-[11px] font-black uppercase tracking-wider mb-1.5 font-sans shadow-xs">
-                  {language === "ca" ? "En resum: Idea Clau" : language === "en" ? "In summary: Key Takeaway" : "En resumen: Idea Clave"}
-                </span>
-                <p className="text-sm sm:text-base md:text-[17px] font-extrabold text-slate-900 leading-relaxed font-sans">
-                  {content.summary}
-                </p>
-              </div>
-            </div>
-
-            {/* INTRO SUMMARY CALLOUT */}
-            <div className="p-5 sm:p-7 bg-white border-2 border-[#111111] border-l-8 border-l-[#111111] text-[#111111] font-semibold text-base sm:text-lg md:text-xl leading-relaxed mb-8 font-sans neo-shadow-sm p-6">
+          {/* 6. COLUMNA EDITORIAL DE LECTURA (820px) CON TIPOGRAFÍA DE 17-18px EN #111111 */}
+          <div className="max-w-[840px] mx-auto">
+            {/* Párrafo de introducción */}
+            <div className="mb-8 text-[18px] sm:text-[19px] font-medium leading-[1.7] text-[#111111] pb-6 border-b border-slate-200">
               {highlightKeyText(content.intro)}
             </div>
 
-            {/* ARTICLE BODY SECTIONS (H2 / H3 HIERARCHY FOR LIGHTHOUSE/PAGESPEED) */}
-            <div className="prose prose-lg max-w-none text-slate-700 space-y-8 font-sans">
-            {content.sections.map((sec, idx) => (
-              <section key={idx} className="space-y-4">
-                {sec.level === "h2" ? (
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 border-l-8 border-[#2563eb] pl-4 py-1 my-6 leading-snug font-sans">
-                    {sec.heading}
-                  </h2>
-                ) : (
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 border-l-4 border-slate-400 pl-3 py-1 my-4 leading-snug font-sans">
-                    {sec.heading}
-                  </h3>
-                )}
+            {/* Secciones y Artículos */}
+            <div className="space-y-10">
+              {content.sections.map((sec, idx) => (
+                <section key={idx} className="space-y-4">
+                  {sec.level === "h2" ? (
+                    <h2 className="text-2xl sm:text-3xl font-headline font-black text-[#111111] pt-4 leading-snug [text-wrap:balance] flex items-center gap-3">
+                      <span className="w-3 h-3 rounded-full bg-[#2860F5] shrink-0" />
+                      <span>{sec.heading}</span>
+                    </h2>
+                  ) : (
+                    <h3 className="text-xl sm:text-2xl font-headline font-black text-[#111111] pt-3 leading-snug [text-wrap:balance]">
+                      {sec.heading}
+                    </h3>
+                  )}
 
-                {sec.content.map((p, pIdx) => {
-                  const isDefinitionBlock = p.includes("contrato de exclusividad inmobiliaria") || p.includes("compromiso firme de inversión");
-                  
-                  // 4. TARJETAS DESTACADAS PARA MÉTODOS Y CONTENIDO COMPARATIVO
-                  const isMethodCard = p.startsWith("Método Objetivo:") || p.startsWith("Método Real:") ||
-                                        p.startsWith("Mètode Objectiu:") || p.startsWith("Mètode Real:") ||
-                                        p.startsWith("Objective Method:") || p.startsWith("Real Method:") ||
-                                        p.startsWith("1.") || p.startsWith("2.") || p.startsWith("3.") || p.startsWith("4.") ||
-                                        p.startsWith("Garantía de") || p.startsWith("Garantia de") || p.startsWith("1-year warranty") || p.startsWith("3-year warranty") || p.startsWith("10-year structural warranty");
+                  {sec.content.map((p, pIdx) => {
+                    const isMethodCard = p.startsWith("Método Objetivo:") || p.startsWith("Método Real:") ||
+                                          p.startsWith("Mètode Objectiu:") || p.startsWith("Mètode Real:") ||
+                                          p.startsWith("Objective Method:") || p.startsWith("Real Method:") ||
+                                          p.startsWith("1.") || p.startsWith("2.") || p.startsWith("3.") || p.startsWith("4.") ||
+                                          p.startsWith("Garantía de") || p.startsWith("Garantia de") || p.startsWith("1-year warranty") || p.startsWith("3-year warranty") || p.startsWith("10-year structural warranty");
 
-                  if (isMethodCard) {
-                    const colonIndex = p.indexOf(":");
-                    const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex).trim() : p.substring(0, 30).trim();
-                    const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1).trim() : p.trim();
+                    if (isMethodCard) {
+                      const colonIndex = p.indexOf(":");
+                      const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex).trim() : p.substring(0, 30).trim();
+                      const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1).trim() : p.trim();
 
-                    // Determine context-appropriate badge label
-                    const lowerTitle = titlePart.toLowerCase();
-                    const lowerHeading = (sec.heading || "").toLowerCase();
-                    let badgeLabel = "";
-
-                    if (lowerTitle.includes("garantía") || lowerTitle.includes("garantia") || lowerTitle.includes("warranty") || lowerHeading.includes("garantía") || lowerHeading.includes("garantia")) {
-                      if (lowerTitle.includes("un año") || lowerTitle.includes("un any") || lowerTitle.includes("1-year") || lowerTitle.includes("1 año")) {
-                        badgeLabel = language === "ca" ? "Garantia 1 Any" : language === "en" ? "1-Year Warranty" : "Garantía 1 Año";
-                      } else if (lowerTitle.includes("tres") || lowerTitle.includes("3-year") || lowerTitle.includes("3 años") || lowerTitle.includes("3 anys")) {
-                        badgeLabel = language === "ca" ? "Garantia 3 Anys" : language === "en" ? "3-Year Warranty" : "Garantía 3 Años";
-                      } else if (lowerTitle.includes("decenal") || lowerTitle.includes("10-year") || lowerTitle.includes("10 años") || lowerTitle.includes("10 anys")) {
-                        badgeLabel = language === "ca" ? "Garantia 10 Anys" : language === "en" ? "10-Year Warranty" : "Garantía 10 Años (Decenal)";
-                      } else {
-                        badgeLabel = language === "ca" ? "Garantia Legal" : language === "en" ? "Legal Warranty" : "Garantía Legal";
-                      }
-                    } else if (lowerTitle.includes("método") || lowerTitle.includes("mètode") || lowerTitle.includes("method")) {
-                      if (lowerTitle.includes("objetivo") || lowerTitle.includes("objectiu") || lowerTitle.includes("objective")) {
-                        badgeLabel = language === "ca" ? "Mètode 1" : language === "en" ? "Method 1" : "Método 1";
-                      } else if (lowerTitle.includes("real")) {
-                        badgeLabel = language === "ca" ? "Mètode 2" : language === "en" ? "Method 2" : "Método 2";
-                      } else if (lowerTitle.includes("comparación") || lowerTitle.includes("comparació") || lowerTitle.includes("comparison")) {
-                        badgeLabel = language === "ca" ? "Mètode Comparatiu" : language === "en" ? "Comparative Method" : "Método Comparativo";
-                      } else if (lowerTitle.includes("coste") || lowerTitle.includes("cost")) {
-                        badgeLabel = language === "ca" ? "Mètode de Cost" : language === "en" ? "Cost Method" : "Método de Coste";
-                      } else if (lowerTitle.includes("capitalización") || lowerTitle.includes("capitalització") || lowerTitle.includes("capitalization")) {
-                        badgeLabel = language === "ca" ? "Rendibilitat" : language === "en" ? "Yield Method" : "Capitalización";
-                      } else {
-                        badgeLabel = language === "ca" ? "Metodologia" : language === "en" ? "Methodology" : "Metodología";
-                      }
-                    } else if (/^\d+\./.test(titlePart)) {
-                      const num = titlePart.match(/^(\d+)\./)?.[1] || "";
-                      badgeLabel = language === "ca" ? `Fase ${num}` : language === "en" ? `Step ${num}` : `Paso ${num}`;
-                    } else {
-                      badgeLabel = language === "ca" ? "Punt Clau" : language === "en" ? "Key Point" : "Punto Clave";
+                      return (
+                        <div 
+                          key={pIdx} 
+                          className="my-5 p-5 sm:p-7 rounded-2xl bg-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111]"
+                        >
+                          <div className="flex items-center gap-3 mb-2.5">
+                            <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#2860F5] text-white text-xs font-headline font-black uppercase tracking-wider">
+                              {titlePart}
+                            </span>
+                          </div>
+                          <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-[1.7]">
+                            {highlightKeyText(bodyPart)}
+                          </p>
+                        </div>
+                      );
                     }
-                    
-                    return (
-                      <div 
-                        key={pIdx} 
-                        className="my-6 p-5 sm:p-7 md:p-8 rounded-2xl md:rounded-3xl bg-slate-50 border-l-8 border-[#2563eb] border-y border-r border-slate-200/90 shadow-sm hover:shadow-md transition-shadow relative"
-                      >
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3.5 mb-3">
-                          <span className="self-start inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#2563eb] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-xs font-sans whitespace-nowrap shrink-0">
-                            {badgeLabel}
-                          </span>
-                          <h3 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-sans leading-snug">
-                            {titlePart}
-                          </h3>
-                        </div>
-                        <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-sans font-medium">
-                          {highlightKeyText(bodyPart)}
-                        </p>
-                      </div>
-                    );
-                  }
 
-                  if (isDefinitionBlock) {
-                    return (
-                      <div 
-                        key={pIdx} 
-                        className="my-7 p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-3xl bg-gradient-to-br from-[#EEF2FA] to-[#F4F7fc] border-l-8 border-[#2563eb] border-y border-r border-[#dce4f5] shadow-sm relative overflow-hidden"
-                      >
-                        <div className="flex items-start gap-4 sm:gap-5">
-                          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 font-black shadow-md mt-0.5">
-                            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-extrabold text-slate-900 leading-relaxed sm:leading-loose">
-                              {highlightKeyText(p)}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
+                    // Cita destacada
+                    const isQuote = p.trim().startsWith('"') || p.trim().startsWith('“') || p.trim().startsWith('«') || p.trim().startsWith('>');
+                    if (isQuote) {
+                      const cleanQuote = p.replace(/^>\s*/, '');
+                      return (
+                        <blockquote
+                          key={pIdx}
+                          className="my-6 p-6 sm:p-7 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] text-[#111111] text-lg sm:text-xl font-headline font-bold italic leading-relaxed"
+                        >
+                          <p className="not-italic">
+                            “{highlightKeyText(cleanQuote)}”
+                          </p>
+                        </blockquote>
+                      );
+                    }
 
-                  // 5. CITA DESTACADA / BLOCKQUOTE
-                  const isQuote = p.trim().startsWith('"') || p.trim().startsWith('“') || p.trim().startsWith('«') || p.trim().startsWith('>');
-                  if (isQuote) {
-                    const cleanQuote = p.replace(/^>\s*/, '');
                     return (
-                      <blockquote
-                        key={pIdx}
-                        className="my-7 pl-6 sm:pl-8 pr-5 sm:pr-8 py-5 sm:py-6 bg-slate-50/90 border-l-4 border-[#2563eb] rounded-r-2xl text-slate-800 text-lg md:text-xl font-medium italic leading-[1.8] font-sans relative shadow-xs"
-                      >
-                        <span className="text-4xl sm:text-5xl text-[#2563eb]/30 font-serif absolute top-2 left-2 leading-none select-none">“</span>
-                        <p className="relative z-10 pl-2 sm:pl-3 not-italic text-slate-800 font-medium">
-                          {highlightKeyText(cleanQuote)}
-                        </p>
-                      </blockquote>
-                    );
-                  }
-
-                  // 6. PRIMER PÁRRAFO TRAS H2 (INTERLINEADO AUMENTADO 10-15%)
-                  const isFirstParagraphAfterH2 = sec.level === "h2" && pIdx === 0;
-                  if (isFirstParagraphAfterH2) {
-                    return (
-                      <p key={pIdx} className="text-base md:text-lg lg:text-xl leading-[1.85] sm:leading-[1.9] text-slate-800 font-normal mb-5">
+                      <p key={pIdx} className="text-[17px] sm:text-[18px] leading-[1.75] text-[#111111] font-normal">
                         {highlightKeyText(p)}
                       </p>
                     );
-                  }
+                  })}
 
-                  return (
-                    <p key={pIdx} className="text-base md:text-lg lg:text-xl leading-relaxed text-slate-700">
-                      {highlightKeyText(p)}
-                    </p>
-                  );
-                })}
-
-                {sec.bulletPoints && sec.bulletPoints.length > 0 && (
-                  <div className="my-10 bg-[#EEF2FA] p-6 sm:p-8 md:p-10 rounded-3xl border border-[#dce4f5] shadow-sm">
-                    <div className="grid grid-cols-1 gap-5">
+                  {/* Bullet points: superficie blanca sólida con borde definido e icono azul */}
+                  {sec.bulletPoints && sec.bulletPoints.length > 0 && (
+                    <div className="my-6 space-y-3.5">
                       {sec.bulletPoints.map((bp, bpIdx) => {
                         const isLegalWarning = bp.includes("VERIFICACIÓN LEGAL/FISCAL REQUERIDA") || bp.includes("VERIFICACIÓ LEGAL/FISCAL REQUERIDA") || bp.includes("LEGAL/TAX VERIFICATION REQUIRED");
                         if (isLegalWarning) {
@@ -647,19 +543,15 @@ function ArticleDetail() {
                           return (
                             <div
                               key={bpIdx}
-                              className="bg-[#0f172a] border-l-4 sm:border-l-8 border-[#2563eb] p-5 sm:p-8 md:p-9 rounded-2xl md:rounded-3xl border-y border-r border-slate-800 shadow-xl hover:shadow-2xl transition-all"
+                              className="bg-[#111111] text-white border-2 border-[#111111] p-5 sm:p-6 rounded-2xl shadow-[3px_3px_0px_#2860F5]"
                             >
-                              {/* Top row: icon + badge */}
-                              <div className="flex items-center gap-3 mb-4">
-                                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 font-black shadow-lg">
-                                  <AlertTriangle className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
-                                </div>
-                                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-white text-[#0f172a] text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-md leading-tight text-center">
-                                  {language === "ca" ? "Verificació Legal / Fiscal" : language === "en" ? "Legal / Tax Verification" : "Verificación Legal / Fiscal"}
+                              <div className="flex items-center gap-2.5 mb-2">
+                                <AlertTriangle className="w-5 h-5 text-[#60A5FA]" />
+                                <span className="text-xs font-headline font-black uppercase tracking-wider text-[#60A5FA]">
+                                  {language === "ca" ? "Avís Legal / Fiscal" : language === "en" ? "Legal Notice" : "Aviso Legal / Fiscal"}
                                 </span>
                               </div>
-                              {/* Text below spanning full width */}
-                              <p className="text-sm sm:text-base md:text-lg font-bold text-slate-100 leading-relaxed font-sans">
+                              <p className="text-[15px] sm:text-base font-bold text-white leading-relaxed">
                                 {highlightKeyText(cleanText, true)}
                               </p>
                             </div>
@@ -668,99 +560,95 @@ function ArticleDetail() {
                         return (
                           <div 
                             key={bpIdx} 
-                            className="flex items-start gap-4 sm:gap-5 bg-white p-5 sm:p-6 md:p-7 rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-shadow"
+                            className="flex items-start gap-4 bg-white p-4 sm:p-5 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111]"
                           >
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 mt-0.5 font-black text-base sm:text-lg shadow-md">
-                              ✓
+                            <div className="w-7 h-7 rounded-lg bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 mt-0.5">
+                              <Check className="w-4 h-4 text-white stroke-[3]" />
                             </div>
-                            <span className="text-lg sm:text-xl md:text-2xl font-extrabold text-slate-900 leading-snug sm:leading-relaxed pt-0.5">
+                            <span className="text-[16px] sm:text-[17px] font-bold text-[#111111] leading-snug">
                               {highlightKeyText(bp)}
                             </span>
                           </div>
                         );
                       })}
                     </div>
-                  </div>
-                )}
-              </section>
-
-            ))}
-
-            {/* CONCLUSION BOX - MARKS DISTINCT BACKGROUND WITH HIGH LEGIBILITY DARK TEXT */}
-            <div className="my-10 p-7 sm:p-9 md:p-11 rounded-3xl bg-[#eef2fa] border-l-8 border-l-[#2563eb] border-y border-r border-[#dce4f5] text-slate-900 shadow-sm">
-              <div className="flex items-center gap-2.5 text-[#2563eb] font-black uppercase tracking-wider text-xs sm:text-sm mb-3.5">
-                <BookOpen className="w-5 h-5 text-[#2563eb]" />
-                <span>{language === "ca" ? "Conclusió" : language === "en" ? "Conclusion" : "Conclusión"}</span>
-              </div>
-              <p className="text-slate-900 font-extrabold text-lg sm:text-xl md:text-2xl leading-relaxed">{content.conclusion}</p>
-            </div>
-          </div>
-
-          {/* SHARE & AUTHOR FOOTER - ENLARGED FOR HIGH VISUAL PROMINENCE */}
-          <div className="mt-16 pt-10 border-t border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-6 bg-[#f8fafc] p-6 sm:p-8 rounded-3xl border shadow-xs">
-            <div className="flex items-center gap-5 w-full md:w-auto">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0f172a] border-4 border-[#2563eb] p-3 flex items-center justify-center shadow-lg shrink-0">
-                <img 
-                  src="/images/logo-gesgrama-text-horizontal.png" 
-                  alt="Gesgrama" 
-                  className="w-full h-full object-contain brightness-0 invert" 
-                />
-              </div>
-              <div>
-                <p className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 font-sans tracking-tight mb-1">{content.author}</p>
-                <p className="text-xs sm:text-sm text-[#2563eb] font-black uppercase tracking-wider">Gesgrama — Santa Coloma de Gramenet</p>
-              </div>
+                  )}
+                </section>
+              ))}
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
-              <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#22c55e] hover:bg-[#16a34a] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-5 py-3.5 rounded-full transition-all shadow-md hover:scale-102 cursor-pointer"
-                title="Compartir por WhatsApp"
-              >
-                <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
-                <span>WhatsApp</span>
-              </a>
-
-              <button
-                type="button"
-                onClick={handleCopyShare}
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#0b214a] hover:bg-[#142d5c] px-5 py-3.5 rounded-full border border-blue-900 transition-all shadow-md hover:scale-102 cursor-pointer"
-                title={t.detail.shareTitle}
-              >
-                {copiedLink ? <Check className="w-4 h-4 text-emerald-400 stroke-[3]" /> : <Share2 className="w-4 h-4 text-blue-200" />}
-                <span>{copiedLink ? t.detail.linkCopied : t.detail.share}</span>
-              </button>
-
-              <a
-                href="/#formulario-contacto"
-                className="inline-flex items-center justify-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white text-xs sm:text-sm font-black uppercase tracking-wider px-6 sm:px-7 py-3.5 rounded-full transition-all duration-300 shadow-[0_8px_20px_rgba(37,99,235,0.3)] hover:scale-102"
-              >
-                <span>{language === "ca" ? "Consultar" : language === "en" ? "Consult" : "Consultar"}</span>
-                <ChevronRight className="w-4 h-4" />
-              </a>
+            {/* 7. CONCLUSIÓN: FONDO AZUL CORPORATIVO SÓLIDO (#2860F5) CON TEXTO BLANCO */}
+            <div className="my-12 p-6 sm:p-8 md:p-10 rounded-2xl bg-[#2860F5] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] text-white">
+              <div className="flex items-center gap-2.5 text-white font-headline font-black uppercase tracking-wider text-xs sm:text-sm mb-3">
+                <BookOpen className="w-5 h-5 text-white" />
+                <span>{language === "ca" ? "Conclusió Editorial" : language === "en" ? "Editorial Conclusion" : "Conclusión Editorial"}</span>
+              </div>
+              <p className="text-white font-headline font-bold text-lg sm:text-xl md:text-[22px] leading-relaxed [text-wrap:balance]">
+                {content.conclusion}
+              </p>
             </div>
+
+            {/* 8. FICHA DE AUTOR Y ACCIONES DE CONTACTO */}
+            <div className="mt-12 p-6 sm:p-8 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                <div className="w-16 h-16 rounded-2xl bg-[#111111] border-2 border-[#111111] p-2.5 flex items-center justify-center shadow-sm shrink-0">
+                  <img 
+                    src="/images/logo-gesgrama-text-horizontal.webp" 
+                    alt="Gesgrama" 
+                    className="w-full h-full object-contain brightness-0 invert" 
+                  />
+                </div>
+                <div>
+                  <p className="text-xl sm:text-2xl font-headline font-black text-[#111111] leading-tight mb-1">
+                    {content.author}
+                  </p>
+                  <p className="text-xs sm:text-sm font-headline font-bold text-[#2860F5] uppercase tracking-wider">
+                    Gesgrama · Av. dels Banús, 49 · Santa Coloma de Gramenet
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#16A34A] hover:bg-[#15803d] text-white text-xs sm:text-sm font-headline font-black uppercase tracking-wider px-4 py-3 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111] cursor-pointer transition-all"
+                  title="Compartir por WhatsApp"
+                >
+                  <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+                  <span>WhatsApp</span>
+                </a>
+
+                <a
+                  href="/#formulario-contacto"
+                  className="inline-flex items-center gap-2 bg-[#2860F5] hover:bg-[#174bcb] text-white text-xs sm:text-sm font-headline font-black uppercase tracking-wider px-5 py-3 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111] cursor-pointer transition-all"
+                >
+                  <span>{language === "ca" ? "Contactar amb Gesgrama" : language === "en" ? "Contact Gesgrama" : "Contactar con Gesgrama"}</span>
+                  <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+                </a>
+              </div>
+            </div>
+
           </div>
-          </div>
+
         </div>
 
-        {/* ── RELATED ARTICLES (SEO INTERNAL LINKING) ── */}
-        <div className="mt-12 bg-white border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 md:p-10 font-sans">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b border-slate-100 pb-5">
+        {/* 9. ÚNICA SECCIÓN DE RECOMENDACIONES EDITORIALES CONSOLIDADAS */}
+        <div className="mt-12 bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-9 md:p-10 font-sans">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 border-b-2 border-slate-100 pb-5">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-2.5 shadow-xs">
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>{language === "ca" ? "Articles Recomanats" : language === "en" ? "Recommended Articles" : "Artículos Recomendados"}</span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2860F5] text-white text-xs font-headline font-black uppercase tracking-wider mb-2.5 border border-[#111111] shadow-xs">
+                <BookOpen className="w-3.5 h-3.5 text-white" />
+                <span>{language === "ca" ? "Guies Recomanades" : language === "en" ? "Recommended Guides" : "Guías Recomendadas"}</span>
               </span>
-              <h3 className="text-2xl sm:text-3xl font-black text-[#0f172a] font-sans tracking-tight">
-                {language === "ca" ? "Altres guies que et poden interessar" : language === "en" ? "Other guides you might like" : "Otras guías que te pueden interesar"}
+              <h3 className="text-2xl sm:text-3xl font-headline font-black text-[#111111] tracking-tight">
+                {language === "ca" ? "Articles i consells que et poden interessar" : language === "en" ? "Articles and tips you might like" : "Artículos y consejos que te pueden interesar"}
               </h3>
             </div>
             <Link
               to="/noticias"
-              className="text-xs sm:text-sm font-black text-[#2563eb] hover:text-[#1d4ed8] hover:underline flex items-center gap-1.5 shrink-0"
+              className="text-xs sm:text-sm font-headline font-black text-[#2860F5] hover:underline flex items-center gap-1.5 shrink-0"
             >
               <span>{language === "ca" ? "Veure tots els articles" : language === "en" ? "View all articles" : "Ver todos los artículos"}</span>
               <ChevronRight className="w-4 h-4" />
@@ -768,375 +656,59 @@ function ArticleDetail() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {articles
-              .filter((a) => a.slug !== article.slug)
-              .slice(0, 3)
-              .map((relArt) => {
-                const relContent = relArt[language] || relArt.es;
-                return (
-                  <article key={relArt.id} className="bg-white border-2 border-[#111111] neo-shadow hover:shadow-[5px_5px_0px_#111111] p-4 sm:p-5 flex flex-col h-full transition-all group hover:translate-x-[-2px] hover:translate-y-[-2px]">
-                    <Link to="/noticias/$slug" params={{ slug: relArt.slug }} className="block aspect-[16/10] overflow-hidden border-2 border-[#111111] mb-3.5 bg-slate-200">
-                      <img
-                        src={relArt.image}
-                        alt={relContent.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </Link>
-                    <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-2 font-sans">
-                      <Calendar className="w-3.5 h-3.5 text-[#2563eb]" />
-                      <span>{relContent.date}</span>
-                    </div>
-                    <Link
-                      to="/noticias/$slug"
-                      params={{ slug: relArt.slug }}
-                      className="block font-black text-[#0f172a] text-base leading-snug mb-2 group-hover:text-[#2563eb] transition-colors line-clamp-2 font-sans"
-                    >
-                      {relContent.title}
-                    </Link>
-                    <p className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
-                      {relContent.summary}
-                    </p>
-                    <div className="mt-auto pt-2">
-                      <Link
-                        to="/noticias/$slug"
-                        params={{ slug: relArt.slug }}
-                        className="inline-flex items-center gap-1.5 text-xs font-black text-[#2563eb] group-hover:text-[#1d4ed8] uppercase tracking-wider"
-                      >
-                        <span>{language === "ca" ? "Llegir guia" : language === "en" ? "Read guide" : "Leer guía"}</span>
-                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </article>
-                );
-              })}
-          </div>
-        </div>
-
-        {/* BOTTOM NAVIGATION BLOCK TO KEEP EXPLORING THE WEBSITE */}
-        <div className="mt-12 bg-[#FAF9FC] border-2 border-[#111111] neo-shadow-lg p-6 sm:p-8 md:p-10 font-sans">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563eb] text-white text-xs font-black uppercase tracking-wider mb-3 shadow-xs">
-                ★ {language === "ca" ? "Serveis Destacats Gesgrama" : language === "en" ? "Gesgrama Featured Services" : "Servicios Destacados Gesgrama"}
-              </span>
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 font-sans">
-                {language === 'ca' ? 'Continua explorant Gesgrama' : language === 'en' ? 'Keep Exploring Gesgrama' : 'Sigue explorando Gesgrama'}
-              </h3>
-            </div>
-            <p className="text-slate-700 text-base md:text-lg lg:text-xl font-bold max-w-lg leading-relaxed font-sans">
-              {language === 'ca' 
-                ? 'Trobem la propietat ideal per a tu o gestionem la teva comunitat a Santa Coloma de Gramenet i àrea metropolitana.' 
-                : language === 'en'
-                ? 'Find your ideal property or manage your community in Santa Coloma de Gramenet and metropolitan area.'
-                : 'Encontramos la propiedad ideal para ti o gestionamos tu comunidad de propietarios en Santa Coloma de Gramenet y área metropolitana.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Propiedades */}
-            <a
-              href="/#propiedades"
-              className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-[280px]"
-            >
-              <div className="absolute inset-0 z-0">
-                <picture>
-                  <source media="(max-width: 640px)" srcSet="/images/modern_office_space_mobile.webp" width={400} height={225} />
-                  <img
-                    src="/images/modern_office_space_opt.webp"
-                    alt="Nuestros Inmuebles"
-                    width={700}
-                    height={394}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
-                  />
-                </picture>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-              </div>
-              
-              <div className="relative z-10 p-5 flex items-start justify-between">
-                <span className="bg-[#2563eb] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md font-sans">
-                  {language === "ca" ? "Catàleg Actiu" : language === "en" ? "Active Portfolio" : "Catálogo Activo"}
-                </span>
-                <div className="w-10 h-10 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-md group-hover:bg-[#1d4ed8] group-hover:scale-110 transition-all duration-300">
-                  <Building2 className="w-5 h-5" />
-                </div>
-              </div>
-
-              <div className="relative z-10 p-5 text-white font-sans">
-                <p className="text-xs font-bold text-blue-300 uppercase tracking-widest mb-1">{language === "ca" ? "Immobiliària i Lloguer" : language === "en" ? "Real Estate & Rentals" : "Inmobiliaria & Alquiler"}</p>
-                <h4 className="text-xl font-black mb-3">
-                  {language === 'ca' ? 'Veure Propietats' : language === 'en' ? 'View Properties' : 'Ver Propiedades'}
-                </h4>
-                <div className="inline-flex items-center gap-2 bg-[#2563eb] group-hover:bg-[#1d4ed8] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all group-hover:translate-x-1 shadow-md w-fit">
-                  <span>{language === 'ca' ? 'Explorar Catàleg' : language === 'en' ? 'Browse Properties' : 'Ver Propiedades'}</span>
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-              </div>
-            </a>
-
-            {/* Card 2: Valoración Gratuita */}
-            <a
-              href="/#valuator-form"
-              className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-[280px]"
-            >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="/images/happy_couple_laptop.jpg"
-                  alt="Valoración Gratuita"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-              </div>
-              
-              <div className="relative z-10 p-5 flex items-start justify-between">
-                <span className="bg-[#2563eb] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md font-sans">
-                  {language === "ca" ? "Valoració IA Gratuïta" : language === "en" ? "Free AI Valuation" : "Valoración IA Gratuita"}
-                </span>
-                <div className="w-10 h-10 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-md group-hover:bg-[#1d4ed8] group-hover:scale-110 transition-all duration-300">
-                  <Home className="w-5 h-5" />
-                </div>
-              </div>
-
-              <div className="relative z-10 p-5 text-white font-sans">
-                <p className="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1">{language === "ca" ? "Vols vendre o llogar?" : language === "en" ? "Looking to sell or rent?" : "¿Quieres vender o alquilar?"}</p>
-                <h4 className="text-xl font-black mb-3">
-                  {language === 'ca' ? 'Valoració Gratuïta' : language === 'en' ? 'Free Valuation' : 'Valoración Gratuita'}
-                </h4>
-                <div className="inline-flex items-center gap-2 bg-[#2563eb] group-hover:bg-[#1d4ed8] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all group-hover:translate-x-1 shadow-md w-fit">
-                  <span>{language === 'ca' ? 'Valorar Immoble' : language === 'en' ? 'Value Property' : 'Valoración Gratuita'}</span>
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-              </div>
-            </a>
-
-            {/* Card 3: Contactar */}
-            <a
-              href="/#formulario-contacto"
-              className="group relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between h-[280px]"
-            >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="/images/cta_advisors_closed_laptop.jpg"
-                  alt="Contactar Asesores"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.65]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-              </div>
-              
-              <div className="relative z-10 p-5 flex items-start justify-between">
-                <span className="bg-[#2563eb] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md font-sans">
-                  Santa Coloma de Gramenet
-                </span>
-                <div className="w-10 h-10 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-md group-hover:bg-[#1d4ed8] group-hover:scale-110 transition-all duration-300">
-                  <Phone className="w-5 h-5" />
-                </div>
-              </div>
-
-              <div className="relative z-10 p-5 text-white font-sans">
-                <p className="text-xs font-bold text-slate-300 uppercase tracking-widest mb-1">{language === "ca" ? "Administració de Finques" : language === "en" ? "Estates Management" : "Administración de Fincas"}</p>
-                <h4 className="text-xl font-black mb-3">
-                  {language === 'ca' ? 'Parlar amb un assessor' : language === 'en' ? 'Talk to an advisor' : 'Hablar con un asesor'}
-                </h4>
-                <div className="inline-flex items-center gap-2 bg-[#2563eb] group-hover:bg-[#1d4ed8] text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all group-hover:translate-x-1 shadow-md w-fit">
-                  <span>{language === 'ca' ? 'Contactar Ara' : language === 'en' ? 'Contact Us' : 'Contactar Ahora'}</span>
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        {/* RELATED ARTICLES SECTION */}
-        <div className="mt-16">
-          <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-8 px-2 font-sans flex items-center gap-3">
-            <span className="w-2.5 h-7 bg-[#2563eb] rounded-full shrink-0 inline-block" />
-            <span>{language === "ca" ? "Articles relacionats" : language === "en" ? "Related Articles" : "Artículos relacionados"}</span>
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {relatedArticles.map((relArt) => {
-              const relContent = relArt[language];
+              const relContent = relArt[language] || relArt.es;
               return (
-                <div
-                  key={relArt.id}
-                  className="bg-white rounded-[24px] overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+                <article 
+                  key={relArt.id} 
+                  className="bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#111111] hover:translate-x-[-2px] hover:translate-y-[-2px] p-5 flex flex-col h-full transition-all group overflow-hidden"
                 >
-                  <div className="h-48 overflow-hidden relative">
+                  <Link to="/noticias/$slug" params={{ slug: relArt.slug }} className="block aspect-[16/10] overflow-hidden rounded-xl border-2 border-[#111111] mb-3.5 bg-slate-200 cursor-pointer">
                     <img
                       src={relArt.image}
                       alt={relContent.title}
                       loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
+                  </Link>
+
+                  <div className="flex items-center gap-2 text-xs font-data-mono font-bold text-[#2860F5] mb-2 uppercase">
+                    <Calendar className="w-3.5 h-3.5 text-[#2860F5]" />
+                    <span>{relContent.date}</span>
                   </div>
 
-                  <div className="p-6 md:p-7 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-bold text-slate-400 mb-2.5">
-                        <Calendar className="w-3.5 h-3.5 text-[#2563eb]" />
-                        <span>{relContent.date}</span>
-                        <span>•</span>
-                        <span>{relContent.readTime}</span>
-                      </div>
-                      <h3 className="font-black text-xl md:text-2xl text-slate-900 leading-snug group-hover:text-[#2563eb] transition-colors line-clamp-2 mb-3 font-sans">
-                        {relContent.title}
-                      </h3>
-                      <p className="text-sm md:text-base text-slate-600 font-medium line-clamp-3 leading-relaxed mb-4">
-                        {relContent.summary}
-                      </p>
-                    </div>
+                  <Link
+                    to="/noticias/$slug"
+                    params={{ slug: relArt.slug }}
+                    className="block font-headline font-black text-[#111111] text-base sm:text-lg leading-snug mb-2 group-hover:text-[#2860F5] transition-colors line-clamp-2 cursor-pointer"
+                  >
+                    {relContent.title}
+                  </Link>
 
+                  <p className="text-xs sm:text-sm text-[#111111] font-medium leading-relaxed mb-4 flex-1 line-clamp-3">
+                    {relContent.summary}
+                  </p>
+
+                  <div className="mt-auto pt-2 border-t border-slate-200">
                     <Link
                       to="/noticias/$slug"
                       params={{ slug: relArt.slug }}
-                      className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-black uppercase tracking-wider text-white bg-[#2563eb] hover:bg-[#1d4ed8] py-3 px-5 rounded-xl sm:rounded-2xl transition-all shadow-md mt-auto group-hover:shadow-lg group-hover:translate-x-0.5"
+                      className="w-full neo-btn-primary py-2.5 px-3.5 text-xs font-headline font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-[2px_2px_0px_#111111]"
                     >
-                      {t.noticias.seguirLeyendo} <ChevronRight className="w-4 h-4" />
+                      <span>{language === "ca" ? "Llegir article" : language === "en" ? "Read article" : "Leer artículo"}</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-white stroke-[2.5]" />
                     </Link>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
         </div>
+
       </main>
 
-      {/* FOOTER */}
-      <footer className="bg-[#0b1221] text-white relative z-20 border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-0 flex flex-col lg:flex-row gap-12 relative">
-
-          {/* Text Columns */}
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-8">
-            {/* Logo + tagline */}
-            <div className="lg:col-span-1">
-              <div className="inline-block mb-4">
-                <img src="/images/logo-gesgrama-text-horizontal.png" alt="Gesgrama - Inmobiliaria y Administración de Fincas" className="h-10 sm:h-12 w-auto object-contain brightness-0 invert" />
-              </div>
-              <p className="text-sm sm:text-base leading-relaxed text-slate-300 font-medium max-w-[260px]">
-                {t.footer.descripcion}
-              </p>
-            </div>
-
-            {/* Navegación rápida */}
-            <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.quickLinks}</h4>
-              <ul className="space-y-3.5">
-                {[
-                  { label: t.nav.propiedades, href: "/#propiedades" },
-                  { label: t.nav.servicios, href: "/#servicios" },
-                  { label: t.nav.nosotros, href: "/#nosotros" },
-                  { label: t.nav.contacto, href: "/#contacto" },
-                ].map(link => (
-                  <li key={link.href}>
-                    <a href={link.href} className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                      <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contacto */}
-            <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.contactInfo}</h4>
-              <ul className="space-y-4 text-base text-slate-300 font-bold">
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
-                  <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
-                </li>
-                <li>
-                  <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
-                    <Phone className="w-5 h-5 text-[#2563eb] shrink-0" />
-                    {language === "en" ? "Office:" : "Oficina:"} 934 685 656
-                  </a>
-                </li>
-                <li>
-                  <a href="https://wa.me/34601259424" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-emerald-400 hover:text-emerald-300 font-bold transition-colors whitespace-nowrap">
-                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-emerald-400 shrink-0">
-                      <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
-                    </svg>
-                    WhatsApp: 601 259 424
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:info@gesgrama.com" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold">
-                    <Mail className="w-5 h-5 text-[#2563eb] shrink-0" />
-                    info@gesgrama.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="text-lg sm:text-xl font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans">{t.footer.legal}</h4>
-              <ul className="space-y-3.5">
-                <li>
-                  <Link to="/aviso-legal" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                    <div className="w-2 h-2 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                    {t.footer.legalNotice}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/politica-privacidad" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                    {t.footer.privacy}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/politica-cookies" className="text-base text-slate-300 hover:text-white transition-colors flex items-center gap-2.5 group font-bold">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2563eb] group-hover:scale-125 transition-transform shrink-0" />
-                    {t.footer.cookies}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Mascot on Mobile (<768px): Prominent and clear mascot presentation */}
-          <div className="w-full md:hidden flex justify-center items-center pt-4 pb-4">
-            <FooterMascot className="w-40 sm:w-48 max-w-[200px] h-auto object-contain drop-shadow-xl" />
-          </div>
-
-          {/* Right Block: Mascot Illustration (Desktop / Tablet >= 768px) - Sweet spot scale */}
-          <div className="hidden md:flex w-full md:w-[245px] lg:w-[275px] xl:w-[305px] items-center justify-center self-center shrink-0">
-            <FooterMascot className="w-full max-h-[225px] lg:max-h-[250px] object-contain drop-shadow-lg" />
-          </div>
-
-        </div>
-
-        {/* Bottom Horizontal Block: Acreditaciones Profesionales (Fila Horizontal 4 Columnas Oficiales) */}
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-10">
-          <div className="border-t border-white/10 pt-8">
-            <h3 className="text-base sm:text-lg font-black text-[#38bdf8] uppercase tracking-wider mb-5 font-sans text-center md:text-left">
-              {language === "ca" ? "ACREDITACIONS PROFESSIONALS" : language === "en" ? "PROFESSIONAL ACCREDITATIONS" : "ACREDITACIONES PROFESIONALES"}
-            </h3>
-            <AccreditationBadges language={language} />
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/10 bg-[#060c18] pb-6 sm:pb-5">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 py-5 sm:py-5 flex flex-col sm:flex-row justify-between items-center text-center gap-4 sm:gap-6">
-            <div className="flex flex-col items-center sm:items-start gap-1">
-              <p className="text-xs sm:text-sm md:text-base text-slate-200 font-extrabold tracking-wide">
-                © {new Date().getFullYear()} Gesgrama. {t.footer.rights}
-              </p>
-              <p className="text-[11px] sm:text-xs text-slate-400 font-semibold">
-                Desarrollado por <a href="https://kovia.es" target="_blank" rel="noopener" className="text-white underline hover:text-blue-300 font-bold">Kovia</a>
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs sm:text-sm md:text-base text-slate-300 font-extrabold">
-              <Link to="/aviso-legal" className="hover:text-white transition-colors">{t.footer.legalNotice}</Link>
-              <span className="text-slate-600">·</span>
-              <Link to="/politica-privacidad" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
-              <span className="text-slate-600">·</span>
-              <Link to="/politica-cookies" className="hover:text-white transition-colors">{t.footer.cookies}</Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* FOOTER GLOBAL OFICIAL */}
+      <Footer language={language} />
     </div>
   );
 }

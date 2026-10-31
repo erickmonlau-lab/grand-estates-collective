@@ -6,7 +6,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search, Bed } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search, Bed, Store, DoorOpen, Wind, Accessibility, Layers, Flame } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ServicesSection } from '@/components/ServicesSection';
@@ -22,6 +22,175 @@ const BlogSection = lazy(() => import('@/components/BlogSection'));
 const FaqSection = lazy(() => import('@/components/FaqSection'));
 const ContactSection = lazy(() => import('@/components/ContactSection'));
 const ServiceModal = lazy(() => import('@/components/ServiceModal'));
+
+
+function getDynamicPropertySpecs(property: any, language: "es" | "ca" | "en") {
+  const rawType = (property.type || "").toLowerCase();
+  const isCommercial = rawType.includes("local") || rawType.includes("comercial") || rawType.includes("nave") || rawType.includes("tienda");
+  const isOffice = rawType.includes("oficina") || rawType.includes("despacho");
+  const feats: string[] = (property.features || []).map((f: string) => f.toLowerCase());
+  const desc = (property.description || "").toLowerCase();
+
+  const blocks: Array<{
+    id: string;
+    icon: any;
+    label: string;
+    value: string;
+    isNumericOnly?: boolean;
+  }> = [];
+
+  // Helper labels
+  const L = {
+    surface: language === "ca" ? "SUPERFÍCIE" : language === "en" ? "SURFACE" : "SUPERFICIE",
+    baths: language === "ca" ? "BANYS" : language === "en" ? "BATHROOMS" : "BAÑOS",
+    rooms: language === "ca" ? "HABITACIONS" : language === "en" ? "BEDROOMS" : "HABITACIONES",
+    facade: language === "ca" ? "FAÇANA" : language === "en" ? "FACADE" : "ESCAPARATE",
+    smoke: language === "ca" ? "FUMS" : language === "en" ? "SMOKE EXT." : "S. HUMOS",
+    access: language === "ca" ? "ACCÉS" : language === "en" ? "ACCESS" : "ACCESIBILIDAD",
+    floor: language === "ca" ? "PLANTA" : language === "en" ? "FLOOR" : "PLANTA",
+    condition: language === "ca" ? "ESTAT" : language === "en" ? "STATUS" : "ESTADO",
+    yes: language === "ca" ? "SÍ" : language === "en" ? "YES" : "SÍ",
+    good: language === "ca" ? "BO" : language === "en" ? "GOOD" : "BUENO",
+    exterior: language === "ca" ? "EXTERIOR" : language === "en" ? "EXTERIOR" : "EXTERIOR",
+    street: language === "ca" ? "CARRER" : language === "en" ? "STREET" : "A PIE CALLE",
+    elevator: language === "ca" ? "ASCENSOR" : language === "en" ? "ELEVATOR" : "ASCENSOR"
+  };
+
+  if (isCommercial) {
+    // 1. Superficie
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+
+    // 2. Baños
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    // 3. Escaparate / Fachada, Salida de humos, Accesibilidad PMR, Planta
+    const facadeMatch = desc.match(/fachada de (\d+)\s*m/i) || desc.match(/(\d+)\s*metros de fachada/i);
+    const hasEscaparate = feats.some(f => f.includes("escaparate")) || desc.includes("escaparate");
+    const hasSalidaHumos = feats.some(f => f.includes("humos")) || desc.includes("humos");
+    const hasPMR = feats.some(f => f.includes("pmr") || f.includes("adaptado") || f.includes("accesib")) || desc.includes("pmr");
+
+    if (facadeMatch) {
+      blocks.push({
+        id: "facade",
+        icon: Store,
+        label: L.facade,
+        value: facadeMatch[1] + "&nbsp;m"
+      });
+    } else if (hasEscaparate) {
+      blocks.push({
+        id: "facade",
+        icon: Store,
+        label: L.facade,
+        value: L.yes
+      });
+    } else if (hasSalidaHumos) {
+      blocks.push({
+        id: "smoke",
+        icon: Flame,
+        label: L.smoke,
+        value: L.yes
+      });
+    } else if (hasPMR) {
+      blocks.push({
+        id: "access",
+        icon: Accessibility,
+        label: L.access,
+        value: "PMR"
+      });
+    } else if (property.floor) {
+      blocks.push({
+        id: "floor",
+        icon: Layers,
+        label: L.floor,
+        value: property.floor.toLowerCase().includes("baja") ? "BAJA" : property.floor.slice(0, 6)
+      });
+    } else {
+      blocks.push({
+        id: "condition",
+        icon: DoorOpen,
+        label: L.condition,
+        value: L.street
+      });
+    }
+  } else if (isOffice) {
+    // 1. Superficie
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+
+    // 2. Baños
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    // 3. Planta / Ascensor / Estado
+    if (property.floor) {
+      const isGround = property.floor.toLowerCase().includes("baja");
+      blocks.push({
+        id: "floor",
+        icon: Layers,
+        label: L.floor,
+        value: isGround ? "BAJA" : property.floor.slice(0, 6).toUpperCase()
+      });
+    } else {
+      blocks.push({
+        id: "elevator",
+        icon: Building2,
+        label: L.elevator,
+        value: L.yes
+      });
+    }
+  } else {
+    // Viviendas (Piso, Ático, Apartamento, Chalet, etc.)
+    // 1. Habitaciones
+    blocks.push({
+      id: "bedrooms",
+      icon: Bed,
+      label: L.rooms,
+      value: String(property.bedrooms > 0 ? property.bedrooms : 1),
+      isNumericOnly: true
+    });
+
+    // 2. Baños
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    // 3. Superficie
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+  }
+
+  // Always strictly return maximum 3 blocks, exactly matching design
+  return blocks.slice(0, 3);
+}
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -504,44 +673,46 @@ function Index() {
 
       {/* ── PROPERTIES GRID (REFERENCE IMAGE 1 STYLE) ── */}
       <section id="seccion-propiedades" className="relative overflow-hidden bg-[#FAF9FC] text-onyx py-8 md:py-12 border-t-2 border-[#111111]">
-        <div id="propiedades" className="bg-white rounded-[24px] shadow-[4px_4px_0px_#111111] border-2 border-[#111111] p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1360px] relative z-10 scroll-mt-20 md:scroll-mt-24">
+        <div id="propiedades" className="bg-white rounded-[24px] shadow-[4px_4px_0px_#111111] border-2 border-[#111111] p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1520px] w-[95%] relative z-10 scroll-mt-20 md:scroll-mt-24">
           <div>
-            {/* Header: Encabezado Editorial Limpio + H2 con Drawn Underline + Descripción Compactada */}
+            {/* Header: Encabezado Editorial con Gran Presencia Visual + H2 con Underline Equilibrado + Descripción */}
             <div className="mb-6 sm:mb-8">
-              {/* Encabezado editorial: INMOBILIARIA · SANTA COLOMA en azul corporativo, sin botón, sin borde negro rectangular, sin sombra dura */}
-              <div className="flex items-center gap-2 text-[#2860F5] text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase mb-2">
-                <Home className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
-                <span>{language === "ca" ? "IMMOBILIÀRIA · SANTA COLOMA" : language === "en" ? "REAL ESTATE · SANTA COLOMA" : "INMOBILIARIA · SANTA COLOMA"}</span>
+              {/* Badge Identificador de Categoría: Sólido, Visible, Esquinas Redondeadas, Peso 700 */}
+              <div className="inline-flex items-center gap-2.5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-xl px-4 py-2 shadow-[2px_2px_0px_#111111] mb-3.5">
+                <MapPin className="w-4 h-4 text-white stroke-[2.5] shrink-0" />
+                <span className="text-[15px] sm:text-[16px] font-headline font-bold tracking-wider uppercase">
+                  {language === "ca" ? "IMMOBILIÀRIA · SANTA COLOMA" : language === "en" ? "REAL ESTATE · SANTA COLOMA" : "INMOBILIARIA · SANTA COLOMA"}
+                </span>
               </div>
 
-              {/* Titular principal: Space Grotesk, 42-46px, peso 700-800, azul #2860F5 con trazo orgánico Drawn */}
+              {/* Titular principal: Space Grotesk / Headline, 38-46px, con Drawn Underline equilibrado */}
               <h2 key={language} className="text-3xl sm:text-4xl md:text-[44px] font-headline font-extrabold text-[#111111] leading-[1.15] tracking-tight mb-3 w-full" style={{ textWrap: "balance" }}>
                 {language === "ca" ? (
                   <>Descobreix les nostres{" "}
                     <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
                       millors oportunitats.
-                      <DrawnUnderline color="#2860F5" />
+                      <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
                     </span>
                   </>
                 ) : language === "en" ? (
                   <>Discover our{" "}
                     <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
                       best properties.
-                      <DrawnUnderline color="#2860F5" />
+                      <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
                     </span>
                   </>
                 ) : (
                   <>Descubre nuestras{" "}
                     <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
                       mejores oportunidades.
-                      <DrawnUnderline color="#2860F5" />
+                      <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
                     </span>
                   </>
                 )}
               </h2>
 
-              {/* Descripción: 16-18px Inter / Sans font-medium text-[#111111] max-w-3xl */}
-              <p className="text-[#111111] text-[18px] sm:text-[19px] leading-relaxed font-sans font-medium max-w-3xl">
+              {/* Descripción completa: 17-18px, color #111111, buena distribución */}
+              <p className="text-[#111111] text-[17px] sm:text-[18px] leading-relaxed font-sans font-medium max-w-3xl">
                 {language === "ca"
                   ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
                   : language === "en"
@@ -550,49 +721,55 @@ function Index() {
               </p>
             </div>
 
-            {/* Unified Results Controls Bar: Barra integrada sólida y redondeada */}
+            {/* Unified Results Controls Bar: Favoritos (blanco), Disponibles (azul), Ordenar por (negro #111111 sólido) */}
             <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-2 mb-6 p-2 sm:p-2.5 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
               {/* Left: Favoritos button sólido y redondeado */}
               <div className="flex items-center">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
-                  className={`h-[44px] px-4 rounded-xl text-sm font-headline font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap border-2 border-[#111111] shadow-[2px_2px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[1px] hover:translate-y-[1px] ${
+                  className={`h-[48px] px-4 rounded-xl text-[15px] sm:text-[16px] font-headline font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2.5 whitespace-nowrap border-2 border-[#111111] shadow-[2px_2px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[1px] hover:translate-y-[1px] ${
                     searchParams.mode === "favoritos"
                       ? "bg-red-500 text-white"
-                      : "bg-[#FFFFFF] text-[#111111] hover:bg-[#FAF9FC]"
+                      : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-50"
                   }`}
                 >
-                  <Heart className={`w-4 h-4 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
+                  <Heart className={`w-4.5 h-4.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
                   <span>Favoritos ({favorites.length})</span>
                 </button>
               </div>
 
               {/* Right: Counter + Sort en bloque integrado */}
               <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-4 shrink-0">
+                {/* Propiedades disponibles: indicador azul, número destacado, 15-16px, alineación vertical */}
                 <div
-                  className="flex items-center gap-2 bg-[#FFFFFF] border-2 border-[#111111] rounded-xl px-3.5 h-[44px] shadow-[2px_2px_0px_#111111]"
+                  className="flex items-center gap-2.5 bg-[#FFFFFF] border-2 border-[#111111] rounded-xl px-4 h-[48px] shadow-[2px_2px_0px_#111111]"
                   aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
                 >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#2860F5] shrink-0" />
-                  <span className="text-sm font-headline font-black text-[#111111] tabular-nums">
+                  <span className="w-3 h-3 rounded-full bg-[#2860F5] shrink-0" />
+                  <span className="text-[15px] sm:text-[16px] font-data-mono font-black text-[#111111] tabular-nums">
                     {filteredProperties.length}
                   </span>
-                  <span className="text-xs sm:text-sm font-headline font-bold text-[#111111]">{t.properties.availableCount}</span>
+                  <span className="text-[14px] sm:text-[15px] font-headline font-bold text-[#111111] leading-none">
+                    {t.properties.availableCount}
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
+                {/* Ordenar por: Negro sólido #111111, texto blanco, flecha blanca, 15-16px, esquinas redondeadas 14px, hover discreto */}
+                <div className="flex items-center gap-2 relative" onClick={(e) => e.stopPropagation()}>
                   <button 
                     onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                    className="h-[44px] flex items-center gap-2 bg-[#FFFFFF] border-2 border-[#111111] hover:border-[#2860F5] rounded-xl px-3.5 py-1.5 font-headline font-bold text-[#111111] hover:text-[#2860F5] transition-all shadow-[2px_2px_0px_#111111] text-xs sm:text-sm cursor-pointer"
+                    className="h-[48px] flex items-center gap-2.5 bg-[#111111] hover:bg-[#222222] text-white border-2 border-[#111111] rounded-[14px] px-4 py-2 font-headline font-bold text-[14px] sm:text-[15px] tracking-wide transition-all shadow-[2px_2px_0px_#2860F5] cursor-pointer"
                   >
-                    <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] hidden sm:inline">{t.properties.sortBy}:</span>
-                    <span>{sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}</span>
-                    <ChevronDown className="w-4 h-4 text-[#111111] shrink-0 stroke-[2.5]" />
+                    <span className="text-slate-300 font-bold uppercase tracking-wider text-[12px] hidden sm:inline">{t.properties.sortBy}:</span>
+                    <span className="text-white font-bold">
+                      {sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}
+                    </span>
+                    <ChevronDown className="w-4.5 h-4.5 text-white shrink-0 stroke-[2.5]" />
                   </button>
 
                   {openDropdown === "ordenar" && (
-                    <div className="absolute top-full right-0 mt-2 w-56 bg-white border-2 border-[#111111] rounded-xl shadow-[4px_4px_0px_#111111] z-50 p-2 space-y-1">
+                    <div className="absolute top-full right-0 mt-2 w-64 bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[4px_4px_0px_#2860F5] z-50 p-2 space-y-1">
                       {[
                         { label: t.properties.mostRecent, value: "recientes" },
                         { label: t.properties.precioMenor, value: "precio_asc" },
@@ -604,12 +781,14 @@ function Index() {
                             setSortOption(opt.value);
                             setOpenDropdown(null);
                           }}
-                          className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-headline font-bold text-left transition-all cursor-pointer border ${
-                            sortOption === opt.value ? "bg-[#2860F5] text-white border-[#111111] shadow-xs" : "border-transparent hover:border-[#111111] text-[#111111] hover:bg-[#FAF9FC]"
+                          className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-headline font-bold text-left transition-all cursor-pointer border ${
+                            sortOption === opt.value
+                              ? "bg-[#2860F5] text-white border-white/20 shadow-xs"
+                              : "border-transparent hover:border-slate-700 text-slate-200 hover:bg-[#222222] hover:text-white"
                           }`}
                         >
                           <span className="leading-snug">{opt.label}</span>
-                          {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[2.5]" />}
+                          {sortOption === opt.value && <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />}
                         </button>
                       ))}
                     </div>
@@ -665,6 +844,12 @@ function Index() {
                 const pData = getTranslatedProperty(property, language, t.propertiesData);
                 const isRent = (property.operation || "").toLowerCase() === "alquilar" || property.price < 5000;
                 const type = pData.type || property.type || "Piso";
+                const specs = getDynamicPropertySpecs(property, language);
+
+                // Ubicación estructurada: Barrio principal destacado + Municipio secundario
+                const rawLocation = pData.location || property.location || "Santa Coloma";
+                const barrioName = formatLocation(rawLocation, language);
+                const cityName = property.city || (rawLocation.toLowerCase().includes("barcelona") ? "Barcelona" : rawLocation.toLowerCase().includes("badalona") ? "Badalona" : "Santa Coloma de Gramenet");
 
                 return (
                   <div key={property.id} className="h-full">
@@ -723,81 +908,79 @@ function Index() {
                           </div>
                         </div>
 
-                        {/* 2. ZONA INFORMATIVA ESTRUCTURADA */}
+                        {/* 2. ZONA INFORMATIVA ESTRUCTURADA: UBICACIÓN PROTAGONISTA (44-48PX ICONO AZUL + 27-30PX BARRIO) */}
                         <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                           <div>
-                            {/* Barrio con Icono */}
-                            <div className="mb-2">
-                              <span className="inline-flex items-center gap-1.5 text-[13px] sm:text-[14px] font-headline font-black text-[#2860F5] uppercase tracking-wider">
-                                <MapPin className="w-3.5 h-3.5 text-[#2860F5] stroke-[2.5]" />
-                                <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
-                              </span>
+                            {/* BLOQUE PROTAGONISTA DE UBICACIÓN */}
+                            <div className="flex items-center gap-3 sm:gap-3.5 mb-3">
+                              {/* Cuadrado azul sólido 44-48px con icono de ubicación blanco */}
+                              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-[12px] bg-[#2860F5] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center shrink-0">
+                                <MapPin className="w-6 h-6 text-white stroke-[2.5]" />
+                              </div>
+
+                              <div className="min-w-0 flex flex-col justify-center">
+                                {/* Nombre del barrio en negro puro 27-30px, peso 800 */}
+                                <span className="text-[25px] sm:text-[28px] md:text-[30px] font-headline font-extrabold text-[#111111] leading-none tracking-tight truncate uppercase">
+                                  {barrioName}
+                                </span>
+                                {/* Municipio secundario legible */}
+                                <span className="text-[12px] sm:text-[13px] font-sans font-semibold text-slate-600 truncate mt-1">
+                                  {cityName}
+                                </span>
+                              </div>
                             </div>
 
-                            {/* Título Inmueble */}
-                            <h3 className="text-[19px] sm:text-[20px] font-headline font-black text-[#111111] mb-4 leading-snug group-hover:text-[#2860F5] transition-colors line-clamp-1">
+                            {/* Título Inmueble con excelente presencia */}
+                            <h3 className="text-[18px] sm:text-[19px] font-headline font-bold text-[#111111] mb-4 leading-snug group-hover:text-[#2860F5] transition-colors line-clamp-1">
                               {pData.name}
                             </h3>
 
-                            {/* Rejilla de Características en JetBrains Mono y Bordes */}
-                            {/* Rejilla de Características Visuales con Bloques Blancos, Icono Azul y Etiquetas Negras */}
-                            <div className="grid grid-cols-3 gap-2.5 mb-5">
-                              {/* 1. Habitaciones */}
-                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
-                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
-                                  <Bed className="w-5 h-5 text-white stroke-[2.5]" />
-                                </div>
-                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
-                                  {language === "ca" ? "HABITACIONS" : language === "en" ? "BEDROOMS" : "HABITACIONES"}
-                                </span>
-                                <span className="text-[20px] sm:text-[24px] font-data-mono font-black text-[#111111] leading-tight block">
-                                  {property.bedrooms > 0 ? property.bedrooms : "0"}
-                                </span>
-                              </div>
-
-                              {/* 2. Baños */}
-                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
-                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
-                                  <Bath className="w-5 h-5 text-white stroke-[2.5]" />
-                                </div>
-                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
-                                  {language === "ca" ? "BANYS" : language === "en" ? "BATHROOMS" : "BAÑOS"}
-                                </span>
-                                <span className="text-[20px] sm:text-[24px] font-data-mono font-black text-[#111111] leading-tight block">
-                                  {property.bathrooms > 0 ? property.bathrooms : "1"}
-                                </span>
-                              </div>
-
-                              {/* 3. Superficie */}
-                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
-                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
-                                  <Maximize2 className="w-5 h-5 text-white stroke-[2.5]" />
-                                </div>
-                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
-                                  {language === "ca" ? "SUPERFÍCIE" : language === "en" ? "SURFACE" : "SUPERFICIE"}
-                                </span>
-                                <span className="text-[18px] sm:text-[22px] font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap">
-                                  {property.surface}&nbsp;m²
-                                </span>
-                              </div>
+                            {/* Rejilla de Características Dinámicas según el Inmueble */}
+                            <div className={`grid ${specs.length === 2 ? 'grid-cols-2' : 'grid-cols-3'} gap-2.5 mb-5`}>
+                              {specs.map((item) => {
+                                const IconComponent = item.icon;
+                                return (
+                                  <div
+                                    key={item.id}
+                                    className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0"
+                                  >
+                                    <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
+                                      <IconComponent className="w-6 h-6 text-white stroke-[2.5]" />
+                                    </div>
+                                    <span className="text-[14px] sm:text-[15px] font-headline font-bold text-[#111111] uppercase tracking-wider block truncate w-full">
+                                      {item.label}
+                                    </span>
+                                    <span
+                                      className={`${item.isNumericOnly ? 'text-[22px] sm:text-[26px]' : 'text-[18px] sm:text-[22px]'} font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap`}
+                                      dangerouslySetInnerHTML={{ __html: item.value }}
+                                    />
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
 
-                          {/* 3. PRECIO DESTACADO & ACCIÓN EDITORIAL (GRANDE, VISIBLE, JERARQUIZADO) */}
+                          {/* 3. PRECIO DESTACADO (MAYOR PROTAGONISMO) & ACCIÓN EDITORIAL */}
                           <div className="pt-4 border-t-2 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div className="flex flex-col">
-                              <span className="text-[12px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111]">
-                                {language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA"}
+                            <div className="flex flex-col min-w-0">
+                              <span className="text-[14px] sm:text-[15px] font-headline font-bold uppercase tracking-wider text-[#111111]">
+                                {isRent
+                                  ? (language === "ca" ? "PREU DE LLOGUER" : language === "en" ? "RENTAL PRICE" : "PRECIO DE ALQUILER")
+                                  : (language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA")}
                               </span>
-                              <div className="flex items-baseline whitespace-nowrap">
-                                <span className="text-[28px] sm:text-[32px] md:text-[34px] font-data-mono font-black text-[#111111] leading-none tracking-tight">
+                              <div className="flex items-baseline whitespace-nowrap mt-0.5">
+                                <span className="text-[30px] sm:text-[34px] font-data-mono font-extrabold text-[#111111] leading-none tracking-tight">
                                   {new Intl.NumberFormat('es-ES').format(property.price)}&nbsp;€
                                 </span>
-                                {isRent && <span className="text-[13px] font-bold text-[#111111] ml-1.5">/mes</span>}
+                                {isRent && (
+                                  <span className="text-[15px] sm:text-[16px] font-data-mono font-bold text-[#111111] ml-1.5">
+                                    /mes
+                                  </span>
+                                )}
                               </div>
                             </div>
 
-                            <div className="h-[48px] sm:h-[50px] px-5 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-[12px] shadow-[3px_3px_0px_#111111] flex items-center justify-center gap-2.5 font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider transition-all shrink-0">
+                            <div className="h-[50px] sm:h-[52px] px-5 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-[12px] shadow-[3px_3px_0px_#111111] flex items-center justify-center gap-2.5 font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider transition-all shrink-0">
                               <span>{t.properties.verDetalles || "Ver Detalles"}</span>
                               <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
                             </div>
@@ -888,7 +1071,13 @@ function Index() {
                               </h3>
                             </div>
                           </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                          <div className={`grid grid-cols-1 ${
+                            relatedProperties.length === 1
+                              ? "max-w-xl mx-auto"
+                              : relatedProperties.length === 2
+                              ? "md:grid-cols-2"
+                              : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                          } gap-6 md:gap-8`}>
                             {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
                           </div>
                           <div className="flex flex-col items-center justify-center pt-8 gap-3">
@@ -916,10 +1105,16 @@ function Index() {
                       )}
                     </div>
                   ) : (
-                    /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */
+                    /* PROPERTY CARDS GRID: 3 cols standard, 4 cols on extra wide desktop (xl:grid-cols-4), 2 on tablet, 1 on mobile. Exactly 2 cards when length === 2 */
                     <div
                       key={searchParams.mode}
-                      className={`grid grid-cols-1 ${displayProperties.length === 1 ? 'max-w-xl mx-auto' : displayProperties.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3'} gap-6 md:gap-8 mb-8 transition-opacity duration-300`}
+                      className={`grid grid-cols-1 ${
+                        displayProperties.length === 1
+                          ? "max-w-xl mx-auto"
+                          : displayProperties.length === 2
+                          ? "md:grid-cols-2"
+                          : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                      } gap-6 md:gap-8 mb-8 transition-opacity duration-300`}
                     >
                       {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
                     </div>
@@ -1036,7 +1231,7 @@ function Index() {
                     href="https://wa.me/34601259424" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="h-[56px] px-6 bg-[#111111] hover:bg-[#2860F5] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                    className="h-[56px] px-6 bg-[#25D366] hover:bg-[#20ba5a] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
                       <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />

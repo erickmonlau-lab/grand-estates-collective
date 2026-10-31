@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, ThumbsUp, Building2, User } from "lucide-react";
+import { Search, MapPin, Home as HomeIcon, Tag, ChevronDown, Check, Users, ThumbsUp, Building2, User, ArrowRight } from "lucide-react";
 import heroBgDesktop from "@/assets/family_barcelona_desktop_opt.webp";
 import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
@@ -226,10 +226,13 @@ export default function HeroCarousel({
       ? "closer than ever."
       : "más cerca.",
     subtitle: language === "ca"
-      ? "Compra, lloga o descobreix quant val la teva propietat a Santa Coloma."
+      ? "Compra, ven i lloga habitatges. També gestionem comunitats de propietaris amb transparència i atenció propera a Santa Coloma de Gramenet i Barcelona."
       : language === "en"
-      ? "Buy, rent or discover how much your property is worth in Santa Coloma."
-      : "Compra, alquila o descubre cuánto vale tu propiedad en Santa Coloma.",
+      ? "Buy, sell and rent properties. We also manage homeowners associations with transparency and personal service in Santa Coloma de Gramenet and Barcelona."
+      : "Compra, vende y alquila viviendas. También gestionamos comunidades de propietarios con transparencia y atención cercana en Santa Coloma de Gramenet y Barcelona.",
+    tagInmo: language === "ca" ? "IMMOBILIÀRIA" : language === "en" ? "REAL ESTATE" : "INMOBILIARIA",
+    tagFincas: language === "ca" ? "ADMINISTRACIÓ DE FINQUES" : language === "en" ? "PROPERTY MANAGEMENT" : "ADMINISTRACIÓN DE FINCAS",
+    btnFincas: language === "ca" ? "ADMINISTRACIÓ DE FINQUES" : language === "en" ? "PROPERTY MANAGEMENT" : "ADMINISTRACIÓN DE FINCAS",
     buy: language === "ca" ? "Comprar" : language === "en" ? "Buy" : "Comprar",
     rent: language === "ca" ? "Alquilar" : language === "en" ? "Rent" : "Alquilar",
     neighborhood: language === "ca" ? "BARRI" : language === "en" ? "NEIGHBORHOOD" : "BARRIO",
@@ -326,24 +329,23 @@ export default function HeroCarousel({
         {/* Bloque de marca y titular centrado */}
         <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[880px]'}`}>
 
-          {/* Eyebrow / Kicker Neo-Brutalist rectangular con borde 2px */}
-          <div className="mb-4 sm:mb-5">
-            <span className="inline-flex items-center gap-2 sm:gap-3 bg-[#111111] text-white text-xs sm:text-[13px] font-headline font-black uppercase tracking-[0.14em] pl-2 pr-4 py-1.5 sm:py-2 rounded-full border-2 border-[#111111] shadow-[3px_3px_0px_#2860F5]">
-              <span className="h-5 sm:h-6 w-auto px-1.5 py-0.5 bg-white rounded-full border border-[#111111] flex items-center justify-center shrink-0">
-                <img
-                  src="/images/gesgrama-emblem-badge.webp"
-                  alt="Gesgrama"
-                  width={92}
-                  height={60}
-                  className="h-full w-auto object-contain"
-                  loading="eager"
-                  fetchPriority="low"
-                  decoding="async"
-                  aria-hidden="true"
-                />
+          {/* 1. DOS IDENTIFICADORES VISUALES DIFERENCIADOS: INMOBILIARIA + ADMINISTRACIÓN DE FINCAS */}
+          <div className="mb-5 sm:mb-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+            {/* Identificador 1: INMOBILIARIA (Azul corporativo #2860F5, icono blanco, texto blanco, esquinas redondeadas 12px) */}
+            <div className="h-[44px] sm:h-[48px] px-4 sm:px-5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-[12px] shadow-[2px_2px_0px_#111111] flex items-center gap-2.5">
+              <HomeIcon className="w-[22px] h-[22px] text-white stroke-[2.5] shrink-0" />
+              <span className="font-headline font-bold text-[14px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap">
+                {L.tagInmo}
               </span>
-              <span className="truncate">{customTag || L.tag}</span>
-            </span>
+            </div>
+
+            {/* Identificador 2: ADMINISTRACIÓN DE FINCAS (Blanco sólido, borde azul de 2px, icono azul, texto negro) */}
+            <div className="h-[44px] sm:h-[48px] px-4 sm:px-5 bg-white text-[#111111] border-2 border-[#2860F5] rounded-[12px] shadow-[2px_2px_0px_#111111] flex items-center gap-2.5">
+              <Building2 className="w-[22px] h-[22px] text-[#2860F5] stroke-[2.5] shrink-0" />
+              <span className="font-headline font-bold text-[14px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap text-[#111111]">
+                {L.tagFincas}
+              </span>
+            </div>
           </div>
 
           {/* H1 Principal: Space Grotesk, negro puro #111111 y azul corporativo sólido #2860F5 */}
@@ -365,10 +367,21 @@ export default function HeroCarousel({
 
           {/* Subtítulo: Inter font-medium/semibold, negro sólido #111111, tamaño generoso */}
           <p
-            className="text-[#111111] font-sans font-medium text-base sm:text-xl md:text-[21px] leading-snug sm:leading-relaxed max-w-[640px] mx-auto text-balance tracking-normal mb-2 sm:mb-3"
+            className="text-[#111111] font-sans font-medium text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[780px] mx-auto text-balance tracking-normal mb-4 sm:mb-5"
           >
             {customSubtitle || L.subtitle}
           </p>
+
+          {/* Acción secundaria directa para Administración de Fincas */}
+          <div className="mb-2">
+            <a
+              href="/administrador-fincas"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-50 text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] hover:shadow-[1px_1px_0px_#2860F5] hover:translate-x-[1px] hover:translate-y-[1px] font-headline font-black text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer group"
+            >
+              <span>{L.btnFincas}</span>
+              <ArrowRight className="w-4 h-4 text-[#2860F5] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+            </a>
+          </div>
         </div>
 
         {/* ── 3. QUICK SEARCH CENTRADO NEO-BRUTALIST: RECTANGULAR, 2PX BORDER, HARD SHADOW ── */}
@@ -594,6 +607,24 @@ export default function HeroCarousel({
         )}
 
         {/* ── 4. TRUST BAR: RECTANGULAR, 4 CAJAS NEO-BRUTALIST CON JETBRAINS MONO Y SPACE GROTESK ── */}
+        {/* ── BLOQUE DE IDENTIDAD CORPORATIVA: LOGOTIPO ORIGINAL GESGRAMA EN EL HERO ── */}
+        <div className="w-full max-w-[1140px] mx-auto flex justify-end mb-4 sm:mb-5">
+          <div className="inline-flex items-center gap-3.5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-[16px] p-3 sm:p-3.5 shadow-[3px_3px_0px_#111111] transition-all">
+            <img
+              src="/images/logo-gesgrama-text-horizontal.webp"
+              alt="Gesgrama Oficial"
+              width={160}
+              height={40}
+              className="h-7 sm:h-8 w-auto object-contain brightness-0 invert"
+              loading="eager"
+            />
+            <div className="h-6 w-px bg-white/30 hidden sm:block" />
+            <span className="text-[11px] sm:text-[12px] font-headline font-bold text-white uppercase tracking-wider hidden sm:inline whitespace-nowrap">
+              INMOBILIARIA · ADMINISTRACIÓN DE FINCAS
+            </span>
+          </div>
+        </div>
+
         <div
           id="hero-trust-bar"
           className={`w-full max-w-[1140px] mx-auto bg-white border-2 border-[#111111] rounded-[22px] shadow-[4px_4px_0px_#111111] p-4 sm:p-5 mb-2 sm:mb-0 transition-all duration-200 ${

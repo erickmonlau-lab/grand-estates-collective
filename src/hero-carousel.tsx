@@ -331,22 +331,32 @@ export default function HeroCarousel({
         <div className={`relative z-10 w-full mx-auto flex flex-col items-center text-center ${customHeadline ? 'max-w-[1000px]' : 'max-w-[880px]'}`}>
 
           {/* 1. DOS IDENTIFICADORES VISUALES DIFERENCIADOS: INMOBILIARIA + ADMINISTRACIÓN DE FINCAS */}
-          <div className="mb-5 sm:mb-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+          <div className="mb-5 sm:mb-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {/* Identificador 1: INMOBILIARIA (Azul corporativo #2860F5, icono blanco, texto blanco, esquinas redondeadas 12px) */}
-            <div className="h-[44px] sm:h-[48px] px-4 sm:px-5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-[12px] shadow-[2px_2px_0px_#111111] flex items-center gap-2.5">
-              <HomeIcon className="w-[22px] h-[22px] text-white stroke-[2.5] shrink-0" />
-              <span className="font-headline font-bold text-[14px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap">
+            <div className="h-[46px] sm:h-[50px] px-4 sm:px-5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-[12px] shadow-[2px_2px_0px_#111111] flex items-center gap-2.5 select-none">
+              <HomeIcon className="w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] text-white stroke-[2.5] shrink-0" />
+              <span className="font-headline font-bold text-[13px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap">
                 {L.tagInmo}
               </span>
             </div>
 
-            {/* Identificador 2: ADMINISTRACIÓN DE FINCAS (Blanco sólido, borde azul de 2px, icono azul, texto negro) */}
-            <div className="h-[44px] sm:h-[48px] px-4 sm:px-5 bg-white text-[#111111] border-2 border-[#2860F5] rounded-[12px] shadow-[2px_2px_0px_#111111] flex items-center gap-2.5">
-              <Building2 className="w-[22px] h-[22px] text-[#2860F5] stroke-[2.5] shrink-0" />
-              <span className="font-headline font-bold text-[14px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap text-[#111111]">
+            {/* Identificador 2: ADMINISTRACIÓN DE FINCAS (Blanco sólido, borde azul #2860F5 de 2px, Mascota/Ilustración original de Gesgrama a la izquierda, texto negro) */}
+            <a
+              href="/administrador-fincas"
+              className="h-[46px] sm:h-[50px] pl-2.5 pr-4 sm:pl-3 sm:pr-5 bg-white hover:bg-slate-50 text-[#111111] border-2 border-[#2860F5] rounded-[12px] shadow-[2px_2px_0px_#111111] hover:shadow-[3px_3px_0px_#111111] hover:-translate-y-0.5 transition-all flex items-center gap-2.5 cursor-pointer group"
+            >
+              <img
+                src="/images/gesgrama_mascota_oficial.webp"
+                alt="Gesgrama Administración de Fincas"
+                width={64}
+                height={42}
+                className="h-[36px] sm:h-[42px] w-auto object-contain shrink-0 group-hover:scale-105 transition-transform"
+                loading="eager"
+              />
+              <span className="font-headline font-bold text-[13px] sm:text-[15px] uppercase tracking-wider whitespace-nowrap text-[#111111]">
                 {L.tagFincas}
               </span>
-            </div>
+            </a>
           </div>
 
           {/* H1 Principal: Space Grotesk, negro puro #111111 y azul corporativo sólido #2860F5 */}
@@ -368,27 +378,15 @@ export default function HeroCarousel({
 
           {/* Subtítulo: Inter font-medium/semibold, negro sólido #111111, tamaño generoso */}
           <p
-            className="text-[#111111] font-sans font-medium text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[780px] mx-auto text-balance tracking-normal mb-4 sm:mb-5"
+            className="text-[#111111] font-sans font-medium text-base sm:text-lg md:text-[19px] leading-relaxed max-w-[780px] mx-auto text-balance tracking-normal mb-0"
           >
             {customSubtitle || L.subtitle}
           </p>
-
-          {/* Acción secundaria directa para Administración de Fincas con la Ilustración Oficial Gesgrama */}
-          <div className="mb-2">
-            <a
-              href="/administrador-fincas"
-              className="inline-flex items-center gap-2.5 sm:gap-3 pl-3 pr-5 py-2 sm:py-2.5 bg-white hover:bg-slate-50 text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] hover:shadow-[1px_1px_0px_#2860F5] hover:translate-x-[1px] hover:translate-y-[1px] font-headline font-black text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer group"
-            >
-              <GesgramaHeroMascotIcon className="w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] shrink-0" />
-              <span>{L.btnFincas}</span>
-              <ArrowRight className="w-4 h-4 text-[#2860F5] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
-            </a>
-          </div>
         </div>
 
         {/* ── 3. QUICK SEARCH CENTRADO NEO-BRUTALIST: RECTANGULAR, 2PX BORDER, HARD SHADOW ── */}
         <div
-          className="relative z-40 w-full max-w-[1240px] mx-auto mt-4 sm:mt-6 mb-5 sm:mb-8 md:mb-10"
+          className="relative z-40 w-full max-w-[1240px] mx-auto mt-6 sm:mt-8 md:mt-9 mb-5 sm:mb-8 md:mb-10"
           onClick={(e) => e.stopPropagation()}
         >
           <div

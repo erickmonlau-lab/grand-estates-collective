@@ -183,8 +183,10 @@ export async function fetchProperties(): Promise<ExtendedProperty[]> {
 
 // Create Property
 export async function createProperty(property: Omit<ExtendedProperty, "id" | "slug"> & { id?: string; slug?: string }): Promise<ExtendedProperty> {
-  const generatedId = property.id || `prop-${Date.now()}`;
-  const generatedSlug = property.slug || property.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const timestamp = Date.now();
+  const generatedId = property.id || `prop-${timestamp}`;
+  const baseSlug = property.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "inmueble";
+  const generatedSlug = property.slug || `${baseSlug}-${timestamp.toString().slice(-4)}`;
   
   const newProp: ExtendedProperty = {
     ...property,

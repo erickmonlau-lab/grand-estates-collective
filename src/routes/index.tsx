@@ -6,7 +6,7 @@ import { subscribeProperties, fetchProperties, getLocalProperties, type Extended
 import { getTranslatedProperty } from "@/lib/translateProperty";
 
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search } from "lucide-react";
+import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search, Bed } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ServicesSection } from '@/components/ServicesSection';
@@ -740,37 +740,66 @@ function Index() {
                             </h3>
 
                             {/* Rejilla de Características en JetBrains Mono y Bordes */}
-                            <div className="grid grid-cols-3 gap-2 mb-4">
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
-                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Habs</span>
-                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bedrooms > 0 ? property.bedrooms : "0"}</span>
+                            {/* Rejilla de Características Visuales con Bloques Blancos, Icono Azul y Etiquetas Negras */}
+                            <div className="grid grid-cols-3 gap-2.5 mb-5">
+                              {/* 1. Habitaciones */}
+                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
+                                  <Bed className="w-5 h-5 text-white stroke-[2.5]" />
+                                </div>
+                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
+                                  {language === "ca" ? "HABITACIONS" : language === "en" ? "BEDROOMS" : "HABITACIONES"}
+                                </span>
+                                <span className="text-[20px] sm:text-[24px] font-data-mono font-black text-[#111111] leading-tight block">
+                                  {property.bedrooms > 0 ? property.bedrooms : "0"}
+                                </span>
                               </div>
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
-                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">{language === "ca" ? "Banys" : "Baños"}</span>
-                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.bathrooms > 0 ? property.bathrooms : "1"}</span>
+
+                              {/* 2. Baños */}
+                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
+                                  <Bath className="w-5 h-5 text-white stroke-[2.5]" />
+                                </div>
+                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
+                                  {language === "ca" ? "BANYS" : language === "en" ? "BATHROOMS" : "BAÑOS"}
+                                </span>
+                                <span className="text-[20px] sm:text-[24px] font-data-mono font-black text-[#111111] leading-tight block">
+                                  {property.bathrooms > 0 ? property.bathrooms : "1"}
+                                </span>
                               </div>
-                              <div className="bg-[#FAF9FC] border-2 border-[#111111] rounded-xl py-2 px-1 flex flex-col items-center justify-center text-center">
-                                <span className="text-[11px] font-headline font-bold text-slate-600 uppercase">Sup.</span>
-                                <span className="text-[16px] sm:text-[17px] font-data-mono font-black text-[#111111]">{property.surface} m²</span>
+
+                              {/* 3. Superficie */}
+                              <div className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0">
+                                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
+                                  <Maximize2 className="w-5 h-5 text-white stroke-[2.5]" />
+                                </div>
+                                <span className="text-[12px] sm:text-[14px] font-headline font-black text-[#111111] uppercase tracking-wider block truncate w-full">
+                                  {language === "ca" ? "SUPERFÍCIE" : language === "en" ? "SURFACE" : "SUPERFICIE"}
+                                </span>
+                                <span className="text-[18px] sm:text-[22px] font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap">
+                                  {property.surface}&nbsp;m²
+                                </span>
                               </div>
                             </div>
                           </div>
 
-                          {/* 3. PRECIO DESTACADO & ACCIÓN EDITORIAL */}
-                          <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between gap-3">
+                          {/* 3. PRECIO DESTACADO & ACCIÓN EDITORIAL (GRANDE, VISIBLE, JERARQUIZADO) */}
+                          <div className="pt-4 border-t-2 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div className="flex flex-col">
-                              <span className="text-[11px] font-headline font-black uppercase text-slate-600">Precio</span>
+                              <span className="text-[12px] sm:text-[14px] font-headline font-black uppercase tracking-wider text-[#111111]">
+                                {language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA"}
+                              </span>
                               <div className="flex items-baseline whitespace-nowrap">
-                                <span className="text-2xl sm:text-[26px] font-data-mono font-black text-[#111111] leading-none">
+                                <span className="text-[28px] sm:text-[32px] md:text-[34px] font-data-mono font-black text-[#111111] leading-none tracking-tight">
                                   {new Intl.NumberFormat('es-ES').format(property.price)}&nbsp;€
                                 </span>
-                                {isRent && <span className="text-[12px] font-bold text-slate-600 ml-1">/mes</span>}
+                                {isRent && <span className="text-[13px] font-bold text-[#111111] ml-1.5">/mes</span>}
                               </div>
                             </div>
 
-                            <div className="h-[44px] px-4 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] flex items-center justify-center gap-2 font-headline font-black text-[13px] uppercase tracking-wider transition-all">
-                              <span>{t.properties.verDetalles || "Ficha"}</span>
-                              <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+                            <div className="h-[48px] sm:h-[50px] px-5 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-[12px] shadow-[3px_3px_0px_#111111] flex items-center justify-center gap-2.5 font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider transition-all shrink-0">
+                              <span>{t.properties.verDetalles || "Ver Detalles"}</span>
+                              <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
                             </div>
                           </div>
 

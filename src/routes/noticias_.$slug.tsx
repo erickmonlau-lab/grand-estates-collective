@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { translations, loadLanguage } from "../data/translations";
 import { Navbar } from "@/components/Navbar";
 import { DrawnUnderline } from "@/components/DrawnUnderline";
+import { EditorialCallout } from "@/components/EditorialCallout";
 
 function WhatsAppIcon({ className = "w-4 h-4 fill-white shrink-0" }: { className?: string }) {
   return (
@@ -431,206 +432,16 @@ function ArticleDetail() {
             {content.title}
           </h1>
 
-          {/* 4. ENTRADILLA / RESUMEN CLAVE (18-19px, #111111) */}
-          <div className="mb-8 p-5 sm:p-7 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#2860F5] text-white border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center shrink-0 mt-0.5">
-              <BookOpen className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="inline-block px-2.5 py-0.5 rounded-md bg-[#111111] text-white text-[11px] font-headline font-black uppercase tracking-wider mb-2">
-                {language === "ca" ? "Idea Clau" : language === "en" ? "Key Takeaway" : "Idea Clave"}
-              </span>
-              <p className="text-[17px] sm:text-[19px] font-headline font-black text-[#111111] leading-relaxed">
-                {content.summary}
-              </p>
-            </div>
-          </div>
-
-          {/* 5. FOTOGRAFÍA PRINCIPAL DE ALTA RESOLUCIÓN */}
-          <div className="relative border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] mb-10 aspect-[16/9] max-h-[520px] w-full bg-slate-100 overflow-hidden">
-            <img
-              src={article.image}
-              alt={content.title}
-              loading="eager"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* 6. COLUMNA EDITORIAL DE LECTURA (820px) CON TIPOGRAFÍA DE 17-18px EN #111111 */}
-          <div className="max-w-[840px] mx-auto">
-            {/* Párrafo de introducción */}
-            <div className="mb-8 text-[18px] sm:text-[19px] font-medium leading-[1.7] text-[#111111] pb-6 border-b border-slate-200">
-              {highlightKeyText(content.intro)}
-            </div>
-
-            {/* Secciones y Artículos */}
-            <div className="space-y-10">
-              {content.sections.map((sec, idx) => (
-                <section key={idx} className="space-y-4">
-                  {sec.level === "h2" ? (
-                    <h2 className="text-2xl sm:text-3xl font-headline font-black text-[#111111] pt-4 leading-snug [text-wrap:balance] flex items-center gap-3">
-                      <span className="w-3 h-3 rounded-full bg-[#2860F5] shrink-0" />
-                      <span>{sec.heading}</span>
-                    </h2>
-                  ) : (
-                    <h3 className="text-xl sm:text-2xl font-headline font-black text-[#111111] pt-3 leading-snug [text-wrap:balance]">
-                      {sec.heading}
-                    </h3>
-                  )}
-
-                  {sec.content.map((p, pIdx) => {
-                    const isMethodCard = p.startsWith("Método Objetivo:") || p.startsWith("Método Real:") ||
-                                          p.startsWith("Mètode Objectiu:") || p.startsWith("Mètode Real:") ||
-                                          p.startsWith("Objective Method:") || p.startsWith("Real Method:") ||
-                                          p.startsWith("1.") || p.startsWith("2.") || p.startsWith("3.") || p.startsWith("4.") ||
-                                          p.startsWith("Garantía de") || p.startsWith("Garantia de") || p.startsWith("1-year warranty") || p.startsWith("3-year warranty") || p.startsWith("10-year structural warranty");
-
-                    if (isMethodCard) {
-                      const colonIndex = p.indexOf(":");
-                      const titlePart = colonIndex !== -1 ? p.substring(0, colonIndex).trim() : p.substring(0, 30).trim();
-                      const bodyPart = colonIndex !== -1 ? p.substring(colonIndex + 1).trim() : p.trim();
-
-                      return (
-                        <div 
-                          key={pIdx} 
-                          className="my-5 p-5 sm:p-7 rounded-2xl bg-white border-2 border-[#111111] shadow-[3px_3px_0px_#111111]"
-                        >
-                          <div className="flex items-center gap-3 mb-2.5">
-                            <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#2860F5] text-white text-xs font-headline font-black uppercase tracking-wider">
-                              {titlePart}
-                            </span>
-                          </div>
-                          <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-[1.7]">
-                            {highlightKeyText(bodyPart)}
-                          </p>
-                        </div>
-                      );
-                    }
-
-                    // Cita destacada
-                    const isQuote = p.trim().startsWith('"') || p.trim().startsWith('“') || p.trim().startsWith('«') || p.trim().startsWith('>');
-                    if (isQuote) {
-                      const cleanQuote = p.replace(/^>\s*/, '');
-                      return (
-                        <blockquote
-                          key={pIdx}
-                          className="my-6 p-6 sm:p-7 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] text-[#111111] text-lg sm:text-xl font-headline font-bold italic leading-relaxed"
-                        >
-                          <p className="not-italic">
-                            “{highlightKeyText(cleanQuote)}”
-                          </p>
-                        </blockquote>
-                      );
-                    }
-
-                    return (
-                      <p key={pIdx} className="text-[17px] sm:text-[18px] leading-[1.75] text-[#111111] font-normal">
-                        {highlightKeyText(p)}
-                      </p>
-                    );
-                  })}
-
-                  {/* Bullet points: superficie blanca sólida con borde definido e icono azul */}
-                  {sec.bulletPoints && sec.bulletPoints.length > 0 && (
-                    <div className="my-6 space-y-3.5">
-                      {sec.bulletPoints.map((bp, bpIdx) => {
-                        const isLegalWarning = bp.includes("VERIFICACIÓN LEGAL/FISCAL REQUERIDA") || bp.includes("VERIFICACIÓ LEGAL/FISCAL REQUERIDA") || bp.includes("LEGAL/TAX VERIFICATION REQUIRED");
-                        if (isLegalWarning) {
-                          const cleanText = bp.replace(/\[⚠️ VERIFICACIÓN LEGAL\/FISCAL REQUERIDA:\s*/gi, "")
-                                              .replace(/\[⚠️ VERIFICACIÓ LEGAL\/FISCAL REQUERIDA:\s*/gi, "")
-                                              .replace(/\[⚠️ LEGAL\/TAX VERIFICATION REQUIRED:\s*/gi, "")
-                                              .replace(/\]$/g, "");
-                          return (
-                            <div
-                              key={bpIdx}
-                              className="bg-[#111111] text-white border-2 border-[#111111] p-5 sm:p-6 rounded-2xl shadow-[3px_3px_0px_#2860F5]"
-                            >
-                              <div className="flex items-center gap-2.5 mb-2">
-                                <AlertTriangle className="w-5 h-5 text-[#60A5FA]" />
-                                <span className="text-xs font-headline font-black uppercase tracking-wider text-[#60A5FA]">
-                                  {language === "ca" ? "Avís Legal / Fiscal" : language === "en" ? "Legal Notice" : "Aviso Legal / Fiscal"}
-                                </span>
-                              </div>
-                              <p className="text-[15px] sm:text-base font-bold text-white leading-relaxed">
-                                {highlightKeyText(cleanText, true)}
-                              </p>
-                            </div>
-                          );
-                        }
-                        return (
-                          <div 
-                            key={bpIdx} 
-                            className="flex items-start gap-4 bg-white p-4 sm:p-5 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111]"
-                          >
-                            <div className="w-7 h-7 rounded-lg bg-[#2860F5] text-white border border-[#111111] flex items-center justify-center shrink-0 mt-0.5">
-                              <Check className="w-4 h-4 text-white stroke-[3]" />
-                            </div>
-                            <span className="text-[16px] sm:text-[17px] font-bold text-[#111111] leading-snug">
-                              {highlightKeyText(bp)}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </section>
-              ))}
-            </div>
-
-            {/* 7. CONCLUSIÓN: FONDO AZUL CORPORATIVO SÓLIDO (#2860F5) CON TEXTO BLANCO */}
-            <div className="my-12 p-6 sm:p-8 md:p-10 rounded-2xl bg-[#2860F5] border-2 border-[#111111] shadow-[4px_4px_0px_#111111] text-white">
-              <div className="flex items-center gap-2.5 text-white font-headline font-black uppercase tracking-wider text-xs sm:text-sm mb-3">
-                <BookOpen className="w-5 h-5 text-white" />
-                <span>{language === "ca" ? "Conclusió Editorial" : language === "en" ? "Editorial Conclusion" : "Conclusión Editorial"}</span>
-              </div>
-              <p className="text-white font-headline font-bold text-lg sm:text-xl md:text-[22px] leading-relaxed [text-wrap:balance]">
-                {content.conclusion}
-              </p>
-            </div>
-
-            {/* 8. FICHA DE AUTOR Y ACCIONES DE CONTACTO */}
-            <div className="mt-12 p-6 sm:p-8 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-4 w-full md:w-auto">
-                <div className="w-16 h-16 rounded-2xl bg-[#111111] border-2 border-[#111111] p-2.5 flex items-center justify-center shadow-sm shrink-0">
-                  <img 
-                    src="/images/logo-gesgrama-text-horizontal.webp" 
-                    alt="Gesgrama" 
-                    className="w-full h-full object-contain brightness-0 invert" 
-                  />
-                </div>
-                <div>
-                  <p className="text-xl sm:text-2xl font-headline font-black text-[#111111] leading-tight mb-1">
-                    {content.author}
-                  </p>
-                  <p className="text-xs sm:text-sm font-headline font-bold text-[#2860F5] uppercase tracking-wider">
-                    Gesgrama · Av. dels Banús, 49 · Santa Coloma de Gramenet
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
-                <a
-                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${content.title} — ${typeof window !== "undefined" ? window.location.href : canonicalUrl}`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#16A34A] hover:bg-[#15803d] text-white text-xs sm:text-sm font-headline font-black uppercase tracking-wider px-4 py-3 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111] cursor-pointer transition-all"
-                  title="Compartir por WhatsApp"
-                >
-                  <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
-                  <span>WhatsApp</span>
-                </a>
-
-                <a
-                  href="/#formulario-contacto"
-                  className="inline-flex items-center gap-2 bg-[#2860F5] hover:bg-[#174bcb] text-white text-xs sm:text-sm font-headline font-black uppercase tracking-wider px-5 py-3 rounded-xl border-2 border-[#111111] shadow-[2px_2px_0px_#111111] cursor-pointer transition-all"
-                >
-                  <span>{language === "ca" ? "Contactar amb Gesgrama" : language === "en" ? "Contact Gesgrama" : "Contactar con Gesgrama"}</span>
-                  <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
-                </a>
-              </div>
-            </div>
-
-          </div>
+          {/* 4. ENTRADILLA / IDEA CLAVE DESTACADA (100% ANCHO, ESCALA COMPLETA) */}
+          <EditorialCallout
+            variant="idea-clave"
+            label={language === "ca" ? "IDEA CLAU" : language === "en" ? "KEY TAKEAWAY" : "IDEA CLAVE"}
+            className="mb-10"
+          >
+            <p className="text-[18px] sm:text-[20px] font-headline font-bold text-[#111111] leading-[1.65]">
+              {content.summary}
+            </p>
+          </EditorialCallout>
 
         </div>
 

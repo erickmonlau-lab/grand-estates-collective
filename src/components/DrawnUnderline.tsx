@@ -11,15 +11,15 @@ export function DrawnUnderline({
 }: DrawnUnderlineProps) {
   return (
     <svg
-      className={`absolute -bottom-2 sm:-bottom-2.5 left-0 w-full h-2.5 sm:h-3 pointer-events-none overflow-visible ${className}`}
+      className={`absolute bottom-[2px] sm:bottom-[3px] left-0 w-full h-2.5 sm:h-3 pointer-events-none overflow-visible ${className}`}
       viewBox="0 0 120 12"
       preserveAspectRatio="none"
       fill="none"
     >
       <path
-        d="M2,8 C25,2 50,11 75,5 C95,1 110,8 118,6"
+        d="M2,8 C25,3 50,11 75,5 C95,2 110,8 118,6"
         stroke={color}
-        strokeWidth="3.5"
+        strokeWidth="3.2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

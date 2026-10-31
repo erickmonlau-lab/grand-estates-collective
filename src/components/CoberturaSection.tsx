@@ -42,9 +42,9 @@ export default function CoberturaSection({ language, t }: CoberturaSectionProps)
                 <span>{language === "ca" ? "ÀREA DE COBERTURA INTEGRAL" : language === "en" ? "FULL COVERAGE AREA" : "ÁREA DE COBERTURA INTEGRAL"}</span>
               </div>
               
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight tracking-tight text-[#111111] mb-3">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight tracking-tight text-[#111111] mb-5">
                 <span>{language === "ca" ? "Presència activa a" : language === "en" ? "Active presence in" : "Presencia activa en"}&nbsp;</span>
-                <span className="relative inline-block text-[#2860F5]">
+                <span className="relative inline-block text-[#2860F5] pb-1.5 sm:pb-2">
                   Santa Coloma de Gramenet
                   <DrawnUnderline color="#2860F5" />
                 </span>

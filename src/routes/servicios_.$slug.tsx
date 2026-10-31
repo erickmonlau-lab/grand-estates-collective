@@ -1787,22 +1787,30 @@ function ServicioSlugPage() {
               {stepsList.map((st, i) => (
                 <div 
                   key={i}
-                  className="bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#111111]"
+                  className="bg-white border-2 border-[#111111] rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#111111] relative overflow-hidden group"
                   itemScope 
                   itemProp="step" 
                   itemType="https://schema.org/HowToStep"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center justify-center px-3 py-1 bg-[#111111] text-white text-xs font-headline font-black tracking-wider uppercase rounded-md border border-[#111111]">
-                        PASO {st.number}
+                    {/* Cabecera de la Fase con gran protagonismo visual */}
+                    <div className="flex items-start justify-between gap-4 mb-5 pb-3 border-b-2 border-slate-100">
+                      <span className="inline-flex items-center justify-center px-3 py-1.5 bg-[#111111] text-white text-xs font-headline font-black tracking-wider uppercase rounded-lg border border-[#111111] shadow-xs">
+                        PASO 0{i + 1}
                       </span>
-                      <span className="text-xs font-data-mono font-bold text-[#2860F5] uppercase tracking-wider">
-                        Fase 0{i + 1}
-                      </span>
+                      
+                      {/* Indicador FASE con protagonismo editorial */}
+                      <div className="flex flex-col items-end leading-none">
+                        <span className="text-[14px] sm:text-[15px] font-headline font-extrabold uppercase tracking-widest text-[#2860F5] mb-0.5">
+                          FASE
+                        </span>
+                        <span className="text-[32px] sm:text-[36px] font-headline font-extrabold text-[#2860F5] leading-none tracking-tight">
+                          0{i + 1}
+                        </span>
+                      </div>
                     </div>
                     <meta itemProp="position" content={String(i + 1)} />
-                    <h3 className="text-lg sm:text-[19px] font-headline font-black text-[#111111] mb-2.5 leading-snug [text-wrap:balance]" itemProp="name">
+                    <h3 className="text-lg sm:text-[20px] font-headline font-black text-[#111111] mb-2.5 leading-snug [text-wrap:balance]" itemProp="name">
                       {st.title}
                     </h3>
                     <p className="text-[16px] sm:text-[17px] text-[#111111] font-medium leading-relaxed" itemProp="text">

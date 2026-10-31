@@ -29,7 +29,13 @@ import {
   X,
   Heart,
   Maximize2,
-  Sparkles
+  Sparkles,
+  Bed,
+  Store,
+  DoorOpen,
+  Accessibility,
+  Layers,
+  Flame
 } from "lucide-react";
 import ValuatorSection from "@/components/ValuatorSection";
 import { SANTA_COLOMA_BARRIOS, type NeighborhoodDetail } from "@/data/geoLocations";
@@ -326,6 +332,162 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
   },
   component: SantaColomaBarrioPage
 });
+
+
+function getDynamicPropertySpecs(property: any, language: "es" | "ca" | "en") {
+  const rawType = (property.type || "").toLowerCase();
+  const isCommercial = rawType.includes("local") || rawType.includes("comercial") || rawType.includes("nave") || rawType.includes("tienda");
+  const isOffice = rawType.includes("oficina") || rawType.includes("despacho");
+  const feats: string[] = (property.features || []).map((f: string) => f.toLowerCase());
+  const desc = (property.description || "").toLowerCase();
+
+  const blocks: Array<{
+    id: string;
+    icon: any;
+    label: string;
+    value: string;
+    isNumericOnly?: boolean;
+  }> = [];
+
+  const L = {
+    surface: language === "ca" ? "SUPERFÍCIE" : language === "en" ? "SURFACE" : "SUPERFICIE",
+    baths: language === "ca" ? "BANYS" : language === "en" ? "BATHROOMS" : "BAÑOS",
+    rooms: language === "ca" ? "HABITACIONS" : language === "en" ? "BEDROOMS" : "HABITACIONES",
+    facade: language === "ca" ? "FAÇANA" : language === "en" ? "FACADE" : "ESCAPARATE",
+    smoke: language === "ca" ? "FUMS" : language === "en" ? "SMOKE EXT." : "S. HUMOS",
+    access: language === "ca" ? "ACCÉS" : language === "en" ? "ACCESS" : "ACCESIBILIDAD",
+    floor: language === "ca" ? "PLANTA" : language === "en" ? "FLOOR" : "PLANTA",
+    condition: language === "ca" ? "ESTAT" : language === "en" ? "STATUS" : "ESTADO",
+    yes: language === "ca" ? "SÍ" : language === "en" ? "YES" : "SÍ",
+    good: language === "ca" ? "BO" : language === "en" ? "GOOD" : "BUENO",
+    exterior: language === "ca" ? "EXTERIOR" : language === "en" ? "EXTERIOR" : "EXTERIOR",
+    street: language === "ca" ? "CARRER" : language === "en" ? "STREET" : "A PIE CALLE",
+    elevator: language === "ca" ? "ASCENSOR" : language === "en" ? "ELEVATOR" : "ASCENSOR"
+  };
+
+  if (isCommercial) {
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    const facadeMatch = desc.match(/fachada de (\d+)\s*m/i) || desc.match(/(\d+)\s*metros de fachada/i);
+    const hasEscaparate = feats.some(f => f.includes("escaparate")) || desc.includes("escaparate");
+    const hasSalidaHumos = feats.some(f => f.includes("humos")) || desc.includes("humos");
+    const hasPMR = feats.some(f => f.includes("pmr") || f.includes("adaptado") || f.includes("accesib")) || desc.includes("pmr");
+
+    if (facadeMatch) {
+      blocks.push({
+        id: "facade",
+        icon: Store,
+        label: L.facade,
+        value: facadeMatch[1] + "&nbsp;m"
+      });
+    } else if (hasEscaparate) {
+      blocks.push({
+        id: "facade",
+        icon: Store,
+        label: L.facade,
+        value: L.yes
+      });
+    } else if (hasSalidaHumos) {
+      blocks.push({
+        id: "smoke",
+        icon: Flame,
+        label: L.smoke,
+        value: L.yes
+      });
+    } else if (hasPMR) {
+      blocks.push({
+        id: "access",
+        icon: Accessibility,
+        label: L.access,
+        value: "PMR"
+      });
+    } else if (property.floor) {
+      blocks.push({
+        id: "floor",
+        icon: Layers,
+        label: L.floor,
+        value: property.floor.toLowerCase().includes("baja") ? "BAJA" : property.floor.slice(0, 6)
+      });
+    } else {
+      blocks.push({
+        id: "condition",
+        icon: DoorOpen,
+        label: L.condition,
+        value: L.street
+      });
+    }
+  } else if (isOffice) {
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    if (property.floor) {
+      const isGround = property.floor.toLowerCase().includes("baja");
+      blocks.push({
+        id: "floor",
+        icon: Layers,
+        label: L.floor,
+        value: isGround ? "BAJA" : property.floor.slice(0, 6).toUpperCase()
+      });
+    } else {
+      blocks.push({
+        id: "elevator",
+        icon: Building2,
+        label: L.elevator,
+        value: L.yes
+      });
+    }
+  } else {
+    blocks.push({
+      id: "bedrooms",
+      icon: Bed,
+      label: L.rooms,
+      value: String(property.bedrooms > 0 ? property.bedrooms : 1),
+      isNumericOnly: true
+    });
+
+    blocks.push({
+      id: "bathrooms",
+      icon: Bath,
+      label: L.baths,
+      value: String(property.bathrooms > 0 ? property.bathrooms : 1),
+      isNumericOnly: true
+    });
+
+    blocks.push({
+      id: "surface",
+      icon: Maximize2,
+      label: L.surface,
+      value: property.surface + "&nbsp;m²"
+    });
+  }
+
+  return blocks.slice(0, 3);
+}
 
 function SantaColomaBarrioPage() {
   const { city } = Route.useParams();
@@ -629,12 +791,16 @@ function SantaColomaBarrioPage() {
 
     const normalizedSearch = (searchParams.zona || "").toLowerCase().trim();
     const normalizedPropLoc = (prop.location || "").toLowerCase().trim();
+    const normalizedCity = ((prop as any).city || "").toLowerCase().trim();
     const matchesZone = searchParams.zona === "Cualquier zona" ||
       normalizedPropLoc.includes(normalizedSearch) ||
       normalizedSearch.includes(normalizedPropLoc) ||
-      (normalizedSearch.startsWith("santa rosa") && normalizedPropLoc.startsWith("santa rosa")) ||
+      normalizedCity.includes(normalizedSearch) ||
+      (normalizedSearch.includes("santa rosa") && normalizedPropLoc.includes("santa rosa")) ||
       ((normalizedSearch === "centro" || normalizedSearch === "centre") && (normalizedPropLoc === "centro" || normalizedPropLoc === "centre")) ||
-      (normalizedSearch.startsWith("riu") && normalizedPropLoc.startsWith("riu"));
+      (normalizedSearch.startsWith("riu") && normalizedPropLoc.startsWith("riu")) ||
+      (normalizedSearch.includes("singuerlin") && normalizedPropLoc.includes("singuerl")) ||
+      (normalizedSearch.includes("fondo") && normalizedPropLoc.includes("fondo"));
 
     const matchesType = searchParams.tipo === "Cualquier tipo" || prop.type === searchParams.tipo;
     const matchesPrice = isPriceValid(searchParams.precio, prop.price);
@@ -729,86 +895,124 @@ function SantaColomaBarrioPage() {
         />
 
         {/* ── 1. BUSCADOR & CATÁLOGO DE INMUEBLES CANÓNICO DE GESGRAMA ── */}
-        <section id="seccion-propiedades" className="relative overflow-hidden bg-[#f5f6f8] text-slate-900 py-6 md:py-10 border-t border-slate-200">
-          <div id="propiedades" className="bg-white border-2 border-[#111111] neo-shadow-lg p-4 sm:p-6 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 scroll-mt-20 md:scroll-mt-24">
+        <section id="seccion-propiedades" className="relative overflow-hidden bg-[#FAF9FC] text-[#111111] py-8 md:py-12 border-t-2 border-[#111111]">
+          <div id="propiedades" className="bg-white rounded-[24px] shadow-[4px_4px_0px_#111111] border-2 border-[#111111] p-6 sm:p-8 md:p-10 mx-3 sm:mx-4 md:mx-auto max-w-[1520px] w-[95%] relative z-10 scroll-mt-20 md:scroll-mt-24">
             <div>
-              {/* Header: Badge + H2 + Description with balanced spacing */}
-              <div className="mb-4 sm:mb-5">
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-xs mb-2.5 font-sans">
-                  <Home className="w-3.5 h-3.5 text-white" />
-                  <span>{t.properties.tag}</span>
-                </span>
+              {/* Header: Encabezado Editorial con Gran Presencia Visual + H2 con Underline Equilibrado + Descripción */}
+              <div className="mb-6 sm:mb-8">
+                {/* Badge Identificador de Categoría */}
+                <div className="inline-flex items-center gap-2.5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-xl px-4 py-2 shadow-[2px_2px_0px_#111111] mb-3.5">
+                  <MapPin className="w-4 h-4 text-white stroke-[2.5] shrink-0" />
+                  <span className="text-[15px] sm:text-[16px] font-headline font-bold tracking-wider uppercase">
+                    {language === "ca" ? `IMMOBILIÀRIA · ${data.name.toUpperCase()}` : language === "en" ? `REAL ESTATE · ${data.name.toUpperCase()}` : `INMOBILIARIA · ${data.name.toUpperCase()}`}
+                  </span>
+                </div>
 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] leading-tight tracking-tight mb-2 font-sans w-full">
-                  {t.properties.title1} <span className="text-[#2563eb]">{t.properties.title2}</span>
+                {/* Titular principal con DrawnUnderline */}
+                <h2 key={language} className="text-3xl sm:text-4xl md:text-[44px] font-headline font-extrabold text-[#111111] leading-[1.15] tracking-tight mb-3 w-full" style={{ textWrap: "balance" }}>
+                  {language === "ca" ? (
+                    <>Descobreix les nostres{" "}
+                      <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                        millors oportunitats.
+                        <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
+                      </span>
+                    </>
+                  ) : language === "en" ? (
+                    <>Discover our{" "}
+                      <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                        best properties.
+                        <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
+                      </span>
+                    </>
+                  ) : (
+                    <>Descubre nuestras{" "}
+                      <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                        mejores oportunidades.
+                        <DrawnUnderline color="#2860F5" className="-bottom-[6px] sm:-bottom-[8px]" />
+                      </span>
+                    </>
+                  )}
                 </h2>
 
-                <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-bold font-sans max-w-3xl text-balance">
-                  {t.properties.subtitle}
+                <p className="text-[#111111] text-[17px] sm:text-[18px] leading-relaxed font-sans font-medium max-w-3xl">
+                  {language === "ca"
+                    ? `Selecció d'immobles a ${data.name} i Santa Coloma gestionats amb total garantia i transparència per Gesgrama.`
+                    : language === "en"
+                    ? `Selection of properties in ${data.name} and Santa Coloma managed with full guarantee and transparency by Gesgrama.`
+                    : `Selección de inmuebles en ${data.name} y Santa Coloma gestionados con total garantía y transparencia por Gesgrama.`}
                 </p>
               </div>
 
               {/* Unified Results Controls Bar: Fav Button + Counter + Sort Dropdown on Shared Baseline */}
-              <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-4 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 w-full">
-                {/* Left: Favoritos button */}
-                <div className="flex items-center self-start sm:self-center">
+              {/* Unified Results Controls Bar: Favoritos (blanco), Disponibles (azul), Ordenar por (negro #111111 sólido) */}
+              <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-2 mb-6 p-2 sm:p-2.5 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
+                {/* Left: Favoritos button sólido y redondeado */}
+                <div className="flex items-center">
                   <button
                     type="button"
                     onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 font-sans whitespace-nowrap border shadow-xs ${
+                    className={`h-[48px] px-4 rounded-xl text-[15px] sm:text-[16px] font-headline font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2.5 whitespace-nowrap border-2 border-[#111111] shadow-[2px_2px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[1px] hover:translate-y-[1px] ${
                       searchParams.mode === "favoritos"
-                        ? "bg-red-600 text-white border-red-600 shadow-sm"
-                        : "bg-white text-[#0f172a] hover:bg-slate-50 border-slate-200"
+                        ? "bg-red-500 text-white"
+                        : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-50"
                     }`}
                   >
-                    <Heart className={`w-3.5 h-3.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
-                    <span>Fav ({favorites.length})</span>
+                    <Heart className={`w-4.5 h-4.5 fill-current shrink-0 ${searchParams.mode === "favoritos" ? "text-white" : "text-red-500"}`} />
+                    <span>Favoritos ({favorites.length})</span>
                   </button>
                 </div>
 
-                {/* Right: Counter + Sort */}
-                <div className="flex items-center justify-between sm:justify-end gap-5 sm:gap-6 shrink-0 self-stretch sm:self-center">
+                {/* Right: Counter + Sort en bloque integrado */}
+                <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-4 shrink-0">
+                  {/* Propiedades disponibles: indicador azul, número destacado, 15-16px, alineación vertical */}
                   <div
-                    className="flex items-center gap-2.5 font-sans"
+                    className="flex items-center gap-2.5 bg-[#FFFFFF] border-2 border-[#111111] rounded-xl px-4 h-[48px] shadow-[2px_2px_0px_#111111]"
                     aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
                   >
-                    <span className="inline-flex items-center justify-center min-w-[2rem] h-8 px-2 bg-[#2563eb] text-white text-sm font-black rounded-xl shadow-sm shrink-0 tabular-nums">
+                    <span className="w-3 h-3 rounded-full bg-[#2860F5] shrink-0" />
+                    <span className="text-[15px] sm:text-[16px] font-data-mono font-black text-[#111111] tabular-nums">
                       {filteredProperties.length}
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-[#0b214a]">{t.properties.availableCount}</span>
+                    <span className="text-[14px] sm:text-[15px] font-headline font-bold text-[#111111] leading-none">
+                      {t.properties.availableCount}
+                    </span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-xs sm:text-sm relative" onClick={(e) => e.stopPropagation()}>
-                    <span className="text-slate-500 font-bold uppercase tracking-wider text-[11px] font-sans hidden sm:inline">{t.properties.sortBy}:</span>
+                  {/* Ordenar por: Negro sólido #111111, texto blanco, flecha blanca, 15-16px, esquinas redondeadas 14px, hover discreto */}
+                  <div className="flex items-center gap-2 relative" onClick={(e) => e.stopPropagation()}>
                     <button 
                       onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                      className="flex items-center gap-1.5 bg-white border border-slate-200 hover:border-[#2563eb] rounded-xl px-3 py-1.5 font-bold text-[#0f172a] hover:text-[#2563eb] transition-all shadow-2xs font-sans text-xs sm:text-sm cursor-pointer"
+                      className="h-[48px] flex items-center gap-2.5 bg-[#111111] hover:bg-[#222222] text-white border-2 border-[#111111] rounded-[14px] px-4 py-2 font-headline font-bold text-[14px] sm:text-[15px] tracking-wide transition-all shadow-[2px_2px_0px_#2860F5] cursor-pointer"
                     >
-                      <span>{sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}</span>
-                      <ChevronDown className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                      <span className="text-slate-300 font-bold uppercase tracking-wider text-[12px] hidden sm:inline">{t.properties.sortBy}:</span>
+                      <span className="text-white font-bold">
+                        {sortOption === "precio_asc" ? t.properties.precioMenor : sortOption === "precio_desc" ? t.properties.precioMayor : t.properties.mostRecent}
+                      </span>
+                      <ChevronDown className="w-4.5 h-4.5 text-white shrink-0 stroke-[2.5]" />
                     </button>
 
                     {openDropdown === "ordenar" && (
-                      <div className="absolute top-full right-0 mt-1.5 w-56 bg-white border border-slate-200 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.12)] z-50 p-1.5 divide-y divide-slate-100">
+                      <div className="absolute top-full right-0 mt-2 w-64 bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[4px_4px_0px_#2860F5] z-50 p-2 space-y-1">
                         {[
                           { label: t.properties.mostRecent, value: "recientes" },
                           { label: t.properties.precioMenor, value: "precio_asc" },
                           { label: t.properties.precioMayor, value: "precio_desc" }
                         ].map(opt => (
-                          <div key={opt.value} className="py-0.5 first:pt-0 last:pb-0">
-                            <button
-                              onClick={() => {
-                                setSortOption(opt.value);
-                                setOpenDropdown(null);
-                              }}
-                              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-left transition-all cursor-pointer font-ui-clean tracking-normal border ${
-                                sortOption === opt.value ? "bg-[#2563eb] text-white border-[#2563eb] shadow-xs" : "border-transparent hover:border-blue-100 text-slate-800 hover:bg-blue-50/50"
-                              }`}
-                            >
-                              <span className="leading-snug">{opt.label}</span>
-                              {sortOption === opt.value && <Check className="w-3.5 h-3.5 text-white shrink-0 stroke-[2.5]" />}
-                            </button>
-                          </div>
+                          <button
+                            key={opt.value}
+                            onClick={() => {
+                              setSortOption(opt.value);
+                              setOpenDropdown(null);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-headline font-bold text-left transition-all cursor-pointer border ${
+                              sortOption === opt.value
+                                ? "bg-[#2860F5] text-white border-white/20 shadow-xs"
+                                : "border-transparent hover:border-slate-700 text-slate-200 hover:bg-[#222222] hover:text-white"
+                            }`}
+                          >
+                            <span className="leading-snug">{opt.label}</span>
+                            {sortOption === opt.value && <Check className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />}
+                          </button>
                         ))}
                       </div>
                     )}
@@ -863,62 +1067,47 @@ function SantaColomaBarrioPage() {
                   const pData = getTranslatedProperty(property, language, t.propertiesData);
                   const isRent = (property.operation || "").toLowerCase() === "alquilar" || property.price < 5000;
                   const type = pData.type || property.type || "Piso";
+                  const specs = getDynamicPropertySpecs(property, language);
+
+                  // Ubicación estructurada: Barrio principal destacado + Municipio secundario
+                  const rawLocation = pData.location || property.location || "Santa Coloma";
+                  const barrioName = formatLocation(rawLocation, language);
+                  const cityName = property.city || (rawLocation.toLowerCase().includes("barcelona") ? "Barcelona" : rawLocation.toLowerCase().includes("badalona") ? "Badalona" : "Santa Coloma de Gramenet");
 
                   return (
-                    <div
-                      key={property.id}
-                      className="h-full"
-                    >
+                    <div key={property.id} className="h-full">
                       <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                        <div
-                          className="group bg-white border-2 border-[#111111] neo-shadow hover:shadow-[6px_6px_0px_#111111] hover:translate-x-[-2px] hover:translate-y-[-2px] flex flex-col h-full transition-all duration-200 overflow-hidden cursor-pointer"
-                        >
-                          {/* Image Block with Top Floating Badges & Glassmorphism Heart */}
-                          <div className="relative h-[200px] sm:h-[225px] md:h-[235px] w-full overflow-hidden bg-slate-100">
-                            {(() => {
-                              const isUnsplash = typeof property.image === "string" && property.image.includes("images.unsplash.com");
-                              const baseUnsplash = isUnsplash ? property.image.split("?")[0] : null;
-                              const srcSet = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=340&q=65 340w, ${baseUnsplash}?auto=format&fit=crop&w=480&q=68 480w, ${baseUnsplash}?auto=format&fit=crop&w=640&q=70 640w`
-                                : undefined;
-                              const imgSrc = isUnsplash
-                                ? `${baseUnsplash}?auto=format&fit=crop&w=360&q=65`
-                                : property.image;
-
-                              return (
-                                <img 
-                                  src={imgSrc}
-                                  srcSet={srcSet}
-                                  sizes="(max-width: 640px) 320px, (max-width: 1024px) 340px, 360px"
-                                  alt={pData.name} 
-                                  loading="lazy" 
-                                  decoding="async"
-                                  width={360}
-                                  height={235}
-                                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108" 
-                                />
-                              );
-                            })()}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15 pointer-events-none" />
+                        <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] flex flex-col h-full transition-all duration-200 group cursor-pointer overflow-hidden">
+                          
+                          {/* 1. ZONA FOTOGRÁFICA EDITORIAL */}
+                          <div className="relative h-[220px] sm:h-[240px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
+                            <img 
+                              src={property.image}
+                              alt={pData.name} 
+                              loading="lazy" 
+                              decoding="async"
+                              width={400}
+                              height={240}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                            />
                             
-                            {/* Floating Status, Type & Reservation Pills — single attractive line */}
-                            <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-1.5 sm:gap-2 z-20 pointer-events-none overflow-hidden no-scrollbar">
-                              <span className="inline-flex items-center gap-1 bg-[#0b214a]/95 backdrop-blur-md text-white text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md border border-white/10 font-ui-clean shrink-0">
-                                <span className={`w-1.5 h-1.5 rounded-full ${isRent ? 'bg-amber-400' : 'bg-[#60a5fa]'} animate-pulse shrink-0`}></span>
-                                <span>{isRent ? (language === "ca" ? "Lloguer" : language === "en" ? "Rent" : "Alquiler") : (language === "ca" ? "Venda" : language === "en" ? "Sale" : "Venta")}</span>
+                            {/* Badges Rectangulares Sólidos */}
+                            <div className="absolute top-3 left-3 flex items-center gap-1.5 z-20">
+                              <span className="inline-flex items-center gap-1.5 bg-[#111111] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
+                                <span className={`w-2 h-2 ${isRent ? "bg-amber-400" : "bg-[#2860F5]"}`} />
+                                <span>{isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}</span>
                               </span>
-                              <span className="inline-flex items-center bg-[#2563eb] text-white text-[9.5px] sm:text-[10.5px] font-bold uppercase tracking-wider px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md font-ui-clean shrink-0 whitespace-nowrap">
+                              <span className="inline-flex items-center bg-[#2860F5] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
                                 {type}
                               </span>
                               {property.status === "reservado" && (
-                                <span className="inline-flex items-center gap-1 bg-amber-400 text-amber-950 font-black uppercase tracking-wider text-[9.5px] sm:text-[10.5px] px-2 py-1 sm:px-2.5 sm:py-1 rounded-xl shadow-md border border-amber-500/40 font-ui-clean shrink-0 whitespace-nowrap">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 shadow-xs" />
-                                  <span>{language === "ca" ? "Reservat" : language === "en" ? "Reserved" : "Reservado"}</span>
+                                <span className="inline-flex items-center bg-amber-400 text-black font-headline font-black uppercase tracking-wider text-[11px] px-2 py-1 border border-black">
+                                  {language === "ca" ? "RESERVAT" : "RESERVADO"}
                                 </span>
                               )}
                             </div>
 
-                            {/* Heart Favorite Button with micro-bounce */}
+                            {/* Botón Favorito Rectangular Sólido */}
                             <button
                               type="button"
                               onClick={(e) => {
@@ -927,121 +1116,96 @@ function SantaColomaBarrioPage() {
                                 toggleFavorite(property.id);
                               }}
                               aria-label="Guardar en favoritos"
-                              className={`absolute top-3.5 right-3.5 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center active:scale-125 transition-all duration-200 cursor-pointer shadow-md z-20 ${
-                                isFav 
-                                  ? 'bg-red-500 text-white shadow-red-500/30' 
-                                  : 'bg-white text-slate-700 hover:text-red-500 hover:bg-slate-50'
+                              className={`absolute top-3 right-3 w-9 h-9 border-2 border-[#111111] flex items-center justify-center transition-all z-20 cursor-pointer ${
+                                isFav ? "bg-red-500 text-white shadow-[2px_2px_0px_#111111]" : "bg-white text-[#111111] hover:bg-slate-100 shadow-[2px_2px_0px_#111111]"
                               }`}
                             >
-                              <Heart className="w-5 h-5 fill-current" />
+                              <Heart className="w-4 h-4 fill-current" />
                             </button>
 
-                            {/* Bottom-left Ref Badge directly over the image */}
-                            <div className="absolute bottom-3 left-3.5 z-20">
-                              <span className="inline-flex items-center text-[11px] font-mono font-black text-white/90 bg-black/60 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-white/15">
+                            {/* Ref Badge en JetBrains Mono */}
+                            <div className="absolute bottom-2.5 left-3 z-20">
+                              <span className="inline-flex items-center text-[11px] font-data-mono font-black text-white bg-[#111111] px-2 py-0.5 border border-white">
                                 Ref: {property.ref || "PJ2024"}
                               </span>
                             </div>
                           </div>
 
-                          {/* Content Block */}
+                          {/* 2. ZONA INFORMATIVA ESTRUCTURADA: UBICACIÓN PROTAGONISTA (44-48PX ICONO AZUL + 27-30PX BARRIO) */}
                           <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                             <div>
-                              {/* Location with Pin - Solid White Pill (No Transparency) */}
-                              <div className="mb-2.5">
-                                <span className="inline-flex items-center gap-1.5 bg-white text-[#0b214a] border border-slate-300 px-3 py-1 rounded-full text-xs sm:text-[13px] font-extrabold tracking-tight shadow-2xs">
-                                  <MapPin className="w-3.5 h-3.5 text-[#2563eb] shrink-0 stroke-[2.5]" />
-                                  <span className="truncate">{formatLocation(pData.location || property.location, language)}</span>
-                                </span>
+                              {/* BLOQUE PROTAGONISTA DE UBICACIÓN */}
+                              <div className="flex items-center gap-3 sm:gap-3.5 mb-3">
+                                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-[12px] bg-[#2860F5] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center shrink-0">
+                                  <MapPin className="w-6 h-6 text-white stroke-[2.5]" />
+                                </div>
+
+                                <div className="min-w-0 flex flex-col justify-center">
+                                  <span className="text-[25px] sm:text-[28px] md:text-[30px] font-headline font-extrabold text-[#111111] leading-none tracking-tight truncate uppercase">
+                                    {barrioName}
+                                  </span>
+                                  <span className="text-[12px] sm:text-[13px] font-sans font-semibold text-slate-600 truncate mt-1">
+                                    {cityName}
+                                  </span>
+                                </div>
                               </div>
 
-                              {/* Main Title */}
-                              <h3 className="text-lg sm:text-[19px] font-black text-[#0f172a] mb-3 leading-snug group-hover:text-[#2563eb] transition-colors font-sans line-clamp-1">
+                              {/* Título Inmueble con excelente presencia */}
+                              <h3 className="text-[18px] sm:text-[19px] font-headline font-bold text-[#111111] mb-4 leading-snug group-hover:text-[#2860F5] transition-colors line-clamp-1">
                                 {pData.name}
                               </h3>
 
-                              {/* Features Micro-Boxes */}
-                              <div className="grid grid-cols-3 gap-2 pt-1 pb-2">
-                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                  <Home className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                  <span>{property.bedrooms > 0 ? property.bedrooms : "0"} {language === "en" ? "bd" : "hab"}</span>
-                                </div>
-                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                  <Bath className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                  <span>{property.bathrooms > 0 ? property.bathrooms : "1"} {language === "en" ? "ba" : language === "ca" ? "banys" : "baños"}</span>
-                                </div>
-                                <div className="bg-[#2563eb] text-white rounded-xl py-2 px-1 flex items-center justify-center gap-1.5 font-black text-xs sm:text-sm shadow-xs">
-                                  <Maximize2 className="w-4 h-4 text-white shrink-0 stroke-[2.5]" />
-                                  <span>{property.surface} m²</span>
-                                </div>
-                              </div>
-
-                              {/* Floor / Feature Highlight badge - Only shown if non-redundant */}
-                              {(() => {
-                                const isRedundant = (text: string) => {
-                                  if (!text) return true;
-                                  const lower = text.toLowerCase();
+                              {/* Rejilla de Características Dinámicas según el Inmueble */}
+                              <div className={`grid ${specs.length === 2 ? "grid-cols-2" : "grid-cols-3"} gap-2.5 mb-5`}>
+                                {specs.map((item) => {
+                                  const IconComponent = item.icon;
                                   return (
-                                    lower.includes("dormitori") ||
-                                    lower.includes("habitación") ||
-                                    lower.includes("habitacion") ||
-                                    lower.includes("bedroom") ||
-                                    lower.includes("bany") ||
-                                    lower.includes("baño") ||
-                                    lower.includes("bathroom") ||
-                                    lower.includes("verificat") ||
-                                    lower.includes("verified") ||
-                                    lower.includes("verificado")
-                                  );
-                                };
-
-                                let relevantFeature = "";
-                                if (pData.floor && !isRedundant(pData.floor)) {
-                                  relevantFeature = pData.floor;
-                                } else if (property.floor && !isRedundant(property.floor)) {
-                                  relevantFeature = property.floor;
-                                } else if (property.features && property.features.length > 0) {
-                                  const found = property.features.find((f: string) => !isRedundant(f));
-                                  if (found) relevantFeature = found;
-                                }
-
-                                if (!relevantFeature) return null;
-
-                                return (
-                                  <div className="mt-3">
-                                    <div className="inline-flex items-center gap-2.5 bg-white text-slate-900 border-2 border-slate-200 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold shadow-xs max-w-full">
-                                      <span className="w-2 h-2 rounded-full bg-[#2563eb] shrink-0" />
-                                      <span className="truncate">{relevantFeature}</span>
+                                    <div
+                                      key={item.id}
+                                      className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0"
+                                    >
+                                      <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
+                                        <IconComponent className="w-6 h-6 text-white stroke-[2.5]" />
+                                      </div>
+                                      <span className="text-[11px] sm:text-[12px] font-headline font-bold text-[#111111] uppercase tracking-wider block truncate w-full">
+                                        {item.label}
+                                      </span>
+                                      <span
+                                        className={`${item.isNumericOnly ? "text-[18px] sm:text-[22px]" : "text-[14px] sm:text-[16px]"} font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap`}
+                                        dangerouslySetInnerHTML={{ __html: item.value }}
+                                      />
                                     </div>
-                                  </div>
-                                );
-                              })()}
+                                  );
+                                })}
+                              </div>
                             </div>
 
-                            {/* Price & Action Button */}
-                            <div className="pt-4 mt-4 border-t border-slate-100 flex items-end justify-between gap-3">
+                            {/* 3. PRECIO DESTACADO & ACCIÓN EDITORIAL */}
+                            <div className="pt-4 border-t-2 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                               <div className="flex flex-col min-w-0">
-                                {/* Blue Pill Badge for "VENTA" / "ALQUILER" */}
-                                <span className="inline-flex items-center self-start bg-[#2563eb] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-xs mb-1.5 font-ui-clean">
-                                  {isRent 
-                                    ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") 
-                                    : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}
+                                <span className="text-[11px] sm:text-[12px] font-headline font-bold uppercase tracking-wider text-slate-500">
+                                  {isRent
+                                    ? (language === "ca" ? "PREU DE LLOGUER" : language === "en" ? "RENTAL PRICE" : "PRECIO DE ALQUILER")
+                                    : (language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA")}
                                 </span>
-                                <div className="flex items-baseline whitespace-nowrap">
-                                  <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none font-sans tracking-tight">
-                                    {new Intl.NumberFormat('es-ES').format(property.price)}<span className="text-[#2563eb] ml-0.5 font-black">€</span>
+                                <div className="flex items-baseline whitespace-nowrap mt-0.5">
+                                  <span className="text-[24px] sm:text-[28px] font-data-mono font-extrabold text-[#111111] leading-none tracking-tight">
+                                    {new Intl.NumberFormat("es-ES").format(property.price)}&nbsp;€
                                   </span>
                                   {isRent && (
-                                    <span className="text-[11px] font-black text-slate-500 font-sans ml-1">/mes</span>
+                                    <span className="text-[15px] sm:text-[16px] font-data-mono font-bold text-[#111111] ml-1.5">
+                                      /mes
+                                    </span>
                                   )}
                                 </div>
                               </div>
 
-                              <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#0b214a] group-hover:bg-[#2563eb] text-white text-[11.5px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-sm group-hover:shadow-md border border-slate-800 group-hover:border-[#2563eb] font-ui-clean">
-                                <span className="whitespace-nowrap">{t.properties.verDetalles || "Ver ficha"}</span>
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                              <div className="h-[50px] sm:h-[52px] px-5 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-[12px] shadow-[3px_3px_0px_#111111] flex items-center justify-center gap-2.5 font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider transition-all shrink-0">
+                                <span>{t.properties.verDetalles || "Ver Detalles"}</span>
+                                <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
                               </div>
                             </div>
+
                           </div>
                         </div>
                       </Link>
@@ -1223,78 +1387,118 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 2. TESTIMONIOS CANÓNICOS (GOOGLE REVIEWS CON 5 ESTRELLAS) ── */}
-        <section id="nosotros" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#FAF9FC] border-2 border-[#111111] neo-shadow-lg p-4 sm:p-6 md:p-7 mx-4 md:mx-auto max-w-[1320px] relative z-10 text-[#0f172a]">
-            <Reveal>
-              <div className="mb-4 md:mb-5 text-center">
-                <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-[11px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 rounded-xl shadow-md border border-white/10 mb-2">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  <span>{t.testimonios.tag}</span>
-                </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black leading-tight text-[#0f172a] tracking-tight mb-2.5 font-sans">
-                  {t.testimonios.title1}{" "}
-                  <span className="relative inline-block text-[#2563eb] pb-0.5">
-                    {t.testimonios.title2}
+        <section id="nosotros" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] scroll-mt-24 border-b-2 border-[#111111]">
+          <div id="testimonios" className="-top-32 relative block invisible" />
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+            
+            {/* Cabecera Editorial Limpia */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b-2 border-[#111111]">
+              <div>
+                {/* Etiqueta azul sólida redondeada con estrella */}
+                <div className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[12px] sm:text-[13px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full border-2 border-[#111111] shadow-[2px_2px_0px_#111111] mb-3">
+                  <Star className="w-3.5 h-3.5 text-white fill-white" />
+                  <span>{language === "ca" ? "OPINIONS DE CLIENTS" : language === "en" ? "CLIENT REVIEWS" : "OPINIONES DE CLIENTES"}</span>
+                </div>
+
+                {/* Titular grande con detalle Drawn orgánico */}
+                <h2 className="text-3xl sm:text-4xl md:text-[44px] font-headline font-black text-[#111111] tracking-tight leading-tight mb-4">
+                  <span>{language === "ca" ? "El que diuen els nostres " : language === "en" ? "What our clients " : "Lo que dicen nuestros "}</span>
+                  <span className="relative inline-block text-[#2860F5] whitespace-nowrap">
+                    {language === "ca" ? `veïns a ${data.name}.` : language === "en" ? `clients in ${data.name}.` : `vecinos en ${data.name}.`}
+                    <DrawnUnderline color="#2860F5" />
                   </span>
                 </h2>
-                <div className="pt-1 inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3.5 py-1.5 sm:px-4 sm:py-1.5 shadow-xs hover:border-[#2563eb]/40 transition-colors">
-                  <GoogleIcon className="w-5 h-5 shrink-0" />
-                  <span className="text-sm sm:text-base font-black text-slate-800 tracking-tight">
-                    {language === "ca" ? "Ressenyes verificades a Google" : language === "en" ? "Verified Google Reviews" : "Reseñas verificadas en Google"}
-                  </span>
+                
+                <p className="text-[18px] sm:text-[19px] font-sans font-medium text-[#111111] leading-relaxed max-w-xl pt-1">
+                  {t.testimonios.subtitle}
+                </p>
+              </div>
+
+              {/* Acreditación de Google integrada en cabecera */}
+              <div className="lg:max-w-md shrink-0">
+                <div className="inline-flex items-center gap-3 bg-[#FFFFFF] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] px-5 py-3">
+                  <GoogleIcon className="w-6 h-6 shrink-0" />
+                  <div className="flex flex-col">
+                    <span className="text-[14px] sm:text-[15px] font-headline font-black text-[#111111] leading-none">
+                      {language === "ca" ? "Ressenyes verificades" : language === "en" ? "Verified reviews" : "Reseñas verificadas"}
+                    </span>
+                    <span className="text-[12px] font-headline font-bold text-[#2860F5] mt-0.5">
+                      Google Business Profile
+                    </span>
+                  </div>
                 </div>
               </div>
-            </Reveal>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 md:gap-4 items-stretch">
+            {/* 3 Opiniones con Jerarquía: Central Destacada en Azul #2860F5 + Complementarias Blancas */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               {t.testimonios.items.map((item, i) => {
-                const initials = ["C", "A", "M"];
+                const initials = ["F", "A", "C"];
+                const isFeatured = i === 1;
+
                 return (
-                  <Reveal key={item.author} delay={i * 0.1}>
-                    <div className="card-lift group bg-white text-[#0f172a] rounded-2xl p-4 sm:p-5 flex flex-col justify-between h-full border-2 border-slate-100 hover:border-[#2563eb] shadow-[0_4px_14px_rgba(15,23,42,0.04)] relative overflow-hidden">
-                      <div className="absolute top-0 inset-x-0 h-1 bg-[#2563eb]" />
-                      <div className="relative z-10 flex-1 flex flex-col">
-                        <div className="flex items-center justify-between gap-2 mb-3 h-6">
-                          <div className="flex items-center gap-1 text-amber-400">
-                            {[...Array(5)].map((_, s) => (
-                              <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 shrink-0" />
-                            ))}
-                          </div>
-                          <div className="inline-flex items-center gap-1 bg-white border border-slate-200 px-2.5 py-0.5 rounded-full text-[11px] font-black text-slate-800 shadow-2xs shrink-0">
-                            <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
-                            <span>Google</span>
-                          </div>
+                  <div 
+                    key={item.author} 
+                    className={`rounded-2xl border-2 border-[#111111] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 ${
+                      isFeatured
+                        ? "bg-[#2860F5] text-white shadow-[4px_4px_0px_#111111] md:-translate-y-1.5"
+                        : "bg-[#FFFFFF] text-[#111111] shadow-[3px_3px_0px_#111111] hover:shadow-[4px_4px_0px_#2860F5]"
+                    }`}
+                  >
+                    <div>
+                      {/* Top Row: Stars + Google Badge Integrado */}
+                      <div className={`flex items-center justify-between gap-2 mb-4 pb-3 border-b-2 ${isFeatured ? "border-white/30" : "border-[#111111]"}`}>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, s) => (
+                            <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400 shrink-0" />
+                          ))}
                         </div>
-                        <p className="text-slate-700 text-[13.5px] sm:text-[14px] leading-relaxed font-normal mb-4 flex-1">
-                          "{item.quote}"
-                        </p>
+                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-headline font-black tracking-wider uppercase rounded-lg border ${
+                          isFeatured ? "bg-white text-[#111111] border-white" : "bg-[#111111] text-white border-[#111111]"
+                        }`}>
+                          <GoogleIcon className="w-3.5 h-3.5 shrink-0" />
+                          <span>Google</span>
+                        </div>
                       </div>
 
-                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2.5 relative z-10 mt-auto">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-9 h-9 rounded-full bg-[#0b214a] text-white font-black text-xs sm:text-sm flex items-center justify-center shrink-0 shadow-xs border-2 border-white ring-1 ring-slate-200">
-                            {initials[i % initials.length]}
-                          </div>
-                          <div className="flex flex-col min-w-0">
-                            <strong className="font-bold text-xs sm:text-sm text-[#0f172a] tracking-tight leading-tight truncate">
-                              {item.author}
-                            </strong>
-                            <span className="text-[11px] sm:text-xs text-slate-500 font-semibold mt-0.5">
-                              {item.time}
-                            </span>
-                          </div>
-                        </div>
-
-                        <span className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-extrabold text-white bg-[#2563eb] px-2.5 py-1 rounded-full shadow-xs shrink-0">
-                          <CheckCircle2 className="w-3 h-3 text-white stroke-[2.5]" />
-                          <span>{language === "ca" ? "Verificat" : language === "en" ? "Verified" : "Verificado"}</span>
-                        </span>
-                      </div>
+                      {/* Texto de Reseña de 16-17px */}
+                      <p className={`text-[16px] sm:text-[17px] font-medium leading-relaxed mb-6 ${isFeatured ? "text-white" : "text-[#111111]"}`}>
+                        “{item.quote}”
+                      </p>
                     </div>
-                  </Reveal>
+
+                    {/* Fila de Autor y Verificación */}
+                    <div className={`pt-4 border-t-2 ${isFeatured ? "border-white/30" : "border-[#111111]"} flex items-center justify-between gap-3 mt-auto`}>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className={`w-10 h-10 rounded-full font-headline font-black text-sm flex items-center justify-center shrink-0 border-2 ${
+                          isFeatured ? "bg-white text-[#2860F5] border-white" : "bg-[#2860F5] text-white border-[#111111]"
+                        }`}>
+                          {initials[i % initials.length]}
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <strong className={`font-headline font-black text-[15px] sm:text-[16px] truncate ${isFeatured ? "text-white" : "text-[#111111]"}`}>
+                            {item.author}
+                          </strong>
+                          <span className={`text-[12px] font-data-mono font-bold ${isFeatured ? "text-blue-100" : "text-slate-500"}`}>
+                            {item.time}
+                          </span>
+                        </div>
+                      </div>
+
+                      <span className={`inline-flex items-center gap-1 text-[11px] sm:text-[12px] font-headline font-black border rounded-full px-2.5 py-1 shrink-0 ${
+                        isFeatured
+                          ? "bg-white text-[#2860F5] border-white"
+                          : "bg-[#2860F5] text-white border-[#111111]"
+                      }`}>
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        <span>{language === "ca" ? "Verificat" : language === "en" ? "Verified" : "Verificado"}</span>
+                      </span>
+                    </div>
+                  </div>
                 );
               })}
             </div>
+
           </div>
         </section>
 
@@ -1398,7 +1602,7 @@ function SantaColomaBarrioPage() {
         />
 
         {/* ── 5. ÁREA DE COBERTURA Y SEDE CENTRAL (MAPA CON PÍLDORAS DE BARRIOS) ── */}
-        <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-white scroll-mt-28 md:scroll-mt-32">
+        <section id="cobertura" className="py-6 md:py-10 px-4 md:px-8 bg-[#FAF9FC] border-b-2 border-[#111111] text-white scroll-mt-28 md:scroll-mt-32">
           <div className="bg-[#111111] border-2 border-[#111111] neo-shadow-lg p-4 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row gap-5 lg:gap-8 items-center">
               <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
@@ -1554,35 +1758,38 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 6. GESTIÓN DE COMUNIDADES GESGRAMA (CON FOTOGRAFÍA OFICIAL DE SEDE) ── */}
-        <section className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900">
-          <div className="bg-white border-2 border-[#111111] neo-shadow-lg p-5 md:p-8 mx-auto max-w-[1320px] relative z-10 overflow-hidden">
-            <div className="flex flex-col lg:flex-row-reverse items-center gap-6 lg:gap-10">
-              <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                <Reveal>
-                  <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-xl shadow-xs mb-3 w-fit">
-                    <Building2 className="w-3.5 h-3.5" />
+        <section className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111]">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+            <div className="bg-[#FFFFFF] border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-12">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                {/* Left Content (7 cols) */}
+                <div className="lg:col-span-7 flex flex-col justify-center">
+                  <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-3.5 py-1.5 shadow-[2px_2px_0px_#2860F5] mb-4 w-fit">
+                    <Building2 className="w-4 h-4 text-[#2860F5]" />
                     <span>{language === "ca" ? "GESTIÓ DE COMUNITATS" : language === "en" ? "COMMUNITY MANAGEMENT" : "GESTIÓN DE COMUNIDADES"}</span>
-                  </span>
+                  </div>
                   
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-[#0f172a] mb-3 font-sans">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight text-[#111111] mb-4 tracking-tight">
                     {language === "ca" ? (
-                      <>Parlem de la teva <span className="text-[#2563eb]">comunitat</span> a {data.name}<span className="ml-1.5 inline-block">?</span></>
+                      <>Parlem de la teva <span className="relative inline-block text-[#2860F5] whitespace-nowrap">comunitat a {data.name}?<DrawnUnderline color="#2860F5" /></span></>
                     ) : language === "en" ? (
-                      <>Let's talk about your <span className="text-[#2563eb]">community</span> in {data.name}</>
+                      <>Let's talk about your <span className="relative inline-block text-[#2860F5] whitespace-nowrap">community in {data.name}<DrawnUnderline color="#2860F5" /></span></>
                     ) : (
-                      <><span className="mr-1 inline-block">¿</span>Hablamos de tu <span className="text-[#2563eb]">comunidad</span> en {data.name}<span className="ml-1.5 inline-block">?</span></>
+                      <>¿Hablamos de tu <span className="relative inline-block text-[#2860F5] whitespace-nowrap">comunidad en {data.name}?<DrawnUnderline color="#2860F5" /></span></>
                     )}
                   </h2>
                   
-                  <p className="text-[#0f172a] text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans">
+                  <p className="text-[18px] sm:text-[19px] text-[#111111] font-medium leading-relaxed mb-6 max-w-xl">
                     {language === "ca" 
                       ? `Administració transparent, resposta àgil i optimització de costos garantida per a les finques de ${data.name}.` 
                       : language === "en" 
-                      ? `Transparent management, agile response, and guaranteed cost optimization for properties in ${data.name}.` 
+                      ? `Transparent management, agile response and guaranteed cost optimization for properties in ${data.name}.` 
                       : `Administración transparente, respuesta ágil y optimización de costes garantizada para las fincas de ${data.name}.`}
                   </p>
 
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                  {/* Acciones principales */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8">
                     <a 
                       href="#formulario-contacto" 
                       onClick={(e) => {
@@ -1594,73 +1801,79 @@ function SantaColomaBarrioPage() {
                           if (inputEl) setTimeout(() => (inputEl as HTMLInputElement).focus({ preventScroll: true }), 400);
                         }
                       }}
-                      className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                      className="h-[56px] px-6 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                     >
                       <Phone className="w-4 h-4 text-white" />
                       <span>{language === "ca" ? "Parlar amb un assessor" : language === "en" ? "Talk to an advisor" : "Hablar con un asesor"}</span>
-                      <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
                     </a>
                     <a 
                       href="https://wa.me/34601259424" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-[#075E54] hover:bg-[#054c44] text-white px-6 py-3 rounded-full font-black text-xs sm:text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer font-sans"
+                      className="h-[56px] px-6 bg-[#25D366] hover:bg-[#20ba5a] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                     >
-                      <WhatsAppBrandIcon className="w-4 h-4 fill-white" />
+                      <svg width="18" height="18" viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
+                        <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
+                      </svg>
                       <span>{language === "ca" ? "WhatsApp directe" : language === "en" ? "Direct WhatsApp" : "WhatsApp directo"}</span>
                     </a>
                   </div>
 
-                  {/* Stats Grid */}
-                  <div className="hidden sm:grid grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-slate-200/80">
-                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">Nº 5583</p>
-                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
+                  {/* Métricas destacadas en 3 bloques con fondos sólidos */}
+                  <div className="grid grid-cols-3 gap-3 pt-6 border-t-2 border-[#111111]">
+                    <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
+                      <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">Nº 5583</p>
+                      <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Registre AICAT" : language === "en" ? "AICAT Registry" : "Registro AICAT"}</p>
                     </div>
-                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">+15 {language === "ca" ? "anys" : language === "en" ? "years" : "años"}</p>
-                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
+                    <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
+                      <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">+15 AÑOS</p>
+                      <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Experiència Local" : language === "en" ? "Local Experience" : "Experiencia Local"}</p>
                     </div>
-                    <div className="bg-[#586174] border border-white/30 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-md">
-                      <p className="text-xl sm:text-2xl font-black text-white mb-0.5 font-sans tracking-tight">100%</p>
-                      <p className="text-xs sm:text-sm font-bold text-white leading-tight font-sans">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
+                    <div className="bg-[#111111] text-white p-3.5 border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#2860F5] text-center">
+                      <p className="text-xl sm:text-2xl font-data-mono font-black mb-1">100%</p>
+                      <p className="text-[12px] sm:text-[13px] font-headline font-bold text-slate-300 leading-tight uppercase">{language === "ca" ? "Col·legiats API" : language === "en" ? "Registered API" : "Colegiados API"}</p>
                     </div>
                   </div>
-                </Reveal>
-              </div>
+                </div>
 
-              <div className="w-full lg:w-1/2 h-[220px] sm:h-[260px] md:h-[320px] relative rounded-xl md:rounded-2xl overflow-hidden shadow-xl border border-[#0f172a]">
-                <Reveal delay={0.2} className="w-full h-full">
+                {/* Right Image (5 cols) */}
+                <div className="lg:col-span-5 h-[280px] sm:h-[340px] md:h-[400px] relative border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] overflow-hidden">
                   <img 
                     src={gesgramaOffice} 
-                    alt="Oficina principal Gesgrama en Santa Coloma" 
-                    className="absolute inset-0 w-full h-full object-cover object-center" 
+                    alt="Oficina principal Gesgrama" 
+                    className="w-full h-full object-cover" 
                   />
-                </Reveal>
+                </div>
+
               </div>
             </div>
           </div>
         </section>
 
         {/* ── 7. ARTÍCULOS Y NOTICIAS INFORMATIVAS (BLOG) ── */}
-        <section id="blog" className="pt-6 pb-8 sm:pb-12 md:pb-14 px-4 sm:px-6 md:px-8 bg-[#e2e8f0] text-slate-900">
-          <div className="max-w-[1320px] mx-auto">
-            <Reveal>
-              <div className="mb-6 text-center">
-                <span className="inline-flex items-center gap-1.5 bg-[#2563eb] text-white text-[11px] sm:text-xs font-black tracking-wider uppercase px-3.5 py-1 rounded-xl shadow-xs mb-2">
-                  <Calendar className="w-3.5 h-3.5 text-white" />
-                  <span>{t.noticias.tag}</span>
-                </span>
+        <section id="blog" className="py-14 sm:py-18 bg-[#FFFFFF] text-[#111111] border-b-2 border-[#111111]">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+            
+            {/* Cabecera Editorial */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b-2 border-[#111111]">
+              <div>
+                <div className="inline-flex items-center gap-2.5 bg-[#111111] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-[2px_2px_0px_#2860F5] mb-4">
+                  <span className="w-2 h-2 bg-[#2860F5]" />
+                  <span>{t.noticias.tag} · {data.name}</span>
+                </div>
                 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] mb-1.5 font-sans tracking-tight">
-                  {t.noticias.title1} <span className="text-[#2563eb]">{t.noticias.title2}</span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black text-[#111111] tracking-tight leading-tight">
+                  <>{t.noticias.title1} <span className="relative inline-block text-[#2860F5] whitespace-nowrap">{t.noticias.title2}<DrawnUnderline color="#2860F5" /></span></>
                 </h2>
-                
-                <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-snug font-sans mt-1">
+              </div>
+              
+              <div className="lg:max-w-md">
+                <p className="text-[17px] text-[#111111] font-bold leading-relaxed bg-[#FAF9FC] p-4 border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111]">
                   {t.noticias.subtitle}
                 </p>
               </div>
-            </Reveal>
+            </div>
 
             {(() => {
               const barrioArticleMap: Record<string, string> = {
@@ -1675,7 +1888,7 @@ function SantaColomaBarrioPage() {
                 "les-oliveres": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
                 "can-franquesa": "claves-administrar-comunidad-propietarios-riu-nord-riu-sud-oliveres-can-serra",
                 "singuerlin": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
-                "centre": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma",
+                "centre": "guia-alquilar-vender-piso-singuerlin-centre-santa-coloma"
               };
               const prioritizedSlug = barrioArticleMap[rawSlug];
               let list = articles;
@@ -1687,177 +1900,161 @@ function SantaColomaBarrioPage() {
               const displayList = list.slice(0, 4);
 
               return (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
-                  {displayList.map((art, i) => {
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 items-stretch">
+                  {displayList.map((art) => {
                     const artContent = (art as any)[language] || (art as any).es;
                     const title = artContent?.title || "";
                     const summary = artContent?.summary || "";
                     const date = artContent?.date || "";
                     return (
-                      <Reveal key={art.id} delay={i * 0.1}>
-                        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 flex flex-col h-full border-2 border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                          <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/8] overflow-hidden rounded-xl mb-3.5 bg-slate-100 cursor-pointer">
+                      <div 
+                        key={art.id} 
+                        className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] transition-all flex flex-col justify-between group cursor-pointer overflow-hidden"
+                      >
+                        <div>
+                          <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block relative aspect-[16/9] overflow-hidden bg-slate-100 border-b-2 border-[#111111] cursor-pointer">
                             <img
                               src={art.image}
                               alt={title}
                               loading="lazy"
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           </Link>
-                          <div className="flex flex-col flex-1">
-                            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold mb-2">
-                              <span className="text-slate-500 font-extrabold">{date}</span>
+                          <div className="p-5 sm:p-6">
+                            <div className="flex items-center gap-2 text-xs font-headline font-black text-slate-500 mb-2">
+                              <Calendar className="w-3.5 h-3.5 text-[#2860F5]" />
+                              <span>{date}</span>
                             </div>
-                            <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-black text-[#0f172a] text-base sm:text-lg leading-snug mb-2.5 group-hover:text-[#2563eb] transition-colors line-clamp-3 min-h-[4.2rem] sm:min-h-[4.8rem] font-sans cursor-pointer">
+                            <Link to="/noticias/$slug" params={{ slug: art.slug }} className="block font-headline font-black text-[17px] sm:text-[18px] text-[#111111] leading-snug mb-3 group-hover:text-[#2860F5] transition-colors line-clamp-2">
                               {title}
                             </Link>
-                            <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed mb-4 flex-1 line-clamp-3 min-h-[4.5rem]">
+                            <p className="text-[14px] text-slate-600 font-medium leading-relaxed line-clamp-3">
                               {summary}
                             </p>
-                            <div className="mt-auto pt-3 border-t border-slate-100">
-                              <Link
-                                to="/noticias/$slug"
-                                params={{ slug: art.slug }}
-                                className="inline-flex items-center gap-2 text-sm sm:text-base font-black text-[#2563eb] hover:text-[#1d4ed8] transition-all font-sans cursor-pointer"
-                              >
-                                <span>{t.noticias.seguirLeyendo}</span>
-                                <ArrowRight className="w-4 h-4 text-[#2563eb]" />
-                              </Link>
-                            </div>
                           </div>
                         </div>
-                      </Reveal>
+
+                        <div className="p-5 sm:p-6 pt-0 mt-auto">
+                          <div className="pt-3 border-t-2 border-[#111111] flex items-center justify-between">
+                            <Link
+                              to="/noticias/$slug"
+                              params={{ slug: art.slug }}
+                              className="inline-flex items-center gap-2 text-[13px] font-headline font-black uppercase tracking-wider text-[#2860F5] hover:text-[#111111] transition-colors"
+                            >
+                              <span>{t.noticias.seguirLeyendo}</span>
+                              <ArrowRight className="w-4 h-4 text-[#2860F5] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
               );
             })()}
 
-            <Reveal delay={0.3}>
-              <div className="text-center mt-6">
-                <Link
-                  to="/noticias"
-                  className="inline-flex items-center gap-2.5 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-4 rounded-full text-sm sm:text-base font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer font-sans"
-                >
-                  <span>{t.noticias.verTodasBtn}</span>
-                  <ArrowRight className="w-5 h-5 text-white" />
-                </Link>
-              </div>
-            </Reveal>
+            <div className="text-center mt-6">
+              <Link
+                to="/noticias"
+                className="h-[52px] px-8 bg-[#2860F5] hover:bg-[#174bcb] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <span>{t.noticias.verTodasBtn}</span>
+                <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+              </Link>
+            </div>
           </div>
         </section>
 
-        {/* ── 8. FAQS DEL BARRIO (FORMATO CANÓNICO OSCURO DE GESGRAMA) ── */}
-        <section id="faq" className="relative overflow-hidden bg-[#e2e8f0] text-slate-900 py-6 md:py-8 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-[#0b172a] rounded-[24px] md:rounded-[30px] shadow-xl border border-white/10 p-5 sm:p-7 md:p-8 mx-4 md:mx-auto max-w-[1320px] relative z-10 overflow-hidden text-white flex flex-col items-center">
-            <div className="max-w-2xl mx-auto flex flex-col items-center w-full">
-              <Reveal>
-                <div className="text-center mb-6 flex flex-col items-center">
-                  <span className="inline-flex items-center gap-2 bg-white text-[#0f172a] text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200 mb-3 font-sans">
-                    <HelpCircle className="w-3.5 h-3.5 text-[#2563eb] shrink-0" />
-                    <span>{t.faq.tag} · {data.name}</span>
-                  </span>
+        {/* ── 8. FAQS DEL BARRIO (FORMATO CANÓNICO DE GESGRAMA) ── */}
+        <section 
+          id="faq" 
+          className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111] scroll-mt-24"
+        >
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8">
+            
+            {/* Cabecera FAQ Sólida con Drawn Underline */}
+            <div className="text-center mb-12 max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-[13px] sm:text-[14px] font-headline font-black tracking-widest uppercase px-4 py-1.5 rounded-full border-2 border-[#111111] shadow-[2px_2px_0px_#111111] mb-4">
+                <HelpCircle className="w-4 h-4 text-white" />
+                <span>{t.faq.tag} · {data.name}</span>
+              </div>
 
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black leading-tight text-white tracking-tight font-sans mb-2">
-                    <span className="bg-[#2563eb] text-white px-3 py-1 rounded-xl inline-block shadow-md">
-                      {language === "ca" ? "Preguntes Freqüents" : language === "en" ? "Common Questions" : "Preguntas Frecuentes"}
-                    </span>{" "}
-                    {language === "ca" ? `a ${data.name}` : language === "en" ? `in ${data.name}` : `en ${data.name}`}
-                  </h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-black leading-tight text-[#111111] tracking-tight mb-4">
+                <span>{language === "ca" ? "Preguntes freqüents a " : language === "en" ? "Common questions in " : "Preguntas frecuentes en "}</span>
+                <span className="relative inline-block text-[#2860F5]">
+                  {data.name}
+                  <DrawnUnderline color="#2860F5" />
+                </span>
+              </h2>
 
-                  <p className="text-slate-200 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-bold leading-relaxed font-sans mt-1.5 text-center">
-                    {language === "ca"
-                      ? `Respostes clares dels nostres administradors col·legiats per a les comunitats de veïns a ${data.name}.`
-                      : language === "en"
-                      ? `Straightforward answers from our chartered property managers for buildings in ${data.name}.`
-                      : `Respuestas claras de nuestros administradores colegiados para las comunidades de propietarios en ${data.name}.`}
-                  </p>
-                </div>
-              </Reveal>
+              <p className="text-[#111111] text-[18px] sm:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
+                {language === "ca"
+                  ? `Respostes clares dels nostres administradors col·legiats per a les comunitats de veïns a ${data.name}.`
+                  : language === "en"
+                  ? `Straightforward answers from our chartered property managers for buildings in ${data.name}.`
+                  : `Respuestas claras de nuestros administradores colegiados para las comunidades de propietarios en ${data.name}.`}
+              </p>
+            </div>
 
-              <div className="w-full flex flex-col gap-3 mb-6">
-                {getNeighborhoodFaqs(data.slug, language, data.faqs).map((faq, idx) => {
-                  const isActive = activeFaq === idx;
-                  return (
-                    <Reveal key={idx} delay={idx * 0.08}>
-                      <div 
-                        onClick={() => setActiveFaq(isActive ? null : idx)}
-                        className={`cursor-pointer rounded-2xl p-4 sm:p-5 transition-all duration-300 group border ${
-                          isActive 
-                            ? 'bg-white shadow-lg border-blue-500/40 ring-1 ring-blue-500/20' 
-                            : 'bg-slate-100/95 hover:bg-white border-slate-200/90 hover:border-blue-400/50 shadow-xs'
-                        }`}
-                      >
-                        <div className="flex justify-between items-center gap-3.5">
-                          <div className="flex items-start sm:items-center gap-3 min-w-0">
-                            <span className={`w-7 h-7 rounded-lg text-xs font-black flex items-center justify-center shrink-0 transition-colors duration-200 font-sans ${
-                              isActive ? 'bg-[#2563eb] text-white shadow-xs' : 'bg-slate-200 text-slate-700 group-hover:bg-blue-100 group-hover:text-[#2563eb]'
-                            }`}>
-                              0{idx + 1}
-                            </span>
-                            <h3 className="font-black text-[#0f172a] text-sm sm:text-base md:text-lg font-sans leading-snug text-balance">
-                              {faq.question}
-                            </h3>
-                          </div>
-                          <motion.div 
-                            animate={{ rotate: isActive ? 45 : 0 }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 shadow-xs ${
-                              isActive ? 'bg-[#1d4ed8] text-white shadow-sm' : 'bg-[#2563eb] text-white hover:bg-[#1d4ed8]'
-                            }`}
-                          >
-                            <span className="text-xl font-black leading-none select-none">+</span>
-                          </motion.div>
-                        </div>
-                        <AnimatePresence initial={false}>
-                          {isActive && (
-                            <motion.div 
-                              key={`faq-barrio-${idx}`}
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.28, ease: "easeOut" }}
-                              className="overflow-hidden"
-                            >
-                              <p className="pt-3.5 text-slate-700 leading-relaxed font-semibold text-xs sm:text-sm md:text-[15px] border-t border-slate-200 mt-3.5 font-sans text-balance">
-                                {faq.answer}
-                              </p>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+            {/* Acordeón Rounded Neo-Brutalist: Tarjetas blancas redondeadas sobre fondo gris claro #FAF9FC */}
+            <div className="max-w-4xl mx-auto flex flex-col gap-4 mb-10">
+              {getNeighborhoodFaqs(data.slug, language, data.faqs).map((faq, idx) => {
+                const isActive = activeFaq === idx;
+                return (
+                  <div 
+                    key={idx}
+                    onClick={() => setActiveFaq(isActive ? null : idx)}
+                    className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] p-5 sm:p-6 transition-all cursor-pointer hover:shadow-[4px_4px_0px_#2860F5]"
+                  >
+                    <div className="flex justify-between items-center gap-4">
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <span className="w-8 h-8 rounded-xl bg-[#2860F5] text-white font-data-mono font-black text-sm flex items-center justify-center shrink-0 border border-[#111111]">
+                          0{idx + 1}
+                        </span>
+                        <h3 className="font-headline font-bold text-[17px] sm:text-[18px] text-[#111111] leading-snug">
+                          {faq.question}
+                        </h3>
                       </div>
-                    </Reveal>
-                  );
-                })}
-              </div>
+                      <div className={`w-8 h-8 rounded-xl border-2 border-[#111111] flex items-center justify-center shrink-0 transition-all ${
+                        isActive ? "bg-[#111111] text-white" : "bg-[#FAF9FC] text-[#111111]"
+                      }`}>
+                        <span className="text-xl font-bold leading-none select-none">{isActive ? "−" : "+"}</span>
+                      </div>
+                    </div>
+                    {isActive && (
+                      <div className="pt-4 mt-4 border-t-2 border-[#111111] text-[#111111] text-[15px] sm:text-[16px] leading-relaxed font-sans font-medium">
+                        {faq.answer}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
-              <div className="text-center">
-                <a 
-                  href="#formulario-contacto" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const formEl = document.getElementById("formulario-contacto");
-                    if (formEl) {
-                      formEl.scrollIntoView({ behavior: "smooth", block: "center" });
-                      const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
-                      if (inputEl) {
-                        setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
-                      }
-                    }
-                  }}
-                  className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 cursor-pointer font-sans"
-                >
-                  <span>{t.faq.askDoubt}</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </a>
-              </div>
+            <div className="text-center">
+              <a 
+                href="#formulario-contacto" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const formEl = document.getElementById("formulario-contacto");
+                  if (formEl) {
+                    formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+                    const inputEl = formEl.querySelector("input") as HTMLInputElement | null;
+                    if (inputEl) setTimeout(() => inputEl.focus({ preventScroll: true }), 400);
+                  }
+                }}
+                className="h-[52px] px-8 bg-[#111111] hover:bg-[#222222] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider inline-flex items-center justify-center gap-2 cursor-pointer transition-all"
+              >
+                <span>{t.faq.askDoubt}</span>
+                <ArrowRight className="w-4 h-4 text-white stroke-[2.5]" />
+              </a>
             </div>
           </div>
         </section>
 
         {/* ── 9. FORMULARIO DE CONTACTO CANÓNICO CON VALIDACIÓN ── */}
-        <section id="contacto" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-slate-900 scroll-mt-28 md:scroll-mt-32">
-          <div className="bg-white border-2 border-[#111111] neo-shadow-lg p-4 sm:p-7 md:p-9 mx-auto max-w-[1320px] relative z-10">
+        <section id="contacto" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] scroll-mt-28 md:scroll-mt-32 border-b-2 border-[#111111]">
+          <div className="bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-12 mx-auto max-w-[1360px] relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
               <div className="lg:col-span-5 flex flex-col justify-center">
                 <Reveal>
@@ -1918,7 +2115,7 @@ function SantaColomaBarrioPage() {
 
               <div className="lg:col-span-7">
                 <Reveal delay={0.1}>
-                  <div id="formulario-contacto" className="bg-white border-2 border-slate-300 p-5 sm:p-6 md:p-7 rounded-3xl shadow-sm scroll-mt-28 md:scroll-mt-32">
+                  <div id="formulario-contacto" className="bg-white border-2 border-[#111111] p-6 sm:p-8 rounded-[20px] shadow-[3px_3px_0px_#111111] scroll-mt-28 md:scroll-mt-32">
                     <h3 className="font-black text-xl sm:text-2xl text-[#0f172a] mb-4 tracking-tight font-sans">
                       {language === "ca" ? `Consulta per a ${data.name}` : language === "en" ? `Inquiry for ${data.name}` : `Consulta para ${data.name}`}
                     </h3>
@@ -2186,8 +2383,8 @@ function SantaColomaBarrioPage() {
         </section>
 
         {/* ── 10. BANNER FINAL CTA ('LISTO PARA DAR EL SIGUIENTE PASO') ── */}
-        <section id="final-cta" className="py-6 md:py-10 px-4 md:px-8 bg-[#e2e8f0] text-[#0f172a]">
-          <div className="bg-white border-2 border-[#111111] neo-shadow-lg p-5 sm:p-7 md:p-9 pb-5 md:pb-7 mx-auto max-w-[1320px] relative z-10 overflow-hidden">
+        <section id="final-cta" className="py-14 sm:py-20 bg-[#FAF9FC] text-[#111111] border-b-2 border-[#111111]">
+          <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-10 md:p-12 max-w-[1360px] mx-auto relative z-10 overflow-hidden">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8">
               <div className="w-full lg:w-7/12 text-left py-0 lg:py-1">
                 <Reveal>

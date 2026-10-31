@@ -6,6 +6,7 @@ import interiorLeftBg from "@/assets/interior_santacoloma_opt.webp";
 import { translations } from './data/translations';
 import { formatLocation } from './data/properties';
 import { MarqueeRibbon } from "@/components/MarqueeRibbon";
+import { GesgramaHeroMascotIcon } from "@/components/GesgramaHeroMascotIcon";
 
 interface HeroCarouselProps {
   onPerformSearch?: (p: { mode: string; zona: string; tipo: string; precio: string }) => void;
@@ -372,12 +373,13 @@ export default function HeroCarousel({
             {customSubtitle || L.subtitle}
           </p>
 
-          {/* Acción secundaria directa para Administración de Fincas */}
+          {/* Acción secundaria directa para Administración de Fincas con la Ilustración Oficial Gesgrama */}
           <div className="mb-2">
             <a
               href="/administrador-fincas"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-50 text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] hover:shadow-[1px_1px_0px_#2860F5] hover:translate-x-[1px] hover:translate-y-[1px] font-headline font-black text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer group"
+              className="inline-flex items-center gap-2.5 sm:gap-3 pl-3 pr-5 py-2 sm:py-2.5 bg-white hover:bg-slate-50 text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#2860F5] hover:shadow-[1px_1px_0px_#2860F5] hover:translate-x-[1px] hover:translate-y-[1px] font-headline font-black text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer group"
             >
+              <GesgramaHeroMascotIcon className="w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] shrink-0" />
               <span>{L.btnFincas}</span>
               <ArrowRight className="w-4 h-4 text-[#2860F5] group-hover:translate-x-1 transition-transform stroke-[2.5]" />
             </a>
@@ -386,7 +388,7 @@ export default function HeroCarousel({
 
         {/* ── 3. QUICK SEARCH CENTRADO NEO-BRUTALIST: RECTANGULAR, 2PX BORDER, HARD SHADOW ── */}
         <div
-          className="relative z-40 w-full max-w-[1240px] mx-auto mt-5 sm:mt-7 mb-6 sm:mb-12 md:mb-14"
+          className="relative z-40 w-full max-w-[1240px] mx-auto mt-4 sm:mt-6 mb-5 sm:mb-8 md:mb-10"
           onClick={(e) => e.stopPropagation()}
         >
           <div
@@ -607,24 +609,6 @@ export default function HeroCarousel({
         )}
 
         {/* ── 4. TRUST BAR: RECTANGULAR, 4 CAJAS NEO-BRUTALIST CON JETBRAINS MONO Y SPACE GROTESK ── */}
-        {/* ── BLOQUE DE IDENTIDAD CORPORATIVA: LOGOTIPO ORIGINAL GESGRAMA EN EL HERO ── */}
-        <div className="w-full max-w-[1140px] mx-auto flex justify-end mb-4 sm:mb-5">
-          <div className="inline-flex items-center gap-3.5 bg-[#2860F5] text-white border-2 border-[#111111] rounded-[16px] p-3 sm:p-3.5 shadow-[3px_3px_0px_#111111] transition-all">
-            <img
-              src="/images/logo-gesgrama-text-horizontal.webp"
-              alt="Gesgrama Oficial"
-              width={160}
-              height={40}
-              className="h-7 sm:h-8 w-auto object-contain brightness-0 invert"
-              loading="eager"
-            />
-            <div className="h-6 w-px bg-white/30 hidden sm:block" />
-            <span className="text-[11px] sm:text-[12px] font-headline font-bold text-white uppercase tracking-wider hidden sm:inline whitespace-nowrap">
-              INMOBILIARIA · ADMINISTRACIÓN DE FINCAS
-            </span>
-          </div>
-        </div>
-
         <div
           id="hero-trust-bar"
           className={`w-full max-w-[1140px] mx-auto bg-white border-2 border-[#111111] rounded-[22px] shadow-[4px_4px_0px_#111111] p-4 sm:p-5 mb-2 sm:mb-0 transition-all duration-200 ${

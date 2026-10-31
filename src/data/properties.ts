@@ -33,13 +33,25 @@ export interface Property {
 }
 
 export const SANTA_COLOMA_ZONES = [
-  "Santa Rosa - Can Mariner",
+  "Centre",
+  "Santa Rosa",
+  "Can Mariner",
   "Fondo",
-  "Riu",
-  "Centro",
+  "Singuerlín",
+  "Riera Alta",
+  "Llatí",
   "El Raval",
+  "Riu Nord",
+  "Riu Sud",
+  "Can Franquesa",
+  "Les Oliveres",
+  "La Guinardera",
+  "Cementiri Vell",
+  // Aliases históricos compatibles
+  "Santa Rosa - Can Mariner",
   "Riera Alta - Llatí",
-  "Singuerlín"
+  "Centro",
+  "Riu"
 ];
 
 export const ALL_LOCATIONS = [...SANTA_COLOMA_ZONES];

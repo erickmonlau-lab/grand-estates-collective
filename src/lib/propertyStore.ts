@@ -198,7 +198,7 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
   try {
     const supabase = await loadSupabase();
     if (supabase) {
-      const { error } = await supabase.from("properties").insert([{
+      const payload: Record<string, any> = {
         id: newProp.id,
         slug: newProp.slug,
         ref: newProp.ref,
@@ -207,7 +207,7 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
         name_en: newProp.name_en,
         type: newProp.type,
         location: newProp.location,
-        city: newProp.city,
+        city: newProp.city || "Santa Coloma de Gramenet",
         price: newProp.price,
         price_formatted: newProp.priceFormatted,
         specs: newProp.specs,
@@ -221,10 +221,13 @@ export async function createProperty(property: Omit<ExtendedProperty, "id" | "sl
         image: newProp.image,
         gallery: newProp.gallery,
         operation: newProp.operation,
-        status: newProp.status,
-        video_url: newProp.videoUrl || null
-      }]);
-      if (error) console.error("Error creating in Supabase:", error);
+        status: newProp.status
+      };
+      let { error } = await supabase.from("properties").insert([payload]);
+      if (error) {
+        console.error("Error creating in Supabase:", error);
+        throw new Error(error.message || "Error al guardar en Supabase");
+      }
     }
   } catch (err) {
     console.error("Supabase insert error:", err);
@@ -264,10 +267,11 @@ export async function updateProperty(id: string, updates: Partial<ExtendedProper
       if (updates.gallery !== undefined) dbUpdates.gallery = updates.gallery;
       if (updates.operation !== undefined) dbUpdates.operation = updates.operation;
       if (updates.status !== undefined) dbUpdates.status = updates.status;
-      if (updates.videoUrl !== undefined) dbUpdates.video_url = updates.videoUrl || null;
-
-      const { error } = await supabase.from("properties").update(dbUpdates).eq("id", id);
-      if (error) console.error("Error updating in Supabase:", error);
+      let { error } = await supabase.from("properties").update(dbUpdates).eq("id", id);
+      if (error) {
+        console.error("Error updating in Supabase:", error);
+        throw new Error(error.message || "Error al actualizar en Supabase");
+      }
     }
   } catch (err) {
     console.error("Supabase update error:", err);

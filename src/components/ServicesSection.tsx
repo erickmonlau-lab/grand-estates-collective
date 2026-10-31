@@ -18,7 +18,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
       title: isCa ? "Administració de Finques" : isEn ? "Property Management" : "Administración de Fincas",
       slug: "administracion-de-fincas",
       icon: Building2,
-      image: "/images/service-1.webp", // Edificio residencial moderno en Santa Coloma
+      image: "/images/art8_comunidad_propietarios.webp", // Edificio residencial plurifamiliar en Santa Coloma
       desc: isCa
         ? "Gestió integral de comunitats de veïns, transparència comptable permanent, mediació i reducció de despeses de subministraments."
         : isEn
@@ -34,7 +34,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
       title: isCa ? "Gestió Immobiliària" : isEn ? "Real Estate Agency" : "Gestión Inmobiliaria",
       slug: "gestion-inmobiliaria",
       icon: TrendingUp,
-      image: "/images/service-2.webp", // Interior residencial moderno
+      image: "/images/interior_santacoloma_opt.webp", // Interior residencial luminoso en Santa Coloma
       desc: isCa
         ? "Venda i lloguer segur a Santa Coloma. Valoració real de mercat, filtre estricte de solvència i assegurança d'impagament."
         : isEn
@@ -50,7 +50,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
       title: isCa ? "Assessoria Jurídica i Fiscal" : isEn ? "Legal & Tax Advisory" : "Asesoría Jurídica y Fiscal",
       slug: "asesoria-juridica-fiscal",
       icon: Scale,
-      image: "/images/service-3.webp", // Despacho profesional jurídico
+      image: "/images/art7_plusvalia_fiscal.webp", // Despacho y documentación jurídica y fiscal
       desc: isCa
         ? "Especialistes en dret immobiliari i successori a Santa Coloma: tramitació d'herències, liquidació mínima de Plusvàlua i desnonaments."
         : isEn
@@ -66,7 +66,7 @@ export function ServicesSection({ language, t, isNeighborhoodLanding = false }: 
       title: isCa ? "Obras, ITE y Mantenimiento" : isEn ? "Building Works & ITE" : "Obras, ITE y Mantenimiento",
       slug: "obras-mantenimiento",
       icon: Wrench,
-      image: "/images/service-4.webp", // Rehabilitación de fachadas y obras técnicas
+      image: "/images/art6_ite_rehabilitacion.webp", // Rehabilitación de fachadas e inspección técnica ITE
       desc: isCa
         ? "Rehabilitació d'edificis plurifamiliars, superació de la ITE obligatòria, baixada d'ascensors a cota zero i subvencions NextGen."
         : isEn

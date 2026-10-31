@@ -1821,7 +1821,7 @@ function ServicioSlugPage() {
           SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) — CONTENEDOR AMPLIO Y EQUILIBRADO
           ══════════════════════════════════════════════════════════════════════════ */}
       <section className="py-6 sm:py-8" itemScope itemType="https://schema.org/FAQPage">
-        <div className="max-w-[1100px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-9 md:p-12 relative z-10">
+        <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-9 md:p-12 relative z-10 w-full box-border">
           
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
             <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-xs font-headline font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#111111] rounded-lg shadow-[2px_2px_0px_#111111] mb-3">

@@ -1,7 +1,7 @@
 /**
  * Sistema Unificado de Zonas, Barrios y Municipios de Gesgrama
- * Permite seleccionar municipios principales y barrios preconfigurados,
- * o dar de alta zonas personalizadas sobre la marcha.
+ * Incluye los municipios autorizados del área de Barcelona y su corona metropolitana,
+ * además de soporte nativo para seleccionar "Otro municipio" e introducir cualquier municipio personalizado.
  */
 
 export interface MunicipalityConfig {
@@ -83,10 +83,94 @@ export const MUNICIPALITIES: Record<string, MunicipalityConfig> = {
       "Terra Nostra",
       "Mas Rampinyo"
     ]
+  },
+  "L'Hospitalet de Llobregat": {
+    name: "L'Hospitalet de Llobregat",
+    defaultZones: [
+      "Centre",
+      "Collblanc",
+      "Santa Eulàlia",
+      "Bellvitge",
+      "Pubilla Cases",
+      "La Florida"
+    ]
+  },
+  "Cornellà de Llobregat": {
+    name: "Cornellà de Llobregat",
+    defaultZones: [
+      "Centre",
+      "Almeda",
+      "Riera",
+      "Gavarra",
+      "Sant Ildefons"
+    ]
+  },
+  "Esplugues de Llobregat": {
+    name: "Esplugues de Llobregat",
+    defaultZones: [
+      "Centre",
+      "La Plana",
+      "Can Vidalet",
+      "Finestrelles",
+      "Ciutat Diagonal"
+    ]
+  },
+  "Sant Cugat del Vallès": {
+    name: "Sant Cugat del Vallès",
+    defaultZones: [
+      "Centre",
+      "Valldoreix",
+      "Mirassol",
+      "La Floresta",
+      "Volpelleres"
+    ]
+  },
+  "Sabadell": {
+    name: "Sabadell",
+    defaultZones: [
+      "Centre",
+      "Creu Alta",
+      "Gràcia",
+      "Can Rull",
+      "Ca n'Oriac"
+    ]
+  },
+  "Terrassa": {
+    name: "Terrassa",
+    defaultZones: [
+      "Centre",
+      "Ca n'Aurell",
+      "Sant Pere",
+      "Vallparadís",
+      "Can Roca"
+    ]
+  },
+  "Mataró": {
+    name: "Mataró",
+    defaultZones: [
+      "Centre",
+      "Havana",
+      "Pla d'en Boet",
+      "Cerdanyola",
+      "Cirera"
+    ]
   }
 };
 
 export const DEFAULT_MUNICIPALITY = "Santa Coloma de Gramenet";
+
+/**
+ * Obtiene la lista combinada de municipios autorizados y existentes en propiedades.
+ */
+export function getAllAvailableMunicipalities(existingPropertiesCities: string[] = []): string[] {
+  const set = new Set<string>(Object.keys(MUNICIPALITIES));
+  existingPropertiesCities.forEach((c) => {
+    if (c && typeof c === "string" && c.trim()) {
+      set.add(c.trim());
+    }
+  });
+  return Array.from(set);
+}
 
 /**
  * Obtiene la lista combinada de zonas sugeridas para un municipio,

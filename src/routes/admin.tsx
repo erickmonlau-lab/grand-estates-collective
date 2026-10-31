@@ -64,7 +64,7 @@ import {
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { type PropertyType } from "@/data/properties";
 import { autoTranslateText } from "@/lib/translateProperty";
-import { MUNICIPALITIES, DEFAULT_MUNICIPALITY, getAvailableZonesForMunicipality } from "@/data/municipalities";
+import { MUNICIPALITIES, DEFAULT_MUNICIPALITY, getAvailableZonesForMunicipality, getAllAvailableMunicipalities } from "@/data/municipalities";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -203,6 +203,8 @@ function AdminDashboard() {
   // Location Autocomplete / Custom input state
   const [locationInput, setLocationInput] = useState("");
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
+  const [isCustomCity, setIsCustomCity] = useState(false);
+  const [customCityInput, setCustomCityInput] = useState("");
 
   const [newFeatureInput, setNewFeatureInput] = useState("");
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -309,6 +311,8 @@ function AdminDashboard() {
       garageSpaces: 0
     });
     setLocationInput("Centre");
+    setIsCustomCity(false);
+    setCustomCityInput("");
     setActiveModalTab("basicos");
     setNewFeatureInput("");
     setShowTranslations(false);
@@ -356,6 +360,10 @@ function AdminDashboard() {
       garageSpaces: p.garageSpaces || 0
     });
     setLocationInput(loc);
+    const existingCities = getAllAvailableMunicipalities(properties.map((item) => item.city).filter(Boolean) as string[]);
+    const isPredefined = existingCities.includes(p.city || DEFAULT_MUNICIPALITY);
+    setIsCustomCity(!isPredefined);
+    setCustomCityInput(!isPredefined ? (p.city || "") : "");
     setActiveModalTab("basicos");
     setNewFeatureInput("");
     setShowTranslations(Boolean(p.name_ca || p.description_ca));
@@ -542,6 +550,10 @@ function AdminDashboard() {
       const finalDescCa = formData.description_ca.trim() || autoTranslateText(formData.description, "ca");
       const finalDescEn = formData.description_en.trim() || autoTranslateText(formData.description, "en");
 
+      const finalCity = (isCustomCity && customCityInput.trim())
+        ? customCityInput.trim()
+        : (formData.city || DEFAULT_MUNICIPALITY);
+
       const propertyData = {
         name: finalName,
         name_ca: finalNameCa,
@@ -550,7 +562,7 @@ function AdminDashboard() {
         slug: formData.slug.trim() || undefined,
         type: formData.type,
         location: finalLocation,
-        city: formData.city || DEFAULT_MUNICIPALITY,
+        city: finalCity,
         price: Number(formData.price),
         priceFormatted: formattedPrice,
         specs: specsString,
@@ -1130,10 +1142,10 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        {/* Botón Editar */}
-                        <div className="shrink-0 inline-flex items-center gap-1.5 bg-[#2860F5] group-hover:bg-[#111111] text-white text-[12px] font-headline font-bold uppercase tracking-wider px-3.5 py-2 rounded-xl transition-all shadow-[2px_2px_0px_#111111] border border-[#111111]">
-                          <span>Editar</span>
+                        {/* Botón Editar estilo píldora azul vibrante Gesgrama */}
+                        <div className="shrink-0 inline-flex items-center gap-2 bg-[#2860F5] hover:bg-[#111111] text-white text-[12px] font-headline font-black uppercase tracking-wider px-4 py-2 rounded-full transition-all duration-200 shadow-[2px_2px_0px_#111111] hover:shadow-[3px_3px_0px_#2860F5] border-2 border-[#111111] group-hover:scale-105">
                           <Edit className="w-3.5 h-3.5 stroke-[2.5]" />
+                          <span>Editar</span>
                         </div>
                       </div>
 
@@ -1252,79 +1264,79 @@ function AdminDashboard() {
               </button>
             </div>
 
-            {/* Pestañas del Modal (5 Pestañas Especializadas) */}
-            <div className="bg-[#FAF9FC] border-b-2 border-[#111111] px-4 sm:px-6 pt-3 flex items-center gap-2 overflow-x-auto shrink-0">
+            {/* Pestañas del Modal (5 Pestañas Especializadas sin scroll horizontal) */}
+            <div className="bg-[#FAF9FC] border-b-2 border-[#111111] px-2 sm:px-4 pt-2.5 grid grid-cols-5 gap-1 sm:gap-2 shrink-0">
               <button
                 type="button"
                 onClick={() => setActiveModalTab("basicos")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs sm:text-sm font-headline font-bold uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer whitespace-nowrap ${
+                className={`flex items-center justify-center gap-1.5 px-1.5 sm:px-3 py-2 sm:py-2.5 rounded-t-xl text-[11px] sm:text-xs font-headline font-black uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer text-center ${
                   activeModalTab === "basicos"
-                    ? "bg-white text-[#2860F5] border-[#111111] shadow-xs -mb-[2px] pb-[12px]"
-                    : "text-slate-600 hover:text-[#111111] border-transparent hover:bg-slate-200"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_0px_0px_#111111] -mb-[2px] pb-[10px]"
+                    : "bg-white text-slate-700 hover:text-[#2860F5] border-[#111111]/30 hover:border-[#111111]"
                 }`}
               >
-                <FileText className="w-4 h-4 stroke-[2.5]" />
-                <span>1. Datos Principales</span>
+                <FileText className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "basicos" ? "text-white" : "text-[#2860F5]"}`} />
+                <span className="truncate">1. Datos</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveModalTab("adaptativo")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs sm:text-sm font-headline font-bold uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer whitespace-nowrap ${
+                className={`flex items-center justify-center gap-1.5 px-1.5 sm:px-3 py-2 sm:py-2.5 rounded-t-xl text-[11px] sm:text-xs font-headline font-black uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer text-center ${
                   activeModalTab === "adaptativo"
-                    ? "bg-white text-[#2860F5] border-[#111111] shadow-xs -mb-[2px] pb-[12px]"
-                    : "text-slate-600 hover:text-[#111111] border-transparent hover:bg-slate-200"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_0px_0px_#111111] -mb-[2px] pb-[10px]"
+                    : "bg-white text-slate-700 hover:text-[#2860F5] border-[#111111]/30 hover:border-[#111111]"
                 }`}
               >
                 {formData.type === "Local comercial" ? (
-                  <Store className="w-4 h-4 stroke-[2.5]" />
+                  <Store className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "adaptativo" ? "text-white" : "text-[#2860F5]"}`} />
                 ) : formData.type === "Oficina" ? (
-                  <Briefcase className="w-4 h-4 stroke-[2.5]" />
+                  <Briefcase className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "adaptativo" ? "text-white" : "text-[#2860F5]"}`} />
                 ) : formData.type === "Garaje" ? (
-                  <Car className="w-4 h-4 stroke-[2.5]" />
+                  <Car className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "adaptativo" ? "text-white" : "text-[#2860F5]"}`} />
                 ) : (
-                  <Home className="w-4 h-4 stroke-[2.5]" />
+                  <Home className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "adaptativo" ? "text-white" : "text-[#2860F5]"}`} />
                 )}
-                <span>2. Ficha Técnica ({formData.type})</span>
+                <span className="truncate">2. Ficha ({formData.type.split(" ")[0]})</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveModalTab("multimedia")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs sm:text-sm font-headline font-bold uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer whitespace-nowrap ${
+                className={`flex items-center justify-center gap-1.5 px-1.5 sm:px-3 py-2 sm:py-2.5 rounded-t-xl text-[11px] sm:text-xs font-headline font-black uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer text-center ${
                   activeModalTab === "multimedia"
-                    ? "bg-white text-[#2860F5] border-[#111111] shadow-xs -mb-[2px] pb-[12px]"
-                    : "text-slate-600 hover:text-[#111111] border-transparent hover:bg-slate-200"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_0px_0px_#111111] -mb-[2px] pb-[10px]"
+                    : "bg-white text-slate-700 hover:text-[#2860F5] border-[#111111]/30 hover:border-[#111111]"
                 }`}
               >
-                <Film className="w-4 h-4 stroke-[2.5]" />
-                <span>3. Multimedia ({formData.gallery.length + (formData.image ? 1 : 0)})</span>
+                <Film className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "multimedia" ? "text-white" : "text-[#2860F5]"}`} />
+                <span className="truncate">3. Fotos ({formData.gallery.length + (formData.image ? 1 : 0)})</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveModalTab("descripcion")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs sm:text-sm font-headline font-bold uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer whitespace-nowrap ${
+                className={`flex items-center justify-center gap-1.5 px-1.5 sm:px-3 py-2 sm:py-2.5 rounded-t-xl text-[11px] sm:text-xs font-headline font-black uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer text-center ${
                   activeModalTab === "descripcion"
-                    ? "bg-white text-[#2860F5] border-[#111111] shadow-xs -mb-[2px] pb-[12px]"
-                    : "text-slate-600 hover:text-[#111111] border-transparent hover:bg-slate-200"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_0px_0px_#111111] -mb-[2px] pb-[10px]"
+                    : "bg-white text-slate-700 hover:text-[#2860F5] border-[#111111]/30 hover:border-[#111111]"
                 }`}
               >
-                <Languages className="w-4 h-4 stroke-[2.5]" />
-                <span>4. Textos y Traducciones</span>
+                <Languages className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "descripcion" ? "text-white" : "text-[#2860F5]"}`} />
+                <span className="truncate">4. Textos</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveModalTab("seo")}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl text-xs sm:text-sm font-headline font-bold uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer whitespace-nowrap ${
+                className={`flex items-center justify-center gap-1.5 px-1.5 sm:px-3 py-2 sm:py-2.5 rounded-t-xl text-[11px] sm:text-xs font-headline font-black uppercase tracking-wider transition-all border-t-2 border-x-2 cursor-pointer text-center ${
                   activeModalTab === "seo"
-                    ? "bg-white text-[#2860F5] border-[#111111] shadow-xs -mb-[2px] pb-[12px]"
-                    : "text-slate-600 hover:text-[#111111] border-transparent hover:bg-slate-200"
+                    ? "bg-[#2860F5] text-white border-[#111111] shadow-[2px_0px_0px_#111111] -mb-[2px] pb-[10px]"
+                    : "bg-white text-slate-700 hover:text-[#2860F5] border-[#111111]/30 hover:border-[#111111]"
                 }`}
               >
-                <Globe className="w-4 h-4 stroke-[2.5]" />
-                <span>5. SEO y Enlace</span>
+                <Globe className={`w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] shrink-0 ${activeModalTab === "seo" ? "text-white" : "text-[#2860F5]"}`} />
+                <span className="truncate">5. SEO</span>
               </button>
             </div>
 
@@ -1466,30 +1478,73 @@ function AdminDashboard() {
                     
                     {/* Campo 1: MUNICIPIO */}
                     <div>
-                      <label className="block text-xs font-headline font-black uppercase text-[#111111] mb-1.5 tracking-wider">
-                        Municipio *
+                      <label className="block text-xs font-headline font-black uppercase text-[#111111] mb-1.5 tracking-wider flex items-center justify-between">
+                        <span>Municipio *</span>
+                        {isCustomCity && (
+                          <span className="text-[10px] text-[#2860F5] font-black uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-[#2860F5]">
+                            Personalizado
+                          </span>
+                        )}
                       </label>
                       <div className="relative">
                         <select
-                          value={formData.city}
+                          value={isCustomCity ? "__custom__" : formData.city}
                           onChange={(e) => {
-                            const newCity = e.target.value;
-                            setFormData((prev) => ({
-                              ...prev,
-                              city: newCity
-                            }));
+                            const val = e.target.value;
+                            if (val === "__custom__") {
+                              setIsCustomCity(true);
+                              setFormData((prev) => ({ ...prev, city: customCityInput || "" }));
+                            } else {
+                              setIsCustomCity(false);
+                              setFormData((prev) => ({ ...prev, city: val }));
+                            }
                             setHasUnsavedChanges(true);
                           }}
                           className="appearance-none w-full bg-white border-2 border-[#111111] rounded-xl pl-3.5 pr-9 py-3 text-sm font-bold text-[#111111] outline-none cursor-pointer focus:border-[#2860F5] shadow-[2px_2px_0px_#111111]"
                         >
-                          {Object.keys(MUNICIPALITIES).map((mKey) => (
-                            <option key={mKey} value={mKey}>{mKey}</option>
-                          ))}
+                          <optgroup label="Área Metropolitana y Cobertura Gesgrama">
+                            {getAllAvailableMunicipalities(properties.map((p) => p.city).filter(Boolean) as string[])
+                              .filter((m) => m in MUNICIPALITIES)
+                              .map((mKey) => (
+                                <option key={mKey} value={mKey}>{mKey}</option>
+                              ))}
+                          </optgroup>
+                          {getAllAvailableMunicipalities(properties.map((p) => p.city).filter(Boolean) as string[])
+                            .filter((m) => !(m in MUNICIPALITIES)).length > 0 && (
+                            <optgroup label="Otros municipios añadidos">
+                              {getAllAvailableMunicipalities(properties.map((p) => p.city).filter(Boolean) as string[])
+                                .filter((m) => !(m in MUNICIPALITIES))
+                                .map((mKey) => (
+                                  <option key={mKey} value={mKey}>{mKey}</option>
+                                ))}
+                            </optgroup>
+                          )}
+                          <option value="__custom__">➕ Otro municipio (escribir nombre)...</option>
                         </select>
                         <ChevronDown className="w-4 h-4 text-[#111111] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2.5]" />
                       </div>
+
+                      {/* Input adicional si se elige "Otro municipio" */}
+                      {isCustomCity && (
+                        <div className="mt-2 animate-in fade-in">
+                          <input
+                            type="text"
+                            required
+                            value={customCityInput}
+                            onChange={(e) => {
+                              setCustomCityInput(e.target.value);
+                              setFormData((prev) => ({ ...prev, city: e.target.value }));
+                              setHasUnsavedChanges(true);
+                            }}
+                            placeholder="Introduce el nombre del municipio (ej: Sitges, Girona...)"
+                            className="w-full bg-white border-2 border-[#2860F5] rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#111111] focus:ring-2 focus:ring-[#2860F5]/30 outline-none shadow-[2px_2px_0px_#111111]"
+                            autoFocus
+                          />
+                        </div>
+                      )}
+
                       <span className="text-[11px] font-sans font-medium text-slate-500 mt-1 block">
-                        Cobertura Gesgrama: Santa Coloma, Barcelona, Badalona, etc.
+                        Cobertura integral Gesgrama + opción de añadir cualquier municipio libremente.
                       </span>
                     </div>
 

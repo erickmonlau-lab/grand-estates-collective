@@ -758,7 +758,7 @@ function PropertyDetail() {
                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${property?.name ? `${property.name} — ` : ''}${typeof window !== "undefined" ? window.location.href : `${SITE_DOMAIN}/inmobiliaria/${slug}`}`)}`}
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] px-3 py-1.5 rounded-full transition-all shadow-xs hover:scale-102 cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-[#15803D] hover:bg-[#166534] px-3 py-1.5 rounded-full transition-all shadow-xs hover:scale-102 cursor-pointer"
                 title="Compartir por WhatsApp"
               >
                 <WhatsAppIcon className="w-3.5 h-3.5 fill-white shrink-0" />
@@ -960,7 +960,7 @@ function PropertyDetail() {
                     <Maximize className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.surface}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white tracking-normal block leading-tight truncate">{t.detail.surface}</span>
                     <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.surface} m²</span>
                   </div>
                 </div>
@@ -971,7 +971,7 @@ function PropertyDetail() {
                     <Bed className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bedrooms}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white tracking-normal block leading-tight truncate">{t.detail.bedrooms}</span>
                     <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bedrooms} {t.detail.roomShort}</span>
                   </div>
                 </div>
@@ -982,7 +982,7 @@ function PropertyDetail() {
                     <Bath className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.bathrooms}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white tracking-normal block leading-tight truncate">{t.detail.bathrooms}</span>
                     <span className="text-base sm:text-lg font-black text-white whitespace-nowrap block leading-tight mt-0.5">{property.bathrooms} {property.bathrooms === 1 ? t.detail.bathShortSingular : t.detail.bathShortPlural}</span>
                   </div>
                 </div>
@@ -993,7 +993,7 @@ function PropertyDetail() {
                     <Building2 className="w-4.5 h-4.5 stroke-[2.5]" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white/90 tracking-normal block leading-tight truncate">{t.detail.floor}</span>
+                    <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-white tracking-normal block leading-tight truncate">{t.detail.floor}</span>
                     <span className="text-base sm:text-lg font-black text-white whitespace-nowrap truncate block leading-tight mt-0.5">{pData.floor || pData.type}</span>
                   </div>
                 </div>
@@ -1200,7 +1200,7 @@ function PropertyDetail() {
                     href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="w-full flex items-center justify-center gap-2.5 bg-[#22c55e] hover:bg-[#16a34a] text-white py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99] text-center"
+                    className="w-full flex items-center justify-center gap-2.5 bg-[#15803D] hover:bg-[#166534] text-white py-3.5 sm:py-4 px-3 sm:px-4 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] active:scale-[0.99] text-center"
                   >
                     <WhatsAppIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 fill-white shrink-0" />
                     <span>{t.detail.whatsappBtn}</span>
@@ -1458,7 +1458,7 @@ function PropertyDetail() {
                 <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white group-hover:text-blue-100 transition-colors leading-snug">
                   {t.detail.advisorCardTitle}
                 </p>
-                <p className="text-xs sm:text-sm text-blue-100 font-bold mt-0.5">{t.detail.advisorCardSubtitle}</p>
+                <p className="text-xs sm:text-sm text-white font-bold mt-0.5">{t.detail.advisorCardSubtitle}</p>
               </div>
             </a>
           </div>
@@ -1657,7 +1657,7 @@ function PropertyDetail() {
           href={`https://wa.me/34601259424?text=${encodeURIComponent(`Hola Gesgrama, estoy interesado en el inmueble ${pData.name} (Ref: ${property.ref || property.id}) y me gustaría recibir más información o agendar una visita.`)}`}
           target="_blank" 
           rel="noopener noreferrer" 
-          className="flex-[1.4] flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#16a34a] text-white py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md active:scale-98"
+          className="flex-[1.4] flex items-center justify-center gap-2 bg-[#15803D] hover:bg-[#166534] text-white py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md active:scale-98"
         >
           <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
           <span>WhatsApp</span>

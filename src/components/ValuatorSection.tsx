@@ -567,7 +567,7 @@ export default function ValuatorSection({
                   <span className="text-[11px] sm:text-[14px] font-headline font-black text-slate-700 uppercase tracking-wider block truncate">
                     {isCa ? "VARIACIÓ" : "VARIACIÓN"}
                   </span>
-                  <span className="text-[16px] sm:text-[22px] font-data-mono font-black text-[#16A34A] mt-0.5 block">
+                  <span className="text-[16px] sm:text-[22px] font-data-mono font-black text-[#15803D] mt-0.5 block">
                     {result.variation}
                   </span>
                 </div>

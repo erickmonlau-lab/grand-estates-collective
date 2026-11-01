@@ -72,7 +72,7 @@ export default function ServiceModal({
           </div>
 
           {currentItem?.tagline && (
-            <p className="text-blue-100 text-xs sm:text-[13px] font-normal mt-2 font-sans leading-snug">
+            <p className="text-white text-xs sm:text-[13px] font-normal mt-2 font-sans leading-snug">
               {currentItem.tagline}
             </p>
           )}

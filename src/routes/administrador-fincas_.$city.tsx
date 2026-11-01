@@ -1479,7 +1479,7 @@ function SantaColomaBarrioPage() {
                           <strong className={`font-headline font-black text-[15px] sm:text-[16px] truncate ${isFeatured ? "text-white" : "text-[#111111]"}`}>
                             {item.author}
                           </strong>
-                          <span className={`text-[12px] font-data-mono font-bold ${isFeatured ? "text-blue-100" : "text-slate-500"}`}>
+                          <span className={`text-[12px] font-data-mono font-bold ${isFeatured ? "text-white" : "text-slate-500"}`}>
                             {item.time}
                           </span>
                         </div>
@@ -1811,7 +1811,7 @@ function SantaColomaBarrioPage() {
                       href="https://wa.me/34601259424" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-[56px] px-6 bg-[#25D366] hover:bg-[#20ba5a] text-white border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
+                      className="h-[56px] px-6 bg-[#25D366] hover:bg-[#20ba5a] text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[15px] uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all"
                     >
                       <svg width="18" height="18" viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-white shrink-0">
                         <path d="M12.031 0C5.385 0 0 5.385 0 12.031c0 2.124.553 4.197 1.604 6.015L.057 24l6.11-1.603a11.977 11.977 0 005.864 1.534h.005c6.646 0 12.031-5.385 12.031-12.031C24.062 5.385 18.677 0 12.031 0zm.005 22.028H12.03a9.98 9.98 0 01-5.088-1.39l-.365-.217-3.782.992 1.009-3.687-.238-.379a9.957 9.957 0 01-1.528-5.316c0-5.534 4.502-10.036 10.039-10.036 2.68 0 5.199 1.044 7.093 2.939s2.937 4.414 2.937 7.094c0 5.535-4.502 10.036-10.038 10.036zm5.503-7.518c-.302-.151-1.787-.882-2.064-.983-.277-.101-.478-.151-.68.151-.201.302-.781.983-.957 1.184-.176.201-.352.226-.654.075-.302-.151-1.277-.47-2.432-1.5-.899-.801-1.506-1.792-1.682-2.093-.176-.302-.019-.465.132-.615.136-.135.302-.352.453-.528.151-.176.201-.302.302-.503.101-.201.05-.377-.025-.528-.075-.151-.68-1.636-.931-2.24-.244-.588-.492-.508-.68-.517-.176-.008-.377-.009-.578-.009s-.528.075-.805.377c-.277.302-1.057 1.032-1.057 2.516s1.082 2.918 1.233 3.119c.151.201 2.129 3.252 5.159 4.56.719.31 1.28.496 1.718.636.722.23 1.379.197 1.9.12.581-.087 1.787-.73 2.039-1.434.252-.704.252-1.308.176-1.434-.075-.126-.276-.201-.578-.352z" />
@@ -2512,7 +2512,7 @@ function SantaColomaBarrioPage() {
                 </div>
               </div>
 
-              <p className="text-blue-100 text-xs sm:text-sm font-semibold mt-3 font-sans leading-snug relative z-10">
+              <p className="text-white text-xs sm:text-sm font-semibold mt-3 font-sans leading-snug relative z-10">
                 {t.serviceModal.items[selectedServiceIndex]?.tagline}
               </p>
             </div>

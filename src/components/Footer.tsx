@@ -133,7 +133,7 @@ export function Footer({ language = "es" }: FooterProps) {
                     <p className="text-sm sm:text-base font-extrabold text-white leading-tight">
                       Av. dels Banús, 49
                     </p>
-                    <p className="text-xs sm:text-sm text-blue-100 font-bold">
+                    <p className="text-xs sm:text-sm text-white font-bold">
                       08923 Santa Coloma de Gramenet, Barcelona
                     </p>
                   </div>
@@ -161,7 +161,7 @@ export function Footer({ language = "es" }: FooterProps) {
                   <div className="w-9 h-9 rounded-xl bg-white border-2 border-[#111111] flex items-center justify-center shrink-0 mt-0.5 text-[#2860F5] shadow-[2px_2px_0px_#111111]">
                     <Clock className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
                   </div>
-                  <p className="text-xs sm:text-sm text-blue-100 font-bold leading-snug">
+                  <p className="text-xs sm:text-sm text-white font-bold leading-snug">
                     {isCa ? "Dilluns a Divendres: 9:30 - 13:30 i 16:30 - 19:30" : "Lunes a Viernes: 9:30 - 13:30 y 16:30 - 19:30"}
                   </p>
                 </div>

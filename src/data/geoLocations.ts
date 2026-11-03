@@ -61,7 +61,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       },
       {
         question: "¿Cuál es el tiempo de respuesta ante una avería en el Centre?",
-        answer: "Nuestra oficina está a escasos minutos: ante una fuga de agua, corte de luz o bloqueo de ascensor, un operario o técnico de Gesgrama se persona en menos de 10-15 minutos."
+        answer: "Nuestra oficina está a escasos minutos: ante una fuga de agua, corte de luz o bloqueo de ascensor, un operario o técnico de Gesgrama acude con la máxima celeridad para coordinar la solución in situ."
       },
       {
         question: "¿Cómo tramitáis las subvenciones de rehabilitación de fachadas en fincas clásicas del Centre?",
@@ -131,9 +131,9 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       "Optimización de tarifas de luz comunitaria y seguro de incendios"
     ],
     metaTitle: "Administrador de Fincas en Can Mariner (Santa Coloma) · Gesgrama",
-    metaDescription: "Gestión de fincas en Can Mariner, Santa Coloma de Gramenet. Auditoría de costes comunitarios, resolución de incidencias en minutos y cercanía total.",
+    metaDescription: "Gestión de fincas en Can Mariner, Santa Coloma de Gramenet. Auditoría de costes comunitarios, resolución ágil de incidencias y cercanía total.",
     heroHeadline: "Administrador de Fincas en Can Mariner (Santa Coloma)",
-    heroSubtitle: "Servicio ultra-cercano y presencial para las comunidades de Can Mariner. Control riguroso de cada euro de la comunidad y respuesta técnica en menos de 10 minutos.",
+    heroSubtitle: "Servicio ultra-cercano y presencial para las comunidades de Can Mariner. Control riguroso de cada euro de la comunidad y respuesta técnica ágil y directa.",
     geo: { latitude: 41.4472, longitude: 2.2114 },
     emergencyResponseMinutes: 8,
     testimonial: {
@@ -178,7 +178,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
     metaTitle: "Administrador de Fincas en Fondo (Santa Coloma) · Gesgrama",
     metaDescription: "Administración de comunidades en Fondo, Santa Coloma de Gramenet. Cobro de morosidad, resolución urgente de averías y mediación vecinal eficaz.",
     heroHeadline: "Administración de Fincas y Comunidades en el Fondo (Santa Coloma)",
-    heroSubtitle: "Especialistas en la gestión de comunidades complejas en el barrio de Fondo. Cobro riguroso de cuotas, control de accesos al portal y resolución de averías en menos de 20 minutos.",
+    heroSubtitle: "Especialistas en la gestión de comunidades complejas en el barrio de Fondo. Cobro riguroso de cuotas, control de accesos al portal y resolución presencial de averías.",
     geo: { latitude: 41.4485, longitude: 2.2185 },
     emergencyResponseMinutes: 12,
     testimonial: {
@@ -265,7 +265,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       "Aislamiento térmico y subvenciones NextGen"
     ],
     metaTitle: "Administrador de Fincas en Riera Alta (Santa Coloma) · Gesgrama",
-    metaDescription: "Administración de fincas en Riera Alta, Santa Coloma de Gramenet. Transparencia en cuentas, control de proveedores y atención de urgencias en 15 min.",
+    metaDescription: "Administración de fincas en Riera Alta, Santa Coloma de Gramenet. Transparencia en cuentas, control de proveedores y atención ágil de incidencias.",
     heroHeadline: "Administrador de Fincas en Riera Alta (Santa Coloma)",
     heroSubtitle: "Atención directa y cercana en el barrio de Riera Alta. Auditoría gratuita de gastos comunitarios, respuesta inmediata a siniestros de agua y total transparencia bancaria.",
     geo: { latitude: 41.4542, longitude: 2.2045 },
@@ -573,7 +573,7 @@ export const SANTA_COLOMA_BARRIOS: Record<string, NeighborhoodDetail> = {
       "Control de gastos ordinarios y fondo de reserva"
     ],
     metaTitle: "Administrador de Fincas en La Guinardera (Santa Coloma) · Gesgrama",
-    metaDescription: "Administración de comunidades en La Guinardera, Santa Coloma de Gramenet. Cuentas claras, mantenimiento ágil y atención de averías en 15 min.",
+    metaDescription: "Administración de comunidades en La Guinardera, Santa Coloma de Gramenet. Cuentas claras, mantenimiento ágil y atención profesional de averías.",
     heroHeadline: "Administración de Comunidades en La Guinardera (Santa Coloma)",
     heroSubtitle: "Gestión clara, eficiente y cercana para las fincas de La Guinardera. Mantenimiento preventivo, optimización de cuotas y asesoramiento jurídico inmobiliario.",
     geo: { latitude: 41.4598, longitude: 2.2041 },

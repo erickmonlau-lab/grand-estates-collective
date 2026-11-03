@@ -12,27 +12,27 @@ const RIBBON_ITEMS = {
     { text: "REGISTRE D'AGENTS IMMOBILIARIS (AICAT Nº 5583)", icon: ShieldCheck },
     { text: "+300 COMUNIDADES DE PROPIETARIOS ACTIVAS", icon: Building2 },
     { text: "98% DE SATISFACCIÓN Y FIDELIDAD DE VECINOS", icon: ThumbsUp },
-    { text: "ATENCIÓN URGENTE EN ~15 MINUTOS", icon: Clock },
+    { text: "ATENCIÓN ÁGIL Y DIRECTA ANTE INCIDENCIAS", icon: Clock },
     { text: "AUDITORÍA CONTABLE Y CONTROL DE GASTOS GRATUITO", icon: FileCheck },
-    { text: "+15 AÑOS DE EXPERIENCIA EN SANTA COLOMA Y BARCELONA", icon: Award }
+    { text: "+15 AÑOS DE EXPERIENCIA EN SANTA COLOMA DE GRAMENET Y ÁREA METROPOLITANA", icon: Award }
   ],
   ca: [
     { text: "COL·LEGI D'ADMINISTRADORS DE FINQUES (CAFBL)", icon: Award },
     { text: "REGISTRE D'AGENTS IMMOBILIARIS (AICAT Nº 5583)", icon: ShieldCheck },
     { text: "+300 COMUNITATS DE PROPIETARIS ACTIVES", icon: Building2 },
     { text: "98% DE SATISFACCIÓ I FIDELITAT DE VEÏNS", icon: ThumbsUp },
-    { text: "ATENCIÓ URGENTE EN ~15 MINUTS", icon: Clock },
+    { text: "ATENCIÓ ÀGIL I DIRECTA DAVANT D'INCIDÈNCIES", icon: Clock },
     { text: "AUDITORIA COMPTABLE I CONTROL DE DESPESES GRATUÏT", icon: FileCheck },
-    { text: "+15 ANYS D'EXPERIÈNCIA A SANTA COLOMA I BARCELONA", icon: Award }
+    { text: "+15 ANYS D'EXPERIÈNCIA A SANTA COLOMA DE GRAMENET I ÀREA METROPOLITANA", icon: Award }
   ],
   en: [
     { text: "CHARTERED PROPERTY MANAGERS ASSOCIATION (CAFBL)", icon: Award },
     { text: "OFFICIAL CATALONIA REAL ESTATE REGISTER (AICAT 5583)", icon: ShieldCheck },
     { text: "+300 ACTIVE MANAGED COMMUNITIES", icon: Building2 },
     { text: "98% SATISFACTION & CLIENT RETENTION RATE", icon: ThumbsUp },
-    { text: "EMERGENCY CALLOUT IN ~15 MINUTES", icon: Clock },
+    { text: "PROMPT & DIRECT INCIDENT RESPONSE", icon: Clock },
     { text: "FREE ACCOUNTING AUDIT & EXPENSE OPTIMIZATION", icon: FileCheck },
-    { text: "+15 YEARS OF LOCAL EXPERIENCE IN SANTA COLOMA & BARCELONA", icon: Award }
+    { text: "+15 YEARS OF LOCAL EXPERIENCE IN SANTA COLOMA DE GRAMENET & METROPOLITAN AREA", icon: Award }
   ]
 };
 

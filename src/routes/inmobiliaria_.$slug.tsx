@@ -1,3 +1,4 @@
+import { BUSINESS } from "@/config/business";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Footer } from '@/components/Footer';
 import { properties, formatLocation } from "../data/properties";
@@ -30,30 +31,13 @@ function WhatsAppIcon({ className = "w-5 h-5 fill-white shrink-0" }: { className
 const SITE_DOMAIN = "https://gesgrama.com";
 
 export const Route = createFileRoute("/inmobiliaria_/$slug")({
-  loader: async ({ params }) => {
-    // Attempt to preload properties if not present
-    let existing = findPropertyBySlugOrId(params.slug);
-    if (!existing) {
-      await fetchProperties().catch(() => {});
-      existing = findPropertyBySlugOrId(params.slug);
-    }
-    // Permanent 301 redirect if requested via legacy slug alias
-    if (existing && existing.slug && existing.slug !== params.slug) {
-      throw redirect({
-        to: "/inmobiliaria/$slug",
-        params: { slug: existing.slug },
-        statusCode: 301,
-      });
-    }
-    return { slug: params.slug };
-  },
   head: ({ params }) => {
     const slug = params.slug as string;
     const property = findPropertyBySlugOrId(slug);
     if (!property) {
       return {
         meta: [
-          { title: "Propiedad no encontrada | Gesgrama Inmobiliaria" },
+          { title: "Propiedad no encontrada en Santa Coloma | Gesgrama Inmobiliaria" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
@@ -63,16 +47,17 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
       ? property.gallery[0]
       : property.image?.startsWith("http")
       ? property.image
-      : `https://gesgrama.com/og-image.png`;
-    const title = `${property.name} — ${property.priceFormatted} | Gesgrama Inmobiliaria`;
-    const description = `${property.type} en ${property.location}: ${property.description.slice(0, 130)}...`;
+      : "https://gesgrama.com/og-image.png";
+
+    const title = `${property.name} en ${property.location}, Santa Coloma | Gesgrama`.slice(0, 60);
+    const description = `${property.type} en venta/alquiler en ${property.location}, Santa Coloma de Gramenet. ${property.priceFormatted}. ${property.description.slice(0, 80)}...`.slice(0, 155);
+
     return {
       meta: [
         { title },
         { name: "description", content: description },
-        { name: "robots", content: "index, follow" },
-        { property: "og:title", content: `${property.name} — ${property.priceFormatted}` },
-        { property: "og:description", content: `${property.type} en ${property.location}. ${property.bedrooms} hab. | ${property.surface} m²` },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:image", content: ogImage },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "800" },
@@ -80,8 +65,8 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Gesgrama Inmobiliaria" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: property.name },
-        { name: "twitter:description", content: `${property.type} en ${property.location}` },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
         { name: "twitter:image", content: ogImage },
       ],
       links: [
@@ -104,16 +89,10 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
               "priceCurrency": "EUR",
               "businessFunction": property.operation === "alquilar" ? "http://purl.org/goodrelations/v1#LeaseOut" : "http://purl.org/goodrelations/v1#Sell",
               "availability": "https://schema.org/InStock",
-              "url": canonicalUrl,
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": property.price,
-                "priceCurrency": "EUR",
-                "unitText": property.operation === "alquilar" ? "MONTH" : "ONE_TIME"
-              }
+              "url": canonicalUrl
             },
             "about": {
-              "@type": (property.type as string) === "Local" ? "CommercialProperty" : (property.type as string) === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
+              "@type": (property.type as string) === "Local" || property.type === "Local comercial" ? "CommercialProperty" : (property.type as string) === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
               "name": property.name,
               "description": property.description,
               "numberOfRooms": property.bedrooms,
@@ -134,16 +113,17 @@ export const Route = createFileRoute("/inmobiliaria_/$slug")({
             },
             "broker": {
               "@type": "RealEstateAgent",
-              "name": "Gesgrama Inmobiliaria",
-              "url": SITE_DOMAIN,
-              "telephone": "+34934685656",
+              "@id": "https://gesgrama.com/#organization",
+              "name": BUSINESS.name,
+              "url": BUSINESS.siteDomain,
+              "telephone": BUSINESS.phone,
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Rambla de Sant Sebastià, 48",
-                "addressLocality": "Santa Coloma de Gramenet",
-                "postalCode": "08921",
-                "addressRegion": "Barcelona",
-                "addressCountry": "ES"
+                "streetAddress": BUSINESS.address.street,
+                "addressLocality": BUSINESS.address.city,
+                "postalCode": BUSINESS.address.postalCode,
+                "addressRegion": BUSINESS.address.region,
+                "addressCountry": BUSINESS.address.countryCode
               }
             },
             "breadcrumb": {
@@ -321,84 +301,6 @@ function PropertyDetail() {
     window.scrollTo(0, 0);
     setActiveImageIdx(0);
   }, [slug]);
-
-  // Dynamically update document head JSON-LD schema when property updates in client
-  useEffect(() => {
-    if (!property || typeof document === "undefined") return;
-    const scriptId = "realestate-listing-schema";
-    let scriptTag = document.getElementById(scriptId) as HTMLScriptElement | null;
-    if (!scriptTag) {
-      scriptTag = document.createElement("script");
-      scriptTag.id = scriptId;
-      scriptTag.type = "application/ld+json";
-      document.head.appendChild(scriptTag);
-    }
-    const canonicalUrl = `${SITE_DOMAIN}/inmobiliaria/${property.slug}`;
-    const ogImg = typeof property.gallery?.[0] === "string" && property.gallery[0].startsWith("http")
-      ? property.gallery[0]
-      : property.image?.startsWith("http")
-      ? property.image
-      : `https://gesgrama.com/og-image.png`;
-
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "RealEstateListing",
-      "name": property.name,
-      "description": (property.description || "").slice(0, 200),
-      "url": canonicalUrl,
-      "image": property.gallery && property.gallery.length > 0 ? property.gallery : [ogImg],
-      "datePosted": "2026-01-01",
-      "offers": {
-        "@type": "Offer",
-        "price": property.price,
-        "priceCurrency": "EUR",
-        "businessFunction": property.operation === "alquilar" ? "http://purl.org/goodrelations/v1#LeaseOut" : "http://purl.org/goodrelations/v1#Sell",
-        "availability": "https://schema.org/InStock",
-        "url": canonicalUrl,
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": property.price,
-          "priceCurrency": "EUR",
-          "unitText": property.operation === "alquilar" ? "MONTH" : "ONE_TIME"
-        }
-      },
-      "about": {
-        "@type": (property.type as string) === "Local" ? "CommercialProperty" : (property.type as string) === "Casa" || property.type === "Chalet" ? "SingleFamilyResidence" : "Apartment",
-        "name": property.name,
-        "description": property.description,
-        "numberOfRooms": property.bedrooms,
-        "numberOfBedrooms": property.bedrooms,
-        "numberOfBathroomsTotal": property.bathrooms,
-        "floorSize": {
-          "@type": "QuantitativeValue",
-          "value": property.surface,
-          "unitCode": "MTK"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Santa Coloma de Gramenet",
-          "addressRegion": "Barcelona",
-          "addressCountry": "ES",
-          "streetAddress": `${property.location}, Santa Coloma de Gramenet`
-        }
-      },
-      "broker": {
-        "@type": "RealEstateAgent",
-        "name": "Gesgrama Inmobiliaria",
-        "url": SITE_DOMAIN,
-        "telephone": "+34934685656",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Rambla de Sant Sebastià, 48",
-          "addressLocality": "Santa Coloma de Gramenet",
-          "postalCode": "08921",
-          "addressRegion": "Barcelona",
-          "addressCountry": "ES"
-        }
-      }
-    };
-    scriptTag.textContent = JSON.stringify(schemaData);
-  }, [property]);
 
   // Keyboard navigation for full screen lightbox
   useEffect(() => {
@@ -1231,7 +1133,7 @@ function PropertyDetail() {
                 {/* OFFICE ADDRESS & SCHEDULE - CLEAN, CLEAR & NO BROKEN TIME RANGES */}
                 <div className="relative z-10 pt-6 border-t border-blue-800 text-center space-y-2 font-medium">
                   <p className="font-black text-white text-sm sm:text-base tracking-wide">{t.detail.officeLabel}</p>
-                  <p className="text-slate-200 text-xs sm:text-sm font-semibold">Rambla de Sant Sebastià, 48</p>
+                  <p className="text-slate-200 text-xs sm:text-sm font-semibold">{BUSINESS.address.street}</p>
                   <p className="text-slate-200 text-xs sm:text-sm font-semibold">Santa Coloma de Gramenet</p>
                   
                   {/* Horario perfectamente formateado en 2 líneas limpias sin cortar horas */}
@@ -1509,7 +1411,7 @@ function PropertyDetail() {
                 <ul className="space-y-4 text-base text-slate-300 font-bold">
                   <li className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-[#2563eb] shrink-0 mt-1" />
-                    <span className="text-slate-300">Av. dels Banús, 49<br />08923 Sta. Coloma de Gramenet (Barcelona)</span>
+                    <span className="text-slate-300">{BUSINESS.address.street}<br />{BUSINESS.address.postalCode} {BUSINESS.address.city}</span>
                   </li>
                   <li>
                     <a href="tel:+34934685656" className="flex items-center gap-3 text-slate-300 hover:text-white transition-colors font-bold whitespace-nowrap">
@@ -1634,7 +1536,7 @@ function PropertyDetail() {
               <span className="text-slate-600">·</span>
               <Link to="/politica-cookies" className="hover:text-white transition-colors">Cookies</Link>
               <span className="text-slate-600">·</span>
-              <Link to="/admin" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
+              <Link to="/admin" rel="nofollow" className="hover:text-amber-300 text-slate-400 transition-colors">Acceso Gestor</Link>
             </div>
           </div>
         </div>

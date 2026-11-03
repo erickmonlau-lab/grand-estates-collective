@@ -227,10 +227,10 @@ export default function HeroCarousel({
       ? "closer than ever."
       : "más cerca.",
     subtitle: language === "ca"
-      ? "Compra, ven i lloga habitatges. També gestionem comunitats de propietaris amb transparència i atenció propera a Santa Coloma de Gramenet i Barcelona."
+      ? "Compra, ven i lloga habitatges. També gestionem comunitats de propietaris amb transparència i atenció propera a Santa Coloma de Gramenet i àrea metropolitana."
       : language === "en"
-      ? "Buy, sell and rent properties. We also manage homeowners associations with transparency and personal service in Santa Coloma de Gramenet and Barcelona."
-      : "Compra, vende y alquila viviendas. También gestionamos comunidades de propietarios con transparencia y atención cercana en Santa Coloma de Gramenet y Barcelona.",
+      ? "Buy, sell and rent properties. We also manage homeowners associations with transparency and personal service in Santa Coloma de Gramenet and metropolitan area."
+      : "Compra, vende y alquila viviendas. También gestionamos comunidades de propietarios con transparencia y atención cercana en Santa Coloma de Gramenet y área metropolitana.",
     tagInmo: language === "ca" ? "IMMOBILIÀRIA" : language === "en" ? "REAL ESTATE" : "INMOBILIARIA",
     tagFincas: language === "ca" ? "ADMINISTRACIÓ DE FINQUES" : language === "en" ? "PROPERTY MANAGEMENT" : "ADMINISTRACIÓN DE FINCAS",
     btnFincas: language === "ca" ? "ADMINISTRACIÓ DE FINQUES" : language === "en" ? "PROPERTY MANAGEMENT" : "ADMINISTRACIÓN DE FINCAS",

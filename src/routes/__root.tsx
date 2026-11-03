@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BUSINESS } from "@/config/business";
 import {
   Outlet,
   Link,
@@ -217,66 +218,69 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": ["RealEstateAgent", "LocalBusiness"],
-          "@id": "https://gesgrama.com/#organization",
-          "name": "Gesgrama",
-          "alternateName": "Gesgrama Gestiones Inmobiliarias y Administración de Fincas",
-          "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana de Barcelona. Más de 15 años de experiencia y +300 comunidades gestionadas.",
-          "url": "https://gesgrama.com",
-          "logo": "https://gesgrama.com/images/logo-gesgrama-text-horizontal.webp",
-          "image": "https://gesgrama.com/og-image.png",
-          "telephone": "+34934685656",
-          "email": "info@gesgrama.com",
-          "priceRange": "€€",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Av. dels Banús, 49",
-            "addressLocality": "Santa Coloma de Gramenet",
-            "postalCode": "08923",
-            "addressRegion": "Barcelona",
-            "addressCountry": "ES"
+        children: JSON.stringify([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://gesgrama.com/#website",
+            "url": "https://gesgrama.com",
+            "name": "Gesgrama",
+            "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet",
+            "publisher": {
+              "@id": "https://gesgrama.com/#organization"
+            },
+            "inLanguage": ["es", "ca", "en"]
           },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 41.4484,
-            "longitude": 2.2105
-          },
-          "areaServed": [
-            "Santa Coloma de Gramenet",
-            "Centre (Santa Coloma)",
-            "Singuerlín",
-            "Santa Rosa - Can Mariner",
-            "Fondo",
-            "Riera Alta - Llatí",
-            "El Raval (Santa Coloma)",
-            "Riu Nord",
-            "Riu Sud",
-            "Oliveres",
-            "Can Serra",
-            "Badalona",
-            "Área Metropolitana de Barcelona"
-          ],
-          "openingHoursSpecification": [
-            {
+          {
+            "@context": "https://schema.org",
+            "@type": "RealEstateAgent",
+            "@id": "https://gesgrama.com/#organization",
+            "name": BUSINESS.name,
+            "legalName": BUSINESS.legalName,
+            "description": "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana. Más de 15 años de experiencia y +300 comunidades gestionadas.",
+            "url": BUSINESS.siteDomain,
+            "logo": "https://gesgrama.com/images/logo-gesgrama-text-horizontal.webp",
+            "image": "https://gesgrama.com/og-image.png",
+            "telephone": BUSINESS.phone,
+            "email": BUSINESS.email,
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": BUSINESS.address.street,
+              "addressLocality": BUSINESS.address.city,
+              "postalCode": BUSINESS.address.postalCode,
+              "addressRegion": BUSINESS.address.region,
+              "addressCountry": BUSINESS.address.countryCode
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": BUSINESS.address.geo.latitude,
+              "longitude": BUSINESS.address.geo.longitude
+            },
+            // TODO: aggregateRating omitido hasta confirmación de nota y número de reseñas reales de Google
+            "openingHoursSpecification": BUSINESS.openingHours.schema.map(item => ({
               "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-              "opens": "09:00",
-              "closes": "18:00"
-            }
-          ],
-          "hasCredential": [
-            "AICAT nº 5583",
-            "API nº A10750",
-            "Peritos Judiciales Inmobiliarios PJI 2024",
-            "APIS - PERITOS nº 1639"
-          ],
-          "sameAs": [
-            "https://habitatge.gencat.cat/ca/inici/",
-            "https://www.apicatalunya.com/"
-          ]
-        })
+              "dayOfWeek": item.dayOfWeek,
+              "opens": item.opens,
+              "closes": item.closes
+            })),
+            "areaServed": {
+              "@type": "City",
+              "name": BUSINESS.serviceArea.city
+            },
+            "hasCredential": [
+              BUSINESS.registrations.aicat,
+              BUSINESS.registrations.api,
+              "Peritos Judiciales Inmobiliarios PJI 2024",
+              "APIS - PERITOS nº 1639"
+            ],
+            // TODO: Agregar URL de GBP oficial en sameAs una vez facilitada
+            "sameAs": [
+              "https://habitatge.gencat.cat/ca/inici/",
+              "https://www.apicatalunya.com/"
+            ]
+          }
+        ])
       }
     ],
   }),

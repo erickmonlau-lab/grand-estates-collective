@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { AccreditationBadges } from "@/components/AccreditationBadges";
 import { FooterMascot } from "@/components/FooterMascot";
+import { BUSINESS } from "@/config/business";
 
 interface FooterProps {
   language?: "es" | "ca" | "en";
@@ -130,11 +131,9 @@ export function Footer({ language = "es" }: FooterProps) {
                     <MapPin className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
                   </div>
                   <div>
-                    <p className="text-sm sm:text-base font-extrabold text-white leading-tight">
-                      Av. dels Banús, 49
-                    </p>
+                    <p className="text-sm sm:text-base font-extrabold text-white leading-tight">{BUSINESS.address.street}</p>
                     <p className="text-xs sm:text-sm text-white font-bold">
-                      08923 Santa Coloma de Gramenet, Barcelona
+                      {BUSINESS.address.postalCode} {BUSINESS.address.city}
                     </p>
                   </div>
                 </div>
@@ -143,8 +142,8 @@ export function Footer({ language = "es" }: FooterProps) {
                   <div className="w-9 h-9 rounded-xl bg-white border-2 border-[#111111] flex items-center justify-center shrink-0 text-[#2860F5] shadow-[2px_2px_0px_#111111]">
                     <Phone className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
                   </div>
-                  <a href="tel:+34934685656" className="text-sm sm:text-base font-data-mono font-bold text-white hover:underline transition-colors">
-                    934 68 56 56
+                  <a href={`tel:${BUSINESS.phone}`} className="text-sm sm:text-base font-data-mono font-bold text-white hover:underline transition-colors">
+                    {BUSINESS.phoneFormatted}
                   </a>
                 </div>
 
@@ -152,7 +151,7 @@ export function Footer({ language = "es" }: FooterProps) {
                   <div className="w-9 h-9 rounded-xl bg-white border-2 border-[#111111] flex items-center justify-center shrink-0 text-[#2860F5] shadow-[2px_2px_0px_#111111]">
                     <Mail className="w-4 h-4 text-[#2860F5] stroke-[2.5]" />
                   </div>
-                  <a href="mailto:info@gesgrama.com" className="text-sm sm:text-base font-bold text-white hover:underline transition-colors truncate">
+                  <a href={`mailto:${BUSINESS.email}`} className="text-sm sm:text-base font-bold text-white hover:underline transition-colors truncate">
                     info@gesgrama.com
                   </a>
                 </div>
@@ -238,7 +237,7 @@ export function Footer({ language = "es" }: FooterProps) {
               Cookies
             </Link>
             <span className="text-slate-500">·</span>
-            <Link to="/admin" className="hover:text-white text-slate-300 transition-colors">
+            <Link to="/admin" rel="nofollow" className="hover:text-white text-slate-300 transition-colors">
               {isCa ? "Accés Gestor" : isEn ? "Staff Login" : "Acceso Gestor"}
             </Link>
           </div>

@@ -1,6 +1,28 @@
 # Robots.txt for Gesgrama
 User-agent: *
 Allow: /
+Disallow: /admin
+
+# AI Crawlers explicit allowance (GPTBot, ClaudeBot, PerplexityBot, Applebot, Google-Extended)
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+
+User-agent: Applebot
+Allow: /
+Disallow: /admin
 
 # Sitemap URL
 Sitemap: https://gesgrama.com/sitemap.xml

@@ -11,7 +11,7 @@ export const BARRIO_FAQS_CA: Record<string, BarrioFaqItem[]> = {
     },
     {
       question: "Quin és el temps de resposta davant una avaria al Centre?",
-      answer: "La nostra oficina és a escassos minuts: davant d'una fuita d'aigua, tall de llum o bloqueig d'ascensor, un operari o tècnic de Gesgrama es persona en menys de 10-15 minuts."
+      answer: "La nostra oficina és a escassos minuts: davant d'una fuita d'aigua, tall de llum o bloqueig d'ascensor, un operari o tècnic de Gesgrama acudeix amb la màxima celeritat per a coordinar la solució in situ."
     },
     {
       question: "Com tramiteu les subvencions de rehabilitació de façanes en finques clàssiques del Centre?",
@@ -267,7 +267,7 @@ export const BARRIO_FAQS_EN: Record<string, BarrioFaqItem[]> = {
     },
     {
       "question": "What is your emergency response time in Centre?",
-      "answer": "Our office is just minutes away: for water leaks, power outages, or elevator breakdowns, a Gesgrama technician arrives in under 10-15 minutes."
+      "answer": "Our office is just minutes away: for water leaks, power outages, or elevator breakdowns, a Gesgrama technician arrives promptly to manage the solution on-site."
     },
     {
       "question": "How do you manage facade rehabilitation grants for classic buildings in Centre?",

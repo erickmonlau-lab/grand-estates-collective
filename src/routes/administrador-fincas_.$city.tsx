@@ -1,3 +1,4 @@
+import { BUSINESS } from "@/config/business";
 import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer } from '@/components/Footer';
@@ -221,31 +222,37 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
     const ogImage = "https://gesgrama.com/og-image.png";
 
     const title = isGlobal
-      ? "Administrador de Fincas en Santa Coloma de Gramenet · Gesgrama"
-      : data.metaTitle;
+      ? "Administrador de fincas en Santa Coloma de Gramenet | Gesgrama"
+      : `Administrador de fincas en ${data.name}, Santa Coloma | Gesgrama`.slice(0, 60);
+
     const description = isGlobal
-      ? "Administración de comunidades en todos los barrios de Santa Coloma de Gramenet. Sede en Av. dels Banús, 49. Auditoría contable y respuesta urgente en 15 min."
-      : data.metaDescription;
+      ? "Administración de comunidades en todos los barrios de Santa Coloma de Gramenet. Auditoría contable, cercanía y respuesta urgente."
+      : `Administración de comunidades en ${data.name}, Santa Coloma de Gramenet. ${data.metaDescription.slice(0, 80)}`.slice(0, 155);
 
     const jsonLdGraph = {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": ["RealEstateAgent", "LocalBusiness"],
-          "@id": `${canonicalUrl}#organization`,
-          "name": `Gesgrama - Administrador de Fincas en ${data.name}`,
+          "@type": "Service",
+          "@id": `${canonicalUrl}#service`,
+          "name": `Administración de fincas en ${data.name}, Santa Coloma`,
+          "serviceType": "Administración de fincas",
+          "description": description,
           "url": canonicalUrl,
-          "logo": `${SITE_DOMAIN}/images/logo-gesgrama-text-horizontal.webp`,
-          "image": ogImage,
-          "telephone": "+34934685656",
-          "priceRange": "€€",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Av. dels Banús, 49",
-            "addressLocality": "Santa Coloma de Gramenet",
-            "postalCode": "08923",
-            "addressRegion": "Barcelona",
-            "addressCountry": "ES"
+          "provider": {
+            "@type": "RealEstateAgent",
+            "@id": "https://gesgrama.com/#organization",
+            "name": BUSINESS.name,
+            "url": BUSINESS.siteDomain,
+            "telephone": BUSINESS.phone,
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": BUSINESS.address.street,
+              "addressLocality": BUSINESS.address.city,
+              "postalCode": BUSINESS.address.postalCode,
+              "addressRegion": BUSINESS.address.region,
+              "addressCountry": BUSINESS.address.countryCode
+            }
           },
           "areaServed": [
             {
@@ -257,18 +264,6 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
               "name": "Santa Coloma de Gramenet"
             }
           ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": `${canonicalUrl}#faq`,
-          "mainEntity": data.faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": faq.answer
-            }
-          }))
         },
         {
           "@type": "BreadcrumbList",
@@ -289,13 +284,7 @@ export const Route = createFileRoute("/administrador-fincas_/$city")({
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Santa Coloma de Gramenet",
-              "item": `${SITE_DOMAIN}/administrador-fincas/santa-coloma-de-gramenet`
-            },
-            {
-              "@type": "ListItem",
-              "position": 4,
-              "name": data.name,
+              "name": isGlobal ? "Santa Coloma de Gramenet" : data.name,
               "item": canonicalUrl
             }
           ]
@@ -1621,10 +1610,10 @@ function SantaColomaBarrioPage() {
                   
                   <p className="text-slate-100 text-sm sm:text-base md:text-lg max-w-lg mb-4 font-bold leading-snug font-sans">
                     {language === "ca"
-                      ? `Atenció immediata a ${data.name} amb seu central a Av. dels Banús 49. Arribem a la teva finca en menys de ${data.emergencyResponseMinutes} minuts.`
+                      ? `Atenció immediata a ${data.name} amb seu central a ${BUSINESS.address.street}. Acudim a la teva finca amb la màxima celeritat per a qualsevol gestió o incidència.`
                       : language === "en"
-                      ? `Immediate on-site service in ${data.name} from our headquarters at Av. dels Banús 49. We arrive at your building in under ${data.emergencyResponseMinutes} minutes.`
-                      : `Atención inmediata en ${data.name} con sede central en Av. dels Banús 49. Acudimos a tu finca en menos de ${data.emergencyResponseMinutes} minutos.`}
+                      ? `Immediate on-site service in ${data.name} from our headquarters at ${BUSINESS.address.street}. We arrive promptly at your building to resolve any issues.`
+                      : `Atención inmediata en ${data.name} con sede central en ${BUSINESS.address.street}. Acudimos a tu finca con la máxima celeridad para cualquier gestión o incidencia.`}
                   </p>
 
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-6 max-w-lg">
@@ -1682,6 +1671,27 @@ function SantaColomaBarrioPage() {
                         </h3>
                         <p className="text-slate-600 text-xs sm:text-sm font-bold leading-tight mt-0.5 font-sans">
                           {language === "ca" ? `Auditem la teva finca a ${data.name} gratis.` : language === "en" ? `Free HOA audit in ${data.name}.` : `Auditamos tu finca en ${data.name} gratis.`}
+                        <div className="flex flex-wrap gap-2 mt-2.5">
+                          <Link
+                            to="/servicios/$slug"
+                            params={{ slug: "administracion-de-fincas" }}
+                            className="inline-flex items-center gap-1 text-[11px] font-black text-[#2860F5] hover:underline"
+                          >
+                            <span>Administración de Fincas</span> →
+                          </Link>
+                          <a
+                            href="/#tasador"
+                            className="inline-flex items-center gap-1 text-[11px] font-black text-[#111111] hover:underline"
+                          >
+                            <span>Calculadora de Valoración</span> →
+                          </a>
+                          <a
+                            href="/#propiedades"
+                            className="inline-flex items-center gap-1 text-[11px] font-black text-slate-700 hover:underline"
+                          >
+                            <span>Inmuebles en {data.name}</span> →
+                          </a>
+                        </div>
                         </p>
                       </div>
                     </div>
@@ -1747,7 +1757,7 @@ function SantaColomaBarrioPage() {
                     </div>
                     <div>
                       <h3 className="font-black text-white text-[10px] sm:text-xs uppercase tracking-wider font-sans">{language === "ca" ? "SEU CENTRAL" : language === "en" ? "HEADQUARTERS" : "SEDE CENTRAL"}</h3>
-                      <p className="text-white text-xs sm:text-sm font-black font-sans leading-tight">Av. dels Banús, 49</p>
+                      <p className="text-white text-xs sm:text-sm font-black font-sans leading-tight">{BUSINESS.address.street}</p>
                       <p className="text-slate-300 text-[11px] sm:text-xs font-bold font-sans">08923 Santa Coloma de Gramenet</p>
                     </div>
                   </div>
@@ -2099,7 +2109,7 @@ function SantaColomaBarrioPage() {
                       </div>
                       <div>
                         <div className="text-xs sm:text-sm text-[#0f172a] font-extrabold leading-snug mt-0.5 font-sans">
-                          Av. dels Banús, 49
+                          {BUSINESS.address.street}
                         </div>
                         <div className="text-[11px] sm:text-xs text-slate-600 font-bold font-sans">
                           08923 Santa Coloma de Gramenet

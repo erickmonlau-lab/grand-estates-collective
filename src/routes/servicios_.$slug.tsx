@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import { BUSINESS } from "@/config/business";
 import { 
   Building2, 
   TrendingUp, 
@@ -38,60 +39,36 @@ export const Route = createFileRoute("/servicios_/$slug")({
     if (!s) return { meta: [{ title: "Servicio no encontrado | Gesgrama" }] };
 
     const canonicalUrl = `https://gesgrama.com/servicios/${s.slug}`;
-    const barriosNames = SANTA_COLOMA_14_BARRIOS.map(b => b.name).join(", ");
+    const ogImage = "https://gesgrama.com/og-image.png";
 
-    const faqSchema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": s.faqs.es.map(f => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a
-        }
-      }))
-    };
-
+    // Service ligado a la organización @id (#organization)
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "Service",
+      "@id": `${canonicalUrl}#service`,
       "name": s.titleKey.es,
       "serviceType": s.titleKey.es,
       "description": s.metaDesc.es,
       "url": canonicalUrl,
       "provider": {
-        "@type": s.providerSchemaType,
-        "name": "Gesgrama",
-        "telephone": "+34934685656",
-        "url": "https://gesgrama.com",
+        "@type": "RealEstateAgent",
+        "@id": "https://gesgrama.com/#organization",
+        "name": BUSINESS.name,
+        "telephone": BUSINESS.phone,
+        "url": BUSINESS.siteDomain,
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Av. dels Banús, 49",
-          "postalCode": "08923",
-          "addressLocality": "Santa Coloma de Gramenet",
-          "addressRegion": "Barcelona",
-          "addressCountry": "ES"
+          "streetAddress": BUSINESS.address.street,
+          "postalCode": BUSINESS.address.postalCode,
+          "addressLocality": BUSINESS.address.city,
+          "addressRegion": BUSINESS.address.region,
+          "addressCountry": BUSINESS.address.countryCode
         }
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Santa Coloma de Gramenet",
-          "sameAs": "https://es.wikipedia.org/wiki/Santa_Coloma_de_Gramanet"
-        },
-        ...SANTA_COLOMA_14_BARRIOS.map(b => ({
-          "@type": "Place",
-          "name": `${b.name}, Santa Coloma de Gramenet`,
-          "address": {
-            "@type": "PostalAddress",
-            "postalCode": b.cp,
-            "addressLocality": "Santa Coloma de Gramenet",
-            "addressRegion": "Barcelona",
-            "addressCountry": "ES"
-          }
-        }))
-      ]
+      "areaServed": {
+        "@type": "City",
+        "name": BUSINESS.serviceArea.city
+      }
     };
 
     const breadcrumbSchema = {
@@ -119,42 +96,28 @@ export const Route = createFileRoute("/servicios_/$slug")({
       ]
     };
 
-    const howToSchema = {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": `Cómo funciona el servicio de ${s.titleKey.es} en Gesgrama`,
-      "description": s.intro.es,
-      "step": s.steps.es.map((st, i) => ({
-        "@type": "HowToStep",
-        "position": i + 1,
-        "name": st.title,
-        "text": st.desc
-      }))
-    };
+    const title = s.metaTitle.es.includes("Santa Coloma")
+      ? s.metaTitle.es
+      : `${s.titleKey.es} en Santa Coloma de Gramenet | Gesgrama`;
 
     return {
       meta: [
-        { title: s.metaTitle.es },
-        { name: "description", content: s.metaDesc.es },
-        { name: "keywords", content: `${s.titleKey.es}, Santa Coloma de Gramenet, ${barriosNames}, 08921, 08922, 08923, 08924` },
-        { property: "og:title", content: s.metaTitle.es },
-        { property: "og:description", content: s.metaDesc.es },
+        { title: title.length > 60 ? title.slice(0, 60) : title },
+        { name: "description", content: s.metaDesc.es.slice(0, 155) },
+        { property: "og:title", content: title },
+        { property: "og:description", content: s.metaDesc.es.slice(0, 155) },
+        { property: "og:image", content: ogImage },
         { property: "og:url", content: canonicalUrl },
-        { property: "og:type", content: "article" },
-        { property: "og:locale", content: "es_ES" },
-        { property: "og:locale:alternate", content: "ca_ES" }
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: s.metaDesc.es.slice(0, 155) },
+        { name: "twitter:image", content: ogImage },
       ],
       links: [
         { rel: "canonical", href: canonicalUrl },
-        { rel: "alternate", hrefLang: "es", href: canonicalUrl },
-        { rel: "alternate", hrefLang: "ca", href: canonicalUrl },
-        { rel: "alternate", hrefLang: "x-default", href: canonicalUrl }
       ],
       scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(faqSchema)
-        },
         {
           type: "application/ld+json",
           children: JSON.stringify(serviceSchema)
@@ -162,10 +125,6 @@ export const Route = createFileRoute("/servicios_/$slug")({
         {
           type: "application/ld+json",
           children: JSON.stringify(breadcrumbSchema)
-        },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(howToSchema)
         }
       ]
     };
@@ -414,9 +373,9 @@ const servicesData: Record<string, ServiceDataConfig> = {
           en: "On-Site Attention"
         },
         desc: {
-          es: "Despacho a pie de calle en Av. dels Banús, 49. Nos personamos en tu comunidad cuando lo necesites, sin filtros de call center.",
-          ca: "Despatx a peu de carrer a Av. dels Banús, 49. Ens personem a la teva comunitat quan ho necessitis, sense filtres de call center.",
-          en: "Ground-floor office at Av. dels Banús, 49. We visit your community whenever needed without call center filters."
+          es: "Despacho a pie de calle en {BUSINESS.address.street}. Nos personamos en tu comunidad cuando lo necesites, sin filtros de call center.",
+          ca: "Despatx a peu de carrer a {BUSINESS.address.street}. Ens personem a la teva comunitat quan ho necessitis, sense filtres de call center.",
+          en: "Ground-floor office at {BUSINESS.address.street}. We visit your community whenever needed without call center filters."
         }
       }
     ],
@@ -1465,7 +1424,7 @@ function ServicioSlugPage() {
 
   const officeTag = language === "ca" ? "Atenció a Despatx" : language === "en" ? "In-Office Assistance" : "Atención en Despacho";
   const officeTitle = language === "ca" ? "Atenció tècnica presencial al nostre despatx de Santa Coloma" : language === "en" ? "In-person technical attention at our Santa Coloma office" : "Atención técnica presencial en nuestro despacho de Santa Coloma";
-  const officeDesc = language === "ca" ? "Visita'ns a Av. dels Banús, 49 o concerta una reunió amb els nostres administradors i advocats col·legiats." : language === "en" ? "Visit us at Av. dels Banús, 49 or schedule an appointment with our chartered managers and lawyers." : "Visítanos en Av. dels Banús, 49 o concierta una reunión con nuestros administradores y abogados colegiados.";
+  const officeDesc = language === "ca" ? "Visita'ns a {BUSINESS.address.street} o concerta una reunió amb els nostres administradors i advocats col·legiats." : language === "en" ? "Visit us at {BUSINESS.address.street} or schedule an appointment with our chartered managers and lawyers." : "Visítanos en {BUSINESS.address.street} o concierta una reunión con nuestros administradores y abogados colegiados.";
   const officeBtn = language === "ca" ? "Sol·licitar consulta personalitzada" : language === "en" ? "Request in-person appointment" : "Solicitar consulta personalizada";
 
   const whyTag = language === "ca" ? "Avantatges Gesgrama" : language === "en" ? "Gesgrama Advantages" : "Ventajas Gesgrama";
@@ -1609,7 +1568,7 @@ function ServicioSlugPage() {
                       {headquarterLabel} Santa Coloma de Gramenet
                     </span>
                     <p className="text-xs sm:text-sm font-extrabold text-white leading-tight">
-                      Av. dels Banús, 49 · Despacho a Pie de Calle
+                      {BUSINESS.address.street} · Despacho a Pie de Calle
                     </p>
                   </div>
                 </div>
@@ -1679,7 +1638,7 @@ function ServicioSlugPage() {
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-[#111111] shadow-[2px_2px_0px_#111111] shrink-0 bg-white">
                 <img
                   src="/images/gesgrama_storefront_final.webp"
-                  alt="Sede Central de Gesgrama en Av. dels Banús, 49 Santa Coloma"
+                  alt="Sede Central de Gesgrama en {BUSINESS.address.street} Santa Coloma"
                   className="w-full h-full object-cover"
                   width={112}
                   height={112}
@@ -1769,7 +1728,7 @@ function ServicioSlugPage() {
           <div className="w-full h-px bg-slate-200 my-12" />
 
           {/* Bloque B: Metodología — Secuencia de pasos equilibrada */}
-          <div itemScope itemType="https://schema.org/HowTo">
+          <div >
             <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
               <span className="inline-flex items-center gap-2 bg-[#2860F5] text-white text-xs font-headline font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#111111] rounded-lg shadow-[2px_2px_0px_#111111] mb-3">
                 <Clock className="w-4 h-4 text-white" />
@@ -1828,7 +1787,7 @@ function ServicioSlugPage() {
       {/* ══════════════════════════════════════════════════════════════════════════
           SECCIÓN 4: PREGUNTAS FRECUENTES (FAQ) — CONTENEDOR AMPLIO Y EQUILIBRADO
           ══════════════════════════════════════════════════════════════════════════ */}
-      <section className="py-6 sm:py-8" itemScope itemType="https://schema.org/FAQPage">
+      <section className="py-6 sm:py-8" >
         <div className="max-w-[1360px] mx-4 sm:mx-6 md:mx-auto bg-white border-2 border-[#111111] rounded-[24px] shadow-[4px_4px_0px_#111111] p-6 sm:p-9 md:p-12 relative z-10 w-full box-border">
           
           <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
@@ -2026,7 +1985,7 @@ function ServicioSlugPage() {
           <div className="p-5 sm:p-6 bg-[#111111] text-white border-2 border-[#111111] rounded-2xl shadow-[4px_4px_0px_#111111] flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-bold">
             <span className="flex items-center gap-2.5">
               <MapPin className="w-5 h-5 text-[#60A5FA] shrink-0" />
-              <span>{headquarterLabel} <strong className="text-white">Av. dels Banús, 49</strong> · Santa Coloma de Gramenet (08923)</span>
+              <span>{headquarterLabel} <strong className="text-white">{BUSINESS.address.street}</strong> · Santa Coloma de Gramenet (08923)</span>
             </span>
             <span className="inline-flex items-center gap-1.5 bg-[#2860F5] text-white px-3.5 py-1.5 border border-white/20 rounded-md font-data-mono text-xs font-black shadow-sm">
               {postcodesLabel}

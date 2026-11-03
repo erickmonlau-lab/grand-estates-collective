@@ -1,6 +1,17 @@
 {
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.gesgrama.com"
+        }
+      ],
+      "destination": "https://gesgrama.com/$1",
+      "permanent": true
+    },
+    {
       "source": "/inmobiliaria/casa-unifamiliar-singuerlin",
       "destination": "/inmobiliaria/apartamento-exterior-singuerlin",
       "permanent": true

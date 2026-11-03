@@ -1,3 +1,4 @@
+import { BUSINESS } from "@/config/business";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Footer } from "@/components/Footer";
 import { articles } from "../data/articles";
@@ -44,26 +45,14 @@ const ARTICLE_ALIASES: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/noticias_/$slug")({
-  loader: ({ params }) => {
-    const rawSlug = params.slug as string;
-    const resolvedSlug = ARTICLE_ALIASES[rawSlug];
-    if (resolvedSlug) {
-      throw redirect({
-        to: "/noticias/$slug",
-        params: { slug: resolvedSlug },
-        statusCode: 301,
-      });
-    }
-    return { slug: rawSlug };
-  },
   head: ({ params }) => {
     const rawSlug = params.slug as string;
-    const resolvedSlug = ARTICLE_ALIASES[rawSlug] || rawSlug;
-    const article = articles.find((a) => a.slug === resolvedSlug);
+    const slug = ARTICLE_ALIASES[rawSlug] || rawSlug;
+    const article = articles.find((a) => a.slug === slug);
     if (!article) {
       return {
         meta: [
-          { title: "Artículo no encontrado | Gesgrama Blog" },
+          { title: "Artículo no encontrado en Santa Coloma | Blog Gesgrama" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
@@ -72,23 +61,26 @@ export const Route = createFileRoute("/noticias_/$slug")({
     const canonicalUrl = `${SITE_DOMAIN}/noticias/${article.slug}`;
     const ogImageUrl = typeof article.image === "string" && article.image.startsWith("http")
       ? article.image
-      : `https://gesgrama.com/og-image.png`;
+      : "https://gesgrama.com/og-image.png";
+
+    const title = `${content.title} | Gesgrama Santa Coloma`.slice(0, 60);
+    const description = `${content.summary.slice(0, 145)} | Santa Coloma de Gramenet`.slice(0, 155);
+
     return {
       meta: [
-        { title: `${content.title} | Blog Gesgrama` },
-        { name: "description", content: content.summary.slice(0, 160) },
-        { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large" },
-        { property: "og:title", content: `${content.title} | Gesgrama` },
-        { property: "og:description", content: content.summary },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:image", content: ogImageUrl },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         { property: "og:url", content: canonicalUrl },
         { property: "og:type", content: "article" },
-        { property: "og:site_name", content: "Gesgrama Inmobiliaria" },
+        { property: "og:site_name", content: "Gesgrama" },
         { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: content.title },
-        { name: "twitter:description", content: content.summary },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
         { name: "twitter:image", content: ogImageUrl },
       ],
       links: [
@@ -99,17 +91,23 @@ export const Route = createFileRoute("/noticias_/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "BlogPosting",
             "headline": content.title,
             "description": content.summary,
             "image": [ogImageUrl],
             "datePublished": article.datePublished,
             "dateModified": article.dateModified,
-            "author": [{ "@type": "Organization", "name": content.author, "url": SITE_DOMAIN }],
+            "author": {
+              "@type": "Organization",
+              "@id": "https://gesgrama.com/#organization",
+              "name": BUSINESS.name,
+              "url": BUSINESS.siteDomain
+            },
             "publisher": {
               "@type": "Organization",
-              "name": "Gesgrama",
-              "logo": { "@type": "ImageObject", "url": `${SITE_DOMAIN}/logo.png` }
+              "@id": "https://gesgrama.com/#organization",
+              "name": BUSINESS.name,
+              "logo": { "@type": "ImageObject", "url": `${SITE_DOMAIN}/images/logo-gesgrama-text-horizontal.webp` }
             },
             "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
             "breadcrumb": {
@@ -605,7 +603,7 @@ function ArticleDetail() {
                     {content.author}
                   </p>
                   <p className="text-xs sm:text-sm font-headline font-bold text-[#2860F5] uppercase tracking-wider">
-                    Gesgrama · Av. dels Banús, 49 · Santa Coloma de Gramenet
+                    Gesgrama · {BUSINESS.address.street} · Santa Coloma de Gramenet
                   </p>
                 </div>
               </div>

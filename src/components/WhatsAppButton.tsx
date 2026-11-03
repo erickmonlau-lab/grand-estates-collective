@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BUSINESS } from "@/config/business";
 
 interface WhatsAppButtonProps {
   language?: "es" | "en" | "ca";

@@ -195,85 +195,20 @@ function getDynamicPropertySpecs(property: any, language: "es" | "ca" | "en") {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Gesgrama · Inmobiliaria y Fincas en Santa Coloma de Gramenet" },
-      { name: "description", content: "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet. Valoración online gratuita, compraventa de pisos y gestión de comunidades. Llámanos al 93 468 56 56." },
-      { name: "keywords", content: "gesgrama, administrador de fincas santa coloma de gramenet, inmobiliaria santa coloma de gramenet, administracion comunidades barcelona, vender piso santa coloma, valoracion inmueble santa coloma" },
-      { property: "og:title", content: "Gesgrama · Inmobiliaria y Fincas en Santa Coloma de Gramenet" },
-      { property: "og:description", content: "Gestión experta de comunidades, compraventa de pisos y asesoría jurídica en Santa Coloma de Gramenet y área metropolitana. +15 años de experiencia." },
+      { title: "Inmobiliaria y Fincas en Santa Coloma de Gramenet | Gesgrama" },
+      { name: "description", content: "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet. Valora tu piso online gratis o llámanos al 93 468 56 56." },
+      { property: "og:title", content: "Inmobiliaria y Fincas en Santa Coloma de Gramenet | Gesgrama" },
+      { property: "og:description", content: "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet. Valora tu piso online gratis o llámanos al 93 468 56 56." },
       { property: "og:url", content: "https://gesgrama.com/" },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://gesgrama.com/og-image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Inmobiliaria y Fincas en Santa Coloma de Gramenet | Gesgrama" },
+      { name: "twitter:description", content: "Administración de fincas, inmobiliaria y asesoría jurídica en Santa Coloma de Gramenet. Valora tu piso online gratis o llámanos al 93 468 56 56." },
+      { name: "twitter:image", content: "https://gesgrama.com/og-image.png" },
     ],
     links: [
       { rel: "canonical", href: "https://gesgrama.com/" },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Valoración Inmobiliaria Online en Santa Coloma de Gramenet",
-          "serviceType": "Tasación y valoración inmobiliaria",
-          "provider": {
-            "@type": "RealEstateAgent",
-            "name": "Gesgrama",
-            "url": "https://gesgrama.com",
-            "telephone": "+34934685656",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Av. dels Banús, 49",
-              "addressLocality": "Santa Coloma de Gramenet",
-              "postalCode": "08923",
-              "addressCountry": "ES"
-            }
-          },
-          "areaServed": {
-            "@type": "City",
-            "name": "Santa Coloma de Gramenet"
-          },
-          "description": "Herramienta inteligente de estimación del precio de mercado m² para pisos y comunidades en todos los barrios de Santa Coloma de Gramenet."
-        })
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "¿Cómo se gestiona el cambio de administración a Gesgrama?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nos encargamos de todo el proceso de transición sin coste adicional: solicitamos la documentación al administrador anterior, auditamos el estado de las cuentas y convocamos la junta inicial."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Qué documentación necesito para vender mi piso con vosotros?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Necesitarás la escritura de propiedad, DNI/NIE, certificado de eficiencia energética, cédula de habitabilidad y el último recibo del IBI. Nosotros nos encargamos de tramitar lo que te falte."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Cómo garantizáis el cobro del alquiler si el inquilino no paga?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Ofrecemos un servicio integral de gestión de alquileres con seguro de impago garantizado, estudio de solvencia scoring del inquilino y cobertura legal ante cualquier eventualidad."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Qué área geográfica cubrís para administración de fincas?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nuestra sede central está en Santa Coloma de Gramenet y damos cobertura directa en todo el área metropolitana de Barcelona, Maresme y Vallès."
-              }
-            }
-          ]
-        })
-      }
     ],
   }),
   component: Index,
@@ -714,10 +649,10 @@ function Index() {
               {/* Descripción completa: 17-18px, color #111111, buena distribución */}
               <p className="text-[#111111] text-[17px] sm:text-[18px] leading-relaxed font-sans font-medium max-w-3xl">
                 {language === "ca"
-                  ? "Selecció d'immobles a Santa Coloma i Barcelona gestionats amb total garantia i transparència per Gesgrama."
+                  ? "Selecció d'immobles a Santa Coloma de Gramenet i àrea metropolitana gestionats amb total garantia i transparència per Gesgrama."
                   : language === "en"
-                  ? "Selection of properties in Santa Coloma and Barcelona managed with full guarantee and transparency by Gesgrama."
-                  : "Selección de inmuebles en Santa Coloma y Barcelona gestionados con total garantía y transparencia por Gesgrama."}
+                  ? "Selection of properties in Santa Coloma de Gramenet and metropolitan area managed with full guarantee and transparency by Gesgrama."
+                  : "Selección de inmuebles en Santa Coloma de Gramenet y área metropolitana gestionados con total garantía y transparencia por Gesgrama."}
               </p>
             </div>
 

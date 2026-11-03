@@ -2,6 +2,7 @@ import { DrawnUnderline } from "@/components/DrawnUnderline";
 import { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, ArrowRight, Check, Loader2, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { BUSINESS } from "@/config/business";
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
 
 interface ContactSectionProps {
@@ -144,7 +145,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                       Av. dels Banús, 49
                     </span>
                     <span className="block text-[#E8E8E8] font-medium text-[15px] sm:text-[16px] leading-snug">
-                      08923 Santa Coloma de Gramenet (Barcelona)
+                      {BUSINESS.address.postalCode} {BUSINESS.address.city}
                     </span>
                   </div>
                 </li>
@@ -156,7 +157,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   </div>
                   <div className="min-w-0">
                     <a
-                      href="tel:934685656"
+                      href={`tel:${BUSINESS.phone}`}
                       className="text-[#FFFFFF] hover:text-[#2860F5] font-data-mono font-bold text-[17px] sm:text-[18px] tracking-wide transition-colors inline-block"
                     >
                       934 68 56 56
@@ -171,7 +172,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
                   </div>
                   <div className="min-w-0">
                     <a
-                      href="mailto:info@gesgrama.com"
+                      href={`mailto:${BUSINESS.email}`}
                       className="text-[#FFFFFF] hover:text-[#2860F5] font-sans font-bold text-[16px] sm:text-[17px] transition-colors inline-block"
                     >
                       info@gesgrama.com
@@ -200,7 +201,7 @@ export default function ContactSection({ language, t }: ContactSectionProps) {
             <div className="mt-8 pt-5 border-t-2 border-white/30 flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-[#2860F5] shrink-0 mt-0.5" />
               <p className="text-[14px] sm:text-[15px] text-[#FFFFFF] font-sans font-semibold leading-relaxed">
-                Despacho oficial adherido al Col·legi d'Administradors de Finques de Barcelona-Lleida (CAFBLL) y Colegiados AICAT Nº 5583.
+                Despacho oficial adherido al {BUSINESS.colegio.fullName} ({BUSINESS.colegio.code}) y Colegiados {BUSINESS.registrations.aicat}.
               </p>
             </div>
           </div>

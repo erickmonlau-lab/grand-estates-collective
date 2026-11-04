@@ -202,7 +202,11 @@ export default function ValuatorSection({
   };
 
   const contactText = encodeURIComponent(
-    `Hola Gesgrama, he realizado una valoración en vuestra web para un piso en ${result.zoneName} de ${metros}m², ${habitaciones} habs (${estado}). Rango estimado: ${new Intl.NumberFormat("es-ES").format(result.minValue)} € - ${new Intl.NumberFormat("es-ES").format(result.maxValue)} €. Me gustaría agendar una valoración presencial técnica.`
+    isCa
+      ? `Hola Gesgrama, vull una valoració per al meu pis a ${result.zoneName} (${metros} m²). Estimació web: ${new Intl.NumberFormat("es-ES").format(result.minValue)} € - ${new Intl.NumberFormat("es-ES").format(result.maxValue)} €.`
+      : isEn
+      ? `Hello Gesgrama, I'd like a valuation for my apartment in ${result.zoneName} (${metros} sq m). Online estimate: ${new Intl.NumberFormat("es-ES").format(result.minValue)} € - ${new Intl.NumberFormat("es-ES").format(result.maxValue)} €.`
+      : `Hola Gesgrama, quiero una valoración para mi piso en ${result.zoneName} (${metros} m²). Estimación web: ${new Intl.NumberFormat("es-ES").format(result.minValue)} € - ${new Intl.NumberFormat("es-ES").format(result.maxValue)} €.`
   );
 
   return (

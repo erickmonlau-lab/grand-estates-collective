@@ -478,7 +478,7 @@ function PropertyDetail() {
 
     const triggerInmuebleWhatsAppFallback = () => {
       const fallbackMsg = `Hola Gesgrama, me interesa el inmueble "${property?.name || 'Propiedad'}" (Ref: ${property?.ref || property?.id || '-'}):\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Mensaje: ${contactForm.mensaje || "Solicito más información o visita."}`;
-      window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+      window.open(`https://wa.me/${BUSINESS.whatsapp.cleanNumber}?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
     };
 
     // 1er intento: Web3Forms

@@ -29,6 +29,9 @@ export interface BusinessConfig {
     formatted: string;
     cleanNumber: string;
     defaultUrl: string;
+    valuationsNumber: string;
+    valuationsFormatted: string;
+    valuationsClean: string;
   };
   // TODO: Confirmar denominación colegial exacta (CAFBL - Barcelona / CAFBLL - Barcelona-Lleida)
   colegio: {
@@ -93,11 +96,13 @@ export const BUSINESS: BusinessConfig = {
     },
   },
   whatsapp: {
-    // TODO: Confirmar si se sustituye por otro número de WhatsApp único
     number: "+34601259424",
     formatted: "601 25 94 24",
     cleanNumber: "34601259424",
     defaultUrl: "https://wa.me/34601259424?text=Hola%20Gesgrama,%20quisiera%20m%C3%A1s%20informaci%C3%B3n",
+    valuationsNumber: "+34613069884",
+    valuationsFormatted: "613 06 98 84",
+    valuationsClean: "34613069884",
   },
   colegio: {
     // CAFBL es la sigla oficial del Col·legi d'Administradors de Finques de Barcelona-Lleida

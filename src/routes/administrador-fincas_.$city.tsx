@@ -2200,7 +2200,7 @@ function SantaColomaBarrioPage() {
 
                         const triggerCityWhatsAppFallback = () => {
                           const fallbackMsg = `Hola Gesgrama, os contacto desde la web [Barrio: ${data.name}]:\n- Nombre: ${contactForm.nombre}\n- Teléfono: ${contactForm.telefono}\n- Email: ${contactForm.email}\n- Motivo: ${contactForm.asunto}\n- Mensaje: ${contactForm.mensaje || "Solicitud de información"}`;
-                          window.open(`https://wa.me/34688320490?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
+                          window.open(`https://wa.me/${BUSINESS.whatsapp.cleanNumber}?text=${encodeURIComponent(fallbackMsg)}`, "_blank");
                         };
 
                         // 1er intento: Web3Forms

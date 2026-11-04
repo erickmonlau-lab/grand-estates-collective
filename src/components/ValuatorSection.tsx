@@ -15,6 +15,7 @@ import {
   Layers
 } from "lucide-react";
 import { formatLocation } from "@/data/properties";
+import { BUSINESS } from "@/config/business";
 
 interface ValuatorSectionProps {
   language: "es" | "en" | "ca";
@@ -577,7 +578,7 @@ export default function ValuatorSection({
             {/* CTA de Valoración Exacta: Botón Blanco con Bordes Negros y Sombra Neo */}
             <div className="space-y-3 pt-4 border-t-2 border-white/30">
               <a
-                href={`https://wa.me/34689438012?text=${contactText}`}
+                href={`https://wa.me/${BUSINESS.whatsapp.valuationsClean}?text=${contactText}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full min-h-[64px] sm:h-[66px] bg-[#FFFFFF] hover:bg-[#FAF9FC] text-[#111111] border-2 border-[#111111] rounded-xl shadow-[3px_3px_0px_#111111] font-headline font-black text-[16px] sm:text-[17px] md:text-[17.5px] px-4 sm:px-6 transition-all flex items-center justify-between uppercase tracking-wider cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"

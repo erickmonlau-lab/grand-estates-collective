@@ -658,13 +658,13 @@ function Index() {
             </div>
 
             {/* Unified Results Controls Bar: Favoritos (blanco), Disponibles (azul), Ordenar por (negro #111111 sólido) */}
-            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-2 mb-6 p-2 sm:p-2.5 bg-[#FAF9FC] border-2 border-[#111111] rounded-2xl shadow-[2px_2px_0px_#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
+            <div id="properties-results" className="scroll-mt-24 md:scroll-mt-28 mt-2 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full">
               {/* Left: Favoritos button sólido y redondeado */}
               <div className="flex items-center">
                 <button
                   type="button"
                   onClick={() => setSearchParams(prev => ({ ...prev, mode: prev.mode === "favoritos" ? "comprar" : "favoritos" }))}
-                  className={`h-[48px] px-4 rounded-xl text-[15px] sm:text-[16px] font-headline font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2.5 whitespace-nowrap border-2 border-[#111111] shadow-[2px_2px_0px_#111111] hover:shadow-[1px_1px_0px_#111111] hover:translate-x-[1px] hover:translate-y-[1px] ${
+                  className={`h-[40px] px-3.5 rounded-full text-[13px] font-headline font-bold uppercase tracking-wider transition-colors cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap border-[1.5px] border-[#111111] ${
                     searchParams.mode === "favoritos"
                       ? "bg-red-500 text-white"
                       : "bg-[#FFFFFF] text-[#111111] hover:bg-slate-50"
@@ -679,7 +679,7 @@ function Index() {
               <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-4 shrink-0">
                 {/* Propiedades disponibles: indicador azul, número destacado, 15-16px, alineación vertical */}
                 <div
-                  className="flex items-center gap-2.5 bg-[#FFFFFF] border-2 border-[#111111] rounded-xl px-4 h-[48px] shadow-[2px_2px_0px_#111111]"
+                  className="flex items-center gap-2 h-[40px] px-1"
                   aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-[#2860F5] shrink-0" />
@@ -695,7 +695,7 @@ function Index() {
                 <div className="flex items-center gap-2 relative" onClick={(e) => e.stopPropagation()}>
                   <button 
                     onClick={() => setOpenDropdown(openDropdown === "ordenar" ? null : "ordenar")}
-                    className="h-[48px] flex items-center gap-2.5 bg-[#111111] hover:bg-[#222222] text-white border-2 border-[#111111] rounded-[14px] px-4 py-2 font-headline font-bold text-[14px] sm:text-[15px] tracking-wide transition-all shadow-[2px_2px_0px_#2860F5] cursor-pointer"
+                    className="h-[40px] flex items-center gap-2.5 bg-[#111111] hover:bg-[#222222] text-white border-[1.5px] border-[#111111] rounded-full px-4 font-headline font-bold text-[14px] tracking-wide transition-colors cursor-pointer"
                   >
                     <span className="text-slate-300 font-bold uppercase tracking-wider text-[12px] hidden sm:inline">{t.properties.sortBy}:</span>
                     <span className="text-white font-bold">
@@ -736,23 +736,23 @@ function Index() {
             {/* ── ACTIVE FILTER CHIPS — only when non-default filters applied ── */}
             {(searchParams.zona !== "Cualquier zona" || searchParams.tipo !== "Cualquier tipo" || searchParams.precio !== "Cualquier precio") && (
               <div className="flex flex-wrap items-center gap-2 mb-4 py-1">
-                <span className="text-xs text-slate-500 font-semibold mr-1 shrink-0">
+                <span className="text-[11px] text-slate-500 font-headline font-bold uppercase tracking-wider mr-1 shrink-0">
                   {language === "ca" ? "Filtrant per:" : language === "en" ? "Filtering by:" : "Filtrando por:"}
                 </span>
                 {searchParams.zona !== "Cualquier zona" && (
-                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
+                  <span className="inline-flex items-center gap-1.5 bg-white text-[#111111] border-[1.5px] border-[#111111] text-[12px] font-headline font-bold px-3 py-1 rounded-full shrink-0 [&_svg]:text-[#2860F5]">
                     <MapPin className="w-3 h-3 shrink-0" />
                     {searchParams.zona}
                   </span>
                 )}
                 {searchParams.tipo !== "Cualquier tipo" && (
-                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
+                  <span className="inline-flex items-center gap-1.5 bg-white text-[#111111] border-[1.5px] border-[#111111] text-[12px] font-headline font-bold px-3 py-1 rounded-full shrink-0 [&_svg]:text-[#2860F5]">
                     <Home className="w-3 h-3 shrink-0" />
                     {searchParams.tipo}
                   </span>
                 )}
                 {searchParams.precio !== "Cualquier precio" && (
-                  <span className="inline-flex items-center gap-1.5 bg-[#0b214a] text-white text-xs font-bold px-2.5 py-1 rounded-xl shadow-md shrink-0">
+                  <span className="inline-flex items-center gap-1.5 bg-white text-[#111111] border-[1.5px] border-[#111111] text-[12px] font-headline font-bold px-3 py-1 rounded-full shrink-0 [&_svg]:text-[#2860F5]">
                     {searchParams.precio}
                   </span>
                 )}
@@ -763,7 +763,7 @@ function Index() {
                     setSearchParams({ mode, zona: "Cualquier zona", tipo: "Cualquier tipo", precio: "Cualquier precio", habitaciones: "Cualquier número" });
                     heroResetRef.current?.();
                   }}
-                  className="text-xs font-black text-slate-500 hover:text-[#2563eb] underline cursor-pointer ml-auto shrink-0"
+                  className="text-[12px] font-headline font-bold uppercase tracking-wider text-[#2860F5] hover:text-[#111111] underline underline-offset-4 cursor-pointer ml-auto shrink-0"
                 >
                   {language === "ca" ? "Veure tots" : language === "en" ? "See all" : "Ver todos"}
                 </button>
@@ -811,6 +811,7 @@ function Index() {
                   {/* EMPTY STATE: Only when filteredProperties.length === 0. NEVER render property cards when 0. */}
                   {filteredProperties.length === 0 ? (
                     <div>
+                      {(searchParams.mode === "favoritos" || relatedProperties.length === 0) && (
                       <div
                         className="flex flex-col items-center justify-center text-center py-12 sm:py-14 px-6 sm:px-10 bg-slate-50 border border-slate-200 rounded-2xl mb-8"
                         role="status"
@@ -868,6 +869,7 @@ function Index() {
                           {language === "ca" ? "Veure catàleg" : language === "en" ? "View catalog" : "Ver catálogo"}
                         </button>
                       </div>
+                      )}
 
                       {/* Showcase active properties in Santa Coloma */}
                       {relatedProperties.length > 0 && (

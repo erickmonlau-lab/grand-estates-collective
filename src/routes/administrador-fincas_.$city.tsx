@@ -1158,7 +1158,7 @@ function SantaColomaBarrioPage() {
                                 </h3>
                               </div>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
                               {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
                             </div>
                             <div className="flex flex-col items-center justify-center pt-8 gap-3">
@@ -1194,7 +1194,7 @@ function SantaColomaBarrioPage() {
                       /* PROPERTY CARDS GRID: Rendered strictly when filteredProperties.length > 0 */
                       <div
                         key={searchParams.mode}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 transition-opacity duration-300"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 mb-8 transition-opacity duration-300"
                       >
                         {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}
                       </div>

@@ -885,9 +885,9 @@ function Index() {
                           </div>
                           <div className={`grid grid-cols-1 ${
                             relatedProperties.length === 1
-                              ? "max-w-xl mx-auto"
+                              ? ""
                               : relatedProperties.length === 2
-                              ? "md:grid-cols-2"
+                              ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                               : "md:grid-cols-2 lg:grid-cols-3"
                           } gap-6 md:gap-8`}>
                             {relatedProperties.map((prop: any, idx: number) => renderPropertyCard(prop, idx))}
@@ -922,10 +922,10 @@ function Index() {
                       key={searchParams.mode}
                       className={`grid grid-cols-1 ${
                         displayProperties.length === 1
-                          ? "max-w-xl mx-auto"
+                          ? ""
                           : displayProperties.length === 2
-                          ? "md:grid-cols-2"
-                          : "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                          ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                          : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
                       } gap-6 md:gap-8 mb-8 transition-opacity duration-300`}
                     >
                       {displayProperties.map((prop, idx) => renderPropertyCard(prop, idx))}

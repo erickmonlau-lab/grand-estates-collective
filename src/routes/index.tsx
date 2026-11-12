@@ -8,6 +8,7 @@ import { getTranslatedProperty } from "@/lib/translateProperty";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { MapPin, Building2, Phone, Mail, ChevronDown, ArrowRight, Check, Heart, Star, Home, Clock, Scale, Shield, TrendingUp, Paintbrush, Wrench, Bath, Maximize2, Sparkles, CheckCircle2, Quote, Info, Key, Search, Bed, Store, DoorOpen, Wind, Accessibility, Layers, Flame } from "lucide-react";
 import { Navbar } from '@/components/Navbar';
+import { PropertyCard } from "@/components/PropertyCard";
 import { Footer } from '@/components/Footer';
 import { ServicesSection } from '@/components/ServicesSection';
 import gesgramaOffice from "@/assets/gesgrama_storefront_final.webp";
@@ -787,144 +788,20 @@ function Index() {
                 const cityName = property.city || (rawLocation.toLowerCase().includes("barcelona") ? "Barcelona" : rawLocation.toLowerCase().includes("badalona") ? "Badalona" : "Santa Coloma de Gramenet");
 
                 return (
-                  <div key={property.id} className="h-full">
-                    <Link to="/inmobiliaria/$slug" params={{ slug: property.slug }} className="block h-full">
-                      <div className="bg-[#FFFFFF] text-[#111111] border-2 border-[#111111] rounded-2xl shadow-[3px_3px_0px_#111111] hover:shadow-[5px_5px_0px_#2860F5] hover:border-[#2860F5] flex flex-col h-full transition-all duration-200 group cursor-pointer overflow-hidden">
-                        
-                        {/* 1. ZONA FOTOGRÁFICA EDITORIAL */}
-                        <div className="relative h-[220px] sm:h-[240px] w-full overflow-hidden bg-slate-100 border-b-2 border-[#111111]">
-                          <img 
-                            src={property.image}
-                            alt={pData.name} 
-                            loading="lazy" 
-                            decoding="async"
-                            width={400}
-                            height={240}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                          />
-                          
-                          {/* Badges Rectangulares Sólidos */}
-                          <div className="absolute top-3 left-3 flex items-center gap-1.5 z-20">
-                            <span className="inline-flex items-center gap-1.5 bg-[#111111] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
-                              <span className={`w-2 h-2 ${isRent ? 'bg-amber-400' : 'bg-[#2860F5]'}`} />
-                              <span>{isRent ? (language === "ca" ? "LLOGUER" : language === "en" ? "RENT" : "ALQUILER") : (language === "ca" ? "VENDA" : language === "en" ? "SALE" : "VENTA")}</span>
-                            </span>
-                            <span className="inline-flex items-center bg-[#2860F5] text-white text-[11px] sm:text-[12px] font-headline font-black uppercase tracking-wider px-2.5 py-1 border border-white">
-                              {type}
-                            </span>
-                            {property.status === "reservado" && (
-                              <span className="inline-flex items-center bg-amber-400 text-black font-headline font-black uppercase tracking-wider text-[11px] px-2 py-1 border border-black">
-                                {language === "ca" ? "RESERVAT" : "RESERVADO"}
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Botón Favorito Rectangular Sólido */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleFavorite(property.id);
-                            }}
-                            aria-label="Guardar en favoritos"
-                            className={`absolute top-3 right-3 w-9 h-9 border-2 border-[#111111] flex items-center justify-center transition-all z-20 cursor-pointer ${
-                              isFav ? 'bg-red-500 text-white shadow-[2px_2px_0px_#111111]' : 'bg-white text-[#111111] hover:bg-slate-100 shadow-[2px_2px_0px_#111111]'
-                            }`}
-                          >
-                            <Heart className="w-4 h-4 fill-current" />
-                          </button>
-
-                          {/* Ref Badge en JetBrains Mono */}
-                          <div className="absolute bottom-2.5 left-3 z-20">
-                            <span className="inline-flex items-center text-[11px] font-data-mono font-black text-white bg-[#111111] px-2 py-0.5 border border-white">
-                              Ref: {property.ref || "PJ2024"}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* 2. ZONA INFORMATIVA ESTRUCTURADA: UBICACIÓN PROTAGONISTA (44-48PX ICONO AZUL + 27-30PX BARRIO) */}
-                        <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
-                          <div>
-                            {/* BLOQUE PROTAGONISTA DE UBICACIÓN */}
-                            <div className="flex items-center gap-3 sm:gap-3.5 mb-3">
-                              {/* Cuadrado azul sólido 44-48px con icono de ubicación blanco */}
-                              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-[12px] bg-[#2860F5] border-2 border-[#111111] shadow-[2px_2px_0px_#111111] flex items-center justify-center shrink-0">
-                                <MapPin className="w-6 h-6 text-white stroke-[2.5]" />
-                              </div>
-
-                              <div className="min-w-0 flex flex-col justify-center">
-                                {/* Nombre del barrio en negro puro 27-30px, peso 800 */}
-                                <span className="text-[25px] sm:text-[28px] md:text-[30px] font-headline font-extrabold text-[#111111] leading-none tracking-tight truncate uppercase">
-                                  {barrioName}
-                                </span>
-                                {/* Municipio secundario legible */}
-                                <span className="text-[12px] sm:text-[13px] font-sans font-semibold text-slate-600 truncate mt-1">
-                                  {cityName}
-                                </span>
-                              </div>
-                            </div>
-
-                            {/* Título Inmueble con excelente presencia */}
-                            <h3 className="text-[18px] sm:text-[19px] font-headline font-bold text-[#111111] mb-4 leading-snug group-hover:text-[#2860F5] transition-colors line-clamp-1">
-                              {pData.name}
-                            </h3>
-
-                            {/* Rejilla de Características Dinámicas según el Inmueble */}
-                            <div className={`grid ${specs.length === 2 ? 'grid-cols-2' : 'grid-cols-3'} gap-2.5 mb-5`}>
-                              {specs.map((item) => {
-                                const IconComponent = item.icon;
-                                return (
-                                  <div
-                                    key={item.id}
-                                    className="bg-white border-2 border-[#111111] rounded-[14px] p-2 sm:p-2.5 flex flex-col items-center justify-center text-center shadow-[2px_2px_0px_#111111] min-w-0"
-                                  >
-                                    <div className="w-[46px] h-[46px] sm:w-[50px] sm:h-[50px] rounded-lg bg-[#2860F5] border border-[#111111] flex items-center justify-center mb-1.5 shrink-0">
-                                      <IconComponent className="w-6 h-6 text-white stroke-[2.5]" />
-                                    </div>
-                                    <span className="text-[11px] sm:text-[12px] font-headline font-bold text-[#111111] uppercase tracking-wider block truncate w-full">
-                                      {item.label}
-                                    </span>
-                                    <span
-                                      className={`${item.isNumericOnly ? 'text-[18px] sm:text-[22px]' : 'text-[14px] sm:text-[16px]'} font-data-mono font-black text-[#111111] leading-tight block whitespace-nowrap`}
-                                      dangerouslySetInnerHTML={{ __html: item.value }}
-                                    />
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-
-                          {/* 3. PRECIO DESTACADO (MAYOR PROTAGONISMO) & ACCIÓN EDITORIAL */}
-                          <div className="pt-4 border-t-2 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div className="flex flex-col min-w-0">
-                              <span className="text-[11px] sm:text-[12px] font-headline font-bold uppercase tracking-wider text-slate-500">
-                                {isRent
-                                  ? (language === "ca" ? "PREU DE LLOGUER" : language === "en" ? "RENTAL PRICE" : "PRECIO DE ALQUILER")
-                                  : (language === "ca" ? "PREU DE VENDA" : language === "en" ? "SALE PRICE" : "PRECIO DE VENTA")}
-                              </span>
-                              <div className="flex items-baseline whitespace-nowrap mt-0.5">
-                                <span className="text-[24px] sm:text-[28px] font-data-mono font-extrabold text-[#111111] leading-none tracking-tight">
-                                  {new Intl.NumberFormat('es-ES').format(property.price)}&nbsp;€
-                                </span>
-                                {isRent && (
-                                  <span className="text-[15px] sm:text-[16px] font-data-mono font-bold text-[#111111] ml-1.5">
-                                    /mes
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-
-                            <div className="h-[50px] sm:h-[52px] px-5 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-[12px] shadow-[3px_3px_0px_#111111] flex items-center justify-center gap-2.5 font-headline font-black text-[14px] sm:text-[15px] uppercase tracking-wider transition-all shrink-0">
-                              <span>{t.properties.verDetalles || "Ver Detalles"}</span>
-                              <ArrowRight className="w-5 h-5 text-white stroke-[2.5]" />
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+                  <PropertyCard
+                    key={property.id}
+                    property={property}
+                    name={pData.name}
+                    type={type}
+                    barrioName={barrioName}
+                    cityName={cityName}
+                    specs={specs}
+                    language={language}
+                    isRent={isRent}
+                    isFav={isFav}
+                    onToggleFavorite={toggleFavorite}
+                    detailsLabel={t.properties.verDetalles || "Ver Detalles"}
+                  />
                 );
               };
 

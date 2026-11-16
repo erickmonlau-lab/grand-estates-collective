@@ -957,7 +957,6 @@ function SantaColomaBarrioPage() {
                   {/* Propiedades disponibles: indicador azul, número destacado, 15-16px, alineación vertical */}
                   <div
                     className="flex items-center gap-3 h-[50px] px-1"
-                    aria-label={`${filteredProperties.length} ${t.properties.availableCount}`}
                   >
                     <span className="hidden" />
                     <span className="text-[36px] sm:text-[42px] leading-none font-data-mono font-black text-[#2860F5] tabular-nums">

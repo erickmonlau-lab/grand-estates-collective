@@ -212,8 +212,7 @@ export function PropertyCard({
                 {isRent && <span className="text-[13px] font-data-mono font-bold ml-1">/mes</span>}
               </div>
               <span
-                aria-label={detailsLabel}
-                title={detailsLabel}
+                aria-hidden="true"
                 className="w-11 h-11 shrink-0 bg-[#2860F5] group-hover:bg-[#111111] text-white border-2 border-[#111111] rounded-xl shadow-[2px_2px_0px_#111111] flex items-center justify-center transition-colors"
               >
                 <ArrowRight className="w-5 h-5" strokeWidth={2.75} />
